@@ -1,4 +1,4 @@
-package design.gameeditor;
+package base.gameeditor;
 
 import com.sun.prism.Image;
 

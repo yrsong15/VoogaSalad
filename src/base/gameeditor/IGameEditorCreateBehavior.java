@@ -1,4 +1,4 @@
-package design.gameeditor;
+package base.gameeditor;
 
 public interface IGameEditorCreateBehavior {
 	void setInput(String input);
