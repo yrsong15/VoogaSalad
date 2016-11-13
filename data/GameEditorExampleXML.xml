@@ -1,0 +1,17 @@
+<level number="one" title="flappybird">
+	<gobject isdestructible="true" isstatic="false" ismainchar="yes">
+		<image input="bird.jpg"/>
+		<behavior input="spacebar" command="up" method="step"/>
+	</gobject>
+	<goobject isdestructible="false" isstatic="true" ismainchar="false">
+		<image input="greenpipe.jpg"/>
+	</goobject>
+	<rules>
+		<score method="objectivebased"/>
+		<time countdown="infinite"/>
+	</rules>
+	<settings>
+		<music input="payphone.mp3"/>
+		<image input="mountains.jpg"/>
+	</settings>
+</level>
