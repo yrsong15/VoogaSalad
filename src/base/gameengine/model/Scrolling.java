@@ -1,4 +1,4 @@
-package design.gameengine;
+package src.base.gameengine.model;
 
 
 /**
