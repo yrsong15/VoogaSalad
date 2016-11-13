@@ -1,9 +1,9 @@
-package src.base.gameengine.controller;
+package base.gameengine.controller;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public interface Controller {
+public interface IGameEngineController {
 
     public void startGame(String fileName);
 

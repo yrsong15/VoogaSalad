@@ -1,4 +1,4 @@
-package src.base.gameengine.controller;
+package base.gameengine.controller;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
