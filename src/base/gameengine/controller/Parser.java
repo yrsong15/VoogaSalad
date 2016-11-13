@@ -1,4 +1,4 @@
-package controller;
+package src.base.gameengine.controller;
 
 public interface Parser{
 
