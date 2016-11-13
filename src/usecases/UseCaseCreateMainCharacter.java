@@ -1,7 +1,8 @@
 package usecases;
 import com.sun.xml.internal.txw2.Document;
+import base.gameeditor.IGameEditorCreateMainCharacter;
+import base.gameeditor.IGameEditorXML;
 
-import design.gameeditor.*;
 
 public class UseCaseCreateMainCharacter implements IGameEditorCreateMainCharacter, IGameEditorXML{
 	
