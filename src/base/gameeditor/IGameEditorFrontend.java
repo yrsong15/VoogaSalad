@@ -9,7 +9,10 @@ public interface IGameEditorFrontend {
 	public void setInteractionBehaviour(String object1, String object2, String behaviourProperty);
 	
 	// Method to set an XML property on creation of a new object/rule/setting
-	public void setProperty(String propName, String propValue);
+	public void setProperty(String objectName, String propName, String propValue);
+	
+	// Method to set a sub property for an XML element
+	public void setSubProperty(String objectName, String parentProperty, String childProperty, String propValue);
 	
 	// Method to retrieve XML properties to enable loading a game design from file
 	public void getProperty(String propName);
