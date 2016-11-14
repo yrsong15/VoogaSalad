@@ -1,4 +1,4 @@
-package usecases;
+package usecases.mockObjects;
 
 import com.sun.xml.internal.txw2.Document;
 

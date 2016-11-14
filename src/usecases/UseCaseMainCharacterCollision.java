@@ -1,6 +1,8 @@
 package usecases;
 
 import base.gameengine.controller.GameEngineController;
+import usecases.mockObjects.BasicParser;
+import usecases.mockObjects.GameEditorXML;
 
 public class UseCaseMainCharacterCollision{
 	
