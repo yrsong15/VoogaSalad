@@ -5,6 +5,6 @@ import java.util.Observer;
 
 public interface IGameEngineController extends Observer{
 
-    public void startGame(String fileName);
+    void startGame(String fileName);
 
 }

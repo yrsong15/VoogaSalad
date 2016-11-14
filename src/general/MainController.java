@@ -15,5 +15,7 @@ public class MainController {
 	public MainController(Stage stage){
 		gameEngineController = new GameEngineController(new GameParser());
 	}
+	
+	
 
 }
