@@ -125,7 +125,7 @@ Parser - uses the XML factory to parse file given by GameEditor
 
 Allows movement in all directions, game limited in length and divided into distinct levels
 
-* Flappy Bird (Unlimited, forced scroller)
+* Flappy Birds (Unlimited, forced scroller)
 
 Horizontal movement is forced, vertical movement is user controlled but stepped/limited, time based game with unlimited length
 * Doodle Jump (Unlimited, one direction scroller)
@@ -149,6 +149,6 @@ One design consideration was whether the front-ends for the game editor and game
 Another design consideration was figuring out how to deal with scrolling. One option that we thought of was moving every object on the screen to the left when the player’s sprite moves right. The pro of this is that it is simple to implement, but the con is that the game engine would have to keep track of every object on the screen to know which objects they have to move when the player’s sprite moves.
 
 
-
+A design consideration we agreed on was to have three controllers instead of one or two. This was reached when we decided to have controllers for the Game Engine, the Game Editor, and a main controller to connect the two. This should be a good decision because in the interest of avoiding "God classes" and classes with extremely broad-ranging responsibilities and power, dividing the work among three classes would keep our code organized and concise.
 
 
