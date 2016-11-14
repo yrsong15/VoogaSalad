@@ -1,6 +1,6 @@
 package usecases.mockObjects;
 
-import com.sun.xml.internal.txw2.Document;
+import org.w3c.dom.Document;
 
 import base.gameeditor.IGameEditorXML;
 
