@@ -1,21 +1,19 @@
 package general;
 
-import base.gameengine.controller.GameEngineController;
-import base.gameengine.controller.GameParser;
+
+import gameEditorView.GameEditorView;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * @author ericsong
- *
- */
+
 public class MainController {
-	
-	GameEngineController gameEngineController;
-	
-	public MainController(Stage stage){
-		gameEngineController = new GameEngineController(new GameParser());
-	}
-	
-	
+
+    public MainController(Stage stage){
+        // stage.setTitle(TITLE);
+        //GameEditorView myView = new GameEditorView();
+        // Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
+        //stage.setScene(scene);
+        stage.show(); 	
+    }
 
 }
