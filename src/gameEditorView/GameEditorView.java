@@ -81,7 +81,8 @@ public class GameEditorView implements IGameEditorView {
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);
 
             // Can add new ImageView depending on Width of the ScrollPane
-            myHBox.getChildren().add(new ImageView(new Image(filePath)));
+            
+            myHBox.getChildren().add(backgroundImage);
             //myHBox.getChildren().add(backgroundImage);
 
             myScrollPane.setContent(myHBox);
@@ -97,7 +98,5 @@ public class GameEditorView implements IGameEditorView {
     private void setPlayerImage(){
 
     }
-
-
 
 }
