@@ -41,18 +41,22 @@
 
 ### GameEngine Use Cases
 - Start playing game after finishing selections in visual editor
-
- GameEditor creates XML file that contains all information about user selections
  
- GameEngine Controller receives this XML file from GameEditor and instantiates needed objects through reflection in its back-end
+ GameEngine Controller receives this XML file from the main controller and instantiates needed objects through reflection in its back-end
  
- Front-end of GameEngine visualizes these objects and starts rendering a view based on type of scrolling the user has selected
+ Front-end of GameEngine visualizes these objects passed from the controller and starts rendering a view based on type of scrolling the user has selected
  
 - The user moves main character off the screen
 
-Front-end of GameEngine notifies the GameEngine controller that the user has moved the main character
+Front-end of GameEngine notifies the GameEngine controller that the user has pressed the control to move the character
 
-GameEngine controller notifies
+The Game Engine Controller tells the GameEngine model to update the character's position
+
+The Game Engine back-end scrolls the screen in the direction of movement by moving all objects on the screen in the opposite direction
+
+The Game Engine back-end notifies the Controller that the model has been updated
+
+The Controller updates the character's position in the view based on the model
 
 - The game has met a time win/lose condition
 
@@ -84,12 +88,58 @@ The HUD is constantly updated by the controller, which constantly checks the the
 
 - Main character collides with an object
 
-Collision rule, if user selected one, is applied
+The Collision rule selected by the user or otherwise defaulted is applied.
+
 - User presses the up arrow key
 
-controls class is used to see what happens when this key is pressed and call the appropriate action
+Controls class recognizes whether the up arrow key is one of the controls defined for the game and updates the controller according to what the control entails.
+
 - User selects music to go along with the game
 
-front-end of gameEngine takes care of this through a Settings class
-- Main character acquires the treasure
+The Settings class in the Game Engine front-end recognizes this and changes the music.
+
+- The Main Character acquires a treasure
+
+The GameEngine back-end recognizes that a treasure was opened and checks the defined rules to update the model accordingly
+
+- The Main character dies
+
+The GameEngine checks the rule defined for death and either resets the game or respawns the character.
+
+- The User presses the control corresponding to the main character jumping
+
+The GameEngine front-end recognizes that the control is a jump control and notifies the controller
+
+The controller instantiates the jump class in the back-end that makes the character jump
+
+The GameEngine back-end notifies the controller to update the front-end accordingly
+
+- The User Pauses the Game 
+
+The GameEngine front-end recognizes that the user has clicked on the pause button
+
+It notifies the Controller to tell the model to pause the current animation, thus pausing the game
+
+- The User presses an invalid control
+
+Nothing happens, because the control is not mapped in the GameEngine front-end, since it was not in the XML
+
+- The main character is hit by a projectile
+
+The Collision class recognizes that the main character is hit and performs the corresponding action based on the defined rules
+
+- The user wants to edit the current game
+
+The user presses the menu option to return to the main menu where there will be an option to edit saved games.
+
+- The main character is falling
+
+The defined gravity rules are checked and executed. If the character collides with a object while falling then collision rules are checked.
+
+- An enemy spawns
+
+Depending on the defined spawning rules, the corresponding Sprites are instantiated in the GameEngine back-end and the controller is notified to update the view to show these enemies.
+
+
+
 

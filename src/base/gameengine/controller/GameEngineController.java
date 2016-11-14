@@ -17,15 +17,18 @@ public class GameEngineController implements IGameEngineController{
 	}
 
 	@Override
-	public void startGame(String fileName) {
-		// TODO Auto-generated method stub
-		
+	public void startGame() {
+
+	}
+
+	@Override
+	public void setCurrentXML(String fileName) {
+
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }
