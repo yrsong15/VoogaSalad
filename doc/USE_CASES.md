@@ -19,12 +19,24 @@
 - Change winning condition
 - Set infinite bounds or limited bounds
 - Create new game 
+    * The user would click on “Create Game” button in the splash screen. The GameEditor would then be loaded and the user would be able to create a new game.
+    * Once the Game is created in the Game editor, the user can then save the game and the game would be sent to the gallery.
 - Load old game
+    * When the user clicks on the GameFile of a game that has recently been played, the preferences for that game will already be saved and the old game would be loaded
 - Copying game as new file
+    * When the user clicks on the GameFile in the gallery, they will have the option to copy the GameFile into another file
 - Load new game from external file
+    * The User will click the load button from the splash screen and then select the XML file to load
 - Playing game from gallery
+    * When a user clicks a GameFile in gallery, there would be an option that says play game
+    * The GameFile is then sent to the GameEngine, and the game is ran and played
 - Create template (playable or not) as basis for other games
+    * In the gallery view, users would be able to view saved GameFiles on one part of the screen and saved GameTemplates in another 
+    * There will be a button inside of the GameEditor that would call a saveGameTemplate method in the controller. The XML file would then be added as a game template in the GalleryView
+    * Since the GameEditor will follow a data driven design, it would be easy to load an XML file back into the editor to make further edits to the template.
 - Deleting game from gallery
+    * When a clicks views a GameFile in the gallery, they will have the option to delete that GameFile
+    * The GameFile is then removed from the Gallery and is no longer displayed
 
 
 ### GameEngine Use Cases
