@@ -140,6 +140,3 @@ The defined gravity rules are checked and executed. If the character collides wi
 
 Depending on the defined spawning rules, the corresponding Sprites are instantiated in the GameEngine back-end and the controller is notified to update the view to show these enemies.
 
-
-
-
