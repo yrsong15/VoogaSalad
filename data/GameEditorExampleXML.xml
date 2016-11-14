@@ -3,9 +3,9 @@
 		<image input="bird.jpg"/>
 		<behavior input="spacebar" command="up" method="step"/>
 	</gobject>
-	<goobject isdestructible="false" isstatic="true" ismainchar="false">
+	<gobject isdestructible="false" isstatic="true" ismainchar="false">
 		<image input="greenpipe.jpg"/>
-	</goobject>
+	</gobject>
 	<rules>
 		<score method="objectivebased"/>
 		<time countdown="infinite"/>

@@ -125,7 +125,7 @@ Parser - uses the XML factory to parse file given by GameEditor
 
 Allows movement in all directions, game limited in length and divided into distinct levels
 
-* Flappy Bird (Unlimited, forced scroller)
+* Flappy Birds (Unlimited, forced scroller)
 
 Horizontal movement is forced, vertical movement is user controlled but stepped/limited, time based game with unlimited length
 * Doodle Jump (Unlimited, one direction scroller)
@@ -143,12 +143,13 @@ Through this design, we are able to create any of the above games, or, alternati
 ## Design Considerations 
 
 
-One design consideration was whether the front-ends for the game editor and game engine should share classes. It is likely that the front-ends will both deal with classes for sprites, obstacles, and other various game objects. The pro of sharing the classes is that a lot of duplicate code could be avoided, but the con is that if the classes need to serve different functions for the game editor vs the game engine, then the classes shouldn’t be shared.
+An important design consideration was whether the respective front-ends for the game editor and game engine should share classes. It is likely that the front-ends will both deal with classes for sprites, obstacles, and other various game objects. The advantage of sharing the classes is that a lot of duplicate code could be avoided, but the downside is that if the classes need to perform different functions for the game editor as opposed to the game engine, then we would still need to create new classes to separate these behaviors.
+
+Similarly, we thought about whether the game engine back-end should use the same GameObject classes as the Game Editor back-end despite the fact that the Game Engine has more behaviorial responsibilities. We decided on having the Game Object hierarchy in the Game Editor back-end, such that the Game Engine back-end could focus on implementing action-based and rule-based functionalities with the objects from the Game Editor.
+
+Another design consideration was figuring out how we should implement scrolling, the primary characteristic of our chosen genre. One potention option is moving every object on the screen to the left when the player’s sprite moves right and vice-versa. The advantage of this implementation is its simplicity of implementation, but the disadvantage is that the game engine would have to keep track of every object on the screen to know which objects need to be moved when the player’s sprite moves.
+
+We also considered and agreed on having three controllers in our implementation rather than one or two, where there are controllers for the Game Engine, the Game Editor, and a main controller to connect the two. In the interest of avoiding "God classes" and classes with extremely broad-ranging responsibilities and power, dividing the work among three classes keeps our code organized and concise.
 
 
-Another design consideration was figuring out how to deal with scrolling. One option that we thought of was moving every object on the screen to the left when the player’s sprite moves right. The pro of this is that it is simple to implement, but the con is that the game engine would have to keep track of every object on the screen to know which objects they have to move when the player’s sprite moves.
-
-
-
-
-
+ 
