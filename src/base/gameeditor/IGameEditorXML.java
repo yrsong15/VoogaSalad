@@ -1,6 +1,6 @@
 package base.gameeditor;
 
-import com.sun.xml.internal.txw2.Document;
+import org.w3c.dom.Document;
 
 /**
  * 
