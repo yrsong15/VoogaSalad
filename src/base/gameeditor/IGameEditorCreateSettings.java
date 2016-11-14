@@ -6,7 +6,7 @@ import javafx.scene.media.Media;
 
 /**
  * 
- * @author @author Ray Song(ys101)
+ * @author Ray Song(ys101)
  *
  */
 public interface IGameEditorCreateSettings {
