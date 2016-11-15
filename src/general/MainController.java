@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 public class MainController {
 
     public MainController(Stage stage){
-        
+        Scene scene = new Scene(new SplashScreen(stage).setUpWindow());
         //GameEditorView myView = new GameEditorView();
         //Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
-        //stage.setScene(scene);
+        stage.setScene(scene);
         stage.show(); 	
     }
 
