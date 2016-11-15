@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 
 
-public class ButtonTemplate implements ButtonLayout{
+public class ButtonTemplate implements IButtonLayout{
     private Button myButton;
     private ResourceBundle myResources;
     public static final String RESOURCE_PACKAGE = "resources.properties";
