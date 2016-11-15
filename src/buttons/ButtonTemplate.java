@@ -11,8 +11,11 @@ import javafx.scene.text.Font;
 public class ButtonTemplate implements ButtonLayout{
     private Button myButton;
     private ResourceBundle myResources;
-    public static final String RESOURCE_PACKAGE = "resources";
+    public static final String RESOURCE_PACKAGE = "resources.properties";
     public static final String BUTTON_LABEL_FILE = "Button";
+    private String overButton = "-fx-background-color: linear-gradient(#0079b3, #00110e);" +
+            "-fx-background-radius: 20;" +
+            "-fx-text-fill: white;";
 
     /**
      * @param property
@@ -22,6 +25,7 @@ public class ButtonTemplate implements ButtonLayout{
         myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + File.separator + BUTTON_LABEL_FILE );
         String label = myResources.getString(property) ;  
         myButton = new Button(label);
+        myButton.setStyle(overButton);
     }
 
     /**

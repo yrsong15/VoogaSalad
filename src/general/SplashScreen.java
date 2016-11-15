@@ -1,7 +1,9 @@
 package general;
 
 import base.integration.ISplashScreen;
+import buttons.ButtonTemplate;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -14,7 +16,7 @@ public class SplashScreen implements ISplashScreen {
     private static final int SPLASH_WIDTH = 700;
     private static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
-    
+
     public SplashScreen(Stage myStage){
 
     }
@@ -30,6 +32,7 @@ public class SplashScreen implements ISplashScreen {
         backgroundImageMainScreen.setFitWidth(SPLASH_WIDTH + 50);
         backgroundImageMainScreen.setFitHeight(SPLASH_HEIGHT);
         startWindow.getChildren().add(backgroundImageMainScreen);
+        addButtons();
         return startWindow;
     }
 
@@ -50,6 +53,15 @@ public class SplashScreen implements ISplashScreen {
 
     @Override
     public void launchSelectedGalleryItem() {
+
+    }
+
+    private void addButtons(){
+        ButtonTemplate engineButton = new ButtonTemplate("GameEngine");
+        Button engine = engineButton.getButton();
+        engine.setTranslateX(50);
+        engine.setTranslateY(50);
+        startWindow.getChildren().add(engine);
 
     }
 }
