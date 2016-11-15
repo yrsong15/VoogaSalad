@@ -18,6 +18,7 @@ public class MainController {
         //Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
         scene.getStylesheets().add(CSS_RESOURCE_PACKAGE + File.separator + STYLESHEET);
         stage.setScene(scene);
+        stage.setTitle("VoogaSalad");
         stage.show(); 	
     }
 

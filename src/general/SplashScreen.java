@@ -45,10 +45,12 @@ public class SplashScreen implements ISplashScreen {
         startWindow = new Pane();
         startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
         Image background = new Image(getClass().getClassLoader()
-                .getResourceAsStream("floatingCubes.jpg"));
+                .getResourceAsStream("images/floatingCubes.jpg"));
         ImageView backgroundImageMainScreen = new ImageView(background);
         backgroundImageMainScreen.setFitWidth(SPLASH_WIDTH + 50);
         backgroundImageMainScreen.setFitHeight(SPLASH_HEIGHT);
+        backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
+        backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
         startWindow.getChildren().add(backgroundImageMainScreen);
         addTitle();
         addButtons();
@@ -78,20 +80,25 @@ public class SplashScreen implements ISplashScreen {
     private void addButtons(){
         ButtonTemplate engineButton = new ButtonTemplate("GameEngine");
         Button engine = engineButton.getButton();
-        engine.setTranslateX(50);
-        engine.setTranslateY(340);
+        engine.setTranslateX(100);
+        engine.setTranslateY(350);
 
         ButtonTemplate editorButton = new ButtonTemplate("GameEditor");
         Button editor = editorButton.getButton();
-        editor.setTranslateX(50);
+        editor.setTranslateX(100);
         editor.setTranslateY(280);
 
         ButtonTemplate galleryButton = new ButtonTemplate("GameGallery");
         Button gallery = galleryButton.getButton();
-        gallery.setTranslateX(50);
-        gallery.setTranslateY(400);
+        gallery.setTranslateX(100);
+        gallery.setTranslateY(420);
 
-        startWindow.getChildren().addAll(engine, editor, gallery);
+        ButtonTemplate loaderButton = new ButtonTemplate("GameLoader");
+        Button loader = loaderButton.getButton();
+        loader.setTranslateX(400);
+        loader.setTranslateY(280);
+
+        startWindow.getChildren().addAll(engine, editor, gallery, loader);
     }
 
     private void addTitle() {
