@@ -1,18 +1,19 @@
 package gameEditorView;
 
 import java.io.File;
-import buttons.IGameEditorView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class FileOpener {
+public class FileOpener implements IFileOpener {
     private Stage myStage;
-    public static final String IMAGE_FOLDER = "images";
+    
 
     public File chooseFile(String fileType , String fileLocation) {
+        myStage = new Stage();
         FileChooser fileChooser = new FileChooser();
         addFileExtensionFilter(fileType,fileChooser);
-        String userDirectoryString = System.getProperty("user.dir") + File.separator + IMAGE_FOLDER;
+        //String userDirectoryString = System.getProperty("user.dir") + File.separator + "images.Obstacles";
+        String userDirectoryString = System.getProperty("user.dir") + File.separator + BACKGROUND_IMAGE_FOLDER;
         File userDirectory = new File(userDirectoryString);
         fileChooser.setInitialDirectory(userDirectory);
         File chosenFile = fileChooser.showOpenDialog(myStage);
@@ -21,7 +22,7 @@ public class FileOpener {
 //            Alert alert = new Alert(AlertType.ERROR);
 //            alert.setContentText("No File Chosen");
 //            alert.showAndWait();
-//            myStage.close(); 
+          //myStage.close(); 
 //        }
         return chosenFile;
     }

@@ -2,7 +2,6 @@ package gameEditorView;
 
 import java.net.MalformedURLException;
 import buttons.ButtonTemplate;
-import buttons.IGameEditorView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -32,7 +31,6 @@ public class GameEditorView implements IGameEditorView {
         myRoot.setLeft(createScrollBar());
         myRoot.setRight(createRight());
         myRoot.setPadding(new Insets(20));
-        myRoot.getChildren().add(new Button(" HI"));
         return myRoot;
     }
 

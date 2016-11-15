@@ -13,16 +13,24 @@ import javax.print.DocFlavor;
 public class ButtonTemplate implements IButtonLayout{
     private Button myButton;
     private ResourceBundle myResources;
+
+   // private String overButton = "-fx-background-color: linear-gradient(#0079b3, #00110e);" +
+           // "-fx-background-radius: 20;" +
+            //"-fx-text-fill: white;";
+
     public static final String RESOURCE_PACKAGE = "resources.properties";
     public static final String BUTTON_LABEL_FILE = "Button";
     private static final String BUTTON_DEFAULT_STYLE = "ButtonDefaultStyle";
     private static final String BUTTON_MOUSE_ENTERED_STYLE = "ButtonMouseEnteredStyle";
+
 
     /**
      * @param property
      * Creates a button based on the String property
      */
     public ButtonTemplate(String property){
+
+
         myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + File.separator + BUTTON_LABEL_FILE );
         String label = myResources.getString(property);
         myButton = new Button(label);
@@ -31,6 +39,7 @@ public class ButtonTemplate implements IButtonLayout{
         myButton.setStyle(buttonFill);
         myButton.setOnMouseEntered(e -> myButton.setStyle(overButton));
         myButton.setOnMouseExited(ee -> myButton.setStyle(buttonFill));
+
     }
 
     /**

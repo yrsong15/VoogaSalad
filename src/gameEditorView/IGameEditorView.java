@@ -1,4 +1,4 @@
-package buttons;
+package gameEditorView;
 
 import javafx.scene.Parent;
 
