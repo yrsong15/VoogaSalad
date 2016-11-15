@@ -45,11 +45,12 @@ public class SplashScreen implements ISplashScreen {
         startWindow = new Pane();
         startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
         Image background = new Image(getClass().getClassLoader()
-                                     .getResourceAsStream("floatingCubes.jpg"));
+                .getResourceAsStream("images/floatingCubes.jpg"));
         ImageView backgroundImageMainScreen = new ImageView(background);
+        backgroundImageMainScreen.setFitWidth(SPLASH_WIDTH + 50);
+        backgroundImageMainScreen.setFitHeight(SPLASH_HEIGHT);
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
-
         startWindow.getChildren().add(backgroundImageMainScreen);
         addTitle();
         addButtons();
@@ -96,9 +97,8 @@ public class SplashScreen implements ISplashScreen {
         Button loader = loaderButton.getButton();
         loader.setTranslateX(400);
         loader.setTranslateY(280);
-        
-        startWindow.getChildren().addAll(engine, editor, gallery, loader);
 
+        startWindow.getChildren().addAll(engine, editor, gallery, loader);
     }
 
     private void addTitle() {
