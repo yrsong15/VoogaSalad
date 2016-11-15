@@ -24,5 +24,15 @@ public interface IGameEngineController {
      * Updates the view based on the current model.
      */
     public void update (Observable o, Object arg);
+    
+    /**
+     * Pauses the current game
+     */
+    public void stopGame();
+    
+    /**
+     * Resumes the game
+     */
+    public void resumeGame();
 
 }
