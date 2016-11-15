@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 
 
 
-    public interface ButtonLayout {
+    public interface IButtonLayout {
 
     public Button getButton();
 

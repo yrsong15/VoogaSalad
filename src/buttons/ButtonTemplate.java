@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import javax.print.DocFlavor;
 
 
-public class ButtonTemplate implements ButtonLayout{
+public class ButtonTemplate implements IButtonLayout{
     private Button myButton;
     private ResourceBundle myResources;
     public static final String RESOURCE_PACKAGE = "resources.properties";
