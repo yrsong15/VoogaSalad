@@ -79,19 +79,24 @@ public class SplashScreen implements ISplashScreen {
         ButtonTemplate engineButton = new ButtonTemplate("GameEngine");
         Button engine = engineButton.getButton();
         engine.setTranslateX(50);
-        engine.setTranslateY(320);
-        startWindow.getChildren().add(engine);
+        engine.setTranslateY(340);
 
         ButtonTemplate editorButton = new ButtonTemplate("GameEditor");
         Button editor = editorButton.getButton();
         editor.setTranslateX(50);
         editor.setTranslateY(280);
-        startWindow.getChildren().add(editor);
+
+        ButtonTemplate galleryButton = new ButtonTemplate("GameGallery");
+        Button gallery = galleryButton.getButton();
+        gallery.setTranslateX(50);
+        gallery.setTranslateY(400);
+
+        startWindow.getChildren().addAll(engine, editor, gallery);
     }
 
     private void addTitle() {
         BigNameText title = new BigNameText("Welcome to \n\tVoogaSalad");
-        title.setTranslateX(125);
+        title.setTranslateX(75);
         title.setTranslateY(75);
         startWindow.getChildren().add(title);
 
