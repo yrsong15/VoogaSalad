@@ -7,7 +7,7 @@ import javafx.scene.Parent;
  */
 public interface ISplashScreen {
 
-    void setUpWindow(Parent myPane);
+    Parent setUpWindow();
 
     void launchWith(); //take GameData param
 
