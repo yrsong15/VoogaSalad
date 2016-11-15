@@ -80,18 +80,18 @@ public class SplashScreen implements ISplashScreen {
     private void addButtons(){
         ButtonTemplate engineButton = new ButtonTemplate("GameEngine");
         Button engine = engineButton.getButton();
-        engine.setTranslateX(70);
-        engine.setTranslateY(340);
+        engine.setTranslateX(100);
+        engine.setTranslateY(350);
 
         ButtonTemplate editorButton = new ButtonTemplate("GameEditor");
         Button editor = editorButton.getButton();
-        editor.setTranslateX(70);
+        editor.setTranslateX(100);
         editor.setTranslateY(280);
 
         ButtonTemplate galleryButton = new ButtonTemplate("GameGallery");
         Button gallery = galleryButton.getButton();
-        gallery.setTranslateX(70);
-        gallery.setTranslateY(400);
+        gallery.setTranslateX(100);
+        gallery.setTranslateY(420);
 
         ButtonTemplate loaderButton = new ButtonTemplate("GameLoader");
         Button loader = loaderButton.getButton();
