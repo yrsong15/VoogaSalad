@@ -7,6 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -16,6 +24,16 @@ public class SplashScreen implements ISplashScreen {
     private static final int SPLASH_WIDTH = 700;
     private static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
+
+    private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
+            CycleMethod.NO_CYCLE,
+            new Stop(0, Color.WHITE),
+            new Stop(0.15, Color.HONEYDEW),
+            new Stop(0.3, Color.LIGHTBLUE),
+            new Stop(0.45, Color.WHITE),
+            new Stop(0.6, Color.LIGHTBLUE),
+            new Stop(0.75, Color.HONEYDEW),
+            new Stop(1, Color.WHITE));
 
     public SplashScreen(Stage myStage){
 
@@ -32,6 +50,7 @@ public class SplashScreen implements ISplashScreen {
         backgroundImageMainScreen.setFitWidth(SPLASH_WIDTH + 50);
         backgroundImageMainScreen.setFitHeight(SPLASH_HEIGHT);
         startWindow.getChildren().add(backgroundImageMainScreen);
+        addTitle();
         addButtons();
         return startWindow;
     }
@@ -60,8 +79,34 @@ public class SplashScreen implements ISplashScreen {
         ButtonTemplate engineButton = new ButtonTemplate("GameEngine");
         Button engine = engineButton.getButton();
         engine.setTranslateX(50);
-        engine.setTranslateY(50);
+        engine.setTranslateY(320);
         startWindow.getChildren().add(engine);
 
+        ButtonTemplate editorButton = new ButtonTemplate("GameEditor");
+        Button editor = editorButton.getButton();
+        editor.setTranslateX(50);
+        editor.setTranslateY(280);
+        startWindow.getChildren().add(editor);
+    }
+
+    private void addTitle() {
+        BigNameText title = new BigNameText("Welcome to \n\tVoogaSalad");
+        title.setTranslateX(125);
+        title.setTranslateY(75);
+        startWindow.getChildren().add(title);
+
+    }
+
+
+    private static class BigNameText extends StackPane {
+        /**
+         * @param Name
+         */
+        public BigNameText(String Name) {
+            Text titleText = new Text(Name);
+            titleText.setFont(Font.font("Verdana", FontWeight.BOLD, 60));
+            titleText.setFill(textAndBoxGradient);
+            getChildren().add(titleText);
+        }
     }
 }
