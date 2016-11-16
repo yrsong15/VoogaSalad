@@ -67,6 +67,7 @@ public class EditorToolbar implements IEditorToolbar {
 			myAvatarImageView.setFitWidth(AVATAR_IMAGE_WIDTH);
 			myAvatarImageView.setLayoutX(AVATAR_IMAGE_XOFFSET);
 			myAvatarImageView.setLayoutY(BUTTON_IMAGE_YOFFSET);
+			myAvatarImageView.setOnMouseClicked(e -> myOutput.setAvatar());
 			myPane.getChildren().add(myAvatarImageView);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

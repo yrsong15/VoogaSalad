@@ -25,8 +25,9 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
     private ScrollPane myScrollPane;
     private HBox myLeftBox;
     private VBox myCenterBox;
-    private EditorToolbar myToolbar;
+    private IEditorToolbar myToolbar;
     private IDesignArea myDesignArea;
+    private ILeftDetailPane myDetailPane;
 
     public AltGameEditorView(){
         myRoot = new BorderPane();    
@@ -40,10 +41,10 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
     
     private HBox createLeftAlt(){
     	LeftButtonPane lbp = new LeftButtonPane();
-    	LeftDetailPane ldp = new LeftDetailPane();
+    	myDetailPane = new LeftDetailPane();
     	myLeftBox = new HBox();
     	myLeftBox.getChildren().add(lbp.getPane());
-    	myLeftBox.getChildren().add(ldp.getPane());
+    	myLeftBox.getChildren().add(myDetailPane.getPane());
     	return myLeftBox;
     }
     
@@ -68,7 +69,7 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
         HBox myHBox = new HBox();
         FileOpener myFileOpener = new FileOpener();
         try {
-            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE,IMAGE_FILE_LOCATION).toURI().toURL().toString();
+            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE,BG_IMAGE_LOCATION).toURI().toURL().toString();
             //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
             //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
             //myPane.setBackground(new Background(bg));
@@ -93,8 +94,20 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
     }
 
 
-    private void setPlayerImage(){
-
+    public void setAvatar(){
+    	FileOpener myFileOpener = new FileOpener();
+        try {
+            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION).toURI().toURL().toString();
+            //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
+            //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
+            //myPane.setBackground(new Background(bg));
+            Image newAvatar = new Image(filePath);
+            myDetailPane.setAvatar(newAvatar);
+        } catch (MalformedURLException error) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setContentText("No File Chosen");
+            alert.showAndWait();
+        }
     }
 
 }

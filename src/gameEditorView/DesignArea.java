@@ -22,6 +22,8 @@ public class DesignArea implements IDesignArea {
 	
 	private Pane myPane;
 	private ScrollPane myScrollPane;
+	
+	private ImageView myAvatar;
 
 	public DesignArea() {
         myScrollPane = new ScrollPane();
@@ -65,6 +67,10 @@ public class DesignArea implements IDesignArea {
 	
 	public ScrollPane getScrollPane(){
 		return myScrollPane;
+	}
+	
+	public void updateAvatar(Image newAvatar){
+		
 	}
 
 }
