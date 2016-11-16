@@ -19,32 +19,43 @@ import javafx.scene.layout.VBox;
 
 
 
-public class GameEditorView implements IGameEditorView {
+public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
+	
     private BorderPane myRoot;
     private ScrollPane myScrollPane;
+    private HBox myLeftBox;
+    private VBox myCenterBox;
+    private IEditorToolbar myToolbar;
+    private IDesignArea myDesignArea;
+    private ILeftDetailPane myDetailPane;
 
-    public GameEditorView(){
+    public AltGameEditorView(){
         myRoot = new BorderPane();    
     }
 
     public Parent createRoot(){
-        myRoot.setLeft(createScrollBar());
-        myRoot.setRight(createRight());
-        myRoot.setPadding(new Insets(20));
+        myRoot.setLeft(createLeftAlt());
+        myRoot.setCenter(createCenter());
         return myRoot;
     }
-
-
-    private ScrollPane createScrollBar(){
-        myScrollPane = new ScrollPane();
-
-        myScrollPane.setPrefWidth(0.75*SCENE_WIDTH);
-        myScrollPane.setPrefHeight(SCENE_HEIGHT);
-
-        myScrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
-
-        return myScrollPane;
+    
+    private HBox createLeftAlt(){
+    	LeftButtonPane lbp = new LeftButtonPane();
+    	myDetailPane = new LeftDetailPane();
+    	myLeftBox = new HBox();
+    	myLeftBox.getChildren().add(lbp.getPane());
+    	myLeftBox.getChildren().add(myDetailPane.getPane());
+    	return myLeftBox;
+    }
+    
+    private VBox createCenter(){
+    	myCenterBox = new VBox();
+    	myDesignArea = new DesignArea();
+    	myScrollPane = myDesignArea.getScrollPane();
+    	myToolbar = new EditorToolbar(this);
+    	myCenterBox.getChildren().add(myToolbar.getPane());
+    	myCenterBox.getChildren().add(myScrollPane);
+    	return myCenterBox;
     }
 
 
@@ -53,18 +64,8 @@ public class GameEditorView implements IGameEditorView {
         button.getButton().setOnAction(handler);
         return button.getButton();
     }
-
-
-    private VBox createRight(){
-        HBox buttonHouser = new HBox();
-        VBox myControls = new VBox();
-        buttonHouser.getChildren().addAll(makeButton("SelectBackgroundCommand",event -> setBackgroundImage()),makeButton("SelectPlayerCommand",event -> setPlayerImage()));
-        myControls.getChildren().add(buttonHouser);
-        return myControls;
-
-    }
-
-    private void setBackgroundImage(){
+    
+    public void setBackground(){
         HBox myHBox = new HBox();
         FileOpener myFileOpener = new FileOpener();
         try {
@@ -93,8 +94,20 @@ public class GameEditorView implements IGameEditorView {
     }
 
 
-    private void setPlayerImage(){
-
+    public void setAvatar(){
+    	FileOpener myFileOpener = new FileOpener();
+        try {
+            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION).toURI().toURL().toString();
+            //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
+            //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
+            //myPane.setBackground(new Background(bg));
+            Image newAvatar = new Image(filePath);
+            myDetailPane.setAvatar(newAvatar);
+        } catch (MalformedURLException error) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setContentText("No File Chosen");
+            alert.showAndWait();
+        }
     }
 
 }
