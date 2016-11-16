@@ -2,10 +2,12 @@ package base.gameeditor.xmlcreator;
 
 public class GameEditorTestMain {
 	public static void main(String[] args){
-		GameEditorXMLCreator test = new GameEditorXMLCreator();
-		test.addElement("aaa");
-		test.addAttributeToElem("aaa", "hi", "1");
-		test.addTextToElem("aaa", "This thing works!");
+		GameEditorXMLManager test = new GameEditorXMLManager();
+		test.addNewElement("gobject");
+		test.addAttributeToElem("gobject", "isdestructible", "true");
+		test.addAttributeToElem("gobject", "isstatic", "false");
+		test.addAttributeToElem("gobject", "ismainchar", "true");
+		test.addTextToElem("gobject", "This thing works!");
 		test.testWriteXML();
 	}
 }
