@@ -49,7 +49,7 @@ public class SplashScreen implements ISplashScreen {
         ImageView backgroundImageMainScreen = new ImageView(background);
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
-
+                
         startWindow.getChildren().add(backgroundImageMainScreen);
         addTitle();
         addButtons();
@@ -92,11 +92,12 @@ public class SplashScreen implements ISplashScreen {
         gallery.setTranslateX(100);
         gallery.setTranslateY(420);
 
+
         ButtonTemplate loaderButton = new ButtonTemplate("GameLoader");
         Button loader = loaderButton.getButton();
         loader.setTranslateX(400);
         loader.setTranslateY(280);
-        
+
         startWindow.getChildren().addAll(engine, editor, gallery, loader);
 
     }
