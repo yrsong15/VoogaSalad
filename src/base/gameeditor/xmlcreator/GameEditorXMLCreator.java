@@ -1,6 +1,8 @@
 package base.gameeditor.xmlcreator;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 
 /**
@@ -31,16 +34,19 @@ public class GameEditorXMLCreator {
 	private final String XML_PROPERTIES_TITLE = "GameEditorXML";
 	ResourceBundle rb;
 	
+	Map<String, Element> elemMap;
 	private Document myXML;
 	private Element rootElem;
 	
 	public GameEditorXMLCreator(){
 		rb = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+XML_PROPERTIES_TITLE);
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		elemMap = new HashMap<String, Element>();
 		try {
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			myXML = docBuilder.newDocument();
 			rootElem = myXML.createElement(rb.getString("rootElemTitle"));
+			myXML.appendChild(rootElem);
 		} catch (ParserConfigurationException e) {
 			System.out.println(rb.getString("XMLInstantiationErrorMsg"));
 		}
@@ -49,21 +55,29 @@ public class GameEditorXMLCreator {
 	public void addElement(String name){
 		Element elem = myXML.createElement(name);
 		rootElem.appendChild(elem);
+		elemMap.put(name, elem);
 	}
 	
-	public void addAttribute(Element elem, String name, String value){
-		elem.setAttribute(name, value);
+	public void addAttributeToElem(String elemName, String attrName, String value){
+		Element elem = elemMap.get(elemName);
+		elem.setAttribute(attrName, value);
+	}
+	
+	public void addTextToElem(String elemName, String text){
+		Element elem = elemMap.get(elemName);
+		elem.appendChild(myXML.createTextNode(text));
 	}
 
 	/**
-	 * This function will output the current XML file to the console for test purposes
+	 * This method will output the current XML file to the console for test purposes
 	 */
 	public void testWriteXML(){
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		try {
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(myXML);
-			StreamResult result = new StreamResult(new File("C:\\file.xml"));
+			StreamResult result = new StreamResult(System.out);
+//			StreamResult result = new StreamResult(new File("C:\\file.xml")); //This code creates new XML file
 			transformer.transform(source, result);
 			System.out.println("File saved!");
 		} catch (TransformerConfigurationException e) {
@@ -72,7 +86,7 @@ public class GameEditorXMLCreator {
 			System.out.println(rb.getString("TransformerErrorMsg"));
 		}
 	}
-	
+
 	public Document getXML(){
 		return myXML;
 	}
