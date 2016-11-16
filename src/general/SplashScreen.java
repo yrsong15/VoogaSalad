@@ -49,7 +49,6 @@ public class SplashScreen implements ISplashScreen {
         ImageView backgroundImageMainScreen = new ImageView(background);
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
-                
         startWindow.getChildren().add(backgroundImageMainScreen);
         addTitle();
         addButtons();
