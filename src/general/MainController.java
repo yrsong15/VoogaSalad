@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class MainController {
    public static final String STYLESHEET = "default.css";
-     public static final String CSS_RESOURCE_PACKAGE = "resources";
+     public static final String CSS_RESOURCE_PACKAGE = "resources.properties";
 
     public MainController(Stage stage){
         Scene scene = new Scene(new SplashScreen(stage).setUpWindow());

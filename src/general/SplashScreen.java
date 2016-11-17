@@ -44,7 +44,7 @@ public class SplashScreen implements ISplashScreen {
 		startWindow = new Pane();
 		startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
 		Image background = new Image(getClass().getClassLoader()
-				.getResourceAsStream("images/background/floatingCubes.jpg"));
+				.getResourceAsStream("images/floatingCubes.jpg"));
 		ImageView backgroundImageMainScreen = new ImageView(background);
 		backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
 		backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
