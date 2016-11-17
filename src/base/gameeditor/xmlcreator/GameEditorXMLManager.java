@@ -59,11 +59,17 @@ public class GameEditorXMLManager implements IGameEditorXML{
 		elemMap.put(name, elem);
 	}
 	
-	//TODO: add "else" statement, refine method
-	public void addElemtoElem(String parentName, String childName){
+	//TODO: refine method
+	public void addElemToElem(String parentName, String childName){
 		Element childElem = myXML.createElement(childName);
 		if(currElem.getNodeName() == parentName){
 			currElem.appendChild(childElem);
+			currElem = childElem;
+		}
+		else{
+			Element elem = elemMap.get(parentName);
+			elem.appendChild(childElem);
+			currElem = childElem;
 		}
 	}
 	

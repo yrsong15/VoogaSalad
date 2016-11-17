@@ -5,8 +5,12 @@
 				<xcor>100</xcor>
 				<ycor>50</ycor>
 			</position>
-			<image input="bird.jpg"/>
-			<behavior input="spacebar" command="up" method="step"/>
+			<image>bird.jpg</image>
+			<behavior>
+				<input>spacebar</input>
+				<command>up</command>
+				<method>step</method>
+			</behavior>
 			<property>
 				<health>1</health>
 				<destructible>true</destructible>
@@ -21,7 +25,7 @@
 					<max>500</max>
 				</height>
 			</position>
-			<image input="greenpipe.jpg"/>
+			<image>greenpipe.jpg</image>
 			<property>
 				<damage>1</damage>
 				<points>1</points>
