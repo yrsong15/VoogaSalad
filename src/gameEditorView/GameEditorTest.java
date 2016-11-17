@@ -9,11 +9,11 @@ import javafx.stage.Stage;
  */
 public class GameEditorTest extends Application {
     
-	private AltGameEditorView myGameEditorView;
+	private GameEditorView myGameEditorView;
 
     @Override
     public void start (Stage stage) {
-    	myGameEditorView = new AltGameEditorView();
+    	myGameEditorView = new GameEditorView();
 		Scene scene = new Scene(myGameEditorView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
 	    stage.setScene(scene);
 	    stage.show();
