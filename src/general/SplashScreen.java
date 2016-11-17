@@ -26,14 +26,14 @@ public class SplashScreen implements ISplashScreen {
     private Pane startWindow;
 
     private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
-            CycleMethod.NO_CYCLE,
-            new Stop(0, Color.WHITE),
-            new Stop(0.15, Color.HONEYDEW),
-            new Stop(0.3, Color.LIGHTBLUE),
-            new Stop(0.45, Color.WHITE),
-            new Stop(0.6, Color.LIGHTBLUE),
-            new Stop(0.75, Color.HONEYDEW),
-            new Stop(1, Color.WHITE));
+                                                                                CycleMethod.NO_CYCLE,
+                                                                                new Stop(0, Color.WHITE),
+                                                                                new Stop(0.15, Color.HONEYDEW),
+                                                                                new Stop(0.3, Color.LIGHTBLUE),
+                                                                                new Stop(0.45, Color.WHITE),
+                                                                                new Stop(0.6, Color.LIGHTBLUE),
+                                                                                new Stop(0.75, Color.HONEYDEW),
+                                                                                new Stop(1, Color.WHITE));
 
     public SplashScreen(Stage myStage){
 
@@ -45,10 +45,8 @@ public class SplashScreen implements ISplashScreen {
         startWindow = new Pane();
         startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
         Image background = new Image(getClass().getClassLoader()
-                .getResourceAsStream("images/floatingCubes.jpg"));
+                                     .getResourceAsStream("floatingCubes.jpg"));
         ImageView backgroundImageMainScreen = new ImageView(background);
-        backgroundImageMainScreen.setFitWidth(SPLASH_WIDTH + 50);
-        backgroundImageMainScreen.setFitHeight(SPLASH_HEIGHT);
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
         startWindow.getChildren().add(backgroundImageMainScreen);
@@ -93,12 +91,14 @@ public class SplashScreen implements ISplashScreen {
         gallery.setTranslateX(100);
         gallery.setTranslateY(420);
 
+
         ButtonTemplate loaderButton = new ButtonTemplate("GameLoader");
         Button loader = loaderButton.getButton();
         loader.setTranslateX(400);
         loader.setTranslateY(280);
 
         startWindow.getChildren().addAll(engine, editor, gallery, loader);
+
     }
 
     private void addTitle() {
