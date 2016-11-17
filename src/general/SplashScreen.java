@@ -24,6 +24,7 @@ public class SplashScreen implements ISplashScreen {
     private static final int SPLASH_WIDTH = 700;
     private static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
+    private MainController mainController;
 
     private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
                                                                                 CycleMethod.NO_CYCLE,
@@ -35,8 +36,8 @@ public class SplashScreen implements ISplashScreen {
                                                                                 new Stop(0.75, Color.HONEYDEW),
                                                                                 new Stop(1, Color.WHITE));
 
-    public SplashScreen(Stage myStage){
-
+    public SplashScreen(Stage myStage, MainController mainController){
+    	this.mainController = mainController;
     }
 
     @Override
@@ -67,7 +68,8 @@ public class SplashScreen implements ISplashScreen {
 
     @Override
     public void launchGallery() {
-
+    	System.out.println("Inside launch Gallery");
+    	mainController.presentGallery();
     }
 
     @Override
@@ -88,6 +90,9 @@ public class SplashScreen implements ISplashScreen {
 
         ButtonTemplate galleryButton = new ButtonTemplate("GameGallery");
         Button gallery = galleryButton.getButton();
+        gallery.setOnAction(e -> launchGallery());
+        gallery.setOnMouseClicked(e -> System.out.println("Clicked"));
+        gallery.setOnAction(e -> System.out.println("ON action"));
         gallery.setTranslateX(100);
         gallery.setTranslateY(420);
 
