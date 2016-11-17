@@ -31,6 +31,7 @@ public class MainController {
     }
 
     public void presentGallery() {
+        System.out.println("present");
         GalleryView galleryView = new GalleryView(gallery);
         galleryStage.setScene(galleryView.getScene());
         galleryStage.setTitle(GALLERY_STAGE_TITLE);
