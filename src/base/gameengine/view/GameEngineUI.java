@@ -16,13 +16,12 @@ import javafx.scene.layout.Pane;
  */
 public class GameEngineUI implements IGameEngineUI {
 	
-    public static final double myAppWidth = 150;
-	public static final double myAppHeight = 150;
+    public static final double myAppWidth = 700;
+	public static final double myAppHeight = 775;
 
 	private Scene myScene;
 	
 	public GameEngineUI() {
-		System.out.println("hey");
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 	}
 
@@ -32,10 +31,8 @@ public class GameEngineUI implements IGameEngineUI {
 	
 	private BorderPane makeRoot() {
 		BorderPane root = new BorderPane();
-		root.setCenter(new Label("hey"));
-		//root.setTop(makeToolbar());
-		//root.setCenter(new Pane());
-		root.setId("root");
+		root.setTop(makeToolbar());
+		root.setCenter(makeGameScreen());
 		return root;
 	}
 	
@@ -44,5 +41,9 @@ public class GameEngineUI implements IGameEngineUI {
 		return tb.getToolbar();
 	}
 	
+	private Node makeGameScreen() {
+		IGameScreen screen = new GameScreen();
+		return screen.getScreen();
+	}
 
 }
