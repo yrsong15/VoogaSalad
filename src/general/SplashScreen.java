@@ -44,8 +44,16 @@ public class SplashScreen implements ISplashScreen {
 	public Parent setUpWindow() {
 		startWindow = new Pane();
 		startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
-		Image background = new Image(getClass().getClassLoader()
-				.getResourceAsStream("images/floatingCubes.jpg"));
+		String userDirectoryString = "file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
+		Image background = new Image(userDirectoryString);
+//        String filePath = System.getProperty("user.dir") + "/images/floatingCubes.jpg";
+//        String slash = "\\\\";
+//        filePath.replace(slash.substring(1), "/");
+//        System.out.println(slash.substring(1));
+//        System.out.println(filePath);
+//        ImageView backgroundImageMainScreen = new ImageView(new Image(filePath));
+//		Image background = new Image(getClass().getClassLoader()
+//				.getResourceAsStream("images/floatingCubes.jpg"));
 		ImageView backgroundImageMainScreen = new ImageView(background);
 		backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
 		backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());

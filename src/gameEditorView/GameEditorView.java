@@ -68,7 +68,7 @@ public class GameEditorView implements IGameEditorView {
         HBox myHBox = new HBox();
         FileOpener myFileOpener = new FileOpener();
         try {
-            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE,BG_IMAGE_LOCATION).toURI().toURL().toString();
+            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION).toURI().toURL().toString();
             //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
             //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
             //myPane.setBackground(new Background(bg));

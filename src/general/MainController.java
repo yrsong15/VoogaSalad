@@ -1,8 +1,6 @@
 package general;
 
 
-import java.io.File;
-import gameEditorView.GameEditorView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
