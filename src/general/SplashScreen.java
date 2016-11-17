@@ -21,6 +21,7 @@ import javafx.stage.Stage;
  * Created by Delia on 11/15/2016.
  */
 public class SplashScreen implements ISplashScreen {
+
     private static final int SPLASH_WIDTH = 700;
     private static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
@@ -126,4 +127,5 @@ public class SplashScreen implements ISplashScreen {
             getChildren().add(titleText);
         }
     }
+
 }
