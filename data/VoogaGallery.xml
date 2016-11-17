@@ -1,0 +1,43 @@
+<root>
+    <level value="one" title="flappybird">
+        <gobject type="mainchar">
+            <position israndom="false">
+                <xcor>100</xcor>
+                <ycor>50</ycor>
+            </position>
+            <image input="bird.jpg"/>
+            <behavior input="spacebar" command="up" method="step"/>
+            <property>
+                <health>1</health>
+                <destructible>true</destructible>
+                <static>false</static>
+            </property>
+        </gobject>
+        <gobject type="flappybirdpipe">
+            <position israndom="true">
+                <spacing>250</spacing>
+                <height>
+                    <min>100</min>
+                    <max>500</max>
+                </height>
+            </position>
+            <image input="greenpipe.jpg"/>
+            <property>
+                <damage>1</damage>
+                <points>1</points>
+                <destructible>false</destructible>
+                <static>true</static>
+            </property>
+        </gobject>
+        <rules>
+            <scrolltype value="forced" direction="right"/>
+            <score>objectivebased</score>
+            <time>infinite</time>
+            <boundaries bottom="die"/>
+        </rules>
+        <settings>
+            <music>payphone.mp3</music>
+            <image>mountains.jpg</image>
+        </settings>
+    </level>
+</root>
