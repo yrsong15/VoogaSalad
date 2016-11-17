@@ -1,5 +1,6 @@
 package general;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,6 +11,7 @@ public class GalleryView
 	private static final int GALLERY_WIDTH = 1200;
 	private static final int GALLERY_HEIGHT = 600;
 	private Gallery gallery;
+
 	private Pane galleryWindow;
 	private Scene scene;
 	
@@ -18,6 +20,11 @@ public class GalleryView
 		this.gallery = gallery;
 		setUpWindow();
 		configureEventListeners();
+	}
+	
+	public Scene getScene()
+	{
+		return scene;
 	}
 	
 	private void configureEventListeners()
@@ -50,11 +57,5 @@ public class GalleryView
 	{
 		// This method reconfigures the GalleryView so that it accurately presents all files in the gallery
 	}
-
-	public Scene getScene()
-	{
-		return scene;
-	}
-
 	
 }
