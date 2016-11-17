@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 
 
 public interface IButtonLayout {
-    public static final String PROPERTIES_RESOURCE_PACKAGE = "resources.properties";
+    public static final String PROPERTIES_RESOURCE_PACKAGE = "resources";
     public static final String BUTTON_LABEL_FILE = "Button";
 
     public Button getButton();
