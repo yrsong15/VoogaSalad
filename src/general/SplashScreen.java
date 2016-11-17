@@ -2,7 +2,9 @@ package general;
 
 import base.integration.ISplashScreen;
 import buttons.ButtonTemplate;
+import gameEditorView.FileOpener;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,14 +19,20 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.net.MalformedURLException;
+
+import static gameEditorView.IGameEditorView.IMAGE_FILE_TYPE;
+
 /**
  * Created by Delia on 11/15/2016.
  */
 public class SplashScreen implements ISplashScreen {
+	public static final String BG_IMAGE_LOCATION = "images";
 	private static final int SPLASH_WIDTH = 700;
 	private static final int SPLASH_HEIGHT = 600;
 	private Pane startWindow;
     private MainController mainController;
+	private FileOpener myFileOpener = new FileOpener();
 
 	private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
 			CycleMethod.NO_CYCLE,
@@ -44,8 +52,9 @@ public class SplashScreen implements ISplashScreen {
 	public Parent setUpWindow() {
 		startWindow = new Pane();
 		startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
-		String userDirectoryString = "file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
-		Image background = new Image(userDirectoryString);
+			String userDirectoryString = "file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
+//			String userDirectoryString = myFileOpener.chooseFile(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION).toURI().toURL().toString();//"file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
+			Image background = new Image(userDirectoryString);
 //        String filePath = System.getProperty("user.dir") + "/images/floatingCubes.jpg";
 //        String slash = "\\\\";
 //        filePath.replace(slash.substring(1), "/");
@@ -54,10 +63,12 @@ public class SplashScreen implements ISplashScreen {
 //        ImageView backgroundImageMainScreen = new ImageView(new Image(filePath));
 //		Image background = new Image(getClass().getClassLoader()
 //				.getResourceAsStream("images/floatingCubes.jpg"));
-		ImageView backgroundImageMainScreen = new ImageView(background);
-		backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
-		backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
-		startWindow.getChildren().add(backgroundImageMainScreen);
+			ImageView backgroundImageMainScreen = new ImageView(background);
+			backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
+			backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
+			startWindow.getChildren().add(backgroundImageMainScreen);
+
+
 		addTitle();
 		addButtons();
 		return startWindow;
