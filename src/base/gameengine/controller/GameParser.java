@@ -27,27 +27,38 @@ public class GameParser implements Parser {
 	
 
 	@Override
-	public void processXML(String fileName) {
+	public void processXML(String fileName) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException, NoSuchMethodException, ClassNotFoundException {
 		XMLParser xmlParser = new XMLParser();
 		Element element = xmlParser.getRootElement(fileName);
+        instantiateNode(element.getFirstChild(), null);
 
 	}
 
 	private void instantiateNode(Node child, Object parent) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         NodeList childNodes = child.getChildNodes();
-        Class<?> nodeClass = Class.forName(child.getNodeName());
-        Object obj = nodeClass.newInstance();
-        Method method = nodeClass.getDeclaredMethod("init");
-        method.invoke(obj, parent);
-        NamedNodeMap namedNodeMap = child.getAttributes();
-        Map<String, String> stringMap = (Map<String, String>) namedNodeMap;
-        for (Map.Entry<String, String> entry : stringMap.entrySet()) {
-            Field f = obj.getClass().getField(entry.getKey());
-            f.setAccessible(true);
-            f.setBoolean(obj, Boolean.parseBoolean(entry.getValue()));
+//      Class<?> nodeClass = Class.forName(child.getNodeName());
+        Object obj = new Object();
+//        Object obj = nodeClass.newInstance();
+//        Method method = nodeClass.getDeclaredMethod("init");
+//        if(parent != null) {
+//            method.invoke(obj, parent);
+//        }else{
+//            method.invoke(obj);
+//        }
+        if(child.hasAttributes()) {
+            NamedNodeMap namedNodeMap = child.getAttributes();
+            Map<String, String> stringMap = (Map<String, String>) namedNodeMap;
+            for (Map.Entry<String, String> entry : stringMap.entrySet()) {
+                System.out.println(entry.getKey());
+                System.out.println(entry.getValue());
+//            Field f = obj.getClass().getField(entry.getKey());
+//            f.setAccessible(true);
+//            f.setBoolean(obj, Boolean.parseBoolean(entry.getValue()));
+            }
         }
         for(int i = 0; i < childNodes.getLength(); i++){
             Node currNode = childNodes.item(i);
+            System.out.println(currNode.getNodeName());
             instantiateNode(currNode, obj);
         }
     }

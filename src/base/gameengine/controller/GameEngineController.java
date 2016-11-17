@@ -1,5 +1,6 @@
 package base.gameengine.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -24,8 +25,8 @@ public class GameEngineController extends Observable implements Observer{
 		parser = new GameParser();
 	}
 
-	public void startGame() {
-
+	public void startGame() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
+        parser.processXML(xmlFileName);
 	}
 
 	public void setCurrentXML(String xmlFileName) {
