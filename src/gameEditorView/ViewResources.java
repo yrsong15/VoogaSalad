@@ -10,10 +10,26 @@ import javafx.scene.paint.Color;
 public enum ViewResources {
 		IMAGE_FILE_TYPE("Image"),
 		MUSIC_FILE_TYPE("Music"),
+		BG_FILE_LOCATION("images/Background"),
 		IMAGE_FILE_LOCATION("images/Toolbar"),
+		AVATAR_IMAGE_LOCATION("images/Sprite"),
 		SCENE_WIDTH(1000),
 		SCENE_HEIGHT(600),
-		TOOLBAR_WIDTH(0.7*ViewResources.SCENE_WIDTH.getDoubleResource()),
+		
+		// Detail Pane
+		DETAIL_PANE_BG(Color.SLATEGREY),
+		DETAIL_PANE_WIDTH(200),
+		AVATAR_ZONE_PADDING(25),
+		
+		// Command Pane
+		COMMAND_PANE_BG(Color.STEELBLUE),
+		COMMAND_PANE_WIDTH(75),
+		
+		// Scroll Pane
+		SCROLLPANE_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
+		
+		// Toolbar
+		TOOLBAR_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
 		TOOLBAR_HEIGHT(75),
 		BUTTON_IMAGE_HEIGHT(50),
 		BUTTON_IMAGE_YOFFSET((ViewResources.TOOLBAR_HEIGHT.getDoubleResource() - ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource())/2),
