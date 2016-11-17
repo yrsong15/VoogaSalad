@@ -7,7 +7,7 @@ package base.gameeditor;
  *
  */
 public interface IGameEditorCreateBehavior {
-	void setInput(String input);
-	void setCommand(String command);
+	void setBehaviorInput(String input);
+	void setBehaviorCommand(String command);
 	void setBehaviorMethod(String behavior);
 }

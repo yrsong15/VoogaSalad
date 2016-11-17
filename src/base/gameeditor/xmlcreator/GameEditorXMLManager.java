@@ -97,15 +97,31 @@ public class GameEditorXMLManager implements IGameEditorXML{
 	}
 
 	/**
-	 * This method will output the current XML file to the console for test purposes
+	 * This test method will output the current XML file to the console for debugging purposes.
 	 */
-	public void testWriteXML(){
+	void testWriteXML(){
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		try {
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(myXML);
 			StreamResult result = new StreamResult(System.out);
 //			StreamResult result = new StreamResult(new File("C:\\file.xml")); //This code creates new XML file
+			transformer.transform(source, result);
+			System.out.println();
+			System.out.println("File saved!");
+		} catch (TransformerConfigurationException e) {
+			System.out.println(rb.getString("TransformerConfigErrorMsg"));
+		} catch (TransformerException e) {
+			System.out.println(rb.getString("TransformerErrorMsg"));
+		}
+	}
+	
+	public void writeXML(String filepath){
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		try {
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(myXML);
+			StreamResult result = new StreamResult(new File(filepath)); //This code creates new XML file
 			transformer.transform(source, result);
 			System.out.println();
 			System.out.println("File saved!");
