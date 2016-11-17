@@ -1,5 +1,10 @@
 package objects;
 
-public class Items extends GameObjects{
+public class Items extends GameObject{
+
+    public Items (String filePath) {
+        super(filePath);
+        
+    }
 
 }
