@@ -42,18 +42,17 @@ public class XMLParser {
     /**
      * Gets the root element in an XML file.
      *
-     * @param xmlFilename the location of the xmlFile
+     * @param xmlFileName the location of the xmlFile
      * @return the root element in the xmlFile
      */
-    public Element getRootElement (String xmlFilename) {
+    public Element getRootElement (String xmlFileName) {
         documentBuilder.reset();
         Element xmlElement = null;
         try {
-            Document xmlDocument = documentBuilder.parse(xmlFilename);
+            Document xmlDocument = documentBuilder.parse(xmlFileName);
             xmlElement = xmlDocument.getDocumentElement();
         } catch (SAXException
                 | IOException e) {
-            // just swallow the except for demo purposes
             e.printStackTrace();
         }
         return xmlElement;

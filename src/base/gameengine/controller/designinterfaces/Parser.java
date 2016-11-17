@@ -1,4 +1,4 @@
-package base.gameengine.controller;
+package base.gameengine.controller.designinterfaces;
 
 /**
  * The purpose of this class is to parse the XML file being passed from integration and instantiate classes
