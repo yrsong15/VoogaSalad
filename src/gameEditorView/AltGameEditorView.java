@@ -74,6 +74,8 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
             //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
             //myPane.setBackground(new Background(bg));
 
+            System.out.println(" File Path " + filePath);
+            
             ImageView backgroundImage = new ImageView(new Image(filePath));
             backgroundImage.setFitHeight(SCENE_HEIGHT);
             backgroundImage.setFitWidth(SCENE_WIDTH);
@@ -98,10 +100,14 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
     	FileOpener myFileOpener = new FileOpener();
         try {
             String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION).toURI().toURL().toString();
+            
             //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
             //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
             //myPane.setBackground(new Background(bg));
+           
+            
             Image newAvatar = new Image(filePath);
+            
             myDetailPane.setAvatar(newAvatar);
         } catch (MalformedURLException error) {
             Alert alert = new Alert(AlertType.ERROR);

@@ -21,9 +21,12 @@ import javafx.stage.Stage;
  * Created by Delia on 11/15/2016.
  */
 public class SplashScreen implements ISplashScreen {
+
     private static final int SPLASH_WIDTH = 700;
     private static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
+    private MainController mainController;
+
 
     private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
                                                                                 CycleMethod.NO_CYCLE,
@@ -35,19 +38,20 @@ public class SplashScreen implements ISplashScreen {
                                                                                 new Stop(0.75, Color.HONEYDEW),
                                                                                 new Stop(1, Color.WHITE));
 
-    public SplashScreen(Stage myStage){
-
+    public SplashScreen(Stage myStage, MainController mainController){
+        this.mainController = mainController;
     }
 
     @Override
     public Parent setUpWindow() {
-
         startWindow = new Pane();
         startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
+
+        String userDirectoryString = "file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
+        System.out.println(" Directory:  " + userDirectoryString);
+        Image background = new Image(userDirectoryString);
         
-        Image background = new Image(getClass().getClassLoader().getResourceAsStream("images/Background/floatingCubes.jpg"));
         ImageView backgroundImageMainScreen = new ImageView(background);
-        
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
         startWindow.getChildren().add(backgroundImageMainScreen);
@@ -91,7 +95,7 @@ public class SplashScreen implements ISplashScreen {
         Button gallery = galleryButton.getButton();
         gallery.setTranslateX(100);
         gallery.setTranslateY(420);
-
+        gallery.setOnMouseClicked(e -> mainController.presentGallery());
 
         ButtonTemplate loaderButton = new ButtonTemplate("GameLoader");
         Button loader = loaderButton.getButton();
@@ -107,8 +111,10 @@ public class SplashScreen implements ISplashScreen {
         title.setTranslateX(75);
         title.setTranslateY(75);
         startWindow.getChildren().add(title);
+
     }
-    
+
+
     private static class BigNameText extends StackPane {
         /**
          * @param Name
@@ -120,4 +126,5 @@ public class SplashScreen implements ISplashScreen {
             getChildren().add(titleText);
         }
     }
+
 }
