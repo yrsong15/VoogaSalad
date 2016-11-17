@@ -44,9 +44,10 @@ public class SplashScreen implements ISplashScreen {
 
         startWindow = new Pane();
         startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
-        Image background = new Image(getClass().getClassLoader()
-                                     .getResourceAsStream("floatingCubes.jpg"));
+        
+        Image background = new Image(getClass().getClassLoader().getResourceAsStream("images/Background/floatingCubes.jpg"));
         ImageView backgroundImageMainScreen = new ImageView(background);
+        
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
         startWindow.getChildren().add(backgroundImageMainScreen);
@@ -106,10 +107,8 @@ public class SplashScreen implements ISplashScreen {
         title.setTranslateX(75);
         title.setTranslateY(75);
         startWindow.getChildren().add(title);
-
     }
-
-
+    
     private static class BigNameText extends StackPane {
         /**
          * @param Name
