@@ -5,7 +5,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import base.gameeditor.IGameEditorCreateMainCharacter;
+import base.gameeditor.IGameEditorCreateGObject;
 import base.gameeditor.IGameEditorXML;
 import usecases.mockObjects.UseCaseBehavior;
 import usecases.mockObjects.UseCaseGObject;
