@@ -35,8 +35,11 @@ public class GalleryView
 	private void setUpWindow(){
 		galleryWindow = new Pane();
 		galleryWindow.setPrefSize(GALLERY_WIDTH, GALLERY_HEIGHT);
-		Image background = new Image(getClass().getClassLoader()
-				.getResourceAsStream("images/background/bg.png"));
+		String userDirectoryString = "file:" +  System.getProperty("user.dir")+ "/images/Background/bg.png";
+//			String userDirectoryString = myFileOpener.chooseFile(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION).toURI().toURL().toString();//"file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
+		Image background = new Image(userDirectoryString);
+//		Image background = new Image(getClass().getClassLoader()
+//				.getResourceAsStream("images/background/bg.png"));
 		ImageView backgroundImageMainScreen = new ImageView(background);
 		backgroundImageMainScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
 		backgroundImageMainScreen.fitHeightProperty().bind(galleryWindow.heightProperty());

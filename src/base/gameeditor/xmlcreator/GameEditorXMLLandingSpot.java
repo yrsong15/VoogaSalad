@@ -4,7 +4,7 @@ import org.w3c.dom.Document;
 
 //TODO: Implement the first four interfaces in base.gameeditor
 public class GameEditorXMLLandingSpot {
-	private Document myXML;
+//	private Document myXML;
 	private GameEditorXMLManager myManager;
 	
 	public GameEditorXMLLandingSpot(){
@@ -13,6 +13,6 @@ public class GameEditorXMLLandingSpot {
 	
 	
 	public Document getXML(){
-		return myXML;
+		return myManager.getXML();
 	}
 }

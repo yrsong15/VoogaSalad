@@ -1,8 +1,6 @@
 package general;
 
 
-import java.io.File;
-import gameEditorView.GameEditorView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -29,6 +27,7 @@ public class MainController {
     }
 
     public void presentGallery() {
+        System.out.println("present");
         GalleryView galleryView = new GalleryView(gallery);
         galleryStage.setScene(galleryView.getScene());
         galleryStage.setTitle(GALLERY_STAGE_TITLE);

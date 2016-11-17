@@ -18,7 +18,6 @@ public class TestView extends Application {
 	}
 
 	public void start(Stage stage) {
-		System.out.println("hey");
 		IGameEngineUI ui = new GameEngineUI();
 		stage = new Stage();
 		stage.setTitle("Game");

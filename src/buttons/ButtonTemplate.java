@@ -20,7 +20,7 @@ public class ButtonTemplate implements IButtonLayout{
     public ButtonTemplate(String property){
 
 
-        myResources = ResourceBundle.getBundle(PROPERTIES_RESOURCE_PACKAGE + File.separator + BUTTON_LABEL_FILE );
+        myResources = ResourceBundle.getBundle(PROPERTIES_RESOURCE_PACKAGE + "/" + BUTTON_LABEL_FILE );
         String label = myResources.getString(property);
         myButton = new Button(label);
         //String buttonFill = myResources.getString(BUTTON_DEFAULT_STYLE);
