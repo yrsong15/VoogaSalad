@@ -21,12 +21,11 @@ import usecases.mockObjects.UseCaseGObject;
  * @author Ray Song(ys101)
  *
  */
-public class UseCaseCreateMainCharacter implements IGameEditorCreateMainCharacter, IGameEditorXML{
+public class UseCaseCreateMainCharacter{
 	
 	Document myXML;
 	UseCaseGObject mainCharacter;
 
-	@Override
 	public void createXMLFile() {
 		DocumentBuilderFactory dFact = DocumentBuilderFactory.newInstance();
         DocumentBuilder build = null;;
@@ -40,21 +39,6 @@ public class UseCaseCreateMainCharacter implements IGameEditorCreateMainCharacte
         myXML.appendChild(root);
         Element memberList = myXML.createElement("members");
         root.appendChild(memberList);
-	}
-
-	@Override
-	public Document getXML() {
-		return myXML;
-	}
-
-	@Override
-	public void createGObject() {
-		mainCharacter = new UseCaseGObject();
-	}
-
-	@Override
-	public void setBehavior(UseCaseBehavior behavior) {
-		mainCharacter.setBehavior(behavior);
 	}
 
 }

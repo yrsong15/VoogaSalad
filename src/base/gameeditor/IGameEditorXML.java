@@ -8,6 +8,9 @@ import org.w3c.dom.Document;
  *
  */
 public interface IGameEditorXML {
-	void createXMLFile();
+	void addNewElement(String name);
+	void addAttributeToElem(String elemName, String attrName, String value);
+	void addTextToElem(String elemName, String text);
+	void testWriteXML();
 	public Document getXML();
 }
