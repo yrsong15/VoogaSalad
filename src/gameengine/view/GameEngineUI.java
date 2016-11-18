@@ -3,6 +3,9 @@
  */
 package gameengine.view;
 
+import gameengine.view.interfaces.IGameEngineUI;
+import gameengine.view.interfaces.IGameScreen;
+import gameengine.view.interfaces.IToolbar;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

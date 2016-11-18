@@ -59,31 +59,25 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
 
-    private Button makeButton(String property, EventHandler<ActionEvent>  handler){
-        ButtonTemplate button = new ButtonTemplate(property);
-        button.getButton().setOnAction(handler);
-        return button.getButton();
-    }
+//    private Button makeButton(String property, EventHandler<ActionEvent>  handler){
+//        ButtonTemplate button = new ButtonTemplate(property);
+//        button.getButton().setOnAction(handler);
+//        return button.getButton();
+//    }
     
     public void setBackground(){
         HBox myHBox = new HBox();
         FileOpener myFileOpener = new FileOpener();
         try {
             String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION).toURI().toURL().toString();
-            //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
-            //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
-            //myPane.setBackground(new Background(bg));
 
             ImageView backgroundImage = new ImageView(new Image(filePath));
             backgroundImage.setFitHeight(SCENE_HEIGHT);
             backgroundImage.setFitWidth(SCENE_WIDTH);
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);
-
-            // Can add new ImageView depending on Width of the ScrollPane
             
             myHBox.getChildren().add(backgroundImage);
-            //myHBox.getChildren().add(backgroundImage);
-
+            
             myScrollPane.setContent(myHBox);
 
         } catch (MalformedURLException error) {
@@ -98,9 +92,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     	FileOpener myFileOpener = new FileOpener();
         try {
             String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION).toURI().toURL().toString();
-            //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
-            //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
-            //myPane.setBackground(new Background(bg));
             Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(newAvatar);
         } catch (MalformedURLException error) {

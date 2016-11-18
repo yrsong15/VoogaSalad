@@ -3,6 +3,7 @@
  */
 package gameengine.view;
 
+import gameengine.view.interfaces.IGameScreen;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;

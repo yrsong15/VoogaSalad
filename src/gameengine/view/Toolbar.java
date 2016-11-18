@@ -5,6 +5,7 @@ package gameengine.view;
 
 import java.util.ResourceBundle;
 
+import gameengine.view.interfaces.IToolbar;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

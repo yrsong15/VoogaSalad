@@ -4,27 +4,31 @@ import java.io.File;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author pratikshasharma
+ *
+ */
 public class FileOpener implements IFileOpener {
     private Stage myStage;
-    
+
 
     public File chooseFile(String fileType , String fileLocation) {
         myStage = new Stage();
         FileChooser fileChooser = new FileChooser();
         addFileExtensionFilter(fileType,fileChooser);
-        //String userDirectoryString = System.getProperty("user.dir") + File.separator + "images.Obstacles";
         String userDirectoryString = System.getProperty("user.dir") + "/" + fileLocation;
-//        System.out.print(userDirectoryString);
         File userDirectory = new File(userDirectoryString);
         fileChooser.setInitialDirectory(userDirectory);
         File chosenFile = fileChooser.showOpenDialog(myStage);
+
+        //        if (chosenFile == null) {
+        //            Alert alert = new Alert(AlertType.ERROR);
+        //            alert.setContentText("No File Chosen");
+        //            alert.showAndWait();
+        //myStage.close(); 
+        //        }
         
-//        if (chosenFile == null) {
-//            Alert alert = new Alert(AlertType.ERROR);
-//            alert.setContentText("No File Chosen");
-//            alert.showAndWait();
-          //myStage.close(); 
-//        }
         return chosenFile;
     }
 
