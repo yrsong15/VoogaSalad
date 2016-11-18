@@ -1,6 +1,7 @@
 package objects;
 
 import java.util.Map;
+import java.util.Set;
 
 public class GameObject{
 	
@@ -42,5 +43,9 @@ public class GameObject{
 
 	public String getImageFileName() {
 		return imageFileName;
+	}
+
+	public Set<String> getPropertiesList() {
+		return properties.keySet();
 	}
 }
