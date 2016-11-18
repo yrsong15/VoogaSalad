@@ -5,14 +5,18 @@ import java.util.Set;
 
 public class GameObject{
 	
-	double xPosition;
-	double yPosition;
+	private double xPosition;
+	private double yPosition;
+	private double width;
+	private double height;
 	String imageFileName;
 	Map<String,String> properties;
     
-	public GameObject(double xPosition, double yPosition, String imageFileName, Map<String,String> properties){
+	public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName, Map<String,String> properties){
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
+        this.width = width;
+        this.height = height;
 		this.imageFileName = imageFileName;
 		this.properties = properties;
 	}
@@ -32,6 +36,14 @@ public class GameObject{
 	public void setYPosition(double yPosition) {
 		this.yPosition = yPosition;
 	}
+
+	public double getWidth(){
+        return width;
+    }
+
+    public void setWidth(double width){
+        this.width = width;
+    }
 
 	public String getProperty(String propertyName) {
 		return properties.get(propertyName);
