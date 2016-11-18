@@ -16,7 +16,7 @@ import javafx.util.Duration;
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou
  *
  */
-public class GameEngineController extends Observable implements Observer{
+public class GameEngineController implements Observer{
 
 	private String xmlFileName;
     private GameParser parser;
@@ -25,7 +25,7 @@ public class GameEngineController extends Observable implements Observer{
 		parser = new GameParser();
 	}
 
-	public void startGame() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
+	public void startGame() {
         parser.processXML(xmlFileName);
 	}
 
@@ -37,19 +37,6 @@ public class GameEngineController extends Observable implements Observer{
 	public void update(Observable o, Object arg) {
 
 	}
-	
-	/**
-	 * Pauses the simulation
-	 */
-	public void stopGame () {
 
-	}
-
-	/**
-	 * Resumes the simulation
-	 */
-	public void resumeGame() {
-
-	}
 }
 

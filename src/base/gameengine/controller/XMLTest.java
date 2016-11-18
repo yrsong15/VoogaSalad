@@ -12,6 +12,5 @@ public class XMLTest {
         GameEngineController controller = new GameEngineController();
         controller.setCurrentXML("data/GameEditorExampleXML.xml");
         controller.startGame();
-
     }
 }
