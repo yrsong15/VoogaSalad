@@ -9,11 +9,11 @@ public interface ISplashScreen {
 
     Parent setUpWindow();
 
-    void launchWith(); //take GameData param
+    void launchGameEditorWith(); //take GameData param
 
-    void launch();
+    void launchGameEditor();
 
-    void launchGallery();
+    void launchGameGallery();
 
     void launchSelectedGalleryItem();
 

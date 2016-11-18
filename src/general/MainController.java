@@ -36,6 +36,10 @@ public class MainController {
     
     private void initializeGallery() {
  	   this.gallery = new Gallery();
+ 	   for(int i = 0; i < 40; i++)
+ 	   {
+ 		   gallery.addToGallery(new GameFile());
+ 	   }
  	   this.galleryStage = new Stage();
     }
 
