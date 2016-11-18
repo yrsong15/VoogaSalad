@@ -48,10 +48,13 @@ public class Level {
 
     public void setMainCharacter(GameObject character) {
         this.mainCharacter = mainCharacter;
-
     }
 
     public Set<String> getExternalRules(){
         return externalRules.keySet();
+    }
+    
+    public List<GameObject> getGameObjects(){
+    	return gameObjects;
     }
 }

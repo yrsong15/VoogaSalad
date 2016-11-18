@@ -10,6 +10,7 @@ public class Game {
 
 	private String name;
 	private Map<Integer, Level> levels;
+	private Level currentLevel;
 
 	public Game(String name) {
 		levels = new HashMap<Integer,Level>();
@@ -22,5 +23,9 @@ public class Game {
 
 	public void removeLevel(int level) {
 		levels.remove(level);
+	}
+	
+	public Level getCurrentLevel(){
+		return currentLevel;
 	}
 }
