@@ -23,13 +23,13 @@ public abstract class AbstractCommandDetail {
 	
 	protected ScrollPane myContainerPane;
 	protected double myPaneWidth;
-	protected double padding = 10;
+	protected double myDetailPadding = ViewResources.DETAIL_CONTENT_PADDING.getDoubleResource();
 	
 	public AbstractCommandDetail() {
 		double detailPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
 		double detailPaneHeight = ViewResources.SCENE_HEIGHT.getDoubleResource();
 		double avatarZoneWidth = detailPaneWidth-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource();
-		double avatarZoneHeight = 1.25*(avatarZoneWidth);
+		double avatarZoneHeight = avatarZoneWidth;
 		double detailPadding = ViewResources.COMMAND_DETAIL_PADDING.getDoubleResource();
 		myPaneWidth = avatarZoneWidth;
 		double myPaneHeight = detailPaneHeight - 4*detailPadding - avatarZoneHeight;
