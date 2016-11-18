@@ -43,7 +43,6 @@ public class ButtonTemplate implements IButtonLayout{
     @Override
     public void setOnButtonAction (EventHandler<ActionEvent> handler) {
        myButton.setOnAction(handler);
-        
     }
 }
 
