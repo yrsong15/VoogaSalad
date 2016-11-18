@@ -1,4 +1,4 @@
-package general.objects;
+package objects;
 
 import java.util.Map;
 
