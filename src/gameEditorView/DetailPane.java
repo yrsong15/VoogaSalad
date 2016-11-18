@@ -12,33 +12,34 @@ import javafx.scene.image.ImageView;
 
 
 
-public class LeftDetailPane implements ILeftDetailPane {
+public class DetailPane implements IDetailPane {
 	
 	// TODO: Remove hardcoding of the following values
 	// Min Width, Max Width, Min Height, AvatarZoneX, AvatarZoneY, AvatarZoneWidth, AvatarZoneHeight
 	// Make Pane backgrounds to be CSS controlled
 		
 	private Pane myPane;
+	private double myPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
 	private Rectangle myAvatarZone;
 	
 	private ImageView myAvatarView;
 
-	public LeftDetailPane() {
+	public DetailPane() {
 		// TODO Auto-generated constructor stub
 		myPane = new Pane();
-		myPane.setMinWidth(200); myPane.setMaxWidth(200);
-		myPane.setBackground(new Background(new BackgroundFill(Color.MEDIUMPURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
+		myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
+		myPane.setBackground(new Background(new BackgroundFill(ViewResources.DETAIL_PANE_BG.getColorResource(), CornerRadii.EMPTY, Insets.EMPTY)));
 		createAvatarZone();
 		myPane.getChildren().add(myAvatarZone);
 	}
 	
 	private void createAvatarZone(){
-		double zoneWidth = 150;
-		double zoneHeight = 200;
-		double cornerRadius = 25;
-		double avZoneX = (myPane.getWidth()-zoneWidth)/2;
-		double avZoneY = GameEditorView.SCENE_HEIGHT-25-zoneHeight;
-		myAvatarZone = new Rectangle(25, avZoneY, zoneWidth, zoneHeight);
+		double padding = ViewResources.AVATAR_ZONE_PADDING.getDoubleResource();
+		double zoneWidth = myPaneWidth-2*padding;
+		double zoneHeight = 1.25*zoneWidth;
+		double cornerRadius = padding;
+		double avZoneY = GameEditorView.SCENE_HEIGHT-padding-zoneHeight;
+		myAvatarZone = new Rectangle(padding, avZoneY, zoneWidth, zoneHeight);
 		myAvatarZone.setFill(Color.GHOSTWHITE);
 		myAvatarZone.setArcWidth(cornerRadius);
 		myAvatarZone.setArcHeight(cornerRadius);

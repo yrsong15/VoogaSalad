@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
  */
 public class Toolbar implements IToolbar {
 
-	public static final String DEFAULT_RESOURCE_PACKAGE = "resources.properties/Button.properties";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources.properties/GameEngineUI";
 	
 	private ResourceBundle myResources;
 	private HBox myToolbar;
@@ -34,10 +34,14 @@ public class Toolbar implements IToolbar {
 	}
 	
 	private void addButtons() {
-		myToolbar.getChildren().add(makeButton("ResetButton", null));
+		myToolbar.getChildren().add(makeButton("ResetButton", event -> reset()));
 	}
 	
-    private Button makeButton (String property, EventHandler<ActionEvent> handler) {
+    private void reset() {
+    	System.out.println("hey");
+	}
+
+	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         Button result = new Button();
         String label = myResources.getString(property);
         result.setText(label);
