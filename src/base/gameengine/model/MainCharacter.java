@@ -1,6 +1,8 @@
-package objects;
+package base.gameengine.model;
 
 import java.util.Map;
+import base.gameengine.model.GameObject;
+
 
 public class MainCharacter extends GameObject {
 
