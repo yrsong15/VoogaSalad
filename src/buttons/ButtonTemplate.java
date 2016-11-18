@@ -39,7 +39,7 @@ public class ButtonTemplate implements IButtonLayout{
         myButton.setFont(Font.font("Comic Sans",14));
     }
     
-
+    
     @Override
     public void setOnButtonAction (EventHandler<ActionEvent> handler) {
        myButton.setOnAction(handler);

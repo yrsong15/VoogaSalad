@@ -27,7 +27,7 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
     private VBox myCenterBox;
     private IEditorToolbar myToolbar;
     private IDesignArea myDesignArea;
-    private ILeftDetailPane myDetailPane;
+    //private ILeftDetailPane myDetailPane;
 
     public AltGameEditorView(){
         myRoot = new BorderPane();    
@@ -40,11 +40,11 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
     }
     
     private HBox createLeftAlt(){
-    	LeftButtonPane lbp = new LeftButtonPane();
-    	myDetailPane = new LeftDetailPane();
+    	//LeftButtonPane lbp = new LeftButtonPane();
+    	//myDetailPane = new LeftDetailPane();
     	myLeftBox = new HBox();
-    	myLeftBox.getChildren().add(lbp.getPane());
-    	myLeftBox.getChildren().add(myDetailPane.getPane());
+    	//myLeftBox.getChildren().add(lbp.getPane());
+    	//myLeftBox.getChildren().add(myDetailPane.getPane());
     	return myLeftBox;
     }
     
@@ -108,7 +108,7 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
             
             Image newAvatar = new Image(filePath);
             
-            myDetailPane.setAvatar(newAvatar);
+            //myDetailPane.setAvatar(newAvatar);
         } catch (MalformedURLException error) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setContentText("No File Chosen");
