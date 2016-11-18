@@ -1,6 +1,6 @@
 package usecases;
 
-import gameeditor.IGameEditorFrontend;
+import gameeditor.interfaces.IGameEditorFrontend;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;

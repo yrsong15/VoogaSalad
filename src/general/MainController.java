@@ -7,7 +7,11 @@ import javafx.stage.Stage;
 
 
 public class MainController {
-   public static final String STYLESHEET = "resources/default.css";
+//<<<<<<< HEAD
+//   public static final String STYLESHEET = "resources/default.css";
+//=======
+   public static final String STYLESHEET = "styling/default.css";
+//>>>>>>> 37c9bb50612b0f05a38d359081723e7e0e40f052
 
    public static final String CSS_RESOURCE_PACKAGE = "resources";
    public static final String FILE_SEPARATOR = "/";
