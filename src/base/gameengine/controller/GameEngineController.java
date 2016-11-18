@@ -1,5 +1,6 @@
 package base.gameengine.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,7 +16,7 @@ import javafx.util.Duration;
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou
  *
  */
-public class GameEngineController extends Observable implements Observer{
+public class GameEngineController implements Observer{
 
 	private String xmlFileName;
     private GameParser parser;
@@ -25,7 +26,7 @@ public class GameEngineController extends Observable implements Observer{
 	}
 
 	public void startGame() {
-
+        parser.processXML(xmlFileName);
 	}
 
 	public void setCurrentXML(String xmlFileName) {
@@ -36,19 +37,6 @@ public class GameEngineController extends Observable implements Observer{
 	public void update(Observable o, Object arg) {
 
 	}
-	
-	/**
-	 * Pauses the simulation
-	 */
-	public void stopGame () {
 
-	}
-
-	/**
-	 * Resumes the simulation
-	 */
-	public void resumeGame() {
-
-	}
 }
 
