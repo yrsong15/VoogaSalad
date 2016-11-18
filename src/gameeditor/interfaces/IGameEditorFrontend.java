@@ -8,7 +8,7 @@ public interface IGameEditorFrontend {
 	//Method to set an interaction between two objects
 	void setInteractionBehaviour(String object1, String object2, String behaviourProperty);
 	
-	// Method to set an XML property on creation of a new object/rule/setting
+	// Method to set an XML property on creation of a new objects/rule/setting
 	void setProperty(String objectName, String propName, String propValue);
 	
 	// Method to set a sub property for an XML element

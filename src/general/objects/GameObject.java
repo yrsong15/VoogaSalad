@@ -1,4 +1,4 @@
-package gameengine.model;
+package general.objects;
 
 import java.util.Map;
 
@@ -6,13 +6,13 @@ public class GameObject{
 	
 	double xPosition;
 	double yPosition;
-	String fileName;
+	String imageFileName;
 	Map<String,String> properties;
     
-	public GameObject(double xPosition, double yPosition, String fileName, Map<String,String> properties){
+	public GameObject(double xPosition, double yPosition, String imageFileName, Map<String,String> properties){
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
-		this.fileName = fileName;
+		this.imageFileName = imageFileName;
 		this.properties = properties;
 	}
 
@@ -40,7 +40,7 @@ public class GameObject{
 		properties.put(propertyName, propertyValue);
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String getImageFileName() {
+		return imageFileName;
 	}
 }

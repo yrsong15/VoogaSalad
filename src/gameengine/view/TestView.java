@@ -8,6 +8,7 @@ package gameengine.view;
  *
  */
 
+import gameengine.view.interfaces.IGameEngineUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

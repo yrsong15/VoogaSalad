@@ -1,4 +1,4 @@
-package gameengine.view;
+package gameengine.view.interfaces;
 
 import javafx.scene.Node;
 
@@ -10,7 +10,7 @@ public interface ScreenViewables {
 	public Node getNode();
 	
 	/**
-	 * Used to set initial position of the object on the screen
+	 * Used to set initial position of the objects on the screen
 	 * @param object
 	 * @param xCoord
 	 * @param yCoord
