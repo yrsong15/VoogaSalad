@@ -19,9 +19,12 @@ public class GalleryView
 	private Scene scene;
 	private Gallery gallery;
 	private Pane galleryWindow;
+	private String gameName;
+	private MainController myMainController;
 	
-	public GalleryView(Gallery gallery)
+	public GalleryView(Gallery gallery, MainController MC)
 	{
+		this.myMainController = MC;
 		this.gallery = gallery;
 		setUpWindow();
 		configureEventListeners();
@@ -34,7 +37,7 @@ public class GalleryView
 	
 	private void configureEventListeners()
 	{
-		scene.addEventHandler(GameFileEvent.REMOVE_FROM_GALLERY, e -> removeGameFile(e));
+		scene.addEventHandler(GameFileEvent.REMOVE_FROM_GALLERY, e -> removeGameFile());
 	}
 
 	private void setUpWindow(){
@@ -48,9 +51,9 @@ public class GalleryView
 
 	}
 	
-	private void removeGameFile(GameFileEvent gameFileEvent)
+	private void removeGameFile()
 	{
-		gallery.removeFromGallery(gameFileEvent.getGameFile());
+		gallery.removeFromGallery(gameName);
 		updateView();
 	}
 	
@@ -103,6 +106,8 @@ public class GalleryView
 		engine.setTranslateY(400);
 		engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
 		engine.translateXProperty().bind(galleryWindow.widthProperty().divide(2).add(100));
+		//TODO: Change this later to be flexible
+		engine.setOnMouseClicked(e -> myMainController.launchEngine(gallery.getGalleryItem(gameName)));
 
 		galleryWindow.getChildren().addAll(edit, engine);
 	}

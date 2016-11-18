@@ -2,6 +2,7 @@ package general;
 
 
 import gameeditor.view.GameEditorView;
+import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -20,6 +21,7 @@ public class MainController {
     private GalleryView myGalleryView;
     private Stage myGameEditorStage;
     private GameEditorView myGameEditorView;
+    private GameEngineController myGameEngineController;
 
     public MainController(Stage stage) {
         Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
@@ -34,7 +36,7 @@ public class MainController {
     public void presentGallery() {
         System.out.println("present");
         initializeGallery();
-        myGalleryView = new GalleryView(myGallery);
+        myGalleryView = new GalleryView(myGallery, this);
         myGalleryStage.setScene(myGalleryView.getScene());
         myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
         myGalleryStage.show();
@@ -53,4 +55,9 @@ public class MainController {
         myGameEditorStage.show();
     }
 
+    public void launchEngine(String XMLData){
+        myGameEngineController = new GameEngineController();
+        myGameEngineController.setCurrentXML(XMLData);
+        myGameEngineController.startGame();
+    }
 }
