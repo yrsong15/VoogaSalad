@@ -18,8 +18,10 @@ public enum ViewResources {
 		
 		// Detail Pane
 		DETAIL_PANE_BG(Color.SLATEGREY),
-		DETAIL_PANE_WIDTH(200),
+		DETAIL_PANE_WIDTH(300),
 		AVATAR_ZONE_PADDING(25),
+		AVATAR_ZONE_WIDTH(ViewResources.DETAIL_PANE_WIDTH.getDoubleResource()-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource()),
+		AVATAR_ZONE_HEIGHT(ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()),
 		AVATAR_ZONE_RADIUS(25),
 		COMMAND_DETAIL_PADDING(25),
 		DETAIL_CONTENT_PADDING(10),
