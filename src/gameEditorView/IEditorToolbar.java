@@ -23,6 +23,9 @@ public interface IEditorToolbar {
     public static final double AVATAR_IMAGE_WIDTH = ViewResources.AVATAR_IMAGE_WIDTH.getDoubleResource();
     public static final double AVATAR_IMAGE_XOFFSET = ViewResources.AVATAR_IMAGE_XOFFSET.getDoubleResource();
     
+    public static final double MUSIC_IMAGE_WIDTH_RATIO = ViewResources.MUSIC_IMAGE_WIDTH_RATIO.getDoubleResource();
+    public static final double MUSIC_IMAGE_WIDTH = ViewResources.MUSIC_IMAGE_WIDTH.getDoubleResource();
+    public static final double MUSIC_IMAGE_XOFFSET = ViewResources.MUSIC_IMAGE_XOFFSET.getDoubleResource();
     
     public Pane getPane();
 }

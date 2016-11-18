@@ -1,24 +1,42 @@
 package gameEditorView;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
-public class CommandPane {
+public class CommandPane implements ICommandButtonOut {
 	
-	// TODO: Remove hardcoding of the following values
-	// Min Width, Max Width, Min Height
+
 	
 	private Pane myPane;
+	private double myPaneWidth = ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
+	
+	private ArrayList<ICommandButton> myButtons = new ArrayList<ICommandButton>(); 
+	
+	private int numButtons = 0;
 
 	public CommandPane() {
 		myPane = new Pane();
-		double width = ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
-		myPane.setMinWidth(width); myPane.setMaxWidth(width);
+		myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
 		myPane.setBackground(new Background(new BackgroundFill(ViewResources.COMMAND_PANE_BG.getColorResource(), CornerRadii.EMPTY, Insets.EMPTY)));
+		String [] buttonLocations = ViewResources.BUTTON_FILE_LOCATIONS.getArrayResource();
+		for (String location : buttonLocations){
+			ICommandButton button = new CommandButton(location, numButtons++, myPaneWidth, this);
+			myButtons.add(button);
+			myPane.getChildren().add(button.getBorder());
+			myPane.getChildren().add(button.getBG());
+			myPane.getChildren().add(button.getImageView());
+		}
+	}
+	
+	public void lowlightButtons(){
+		for (ICommandButton b : myButtons){
+			b.lowlight();
+		}
 	}
 	
 	public Pane getPane(){
