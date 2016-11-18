@@ -1,4 +1,4 @@
-package gameEditorView;
+package editor.view;
 
 import java.io.File;
 import javafx.stage.FileChooser;

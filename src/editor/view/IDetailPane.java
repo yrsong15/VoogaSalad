@@ -1,4 +1,4 @@
-package gameEditorView;
+package editor.view;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
