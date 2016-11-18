@@ -1,19 +1,9 @@
 package usecases;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import base.gameeditor.IGameEditorFrontend;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import gameeditor.IGameEditorFrontend;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-import usecases.mockObjects.UseCaseBehavior;
 import usecases.mockObjects.UseCaseGObject;
 
 /**

@@ -1,9 +1,7 @@
 package general;
-import base.integration.ISplashScreen;
+import integration.ISplashScreen;
 import buttons.ButtonTemplate;
-import editor.view.FileOpener;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,9 +16,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import static editor.view.IGameEditorView.IMAGE_FILE_TYPE;
-
-import java.net.MalformedURLException;
 /**
  * Created by Delia on 11/15/2016.
  */
