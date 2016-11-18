@@ -34,7 +34,8 @@ public class GameEngineController extends Observable{
 	 * Applies gravity and scrolls, checks for collisions
 	 */
 	public void loopGame(){
-		
+		Game mainGame;
+		//CollisionChecker.checkCollisions();
 	}
 
 	public void setCurrentXML(String xmlData) {

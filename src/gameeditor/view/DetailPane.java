@@ -13,6 +13,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import gameeditor.commanddetails.*;
+import gameeditor.view.interfaces.ICommandDetailDisplay;
+import gameeditor.view.interfaces.IDetailPane;
 
 
 
