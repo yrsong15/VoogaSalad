@@ -7,12 +7,14 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import editor.CommandDetails.*;
 
 
 
-public class DetailPane implements IDetailPane {
+public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 	
 	// TODO: Remove hardcoding of the following values
 	// Min Width, Max Width, Min Height, AvatarZoneX, AvatarZoneY, AvatarZoneWidth, AvatarZoneHeight
@@ -21,6 +23,7 @@ public class DetailPane implements IDetailPane {
 	private Pane myPane;
 	private double myPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
 	private Rectangle myAvatarZone;
+	private ScrollPane myDetailPane;
 	
 	private ImageView myAvatarView;
 
@@ -67,6 +70,14 @@ public class DetailPane implements IDetailPane {
 		myAvatarView.setLayoutY(myAvatarZone.getY() + myAvatarZone.getHeight()/2 - endHeight/2);
 		myPane.getChildren().add(myAvatarView);
 
+	}
+
+	@Override
+	public void setDetail(String paneType) {
+		String className = "editor.CommandDetails." + paneType + "Detail";
+		myPane.getChildren().remove(myDetailPane);
+		AbstractCommandDetail detailPane = new DetailFactory().create(className);
+		myPane.getChildren().add(detailPane.getPane());
 	}
 
 }

@@ -15,6 +15,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class DesignArea implements IDesignArea {
 	// TODO: Remove hardcoding of the following values
@@ -34,7 +35,8 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setMaxHeight(AREA_HEIGHT);
 
         myScrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);        
+        myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+        myScrollPane.setVmax(0);
 		
 		myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 	}

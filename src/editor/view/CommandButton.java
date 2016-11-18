@@ -22,13 +22,19 @@ public class CommandButton implements ICommandButton {
 	private static final Color ON_COLOUR = ViewResources.BORDER_ON_COLOUR.getColorResource();
 	
 	private ICommandButtonOut myCommandOut;
+	private ICommandDetailDisplay myDetailDisplay;
 	private ImageView myImageView;
 	private Rectangle myBorder;
 	private Rectangle myBG;
 	private Image myButtonImage;
+	private String myType;
 	
-	public CommandButton(String fileLocation, double buttonNumber, double paneWidth, ICommandButtonOut commandOut) {
+	public CommandButton(String fileLocation, double buttonNumber, double paneWidth, ICommandButtonOut commandOut, ICommandDetailDisplay detailDisplay) {
+		int myTypeEnd = fileLocation.length()-4;
+		myType = fileLocation.substring(1,myTypeEnd);
+		System.out.println(myType);
 		myCommandOut = commandOut;
+		myDetailDisplay = detailDisplay;
 		double xOffset = (paneWidth - BUTTON_WIDTH)/2;
 		double yOffset = (buttonNumber+1)*BUTTON_PADDING+buttonNumber*BUTTON_HEIGHT;
 		createBorder(xOffset, yOffset);
@@ -90,6 +96,7 @@ public class CommandButton implements ICommandButton {
 	
 	public void handleClick(){
 		highlight();
+		myDetailDisplay.setDetail(myType);
 	}
 	
 	public void highlight(){

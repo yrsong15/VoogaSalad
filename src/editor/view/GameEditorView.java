@@ -26,6 +26,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private HBox myLeftBox;
     private VBox myCenterBox;
     private IEditorToolbar myToolbar;
+    private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
 
@@ -40,10 +41,11 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
     
     private HBox createLeftAlt(){
-    	CommandPane lbp = new CommandPane();
-    	myDetailPane = new DetailPane();
+    	DetailPane dp = new DetailPane();
+    	myDetailPane = dp;
+    	myCommandPane = new CommandPane(dp);
     	myLeftBox = new HBox();
-    	myLeftBox.getChildren().add(lbp.getPane());
+    	myLeftBox.getChildren().add(myCommandPane.getPane());
     	myLeftBox.getChildren().add(myDetailPane.getPane());
     	return myLeftBox;
     }

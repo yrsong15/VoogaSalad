@@ -1,5 +1,5 @@
 package editor.view;
 
-public interface ICommandButtonOut {
+public interface ICommandButtonOut {	
 	public void lowlightButtons();
 }
