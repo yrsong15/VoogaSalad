@@ -4,8 +4,13 @@ import objects.GameObject;
 
 public class CollisionRulebook {
 
-	public CollisionRulebook(GameObject o1, GameObject o2) {
-
+	public CollisionRulebook() {
+	}
+	
+	public void applyRules(GameObject mainChar, GameObject obj){
+		for(String property: obj.getPropertiesList()){
+			
+		}
 	}
 
 }
