@@ -1,4 +1,4 @@
-package gameEditorView;
+package editor.view;
 
 public interface IToolbarParent {
 
