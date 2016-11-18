@@ -77,6 +77,7 @@ public class SplashScreen implements ISplashScreen {
 
     //    @Override
     public void launchSelectedGalleryItem() {
+
     }
 
     private void addButtons() {

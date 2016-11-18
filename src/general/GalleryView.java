@@ -44,9 +44,7 @@ public class GalleryView
 		addGalleryBackdrop();
 		addGalleryButtons();
 		scene = new Scene(galleryWindow);
-		scene.getStylesheets().add(MainController.CSS_RESOURCE_PACKAGE
-				+ MainController.FILE_SEPARATOR
-				+ MainController.STYLESHEET);
+		scene.getStylesheets().add(MainController.STYLESHEET);
 
 	}
 	
