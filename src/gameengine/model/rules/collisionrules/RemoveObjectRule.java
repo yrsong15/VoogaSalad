@@ -1,4 +1,4 @@
-package gameengine.model.rules;
+package gameengine.model.rules.collisionrules;
 
 public class RemoveObjectRule {
 

@@ -1,4 +1,4 @@
-package gameengine.model.rules.collisionrules;
+package gameengine.model.rules;
 
 import objects.GameObject;
 
