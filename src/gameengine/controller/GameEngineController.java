@@ -38,6 +38,7 @@ public class GameEngineController extends Observable{
 		Game mainGame = null;
 		Level currLevel = mainGame.getCurrentLevel();
 		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects());
+		//TO-DO: apply movement and scroll screen
 	}
 
 	public void setCurrentXML(String xmlData) {
