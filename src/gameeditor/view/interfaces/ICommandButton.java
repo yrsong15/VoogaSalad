@@ -1,4 +1,4 @@
-package gameeditor.view;
+package gameeditor.view.interfaces;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;

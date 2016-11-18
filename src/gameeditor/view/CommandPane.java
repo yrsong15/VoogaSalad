@@ -2,6 +2,9 @@ package gameeditor.view;
 
 import java.util.ArrayList;
 
+import gameeditor.view.interfaces.ICommandButton;
+import gameeditor.view.interfaces.ICommandButtonOut;
+import gameeditor.view.interfaces.ICommandDetailDisplay;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
