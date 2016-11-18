@@ -1,6 +1,7 @@
 package general;
 
 
+import gameeditor.view.GameEditorView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -16,8 +17,11 @@ public class MainController {
      */
    public static final String FILE_SEPARATOR = "/";
    private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
-   private Stage galleryStage;
-   private Gallery gallery;
+   private Stage myGalleryStage;
+   private Gallery myGallery;
+    private GalleryView myGalleryView;
+    private Stage myGameEditorStage;
+    private GameEditorView myGameEditorView;
 
    public MainController(Stage stage){
         Scene scene = new Scene(new SplashScreen(stage,this).setUpWindow());
@@ -27,19 +31,28 @@ public class MainController {
         stage.setScene(scene);
         stage.setTitle("VoogaSalad");
         stage.show();
-       initializeGallery();
     }
 
     public void presentGallery() {
         System.out.println("present");
-        GalleryView galleryView = new GalleryView(gallery);
-        galleryStage.setScene(galleryView.getScene());
-        galleryStage.setTitle(GALLERY_STAGE_TITLE);
-        galleryStage.show();
+        initializeGallery();
+        myGalleryView = new GalleryView(myGallery);
+        myGalleryStage.setScene(myGalleryView.getScene());
+        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
+        myGalleryStage.show();
     }
     
     private void initializeGallery() {
- 	   this.gallery = new Gallery();
- 	   this.galleryStage = new Stage();
+ 	   this.myGallery = new Gallery();
+ 	   this.myGalleryStage = new Stage();
     }
+
+    public void presentEditor(){
+        myGameEditorStage = new Stage();
+        myGameEditorView = new GameEditorView();
+        Scene scene = new Scene(myGameEditorView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
+        myGameEditorStage.setScene(scene);
+        myGameEditorStage.show();
+    }
+
 }
