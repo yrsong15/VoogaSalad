@@ -2,6 +2,7 @@ package gameEditorView;
 
 import java.net.MalformedURLException;
 import buttons.ButtonTemplate;
+import editor.view.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,7 +20,7 @@ import javafx.scene.layout.VBox;
 
 
 
-public class AltGameEditorView implements IGameEditorView{//, IToolbarOutput {
+public class AltGameEditorView implements IGameEditorView {//, IToolbarOutput {
 	
     private BorderPane myRoot;
     private ScrollPane myScrollPane;
