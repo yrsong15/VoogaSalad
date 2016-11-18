@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -18,7 +19,7 @@ public class GalleryView
 {
 	private static final int GALLERY_WIDTH = 1200;
 	private static final int GALLERY_HEIGHT = 600;
-	private static final double SCROLL_WINDOW_HEIGHT = .8 * GALLERY_HEIGHT;
+	private static final double SCROLL_WINDOW_HEIGHT = 100;
 	private static final double SCROLL_WINDOW_WIDTH = .4 * GALLERY_WIDTH;
 	private Gallery gallery;
 
@@ -68,6 +69,18 @@ public class GalleryView
 	private void addGameFileViews()
 	{
 		ScrollPane gameFileWindow = new ScrollPane();
+		HBox gameFileBox = new HBox();
+		gameFileBox.setSpacing(10);
+		for(GameFile gameFile : gallery.getUnmodifiableListOfGameFiles())
+		{
+			gameFileBox.getChildren().add(new GameFileView(gameFile).getNode());	
+		}
+		gameFileWindow.setContent(gameFileBox);
+		gameFileWindow.setPrefViewportHeight(SCROLL_WINDOW_HEIGHT);
+		gameFileWindow.setPrefViewportWidth(SCROLL_WINDOW_WIDTH);
+		/*
+		Code for if you implement a Grid
+		
 		GridPane gameFileGrid = new GridPane();
 		int gameFilesPerRow = 4;
 		int columnsPerRow = gameFilesPerRow * 2;
@@ -81,7 +94,7 @@ public class GalleryView
 			gameFileGrid.add(new GameFileView(gameFile).getNode(), loc % columnsPerRow, loc / columnsPerRow);
 			//System.out.println("Game File added to: " + loc / columnsPerRow + ", " + loc % columnsPerRow);
 			loc += 2;
-		}
+		}*/
 		galleryWindow.getChildren().add(gameFileWindow);
 	}
 	
