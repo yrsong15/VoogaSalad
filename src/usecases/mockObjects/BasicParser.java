@@ -1,6 +1,6 @@
 package usecases.mockObjects;
 
-import base.gameengine.controller.Parser;
+import base.gameengine.controller.designinterfaces.Parser;
 
 public class BasicParser implements Parser{
 

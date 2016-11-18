@@ -1,8 +1,7 @@
 package general;
-
 import base.integration.ISplashScreen;
 import buttons.ButtonTemplate;
-import gameEditorView.FileOpener;
+import editor.view.FileOpener;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -26,32 +25,30 @@ import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import static editor.view.IGameEditorView.IMAGE_FILE_TYPE;
+
 import java.net.MalformedURLException;
-
-import static gameEditorView.IGameEditorView.IMAGE_FILE_TYPE;
-
 /**
  * Created by Delia on 11/15/2016.
  */
 public class SplashScreen implements ISplashScreen {
-	public static final String BG_IMAGE_LOCATION = "images";
-	private static final int SPLASH_WIDTH = 700;
-	private static final int SPLASH_HEIGHT = 600;
-	private Pane startWindow;
+
+    public static final String BG_IMAGE_LOCATION = "images";
+    private static final int SPLASH_WIDTH = 700;
+    private static final int SPLASH_HEIGHT = 600;
+    private Pane startWindow;
     private MainController mainController;
-	private FileOpener myFileOpener = new FileOpener();
 
-	private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
-			CycleMethod.NO_CYCLE,
-			new Stop(0, Color.WHITE),
-			new Stop(0.15, Color.HONEYDEW),
-			new Stop(0.3, Color.LIGHTBLUE),
-			new Stop(0.45, Color.WHITE),
-			new Stop(0.6, Color.LIGHTBLUE),
-			new Stop(0.75, Color.HONEYDEW),
-			new Stop(1, Color.WHITE));
-
-	public SplashScreen(Stage myStage, MainController mainController){
+    private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
+                                                                                CycleMethod.NO_CYCLE,
+                                                                                new Stop(0, Color.WHITE),
+                                                                                new Stop(0.15, Color.HONEYDEW),
+                                                                                new Stop(0.3, Color.LIGHTBLUE),
+                                                                                new Stop(0.45, Color.WHITE),
+                                                                                new Stop(0.6, Color.LIGHTBLUE),
+                                                                                new Stop(0.75, Color.HONEYDEW),
+                                                                                new Stop(1, Color.WHITE));
+    public SplashScreen(Stage myStage, MainController mainController){
         this.mainController = mainController;
 	}
 
@@ -185,4 +182,5 @@ public class SplashScreen implements ISplashScreen {
 			getChildren().add(titleText);
 		}
 	}
+
 }

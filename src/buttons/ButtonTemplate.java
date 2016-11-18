@@ -17,18 +17,10 @@ public class ButtonTemplate implements IButtonLayout{
      * @param property
      * Creates a button based on the String property
      */
-    public ButtonTemplate(String property){
-
-
+    public ButtonTemplate(String property){     
         myResources = ResourceBundle.getBundle(PROPERTIES_RESOURCE_PACKAGE + "/" + BUTTON_LABEL_FILE );
         String label = myResources.getString(property);
         myButton = new Button(label);
-        //String buttonFill = myResources.getString(BUTTON_DEFAULT_STYLE);
-        //String overButton = myResources.getString(BUTTON_MOUSE_ENTERED_STYLE);
-        //myButton.setStyle(buttonFill);
-        //myButton.setOnMouseEntered(e -> myButton.setStyle(overButton));
-        //myButton.setOnMouseExited(ee -> myButton.setStyle(buttonFill));
-
     }
 
     /**
@@ -51,7 +43,6 @@ public class ButtonTemplate implements IButtonLayout{
     @Override
     public void setOnButtonAction (EventHandler<ActionEvent> handler) {
        myButton.setOnAction(handler);
-        
     }
 }
 

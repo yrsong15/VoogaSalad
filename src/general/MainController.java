@@ -23,7 +23,7 @@ public class MainController {
         stage.setScene(scene);
         stage.setTitle("VoogaSalad");
         stage.show();
-        initializeGallery();
+       initializeGallery();
     }
 
     public void presentGallery() {
