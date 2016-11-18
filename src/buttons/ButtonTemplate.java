@@ -2,6 +2,8 @@ package buttons;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import buttons.interfaces.IButtonLayout;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,7 +11,7 @@ import javafx.scene.text.Font;
 
 
 
-public class ButtonTemplate implements IButtonLayout{
+public class ButtonTemplate implements IButtonLayout {
     private Button myButton;
     private ResourceBundle myResources;
 

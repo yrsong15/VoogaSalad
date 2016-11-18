@@ -1,4 +1,4 @@
-package buttons;
+package buttons.interfaces;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
