@@ -9,7 +9,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 
-
+/**
+ * 
+ * @author pratikshasharma
+ *
+ */
 
 public class ButtonTemplate implements IButtonLayout {
     private Button myButton;
