@@ -1,5 +1,5 @@
 package general;
-import integration.ISplashScreen;
+import general.interfaces.ISplashScreen;
 import buttons.ButtonTemplate;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
