@@ -1,7 +1,9 @@
 package general;
+import gameeditor.view.GameEditorView;
 import general.interfaces.ISplashScreen;
 import buttons.ButtonTemplate;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,10 +61,12 @@ public class SplashScreen implements ISplashScreen {
     public void launchWith() {
     }
     @Override
-    public void launch() {
+    public void launchEditor() {
+        mainController.presentEditor();
     }
     @Override
     public void launchGallery() {
+        mainController.presentGallery();
     }
 //    @Override
     public void launchSelectedGalleryItem() {
@@ -77,13 +81,14 @@ public class SplashScreen implements ISplashScreen {
         Button editor = editorButton.getButton();
         editor.setTranslateX(100);
         editor.setTranslateY(280);
+        editor.setOnMouseClicked(e -> launchEditor());
         
         ButtonTemplate galleryButton = new ButtonTemplate("GameGallery");
         Button gallery = galleryButton.getButton();
         gallery.setTranslateX(100);
         gallery.setTranslateY(420);
         
-        gallery.setOnMouseClicked(e -> mainController.presentGallery());
+        gallery.setOnMouseClicked(e -> launchGallery());
         ButtonTemplate loaderButton = new ButtonTemplate("GameLoader");
         Button loader = loaderButton.getButton();
         

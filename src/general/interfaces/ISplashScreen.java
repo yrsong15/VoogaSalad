@@ -11,7 +11,7 @@ public interface ISplashScreen {
 
     void launchWith(); //take GameData param
 
-    void launch();
+    void launchEditor();
 
     void launchGallery();
 
