@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 
 
 
-public class GameEditorView implements IGameEditorView, IToolbarOutput {
+public class GameEditorView implements IGameEditorView, IToolbarParent {
 	
     private BorderPane myRoot;
     private ScrollPane myScrollPane;

@@ -20,10 +20,16 @@ public enum ViewResources {
 		DETAIL_PANE_BG(Color.SLATEGREY),
 		DETAIL_PANE_WIDTH(200),
 		AVATAR_ZONE_PADDING(25),
+		AVATAR_ZONE_RADIUS(25),
 		
 		// Command Pane
 		COMMAND_PANE_BG(Color.STEELBLUE),
 		COMMAND_PANE_WIDTH(75),
+		BUTTON_FILE_LOCATIONS(new String[] {"/Select.png", "/Create.png", "/Behavior.png", "/Controls.png"}),
+		BUTTON_RADIUS(5),
+		BUTTON_BG_COLOUR(Color.WHITESMOKE),
+		BORDER_OFF_COLOUR(Color.WHITESMOKE),
+		BORDER_ON_COLOUR(Color.LIGHTGREY),
 		
 		// Scroll Pane
 		SCROLLPANE_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
@@ -32,13 +38,20 @@ public enum ViewResources {
 		TOOLBAR_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
 		TOOLBAR_HEIGHT(75),
 		BUTTON_IMAGE_HEIGHT(50),
+		BUTTON_IMAGE_PADDING(25),
 		BUTTON_IMAGE_YOFFSET((ViewResources.TOOLBAR_HEIGHT.getDoubleResource() - ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource())/2),
 		BG_IMAGE_WIDTH_RATIO(1.15),
 		BG_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.BG_IMAGE_WIDTH_RATIO.getDoubleResource()),
-		BG_IMAGE_XOFFSET(ViewResources.TOOLBAR_WIDTH.getDoubleResource() - 25 - ViewResources.BG_IMAGE_WIDTH.getDoubleResource()),
+		BG_IMAGE_XOFFSET(ViewResources.TOOLBAR_WIDTH.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.BG_IMAGE_WIDTH.getDoubleResource()),
 		AVATAR_IMAGE_WIDTH_RATIO(0.88),
 		AVATAR_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.AVATAR_IMAGE_WIDTH_RATIO.getDoubleResource()),
-		AVATAR_IMAGE_XOFFSET(ViewResources.TOOLBAR_WIDTH.getDoubleResource() - 25 - ViewResources.BG_IMAGE_WIDTH.getDoubleResource() - 25 - ViewResources.AVATAR_IMAGE_WIDTH.getDoubleResource());
+		AVATAR_IMAGE_XOFFSET(ViewResources.BG_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.AVATAR_IMAGE_WIDTH.getDoubleResource()),
+		MUSIC_IMAGE_WIDTH_RATIO(0.91),
+		MUSIC_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.MUSIC_IMAGE_WIDTH_RATIO.getDoubleResource()),
+		MUSIC_IMAGE_XOFFSET(ViewResources.AVATAR_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.MUSIC_IMAGE_WIDTH.getDoubleResource()),
+		
+		
+		;
 	
 
     private double resourceDouble;
