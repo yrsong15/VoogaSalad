@@ -10,8 +10,6 @@ import javafx.scene.layout.Pane;
 
 public class CommandPane implements ICommandButtonOut {
 	
-
-	
 	private Pane myPane;
 	private double myPaneWidth = ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
 	
