@@ -1,7 +1,6 @@
-package base.gameengine.controller.designinterfaces;
+package base.gameengine.controller.interfaces;
 
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * This is the main controller class for the Game Engine that's responsible for handling the interaction between the

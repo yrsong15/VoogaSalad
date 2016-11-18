@@ -16,7 +16,7 @@ import javafx.util.Duration;
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou
  *
  */
-public class GameEngineController implements Observer{
+public class GameEngineController extends Observable{
 
 	private String xmlFileName;
     private GameParser parser;
@@ -33,10 +33,10 @@ public class GameEngineController implements Observer{
 		this.xmlFileName = xmlFileName;
 	}
 
-	@Override
 	public void update(Observable o, Object arg) {
-
+		setChanged();
+		notifyObservers();
+        //Update the View in some way
 	}
-
 }
 

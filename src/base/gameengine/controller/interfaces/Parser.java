@@ -1,4 +1,4 @@
-package base.gameengine.controller.designinterfaces;
+package base.gameengine.controller.interfaces;
 
 import java.lang.reflect.InvocationTargetException;
 
