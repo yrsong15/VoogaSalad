@@ -28,11 +28,13 @@ public class DesignArea implements IDesignArea {
 	public DesignArea() {
         myScrollPane = new ScrollPane();
 
-        myScrollPane.setPrefWidth(0.7*SCENE_WIDTH);
-        myScrollPane.setPrefHeight(SCENE_HEIGHT);
+        myScrollPane.setMinWidth(AREA_WIDTH);
+        myScrollPane.setMinHeight(AREA_HEIGHT);
+        myScrollPane.setMaxWidth(AREA_WIDTH);
+        myScrollPane.setMaxHeight(AREA_HEIGHT);
 
         myScrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+        myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);        
 		
 		myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 	}

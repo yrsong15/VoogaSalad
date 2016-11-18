@@ -31,9 +31,6 @@ public enum ViewResources {
 		BORDER_OFF_COLOUR(Color.WHITESMOKE),
 		BORDER_ON_COLOUR(Color.LIGHTGREY),
 		
-		// Scroll Pane
-		SCROLLPANE_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
-		
 		// Toolbar
 		TOOLBAR_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
 		TOOLBAR_HEIGHT(75),
@@ -50,6 +47,9 @@ public enum ViewResources {
 		MUSIC_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.MUSIC_IMAGE_WIDTH_RATIO.getDoubleResource()),
 		MUSIC_IMAGE_XOFFSET(ViewResources.AVATAR_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.MUSIC_IMAGE_WIDTH.getDoubleResource()),
 		
+		// Scroll Pane
+		AREA_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
+		AREA_HEIGHT(ViewResources.SCENE_HEIGHT.getDoubleResource() - ViewResources.TOOLBAR_HEIGHT.getDoubleResource()),
 		
 		;
 	
