@@ -1,6 +1,6 @@
 package usecases.mockObjects;
 
-import gameengine.model.Rule;
+import gameengine.model.interfaces.Rule;
 
 public class CollisionRule implements Rule{
 

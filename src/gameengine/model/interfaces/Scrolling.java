@@ -1,4 +1,4 @@
-package gameengine.model;
+package gameengine.model.interfaces;
 
 
 /**

@@ -1,4 +1,4 @@
-package gameengine.model;
+package gameengine.model.settings;
 
 import javafx.scene.media.AudioClip;
 

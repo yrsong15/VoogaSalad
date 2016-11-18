@@ -1,7 +1,8 @@
-package gameengine.model;
+package gameengine.model.settings;
 
 import java.util.List;
 
+import gameengine.model.interfaces.Rule;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

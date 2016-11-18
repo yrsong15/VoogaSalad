@@ -1,4 +1,4 @@
-package gameengine.rules;
+package gameengine.model.rules;
 
 import objects.GameObject;
 
