@@ -13,6 +13,7 @@ public class Level {
     private int level;
     private List<GameObject> gameObjects;
     private Map<String, String> externalRules;
+    private GameObject mainCharacter;
 
     public Level(int level){
         gameObjects = new ArrayList<GameObject>();
@@ -43,4 +44,12 @@ public class Level {
     public void removeRule(String type){
         externalRules.remove(type);
     }
+
+    public GameObject getMainCharacter(){
+        return mainCharacter;
+    }
+
+    public void setMainCharacter(GameObject character){
+        this.mainCharacter = mainCharacter;
+
 }

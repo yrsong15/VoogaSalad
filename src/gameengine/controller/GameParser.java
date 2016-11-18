@@ -6,7 +6,6 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  * @author ericsong
- *
  */
 public class GameParser implements Parser {
 

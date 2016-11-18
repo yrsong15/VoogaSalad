@@ -16,10 +16,9 @@ public class GalleryView
 {
 	private static final int GALLERY_WIDTH = 1200;
 	private static final int GALLERY_HEIGHT = 600;
-	private Gallery gallery;
-
-	private Pane galleryWindow;
 	private Scene scene;
+	private Gallery gallery;
+	private Pane galleryWindow;
 	
 	public GalleryView(Gallery gallery)
 	{
@@ -41,23 +40,11 @@ public class GalleryView
 	private void setUpWindow(){
 		galleryWindow = new Pane();
 		galleryWindow.setPrefSize(GALLERY_WIDTH, GALLERY_HEIGHT);
-//		String userDirectoryString = "file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
-		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/Background/spinningScreens.jpg";
-//			String userDirectoryString = myFileOpener.chooseFile(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION).toURI().toURL().toString();//"file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
-		Image background = new Image(userDirectoryString);
-		System.out.println(userDirectoryString);
-//		Image background = new Image(getClass().getClassLoader()
-//				.getResourceAsStream("images/background/bg.png"));
-		ImageView backgroundImageGalleryScreen = new ImageView(background);
-		backgroundImageGalleryScreen.setTranslateY(0);
-		backgroundImageGalleryScreen.setTranslateX(0);
-		backgroundImageGalleryScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
-		backgroundImageGalleryScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
-		galleryWindow.getChildren().add(backgroundImageGalleryScreen);
+		addGalleryBackgroundImage();
 		addGalleryBackdrop();
 		addGalleryButtons();
 		scene = new Scene(galleryWindow);
-		scene.getStylesheets().add(MainController.CSS_RESOURCE_PACKAGE + MainController.FILE_SEPARATOR + MainController.STYLESHEET);
+		scene.getStylesheets().add(MainController.STYLESHEET);
 
 	}
 	
@@ -72,12 +59,27 @@ public class GalleryView
 		// This method reconfigures the GalleryView so that it accurately presents all files in the gallery
 	}
 
+	private void addGalleryBackgroundImage(){
+		String userDirectoryString = "file:"
+				+ System.getProperty("user.dir")
+				+ "/images/Background/spinningScreens.jpg";
+		Image background = new Image(userDirectoryString);
+		System.out.println(userDirectoryString);
+		ImageView backgroundImageGalleryScreen = new ImageView(background);
+		backgroundImageGalleryScreen.setTranslateY(0);
+		backgroundImageGalleryScreen.setTranslateX(0);
+		backgroundImageGalleryScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
+		backgroundImageGalleryScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
+		galleryWindow.getChildren().add(backgroundImageGalleryScreen);
+	}
+
 	private void addGalleryBackdrop(){
 		Rectangle backdrop = new Rectangle(1000, 200, Color.MIDNIGHTBLUE);
 		backdrop.setTranslateX(100);
 		backdrop.setTranslateY(100);
 		backdrop.opacityProperty().setValue(0.5);
-
+		backdrop.heightProperty().bind(galleryWindow.heightProperty().subtract(400));
+		backdrop.widthProperty().bind(galleryWindow.widthProperty().subtract(200));
 
 		Text label = new Text("Gallery");
 		label.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -92,11 +94,15 @@ public class GalleryView
 		Button edit = newB.getButton();
 		edit.setTranslateX(400);
 		edit.setTranslateY(400);
+		edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
+		edit.translateXProperty().bind(galleryWindow.widthProperty().divide(2).subtract(300));
 
 		newB = new ButtonTemplate("GalleryGameEngine");
 		Button engine = newB.getButton();
 		engine.setTranslateX(600);
 		engine.setTranslateY(400);
+		engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
+		engine.translateXProperty().bind(galleryWindow.widthProperty().divide(2).add(100));
 
 		galleryWindow.getChildren().addAll(edit, engine);
 	}

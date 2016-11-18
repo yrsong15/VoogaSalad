@@ -40,8 +40,8 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 	
 	private void createAvatarZone(){
 		double padding = ViewResources.AVATAR_ZONE_PADDING.getDoubleResource();
-		double zoneWidth = myPaneWidth-2*padding;
-		double zoneHeight = 1.25*zoneWidth;
+		double zoneWidth = ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource();
+		double zoneHeight = ViewResources.AVATAR_ZONE_HEIGHT.getDoubleResource();;
 		double cornerRadius = padding;
 		double avZoneY = GameEditorView.SCENE_HEIGHT-padding-zoneHeight;
 		myAvatarZone = new Rectangle(padding, avZoneY, zoneWidth, zoneHeight);
