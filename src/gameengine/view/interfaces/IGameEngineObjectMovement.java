@@ -1,4 +1,4 @@
-package gameengine.view;
+package gameengine.view.interfaces;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javafx.scene.Node;
 public interface IGameEngineObjectMovement {
 	
 	/**
-	 * Moves a specific object/obstacle/character in a certain direction
+	 * Moves a specific objects/obstacle/character in a certain direction
 	 * @param object
 	 * @param xCoord
 	 * @param yCoord

@@ -1,4 +1,6 @@
-package objects;
+package objects.interfaces;
+
+import general.objects.GameObject;
 
 public interface IGameObjectFactory {
 
