@@ -1,4 +1,4 @@
-package gameEditorView;
+package editor.view;
 
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
