@@ -1,6 +1,5 @@
 package general;
 
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,15 +34,19 @@ public class GalleryView
 	private void setUpWindow(){
 		galleryWindow = new Pane();
 		galleryWindow.setPrefSize(GALLERY_WIDTH, GALLERY_HEIGHT);
-		String userDirectoryString = "file:" +  System.getProperty("user.dir")+ "/images/Background/bg.png";
+//		String userDirectoryString = "file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
+		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/Background/bg.png";
 //			String userDirectoryString = myFileOpener.chooseFile(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION).toURI().toURL().toString();//"file:" +  System.getProperty("user.dir")+ "/images/Background/floatingCubes.jpg";
 		Image background = new Image(userDirectoryString);
+		System.out.println(userDirectoryString);
 //		Image background = new Image(getClass().getClassLoader()
 //				.getResourceAsStream("images/background/bg.png"));
-		ImageView backgroundImageMainScreen = new ImageView(background);
-		backgroundImageMainScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
-		backgroundImageMainScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
-		galleryWindow.getChildren().add(backgroundImageMainScreen);
+		ImageView backgroundImageGalleryScreen = new ImageView(background);
+		backgroundImageGalleryScreen.setTranslateY(0);
+		backgroundImageGalleryScreen.setTranslateX(0);
+		backgroundImageGalleryScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
+		backgroundImageGalleryScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
+		galleryWindow.getChildren().add(backgroundImageGalleryScreen);
 		scene = new Scene(galleryWindow);
 	}
 	
