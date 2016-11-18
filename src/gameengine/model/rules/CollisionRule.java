@@ -1,6 +1,6 @@
 package gameengine.model.rules;
 
-import objects.GameObject;
+import general.objects.GameObject;
 
 public abstract class CollisionRule {
 

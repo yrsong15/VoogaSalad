@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gameengine.view;
+package gameengine.view.interfaces;
 
 import javafx.scene.layout.Pane;
 
