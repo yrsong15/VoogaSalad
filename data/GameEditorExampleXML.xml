@@ -1,17 +1,25 @@
-<level number="one" title="flappybird">
-	<gobject isdestructible="true" isstatic="false" ismainchar="yes">
-		<image input="bird.jpg"/>
-		<behavior input="spacebar" command="up" method="step"/>
-	</gobject>
-	<gobject isdestructible="false" isstatic="true" ismainchar="false">
-		<image input="greenpipe.jpg"/>
-	</gobject>
-	<rules>
-		<score method="objectivebased"/>
-		<time countdown="infinite"/>
-	</rules>
-	<settings>
-		<music input="payphone.mp3"/>
-		<image input="mountains.jpg"/>
-	</settings>
-</level>
+<root>
+	<level value="one" title="flappybird">
+		<gobject type="mainchar">
+			<position israndom="false" xcor="100" ycor="50"/>
+			<image file="bird.jpg"/>
+			<property health="1" static="false"/>
+			<behavior input="spacebar" command="up" method="step"/>
+		</gobject>
+		<gobject type="flappybirdpipe">
+			<position israndom="true" spacing="250" minheight="100" maxheight="500"/>
+			<image file="greenpipe.jpg"/>
+			<property damage="1" points="1" static="true"/>
+		</gobject>
+		<rules>
+			<scrolltype value="forced" direction="right"/>
+			<score condition="objectivebased"/>
+			<time limit="infinite"/>
+			<boundaries bottom="die"/>
+		</rules>
+		<settings>
+			<music file="payphone.mp3"/>
+			<image file="mountains.jpg"/>
+		</settings>
+	</level>
+</root>
