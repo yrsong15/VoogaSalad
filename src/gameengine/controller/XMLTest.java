@@ -2,9 +2,9 @@ package gameengine.controller;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import general.objects.Game;
-import general.objects.GameObject;
-import general.objects.Level;
+import objects.Game;
+import objects.GameObject;
+import objects.Level;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
