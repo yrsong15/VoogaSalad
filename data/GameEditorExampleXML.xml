@@ -1,25 +1,21 @@
-<root>
-	<level value="one" title="flappybird">
-		<gobject type="mainchar">
-			<position israndom="false" xcoor="100" ycoor="50"/>
-			<image file="bird.jpg"/>
-			<property health="1" static="false"/>
-			<behavior input="spacebar" command="up" method="step"/>
-		</gobject>
-		<gobject type="flappybirdpipe">
-			<position israndom="true" spacing="250" minheight="100" maxheight="500"/>
-			<image file="greenpipe.jpg"/>
-			<property damage="1" points="1" static="true"/>
-		</gobject>
-		<rules>
-			<scrolltype value="forced" direction="right"/>
-			<score condition="objectivebased"/>
-			<time limit="infinite"/>
-			<boundaries bottom="die"/>
-		</rules>
-		<settings>
-			<music file="payphone.mp3"/>
-			<image file="mountains.jpg"/>
-		</settings>
-	</level>
-</root>
+<general.objects.Game>
+	<name>flappy bird</name>
+	<levels>
+		<general.objects.Level>
+			<level>1</level>
+			<gameObjects>
+				<general.objects.GameObject>
+					<xPosition>1.0</xPosition>
+					<yPosition>2.0</yPosition>
+					<imageFileName>hi</imageFileName>
+					<properties>
+						<entry>
+							<string>collidable</string>
+							<string>die</string>
+						</entry>
+					</properties>
+				</general.objects.GameObject>
+			</gameObjects>
+		</general.objects.Level>
+	</levels>
+</general.objects.Game>
