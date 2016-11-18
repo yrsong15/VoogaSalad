@@ -1,6 +1,6 @@
 package gameEditorView;
 
-public interface IToolbarOutput {
+public interface IToolbarParent {
 
 	public void setBackground();
 	

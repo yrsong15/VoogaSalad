@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 
 
 
-public class GameEditorView implements IGameEditorView, IToolbarParent {
+public class AltGameEditorView implements IGameEditorView{//, IToolbarOutput {
 	
     private BorderPane myRoot;
     private ScrollPane myScrollPane;
@@ -27,9 +27,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private VBox myCenterBox;
     private IEditorToolbar myToolbar;
     private IDesignArea myDesignArea;
-    private IDetailPane myDetailPane;
+    //private ILeftDetailPane myDetailPane;
 
-    public GameEditorView(){
+    public AltGameEditorView(){
         myRoot = new BorderPane();    
     }
 
@@ -40,11 +40,11 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
     
     private HBox createLeftAlt(){
-    	CommandPane lbp = new CommandPane();
-    	myDetailPane = new DetailPane();
+    	//LeftButtonPane lbp = new LeftButtonPane();
+    	//myDetailPane = new LeftDetailPane();
     	myLeftBox = new HBox();
-    	myLeftBox.getChildren().add(lbp.getPane());
-    	myLeftBox.getChildren().add(myDetailPane.getPane());
+    	//myLeftBox.getChildren().add(lbp.getPane());
+    	//myLeftBox.getChildren().add(myDetailPane.getPane());
     	return myLeftBox;
     }
     
@@ -52,7 +52,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     	myCenterBox = new VBox();
     	myDesignArea = new DesignArea();
     	myScrollPane = myDesignArea.getScrollPane();
-    	myToolbar = new EditorToolbar(this);
+//    	myToolbar = new EditorToolbar(this);
     	myCenterBox.getChildren().add(myToolbar.getPane());
     	myCenterBox.getChildren().add(myScrollPane);
     	return myCenterBox;
@@ -69,11 +69,13 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         HBox myHBox = new HBox();
         FileOpener myFileOpener = new FileOpener();
         try {
-            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION).toURI().toURL().toString();
+            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE,BG_IMAGE_LOCATION).toURI().toURL().toString();
             //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
             //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
             //myPane.setBackground(new Background(bg));
 
+            System.out.println(" File Path " + filePath);
+            
             ImageView backgroundImage = new ImageView(new Image(filePath));
             backgroundImage.setFitHeight(SCENE_HEIGHT);
             backgroundImage.setFitWidth(SCENE_WIDTH);
@@ -98,11 +100,15 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     	FileOpener myFileOpener = new FileOpener();
         try {
             String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION).toURI().toURL().toString();
+            
             //BackgroundSize b = new BackgroundSize(SCENE_WIDTH*4, SCENE_HEIGHT, false, false,false, true);
             //BackgroundImage bg = new BackgroundImage(new Image(filePath), null, null, null, b);
             //myPane.setBackground(new Background(bg));
+           
+            
             Image newAvatar = new Image(filePath);
-            myDetailPane.setAvatar(newAvatar);
+            
+            //myDetailPane.setAvatar(newAvatar);
         } catch (MalformedURLException error) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setContentText("No File Chosen");
