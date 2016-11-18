@@ -18,7 +18,7 @@ public class Gallery {
 	}
 	
 	public void addToGallery(String gameName, String XMLData) throws IOException {
-		FileUtils.writeStringToFile(new File(gameName), XMLData);
+		FileUtils.writeStringToFile(new File(gameName), XMLData, true);
 		gallery.put(gameName, XMLData);
 	}
 	

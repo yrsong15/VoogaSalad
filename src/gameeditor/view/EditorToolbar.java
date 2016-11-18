@@ -1,5 +1,6 @@
 package gameeditor.view;
 
+import gameeditor.view.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -15,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 
-public class EditorToolbar implements IEditorToolbar {
+public class EditorToolbar implements gameeditor.view.IEditorToolbar {
 
 	// TODO: Remove hardcoding of the following values
 	// Min Width, Max Width, Min Height
