@@ -3,21 +3,17 @@ package gameengine.controller;
 import gameengine.controller.interfaces.Parser;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import objects.Game;
 
 /**
  * @author ericsong
  */
-public class GameParser implements Parser {
+public class GameParser {
 
     private XStream mySerializer = new XStream(new DomDriver());
 
-	public GameParser() {
-
-	}
-	
-	@Override
-	public void processXML(String fileName){
-        mySerializer.fromXML(fileName);
+	public Game convertXMLtoGame(String xmlData){
+        return (Game) mySerializer.fromXML(xmlData);
 	}
 
 }

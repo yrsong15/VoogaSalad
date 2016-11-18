@@ -12,10 +12,11 @@ import objects.Level;
  */
 public class GameEngineController extends Observable{
 
-	private String xmlFileName;
+	private String xmlData;
     private GameParser parser;
     private CollisionChecker collisionChecker;
     private boolean gameOver;
+	private Game currentGame;
 
 	public GameEngineController() {
 		parser = new GameParser();
@@ -23,7 +24,7 @@ public class GameEngineController extends Observable{
 	}
 
 	public void startGame() {
-        parser.processXML(xmlFileName);
+        currentGame = parser.convertXMLtoGame(xmlData);
         gameOver = false;
         while (!gameOver){
         	loopGame();
@@ -39,8 +40,8 @@ public class GameEngineController extends Observable{
 		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects());
 	}
 
-	public void setCurrentXML(String xmlFileName) {
-		this.xmlFileName = xmlFileName;
+	public void setCurrentXML(String xmlData) {
+		this.xmlData = xmlData;
 	}
 
 	public void update(Observable o, Object arg) {
