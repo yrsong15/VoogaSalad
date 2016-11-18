@@ -1,4 +1,4 @@
-package integration;
+package general.interfaces;
 
 import javafx.scene.Parent;
 

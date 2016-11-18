@@ -1,4 +1,4 @@
-package integration;
+package general.interfaces;
 
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
