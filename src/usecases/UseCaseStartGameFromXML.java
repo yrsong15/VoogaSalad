@@ -1,6 +1,6 @@
 package usecases;
 
-import base.gameengine.controller.GameEngineController;
+import gameengine.controller.GameEngineController;
 
 import java.lang.reflect.InvocationTargetException;
 

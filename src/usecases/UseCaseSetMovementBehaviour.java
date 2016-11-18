@@ -1,26 +1,16 @@
 package usecases;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import base.gameeditor.IGameEditorFrontend;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import gameeditor.interfaces.IGameEditorFrontend;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-import usecases.mockObjects.UseCaseBehavior;
 import usecases.mockObjects.UseCaseGObject;
 
 /**
  * 
  * This is a use case that corresponds to the following situation:
  * 
- * An sprite object is selected in the Game Editor, the movement behaviors are
+ * An sprite objects is selected in the Game Editor, the movement behaviors are
  * then set accordingly, adding the properties to the corresponding GObject element
  * in the XML file to be passed to the Game Engine.
  * 

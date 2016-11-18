@@ -1,7 +1,9 @@
 package buttons;
 
-import java.io.File;
+import java.util.Locale;
 import java.util.ResourceBundle;
+
+import buttons.interfaces.IButtonLayout;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,7 +11,7 @@ import javafx.scene.text.Font;
 
 
 
-public class ButtonTemplate implements IButtonLayout{
+public class ButtonTemplate implements IButtonLayout {
     private Button myButton;
     private ResourceBundle myResources;
 
@@ -18,7 +20,8 @@ public class ButtonTemplate implements IButtonLayout{
      * Creates a button based on the String property
      */
     public ButtonTemplate(String property){     
-        myResources = ResourceBundle.getBundle(PROPERTIES_RESOURCE_PACKAGE + "/" + BUTTON_LABEL_FILE );
+        myResources = ResourceBundle.getBundle(BUTTON_LABEL_FILE, Locale.getDefault());
+
         String label = myResources.getString(property);
         myButton = new Button(label);
     }

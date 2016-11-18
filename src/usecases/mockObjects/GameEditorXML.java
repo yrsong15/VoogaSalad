@@ -2,8 +2,6 @@ package usecases.mockObjects;
 
 import org.w3c.dom.Document;
 
-import base.gameeditor.IGameEditorXML;
-
 public class GameEditorXML{
 
 	public void createXMLFile() {
