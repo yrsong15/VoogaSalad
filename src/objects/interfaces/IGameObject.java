@@ -1,4 +1,4 @@
-package general.objects.interfaces;
+package objects.interfaces;
 
 import javafx.scene.image.ImageView;
 

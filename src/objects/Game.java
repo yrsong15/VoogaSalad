@@ -1,7 +1,7 @@
-package general.objects;
+package objects;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Soravit on 11/18/2016.
@@ -9,15 +9,15 @@ import java.util.List;
 public class Game {
 
     private String name;
-    private List<Level> levels;
+    private Map<Level, Integer> levels;
 
     public Game(String name){
-        levels = new ArrayList<Level>();
+        levels = new HashMap<Level, Integer>();
         this.name = name;
     }
 
     public void addLevel(Level level){
-        levels.add(level);
+        levels.put(level, level.getLevel());
     }
 
     public void removeLevel(Level level){
