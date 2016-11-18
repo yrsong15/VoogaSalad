@@ -34,7 +34,7 @@ public class GameEngineController extends Observable{
 	 */
 	public void loopGame(){
 		Game mainGame;
-		//CollisionChecker.checkCollisions();
+		CollisionChecker.checkCollisions();
 	}
 
 	public void setCurrentXML(String xmlFileName) {
