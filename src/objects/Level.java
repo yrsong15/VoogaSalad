@@ -1,7 +1,9 @@
 package objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Soravit on 11/18/2016.
@@ -10,9 +12,11 @@ public class Level {
 
     private int level;
     private List<GameObject> gameObjects;
+    private Map<String, String> externalRules;
 
     public Level(int level){
         gameObjects = new ArrayList<GameObject>();
+        externalRules = new HashMap<String, String>();
         this.level = level;
     }
 
@@ -30,5 +34,13 @@ public class Level {
 
     public void removeGameObject(GameObject go){
         gameObjects.remove(go);
+    }
+
+    public void addRule(String type, String action){
+        externalRules.put(type, action);
+    }
+
+    public void removeRule(String type){
+        externalRules.remove(type);
     }
 }

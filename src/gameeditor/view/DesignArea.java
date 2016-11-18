@@ -2,6 +2,7 @@ package gameeditor.view;
 
 import java.net.MalformedURLException;
 
+import gameeditor.view.interfaces.IDesignArea;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;

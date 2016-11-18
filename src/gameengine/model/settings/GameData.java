@@ -7,9 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameData {
-	//TODO: ADD OBSERVABLES TO VALUES LATER
-	
-	private List<Rule> currentRules;
+
 	private Music currentBackgroundMusic;
 	private ImageView backgroundImage;
 	

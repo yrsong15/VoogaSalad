@@ -1,6 +1,9 @@
 package gameeditor.view;
 
 import java.io.File;
+
+import gameeditor.view.interfaces.IFileOpener;
+import gameeditor.view.interfaces.IGameEditorView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 

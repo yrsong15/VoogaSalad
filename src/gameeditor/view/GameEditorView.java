@@ -2,6 +2,7 @@ package gameeditor.view;
 
 import java.net.MalformedURLException;
 import buttons.ButtonTemplate;
+import gameeditor.view.interfaces.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;

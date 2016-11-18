@@ -3,6 +3,9 @@ package gameeditor.view;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import gameeditor.view.interfaces.ICommandButton;
+import gameeditor.view.interfaces.ICommandButtonOut;
+import gameeditor.view.interfaces.ICommandDetailDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
