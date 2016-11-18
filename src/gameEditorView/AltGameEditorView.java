@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 
 
 
-public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
+public class AltGameEditorView implements IGameEditorView{//, IToolbarOutput {
 	
     private BorderPane myRoot;
     private ScrollPane myScrollPane;
@@ -52,7 +52,7 @@ public class AltGameEditorView implements IGameEditorView, IToolbarOutput {
     	myCenterBox = new VBox();
     	myDesignArea = new DesignArea();
     	myScrollPane = myDesignArea.getScrollPane();
-    	myToolbar = new EditorToolbar(this);
+//    	myToolbar = new EditorToolbar(this);
     	myCenterBox.getChildren().add(myToolbar.getPane());
     	myCenterBox.getChildren().add(myScrollPane);
     	return myCenterBox;
