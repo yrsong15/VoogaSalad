@@ -1,7 +1,7 @@
 <root>
 	<level value="one" title="flappybird">
 		<gobject type="mainchar">
-			<position israndom="false" xcor="100" ycor="50"/>
+			<position israndom="false" xcoor="100" ycoor="50"/>
 			<image file="bird.jpg"/>
 			<behavior input="spacebar" command="up" method="step"/>
 			<property health="1" destructible="true" static="false"/>
