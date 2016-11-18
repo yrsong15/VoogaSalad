@@ -21,7 +21,7 @@ public class XMLTest {
     public static void main(String[] args) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException, NoSuchMethodException, ClassNotFoundException {
         Game game = new Game("flappy bird");
         map.put("collidable", "die");
-        GameObject go = new GameObject(1, 2, "hi", map);
+        GameObject go = new GameObject(1, 2, 50, 50, "hi", map);
         Level level = new Level(1);
         level.addGameObject(go);
         game.addLevel(level);

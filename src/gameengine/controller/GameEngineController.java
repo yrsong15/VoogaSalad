@@ -3,6 +3,7 @@ package gameengine.controller;
 import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
+import objects.Game;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou
@@ -10,10 +11,11 @@ import gameengine.model.CollisionChecker;
  */
 public class GameEngineController extends Observable{
 
-	private String xmlFileName;
+	private String xmlData;
     private GameParser parser;
     private CollisionChecker collisionChecker;
     private boolean gameOver;
+	private Game currentGame;
 
 	public GameEngineController() {
 		parser = new GameParser();
@@ -21,7 +23,7 @@ public class GameEngineController extends Observable{
 	}
 
 	public void startGame() {
-        parser.processXML(xmlFileName);
+        currentGame = parser.convertXMLtoGame(xmlData);
         gameOver = false;
         while (!gameOver){
         	loopGame();
@@ -35,8 +37,8 @@ public class GameEngineController extends Observable{
 		
 	}
 
-	public void setCurrentXML(String xmlFileName) {
-		this.xmlFileName = xmlFileName;
+	public void setCurrentXML(String xmlData) {
+		this.xmlData = xmlData;
 	}
 
 	public void update(Observable o, Object arg) {
