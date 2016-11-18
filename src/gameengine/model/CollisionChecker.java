@@ -7,6 +7,7 @@ import objects.GameObject;
 public class CollisionChecker {
 	
 	public CollisionChecker(){
+		String temp = "";
 		
 	}
 	

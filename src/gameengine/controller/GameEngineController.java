@@ -4,6 +4,7 @@ import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
 import objects.Game;
+import objects.Level;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou
@@ -33,8 +34,9 @@ public class GameEngineController extends Observable{
 	 * Applies gravity and scrolls, checks for collisions
 	 */
 	public void loopGame(){
-		Game mainGame;
-		CollisionChecker.checkCollisions();
+		Game mainGame = null;
+		Level currLevel = mainGame.getCurrentLevel();
+		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects());
 	}
 
 	public void setCurrentXML(String xmlFileName) {
