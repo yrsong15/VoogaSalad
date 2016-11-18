@@ -13,7 +13,8 @@ public class FileOpener implements IFileOpener {
         FileChooser fileChooser = new FileChooser();
         addFileExtensionFilter(fileType,fileChooser);
         //String userDirectoryString = System.getProperty("user.dir") + File.separator + "images.Obstacles";
-        String userDirectoryString = System.getProperty("user.dir") + File.separator + fileLocation;
+        String userDirectoryString = System.getProperty("user.dir") + "/" + fileLocation;
+//        System.out.print(userDirectoryString);
         File userDirectory = new File(userDirectoryString);
         fileChooser.setInitialDirectory(userDirectory);
         File chosenFile = fileChooser.showOpenDialog(myStage);

@@ -1,4 +1,4 @@
-package base.gameengine.controller;
+package base.gameengine.controller.designinterfaces;
 
 import java.util.Observable;
 import java.util.Observer;

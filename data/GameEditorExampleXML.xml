@@ -3,13 +3,13 @@
 		<gobject type="mainchar">
 			<position israndom="false" xcoor="100" ycoor="50"/>
 			<image file="bird.jpg"/>
+			<property health="1" static="false"/>
 			<behavior input="spacebar" command="up" method="step"/>
-			<property health="1" destructible="true" static="false"/>
 		</gobject>
 		<gobject type="flappybirdpipe">
 			<position israndom="true" spacing="250" minheight="100" maxheight="500"/>
 			<image file="greenpipe.jpg"/>
-			<property damage="1" points="1" destructible="false" static="true"/>
+			<property damage="1" points="1" static="true"/>
 		</gobject>
 		<rules>
 			<scrolltype value="forced" direction="right"/>
