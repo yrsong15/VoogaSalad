@@ -1,4 +1,4 @@
-package objects.interfaces;
+package general.objects.interfaces;
 
 import general.objects.GameObject;
 
