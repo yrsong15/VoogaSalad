@@ -17,6 +17,7 @@ public class GameEngineController extends Observable{
 
 	public void startGame() {
         parser.processXML(xmlFileName);
+        
 	}
 
 	public void setCurrentXML(String xmlFileName) {
