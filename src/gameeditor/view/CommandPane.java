@@ -16,7 +16,7 @@ public class CommandPane implements ICommandButtonOut {
 	private Pane myPane;
 	private double myPaneWidth = ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
 	
-	private ArrayList<ICommandButton> myButtons = new ArrayList<ICommandButton>(); 
+	private ArrayList<ICommandButton> myButtons = new ArrayList<ICommandButton>();
 	private int numButtons = 0;
 
 	public CommandPane(ICommandDetailDisplay commandDetailDisplay) {
