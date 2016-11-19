@@ -1,4 +1,4 @@
-package gameeditor.view;
+package gameeditor.view.interfaces;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;

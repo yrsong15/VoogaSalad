@@ -1,4 +1,4 @@
-package gameeditor.view;
+package gameeditor.view.interfaces;
 
 public interface IToolbarParent {
 

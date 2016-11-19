@@ -1,5 +1,7 @@
 package gameeditor.view;
 
+import gameeditor.view.interfaces.ICommandDetailDisplay;
+import gameeditor.view.interfaces.IDetailPane;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -11,6 +13,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import gameeditor.commanddetails.*;
+import gameeditor.view.interfaces.ICommandDetailDisplay;
+import gameeditor.view.interfaces.IDetailPane;
 
 
 
