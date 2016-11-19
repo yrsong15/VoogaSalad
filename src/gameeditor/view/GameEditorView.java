@@ -99,6 +99,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);      
     }
 
+
     private String getFilePath(String fileType, String fileLocation){
         FileOpener myFileOpener = new FileOpener();
         File file =(myFileOpener.chooseFile(fileType, fileLocation));
@@ -108,3 +109,4 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         return null;
     }
 }
+

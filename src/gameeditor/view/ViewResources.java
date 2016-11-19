@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 public enum ViewResources {
 		IMAGE_FILE_TYPE("Image"),
 		MUSIC_FILE_TYPE("Music"),
+		MUSIC_FILE_LOCATION("music/"),
 		BG_FILE_LOCATION("images/Background"),
 		IMAGE_FILE_LOCATION("images/Toolbar"),
 		AVATAR_IMAGE_LOCATION("images/Sprite"),
@@ -52,7 +53,7 @@ public enum ViewResources {
 		MUSIC_IMAGE_XOFFSET(ViewResources.AVATAR_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.MUSIC_IMAGE_WIDTH.getDoubleResource()),
 		LOAD_IMAGE_WIDTH_RATIO(0.90),
 		
-		//LOAD_GAME_IMAGE_XOFFSET ( 400),
+		
 		LOAD_GAME_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.LOAD_IMAGE_WIDTH_RATIO.getDoubleResource()),
 		LOAD_GAME_IMAGE_XOFFSET(ViewResources.MUSIC_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.LOAD_GAME_IMAGE_WIDTH.getDoubleResource()),
              
