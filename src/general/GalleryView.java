@@ -99,6 +99,7 @@ public class GalleryView
 		edit.setTranslateY(400);
 		edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
 		edit.translateXProperty().bind(galleryWindow.widthProperty().divide(2).subtract(300));
+		edit.setOnMouseClicked(e -> myMainController.presentEditor()); //pass in an XML to the editor eventually
 
 		newB = new ButtonTemplate("GalleryGameEngine");
 		Button engine = newB.getButton();
