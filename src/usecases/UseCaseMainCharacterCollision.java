@@ -1,6 +1,6 @@
 package usecases;
 
-import base.gameengine.controller.GameEngineController;
+import gameengine.controller.GameEngineController;
 import usecases.mockObjects.BasicParser;
 import usecases.mockObjects.GameEditorXML;
 
@@ -20,7 +20,7 @@ public class UseCaseMainCharacterCollision{
 		GameEditorXML XMLEditor = new GameEditorXML();
 		BasicParser parser = new BasicParser(); 
 		parser.processXML(XMLEditor.getXML().toString());
-		GameEngineController engineController = new GameEngineController(parser, null);
+		GameEngineController engineController = new GameEngineController();
 		engineController.update(null, null);
 	}
 	

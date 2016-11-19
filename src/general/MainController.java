@@ -1,42 +1,61 @@
 package general;
 
 
-import java.io.File;
-import gameEditorView.GameEditorView;
+import gameeditor.controller.GameEditorController;
+import gameeditor.view.GameEditorView;
+import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-
 public class MainController {
-   public static final String STYLESHEET = "default.css";
-     public static final String CSS_RESOURCE_PACKAGE = "resources";
-    public static final String FILE_SEPARATOR = "/";
+    public static final String STYLESHEET = "default.css";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
-    private Stage galleryStage = new Stage();
-    private Gallery gallery;
+    private Stage myGalleryStage;
+    private Gallery myGallery;
+    private GalleryView myGalleryView;
+    private Stage myGameEditorStage;
+    //private GameEditorView myGameEditorView;
+    private GameEditorController myGameEditorController;
+    private GameEngineController myGameEngineController;
 
-    public MainController(Stage stage){
-        Scene scene = new Scene(new SplashScreen(stage,this).setUpWindow());
+    public MainController(Stage stage) {
+       
+        Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
         //GameEditorView myView = new GameEditorView();
         //Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
-        scene.getStylesheets().add(CSS_RESOURCE_PACKAGE + FILE_SEPARATOR + STYLESHEET);
+        scene.getStylesheets().add(STYLESHEET);
         stage.setScene(scene);
         stage.setTitle("VoogaSalad");
         stage.show();
-        initializeGallery();
-    }
-
-    private void initializeGallery()
-    {
-        this.gallery = new Gallery();
     }
 
     public void presentGallery() {
-        GalleryView galleryView = new GalleryView(gallery);
-        galleryStage.setScene(galleryView.getScene());
-        galleryStage.setTitle(GALLERY_STAGE_TITLE);
-        galleryStage.show();
+        System.out.println("present");
+        initializeGallery();
+        myGalleryView = new GalleryView(myGallery, this);
+        myGalleryStage.setScene(myGalleryView.getScene());
+        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
+        myGalleryStage.show();
     }
 
+    private void initializeGallery() {
+        this.myGallery = new Gallery();
+        this.myGalleryStage = new Stage();
+    }
+
+    public void presentEditor() {
+        myGameEditorStage = new Stage();
+        myGameEditorController = new GameEditorController();
+        //myGameEditorView = new GameEditorView();
+        Scene scene = new Scene(myGameEditorController.startEditor(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
+        myGameEditorStage.setScene(scene);
+        myGameEditorStage.show();
+    }
+
+    public void launchEngine(String XMLData){
+        myGameEngineController = new GameEngineController();
+        myGameEngineController.setCurrentXML(XMLData);
+        myGameEngineController.startGame();
+    }
 }
