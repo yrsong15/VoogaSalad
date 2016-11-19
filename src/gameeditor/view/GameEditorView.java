@@ -11,6 +11,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -31,7 +34,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
-
+    
     public GameEditorView(){
         myRoot = new BorderPane();    
     }
@@ -65,41 +68,37 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     public void setBackground(){
         HBox myHBox = new HBox();
-        
         String filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
         if(filePath!=null){
+            
             ImageView backgroundImage = new ImageView(new Image(filePath));
             backgroundImage.setFitHeight(SCENE_HEIGHT);
             backgroundImage.setFitWidth(SCENE_WIDTH);
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
             myHBox.getChildren().add(backgroundImage);        
             myScrollPane.setContent(myHBox);
+                  
         } 
-
     }
-
-
+ 
     public void setAvatar(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
         if(filePath!=null){
             Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(newAvatar);
         } 
-
     }
-
 
     @Override
     public void sendDataToGameEngine () {
         // Call in the XMlSerializer to send the Xml file 
-        System.out.println(" Send Data " );
+        System.out.println(" Send Data ");
     }
 
     public void setMusic(){
-       String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);      
+       String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);       
     }
-
-
+    
     private String getFilePath(String fileType, String fileLocation){
         FileOpener myFileOpener = new FileOpener();
         File file =(myFileOpener.chooseFile(fileType, fileLocation));
