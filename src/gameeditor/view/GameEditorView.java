@@ -1,29 +1,31 @@
 package gameeditor.view;
 
-import java.net.MalformedURLException;
-import buttons.ButtonTemplate;
+import java.io.File;
+import frontend.util.FileOpener;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IToolbarParent;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
-
+/**
+ * 
+ * @author pratikshasharma, John
+ *
+ */
 public class GameEditorView implements IGameEditorView, IToolbarParent {
-	
+
     private BorderPane myRoot;
     private ScrollPane myScrollPane;
     private HBox myLeftBox;
@@ -32,7 +34,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
-
+    
     public GameEditorView(){
         myRoot = new BorderPane();    
     }
@@ -42,68 +44,68 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myRoot.setCenter(createCenter());
         return myRoot;
     }
-    
+
     private HBox createLeftAlt(){
-    	DetailPane dp = new DetailPane();
-    	myDetailPane = dp;
-    	myCommandPane = new CommandPane(dp);
-    	myLeftBox = new HBox();
-    	myLeftBox.getChildren().add(myCommandPane.getPane());
-    	myLeftBox.getChildren().add(myDetailPane.getPane());
-    	return myLeftBox;
+        DetailPane dp = new DetailPane();
+        myDetailPane = dp;
+        myCommandPane = new CommandPane(dp);
+        myLeftBox = new HBox();
+        myLeftBox.getChildren().add(myCommandPane.getPane());
+        myLeftBox.getChildren().add(myDetailPane.getPane());
+        return myLeftBox;
     }
-    
+
     private VBox createCenter(){
-    	myCenterBox = new VBox();
-    	myDesignArea = new DesignArea();
-    	myScrollPane = myDesignArea.getScrollPane();
-    	myToolbar = new EditorToolbar(this);
-    	myCenterBox.getChildren().add(myToolbar.getPane());
-    	myCenterBox.getChildren().add(myScrollPane);
-    	return myCenterBox;
+        myCenterBox = new VBox();
+        myDesignArea = new DesignArea();
+        myScrollPane = myDesignArea.getScrollPane();
+        myToolbar = new EditorToolbar(this);
+        myCenterBox.getChildren().add(myToolbar.getPane());
+        myCenterBox.getChildren().add(myScrollPane);
+        return myCenterBox;
     }
 
 
-//    private Button makeButton(String property, EventHandler<ActionEvent>  handler){
-//        ButtonTemplate button = new ButtonTemplate(property);
-//        button.getButton().setOnAction(handler);
-//        return button.getButton();
-//    }
-    
     public void setBackground(){
         HBox myHBox = new HBox();
-        FileOpener myFileOpener = new FileOpener();
-        try {
-            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION).toURI().toURL().toString();
-
+        String filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
+        if(filePath!=null){
+            
             ImageView backgroundImage = new ImageView(new Image(filePath));
             backgroundImage.setFitHeight(SCENE_HEIGHT);
             backgroundImage.setFitWidth(SCENE_WIDTH);
-            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);
-            
-            myHBox.getChildren().add(backgroundImage);
-            
+            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
+            myHBox.getChildren().add(backgroundImage);        
             myScrollPane.setContent(myHBox);
-
-        } catch (MalformedURLException error) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("No File Chosen");
-            alert.showAndWait();
-        }
+                  
+        } 
     }
-
-
+ 
     public void setAvatar(){
-    	FileOpener myFileOpener = new FileOpener();
-        try {
-            String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION).toURI().toURL().toString();
+        String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
+        if(filePath!=null){
             Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(newAvatar);
-        } catch (MalformedURLException error) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("No File Chosen");
-            alert.showAndWait();
-        }
+        } 
     }
 
+    @Override
+    public void sendDataToGameEngine () {
+        // Call in the XMlSerializer to send the Xml file 
+        System.out.println(" Send Data ");
+    }
+
+    public void setMusic(){
+       String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);       
+    }
+    
+    private String getFilePath(String fileType, String fileLocation){
+        FileOpener myFileOpener = new FileOpener();
+        File file =(myFileOpener.chooseFile(fileType, fileLocation));
+        if(file !=null){
+            return file.toURI().toString();
+        }
+        return null;
+    }
 }
+

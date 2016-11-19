@@ -1,6 +1,6 @@
 package general;
 
-import buttons.ButtonTemplate;
+import frontend.util.ButtonTemplate;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

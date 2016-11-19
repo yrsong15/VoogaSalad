@@ -1,8 +1,8 @@
 package general;
 
+import frontend.util.ButtonTemplate;
 import gameeditor.view.GameEditorView;
 import general.interfaces.ISplashScreen;
-import buttons.ButtonTemplate;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

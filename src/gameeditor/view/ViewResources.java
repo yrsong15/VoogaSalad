@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 public enum ViewResources {
 		IMAGE_FILE_TYPE("Image"),
 		MUSIC_FILE_TYPE("Music"),
+		MUSIC_FILE_LOCATION("music/"),
 		BG_FILE_LOCATION("images/Background"),
 		IMAGE_FILE_LOCATION("images/Toolbar"),
 		AVATAR_IMAGE_LOCATION("images/Sprite"),
@@ -50,6 +51,12 @@ public enum ViewResources {
 		MUSIC_IMAGE_WIDTH_RATIO(0.91),
 		MUSIC_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.MUSIC_IMAGE_WIDTH_RATIO.getDoubleResource()),
 		MUSIC_IMAGE_XOFFSET(ViewResources.AVATAR_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.MUSIC_IMAGE_WIDTH.getDoubleResource()),
+		LOAD_IMAGE_WIDTH_RATIO(0.90),
+		
+		
+		LOAD_GAME_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.LOAD_IMAGE_WIDTH_RATIO.getDoubleResource()),
+		LOAD_GAME_IMAGE_XOFFSET(ViewResources.MUSIC_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.LOAD_GAME_IMAGE_WIDTH.getDoubleResource()),
+             
 		
 		// Scroll Pane
 		AREA_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
