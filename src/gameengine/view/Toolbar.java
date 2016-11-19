@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
  */
 public class Toolbar implements IToolbar {
 
-	public static final String DEFAULT_RESOURCE_PACKAGE = "resources.properties/GameEngineUI";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/GameEngineUI";
 	
 	private ResourceBundle myResources;
 	private HBox myToolbar;
