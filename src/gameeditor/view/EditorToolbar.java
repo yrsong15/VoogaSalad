@@ -29,6 +29,7 @@ public class EditorToolbar implements IEditorToolbar {
 	private ImageView myBackgroundImageView;
 	private ImageView myAvatarImageView;
 	private ImageView myMusicImageView;
+	private ImageView myLoadGameImageView;
 	
 	public EditorToolbar(IToolbarParent toolOut) {
 		myOutput = toolOut;
@@ -38,7 +39,10 @@ public class EditorToolbar implements IEditorToolbar {
 		myPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		createButton(myBackgroundImageView, "/Background.png", BG_IMAGE_WIDTH, BG_IMAGE_XOFFSET, e -> myOutput.setBackground());
 		createButton(myAvatarImageView, "/Avatar.png", AVATAR_IMAGE_WIDTH, AVATAR_IMAGE_XOFFSET, e -> myOutput.setAvatar());
-		createButton(myMusicImageView, "/Music.png", MUSIC_IMAGE_WIDTH, MUSIC_IMAGE_XOFFSET, e -> myOutput.setBackground());
+		createButton(myMusicImageView, "/Music.png", MUSIC_IMAGE_WIDTH, MUSIC_IMAGE_XOFFSET, e -> myOutput.setMusic());
+	
+		// Create load button
+		createButton(myLoadGameImageView,"/Load.png",LOAD_GAME_IMAGE_WIDTH,LOAD_GAME_IMAGE_XOFFSET,e-> myOutput.sendDataToGameEngine());
 	}
 	
 	
@@ -51,6 +55,7 @@ public class EditorToolbar implements IEditorToolbar {
 			myImageView.setFitHeight(BUTTON_IMAGE_HEIGHT);
 			myImageView.setFitWidth(imageWidth);
 			myImageView.setLayoutX(imageXOffset);
+		
 			myImageView.setLayoutY(BUTTON_IMAGE_YOFFSET);
 			myImageView.setOnMouseClicked(handler);
 			myPane.getChildren().add(myImageView);
