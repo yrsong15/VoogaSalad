@@ -42,17 +42,14 @@ public class MainController {
     }
 
     private void initializeGallery() throws IOException {
-//<<<<<<< HEAD
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
-//=======
 // 	   this.gallery = new Gallery();
 // 	   for(int i = 0; i < 40; i++)
 // 	   {
 // 		   myGallery.addToGallery(new GameFile());
 // 	   }
 // 	   this.galleryStage = new Stage();
-//>>>>>>> b45f95ebac813644570b87065dfe19f10ae9ec85
     }
 
     public void presentEditor() {
