@@ -1,4 +1,4 @@
-package gameeditor.xmlcreator;
+package gameeditor.xml;
 
 import java.io.File;
 import java.util.HashMap;
