@@ -3,6 +3,7 @@ package gameengine.controller;
 import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
+import objects.GameObject;
 import objects.Game;
 import objects.Level;
 
@@ -10,7 +11,7 @@ import objects.Level;
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou
  *
  */
-public class GameEngineController extends Observable{
+public class GameEngineController extends Observable implements GameOverHandler, GameObjectRemoveHandler{
 
 	private String xmlData;
     private GameParser parser;
@@ -48,6 +49,17 @@ public class GameEngineController extends Observable{
 		setChanged();
 		notifyObservers();
         //Update the View in some way
+	}
+
+	@Override
+	public void removeObject(GameObject obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endGame() {
+		gameOver = true;
 	}
 }
 
