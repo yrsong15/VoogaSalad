@@ -1,4 +1,4 @@
-package gameeditor.xmlcreator;
+package gameeditor.xml;
 
 import org.w3c.dom.Document;
 
