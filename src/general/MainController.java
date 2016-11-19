@@ -1,10 +1,13 @@
 package general;
 
 
+import gameeditor.controller.GameEditorController;
 import gameeditor.view.GameEditorView;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class MainController {
@@ -14,10 +17,12 @@ public class MainController {
     private Gallery myGallery;
     private GalleryView myGalleryView;
     private Stage myGameEditorStage;
-    private GameEditorView myGameEditorView;
+    //private GameEditorView myGameEditorView;
+    private GameEditorController myGameEditorController;
     private GameEngineController myGameEngineController;
 
     public MainController(Stage stage) {
+       
         Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
         //GameEditorView myView = new GameEditorView();
         //Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
@@ -27,7 +32,7 @@ public class MainController {
         stage.show();
     }
 
-    public void presentGallery() {
+    public void presentGallery() throws IOException {
         System.out.println("present");
         initializeGallery();
         myGalleryView = new GalleryView(myGallery, this);
@@ -36,15 +41,25 @@ public class MainController {
         myGalleryStage.show();
     }
 
-    private void initializeGallery() {
+    private void initializeGallery() throws IOException {
+//<<<<<<< HEAD
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
+//=======
+// 	   this.gallery = new Gallery();
+// 	   for(int i = 0; i < 40; i++)
+// 	   {
+// 		   myGallery.addToGallery(new GameFile());
+// 	   }
+// 	   this.galleryStage = new Stage();
+//>>>>>>> b45f95ebac813644570b87065dfe19f10ae9ec85
     }
 
     public void presentEditor() {
         myGameEditorStage = new Stage();
-        myGameEditorView = new GameEditorView();
-        Scene scene = new Scene(myGameEditorView.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
+        myGameEditorController = new GameEditorController();
+        //myGameEditorView = new GameEditorView();
+        Scene scene = new Scene(myGameEditorController.startEditor(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
         myGameEditorStage.setScene(scene);
         myGameEditorStage.show();
     }
