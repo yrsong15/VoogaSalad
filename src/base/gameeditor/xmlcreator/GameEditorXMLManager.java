@@ -29,8 +29,6 @@ import base.gameeditor.IGameEditorXML;
  *
  */
 public class GameEditorXMLManager implements IGameEditorXML{
-	private final String DEFAULT_RESOURCE_PACKAGE = "resources/properties/";
-	private final String XML_PROPERTIES_TITLE = "GameEditorXML";
 	ResourceBundle rb;
 	
 	Map<String, Element> elemMap;
@@ -39,7 +37,6 @@ public class GameEditorXMLManager implements IGameEditorXML{
 	private Element currElem;
 	
 	public GameEditorXMLManager(){
-		rb = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+XML_PROPERTIES_TITLE);
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		elemMap = new HashMap<String, Element>();
 		try {
@@ -134,5 +131,9 @@ public class GameEditorXMLManager implements IGameEditorXML{
 
 	public Document getXML(){
 		return myXML;
+	}
+	
+	void setResourceBundle(ResourceBundle rb){
+		this.rb = rb;
 	}
 }
