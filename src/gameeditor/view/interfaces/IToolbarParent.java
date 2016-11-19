@@ -6,5 +6,7 @@ public interface IToolbarParent {
 	
 	public void setAvatar();
 	
+	public void sendDataToGameEngine();
+	
 	
 }

@@ -1,19 +1,16 @@
 package gameeditor.view;
 
 import java.net.MalformedURLException;
-import buttons.ButtonTemplate;
+import frontend.util.FileOpener;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IToolbarParent;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -21,7 +18,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
-
+/**
+ * 
+ * @author pratikshasharma, John
+ *
+ */
 public class GameEditorView implements IGameEditorView, IToolbarParent {
 	
     private BorderPane myRoot;
@@ -105,5 +106,22 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             alert.showAndWait();
         }
     }
+
+        
+    @Override
+    public void sendDataToGameEngine () {
+       // Call in the XMlSerializer to send the Xml file 
+        System.out.println(" Send Data " );
+        
+    }
+    
+    public void setMusic(){
+        FileOpener myFileOpener = new FileOpener();
+//        try{
+//            String musicFilePath = new FileOpener.chooseFile(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION).toURI().toString();
+//            
+//        }
+    }
+    
 
 }

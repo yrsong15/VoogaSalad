@@ -1,4 +1,4 @@
-package gameeditor.view;
+package frontend.util;
 
 import java.io.File;
 

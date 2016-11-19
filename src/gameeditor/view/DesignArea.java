@@ -1,7 +1,7 @@
 package gameeditor.view;
 
 import java.net.MalformedURLException;
-
+import frontend.util.FileOpener;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -16,6 +16,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+
+/**
+ * 
+ * @author pratikshasharma, John
+ *
+ */
 
 public class DesignArea implements IDesignArea {
 	// TODO: Remove hardcoding of the following values

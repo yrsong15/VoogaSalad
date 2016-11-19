@@ -1,9 +1,7 @@
-package buttons;
+package frontend.util;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-import buttons.interfaces.IButtonLayout;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
