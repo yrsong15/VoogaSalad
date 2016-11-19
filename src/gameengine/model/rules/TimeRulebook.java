@@ -1,13 +1,14 @@
 package gameengine.model.rules;
 
 public class TimeRulebook {
+	private double totalTime;
 
-	public TimeRulebook() {
-		// TODO Auto-generated constructor stub
+	public TimeRulebook(double timeAllowed) {
+		totalTime = timeAllowed;
 	}
 	
-	public void modifyTime(int sec){
-		
+	public void modifyTime(double sec){
+		totalTime += sec;
 	}
 
 }
