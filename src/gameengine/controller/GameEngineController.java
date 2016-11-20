@@ -20,11 +20,12 @@ public class GameEngineController extends Observable implements GameOverHandler,
     private boolean gameOver;
 	private Game currentGame;
 	private GameEngineUI GameEngineView = new GameEngineUI();
+	private FreeRoamScrollerController movementController;
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker();
-		movementController = new ScrollerController();
+		movementController = new FreeRoamScrollerController();
 	}
 
 	public void startGame() {
