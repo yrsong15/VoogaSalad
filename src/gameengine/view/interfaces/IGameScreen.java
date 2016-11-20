@@ -12,4 +12,6 @@ import javafx.scene.layout.Pane;
 public interface IGameScreen {
 
 	public Pane getScreen();
+	
+	public void update();
 }
