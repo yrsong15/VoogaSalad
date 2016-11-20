@@ -26,14 +26,16 @@ public class Toolbar implements IToolbar {
 	private ResourceBundle myResources;
 	private HBox myToolbar;
 	private EventHandler<ActionEvent> myLoadGameEvent;
+	private EventHandler<ActionEvent> myLoadLevelEvent;
 	private EventHandler<ActionEvent> myPauseEvent;
 	private EventHandler<ActionEvent> myResetEvent;
 	private Button myPauseButton;
 	
-	public Toolbar(EventHandler<ActionEvent> loadGame, EventHandler<ActionEvent> pause,
+	public Toolbar(EventHandler<ActionEvent> loadGame, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause,
 			EventHandler<ActionEvent> reset) {
 		myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		myLoadGameEvent = loadGame;
+		myLoadLevelEvent = loadLevel;
 		myPauseEvent = pause;
 		myResetEvent = reset;
 		myToolbar = new HBox();
@@ -58,8 +60,8 @@ public class Toolbar implements IToolbar {
 	private void addButtons() {
 		myPauseButton = makeButton("PauseButton", myPauseEvent);
 		myPauseButton.setPrefWidth(70);
-		myToolbar.getChildren().addAll(makeButton("LoadGameButton", myLoadGameEvent), myPauseButton, 
-				makeButton("ResetButton", myResetEvent));
+		myToolbar.getChildren().addAll(makeButton("LoadGameButton", myLoadGameEvent), makeButton("LoadLevelButton", myLoadLevelEvent),
+				myPauseButton, makeButton("ResetButton", myResetEvent));
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
@@ -67,6 +69,7 @@ public class Toolbar implements IToolbar {
         String label = myResources.getString(property);
         result.setText(label);
         result.setOnAction(handler);
+        //result.set
         return result;
     }
 	
