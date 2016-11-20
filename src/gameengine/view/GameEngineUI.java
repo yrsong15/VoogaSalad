@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import objects.Level;
 
 /**
  * @author Noel Moon (nm142)
@@ -24,16 +25,22 @@ public class GameEngineUI implements IGameEngineUI {
 	
     public static final double myAppWidth = 700;
 	public static final double myAppHeight = 775;
+	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+    public static final String STYLESHEET = "default.css";
 
 	private Scene myScene;
+	private Level myLevel;
 	private ScrollerController scrollerController;
 	private String myGameFileLocation;
+	private String myLevelFileLocation;
 	private IToolbar myToolbar;
 	private IGameScreen myGameScreen;
 	private boolean isPaused;
 	
-	public GameEngineUI() {
+	public GameEngineUI(Level level) {
+		myLevel = level;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		//myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		
 		//Just a test method
 		makeControls();
@@ -47,7 +54,9 @@ public class GameEngineUI implements IGameEngineUI {
 	private void makeControls() {
 		this.myScene.setOnKeyPressed(event -> {
 	      	  if (event.getCode() == KeyCode.RIGHT){
-	      		  update();
+	      		  if (!isPaused) {
+	      			  update();
+	      		  }
 	      	  }
 	       });
 	}
@@ -72,32 +81,39 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 	
 	private Node makeToolbar() {
-		myToolbar = new Toolbar(event -> loadGame(), event -> pause(), event -> reset());
+		myToolbar = new Toolbar(event -> loadGame(), event -> loadLevel(), event -> pause(), event -> reset());
 		return myToolbar.getToolbar();
 	}
 	
 	private Node makeGameScreen() {
-		myGameScreen = new GameScreen();
+		myGameScreen = new GameScreen(myLevel);
 		return myGameScreen.getScreen();
 	}
 	
 	private void loadGame() {
 		FileChooser gameChooser = new FileChooser();
-		gameChooser.setTitle("Open Resource File");
+		gameChooser.setTitle("Open Game File");
 		//gameChooser.setInitialDirectory(getInitialDirectory());
 		File gameFile = gameChooser.showOpenDialog(new Stage());
 		myGameFileLocation = gameFile.getAbsolutePath();
 		System.out.println(myGameFileLocation);
 	}
+	
+	private void loadLevel() {
+		FileChooser levelChooser = new FileChooser();
+		levelChooser.setTitle("Open Level File");
+		//gameChooser.setInitialDirectory(getInitialDirectory());
+		File levelFile = levelChooser.showOpenDialog(new Stage());
+		myLevelFileLocation = levelFile.getAbsolutePath();
+		System.out.println(myLevelFileLocation);
+	}
     
     private void pause() {
     	if (isPaused) {
     		isPaused = false;
-    		System.out.println("resume");
     		myToolbar.resume();
     	} else {
     		isPaused = true;
-    		System.out.println("pause");
     		myToolbar.pause();
     	}
     }
