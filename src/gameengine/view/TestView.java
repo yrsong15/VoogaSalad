@@ -11,6 +11,8 @@ package gameengine.view;
 import gameengine.view.interfaces.IGameEngineUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import objects.GameObject;
+import objects.Level;
 
 public class TestView extends Application {
 
@@ -19,7 +21,9 @@ public class TestView extends Application {
 	}
 
 	public void start(Stage stage) {
-		IGameEngineUI ui = new GameEngineUI();
+		Level level = new Level(1);
+		level.addGameObject(new GameObject(50, 50, 50, 50, "Sprite/bird2.gif", null));
+		IGameEngineUI ui = new GameEngineUI(level);
 		stage = new Stage();
 		stage.setTitle("Game");
 		

@@ -12,7 +12,7 @@ public class ScrollType {
     private List<Direction> myScrollDirectionList = new ArrayList<Direction>();
 
     ScrollType(String scrollType){
-        this. myScrollTypeName = scrollType;
+        this.myScrollTypeName = scrollType;
     }
 
     protected void addScrollDirection(Direction direction){

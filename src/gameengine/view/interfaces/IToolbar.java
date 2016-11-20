@@ -12,4 +12,8 @@ import javafx.scene.layout.HBox;
 public interface IToolbar {
 
 	public HBox getToolbar();
+	
+	public void resume();
+	
+	public void pause();
 }

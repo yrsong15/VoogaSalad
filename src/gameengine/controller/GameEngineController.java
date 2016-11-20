@@ -3,12 +3,13 @@ package gameengine.controller;
 import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
+import gameengine.view.GameEngineUI;
 import objects.GameObject;
 import objects.Game;
 import objects.Level;
 
 /**
- * @author Soravit Sophastienphong, Eric Song, Brian Zhou
+ * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl
  *
  */
 public class GameEngineController extends Observable implements GameOverHandler, GameObjectRemoveHandler{
@@ -18,10 +19,13 @@ public class GameEngineController extends Observable implements GameOverHandler,
     private CollisionChecker collisionChecker;
     private boolean gameOver;
 	private Game currentGame;
+	private GameEngineUI GameEngineView = new GameEngineUI();
+	private FreeRoamScrollerController movementController;
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker();
+		movementController = new FreeRoamScrollerController();
 	}
 
 	public void startGame() {
@@ -36,8 +40,7 @@ public class GameEngineController extends Observable implements GameOverHandler,
 	 * Applies gravity and scrolls, checks for collisions
 	 */
 	public void loopGame(){
-		Game mainGame = null;
-		Level currLevel = mainGame.getCurrentLevel();
+		Level currLevel = currentGame.getCurrentLevel();
 		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects());
 		//TO-DO: apply movement and scroll screen
 	}
@@ -54,8 +57,7 @@ public class GameEngineController extends Observable implements GameOverHandler,
 
 	@Override
 	public void removeObject(GameObject obj) {
-		// TODO Auto-generated method stub
-		
+		currentGame.getCurrentLevel().removeGameObject(obj);
 	}
 
 	@Override

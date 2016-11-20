@@ -7,6 +7,8 @@ import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 public class MainController {
     public static final String STYLESHEET = "default.css";
@@ -30,7 +32,7 @@ public class MainController {
         stage.show();
     }
 
-    public void presentGallery() {
+    public void presentGallery() throws IOException {
         System.out.println("present");
         initializeGallery();
         myGalleryView = new GalleryView(myGallery, this);
@@ -39,9 +41,15 @@ public class MainController {
         myGalleryStage.show();
     }
 
-    private void initializeGallery() {
+    private void initializeGallery() throws IOException {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
+// 	   this.gallery = new Gallery();
+// 	   for(int i = 0; i < 40; i++)
+// 	   {
+// 		   myGallery.addToGallery(new GameFile());
+// 	   }
+// 	   this.galleryStage = new Stage();
     }
 
     public void presentEditor() {

@@ -20,7 +20,12 @@ public class CollisionChecker {
 	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects){
 		for (GameObject obj: gameObjects){
 			if (collision(mainChar, obj)){
-				rulebook.applyRules(mainChar, obj);
+				try {
+					rulebook.applyRules(mainChar, obj);
+				} catch (ClassNotFoundException e) {
+					// TODO handle this error
+					e.printStackTrace();
+				}
 			}
 		}
 		
