@@ -27,4 +27,8 @@ public class GameScreen implements IGameScreen {
 	public Pane getScreen() {
 		return myScreen;
 	}
+	
+	public void addObject() {
+		
+	}
 }

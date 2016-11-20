@@ -28,8 +28,8 @@ public class GameEngineUI implements IGameEngineUI {
 		
 		//TODO: Instantiate the proper ScrollerController depending on game type, right now ScrollerController is abstract
 		// All of the instantiable scrollercontrollers are in gameengine.controller package
-		scrollerController = new ScrollerController();
-		scrollerController.setScene(myScene);
+		//scrollerController = new ScrollerController();
+		//scrollerController.setScene(myScene);
 	}
 	
 	public ScrollerController getScrollerController(){
