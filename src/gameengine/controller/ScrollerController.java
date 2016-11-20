@@ -16,13 +16,13 @@ public abstract class ScrollerController {
 	      		  UPKeyPressed();
 	      	  }
 	      	  else if (event.getCode() == KeyCode.DOWN){
-	      		DOWNKeyPressed();
+	      		  DOWNKeyPressed();
 	       	  }
 	      	  else if (event.getCode() == KeyCode.LEFT){
-	      		LEFTKeyPressed();
+	      		  LEFTKeyPressed();
 	          }
 	      	  else if (event.getCode() == KeyCode.RIGHT){
-	      		RIGHTKeyPressed();
+	      		  RIGHTKeyPressed();
 	          }
 	       });
 	}
