@@ -10,7 +10,6 @@ import utils.ResourceReader;
 public class CollisionRulebook{
 	private ResourceReader resources;
 	
-
 	public CollisionRulebook() {
 		resources = new ResourceReader("resources/GameEngineObjectProperties");
 	}
