@@ -25,10 +25,17 @@ public class Toolbar implements IToolbar {
 	
 	private ResourceBundle myResources;
 	private HBox myToolbar;
-	private String myGameFileLocation;
+	private EventHandler<ActionEvent> myLoadGameEvent;
+	private EventHandler<ActionEvent> myPauseEvent;
+	private EventHandler<ActionEvent> myResetEvent;
+	private Button myPauseButton;
 	
-	public Toolbar() {
+	public Toolbar(EventHandler<ActionEvent> loadGame, EventHandler<ActionEvent> pause,
+			EventHandler<ActionEvent> reset) {
 		myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
+		myLoadGameEvent = loadGame;
+		myPauseEvent = pause;
+		myResetEvent = reset;
 		myToolbar = new HBox();
 		addButtons();
 	}
@@ -38,31 +45,22 @@ public class Toolbar implements IToolbar {
 		return myToolbar;
 	}
 	
+	@Override
+	public void resume() {
+		myPauseButton.setText(myResources.getString("PauseButton"));
+	}
+
+	@Override
+	public void pause() {
+		myPauseButton.setText(myResources.getString("ResumeButton"));
+	}
+	
 	private void addButtons() {
-		myToolbar.getChildren().addAll(makeButton("LoadGameButton", event -> loadGame()), makeButton("StartButton", event -> start()), 
-				makeButton("StopButton", event -> stop()), makeButton("ResetButton", event -> reset()));
+		myPauseButton = makeButton("PauseButton", myPauseEvent);
+		myPauseButton.setPrefWidth(70);
+		myToolbar.getChildren().addAll(makeButton("LoadGameButton", myLoadGameEvent), myPauseButton, 
+				makeButton("ResetButton", myResetEvent));
 	}
-	
-	private void loadGame() {
-		FileChooser gameChooser = new FileChooser();
-		gameChooser.setTitle("Open Resource File");
-		//gameChooser.setInitialDirectory(getInitialDirectory());
-		File gameFile = gameChooser.showOpenDialog(new Stage());
-		myGameFileLocation = gameFile.getAbsolutePath();
-		System.out.println(myGameFileLocation);
-	}
-	
-    private void reset() {
-    	System.out.println("reset");
-	}
-    
-    private void stop() {
-    	System.out.println("stop");
-    }
-    
-    private void start() {
-    	System.out.println("start");
-    }
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         Button result = new Button();
