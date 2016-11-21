@@ -61,6 +61,14 @@ public class GameEngineUI implements IGameEngineUI {
 		myGameScreen.update(level);
 	}
 	
+	public void setMusic(String musicFileLocation) {
+		
+	}
+	
+	public void setBackgroundImage(String imageFileLocation) {
+		
+	}
+	
 	private BorderPane makeRoot() {
 		BorderPane root = new BorderPane();
 		root.setTop(makeToolbar());
