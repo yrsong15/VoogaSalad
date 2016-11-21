@@ -26,4 +26,8 @@ public class Game {
 		levels.remove(level);
 	}
 	
+	public Level getCurrentLevel(){
+	    return this.currentLevel;
+	}
+	
 }
