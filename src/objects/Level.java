@@ -11,6 +11,8 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> externalRules;
     private GameObject mainCharacter;
+    private int score;
+    private int time;
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
@@ -52,6 +54,22 @@ public class Level {
 
     public Set<String> getExternalRules(){
         return externalRules.keySet();
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public int getTime(){
+        return time;
+    }
+
+    public void setTime(int time){
+        this.time = time;
     }
     
     public List<GameObject> getGameObjects(){
