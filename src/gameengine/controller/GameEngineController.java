@@ -1,10 +1,14 @@
 package gameengine.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
 import gameengine.model.interfaces.Rule;
+import gameengine.model.settings.Music;
 import gameengine.view.GameEngineUI;
+import javafx.scene.input.KeyCode;
 import objects.GameObject;
 import objects.Game;
 import objects.Level;
@@ -21,6 +25,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
     private boolean gameOver;
 	private Game currentGame;
 	private GameEngineUI GameEngineView;
+	private Map<String, KeyCode> controls;
 	private FreeRoamScrollerController movementController;
 
 	public GameEngineController() {
@@ -28,15 +33,22 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		collisionChecker = new CollisionChecker();
 		movementController = new FreeRoamScrollerController();
 		GameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
+        controls = new HashMap<String, KeyCode>();
 	}
 
 	public void startGame() {
         currentGame = parser.convertXMLtoGame(xmlData);
+        //Change music
+        //Change background
         gameOver = false;
         while (!gameOver){
         	loopGame();
         }
 	}
+
+	public void mapControls(){
+        //NEED TO DO
+    }
 	
 	/**
 	 * Applies gravity and scrolls, checks for collisions
