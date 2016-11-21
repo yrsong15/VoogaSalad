@@ -19,7 +19,7 @@ public class UseCaseMainCharacterCollision{
 	public void useCaseMethod(){
 		GameEditorXML XMLEditor = new GameEditorXML();
 		BasicParser parser = new BasicParser(); 
-		parser.processXML(XMLEditor.getXML().toString());
+		parser.convertXMLtoGame(XMLEditor.getXML().toString());
 		GameEngineController engineController = new GameEngineController();
 		engineController.update(null, null);
 	}
