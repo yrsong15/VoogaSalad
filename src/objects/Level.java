@@ -11,6 +11,7 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> externalRules;
     private GameObject mainCharacter;
+    private Settings myLevelSettings;
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
@@ -56,5 +57,13 @@ public class Level {
     
     public List<GameObject> getGameObjects(){
     	return gameObjects;
+    }
+    
+    public Settings getLevelSettings(){
+        return myLevelSettings;
+    }
+    
+    public void setLevelSettings(Settings settings){
+        this.myLevelSettings= settings;
     }
 }
