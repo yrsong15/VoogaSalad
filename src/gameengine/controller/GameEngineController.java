@@ -13,7 +13,7 @@ import objects.Level;
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel Moon
  *
  */
-public class GameEngineController extends Observable implements GameOverHandler, GameObjectRemoveHandler{
+public class GameEngineController extends Observable implements RuleActionHandler{
 
 	private String xmlData;
     private GameParser parser;
@@ -66,6 +66,12 @@ public class GameEngineController extends Observable implements GameOverHandler,
 	@Override
 	public void endGame() {
 		gameOver = true;
+	}
+
+	@Override
+	public void modifyScore(int score) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
