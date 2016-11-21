@@ -1,4 +1,4 @@
-package gameeditor.interfaces;
+package gameeditor.controller.interfaces;
 
 /**
  * 
