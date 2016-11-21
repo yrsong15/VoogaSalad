@@ -11,12 +11,22 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> externalRules;
     private GameObject mainCharacter;
-    private Settings myLevelSettings;
+    private ScrollType scrollType;
+    private int score;
+    private int time;
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
         externalRules = new HashMap<String, String>();
         this.level = level;
+    }
+
+    public void setScrollType(ScrollType scrollType){
+        this.scrollType = scrollType;
+    }
+
+    public ScrollType scrollType(){
+        return scrollType;
     }
 
     public int getLevel() {
@@ -53,6 +63,22 @@ public class Level {
 
     public Set<String> getExternalRules(){
         return externalRules.keySet();
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public int getTime(){
+        return time;
+    }
+
+    public void setTime(int time){
+        this.time = time;
     }
     
     public List<GameObject> getGameObjects(){
