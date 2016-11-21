@@ -3,6 +3,7 @@ package gameengine.controller;
 import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
+import gameengine.view.GameEngineUI;
 import objects.GameObject;
 import objects.Game;
 import objects.Level;
@@ -18,10 +19,14 @@ public class GameEngineController extends Observable implements GameOverHandler,
     private CollisionChecker collisionChecker;
     private boolean gameOver;
 	private Game currentGame;
+	private GameEngineUI gameEngineView;
+	private ScrollerController movementController;
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker();
+		movementController = new ScrollerController();
+		gameEngineView = new GameEngineUI(movementController);
 	}
 
 	public void startGame() {
