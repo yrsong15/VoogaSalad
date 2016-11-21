@@ -11,6 +11,7 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> winConditions;
     private Map<String, String> loseConditions;
+    private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
     private Settings levelSettings;
@@ -19,6 +20,7 @@ public class Level {
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
+        randomGenerations = new ArrayList<RandomGeneration>();
         winConditions = new HashMap<String, String>();
         loseConditions = new HashMap<String, String>();
         this.level = level;
