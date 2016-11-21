@@ -9,15 +9,18 @@ public class Level {
 
     private int level;
     private List<GameObject> gameObjects;
-    private Map<String, String> externalRules;
+    private Map<String, String> winConditions;
+    private Map<String, String> loseConditions;
     private GameObject mainCharacter;
     private ScrollType scrollType;
+    private Settings levelSettings;
     private int score;
     private int time;
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
-        externalRules = new HashMap<String, String>();
+        winConditions = new HashMap<String, String>();
+        loseConditions = new HashMap<String, String>();
         this.level = level;
     }
 
@@ -45,12 +48,20 @@ public class Level {
         gameObjects.remove(go);
     }
 
-    public void addRule(String type, String action) {
-        externalRules.put(type, action);
+    public void addWinCondition(String type, String action) {
+        winConditions.put(type, action);
     }
 
-    public void removeRule(String type) {
-        externalRules.remove(type);
+    public void removeWinCondition(String type, String action){
+        winConditions.remove(type);
+    }
+
+    public void addLoseCondition(String type, String action) {
+        loseConditions.put(type, action);
+    }
+
+    public void removeLoseCondition(String type, String action){
+        loseConditions.remove(type);
     }
 
     public GameObject getMainCharacter() {
@@ -59,10 +70,6 @@ public class Level {
 
     public void setMainCharacter(GameObject character) {
         this.mainCharacter = mainCharacter;
-    }
-
-    public Set<String> getExternalRules(){
-        return externalRules.keySet();
     }
 
     public int getScore(){
@@ -86,10 +93,10 @@ public class Level {
     }
     
     public Settings getLevelSettings(){
-        return myLevelSettings;
+        return levelSettings;
     }
     
-    public void setLevelSettings(Settings settings){
-        this.myLevelSettings= settings;
+    public void setLevelSettings(Settings levelSettings){
+        this.levelSettings = levelSettings;
     }
 }
