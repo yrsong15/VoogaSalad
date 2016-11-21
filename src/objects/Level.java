@@ -68,7 +68,7 @@ public class Level {
         return mainCharacter;
     }
 
-    public void setMainCharacter(GameObject character) {
+    public void setMainCharacter(GameObject mainCharacter) {
         this.mainCharacter = mainCharacter;
     }
 
