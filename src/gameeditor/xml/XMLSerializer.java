@@ -7,7 +7,7 @@ import objects.Game;
 
 
 /**
- * 
+ * This class is to be called when the Game Editor sends all of its information to the Game Engine.
  * @author Ray Song(ys101)
  */
 public class XMLSerializer{

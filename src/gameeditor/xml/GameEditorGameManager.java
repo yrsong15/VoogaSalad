@@ -10,6 +10,13 @@ import objects.Game;
 import objects.GameObject;
 import objects.Level;
 
+
+/**
+ * This is the central class for the Game Editor backend that contains all the methods that can be called
+ * by the Game Editor frontend.
+ * @author Ray Song(ys101)
+ *
+ */
 public class GameEditorGameManager implements ICreateGame, ICreateLevel, ICreateGameObject{
     private Game game;
     private Level level;
@@ -49,19 +56,19 @@ public class GameEditorGameManager implements ICreateGame, ICreateLevel, ICreate
 	}
 
 	@Override
-	public Map<?, ?> createProperties() {
-		Map<String, String> properties = new HashMap<String, String>();
-		this.properties = properties;
-		return properties;
-	}
-
-	@Override
 	public void addToProperties(String key, String value) {
+		if(properties==null) createProperties();
 		properties.put(key, value);
 	}
 
 	@Override
 	public void addCurrentGameObjectToLevel() {
 		level.addGameObject(go);
+	}
+	
+	private Map<?, ?> createProperties() {
+		Map<String, String> properties = new HashMap<String, String>();
+		this.properties = properties;
+		return properties;
 	}
 }
