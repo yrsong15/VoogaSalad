@@ -14,7 +14,7 @@ public class CollisionChecker {
 	
 	/**
 	 * Passes the mainCharacter and any object colliding with it to the rulebook
-	 * @param mainCharacter
+	 * @param mainChar
 	 * @param gameObjects
 	 */
 	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects){
@@ -37,14 +37,13 @@ public class CollisionChecker {
 		double charY = character.getYPosition();
 		double otherX = other.getXPosition();
 		double otherY = other.getYPosition();
-		
-		
+
 		return charX < otherX + other.getWidth() 
 				&& charX + character.getWidth() > otherX 
 				&& charY < otherY + other.getHeight() 
 				&& charY + character.getHeight() > otherY;
 
 	}
-	
+
 
 }
