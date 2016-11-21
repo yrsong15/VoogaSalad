@@ -1,22 +1,14 @@
 package gameengine.model.rules.collisionrules;
+
+import gameengine.controller.RuleActionHandler;
+
 import objects.GameObject;
 
-public class ApplyScoreRule extends CollisionRule{
+public class ApplyScoreRule implements CollisionRule{
 
-    private static ApplyScoreRule instance = null;
+	public static void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
+		//TODO: not hard code key
+		handler.modifyScore(Integer.parseInt(obj.getProperty("points")));
+	}
 
-    protected ApplyScoreRule() {
-    }
-
-    public static ApplyScoreRule getInstance() {
-        if (instance == null) {
-            instance = new ApplyScoreRule();
-        }
-        return instance;
-    }
-
-    @Override
-    public void applyRule(GameObject mainChar, GameObject obj) {
-        //TODO: not hard code key
-    }
 }
