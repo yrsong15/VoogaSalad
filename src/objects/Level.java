@@ -11,6 +11,7 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> externalRules;
     private GameObject mainCharacter;
+    private ScrollType scrollType;
     private int score;
     private int time;
 
@@ -18,6 +19,14 @@ public class Level {
         gameObjects = new ArrayList<GameObject>();
         externalRules = new HashMap<String, String>();
         this.level = level;
+    }
+
+    public void setScrollType(ScrollType scrollType){
+        this.scrollType = scrollType;
+    }
+
+    public ScrollType scrollType(){
+        return scrollType;
     }
 
     public int getLevel() {
