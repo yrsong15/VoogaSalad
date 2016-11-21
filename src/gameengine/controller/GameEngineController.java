@@ -43,7 +43,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	 */
 	public void loopGame(){
 		Level currLevel = currentGame.getCurrentLevel();
-		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects());
+		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
 		//TO-DO: apply movement and scroll screen
 	}
 
