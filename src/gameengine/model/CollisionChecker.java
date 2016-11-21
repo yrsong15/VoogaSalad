@@ -9,8 +9,8 @@ import objects.GameObject;
 public class CollisionChecker {
 	private CollisionRulebook rulebook;
 	
-	public CollisionChecker(){
-		this.rulebook = new CollisionRulebook();
+	public CollisionChecker(RuleActionHandler handler){
+		this.rulebook = new CollisionRulebook(handler);
 	}
 	
 	/**

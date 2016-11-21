@@ -8,7 +8,7 @@ import objects.Game;
 /**
  * @author ericsong
  */
-public class GameParser {
+public class GameParser implements Parser{
 
     private XStream mySerializer = new XStream(new DomDriver());
 

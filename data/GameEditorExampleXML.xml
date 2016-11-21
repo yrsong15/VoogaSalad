@@ -1,21 +1,48 @@
-<general.objects.Game>
+<objects.Game>
 	<name>flappy bird</name>
 	<levels>
-		<general.objects.Level>
-			<level>1</level>
-			<gameObjects>
-				<general.objects.GameObject>
-					<xPosition>1.0</xPosition>
-					<yPosition>2.0</yPosition>
-					<imageFileName>hi</imageFileName>
-					<properties>
-						<entry>
-							<string>collidable</string>
-							<string>die</string>
-						</entry>
-					</properties>
-				</general.objects.GameObject>
-			</gameObjects>
-		</general.objects.Level>
+		<entry>
+			<int>1</int>
+			<objects.Level>
+				<level>1</level>
+				<gameObjects>
+					<objects.GameObject>
+						<xPosition>1.0</xPosition>
+						<yPosition>2.0</yPosition>
+						<width>50.0</width>
+						<height>50.0</height>
+						<imageFileName>hi</imageFileName>
+						<properties>
+							<entry>
+								<string>damage</string>
+								<string>50</string>
+							</entry>
+							<entry>
+								<string>removeobject</string>
+								<string>doesn&apos;t matter what you put here (remove object doesn&apos;t care)</string>
+							</entry>
+							<entry>
+								<string>collidable</string>
+								<string>die</string>
+							</entry>
+						</properties>
+					</objects.GameObject>
+				</gameObjects>
+				<winConditions>
+					<entry>
+						<string>score</string>
+						<string>10</string>
+					</entry>
+				</winConditions>
+				<loseConditions>
+					<entry>
+						<string>time</string>
+						<string>30</string>
+					</entry>
+				</loseConditions>
+				<score>0</score>
+				<time>0</time>
+			</objects.Level>
+		</entry>
 	</levels>
-</general.objects.Game>
+</objects.Game>
