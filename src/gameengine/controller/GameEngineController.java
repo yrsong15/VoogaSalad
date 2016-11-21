@@ -66,7 +66,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void update(Observable o, Object arg) {
 		setChanged();
 		notifyObservers();
-        //GameEngineView.updateLevel()?
         GameEngineView.update(currentGame.getCurrentLevel());
 	}
 

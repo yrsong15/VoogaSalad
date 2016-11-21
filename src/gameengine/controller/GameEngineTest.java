@@ -13,10 +13,11 @@ import java.util.Map;
 /**
  * Created by Soravit on 11/17/2016.
  */
-public class XMLTest {
+public class GameEngineTest {
 
     static XStream mySerializer = new XStream(new DomDriver());
     static Map<String, String> map = new HashMap<String, String>();
+    static GameEngineController gameEngineController = new GameEngineController();
 
     public static void main(String[] args) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException, NoSuchMethodException, ClassNotFoundException {
         Game game = new Game("flappy bird");
@@ -30,7 +31,7 @@ public class XMLTest {
         level.addLoseCondition("time", "30");
         game.addLevel(level);
         String s = mySerializer.toXML(game);
-        System.out.println(s);
-        Game a = (Game) mySerializer.fromXML(s);
+        gameEngineController.setCurrentXML(s);
+        gameEngineController.startGame();
     }
 }
