@@ -6,6 +6,9 @@ import java.util.Map;
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ICreateLevel;
+import gameeditor.controller.interfaces.IGameEditorController;
+import gameeditor.view.GameEditorView;
+import javafx.scene.Parent;
 import objects.Game;
 import objects.GameObject;
 import objects.Level;
@@ -17,14 +20,22 @@ import objects.Level;
  * @author Ray Song(ys101)
  *
  */
-public class GameEditorController implements ICreateGame, ICreateLevel, ICreateGameObject{  
-    private Game game;
-    private Level level;
+public class GameEditorController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
+    private GameEditorView myGameEditor;
+    private LevelManager myLevelManager;
+    
+    private Game myGame;
+    private Level myCurrentLevel;
     private GameObject go;
     private Map<String, String> properties;
     
+    public GameEditorController(){
+    	myGameEditor = new GameEditorView();
+    	myLevelManager = new LevelManager();
+    }
+    
     public Game getGame(){
-    	return game;
+    	return myGame;
     }
     
     public Map<String, String> getProperties(){
@@ -34,18 +45,18 @@ public class GameEditorController implements ICreateGame, ICreateLevel, ICreateG
 	@Override
 	public void createGame(String title) {
 		Game game = new Game(title);	
-		this.game = game;
+		myGame = game;
 	}
 
 	@Override
 	public void createLevel(int levelNumber) {
-		Level level = new Level(levelNumber);
-		this.level = level;
+		myLevelManager.createLevel(levelNumber);
+		myCurrentLevel = myLevelManager.getLevel();
 	}
 
 	@Override
 	public void addCurrentLevelToGame() {
-		game.addLevel(level);
+		myGame.addLevel(myCurrentLevel);
 	}
 
 	@Override
@@ -63,7 +74,7 @@ public class GameEditorController implements ICreateGame, ICreateLevel, ICreateG
 
 	@Override
 	public void addCurrentGameObjectToLevel() {
-		level.addGameObject(go);
+		myCurrentLevel.addGameObject(go);
 	}
 	
 	private Map<?, ?> createProperties() {
@@ -71,7 +82,22 @@ public class GameEditorController implements ICreateGame, ICreateLevel, ICreateG
 		this.properties = properties;
 		return properties;
 	}
-    
-    
+
+	@Override
+	public Parent startEditor() {
+		return myGameEditor.createRoot();
+	}
+
+	@Override
+	public void addWinConditions(String type, String action) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addLoseConditions(String type, String action) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }
