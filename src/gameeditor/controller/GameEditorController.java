@@ -11,6 +11,7 @@ public class GameEditorController {
     private LevelManager myLevelManager;
     private Game myGame;
     private GameEditorView myGameEditor;
+   
     
     public GameEditorController(){
         myLevelManager = new LevelManager();
