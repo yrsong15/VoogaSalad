@@ -10,7 +10,7 @@ import objects.Game;
 import objects.Level;
 
 /**
- * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl
+ * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel Moon
  *
  */
 public class GameEngineController extends Observable implements GameOverHandler, GameObjectRemoveHandler{
@@ -55,7 +55,7 @@ public class GameEngineController extends Observable implements GameOverHandler,
 		setChanged();
 		notifyObservers();
         //GameEngineView.updateLevel()?
-        GameEngineView.update();
+        GameEngineView.update(currentGame.getCurrentLevel());
 	}
 
 	@Override
