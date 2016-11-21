@@ -17,6 +17,7 @@ public class ApplyScoreRule extends CollisionRule{
 
     @Override
     public void applyRule(GameObject mainChar, GameObject obj) {
-        //TODO: not hard code key
+        RuleActionHandler ruleHandler;
+        ruleHandler.modifyScore();
     }
 }
