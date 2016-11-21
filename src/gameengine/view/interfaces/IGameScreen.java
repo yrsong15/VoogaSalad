@@ -4,6 +4,7 @@
 package gameengine.view.interfaces;
 
 import javafx.scene.layout.Pane;
+import objects.Level;
 
 /**
  * @author Noel Moon (nm142)
@@ -12,6 +13,6 @@ import javafx.scene.layout.Pane;
 public interface IGameScreen {
 
 	public Pane getScreen();
-	
-	public void update();
+
+	public void update(Level level);
 }
