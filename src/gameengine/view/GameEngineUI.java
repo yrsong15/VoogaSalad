@@ -29,6 +29,7 @@ public class GameEngineUI implements IGameEngineUI {
 	public GameEngineUI(MovementInterface movementInterface) {
 		this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		this.movementInterface = movementInterface;
+
 	}
 	
 	public ScrollerController getScrollerController(){
