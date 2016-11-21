@@ -29,7 +29,6 @@ public class Game {
 	public Level getCurrentLevel(){
 	    return this.currentLevel;
 	}
-	
-	public 
+
 	
 }
