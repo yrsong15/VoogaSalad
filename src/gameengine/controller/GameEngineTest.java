@@ -30,6 +30,7 @@ public class GameEngineTest {
         level.addWinCondition("score", "10");
         level.addLoseCondition("time", "30");
         game.addLevel(level);
+        game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
         gameEngineController.setCurrentXML(s);
         gameEngineController.startGame();

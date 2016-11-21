@@ -13,7 +13,7 @@ public class CollisionRulebook{
 	private RuleActionHandler handler;
 	
 	public CollisionRulebook(RuleActionHandler handler) {
-		resources = new ResourceReader("resources/GameEngineObjectProperties");
+		resources = new ResourceReader("GameEngineCollisionProperties");
 		this.handler = handler;
 	}
 
