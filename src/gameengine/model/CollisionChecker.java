@@ -2,14 +2,15 @@ package gameengine.model;
 
 import java.util.List;
 
+import gameengine.controller.RuleActionHandler;
 import gameengine.model.rules.CollisionRulebook;
 import objects.GameObject;
 
 public class CollisionChecker {
 	private CollisionRulebook rulebook;
 	
-	public CollisionChecker(){
-		this.rulebook = new CollisionRulebook();
+	public CollisionChecker(RuleActionHandler handler){
+		this.rulebook = new CollisionRulebook(handler);
 	}
 	
 	/**

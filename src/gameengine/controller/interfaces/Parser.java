@@ -1,6 +1,6 @@
 package gameengine.controller.interfaces;
 
-import java.lang.reflect.InvocationTargetException;
+import objects.Game;
 
 /**
  * The purpose of this class is to parse the XML file being passed from integration and instantiate classes
@@ -8,10 +8,5 @@ import java.lang.reflect.InvocationTargetException;
  */
 public interface Parser{
 
-    /**
-     * Parses the XML and instantiates specified game objects using reflection
-     * @param fileName The name of the XML file
-     */
-    public void processXML(String fileName) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException, NoSuchMethodException, ClassNotFoundException;
-
+	public Game convertXMLtoGame(String xmlData);
 }

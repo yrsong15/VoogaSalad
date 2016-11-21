@@ -30,7 +30,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 
 	public GameEngineController() {
 		parser = new GameParser();
-		collisionChecker = new CollisionChecker();
+		collisionChecker = new CollisionChecker(this);
 		movementController = new FreeRoamScrollerController();
 		GameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
         controls = new HashMap<String, KeyCode>();

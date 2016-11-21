@@ -1,13 +1,15 @@
 package usecases.mockObjects;
 
 import gameengine.controller.interfaces.Parser;
+import objects.Game;
 
 public class BasicParser implements Parser{
 
 	@Override
-	public void processXML(String fileName) {
+	public Game convertXMLtoGame(String xmlData) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
 
 }
