@@ -1,30 +1,13 @@
 package gameengine.model.rules.collisionrules;
 
-import gameengine.controller.GameObjectRemoveHandler;
+import gameengine.controller.RuleActionHandler;
 import objects.GameObject;
 
-public class RemoveObjectRule extends CollisionRule{
-
-	private static RemoveObjectRule instance = null;
-	private GameObjectRemoveHandler gameObjectRemoveHandler;
-
-	protected RemoveObjectRule() {
-	}
-
-	public static RemoveObjectRule getInstance() {
-		if (instance == null) {
-			instance = new RemoveObjectRule();
-		}
-		return instance;
+public class RemoveObjectRule implements CollisionRule{
+	
+	public static void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
+			handler.removeObject(obj);
+			//later will need to check if mainChar is above or below enemies (to see whether the enemy dies or if mainChar takes damage)
 	}
 	
-	public void setGameObjectRemoveHandler(GameObjectRemoveHandler gameObjectRemoveHandler){
-		this.gameObjectRemoveHandler = gameObjectRemoveHandler;
-	}
-
-	@Override
-	public void applyRule(GameObject mainChar, GameObject obj) {
-			gameObjectRemoveHandler.removeObject(obj);
-	}
-
 }
