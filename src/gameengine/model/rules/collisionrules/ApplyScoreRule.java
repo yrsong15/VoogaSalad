@@ -1,7 +1,7 @@
 package gameengine.model.rules.collisionrules;
 
 import gameengine.controller.RuleActionHandler;
-import gameengine.model.rules.ScoreRulebook;
+
 import objects.GameObject;
 
 public class ApplyScoreRule implements CollisionRule{
