@@ -1,6 +1,5 @@
 package gameeditor.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import gameeditor.controller.interfaces.ICreateGame;
@@ -20,27 +19,32 @@ import objects.Level;
  * @author Ray Song(ys101)
  *
  */
+//TODO: Add functions that allow user to toggle between Maps, GObjects, and Levels
 public class GameEditorController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
     private GameEditorView myGameEditor;
     private LevelManager myLevelManager;
+    private MapManager myMapManager;
     
     private Game myGame;
     private Level myCurrentLevel;
-    private GameObject go;
-    private Map<String, String> properties;
+    private GameObject myGameObject;
+    private Map<String, String> myCurrentMap;
     
     public GameEditorController(){
     	myGameEditor = new GameEditorView();
     	myLevelManager = new LevelManager();
+    	myMapManager = new MapManager();
     }
     
+    @Override
     public Game getGame(){
     	return myGame;
     }
     
-    public Map<String, String> getProperties(){
-    	return properties;
-    }
+	@Override
+	public Parent startEditor() {
+		return myGameEditor.createRoot();
+	}
 
 	@Override
 	public void createGame(String title) {
@@ -63,41 +67,30 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
 	public void createGameObject(double xPos, double yPos, double width, double height, 
 			String imageFileName, Map<String, String> properties) {
 		GameObject go = new GameObject(xPos, yPos, width, height, imageFileName, properties);
-		this.go = go;
+		myGameObject = go;
 	}
 
 	@Override
 	public void addToProperties(String key, String value) {
-		if(properties==null) createProperties();
-		properties.put(key, value);
+		if(myCurrentMap==null) myMapManager.createMap();  //This is just in case 
+		myCurrentMap = myMapManager.getCurrentMap();
+		myCurrentMap.put(key, value);
 	}
 
 	@Override
 	public void addCurrentGameObjectToLevel() {
-		myCurrentLevel.addGameObject(go);
-	}
-	
-	private Map<?, ?> createProperties() {
-		Map<String, String> properties = new HashMap<String, String>();
-		this.properties = properties;
-		return properties;
-	}
-
-	@Override
-	public Parent startEditor() {
-		return myGameEditor.createRoot();
+		myCurrentLevel.addGameObject(myGameObject);
 	}
 
 	@Override
 	public void addWinConditions(String type, String action) {
-		// TODO Auto-generated method stub
-		
+		myLevelManager.addWinConditions(type, action);
+		myCurrentLevel = myLevelManager.getLevel();
 	}
 
 	@Override
 	public void addLoseConditions(String type, String action) {
-		// TODO Auto-generated method stub
-		
+		myLevelManager.addLoseConditions(type, action);
+		myCurrentLevel = myLevelManager.getLevel();
 	}
-    
 }

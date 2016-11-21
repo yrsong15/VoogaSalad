@@ -7,7 +7,8 @@ import objects.Game;
 
 
 /**
- * This class is to be called when the Game Editor sends all of its information to the Game Engine.
+ * This class is to be called when the Game Editor sends all of its information to the Game Engine
+ * as a single Game instance.
  * @author Ray Song(ys101)
  */
 public class XMLSerializer{
@@ -16,6 +17,10 @@ public class XMLSerializer{
 
     public String serializeGame(Game game){
         return mySerializer.toXML(game);
+    }
+    
+    public Game getGameFromString(String s){
+    	return (Game)mySerializer.fromXML(s);
     }
 
 }
