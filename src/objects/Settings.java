@@ -1,11 +1,15 @@
 package objects;
 
-
+/**
+ * @author pratikshasharma 
+ */
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import com.sun.javafx.scene.traversal.Direction;
 import javafx.beans.property.StringProperty;
 
-public class Settings {
+public class Settings implements Observer{
     private StringProperty musicFilePath;
     private StringProperty scrollType;
     private ScrollType myScrollType;
@@ -27,6 +31,12 @@ public class Settings {
  
     public void setScrollType(StringProperty scrollType){
         scrollType.set(scrollType.get());
+    }
+
+    @Override
+    public void update (Observable o, Object arg) {
+        // TODO Auto-generated method stub
+        
     }
     
 }

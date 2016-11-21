@@ -1,5 +1,8 @@
 package objects;
 
+/**
+ * @ Pratiksha Sharma
+ */
 import com.sun.javafx.scene.traversal.Direction;
 
 public class FreeRangeScroll extends ScrollType{

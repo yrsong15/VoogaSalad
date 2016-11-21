@@ -84,4 +84,12 @@ public class Level {
     public List<GameObject> getGameObjects(){
     	return gameObjects;
     }
+    
+    public Settings getLevelSettings(){
+        return myLevelSettings;
+    }
+    
+    public void setLevelSettings(Settings settings){
+        this.myLevelSettings= settings;
+    }
 }
