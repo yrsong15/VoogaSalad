@@ -42,23 +42,10 @@ public class GameEngineUI implements IGameEngineUI {
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		//myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		
-		//Just a test method
-		makeControls();
-		
 		//TODO: Instantiate the proper ScrollerController depending on game type, right now ScrollerController is abstract
 		// All of the instantiable scrollercontrollers are in gameengine.controller package
 		//scrollerController = new ScrollerController();
 		//scrollerController.setScene(myScene);
-	}
-	
-	private void makeControls() {
-		this.myScene.setOnKeyPressed(event -> {
-	      	  if (event.getCode() == KeyCode.RIGHT){
-	      		  if (!isPaused) {
-	      			  update();
-	      		  }
-	      	  }
-	       });
 	}
 	
 	public ScrollerController getScrollerController(){
@@ -69,8 +56,9 @@ public class GameEngineUI implements IGameEngineUI {
 		return myScene;
 	}
 	
-	public void update() {
-		myGameScreen.update();
+	public void update(Level level) {
+		myLevel = level;
+		myGameScreen.update(level);
 	}
 	
 	private BorderPane makeRoot() {

@@ -22,7 +22,7 @@ public class TestView extends Application {
 
 	public void start(Stage stage) {
 		Level level = new Level(1);
-		level.addGameObject(new GameObject(50, 50, 50, 50, "Sprite/bird2.gif", null));
+		level.addGameObject(new GameObject(50, 50, 5, 5, "Sprite/bird2.gif", null));
 		IGameEngineUI ui = new GameEngineUI(level);
 		stage = new Stage();
 		stage.setTitle("Game");
