@@ -74,7 +74,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myScrollPane.setContent(myHBox); 
             
             //Setting Data For the Settings
-            mySettings.setImageFile(filePath);
+            mySettings.setBackgroundFilePath(filePath);
             
         }
         

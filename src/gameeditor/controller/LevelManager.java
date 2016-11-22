@@ -1,14 +1,15 @@
 package gameeditor.controller;
-import gameeditor.controller.interfaces.ILevelManager;
+import gameeditor.controller.interfaces.ICreateLevel;
 import objects.Level;
-import objects.LevelSettings;
+
 
 /**
  * This is an intermediate controller that manages levels of the Game.
  * @author Ray Song(ys101)
  *
  */
-public class LevelManager implements ILevelManager{
+
+public class LevelManager implements ICreateLevel{
 	private Level myLevel;
 	//private LevelSettings mySettings;
 	//private Settings mySettings;
@@ -34,6 +35,29 @@ public class LevelManager implements ILevelManager{
 	public void addLoseConditions(String type, String action) {
 		myLevel.addLoseCondition(type, action);
 	}
-	
 
+	@Override
+	public void addScore(double score) {
+		myLevel.setScore(score);
+	}
+
+	@Override
+	public void addTime(double time) {
+		myLevel.setTime(time);
+	}
+
+	@Override
+	public void addCurrentGameObjectToLevel() {
+		return;
+	}
+
+	@Override
+	public void addBackgroundMusic(String musicFilePath) {
+		myLevel.getViewSettings().setMusicFile(musicFilePath);
+	}
+
+	@Override
+	public void addBackgroundImage(String backgroundFilePath) {
+		myLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
+	}
 }

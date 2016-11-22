@@ -1,21 +1,14 @@
 package gameeditor.controller;
-import java.util.HashMap;
 import java.util.Map;
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ICreateLevel;
 import gameeditor.controller.interfaces.IGameEditorController;
-import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import objects.Game;
 import objects.GameObject;
 import objects.Level;
-
 /**
  * This is the central class for the Game Editor backend that contains all the methods that can be called
  * by the Game Editor frontend.
@@ -24,134 +17,104 @@ import objects.Level;
  *
  */
 //TODO: Add functions that allow user to toggle between Maps, GObjects, and Levels
+//TODO: Add rules/key controls to the XML
 public class GameEditorController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
     private GameEditorView myGameEditor;
     private LevelManager myLevelManager;
-    private EditorLevels myEditorLevels;
+    private MapManager myMapManager;
+    
     private Game myGame;
     private Level myCurrentLevel;
-    private GameObject go;
-    private Map<String, String> properties;
-    private Map<String,GameEditorView> myLevelEditorMap;
-    private MapManager myMapManager;
-    private String activeButtonId;
-    private Scene myLevelScene;
-
+    private GameObject myGameObject;
+    private Map<String, String> myCurrentMap;
+    private Map<String,String> myLevelEditorMap;
+    
     public GameEditorController(){
+        myGameEditor = new GameEditorView();
         myLevelManager = new LevelManager();
+        myMapManager = new MapManager();
     }
-
-
+    
     @Override
-
     public Game getGame(){
         return myGame;
     }
-
-
-    public Map<String, String> getProperties(){
-        return properties;
-    }
-
-    @Override
-    public void createGame(String title) {
-        Game game = new Game(title);	
-        myGame = game;
-    }
-
-    @Override
-    public void createLevel(int levelNumber) {
-        myLevelManager.createLevel(levelNumber);
-        myCurrentLevel = myLevelManager.getLevel();
-    }
-
-    @Override
-    public void addCurrentLevelToGame() {
-        myGame.addLevel(myCurrentLevel);
-    }
-
-    @Override
-    public void createGameObject(double xPos, double yPos, double width, double height, 
-                                 String imageFileName, Map<String, String> properties) {
-        GameObject go = new GameObject(xPos, yPos, width, height, imageFileName, properties);
-        this.go = go;
-    }
-
-
-    private Map<?, ?> createProperties() {
-        Map<String, String> properties = new HashMap<String, String>();
-        this.properties = properties;
-        return properties;
-    }
-
-    @Override
-    public Parent startEditor() {
-        myEditorLevels= new EditorLevels();
-        Parent parent = myEditorLevels.createRoot();
-        myEditorLevels.setOnAddLevel( e-> addLevelButton());
-        return parent;
-    }
-
-    private void addLevelButton(){
-        myLevelEditorMap = new HashMap<String,GameEditorView>();
-        myEditorLevels.addNewLevel();
-        addActiveLevelButtonListener();
-        myEditorLevels.setOnLevelClicked((e -> displayLevel()));   
-    }
-
-
-    private void addActiveLevelButtonListener(){
-        myEditorLevels.getActiveLevelButtonID().addListener(new ChangeListener<String>(){
-            @Override
-            public void changed (ObservableValue<? extends String> observable,
-                                 String oldValue,
-                                 String newValue) {
-                activeButtonId = newValue;
-            }
-        });
-    }
-    private void displayLevel(){
-        if(myLevelEditorMap.containsKey(activeButtonId)){
-            myGameEditor=myLevelEditorMap.get(activeButtonId);     
-        } else{
-            myGameEditor = new GameEditorView();
-            myLevelEditorMap.put(activeButtonId, myGameEditor); 
-            displayInitiallyOnSytage();
+    
+        @Override
+        public Parent startEditor() {
+                return myGameEditor.createRoot();
         }
-    }
-
-
-    private void displayInitiallyOnSytage(){
-        Stage myLevelStage = new Stage();
-        myLevelScene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
-        myLevelStage.setScene(myLevelScene);
-        myLevelStage.show();
-    }
-
-    @Override
-    public void addToProperties(String key, String value) {
-        //if(myCurrentMap==null) myMapManager.createMap();  //This is just in case 
-        //myCurrentMap = myMapManager.getCurrentMap();
-        //myCurrentMap.put(key, value);
-    }
-
-
-    @Override
-    public void addCurrentGameObjectToLevel() {
-        //myCurrentLevel.addGameObject(myGameObject);
-    }
-
-    @Override
-    public void addWinConditions(String type, String action) {
-        myLevelManager.addWinConditions(type, action);
-        myCurrentLevel = myLevelManager.getLevel();
-    }
-
-    @Override
-    public void addLoseConditions(String type, String action) {
-        myLevelManager.addLoseConditions(type, action);
-        myCurrentLevel = myLevelManager.getLevel();
-    }
-
-
+        @Override
+        public void createGame(String title) {
+                Game game = new Game(title);    
+                myGame = game;
+        }
+        @Override
+        public void createLevel(int levelNumber) {
+                myLevelManager.createLevel(levelNumber);
+                myCurrentLevel = myLevelManager.getLevel();
+        }
+        @Override
+        public void addCurrentLevelToGame() {
+                myGame.addLevel(myCurrentLevel);
+        }
+        @Override
+        public void createGameObject(double xPos, double yPos, double width, double height, 
+                        String imageFileName, Map<String, String> properties) {
+                GameObject go = new GameObject(xPos, yPos, width, height, imageFileName, properties);
+                myGameObject = go;
+        }
+        @Override
+        public void addToProperties(String key, String value) {
+                if(myCurrentMap==null) myMapManager.createMap();  //This is just in case 
+                myCurrentMap = myMapManager.getCurrentMap();
+                myCurrentMap.put(key, value);
+        }
+        @Override
+        public void addCurrentGameObjectToLevel() {
+                myCurrentLevel.addGameObject(myGameObject);
+        }
+        @Override
+        public void addWinConditions(String type, String action) {
+                myLevelManager.addWinConditions(type, action);
+                myCurrentLevel = myLevelManager.getLevel();
+        }
+        @Override
+        public void addLoseConditions(String type, String action) {
+                myLevelManager.addLoseConditions(type, action);
+                myCurrentLevel = myLevelManager.getLevel();
+        }
+        
+        //TODO: Should I append a map, or add each property one-by-one? Depends on whether the map is used for other purposes.
+        @Override
+        public void addCurrentPropertiesToGameObject() {
+                myGameObject.setPropertiesList(myCurrentMap);   
+        }
+        @Override
+        public void addScore(double score) {
+                myLevelManager.addScore(score);
+        }
+        @Override
+        public void addTime(double time) {
+                myLevelManager.addTime(time);
+        }
+        @Override
+        public void addBackgroundMusic(String musicFilePath) {
+                myLevelManager.addBackgroundMusic(musicFilePath);
+        }
+        @Override
+        public void addBackgroundImage(String backgroundFilePath) {
+                myLevelManager.addBackgroundImage(backgroundFilePath);
+        }
+        @Override
+        public void setCurrentLevelToGame() {
+                myGame.setCurrentLevel(myCurrentLevel);
+        }
+        @Override
+        public void setCurrentGameObjectToMainCharacter() {
+                myCurrentLevel.setMainCharacter(myGameObject);
+        }
+        
+        
+        
 }

@@ -7,6 +7,8 @@ package gameeditor.controller.interfaces;
  *
  */
 public interface ICreateGame {
-	public void createGame(String title);
-	public void addCurrentLevelToGame();
+    public void createGame(String title);
+    public void addCurrentLevelToGame();
+    void setCurrentLevelToGame ();
+    void setCurrentGameObjectToMainCharacter ();
 }

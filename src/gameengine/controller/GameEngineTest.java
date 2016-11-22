@@ -15,12 +15,14 @@ import java.util.Map;
  */
 public class GameEngineTest {
 
-    static XStream mySerializer = new XStream(new DomDriver());
-    static Map<String, String> map = new HashMap<String, String>();
-    static GameEngineController gameEngineController = new GameEngineController();
+    
 
     public static void main(String[] args) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException, NoSuchMethodException, ClassNotFoundException {
-        Game game = new Game("flappy bird");
+    	
+    	XStream mySerializer = new XStream(new DomDriver());
+        Map<String, String> map = new HashMap<String, String>();
+    	GameEngineController gameEngineController = new GameEngineController();
+    	Game game = new Game("flappy bird");
         map.put("collidable", "die");
         GameObject go = new GameObject(1, 2, 50, 50, "hi", map);
         go.setProperty("removeobject", "doesn't matter what you put here (remove object doesn't care)");
@@ -30,6 +32,7 @@ public class GameEngineTest {
         level.addWinCondition("score", "10");
         level.addLoseCondition("time", "30");
         game.addLevel(level);
+        game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
         gameEngineController.setCurrentXML(s);
         gameEngineController.startGame();
