@@ -31,6 +31,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private double myPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
     private Rectangle myAvatarZone;
     private ScrollPane myDetailPane;
+    private IDetailStore myDetailStore = new DetailStore();
 
     private ImageView myAvatarView;
 
@@ -83,8 +84,9 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public void setDetail(String paneType) {
         String className = "gameeditor.commanddetails." + paneType + "Detail";
         myPane.getChildren().remove(myDetailPane);
-        AbstractCommandDetail detailPane = new DetailFactory().create(className);
-        myPane.getChildren().add(detailPane.getPane());
+        AbstractCommandDetail detailPane = new DetailFactory().create(className, myDetailStore);
+        myDetailPane = detailPane.getPane();
+        myPane.getChildren().add(myDetailPane);
     }
 
     

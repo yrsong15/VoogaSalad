@@ -14,7 +14,7 @@ public class ControlManager implements IControlManager{
     }
     
     public void setLevelsControls( HashMap<String,String> newControlMap){
-        this.myControlMap= newControlMap;
+        this.myControlMap = newControlMap;
     }
     
 }

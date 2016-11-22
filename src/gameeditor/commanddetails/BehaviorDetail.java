@@ -8,6 +8,10 @@ public class BehaviorDetail extends AbstractCommandDetail {
 	
 	public BehaviorDetail() {
 		super();
+
+	}
+
+	public void init() {
 		myVBox = new VBox();
 	}
 

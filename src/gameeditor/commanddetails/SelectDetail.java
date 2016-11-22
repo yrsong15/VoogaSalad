@@ -1,9 +1,15 @@
 package gameeditor.commanddetails;
 
-public class SelectDetail {
+public class SelectDetail extends AbstractCommandDetail {
 
 	public SelectDetail() {
-		// TODO Auto-generated constructor stub
+		super();
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
