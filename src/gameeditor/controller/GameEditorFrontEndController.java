@@ -25,6 +25,7 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private Scene myLevelScene;
 
     public Parent startEditor() {
+        
         myEditorLevels= new EditorLevels();
         Parent parent = myEditorLevels.createRoot();
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
@@ -58,7 +59,6 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
             displayInitiallyOnSytage();
         }
     }
-
 
     private void displayInitiallyOnSytage(){
         Stage myLevelStage = new Stage();
