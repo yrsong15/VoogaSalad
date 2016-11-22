@@ -67,7 +67,7 @@ public class EditorLevels {
         newLevelIcon.setFitWidth(50);
         newLevelButton.setGraphic(newLevelIcon);
 
-        newLevelButton.setOnAction(e -> addNewLevel());
+       newLevelButton.setOnAction(e -> addNewLevel());
         myVBox.getChildren().add(newLevelButton);
     }
 
@@ -76,7 +76,7 @@ public class EditorLevels {
         newLevelButton.setOnAction(handler);
     }
 
-    public String addNewLevel(){
+    public void addNewLevel(){
         Button level = new Button("Level " + (myVBox.getChildren().size()+ 1)) ;
         level.setId(Integer.toString(myVBox.getChildren().size()));
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
@@ -87,7 +87,7 @@ public class EditorLevels {
         myVBox.getChildren().add(level);
         myLevels.add(level);
         //addLevelListener();
-        return level.getId();
+    
     }
 
     public void setOnLevelClicked(EventHandler<MouseEvent> handler){

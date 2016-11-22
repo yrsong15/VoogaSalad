@@ -1,7 +1,6 @@
 package gameeditor.controller;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ICreateLevel;
@@ -10,12 +9,8 @@ import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.MapChangeListener;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import objects.Game;
 import objects.GameObject;
@@ -32,7 +27,6 @@ import objects.Level;
 public class GameEditorController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
     private GameEditorView myGameEditor;
     private LevelManager myLevelManager;
-
     private EditorLevels myEditorLevels;
     private Game myGame;
     private Level myCurrentLevel;
@@ -84,8 +78,6 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
     }
 
 
-
-
     private Map<?, ?> createProperties() {
         Map<String, String> properties = new HashMap<String, String>();
         this.properties = properties;
@@ -96,20 +88,13 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
     public Parent startEditor() {
         myEditorLevels= new EditorLevels();
         Parent parent = myEditorLevels.createRoot();
-        //myEditorLevels.getNewLevelButton().setOnAction( e-> print());
-        //myEditorLevels.setOnAddLevel(e -> addNewLevel());
-
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
-
-
         return parent;
-
-        //return myGameEditor.createRoot();
     }
 
     private void addLevelButton(){
         myLevelEditorMap = new HashMap<String,GameEditorView>();
-        String buttonId = myEditorLevels.addNewLevel();
+        myEditorLevels.addNewLevel();
         addActiveLevelButtonListener();
         myEditorLevels.setOnLevelClicked((e -> displayLevel()));   
     }
@@ -127,27 +112,21 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
     }
     private void displayLevel(){
         if(myLevelEditorMap.containsKey(activeButtonId)){
-            myGameEditor=myLevelEditorMap.get(activeButtonId);
-            
-            //TODO: Change this later to the saved instance
-            //myLevelScene.setRoot(myGameEditor.createRoot());
-            
+            myGameEditor=myLevelEditorMap.get(activeButtonId);     
         } else{
             myGameEditor = new GameEditorView();
             myLevelEditorMap.put(activeButtonId, myGameEditor); 
             displayInitiallyOnSytage();
         }
-
     }
 
-   
 
     private void displayInitiallyOnSytage(){
         Stage myLevelStage = new Stage();
         myLevelScene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
-        
-myLevelStage.setScene(myLevelScene);
-myLevelStage.show();
+
+        myLevelStage.setScene(myLevelScene);
+        myLevelStage.show();
     }
 
     @Override
@@ -173,15 +152,6 @@ myLevelStage.show();
     public void addLoseConditions(String type, String action) {
         myLevelManager.addLoseConditions(type, action);
         myCurrentLevel = myLevelManager.getLevel();
-    }
-
-    private Integer getId(){
-        Random rand = new Random();
-        int randomInteger = rand.nextInt();
-        while(myLevelEditorMap.containsKey(randomInteger)){
-            randomInteger = rand.nextInt();
-        }
-        return randomInteger;
     }
 
 
