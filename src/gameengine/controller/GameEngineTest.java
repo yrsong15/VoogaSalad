@@ -29,8 +29,8 @@ public class GameEngineTest {
         go.setProperty("damage", "50");
         Level level = new Level(1);
         level.addGameObject(go);
-        level.addWinCondition("score", 10);
-        level.addLoseCondition("time", 30);
+        level.addWinCondition("score", "10");
+        level.addLoseCondition("time", "30");
         game.addLevel(level);
         game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);

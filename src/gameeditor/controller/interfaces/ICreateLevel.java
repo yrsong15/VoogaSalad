@@ -1,8 +1,5 @@
 package gameeditor.controller.interfaces;
 
-import objects.GameObject;
-import objects.Level;
-
 /**
  * 
  * @author Ray Song(ys101)
@@ -15,4 +12,6 @@ public interface ICreateLevel {
 	public void addLoseConditions(String type, String action);
 	public void addScore(double score);
 	public void addTime(double time);
+	public void addBackgroundMusic(String musicFilePath);
+	public void addBackgroundImage(String backgroundFilePath);
 }
