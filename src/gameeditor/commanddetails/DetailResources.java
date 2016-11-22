@@ -30,6 +30,9 @@ public enum DetailResources {
 		IMAGE_PATH("Image Path"),
 		
 		DEFAULT_OBJECT_TYPE("Select Object Type"),
+		
+		PREVIEW_BUTTON_TEXT("Preview"),
+		SAVE_BUTTON_TEXT("Save"),
 		;
 
     private double resourceDouble;
