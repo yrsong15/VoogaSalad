@@ -1,5 +1,7 @@
 package gameeditor.controller.interfaces;
 
+import objects.GameObject;
+
 /**
  * 
  * @author Ray Song(ys101)
@@ -14,4 +16,6 @@ public interface ICreateLevel {
 	public void addTime(double time);
 	public void addBackgroundMusic(String musicFilePath);
 	public void addBackgroundImage(String backgroundFilePath);
+	
+	public void setCurrentGameObjectToMainCharacter(GameObject object);
 }
