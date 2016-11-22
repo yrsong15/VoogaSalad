@@ -88,8 +88,6 @@ public class Level {
         this.mainCharacter = mainCharacter;
     }
 
-    //TODO: getScore returns int, but Score is stored as double for functionality purposes 
-    //let me know if you think this is wrong!! - Ray Song
     public int getScore(){
     	return gameConditions.get("score").intValue();
     }

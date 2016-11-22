@@ -22,6 +22,7 @@ public class GameEditorTestMain {
 		myController.createLevel(1);
 		
 		myController.createGameObject(15, 30, 100, 50, "bird3.png", new HashMap<String, String>());
+		myController.setCurrentGameObjectToMainCharacter();
 		
 		myController.createGameObject(100, 200, 300, 400, "Pipes.png", new HashMap<String, String>());
 		myController.addToProperties("damage", "30");
@@ -48,7 +49,7 @@ public class GameEditorTestMain {
 //		myController.addBackgroundMusic("FlappyBirdThemeSong.mp3");
 		
 		myController.addCurrentLevelToGame();
-		
+		myController.setCurrentLevelToGame();
 		
 		String testResult = mySerializer.serializeGame(myController.getGame());
 		System.out.println(testResult);

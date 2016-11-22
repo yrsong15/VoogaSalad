@@ -120,4 +120,14 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
 	public void addBackgroundImage(String backgroundFilePath) {
 		myLevelManager.addBackgroundImage(backgroundFilePath);
 	}
+
+	@Override
+	public void setCurrentLevelToGame() {
+		myGame.setCurrentLevel(myCurrentLevel);
+	}
+
+	@Override
+	public void setCurrentGameObjectToMainCharacter() {
+		myCurrentLevel.setMainCharacter(myGameObject);
+	}
 }
