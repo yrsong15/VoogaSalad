@@ -1,4 +1,4 @@
-package gameeditor.commanddetails;
+package gameeditor.objects;
 
 import javafx.scene.paint.Color;
 
@@ -7,32 +7,11 @@ import javafx.scene.paint.Color;
  *
  */
 
-public enum DetailResources {
-		PROPERTIES(new String [] {"Destructible", "Damage", "Points", "Time", "Random", "Health", "Movable"}),
-		DESTRUCTIBLE(new String [] {"True", "False"}),
-		DAMAGE(new String [] {"True", "False"}),
-		POINTS(new String [] {"True", "False"}),
-		TIME(new String [] {"True", "False"}),
-		RANDOM(new String [] {"True", "False"}),
-		HEALTH(new String [] {"True", "False"}),
-		MOVABLE(new String [] {"True", "False"}),
-		DETAIL_CONTENT_PADDING(10),
-		
-		TYPE_IMAGE_ZONE_WIDTH(50),
-		TYPE_IMAGE_ZONE_HEIGHT(50),
-		TYPE_IMAGE_ZONE_PADDING(10),
-		
-		OBJECT_IMAGE_ZONE_WIDTH(75),
-		OBJECT_IMAGE_ZONE_HEIGHT(75),
-		OBJECT_IMAGE_ZONE_PADDING(10),
-
-		TYPE_NAME("Type Name"),
-		IMAGE_PATH("Image Path"),
-		
-		DEFAULT_OBJECT_TYPE("Select Object Type"),
-		
-		PREVIEW_BUTTON_TEXT("Preview"),
-		SAVE_BUTTON_TEXT("Save"),
+public enum ObjectResources {
+		DEFAULT_X(0),
+		DEFAULT_Y(0),
+		DEFAULT_WIDTH(50),
+		DEFAULT_HEIGHT(50),
 		;
 
     private double resourceDouble;
@@ -40,28 +19,28 @@ public enum DetailResources {
     private Color resourceColor;
     private String [] resourceArray;
 
-    DetailResources(String resource) {
+    ObjectResources(String resource) {
         resourceString = resource;
         resourceDouble = -1;
         resourceColor = null;
         resourceArray = null;
     }
     
-    DetailResources(String[] resource){
+    ObjectResources(String[] resource){
     	resourceString = "";
         resourceDouble = -1;
         resourceColor = null;
         resourceArray = resource;
     }
 
-    DetailResources(double resource) {
+    ObjectResources(double resource) {
         resourceString = null;
         resourceDouble = resource;
         resourceColor = null;
         resourceArray = null;
     }
     
-    DetailResources(Color resource){
+    ObjectResources(Color resource){
     	resourceString = null;
     	resourceDouble = -1;
     	resourceColor = resource;

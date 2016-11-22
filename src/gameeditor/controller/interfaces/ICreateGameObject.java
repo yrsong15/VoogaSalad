@@ -8,9 +8,9 @@ import java.util.Map;
  *
  */
 public interface ICreateGameObject {
-	void createGameObject(double xPos, double yPos, double width, double height, 
-			String imageFileName, Map<String, String> properties);
-	void addToProperties(String key, String value);
-	void addCurrentPropertiesToGameObject();
+//	void createGameObject(double xPos, double yPos, double width, double height, 
+//			String imageFileName, Map<String, String> properties);
+//	void addToProperties(String key, String value);
+	void addPropertiesToGameObject(Map<String, String> properties);
 }
 
