@@ -91,9 +91,9 @@ public class CreateDetail extends AbstractCommandDetail  {
 		myImagePane.setMinWidth(60);
 		myImagePane.setMaxWidth(60);
 		Button choose = createImageButton();
-		Rectangle imageZone = new Rectangle(DetailResources.IMAGE_ZONE_WIDTH.getDoubleResource(), DetailResources.IMAGE_ZONE_HEIGHT.getDoubleResource(), Color.GHOSTWHITE);
+		Rectangle imageZone = new Rectangle(DetailResources.TYPE_IMAGE_ZONE_WIDTH.getDoubleResource(), DetailResources.TYPE_IMAGE_ZONE_HEIGHT.getDoubleResource(), Color.GHOSTWHITE);
 		myImagePane.getChildren().add(imageZone);
-		imageZone.setArcHeight(DetailResources.IMAGE_ZONE_PADDING.getDoubleResource()); imageZone.setArcWidth(DetailResources.IMAGE_ZONE_PADDING.getDoubleResource());
+		imageZone.setArcHeight(DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource()); imageZone.setArcWidth(DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource());
 		bp.setLeft(choose);
 		bp.setRight(myImagePane);
 		bp.setAlignment(choose, Pos.CENTER_LEFT);
@@ -105,9 +105,9 @@ public class CreateDetail extends AbstractCommandDetail  {
 	    myFilePath = getFilePath(ViewResources.IMAGE_FILE_TYPE.getResource(), ViewResources.SPRITE_IMAGE_LOCATION.getResource());       
 		Image i = new Image(myFilePath);
 		double aspectRatio = i.getWidth()/i.getHeight();
-		double imageZonePadding = DetailResources.IMAGE_ZONE_PADDING.getDoubleResource();
-		double imageZoneWidth = DetailResources.IMAGE_ZONE_WIDTH.getDoubleResource();
-		double imageZoneHeight = DetailResources.IMAGE_ZONE_HEIGHT.getDoubleResource();
+		double imageZonePadding = DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource();
+		double imageZoneWidth = DetailResources.TYPE_IMAGE_ZONE_WIDTH.getDoubleResource();
+		double imageZoneHeight = DetailResources.TYPE_IMAGE_ZONE_HEIGHT.getDoubleResource();
 		double fitWidth = imageZoneWidth-imageZonePadding;
 		double fitHeight = imageZoneHeight-imageZonePadding;
 		double widthRatio = fitWidth/i.getWidth();
