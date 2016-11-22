@@ -1,5 +1,6 @@
 package gameeditor.controller;
 import gameeditor.controller.interfaces.ICreateLevel;
+import objects.GameObject;
 import objects.Level;
 
 
@@ -60,4 +61,11 @@ public class LevelManager implements ICreateLevel{
 	public void addBackgroundImage(String backgroundFilePath) {
 		myLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
 	}
+
+    @Override
+    public void setCurrentGameObjectToMainCharacter (GameObject object) {
+        // TODO Auto-generated method stub
+        myLevel.setMainCharacter(object);
+        
+    }
 }

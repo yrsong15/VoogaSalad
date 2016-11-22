@@ -2,6 +2,7 @@ package gameeditor.view;
 
 import java.io.File;
 import frontend.util.FileOpener;
+import gameeditor.controller.interfaces.ICreateLevel;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -29,7 +30,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
-    private ISettings mySettings;
+    //private ISettings mySettings;
+    private ICreateLevel myLevelSettings;
     
     public GameEditorView(){
         myRoot = new BorderPane();    
@@ -74,10 +76,10 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myScrollPane.setContent(myHBox); 
             
             //Setting Data For the Settings
-            mySettings.setBackgroundFilePath(filePath);
+            //mySettings.setBackgroundFilePath(filePath);
+            myLevelSettings.addBackgroundImage(filePath);
             
-        }
-        
+        }     
     }
  
     public void setAvatar(){
@@ -85,6 +87,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         if(filePath!=null){
             Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(newAvatar);
+               
         } 
     }
 
@@ -97,7 +100,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     public void setMusic(){
        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION); 
-       mySettings.setMusicFile(musicFilePath);  
+       myLevelSettings.addBackgroundMusic(musicFilePath);
+       //mySettings.setMusicFile(musicFilePath);  
     }
     
     private String getFilePath(String fileType, String fileLocation){
