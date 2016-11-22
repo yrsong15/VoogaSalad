@@ -47,8 +47,7 @@ public class GameScreen implements IGameScreen {
 	
 	private void init() {
 		for (GameObject object : myGameObjects) {
-			System.out.println(object.getImageFileName());
-			Image image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));
+			Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
 			ImageView iv = new ImageView(image);
 			iv.setX(object.getXPosition());
 			iv.setY(object.getYPosition());
