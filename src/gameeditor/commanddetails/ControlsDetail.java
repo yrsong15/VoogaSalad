@@ -19,7 +19,7 @@ public class ControlsDetail extends AbstractCommandDetail{
 	public ControlsDetail() {
 		super();
 		myVBox = new VBox();
-		myVBox.setSpacing(ViewResources.DETAIL_CONTENT_PADDING.getDoubleResource());
+		myVBox.setSpacing(myDetailPadding);
 		myVBox.setAlignment(Pos.CENTER);
 		myContainerPane.setContent(myVBox);
 		String [] array = new String [] {"Up", "Down", "Left", "Right", "Shoot", "Interact"};

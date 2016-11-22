@@ -1,9 +1,14 @@
 package gameeditor.commanddetails;
 
-public class BehaviorDetail {
+import javafx.scene.layout.VBox;
 
+public class BehaviorDetail extends AbstractCommandDetail {
+
+	VBox myVBox;
+	
 	public BehaviorDetail() {
-		// TODO Auto-generated constructor stub
+		super();
+		myVBox = new VBox();
 	}
 
 }

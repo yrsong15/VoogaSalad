@@ -75,7 +75,7 @@ public class MainController {
     	GameEngineController gameEngineController = new GameEngineController();
     	Game game = new Game("flappy bird");
         map.put("collidable", "die");
-        GameObject go = new GameObject(1, 2, 50, 50, "../images/Sprite/bird2.png", map);
+        GameObject go = new GameObject(1, 2, 50, 50, "bird2.png", map);
         go.setProperty("removeobject", "doesn't matter what you put here (remove object doesn't care)");
         go.setProperty("damage", "50");
         Level level = new Level(1);
