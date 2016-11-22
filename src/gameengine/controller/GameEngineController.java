@@ -1,12 +1,20 @@
 package gameengine.controller;
 
+<<<<<<< HEAD
+import java.util.List;
+=======
 import java.util.HashMap;
 import java.util.Map;
+>>>>>>> 81e248390d4e74cfaf2ad3dea47a29613aacc71c
 import java.util.Observable;
 
+import gameengine.controller.interfaces.MovementHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.view.GameEngineUI;
+<<<<<<< HEAD
+=======
 import javafx.scene.input.KeyCode;
+>>>>>>> 81e248390d4e74cfaf2ad3dea47a29613aacc71c
 import objects.GameObject;
 import objects.Game;
 import objects.Level;
@@ -21,16 +29,19 @@ public class GameEngineController extends Observable implements RuleActionHandle
     private GameParser parser;
     private CollisionChecker collisionChecker;
     private boolean gameOver;
-	private Game currentGame;
+    private Game currentGame;
+
+
 	private GameEngineUI GameEngineView;
 	private Map<String, KeyCode> controls;
-	private FreeRoamScrollerController movementController;
+	private MovementController movementController;
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
-		movementController = new FreeRoamScrollerController();
-        controls = new HashMap<String, KeyCode>();
+		movementController = new MovementController();
+        	controls = new HashMap<String, KeyCode>();
+		gameEngineView = new GameEngineUI(movementController);
 	}
 
 	public void startGame() {
@@ -47,13 +58,13 @@ public class GameEngineController extends Observable implements RuleActionHandle
         //NEED TO DO
     }
 	
+	
 	/**
 	 * Applies gravity and scrolls, checks for collisions
 	 */
 	public void loopGame(){
 		Level currLevel = currentGame.getCurrentLevel();
 		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
-		//TO-DO: apply movement and scroll screen
 	}
 
 	public void setCurrentXML(String xmlData) {

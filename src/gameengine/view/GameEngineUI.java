@@ -10,6 +10,7 @@ import gameengine.controller.ScrollerController;
 import gameengine.view.interfaces.IGameEngineUI;
 import gameengine.view.interfaces.IGameScreen;
 import gameengine.view.interfaces.IToolbar;
+import gameengine.view.interfaces.MovementInterface;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -34,6 +35,12 @@ public class GameEngineUI implements IGameEngineUI {
 	private Scene myScene;
 	private Level myLevel;
 	private ScrollerController scrollerController;
+
+	private MovementInterface movementInterface;
+	
+	public GameEngineUI() {
+		this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		
 	private String myGameFileLocation;
 	private String myLevelFileLocation;
 	private IToolbar myToolbar;
@@ -41,8 +48,9 @@ public class GameEngineUI implements IGameEngineUI {
 	private boolean isPaused;
 	private MediaPlayer myMediaPlayer;
 	
-	public GameEngineUI(Level level) {
+	public GameEngineUI(Level level,MovementInterface movementInterface) {
 		myLevel = level;
+		this.movementInterface = movementInterface;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		//myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		
@@ -52,6 +60,7 @@ public class GameEngineUI implements IGameEngineUI {
 		//scrollerController.setScene(myScene);
 		setBackgroundImage("Sprite/bird2.gif");
 		setMusic("FlappyBirdThemeSong.mp3");
+
 	}
 	
 	public ScrollerController getScrollerController(){
@@ -126,6 +135,23 @@ public class GameEngineUI implements IGameEngineUI {
     
     private void reset() {
     	System.out.println("reset");
+	}
+	
+	private void setUpKeystrokeListeners(){
+		this.myScene.setOnKeyReleased(event -> {
+	      	  if (event.getCode() == KeyCode.UP){
+	      		  movementInterface.UPKeyPressed();
+	      	  }
+	      	  else if (event.getCode() == KeyCode.DOWN){
+	      		movementInterface.DOWNKeyPressed();
+	       	  }
+	      	  else if (event.getCode() == KeyCode.LEFT){
+	      		movementInterface.LEFTKeyPressed();
+	          }
+	      	  else if (event.getCode() == KeyCode.RIGHT){
+	      		movementInterface.RIGHTKeyPressed();
+	          }
+	       });
 	}
 
 }
