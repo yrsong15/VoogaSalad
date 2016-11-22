@@ -15,12 +15,14 @@ public class XMLSerializer{
 
     private XStream mySerializer = new XStream(new DomDriver());
 
-    public String serializeGame(Game game){
+    public String serializeGame(Game game)
+    {
         return mySerializer.toXML(game);
     }
-    
-    public Game getGameFromString(String s){
-    	return (Game)mySerializer.fromXML(s);
+
+    public Game getGameFromString(String s)
+    {
+        return (Game)mySerializer.fromXML(s);
     }
 
 }

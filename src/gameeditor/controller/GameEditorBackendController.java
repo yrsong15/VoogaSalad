@@ -14,7 +14,6 @@ import objects.Level;
 /**
  * This is the central class for the Game Editor backend that contains all the methods that can be called
  * by the Game Editor frontend.
- * 
  * @author Ray Song(ys101)
  *
  */
@@ -127,18 +126,21 @@ public class GameEditorBackendController implements IGameEditorController, ICrea
     }
 
     @Override
-    public void setCurrentGameObjectToMainCharacter() {
-        myCurrentLevel.setMainCharacter(myGameObject);
+    public void setCurrentGameObjectToMainCharacter(GameObject object) {
+        myCurrentLevel.setMainCharacter(object);
     }
 
     @Override
     public void setLevelsControls (HashMap<String, String> newControlMap) {
-        this.myControlMap = newControlMap;
-        
+        this.myControlMap = newControlMap;   
     }
     
     public HashMap<String, String> getLevelControls(){
         return this.myControlMap;
+    }
+    
+    public GameObject getCurrentGameObject(){
+        return myGameObject;
     }
     
 }
