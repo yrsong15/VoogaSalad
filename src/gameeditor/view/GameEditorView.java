@@ -30,17 +30,14 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
-<<<<<<< HEAD
     private ISettings mySettings;
-=======
     //private ISettings mySettings;
     private ICreateLevel myLevelSettings;
->>>>>>> 83c6ef6b52d5b4bf2a8f25029ddaea1b8bbfa588
     
     public GameEditorView(){
         myRoot = new BorderPane();    
     }
-
+    
     public Parent createRoot(){
         myRoot.setLeft(createLeftAlt());
         myRoot.setCenter(createCenter());
@@ -80,17 +77,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myScrollPane.setContent(myHBox); 
             
             //Setting Data For the Settings
-<<<<<<< HEAD
             mySettings.setBackgroundFilePath(filePath);
-            
-        }
-        
-=======
+
             //mySettings.setBackgroundFilePath(filePath);
             myLevelSettings.addBackgroundImage(filePath);
             
-        }     
->>>>>>> 83c6ef6b52d5b4bf2a8f25029ddaea1b8bbfa588
+        }
     }
  
     public void setAvatar(){
@@ -110,13 +102,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     public void setMusic(){
-       String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION); 
-<<<<<<< HEAD
-       mySettings.setMusicFile(musicFilePath);  
-=======
+       String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
+       mySettings.setMusicFile(musicFilePath);
        myLevelSettings.addBackgroundMusic(musicFilePath);
-       //mySettings.setMusicFile(musicFilePath);  
->>>>>>> 83c6ef6b52d5b4bf2a8f25029ddaea1b8bbfa588
     }
     
     private String getFilePath(String fileType, String fileLocation){
