@@ -1,7 +1,8 @@
 package general;
 
 
-import gameeditor.controller.GameEditorController;
+import gameeditor.controller.GameEditorBackendController;
+import gameeditor.controller.GameEditorFrontEndController;
 import gameeditor.view.GameEditorView;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
@@ -17,7 +18,6 @@ import java.util.Map;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-
 public class MainController {
     public static final String STYLESHEET = "default.css";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
@@ -27,7 +27,7 @@ public class MainController {
     private GalleryView myGalleryView;
     private Stage myGameEditorStage;
     //private GameEditorView myGameEditorView;
-    private GameEditorController myGameEditorController;
+    private GameEditorFrontEndController myGameEditorController;
     private GameEngineController myGameEngineController;
 
     public MainController(Stage stage) {
@@ -63,10 +63,10 @@ public class MainController {
 
     public void presentEditor() {
         myGameEditorStage = new Stage();
-        myGameEditorController = new GameEditorController();
-        //myGameEditorView = new GameEditorView();
-        Scene scene = new Scene(myGameEditorController.startEditor(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
-        myGameEditorStage.setScene(scene);
+        
+        myGameEditorController = new GameEditorFrontEndController();
+        Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
+        myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
     }
 

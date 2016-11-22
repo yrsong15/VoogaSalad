@@ -1,26 +1,30 @@
 package gameeditor.controller;
-
 import gameeditor.controller.interfaces.ICreateLevel;
 import objects.Level;
+
 
 /**
  * This is an intermediate controller that manages levels of the Game.
  * @author Ray Song(ys101)
  *
  */
-public class LevelManager implements ICreateLevel{
-	
-	private Level myLevel;
 
+public class LevelManager implements ICreateLevel{
+	private Level myLevel;
+	//private LevelSettings mySettings;
+	//private Settings mySettings;
+	
 	@Override
 	public void createLevel(int levelNumber) {
 		Level level = new Level(levelNumber);
+		//mySettings = new LevelSettings(null,null,null);
 		myLevel = level;
 	}
 
 	public Level getLevel() {
 		return myLevel;
 	}
+	
 
 	@Override
 	public void addWinConditions(String type, String action) {
@@ -56,5 +60,4 @@ public class LevelManager implements ICreateLevel{
 	public void addBackgroundImage(String backgroundFilePath) {
 		myLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
 	}
-    
 }
