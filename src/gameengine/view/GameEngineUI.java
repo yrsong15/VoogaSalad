@@ -41,6 +41,7 @@ public class GameEngineUI implements IGameEngineUI {
 	public GameEngineUI(MovementInterface movementInterface) {
 //		this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		this.movementInterface = movementInterface;
+		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 	}
 	private String myGameFileLocation;
 	private String myLevelFileLocation;
@@ -50,9 +51,9 @@ public class GameEngineUI implements IGameEngineUI {
 	private MediaPlayer myMediaPlayer;
 
 //	public GameEngineUI(Level level, MovementInterface movementInterface) {
-	public void setLevel(Level level){
+	public Scene setLevel(Level level){
 		myLevel = level;
-		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		
 		//myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		
 		//TODO: Instantiate the proper ScrollerController depending on game type, right now ScrollerController is abstract
@@ -61,6 +62,7 @@ public class GameEngineUI implements IGameEngineUI {
 		//scrollerController.setScene(myScene);
 		setBackgroundImage("Sprite/bird2.gif");
 		setMusic("FlappyBirdThemeSong.mp3");
+		return myScene;
 	}
 	
 	public ScrollerController getScrollerController(){
@@ -99,7 +101,7 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 	
 	private Node makeGameScreen() {
-		myGameScreen = new GameScreen(myLevel);
+		myGameScreen = new GameScreen();
 		return myGameScreen.getScreen();
 	}
 	

@@ -49,9 +49,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
         gameEngineView.setLevel(currentGame.getCurrentLevel());
         gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
         gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
-        while (!gameOver){
+//        while (!gameOver){
         	loopGame();
-        }
+//        }
 	}
 
 	public void mapControls(){
@@ -63,8 +63,8 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	 * Applies gravity and scrolls, checks for collisions
 	 */
 	public void loopGame(){
-		Level currLevel = currentGame.getCurrentLevel();
-		gameEngineView.update(currLevel);
+		//Level currLevel = ;
+		gameEngineView.update(currentGame.getCurrentLevel());
 //		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
 //		LossChecker.checkLossConditions((RuleActionHandler)this, currLevel.getLoseConditions(), currLevel.getGameConditions());
 //		WinChecker.checkWinConditions((RuleActionHandler)this, currLevel.getWinConditions(), currLevel.getGameConditions());
