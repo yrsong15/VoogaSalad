@@ -2,7 +2,7 @@ package gameeditor.view;
 
 import java.io.File;
 import frontend.util.FileOpener;
-import gameeditor.controller.interfaces.ICreateLevel;
+import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -32,7 +32,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDetailPane myDetailPane;
     private ISettings mySettings;
     //private ISettings mySettings;
-    private ICreateLevel myLevelSettings;
+    private ILevelManager myLevelSettings;
     
     public GameEditorView(){
         myRoot = new BorderPane();    
