@@ -29,9 +29,11 @@ public class MovementController implements MovementInterface{
 	}
 	
 	public void UPKeyPressed(){
+		
 		for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
 			double newPos = obstacle.getYPosition() + movementSpeed;
 			obstacle.setYPosition(newPos);
+			//System.out.println(obstacle + " new position");
 		}
 	}
 	
