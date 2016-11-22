@@ -1,4 +1,4 @@
-package gameengine.controller;
+package gameengine.controller.interfaces;
 
 import objects.GameObject;
 

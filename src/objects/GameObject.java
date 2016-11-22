@@ -13,7 +13,7 @@ public class GameObject{
 	private double width;
 	private double height;
 	String imageFileName;
-	Map<String,String> properties;
+	Map<String, String> properties;
     
 	public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName, Map<String,String> properties){
 		this.xPosition = xPosition;

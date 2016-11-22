@@ -2,7 +2,7 @@ package gameengine.model;
 
 import java.util.List;
 
-import gameengine.controller.RuleActionHandler;
+import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.rules.CollisionRulebook;
 import objects.GameObject;
 
