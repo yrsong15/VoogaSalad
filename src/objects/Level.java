@@ -11,7 +11,7 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> winConditions;
     private Map<String, String> loseConditions;
-    private Map<String, Integer> gameConditions;
+    private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
@@ -74,19 +74,21 @@ public class Level {
         this.mainCharacter = mainCharacter;
     }
 
+    //TODO: getScore returns int, but Score is stored as double for functionality purposes 
+    //let me know if you think this is wrong!! - Ray Song
     public int getScore(){
-    	return gameConditions.get("score");
+    	return gameConditions.get("score").intValue();
     }
 
-    public void setScore(int score){
+    public void setScore(double score){
         gameConditions.put("score", score);
     }
 
-    public int getTime(){
+    public double getTime(){
     	return gameConditions.get("time");
     }
 
-    public void setTime(int time){
+    public void setTime(double time){
     	gameConditions.put("time", time);
     }
     
