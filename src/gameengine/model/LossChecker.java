@@ -7,7 +7,7 @@ import gameengine.controller.RuleActionHandler;
 public class LossChecker {
 	
 	
-	public void checkLossConditions(RuleActionHandler handler, Map<String, String> lossConditions, Map<String, String> gameConditions){
+	public static void checkLossConditions(RuleActionHandler handler, Map<String, Integer> lossConditions, Map<String, Integer> gameConditions){
 		for (String condition : lossConditions.keySet()){
 			if (lossConditions.get(condition)==gameConditions.get(condition)){
 				handler.endGame();

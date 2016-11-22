@@ -3,21 +3,14 @@ package objects;
 /**
  * @author pratikshasharma, Soravit
  */
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import com.sun.javafx.scene.traversal.Direction;
-import javafx.beans.property.StringProperty;
+import objects.interfaces.ISettings;
 
-public class Settings {
+
+public class LevelSettings implements ISettings{
     private String musicFilePath;
     private String backgroundFilePath;
-    
-    public Settings(String musicFilePath, String backgroundFilePath){
-        this.musicFilePath = musicFilePath;
-        this.backgroundFilePath = backgroundFilePath;
-    }
 
+  
     public void setMusicFile(String musicFilePath){
         this.musicFilePath = musicFilePath;
     }

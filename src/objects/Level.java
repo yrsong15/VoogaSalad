@@ -2,6 +2,7 @@ package objects;
 
 import java.util.*;
 
+
 /**
  * Created by Soravit on 11/18/2016.
  */
@@ -11,11 +12,17 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> winConditions;
     private Map<String, String> loseConditions;
-    private Map<String, Integer> gameConditions;
+    private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
-    private Settings viewSettings;
+
+   
+    private int score;
+    private int time;
+
+    private LevelSettings viewSettings;
+
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
@@ -23,6 +30,7 @@ public class Level {
         winConditions = new HashMap<>();
         loseConditions = new HashMap<>();
         gameConditions = new HashMap<>();
+        viewSettings = new LevelSettings();
         this.level = level;
     }
 
@@ -58,6 +66,10 @@ public class Level {
         winConditions.remove(type);
     }
 
+    public Map<String, String> getWinConditions(){
+    	return winConditions;
+    }
+    
     public void addLoseCondition(String type, String action) {
         loseConditions.put(type, action);
     }
@@ -66,6 +78,14 @@ public class Level {
         loseConditions.remove(type);
     }
 
+    public Map<String, String> getLoseConditions(){
+    	return loseConditions;
+    }
+    
+    public Map<String, Double> getGameConditions(){
+    	return gameConditions;
+    }
+    
     public GameObject getMainCharacter() {
         return mainCharacter;
     }
@@ -75,18 +95,18 @@ public class Level {
     }
 
     public int getScore(){
-    	return gameConditions.get("score");
+    	return gameConditions.get("score").intValue();
     }
 
-    public void setScore(int score){
+    public void setScore(double score){
         gameConditions.put("score", score);
     }
 
-    public int getTime(){
+    public double getTime(){
     	return gameConditions.get("time");
     }
 
-    public void setTime(int time){
+    public void setTime(double time){
     	gameConditions.put("time", time);
     }
     
@@ -94,11 +114,13 @@ public class Level {
     	return gameObjects;
     }
     
-    public Settings getViewSettings(){
+
+    public LevelSettings getViewSettings(){
         return viewSettings;
     }
     
-    public void setViewSettings(Settings viewSettings){
+    public void setViewSettings(LevelSettings viewSettings){
         this.viewSettings = viewSettings;
+
     }
 }

@@ -14,20 +14,41 @@ import gameeditor.xml.XMLSerializer;
  */
 public class GameEditorTestMain {
 	public static void main(String[] args){
-		GameEditorController myController = new GameEditorController();
+		GameEditorBackendController myController = new GameEditorBackendController();
 		XMLSerializer mySerializer = new XMLSerializer();
 		
 		myController.createGame("flappy bird");
+		
 		myController.createLevel(1);
-		myController.createGameObject(15, 30, 100, 50, "bird.jpg", new HashMap<String, String>());
-		myController.addToProperties("collidable", "die");
-		myController.addToProperties("removeobject", "xxxxxx Whatever lololol hahahaha xxxxxx");
-		myController.addToProperties("damage", "50");
+		
+		myController.createGameObject(15, 30, 100, 50, "bird3.png", new HashMap<String, String>());
 		myController.addCurrentGameObjectToLevel();
+		myController.setCurrentGameObjectToMainCharacter();
+		
+		myController.createGameObject(100, 200, 300, 400, "Pipes.png", new HashMap<String, String>());
+		myController.addToProperties("damage", "30");
+		myController.addToProperties("removeobject", "xxxxxx");
+		myController.addToProperties("points", "50");
+		myController.addCurrentPropertiesToGameObject();
+		myController.addCurrentGameObjectToLevel();
+		
+		myController.createGameObject(100, 200, 300, 400, "Pipes.png", new HashMap<String, String>());
+		myController.addToProperties("damage", "30");
+		myController.addToProperties("removeobject", "xxxxxx");
+		myController.addToProperties("points", "50");
+		myController.addCurrentPropertiesToGameObject();
+		myController.addCurrentGameObjectToLevel();
+		
 		myController.addWinConditions("score", "10");
 		myController.addLoseConditions("time", "30");
-		myController.addCurrentLevelToGame();
+		myController.addScore(0);
+		myController.addTime(0);
 		
+		myController.addBackgroundImage("Background/bg.png");
+		myController.addBackgroundMusic("FlappyBirdThemeSong.mp3");
+		
+		myController.addCurrentLevelToGame();
+		myController.setCurrentLevelToGame();
 		
 		String testResult = mySerializer.serializeGame(myController.getGame());
 		System.out.println(testResult);
