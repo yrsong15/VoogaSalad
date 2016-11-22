@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by Soravit on 11/18/2016.
  */
-public class Level {
+public class Level implements ILevel{
 
     private int level;
     private List<GameObject> gameObjects;
@@ -17,7 +17,6 @@ public class Level {
     private GameObject mainCharacter;
     private ScrollType scrollType;
 
-   
     private int score;
     private int time;
 

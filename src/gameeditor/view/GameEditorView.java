@@ -85,6 +85,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         if(filePath!=null){
             Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(newAvatar);
+            
         } 
     }
 
