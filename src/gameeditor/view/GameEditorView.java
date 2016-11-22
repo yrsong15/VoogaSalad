@@ -3,8 +3,12 @@ package gameeditor.view;
 import java.io.File;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorData;
+<<<<<<< HEAD
+import gameeditor.controller.interfaces.ILevelSettings;
+=======
 import gameeditor.controller.IGameEditorData;
 import gameeditor.controller.interfaces.ILevelManager;
+>>>>>>> master
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -31,8 +35,11 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
-   // private ISettings mySettings;
+    // private ISettings mySettings;
     //private ISettings mySettings;
+    // private ILevelManager myLevelSettings;
+    private ILevelSettings myLevelSettings;
+    private GameEditorData myGameEditorData;
     private ILevelManager myLevelSettings;
     private IGameEditorData myDataStore;
     
@@ -40,7 +47,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myRoot = new BorderPane();  
         myDataStore = new GameEditorData();
     }
-    
+
     public Parent createRoot(){
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
@@ -78,20 +85,20 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
             myHBox.getChildren().add(backgroundImage);        
             myDesignArea.setBackground(myHBox); 
-            
-            myLevelSettings.setBackgroundImage(filePath);
-             
+
+            myGameEditorData.setBackgroundImage(filePath);
+
         }
     }
- 
+
     public void setAvatar(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
         if(filePath!=null){
             Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(newAvatar);
-            
-            myLevelSettings.setMainCharacterImage(filePath);
-               
+
+            myGameEditorData.setMainCharacterImage(filePath);
+
         } 
     }
 
@@ -99,17 +106,17 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public void sendDataToGameEngine () {
         // Call in the XMlSerializer to send the Xml file 
         System.out.println(" Send Data ");
-        
+
     }
 
     public void setMusic(){
-       String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-       //mySettings.setMusicFile(musicFilePath);
-       //myLevelSettings.addBackgroundMusic(musicFilePath);
-       
-       myLevelSettings.setMusic(musicFilePath);
+        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
+        //mySettings.setMusicFile(musicFilePath);
+        //myLevelSettings.addBackgroundMusic(musicFilePath);
+
+        myGameEditorData.setMusic(musicFilePath);
     }
-    
+
     private String getFilePath(String fileType, String fileLocation){
         FileOpener myFileOpener = new FileOpener();
         File file =(myFileOpener.chooseFile(fileType, fileLocation));
@@ -118,5 +125,5 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         }
         return null;
     }
-    
+
 }

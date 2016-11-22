@@ -26,6 +26,9 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
     private GameObject myGameObject;
     private HashMap<String, String> myControlMap;
 
+    public GameEditorBackendController(){
+        
+    }
     @Override
     public Game getGame() {
         return myGame;
