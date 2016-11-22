@@ -1,5 +1,6 @@
 package gameeditor.controller.interfaces;
 
+import objects.GameObject;
 
 /**
  * 
@@ -11,4 +12,5 @@ public interface ICreateGame {
 	public void addCurrentLevelToGame();
 	public void setCurrentLevelToGame();
 	
+
 }

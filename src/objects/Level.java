@@ -15,11 +15,8 @@ public class Level implements ILevel{
     private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
+
     private ScrollType scrollType;
-
-    private int score;
-    private int time;
-
     private LevelSettings viewSettings;
 
 

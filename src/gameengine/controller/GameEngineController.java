@@ -49,9 +49,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
         gameEngineView.setLevel(currentGame.getCurrentLevel());
         gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
         gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
-//        while (!gameOver){
+        while (!gameOver){
         	loopGame();
-//        }
+        }
 	}
 
 	public void mapControls(){
