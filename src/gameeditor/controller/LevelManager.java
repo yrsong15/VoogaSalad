@@ -24,12 +24,12 @@ public class LevelManager implements ICreateLevel{
 
 	@Override
 	public void addWinConditions(String type, String action) {
-		myLevel.addWinCondition(type, Integer.parseInt(action));
+		myLevel.addWinCondition(type, action);
 	}
 
 	@Override
 	public void addLoseConditions(String type, String action) {
-		myLevel.addLoseCondition(type, Integer.parseInt(action));
+		myLevel.addLoseCondition(type, action);
 	}
 
 	@Override
@@ -45,6 +45,16 @@ public class LevelManager implements ICreateLevel{
 	@Override
 	public void addCurrentGameObjectToLevel() {
 		return;
+	}
+
+	@Override
+	public void addBackgroundMusic(String musicFilePath) {
+		myLevel.getViewSettings().setMusicFile(musicFilePath);
+	}
+
+	@Override
+	public void addBackgroundImage(String backgroundFilePath) {
+		myLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
 	}
     
 }
