@@ -25,31 +25,25 @@ public class GameEditorBackendController implements IGameEditorController, ICrea
     private GameObject myGameObject;
 //    private Map<String, String> myCurrentMap;
     private HashMap<String,String>myControlMap;
-
     public GameEditorBackendController(){
 //        myLevelManager = new LevelManager();
 //        myMapManager = new MapManager();
     }
-
     @Override
     public Game getGame(){
         return myGame;
     }
-
-
     @Override
     public void createGame(String title) {
-        Game game = new Game(title);	
+        Game game = new Game(title);
         myGame = game;
     }
-
     @Override
     public void createLevel(int levelNumber) {
 //        myLevelManager.createLevel(levelNumber);
 //        myCurrentLevel = myLevelManager.getLevel();
     	myCurrentLevel = new Level(levelNumber);
     }
-
     @Override
     public void addCurrentLevelToGame() {
         myGame.addLevel(myCurrentLevel);
@@ -72,48 +66,44 @@ public class GameEditorBackendController implements IGameEditorController, ICrea
 //        myCurrentMap.put(key, value);
 //    }
 
+
     @Override
     public void addGameObjectToLevel(GameObject ob) {
         myCurrentLevel.addGameObject(ob);
     }
-
     @Override
     public void addWinConditions(String type, String action) {
     	myCurrentLevel.addWinCondition(type, action);
 //        myCurrentLevel = myLevelManager.getLevel();
     }
-
     @Override
     public void addLoseConditions(String type, String action) {
     	myCurrentLevel.addLoseCondition(type, action);
 //        myCurrentLevel = myLevelManager.getLevel();
     }
 
+
     @Override
     public void addPropertiesToGameObject(Map<String, String> properties) {
         myGameObject.setPropertiesList(properties);	
-    }
 
+    }
     @Override
     public void addScore(double score) {
         myCurrentLevel.setScore(score);
     }
-
     @Override
     public void addTime( double time) {
         myCurrentLevel.setTime(time);
     }
-
     @Override
     public void addBackgroundMusic(String musicFilePath) {
     	myCurrentLevel.getViewSettings().setMusicFile(musicFilePath);
     }
-
     @Override
     public void addBackgroundImage(String backgroundFilePath) {
     	myCurrentLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
     }
-
     @Override
     public void setCurrentLevelToGame() {
         myGame.setCurrentLevel(myCurrentLevel);
@@ -127,5 +117,5 @@ public class GameEditorBackendController implements IGameEditorController, ICrea
     public GameObject getCurrentGameObject(){
         return myGameObject;
     }
-    
+
 }

@@ -1,6 +1,5 @@
-package gameeditor.controller;
+package gameeditor.controller.interfaces;
 import java.util.HashMap;
-import gameeditor.controller.interfaces.IControlManager;
 
 public class ControlManager implements IControlManager{
     HashMap<String, String > myControlMap;
@@ -14,7 +13,7 @@ public class ControlManager implements IControlManager{
     }
     
     public void setLevelsControls( HashMap<String,String> newControlMap){
-        this.myControlMap = newControlMap;
+        this.myControlMap= newControlMap;
     }
     
 }

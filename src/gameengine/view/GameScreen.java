@@ -34,14 +34,9 @@ public class GameScreen implements IGameScreen {
 	private Level myLevel;
 	private List<GameObject> myGameObjects;
 	
-	private Rectangle square = new Rectangle(0, 0, 50, 50);
-	private Circle circle = new Circle(GameEngineUI.myAppWidth/2, GameEngineUI.myAppHeight/2, 30);
-	
 	public GameScreen() {
 		myScreen = new Pane();
 		myScreen.setMaxSize(screenWidth, screenHeight);
-		//myScreen.getChildren().addAll(square, circle);
-		//init();
 	}
 	
 	public void setLevel(Level level){
@@ -62,33 +57,24 @@ public class GameScreen implements IGameScreen {
 		myScreen.setBackground(new Background(bi));
 		
 	}
-	
-	private void init() {
-		for (GameObject object : myGameObjects) {
-			Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
-			ImageView iv = new ImageView(image);
-			iv.setFitHeight(object.getHeight());
-			iv.setFitWidth(object.getWidth());
-			iv.setX(object.getXPosition());
-			iv.setY(object.getYPosition());
-			myScreen.getChildren().add(iv);
-		}
-	}
 
 	@Override
 	public void update(Level level) {
 		myScreen.getChildren().clear();
+		addGameObject(level.getMainCharacter());
 		for (GameObject object : level.getGameObjects()) {
-			Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
-			ImageView iv = new ImageView(image);
-			iv.setFitHeight(object.getHeight());
-			iv.setFitWidth(object.getWidth());
-			iv.setX(object.getXPosition());
-			iv.setY(object.getYPosition());
-			myScreen.getChildren().add(iv);
+			addGameObject(object);
 		}
 		
-		square.setX(square.getX()+5);
-		circle.setCenterX(circle.getCenterX()+5);
+	}
+	
+	private void addGameObject(GameObject object) {
+		Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
+		ImageView iv = new ImageView(image);
+		iv.setFitHeight(object.getHeight());
+		iv.setFitWidth(object.getWidth());
+		iv.setX(object.getXPosition());
+		iv.setY(object.getYPosition());
+		myScreen.getChildren().add(iv);
 	}
 }

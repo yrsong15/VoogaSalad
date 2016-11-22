@@ -30,7 +30,7 @@ public enum ViewResources {
 		// Command Pane
 		COMMAND_PANE_BG(Color.STEELBLUE),
 		COMMAND_PANE_WIDTH(75),
-		BUTTON_FILE_LOCATIONS(new String[] {"/Select.png", "/Create.png", "/Behavior.png", "/Controls.png"}),
+		BUTTON_FILE_LOCATIONS(new String[] {"/Select.png", "/CreateObject.png", "/Create.png", "/Behavior.png", "/Controls.png"}),
 		BUTTON_RADIUS(5),
 		BUTTON_BG_COLOUR(Color.WHITESMOKE),
 		BORDER_OFF_COLOUR(Color.WHITESMOKE),
