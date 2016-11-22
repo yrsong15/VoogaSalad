@@ -5,16 +5,12 @@ import java.util.List;
 =======
 import java.util.HashMap;
 import java.util.Map;
->>>>>>> 81e248390d4e74cfaf2ad3dea47a29613aacc71c
 import java.util.Observable;
 
 import gameengine.controller.interfaces.MovementHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.view.GameEngineUI;
-<<<<<<< HEAD
-=======
 import javafx.scene.input.KeyCode;
->>>>>>> 81e248390d4e74cfaf2ad3dea47a29613aacc71c
 import objects.GameObject;
 import objects.Game;
 import objects.Level;
