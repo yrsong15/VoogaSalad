@@ -2,7 +2,6 @@ package objects;
 
 import java.util.*;
 
-import gameengine.model.Condition;
 
 /**
  * Created by Soravit on 11/18/2016.
@@ -11,20 +10,20 @@ public class Level {
 
     private int level;
     private List<GameObject> gameObjects;
-    private List<Condition> gameObjectives;
     private Map<String, Integer> winConditions;
     private Map<String, Integer> loseConditions;
     private Map<String, Integer> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
-    private Settings levelSettings;
+    private Settings viewSettings;
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
         randomGenerations = new ArrayList<RandomGeneration>();
-        winConditions = new HashMap<String, Integer>();
-        loseConditions = new HashMap<String, Integer>();
+        winConditions = new HashMap<>();
+        loseConditions = new HashMap<>();
+        gameConditions = new HashMap<>();
         this.level = level;
     }
 
@@ -108,11 +107,11 @@ public class Level {
     	return gameObjects;
     }
     
-    public Settings getLevelSettings(){
-        return levelSettings;
+    public Settings getViewSettings(){
+        return viewSettings;
     }
     
-    public void setLevelSettings(Settings levelSettings){
-        this.levelSettings = levelSettings;
+    public void setViewSettings(Settings viewSettings){
+        this.viewSettings = viewSettings;
     }
 }

@@ -1,42 +1,94 @@
 package gameeditor.commanddetails;
 
+import java.io.File;
+import java.util.Locale;
+
+import frontend.util.FileOpener;
 import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class CreateDetail extends AbstractCommandDetail  {
-
+	
 	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	private double cbHeight = 30;
-	private VBox myVBox;
+	private String myFilePath;
+	private VBox myPropertiesVBox;
 	
 	public CreateDetail() {
 		super();
-		myVBox = new VBox();
-		myVBox.setSpacing(ViewResources.DETAIL_CONTENT_PADDING.getDoubleResource());
-		myVBox.setAlignment(Pos.CENTER);
-		myContainerPane.setContent(myVBox);
-		String [] array = new String [] {"Up", "Down", "Left", "Right", "Shoot", "Interact"};
-		for (String string : array){
-			createSelectDirectionsControl("Input", array);
+		myPropertiesVBox = new VBox();
+		myPropertiesVBox.setSpacing(myDetailPadding);
+		myPropertiesVBox.setAlignment(Pos.CENTER);
+		myContainerPane.setContent(myPropertiesVBox);	
+		createTypeName();
+		createProperties();
+		createImageChoose();
+	}
+	
+	public void createImageChoose(){
+		Button choose = new Button();
+		choose.setText("Select Sprite Image");
+		choose.setMinWidth(cbWidth);
+		choose.setMinHeight(cbHeight);
+		choose.setOnAction((e) -> { setSpriteImage(); });
+		myPropertiesVBox.getChildren().add(choose);
+	}
+	
+	public void setSpriteImage(){
+	    myFilePath = getFilePath(ViewResources.IMAGE_FILE_TYPE.getResource(), ViewResources.SPRITE_IMAGE_LOCATION.getResource());       
+	}
+	
+	private String getFilePath(String fileType, String fileLocation){
+        FileOpener myFileOpener = new FileOpener();
+        File file =(myFileOpener.chooseFile(fileType, fileLocation));
+        if(file !=null){
+            return file.toURI().toString();
+        }
+        return null;
+    }
+	
+	public void createTypeName(){
+		TextArea inputField = new TextArea(DetailResources.TYPE_NAME.getResource());
+		inputField.setMinWidth(myPaneWidth-4*myDetailPadding);
+		inputField.setMaxWidth(myPaneWidth-4*myDetailPadding);
+		inputField.setMinHeight(cbHeight);
+		inputField.setMaxHeight(cbHeight);
+		inputField.setOnMouseClicked(e -> handleClick(inputField));
+		myPropertiesVBox.getChildren().add(inputField);
+	}
+	
+	public void createProperties(){
+		String [] array = DetailResources.PROPERTIES.getArrayResource();
+		for (String label : array){
+			BorderPane bp = new BorderPane();
+			bp.setMinWidth(myPaneWidth-4*myDetailPadding);
+			bp.setMaxWidth(myPaneWidth-4*myDetailPadding);
+			Label labl = createPropertyLbl(label);
+			ComboBox<String> cb = createPropertyCB(label);
+			bp.setLeft(labl);
+			bp.setRight(cb);
+			bp.setAlignment(labl, Pos.CENTER_LEFT);
+			myPropertiesVBox.getChildren().add(bp);
 		}
 	}
 	
-	public void createSelectDirectionsControl(String label, String [] optionsArray){
-		HBox innerContainer = new HBox();
-		double hboxSpacing = 10;
-		innerContainer.setSpacing(hboxSpacing);
-		innerContainer.setAlignment(Pos.CENTER);
-		Label labl = new Label ("PROPERTY");
+	public Label createPropertyLbl(String property){
+		Label labl = new Label (property);
+		return labl;
+	}
+	
+	public ComboBox<String> createPropertyCB(String property){
+		DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
+		String [] optionsArray = resourceChoice.getArrayResource();
 		ComboBox<String> cb = createComboBox(optionsArray);
-		innerContainer.getChildren().add(labl);
-		innerContainer.getChildren().add(cb);
-		myVBox.getChildren().add(innerContainer);
+		return cb;
 	}
 	
 	public TextArea createInputField(String label, double hboxSpacing){
@@ -46,8 +98,6 @@ public class CreateDetail extends AbstractCommandDetail  {
 		inputField.setMinHeight(cbHeight);
 		inputField.setMaxHeight(cbHeight);
 		inputField.setOnMouseClicked(e -> handleClick(inputField));
-		inputField.setOnKeyPressed(e -> inputField.clear());
-		inputField.setOnKeyReleased(e -> handleKey(inputField, e.getCode()));
 		return inputField;
 	}
 	
@@ -64,10 +114,7 @@ public class CreateDetail extends AbstractCommandDetail  {
 	public void handleClick(TextArea field){
 		field.setText("");
 	}
-	
-	public void handleKey(TextArea field, KeyCode kc){
-		field.setText(kc.toString());
-	}
+
 	public void createTextField(){
 		
 	}

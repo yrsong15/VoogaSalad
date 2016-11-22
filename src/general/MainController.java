@@ -22,6 +22,7 @@ public class MainController {
     public static final String STYLESHEET = "default.css";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
     private Stage myGalleryStage;
+    private Stage mainStage;
     private Gallery myGallery;
     private GalleryView myGalleryView;
     private Stage myGameEditorStage;
@@ -30,7 +31,7 @@ public class MainController {
     private GameEngineController myGameEngineController;
 
     public MainController(Stage stage) {
-       
+    	mainStage = stage;
         Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
         //GameEditorView myView = new GameEditorView();
         //Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
@@ -75,7 +76,7 @@ public class MainController {
     	GameEngineController gameEngineController = new GameEngineController();
     	Game game = new Game("flappy bird");
         map.put("collidable", "die");
-        GameObject go = new GameObject(1, 2, 50, 50, "../images/Sprite/bird2.png", map);
+        GameObject go = new GameObject(1, 2, 50, 50, "bird3.png", map);
         go.setProperty("removeobject", "doesn't matter what you put here (remove object doesn't care)");
         go.setProperty("damage", "50");
         Level level = new Level(1);
@@ -86,6 +87,7 @@ public class MainController {
         game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
         gameEngineController.setCurrentXML(s);
+        mainStage.setScene(gameEngineController.getScene());
         gameEngineController.startGame();
     }
 }

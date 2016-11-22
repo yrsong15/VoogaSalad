@@ -10,6 +10,7 @@ import gameengine.model.WinChecker;
 import gameengine.model.interfaces.Rule;
 import gameengine.model.settings.Music;
 import gameengine.view.GameEngineUI;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import objects.GameObject;
 import objects.Game;
@@ -26,7 +27,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
     private CollisionChecker collisionChecker;
     private boolean gameOver;
 	private Game currentGame;
-	private GameEngineUI GameEngineView;
+	private GameEngineUI gameEngineView;
 	private Map<String, KeyCode> controls;
 	private FreeRoamScrollerController movementController;
 
@@ -38,11 +39,14 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 
 	public void startGame() {
-        currentGame = parser.convertXMLtoGame(xmlData);
-        GameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
+        
         //Change music
         //Change background
         gameOver = false;
+        currentGame = parser.convertXMLtoGame(xmlData);
+        gameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
+        gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
+        gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
         while (!gameOver){
         	loopGame();
         }
@@ -71,7 +75,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void update(Observable o, Object arg) {
 		setChanged();
 		notifyObservers();
-        GameEngineView.update(currentGame.getCurrentLevel());
+        gameEngineView.update(currentGame.getCurrentLevel());
 	}
 
 	@Override
@@ -88,6 +92,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void modifyScore(int score) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Scene getScene(){
+		currentGame = parser.convertXMLtoGame(xmlData);
+        gameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
+		return gameEngineView.getScene();
 	}
 }
 

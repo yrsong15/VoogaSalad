@@ -4,6 +4,7 @@
 package gameengine.view;
 
 import java.io.File;
+import java.net.URL;
 
 import gameengine.controller.ScrollerController;
 import gameengine.view.interfaces.IGameEngineUI;
@@ -13,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import objects.Level;
@@ -36,6 +39,7 @@ public class GameEngineUI implements IGameEngineUI {
 	private IToolbar myToolbar;
 	private IGameScreen myGameScreen;
 	private boolean isPaused;
+	private MediaPlayer myMediaPlayer;
 	
 	public GameEngineUI(Level level) {
 		myLevel = level;
@@ -46,6 +50,8 @@ public class GameEngineUI implements IGameEngineUI {
 		// All of the instantiable scrollercontrollers are in gameengine.controller package
 		//scrollerController = new ScrollerController();
 		//scrollerController.setScene(myScene);
+		setBackgroundImage("Sprite/bird2.gif");
+		setMusic("FlappyBirdThemeSong.mp3");
 	}
 	
 	public ScrollerController getScrollerController(){
@@ -61,12 +67,14 @@ public class GameEngineUI implements IGameEngineUI {
 		myGameScreen.update(level);
 	}
 	
-	public void setMusic(String musicFileLocation) {
-		
+	public void setMusic(String musicFilename) {
+		URL resource = getClass().getClassLoader().getResource(musicFilename);
+		myMediaPlayer = new MediaPlayer(new Media(resource.toString()));
+		myMediaPlayer.play();
 	}
 	
-	public void setBackgroundImage(String imageFileLocation) {
-		
+	public void setBackgroundImage(String imageFile) {
+		myGameScreen.setBackgroundImage(imageFile);
 	}
 	
 	private BorderPane makeRoot() {
@@ -108,9 +116,11 @@ public class GameEngineUI implements IGameEngineUI {
     	if (isPaused) {
     		isPaused = false;
     		myToolbar.resume();
+    		myMediaPlayer.play();
     	} else {
     		isPaused = true;
     		myToolbar.pause();
+    		myMediaPlayer.pause();
     	}
     }
     
