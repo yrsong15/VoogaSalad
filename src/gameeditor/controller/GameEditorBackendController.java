@@ -127,4 +127,5 @@ public class GameEditorBackendController implements IGameEditorController, ICrea
     public void setCurrentGameObjectToMainCharacter() {
         myCurrentLevel.setMainCharacter(myGameObject);
     }
+
 }
