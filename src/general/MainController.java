@@ -2,6 +2,7 @@ package general;
 
 
 import gameeditor.controller.GameEditorBackendController;
+import gameeditor.controller.GameEditorFrontEndController;
 import gameeditor.view.GameEditorView;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
@@ -26,7 +27,7 @@ public class MainController {
     private GalleryView myGalleryView;
     private Stage myGameEditorStage;
     //private GameEditorView myGameEditorView;
-    private GameEditorBackendController myGameEditorController;
+    private GameEditorFrontEndController myGameEditorController;
     private GameEngineController myGameEngineController;
 
     public MainController(Stage stage) {
@@ -62,7 +63,8 @@ public class MainController {
 
     public void presentEditor() {
         myGameEditorStage = new Stage();
-        myGameEditorController = new GameEditorBackendController();
+        
+        myGameEditorController = new GameEditorFrontEndController();
         Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
