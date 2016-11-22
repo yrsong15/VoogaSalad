@@ -13,6 +13,7 @@ public enum ViewResources {
 		MUSIC_FILE_LOCATION("music/"),
 		BG_FILE_LOCATION("images/Background"),
 		IMAGE_FILE_LOCATION("images/Toolbar"),
+		SPRITE_IMAGE_LOCATION("images/Sprite"),
 		AVATAR_IMAGE_LOCATION("images/Sprite"),
 		SCENE_WIDTH(1000),
 		SCENE_HEIGHT(600),
@@ -25,7 +26,6 @@ public enum ViewResources {
 		AVATAR_ZONE_HEIGHT(ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()),
 		AVATAR_ZONE_RADIUS(25),
 		COMMAND_DETAIL_PADDING(25),
-		DETAIL_CONTENT_PADDING(10),
 		
 		// Command Pane
 		COMMAND_PANE_BG(Color.STEELBLUE),

@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
-import gameengine.model.interfaces.Rule;
-import gameengine.model.settings.Music;
 import gameengine.view.GameEngineUI;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -41,6 +39,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
         //Change music
         //Change background
         gameOver = false;
+        currentGame = parser.convertXMLtoGame(xmlData);
+        gameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
+        gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
+        gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
         while (!gameOver){
         	loopGame();
         }
@@ -55,7 +57,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	 */
 	public void loopGame(){
 		Level currLevel = currentGame.getCurrentLevel();
-		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects());
+		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
 		//TO-DO: apply movement and scroll screen
 	}
 

@@ -15,4 +15,6 @@ public interface IGameScreen {
 	public Pane getScreen();
 
 	public void update(Level level);
+
+	public void setBackgroundImage(String imageFileLocation);
 }

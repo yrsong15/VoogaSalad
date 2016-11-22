@@ -11,18 +11,18 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> winConditions;
     private Map<String, String> loseConditions;
+    private Map<String, Integer> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
-    private Settings levelSettings;
-    private int score;
-    private int time;
+    private Settings viewSettings;
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
         randomGenerations = new ArrayList<RandomGeneration>();
-        winConditions = new HashMap<String, String>();
-        loseConditions = new HashMap<String, String>();
+        winConditions = new HashMap<>();
+        loseConditions = new HashMap<>();
+        gameConditions = new HashMap<>();
         this.level = level;
     }
 
@@ -75,30 +75,30 @@ public class Level {
     }
 
     public int getScore(){
-        return score;
+    	return gameConditions.get("score");
     }
 
     public void setScore(int score){
-        this.score = score;
+        gameConditions.put("score", score);
     }
 
     public int getTime(){
-        return time;
+    	return gameConditions.get("time");
     }
 
     public void setTime(int time){
-        this.time = time;
+    	gameConditions.put("time", time);
     }
     
     public List<GameObject> getGameObjects(){
     	return gameObjects;
     }
     
-    public Settings getLevelSettings(){
-        return levelSettings;
+    public Settings getViewSettings(){
+        return viewSettings;
     }
     
-    public void setLevelSettings(Settings levelSettings){
-        this.levelSettings = levelSettings;
+    public void setViewSettings(Settings viewSettings){
+        this.viewSettings = viewSettings;
     }
 }

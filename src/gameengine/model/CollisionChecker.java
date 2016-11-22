@@ -17,12 +17,13 @@ public class CollisionChecker {
 	 * Passes the mainCharacter and any object colliding with it to the rulebook
 	 * @param mainChar
 	 * @param gameObjects
+	 * @param ruleActionHandler 
 	 */
-	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects){
+	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects, RuleActionHandler handler){
 		for (GameObject obj: gameObjects){
 			if (collision(mainChar, obj)){
 				try {
-					rulebook.applyRules(mainChar, obj);
+					rulebook.applyRules(mainChar, obj, handler);
 				} catch (ClassNotFoundException e) {
 					// TODO handle this error
 					e.printStackTrace();
