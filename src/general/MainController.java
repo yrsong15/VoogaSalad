@@ -6,8 +6,16 @@ import gameeditor.view.GameEditorView;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import objects.Game;
+import objects.GameObject;
+import objects.Level;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 public class MainController {
@@ -62,8 +70,22 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-        myGameEngineController = new GameEngineController();
-        myGameEngineController.setCurrentXML(XMLData);
-        myGameEngineController.startGame();
+    	XStream mySerializer = new XStream(new DomDriver());
+        Map<String, String> map = new HashMap<String, String>();
+    	GameEngineController gameEngineController = new GameEngineController();
+    	Game game = new Game("flappy bird");
+        map.put("collidable", "die");
+        GameObject go = new GameObject(1, 2, 50, 50, "bird2.png", map);
+        go.setProperty("removeobject", "doesn't matter what you put here (remove object doesn't care)");
+        go.setProperty("damage", "50");
+        Level level = new Level(1);
+        level.addGameObject(go);
+        level.addWinCondition("score", "10");
+        level.addLoseCondition("time", "30");
+        game.addLevel(level);
+        game.setCurrentLevel(level);
+        String s = mySerializer.toXML(game);
+        gameEngineController.setCurrentXML(s);
+        gameEngineController.startGame();
     }
 }

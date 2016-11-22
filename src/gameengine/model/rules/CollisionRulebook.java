@@ -12,7 +12,7 @@ public class CollisionRulebook{
 	private RuleActionHandler handler;
 	
 	public CollisionRulebook(RuleActionHandler handler) {
-		resources = new ResourceReader("resources/GameEngineObjectProperties");
+		resources = new ResourceReader("GameEngineCollisionProperties");
 		this.handler = handler;
 	}
 	//might need to fully specify classpath to rule in properties file, instead of just rule name

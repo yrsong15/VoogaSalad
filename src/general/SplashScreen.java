@@ -86,7 +86,7 @@ public class SplashScreen implements ISplashScreen {
 
     @Override
     public void launchGameEditor() {
-
+    	
     }
 
     @Override
@@ -100,7 +100,7 @@ public class SplashScreen implements ISplashScreen {
     }
 
     public void launchGameEngine() {
-
+    	mainController.launchEngine("");
     }
 
     public void launchGameLoader() {

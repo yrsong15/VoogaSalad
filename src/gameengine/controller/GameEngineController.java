@@ -32,12 +32,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
 		movementController = new FreeRoamScrollerController();
-		GameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
         controls = new HashMap<String, KeyCode>();
 	}
 
 	public void startGame() {
         currentGame = parser.convertXMLtoGame(xmlData);
+        GameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
         //Change music
         //Change background
         gameOver = false;
