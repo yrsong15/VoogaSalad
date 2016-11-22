@@ -72,7 +72,6 @@ public class GameEditorData implements IDetailStore, IGameEditorData, ILevelSett
     @Override
     public void setBackgroundImage (String filePath) {
         myGameEditorBackEndController.addBackgroundImage(filePath);
-        
     }
 
     @Override
@@ -83,8 +82,6 @@ public class GameEditorData implements IDetailStore, IGameEditorData, ILevelSett
 
     @Override
     public void setMainCharacterImage (String filePath) {
-       
-        
-        
+         
     }
 }

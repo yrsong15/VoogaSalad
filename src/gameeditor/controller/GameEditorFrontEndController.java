@@ -18,8 +18,10 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private String activeButtonId;
     private GameEditorView myGameEditor;
     private Scene myLevelScene;
-    public Parent startEditor() {
 
+    
+    
+    public Parent startEditor() {
         myEditorLevels= new EditorLevels();
         Parent parent = myEditorLevels.createRoot();
         myEditorLevels.setOnAddLevel( e-> addLevelButton());

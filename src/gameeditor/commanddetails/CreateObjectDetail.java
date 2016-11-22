@@ -1,6 +1,7 @@
 package gameeditor.commanddetails;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import gameeditor.objects.GameObject;
@@ -32,8 +33,11 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	private ImageView myPreviewImageView;
 	private VBox myPropertiesVBox;
 	private GameObject myGO;
+	private List<Map<String,String>> myGameObjectsMap;
 
 	private ComboBox<String> myType;
+	public static final String X_POSITON_KEY = "xPosition";
+	public static final String y_POSITION_KEY = "yPosition";
 	
 	public CreateObjectDetail() {
 		super();
@@ -83,11 +87,23 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	//TODO: ADD DATA VERIFICATION TO SAVE
 	public void handleSave(){
+	        myGameObjectsMap = new ArrayList<Map<String,String>>();
 		Map<String, String> typeMap = myDetailStore.getType(myType.getValue());
 		String xString = myXTextArea.getText();
 		String yString = myYTextArea.getText();
 		double x = Double.parseDouble(xString);
 		double y = Double.parseDouble(yString);
+		
+		typeMap.put("xPosition", String.valueOf(x));
+		typeMap.put("yPosition", String.valueOf(y));
+		typeMap.put("ImagePath",typeMap.get(DetailResources.IMAGE_PATH.getResource()));
+		
+		// Does doing this add all the game objects into the list ??
+		myGameObjectsMap.add(typeMap);
+		
+		// Create a Map with the properties and the types 
+		
+			
 	}
 	
 	public void handlePreview(){
@@ -192,6 +208,11 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 
 	public void createTextField(){
 		
+	}
+	
+	// Add it in the map 
+	public List<Map<String,String>> getGameObstacleList(){
+	    return this.myGameObjectsMap;
 	}
 
 }
