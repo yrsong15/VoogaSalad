@@ -1,12 +1,14 @@
 package objects;
 
+import objects.interfaces.ILevel;
+
 import java.util.*;
 
 
 /**
  * Created by Soravit on 11/18/2016.
  */
-public class Level implements ILevel{
+public class Level implements ILevel {
 
     private int level;
     private List<GameObject> gameObjects;
