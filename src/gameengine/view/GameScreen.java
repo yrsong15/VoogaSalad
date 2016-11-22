@@ -61,10 +61,11 @@ public class GameScreen implements IGameScreen {
 	@Override
 	public void update(Level level) {
 		myScreen.getChildren().clear();
+		addGameObject(level.getMainCharacter());
 		for (GameObject object : level.getGameObjects()) {
 			addGameObject(object);
 		}
-		addGameObject(myLevel.getMainCharacter());
+		
 	}
 	
 	private void addGameObject(GameObject object) {
