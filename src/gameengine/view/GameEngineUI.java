@@ -57,8 +57,6 @@ public class GameEngineUI implements IGameEngineUI {
 //	public GameEngineUI(Level level, MovementInterface movementInterface) {
 	public Scene setLevel(Level level){
 		myLevel = level;
-		myGameScreen.setLevel(level);
-		
 		//myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		
 		//TODO: Instantiate the proper ScrollerController depending on game type, right now ScrollerController is abstract
@@ -117,8 +115,6 @@ public class GameEngineUI implements IGameEngineUI {
 		gameChooser.setTitle("Open Game File");
 		//gameChooser.setInitialDirectory(getInitialDirectory());
 		File gameFile = gameChooser.showOpenDialog(new Stage());
-		myGameFileLocation = gameFile.getAbsolutePath();
-		System.out.println(myGameFileLocation);
 	}
 	
 	private void loadLevel() {
