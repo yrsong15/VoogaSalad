@@ -23,6 +23,7 @@ public class Level {
         winConditions = new HashMap<>();
         loseConditions = new HashMap<>();
         gameConditions = new HashMap<>();
+        viewSettings = new Settings();
         this.level = level;
     }
 
