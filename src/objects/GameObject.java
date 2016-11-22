@@ -68,4 +68,8 @@ public class GameObject{
 	public Set<String> getPropertiesList() {
 		return properties.keySet();
 	}
+	
+	public void setPropertiesList(Map<String, String> properties){
+		this.properties = properties;
+	}
 }
