@@ -1,7 +1,5 @@
 package gameeditor.controller;
-
 import java.util.Map;
-
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ICreateLevel;
@@ -11,7 +9,6 @@ import javafx.scene.Parent;
 import objects.Game;
 import objects.GameObject;
 import objects.Level;
-
 /**
  * This is the central class for the Game Editor backend that contains all the methods that can be called
  * by the Game Editor frontend.
@@ -30,16 +27,17 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
     private Level myCurrentLevel;
     private GameObject myGameObject;
     private Map<String, String> myCurrentMap;
+    private Map<String,String> myLevelEditorMap;
     
     public GameEditorController(){
-    	myGameEditor = new GameEditorView();
-    	myLevelManager = new LevelManager();
-    	myMapManager = new MapManager();
+        myGameEditor = new GameEditorView();
+        myLevelManager = new LevelManager();
+        myMapManager = new MapManager();
     }
     
     @Override
     public Game getGame(){
-    	return myGame;
+        return myGame;
     }
     
 	@Override

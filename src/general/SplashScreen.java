@@ -34,8 +34,8 @@ import javafx.event.EventHandler;
 public class SplashScreen implements ISplashScreen {
 
     public static final String BG_IMAGE_LOCATION = "images";
-    private static final int SPLASH_WIDTH = 700;
-    private static final int SPLASH_HEIGHT = 600;
+    public static final int SPLASH_WIDTH = 700;
+    public static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
     private MainController mainController;
 
