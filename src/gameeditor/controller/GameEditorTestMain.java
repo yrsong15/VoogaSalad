@@ -14,7 +14,7 @@ import gameeditor.xml.XMLSerializer;
  */
 public class GameEditorTestMain {
 	public static void main(String[] args){
-		GameEditorController myController = new GameEditorController();
+		GameEditorBackendController myController = new GameEditorBackendController();
 		XMLSerializer mySerializer = new XMLSerializer();
 		
 		myController.createGame("flappy bird");
@@ -22,6 +22,7 @@ public class GameEditorTestMain {
 		myController.createLevel(1);
 		
 		myController.createGameObject(15, 30, 100, 50, "bird3.png", new HashMap<String, String>());
+		myController.addCurrentGameObjectToLevel();
 		myController.setCurrentGameObjectToMainCharacter();
 		
 		myController.createGameObject(100, 200, 300, 400, "Pipes.png", new HashMap<String, String>());
@@ -36,7 +37,6 @@ public class GameEditorTestMain {
 		myController.addToProperties("removeobject", "xxxxxx");
 		myController.addToProperties("points", "50");
 		myController.addCurrentPropertiesToGameObject();
-		
 		myController.addCurrentGameObjectToLevel();
 		
 		myController.addWinConditions("score", "10");
@@ -44,9 +44,8 @@ public class GameEditorTestMain {
 		myController.addScore(0);
 		myController.addTime(0);
 		
-		//These methods are commented out because the files don't exist :(
-//		myController.addBackgroundImage("Background/bg.png");
-//		myController.addBackgroundMusic("FlappyBirdThemeSong.mp3");
+		myController.addBackgroundImage("Background/bg.png");
+		myController.addBackgroundMusic("FlappyBirdThemeSong.mp3");
 		
 		myController.addCurrentLevelToGame();
 		myController.setCurrentLevelToGame();

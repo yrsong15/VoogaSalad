@@ -21,7 +21,7 @@ import objects.Level;
  */
 //TODO: Add functions that allow user to toggle between Maps, GObjects, and Levels
 //TODO: Add rules/key controls to the XML
-public class GameEditorController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
+public class GameEditorBackendController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
     private GameEditorView myGameEditor;
     private LevelManager myLevelManager;
     private MapManager myMapManager;
@@ -31,7 +31,7 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
     private GameObject myGameObject;
     private Map<String, String> myCurrentMap;
     
-    public GameEditorController(){
+    public GameEditorBackendController(){
     	myGameEditor = new GameEditorView();
     	myLevelManager = new LevelManager();
     	myMapManager = new MapManager();
@@ -69,12 +69,15 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
 			String imageFileName, Map<String, String> properties) {
 		GameObject go = new GameObject(xPos, yPos, width, height, imageFileName, properties);
 		myGameObject = go;
+		myCurrentMap = properties;
 	}
 
 	@Override
 	public void addToProperties(String key, String value) {
-		if(myCurrentMap==null) myMapManager.createMap();  //This is just in case 
-		myCurrentMap = myMapManager.getCurrentMap();
+		if(myCurrentMap==null){
+			myMapManager.createMap();  //This is just in case 
+			myCurrentMap = myMapManager.getCurrentMap();
+		}
 		myCurrentMap.put(key, value);
 	}
 
