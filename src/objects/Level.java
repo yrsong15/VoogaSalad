@@ -11,12 +11,11 @@ public class Level {
     private List<GameObject> gameObjects;
     private Map<String, String> winConditions;
     private Map<String, String> loseConditions;
+    private Map<String, Integer> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
     private Settings levelSettings;
-    private int score;
-    private int time;
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
@@ -75,19 +74,19 @@ public class Level {
     }
 
     public int getScore(){
-        return score;
+    	return gameConditions.get("score");
     }
 
     public void setScore(int score){
-        this.score = score;
+        gameConditions.put("score", score);
     }
 
     public int getTime(){
-        return time;
+    	return gameConditions.get("time");
     }
 
     public void setTime(int time){
-        this.time = time;
+    	gameConditions.put("time", time);
     }
     
     public List<GameObject> getGameObjects(){
