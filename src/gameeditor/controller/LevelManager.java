@@ -24,12 +24,12 @@ public class LevelManager implements ICreateLevel{
 
 	@Override
 	public void addWinConditions(String type, String action) {
-		myLevel.addWinCondition(type, Integer.parseInt(action));
+		myLevel.addWinCondition(type, action);
 	}
 
 	@Override
 	public void addLoseConditions(String type, String action) {
-		myLevel.addLoseCondition(type, Integer.parseInt(action));
+		myLevel.addLoseCondition(type, action);
 	}
 
 	@Override
