@@ -14,7 +14,8 @@ public class Level {
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
-    private Settings levelSettings;
+   
+    private LevelSettings levelSettings; 
     private int score;
     private int time;
 
@@ -94,11 +95,11 @@ public class Level {
     	return gameObjects;
     }
     
-    public Settings getLevelSettings(){
+    public LevelSettings getLevelSettings(){
         return levelSettings;
     }
     
-    public void setLevelSettings(Settings levelSettings){
+    public void setLevelSettings(LevelSettings levelSettings){
         this.levelSettings = levelSettings;
     }
 }

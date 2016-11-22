@@ -11,21 +11,16 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import objects.interfaces.ISettings;
 
 
 /**
- * 
  * @author pratikshasharma, John
- *
  */
 public class GameEditorView implements IGameEditorView, IToolbarParent {
-
     private BorderPane myRoot;
     private ScrollPane myScrollPane;
     private HBox myLeftBox;
@@ -34,6 +29,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
+    private ISettings mySettings;
     
     public GameEditorView(){
         myRoot = new BorderPane();    
@@ -70,15 +66,18 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         HBox myHBox = new HBox();
         String filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
         if(filePath!=null){
-            
             ImageView backgroundImage = new ImageView(new Image(filePath));
             backgroundImage.setFitHeight(SCENE_HEIGHT);
             backgroundImage.setFitWidth(SCENE_WIDTH);
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
             myHBox.getChildren().add(backgroundImage);        
-            myScrollPane.setContent(myHBox);
-                  
-        } 
+            myScrollPane.setContent(myHBox); 
+            
+            //Setting Data For the Settings
+            mySettings.setImageFile(filePath);
+            
+        }
+        
     }
  
     public void setAvatar(){
@@ -93,10 +92,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public void sendDataToGameEngine () {
         // Call in the XMlSerializer to send the Xml file 
         System.out.println(" Send Data ");
+        
     }
 
     public void setMusic(){
-       String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);       
+       String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION); 
+       mySettings.setMusicFile(musicFilePath);  
     }
     
     private String getFilePath(String fileType, String fileLocation){
@@ -107,5 +108,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         }
         return null;
     }
+    
 }
 

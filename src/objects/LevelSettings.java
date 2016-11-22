@@ -8,13 +8,15 @@ import java.util.Observable;
 import java.util.Observer;
 import com.sun.javafx.scene.traversal.Direction;
 import javafx.beans.property.StringProperty;
+import objects.interfaces.ISettings;
 
-public class Settings implements Observer{
-    private StringProperty musicFilePath;
-    private StringProperty scrollType;
+public class LevelSettings implements ISettings{
+    private String musicFilePath;
+    private String imagePath;
+    private String scrollType;
     private ScrollType myScrollType;
     
-    public Settings(StringProperty musicFilePath, StringProperty scrollType, List<Direction> directionList){
+    public LevelSettings(StringProperty musicFilePath, StringProperty scrollType, List<Direction> directionList){
         musicFilePath.bind(musicFilePath);
         scrollType.bindBidirectional(scrollType);
         myScrollType = new ScrollType(scrollType.get());    
@@ -23,20 +25,15 @@ public class Settings implements Observer{
     public void addDirection(Direction direction){
         myScrollType.addScrollDirection(direction);
     }
-    
-    public void setMusicFile(StringProperty musicFilePath){
-        musicFilePath.set(musicFilePath.get());
-        
-    }
- 
-    public void setScrollType(StringProperty scrollType){
-        scrollType.set(scrollType.get());
+   
+    @Override
+    public void setImageFile (String imageFilePath) {
+       this.imagePath = imageFilePath;   
     }
 
     @Override
-    public void update (Observable o, Object arg) {
-        // TODO Auto-generated method stub
-        
+    public void setMusicFile (String musicFilePath) {
+        this.musicFilePath = musicFilePath;   
     }
-    
+      
 }
