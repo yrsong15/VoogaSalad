@@ -12,8 +12,11 @@ import gameengine.model.WinChecker;
 import gameengine.model.interfaces.Rule;
 import gameengine.model.settings.Music;
 import gameengine.view.GameEngineUI;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.util.Duration;
 import objects.GameObject;
 import objects.Game;
 import objects.Level;
@@ -30,9 +33,13 @@ public class GameEngineController extends Observable implements RuleActionHandle
     private boolean gameOver;
 	private Game currentGame;
 	private GameEngineUI gameEngineView;
+	private Timeline animation;
 
 	private Map<String, KeyCode> controls;
 	private MovementController movementController;
+	
+    public static final int FRAMES_PER_SECOND = 60;
+    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
 	public GameEngineController() {
 		parser = new GameParser();
@@ -43,15 +50,22 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 
 	public void startGame() {
+		
         gameOver = false;
         currentGame = parser.convertXMLtoGame(xmlData);
         movementController.setGame(currentGame);
         gameEngineView.setLevel(currentGame.getCurrentLevel());
         gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
         gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
-        while (!gameOver){
-        	loopGame();
-        }
+        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+                e -> loopGame());
+        KeyFrame scrollScreen = new KeyFrame(Duration.millis(200),
+                e -> movementController.scroll());
+		animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().addAll(frame, scrollScreen);
+		animation.play();
+        
 	}
 
 	public void mapControls(){
@@ -63,9 +77,13 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	 * Applies gravity and scrolls, checks for collisions
 	 */
 	public void loopGame(){
+		if (gameOver){
+			System.out.println("stopping animation");
+			animation.stop();
+		}
 		Level currLevel = currentGame.getCurrentLevel();
 		gameEngineView.update(currentGame.getCurrentLevel());
-		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
+	//	collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
 //		LossChecker.checkLossConditions((RuleActionHandler)this, currLevel.getLoseConditions(), currLevel.getGameConditions());
 //		WinChecker.checkWinConditions((RuleActionHandler)this, currLevel.getWinConditions(), currLevel.getGameConditions());
 		

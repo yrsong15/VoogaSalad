@@ -39,7 +39,6 @@ public class GameEngineUI implements IGameEngineUI {
 	private MovementInterface movementInterface;
 	
 	public GameEngineUI(MovementInterface movementInterface) {
-//		this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		this.movementInterface = movementInterface;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 	}
@@ -49,10 +48,16 @@ public class GameEngineUI implements IGameEngineUI {
 	private IGameScreen myGameScreen;
 	private boolean isPaused;
 	private MediaPlayer myMediaPlayer;
+	
+    public static final int FRAMES_PER_SECOND = 60;
+    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    
+    
 
 //	public GameEngineUI(Level level, MovementInterface movementInterface) {
 	public Scene setLevel(Level level){
 		myLevel = level;
+		myGameScreen.setLevel(level);
 		
 		//myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		

@@ -20,13 +20,18 @@ public class CollisionRulebook{
 	public void applyRules(GameObject mainChar, GameObject obj, RuleActionHandler handler) throws ClassNotFoundException{
 		for(String property: obj.getPropertiesList()){
 			String ruleName = resources.getResource(property);
+			ruleName = "gameengine.model.rules.collisionrules." + ruleName;
 			try {
-				Method method = ReflectionUtil.getMethodFromClass(ruleName, "applyRule");
-				method.invoke(mainChar, obj, handler);
+				System.out.println(this.getClass().getName());
+				System.out.println(ruleName);
+				Method method = ReflectionUtil.getMethodFromClass(ruleName, "applyRule",  new Class[]{RuleActionHandler.class, GameObject.class, GameObject.class});
+				
+				method.invoke(null, handler, mainChar, obj);
 			} catch (IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | ClassNotFoundException | NoSuchMethodException
 					| SecurityException e) {
-				throw new ClassNotFoundException();
+				e.printStackTrace();
+				//throw new ClassNotFoundException();
 			}
 		}
 	}
