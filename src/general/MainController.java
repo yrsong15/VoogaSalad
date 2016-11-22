@@ -63,11 +63,7 @@ public class MainController {
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorBackendController();
-        //myGameEditorView = new GameEditorView();
-        Scene scene = new Scene(myGameEditorController.startEditor(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
-        myGameEditorStage.setScene(scene);
-        myGameEditorController = new GameEditorBackendController();
-        Scene scene2 = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
+        Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
     }
