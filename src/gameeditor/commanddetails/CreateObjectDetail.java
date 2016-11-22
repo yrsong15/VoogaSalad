@@ -26,24 +26,24 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class CreateDetail extends AbstractCommandDetail  {
+public class CreateObjectDetail extends AbstractCommandDetail  {
 	
 	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	private double cbHeight = 30;
 	private String myFilePath = "";
 	private VBox myPropertiesVBox;
 	private Pane myImagePane;
-	private TextArea myTypeTextArea;
+	private ComboBox<String> myType;
 	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
 	private String [] myPropertiesArray = DetailResources.PROPERTIES.getArrayResource();
 	
-	public CreateDetail() {
+	public CreateObjectDetail() {
 		super();
 		myPropertiesVBox = new VBox();
 		myPropertiesVBox.setSpacing(myDetailPadding);
 		myPropertiesVBox.setAlignment(Pos.CENTER);
 		myContainerPane.setContent(myPropertiesVBox);	
-		createTypeName();
+		createTypeChoice();
 		createProperties();
 		createImageChoose();
 		createSave();
@@ -59,28 +59,14 @@ public class CreateDetail extends AbstractCommandDetail  {
 	}
 	
 	public void handleSave(){
-		if (verifySave()){
-			ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
-			Enumeration<String> enumKeys = geprops.getKeys();
-			Map<String, String> propertiesMap = new HashMap<String, String>();
-			for (ComboBox<String> cb : myComboBoxes){
-				propertiesMap.put(enumKeys.nextElement(), cb.getValue());
-			}
-			propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
-			propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
-		} else {
-			
+		ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
+		Enumeration<String> enumKeys = geprops.getKeys();
+		Map<String, String> propertiesMap = new HashMap<String, String>();
+		for (ComboBox<String> cb : myComboBoxes){
+			propertiesMap.put(enumKeys.nextElement(), cb.getValue());
 		}
-		
-	}
-	
-	public boolean verifySave(){
-		// TODO: FINISH VERIFICATION METHOD
-		// Check all of the following:
-		// Type Name != null or TypeName or ""
-		// Destructible/Damage/Points/Time/Random/Health/Movable != null
-		// SpriteImage != null/unfindable
-		return false;
+		propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
+		propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
 	}
 	
 	public void createImageChoose(){
@@ -144,14 +130,14 @@ public class CreateDetail extends AbstractCommandDetail  {
         return null;
     }
 	
-	public void createTypeName(){
-		myTypeTextArea = new TextArea(DetailResources.TYPE_NAME.getResource());
-		myTypeTextArea.setMinWidth(myPaneWidth-4*myDetailPadding);
-		myTypeTextArea.setMaxWidth(myPaneWidth-4*myDetailPadding);
-		myTypeTextArea.setMinHeight(cbHeight);
-		myTypeTextArea.setMaxHeight(cbHeight);
-		myTypeTextArea.setOnMouseClicked(e -> handleClick(myTypeTextArea));
-		myPropertiesVBox.getChildren().add(myTypeTextArea);
+	public void createTypeChoice(){
+		myType = new ComboBox<String>();
+		myType.setMinWidth(myPaneWidth-4*myDetailPadding);
+		myType.setMaxWidth(myPaneWidth-4*myDetailPadding);
+		myType.setMinHeight(cbHeight);
+		myType.setMaxHeight(cbHeight);
+		myType.setValue(DetailResources.DEFAULT_OBJECT_TYPE.getResource());
+		myPropertiesVBox.getChildren().add(myType);
 	}
 	
 	public void createProperties(){
