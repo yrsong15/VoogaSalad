@@ -130,10 +130,12 @@ public class SplashScreen implements ISplashScreen {
         int buttonsPerCol = 3; // Also rows
 
         for (int i = 0; i < buttonNames.length; i++) {
-            ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i]);
+            ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i],
+                    initialX + (i / buttonsPerCol) * xSpacing,
+                    initialY + (i % buttonsPerCol) * ySpacing);
             Button button = buttonTemplate.getButton();
-            button.setTranslateX(initialX + (i / buttonsPerCol) * xSpacing);
-            button.setTranslateY(initialY + (i % buttonsPerCol) * ySpacing);
+//            button.setTranslateX(initialX + (i / buttonsPerCol) * xSpacing);
+//            button.setTranslateY(initialY + (i % buttonsPerCol) * ySpacing);
             button.setOnMouseClicked(eventHandlerForButton.get(buttonNames[i]));
 
             startWindow.getChildren().add(button);

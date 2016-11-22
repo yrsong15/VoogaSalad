@@ -26,6 +26,7 @@ public class MainController {
     private Gallery myGallery;
     private GalleryView myGalleryView;
     private Stage myGameEditorStage;
+    private Stage myGameEngineStage;
     //private GameEditorView myGameEditorView;
     private GameEditorFrontEndController myGameEditorController;
     private GameEngineController myGameEngineController;
@@ -114,7 +115,10 @@ public class MainController {
         
         GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(s);
-        mainStage.setScene(gameEngineController.getScene());
+        myGameEngineStage = new Stage();
+        myGameEngineStage.setScene(gameEngineController.getScene());
+        myGameEngineStage.show();
+//        mainStage.setScene();
         gameEngineController.startGame();
     }
 }
