@@ -74,7 +74,7 @@ public class GameScreen implements IGameScreen {
 	@Override
 	public void update(Level level) {
 		for (GameObject object : level.getGameObjects()) {
-			Image image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));
+			Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
 			ImageView iv = new ImageView(image);
 			iv.setX(object.getXPosition());
 			iv.setY(object.getYPosition());

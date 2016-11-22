@@ -15,12 +15,17 @@ public class MovementController implements MovementInterface{
 	private MovementHandler handler;
 	private Game currentGame;
 	
-	public MovementController(Game currentGame){
-		this.currentGame = currentGame;
-	}
+//	public MovementController(Game currentGame){
+//		this.currentGame = currentGame;
+//	}
 	
-	public void setScene(Scene myScene){
-		this.myScene = myScene;
+	
+//	public void setScene(Scene myScene){
+//		this.myScene = myScene;
+//	}
+	
+	public void setGame(Game currentGame){
+		this.currentGame = currentGame;
 	}
 	
 	public void UPKeyPressed(){

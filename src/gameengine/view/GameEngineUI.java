@@ -38,8 +38,9 @@ public class GameEngineUI implements IGameEngineUI {
 
 	private MovementInterface movementInterface;
 	
-	public GameEngineUI() {
-		this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+	public GameEngineUI(MovementInterface movementInterface) {
+//		this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		this.movementInterface = movementInterface;
 	}
 	private String myGameFileLocation;
 	private String myLevelFileLocation;
@@ -48,9 +49,9 @@ public class GameEngineUI implements IGameEngineUI {
 	private boolean isPaused;
 	private MediaPlayer myMediaPlayer;
 
-	public GameEngineUI(Level level, MovementInterface movementInterface) {
+//	public GameEngineUI(Level level, MovementInterface movementInterface) {
+	public void setLevel(Level level){
 		myLevel = level;
-		this.movementInterface = movementInterface;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		//myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		

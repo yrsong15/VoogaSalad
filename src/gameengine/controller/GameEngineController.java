@@ -31,22 +31,22 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private Game currentGame;
 	private GameEngineUI gameEngineView;
 
-	private GameEngineUI GameEngineView;
 	private Map<String, KeyCode> controls;
 	private MovementController movementController;
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
-		movementController = new MovementController(currentGame);
-        gameEngineView = new GameEngineUI();
+		movementController = new MovementController();
+        gameEngineView = new GameEngineUI(movementController);
 		controls = new HashMap<String, KeyCode>();
 	}
 
 	public void startGame() {
         gameOver = false;
         currentGame = parser.convertXMLtoGame(xmlData);
-        gameEngineView = new GameEngineUI(currentGame.getCurrentLevel(), movementController);
+        movementController.setGame(currentGame);
+        gameEngineView.setLevel(currentGame.getCurrentLevel());
         gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
         gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
         while (!gameOver){
@@ -64,9 +64,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	 */
 	public void loopGame(){
 		Level currLevel = currentGame.getCurrentLevel();
-		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
-		LossChecker.checkLossConditions((RuleActionHandler)this, currLevel.getLoseConditions(), currLevel.getGameConditions());
-		WinChecker.checkWinConditions((RuleActionHandler)this, currLevel.getWinConditions(), currLevel.getGameConditions());
+		gameEngineView.update(currLevel);
+//		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
+//		LossChecker.checkLossConditions((RuleActionHandler)this, currLevel.getLoseConditions(), currLevel.getGameConditions());
+//		WinChecker.checkWinConditions((RuleActionHandler)this, currLevel.getWinConditions(), currLevel.getGameConditions());
 		
 		//TO-DO: apply movement and scroll screen
 

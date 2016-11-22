@@ -72,7 +72,6 @@ public class MainController {
 
     public void launchEngine(String XMLData){
     	XStream mySerializer = new XStream(new DomDriver());
-        GameEngineController gameEngineController = new GameEngineController();
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 150, 100, "bird3.png", new HashMap<>());
         GameObject pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
@@ -112,6 +111,8 @@ public class MainController {
         game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
         System.out.println(s);
+        
+        GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(s);
         mainStage.setScene(gameEngineController.getScene());
         gameEngineController.startGame();
