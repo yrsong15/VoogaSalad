@@ -1,14 +1,20 @@
 package gameeditor.controller;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ICreateLevel;
 import gameeditor.controller.interfaces.IGameEditorController;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.MapChangeListener;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import objects.Game;
@@ -32,13 +38,14 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
     private Level myCurrentLevel;
     private GameObject go;
     private Map<String, String> properties;
-    private Map<Integer,GameEditorView> myLevelEditorMap;
+    private Map<String,GameEditorView> myLevelEditorMap;
     private MapManager myMapManager;
+    private String activeButtonId;
+    private Scene myLevelScene;
 
     public GameEditorController(){
         myLevelManager = new LevelManager();
     }
-
 
 
     @Override
@@ -87,30 +94,61 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
 
     @Override
     public Parent startEditor() {
-        //myEditorLevels= new EditorLevels();
-        //Parent parent = myEditorLevels.createRoot();
+        myEditorLevels= new EditorLevels();
+        Parent parent = myEditorLevels.createRoot();
         //myEditorLevels.getNewLevelButton().setOnAction( e-> print());
         //myEditorLevels.setOnAddLevel(e -> addNewLevel());
-        //return parent;
 
-        return myGameEditor.createRoot();
+        myEditorLevels.setOnAddLevel( e-> addLevelButton());
+
+
+        return parent;
+
+        //return myGameEditor.createRoot();
+    }
+
+    private void addLevelButton(){
+        myLevelEditorMap = new HashMap<String,GameEditorView>();
+        String buttonId = myEditorLevels.addNewLevel();
+        addActiveLevelButtonListener();
+        myEditorLevels.setOnLevelClicked((e -> displayLevel()));   
     }
 
 
-
-
+    private void addActiveLevelButtonListener(){
+        myEditorLevels.getActiveLevelButtonID().addListener(new ChangeListener<String>(){
+            @Override
+            public void changed (ObservableValue<? extends String> observable,
+                                 String oldValue,
+                                 String newValue) {
+                activeButtonId = newValue;
+            }
+        });
+    }
     private void displayLevel(){
-        myLevelEditorMap = new HashMap<Integer,GameEditorView>();
-        myGameEditor = new GameEditorView();
-        myLevelEditorMap.put(myLevelEditorMap.size(), myGameEditor);
+        if(myLevelEditorMap.containsKey(activeButtonId)){
+            myGameEditor=myLevelEditorMap.get(activeButtonId);
+            
+            //TODO: Change this later to the saved instance
+            //myLevelScene.setRoot(myGameEditor.createRoot());
+            
+        } else{
+            myGameEditor = new GameEditorView();
+            myLevelEditorMap.put(activeButtonId, myGameEditor); 
+            displayInitiallyOnSytage();
+        }
 
-        Stage myLevelStage = new Stage();
-        Scene scene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
-        myLevelStage.setScene(scene); 
-        myLevelStage.show();
     }
 
+   
 
+    private void displayInitiallyOnSytage(){
+        Stage myLevelStage = new Stage();
+        myLevelScene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
+        
+myLevelStage.setScene(myLevelScene);
+myLevelStage.show();
+    }
 
     @Override
     public void addToProperties(String key, String value) {
@@ -137,9 +175,14 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
         myCurrentLevel = myLevelManager.getLevel();
     }
 
-
-
-
+    private Integer getId(){
+        Random rand = new Random();
+        int randomInteger = rand.nextInt();
+        while(myLevelEditorMap.containsKey(randomInteger)){
+            randomInteger = rand.nextInt();
+        }
+        return randomInteger;
+    }
 
 
 }
