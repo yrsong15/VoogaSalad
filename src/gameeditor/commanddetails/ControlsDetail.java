@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ControlsDetail extends AbstractCommandDetail{
+public class ControlsDetail extends AbstractCommandDetail {
 
 	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	private double cbHeight = 30;
@@ -18,6 +18,10 @@ public class ControlsDetail extends AbstractCommandDetail{
 	
 	public ControlsDetail() {
 		super();
+	}
+	
+	@Override
+	public void init() {
 		myVBox = new VBox();
 		myVBox.setSpacing(myDetailPadding);
 		myVBox.setAlignment(Pos.CENTER);

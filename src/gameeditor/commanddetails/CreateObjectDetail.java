@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class CreateObjectDetail extends AbstractCommandDetail  {
+public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	private double cbHeight = 30;
@@ -40,19 +40,23 @@ public class CreateObjectDetail extends AbstractCommandDetail  {
 	
 	public CreateObjectDetail() {
 		super();
+	}
+	
+	public void init(){
 		myPropertiesVBox = new VBox();
 		myPropertiesVBox.setSpacing(myDetailPadding);
 		myPropertiesVBox.setAlignment(Pos.CENTER);
-		myContainerPane.setContent(myPropertiesVBox);	
+		myContainerPane.setContent(myPropertiesVBox);
 		createTypeChoice();
 		createPos();
-		createImageChoose();
+		createImageZone();
+		//TODO: Create Preview
 		createSave();
 	}
 	
 	public void createSave(){
 		Button save = new Button();
-		save.setText("Save New Type");
+		save.setText("Save Object");
 		save.setMinWidth(cbWidth);
 		save.setMinHeight(cbHeight);
 		save.setOnAction((e) -> {handleSave();});
@@ -84,7 +88,7 @@ public class CreateObjectDetail extends AbstractCommandDetail  {
 		myPropertiesVBox.getChildren().add(bp);
 	}
 	
-	public void createImageChoose(){
+	public void createImageZone(){
 		double imageZoneWidth = DetailResources.OBJECT_IMAGE_ZONE_WIDTH.getDoubleResource();
 		double imageZoneHeight = DetailResources.OBJECT_IMAGE_ZONE_HEIGHT.getDoubleResource();
 		myImagePane = new Pane();
@@ -126,6 +130,7 @@ public class CreateObjectDetail extends AbstractCommandDetail  {
 		myType.setMaxWidth(myPaneWidth-4*myDetailPadding);
 		myType.setMinHeight(cbHeight);
 		myType.setMaxHeight(cbHeight);
+		myType.getItems().addAll(myDetailStore.getTypes());
 		myType.setValue(DetailResources.DEFAULT_OBJECT_TYPE.getResource());
 		myType.setOnAction((e) -> {handleTypeSelection(myType);});
 		myPropertiesVBox.getChildren().add(myType);
@@ -133,6 +138,9 @@ public class CreateObjectDetail extends AbstractCommandDetail  {
 	
 	public void handleTypeSelection(ComboBox<String> cb){
 		String value = cb.getValue();
+		Map<String, String> myType = myDetailStore.getType(value);
+		myFilePath = myType.get(DetailResources.IMAGE_PATH.getResource());
+		createImageView();
 	}
 	
 	public Label createLbl(String property){

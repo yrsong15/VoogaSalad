@@ -26,7 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class CreateDetail extends AbstractCommandDetail  {
+public class CreateDetail extends AbstractCommandDetail {
 	
 	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	private double cbHeight = 30;
@@ -39,6 +39,11 @@ public class CreateDetail extends AbstractCommandDetail  {
 	
 	public CreateDetail() {
 		super();
+	}
+	
+
+	@Override
+	public void init() {
 		myPropertiesVBox = new VBox();
 		myPropertiesVBox.setSpacing(myDetailPadding);
 		myPropertiesVBox.setAlignment(Pos.CENTER);
@@ -68,6 +73,7 @@ public class CreateDetail extends AbstractCommandDetail  {
 			}
 			propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
 			propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
+			myDetailStore.storeType(propertiesMap);
 		} else {
 			
 		}
@@ -80,7 +86,7 @@ public class CreateDetail extends AbstractCommandDetail  {
 		// Type Name != null or TypeName or ""
 		// Destructible/Damage/Points/Time/Random/Health/Movable != null
 		// SpriteImage != null/unfindable
-		return false;
+		return true;
 	}
 	
 	public void createImageChoose(){
