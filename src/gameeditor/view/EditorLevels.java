@@ -53,10 +53,10 @@ public class EditorLevels {
     }
 
     private void addButton(){
-        ButtonTemplate myButton = new ButtonTemplate("LevelCommand");
+        ButtonTemplate myButton = new ButtonTemplate("LevelCommand", 400, 450);
         newLevelButton = myButton.getButton();
-        newLevelButton.setTranslateX(400);
-        newLevelButton.setTranslateY(450);
+//        newLevelButton.setTranslateX(400);
+//        newLevelButton.setTranslateY(450);
 
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/AddLevelIcon.png";
         ImageView newLevelIcon = new ImageView(new Image(userDirectoryString));

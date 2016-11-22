@@ -115,18 +115,18 @@ public class GalleryView {
     }
 
     private void addGalleryButtons() {
-        ButtonTemplate newB = new ButtonTemplate("GalleryGameEdit");
+        ButtonTemplate newB = new ButtonTemplate("GalleryGameEdit", 400, 400);
         Button edit = newB.getButton();
-        edit.setTranslateX(400);
-        edit.setTranslateY(400);
+//        edit.setTranslateX(400);
+//        edit.setTranslateY(400);
         edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
         edit.translateXProperty().bind(galleryWindow.widthProperty().divide(2).subtract(300));
         edit.setOnMouseClicked(e -> myMainController.presentEditor()); //pass in an XML to the editor eventually
 
-        newB = new ButtonTemplate("GalleryGameEngine");
+        newB = new ButtonTemplate("GalleryGameEngine", 600, 400);
         Button engine = newB.getButton();
-        engine.setTranslateX(600);
-        engine.setTranslateY(400);
+//        engine.setTranslateX(600);
+//        engine.setTranslateY(400);
         engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
         engine.translateXProperty().bind(galleryWindow.widthProperty().divide(2).add(100));
         //TODO: Change this later to be flexible
