@@ -51,7 +51,7 @@ public class MovementController implements MovementInterface{
 	}
 	public void RIGHTKeyPressed(){
 		for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
-			if (obstacle.getWidth()==150){
+			if (obstacle==currentGame.getCurrentLevel().getMainCharacter()){
 				continue;
 			}
 			double newPos = obstacle.getXPosition() - movementSpeed;
@@ -60,7 +60,7 @@ public class MovementController implements MovementInterface{
 	}
 	public void LEFTKeyPressed(){
 		for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){	
-			if (obstacle.getWidth()==150){
+			if (obstacle==currentGame.getCurrentLevel().getMainCharacter()){
 				continue;
 			}
 			double newPos = obstacle.getXPosition() + movementSpeed;
