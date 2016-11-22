@@ -48,7 +48,7 @@ public class GameEngineUI implements IGameEngineUI {
 	private boolean isPaused;
 	private MediaPlayer myMediaPlayer;
 
-	public GameEngineUI(Level level,MovementInterface movementInterface) {
+	public GameEngineUI(Level level, MovementInterface movementInterface) {
 		myLevel = level;
 		this.movementInterface = movementInterface;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);

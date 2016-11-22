@@ -39,17 +39,14 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
 		movementController = new MovementController(currentGame);
+        gameEngineView = new GameEngineUI();
 		controls = new HashMap<String, KeyCode>();
-		gameEngineView = new GameEngineUI();
 	}
 
 	public void startGame() {
-        
-        //Change music
-        //Change background
         gameOver = false;
         currentGame = parser.convertXMLtoGame(xmlData);
-        gameEngineView = new GameEngineUI();
+        gameEngineView = new GameEngineUI(currentGame.getCurrentLevel(), movementController);
         gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
         gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
         while (!gameOver){
@@ -103,7 +100,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	
 	public Scene getScene(){
 		currentGame = parser.convertXMLtoGame(xmlData);
-        gameEngineView = new GameEngineUI();
 		return gameEngineView.getScene();
 	}
 }
