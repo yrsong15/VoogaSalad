@@ -67,4 +67,8 @@ public class MovementController implements MovementInterface{
 			obstacle.setXPosition(newPos);
 		}
 			}
+	
+	public void scroll(){
+		RIGHTKeyPressed();
+	}
 }
