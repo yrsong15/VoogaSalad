@@ -2,7 +2,9 @@ package gameeditor.view;
 
 import java.io.File;
 import frontend.util.FileOpener;
-import gameeditor.controller.interfaces.ILevelSettings;
+import gameeditor.controller.GameEditorData;
+import gameeditor.controller.IGameEditorData;
+import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -31,11 +33,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDetailPane myDetailPane;
    // private ISettings mySettings;
     //private ISettings mySettings;
-   // private ILevelManager myLevelSettings;
-    private ILevelSettings myLevelSettings;
+    private ILevelManager myLevelSettings;
+    private IGameEditorData myDataStore;
     
     public GameEditorView(){
-        myRoot = new BorderPane();    
+        myRoot = new BorderPane();  
+        myDataStore = new GameEditorData();
     }
     
     public Parent createRoot(){
@@ -45,7 +48,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     private HBox createLeftAlt(){
-        DetailPane dp = new DetailPane(myDesignArea);
+        DetailPane dp = new DetailPane(myDesignArea, myDataStore);
         myDetailPane = dp;
         myCommandPane = new CommandPane(dp);
         myLeftBox = new HBox();
@@ -117,4 +120,3 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
     
 }
-
