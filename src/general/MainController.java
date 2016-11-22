@@ -110,7 +110,7 @@ public class MainController {
         game.addLevel(level);
         game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
-        System.out.println(s);
+        //System.out.println(s);
         
         GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(s);

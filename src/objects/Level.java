@@ -1,18 +1,23 @@
 package objects;
 
+import javafx.scene.input.KeyCode;
+import objects.interfaces.ILevel;
+
+import java.security.Key;
 import java.util.*;
 
 
 /**
  * Created by Soravit on 11/18/2016.
  */
-public class Level implements ILevel{
+public class Level implements ILevel {
 
     private int level;
     private List<GameObject> gameObjects;
     private Map<String, String> winConditions;
     private Map<String, String> loseConditions;
     private Map<String, Double> gameConditions;
+    private Map<KeyCode, String> controls;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
 
@@ -26,6 +31,7 @@ public class Level implements ILevel{
         winConditions = new HashMap<>();
         loseConditions = new HashMap<>();
         gameConditions = new HashMap<>();
+        controls = new HashMap<>();
         viewSettings = new LevelSettings();
         this.level = level;
     }
@@ -109,7 +115,6 @@ public class Level implements ILevel{
     public List<GameObject> getGameObjects(){
     	return gameObjects;
     }
-    
 
     public LevelSettings getViewSettings(){
         return viewSettings;
@@ -118,5 +123,13 @@ public class Level implements ILevel{
     public void setViewSettings(LevelSettings viewSettings){
         this.viewSettings = viewSettings;
 
+    }
+
+    public void addControl(KeyCode key, String action){
+        controls.put(key, action);
+    }
+
+    public void removeControl(KeyCode key){
+        controls.remove(key);
     }
 }

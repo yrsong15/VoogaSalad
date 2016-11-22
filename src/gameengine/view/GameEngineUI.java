@@ -32,22 +32,22 @@ public class GameEngineUI implements IGameEngineUI {
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
     public static final String STYLESHEET = "default.css";
 
-	private Scene myScene;
-	private Level myLevel;
+	private Scene scene;
+	private Level level;
 	private ScrollerController scrollerController;
 
 	private MovementInterface movementInterface;
 	
 	public GameEngineUI(MovementInterface movementInterface) {
 		this.movementInterface = movementInterface;
-		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 	}
 	private String myGameFileLocation;
 	private String myLevelFileLocation;
-	private IToolbar myToolbar;
-	private IGameScreen myGameScreen;
+	private IToolbar toolbar;
+	private IGameScreen gameScreen;
 	private boolean isPaused;
-	private MediaPlayer myMediaPlayer;
+	private MediaPlayer mediaPlayer;
 	
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -56,20 +56,18 @@ public class GameEngineUI implements IGameEngineUI {
 
 //	public GameEngineUI(Level level, MovementInterface movementInterface) {
 	public Scene setLevel(Level level){
-		myLevel = level;
-		myGameScreen.setLevel(level);
-		
-		//myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
+		this.level = level;
+		//scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		
 		//TODO: Instantiate the proper ScrollerController depending on game type, right now ScrollerController is abstract
 		// All of the instantiable scrollercontrollers are in gameengine.controller package
 		//scrollerController = new ScrollerController();
-		//scrollerController.setScene(myScene);
+		//scrollerController.setScene(scene);
 
 		setUpKeystrokeListeners();
 		setBackgroundImage("Sprite/bird2.gif");
 		setMusic("FlappyBirdThemeSong.mp3");
-		return myScene;
+		return scene;
 	}
 	
 	public ScrollerController getScrollerController(){
@@ -77,22 +75,22 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 
 	public Scene getScene() {
-		return myScene;
+		return scene;
 	}
 	
 	public void update(Level level) {
-		myLevel = level;
-		myGameScreen.update(level);
+		this.level = level;
+		gameScreen.update(level);
 	}
 	
 	public void setMusic(String musicFilename) {
 		URL resource = getClass().getClassLoader().getResource(musicFilename);
-		myMediaPlayer = new MediaPlayer(new Media(resource.toString()));
-		myMediaPlayer.play();
+		mediaPlayer = new MediaPlayer(new Media(resource.toString()));
+		mediaPlayer.play();
 	}
 	
 	public void setBackgroundImage(String imageFile) {
-		myGameScreen.setBackgroundImage(imageFile);
+		gameScreen.setBackgroundImage(imageFile);
 	}
 	
 	private BorderPane makeRoot() {
@@ -103,13 +101,13 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 	
 	private Node makeToolbar() {
-		myToolbar = new Toolbar(event -> loadGame(), event -> loadLevel(), event -> pause(), event -> reset());
-		return myToolbar.getToolbar();
+		toolbar = new Toolbar(event -> loadGame(), event -> loadLevel(), event -> pause(), event -> reset());
+		return toolbar.getToolbar();
 	}
 	
 	private Node makeGameScreen() {
-		myGameScreen = new GameScreen();
-		return myGameScreen.getScreen();
+		gameScreen = new GameScreen();
+		return gameScreen.getScreen();
 	}
 	
 	private void loadGame() {
@@ -117,8 +115,6 @@ public class GameEngineUI implements IGameEngineUI {
 		gameChooser.setTitle("Open Game File");
 		//gameChooser.setInitialDirectory(getInitialDirectory());
 		File gameFile = gameChooser.showOpenDialog(new Stage());
-		myGameFileLocation = gameFile.getAbsolutePath();
-		System.out.println(myGameFileLocation);
 	}
 	
 	private void loadLevel() {
@@ -133,12 +129,12 @@ public class GameEngineUI implements IGameEngineUI {
     private void pause() {
     	if (isPaused) {
     		isPaused = false;
-    		myToolbar.resume();
-    		myMediaPlayer.play();
+    		toolbar.resume();
+    		mediaPlayer.play();
     	} else {
     		isPaused = true;
-    		myToolbar.pause();
-    		myMediaPlayer.pause();
+    		toolbar.pause();
+    		mediaPlayer.pause();
     	}
     }
     
@@ -147,7 +143,7 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 	
 	private void setUpKeystrokeListeners(){
-		this.myScene.setOnKeyReleased(event -> {
+		this.scene.setOnKeyReleased(event -> {
 	      	  if (event.getCode() == KeyCode.UP){
 	      		  movementInterface.UPKeyPressed();
 	      	  }
@@ -160,7 +156,7 @@ public class GameEngineUI implements IGameEngineUI {
 	      	  else if (event.getCode() == KeyCode.RIGHT){
 	      		movementInterface.RIGHTKeyPressed();
 	          }
-	      	  myGameScreen.update(myLevel);
+	      	  gameScreen.update(level);
 	       });
 	}
 
