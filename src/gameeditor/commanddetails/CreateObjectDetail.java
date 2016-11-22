@@ -3,6 +3,7 @@ package gameeditor.commanddetails;
 import java.util.ArrayList;
 import java.util.Map;
 
+import gameeditor.objects.GameObject;
 import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -21,9 +23,16 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	private double cbHeight = 30;
-	private String myFilePath = "";
-	private VBox myPropertiesVBox;
 	private Pane myImagePane;
+	
+	private TextArea myXTextArea;
+	private TextArea myYTextArea;
+	private String myFilePath = "";
+	private ImageView myIV;
+	private ImageView myPreviewImageView;
+	private VBox myPropertiesVBox;
+	private GameObject myGO;
+
 	private ComboBox<String> myType;
 	
 	public CreateObjectDetail() {
@@ -39,28 +48,67 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		createPos();
 		createImageZone();
 		//TODO: Create Preview
-		createSave();
+		createSavePreview();
 	}
 	
-	public void createSave(){
+	public void createSavePreview(){
+		Button save = createSave();
+		Button preview = createPreview();
+		HBox container = new HBox();
+		double hboxSpacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
+		container.setSpacing(hboxSpacing);
+		container.setAlignment(Pos.CENTER);
+		container.getChildren().add(preview);
+		container.getChildren().add(save);
+		myPropertiesVBox.getChildren().add(container);
+	}
+	
+	public Button createPreview(){
+		Button preview = new Button();
+		preview.setText("Preview Object");
+		preview.setMinWidth(cbWidth);
+		preview.setMinHeight(cbHeight);
+		preview.setOnAction((e) -> {handlePreview();});
+		return preview;
+	}
+	
+	public Button createSave(){
 		Button save = new Button();
 		save.setText("Save Object");
 		save.setMinWidth(cbWidth);
 		save.setMinHeight(cbHeight);
 		save.setOnAction((e) -> {handleSave();});
-		myPropertiesVBox.getChildren().add(save);
+		return save;
 	}
 	
+	//TODO: ADD DATA VERIFICATION TO SAVE
 	public void handleSave(){
-		
+		Map<String, String> typeMap = myDetailStore.getType(myType.getValue());
+		String xString = myXTextArea.getText();
+		String yString = myYTextArea.getText();
+		double x = Double.parseDouble(xString);
+		double y = Double.parseDouble(yString);
+	}
+	
+	public void handlePreview(){
+		String xString = myXTextArea.getText();
+		String yString = myYTextArea.getText();
+		double x = Double.parseDouble(xString);
+		double y = Double.parseDouble(yString);
+		if (myGO == null){
+			myGO = new GameObject(myFilePath, x, y, 50, 50, myDesignArea);
+		} else {
+			myGO.removeSelf();
+			myGO = new GameObject(myFilePath, x, y, 50, 50, myDesignArea);
+		}
 	}
 	
 	public void createPos(){
-		createPosBP("X Pos: ");
-		createPosBP("Y Pos: ");
+		myXTextArea = createPosBP("X Pos: ");
+		myYTextArea = createPosBP("Y Pos: ");
 	}
 	
-	public void createPosBP(String label){
+	public TextArea createPosBP(String label){
 		BorderPane bp = new BorderPane();
 		bp.setMinWidth(myPaneWidth-4*myDetailPadding);
 		bp.setMaxWidth(myPaneWidth-4*myDetailPadding);
@@ -74,6 +122,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		bp.setRight(ta);
 		bp.setAlignment(labl, Pos.CENTER_LEFT);
 		myPropertiesVBox.getChildren().add(bp);
+		return ta;
 	}
 	
 	public void createImageZone(){
@@ -102,6 +151,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
         double endWidth = i.getWidth()*ratio;
         double endHeight = i.getHeight()*ratio;
 		ImageView iv = new ImageView(i);
+		myIV = new ImageView(i);
 		iv.setFitWidth(fitWidth);
 		iv.setFitHeight(fitHeight);
 		iv.setPreserveRatio(true);

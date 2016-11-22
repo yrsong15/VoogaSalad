@@ -1,6 +1,7 @@
 package gameeditor.view;
 
 import gameeditor.view.interfaces.ICommandDetailDisplay;
+import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -32,10 +33,12 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private Rectangle myAvatarZone;
     private ScrollPane myDetailPane;
     private IDetailStore myDetailStore = new DetailStore();
+    private IDesignArea myDesignArea;
 
     private ImageView myAvatarView;
 
-    public DetailPane() {
+    public DetailPane(IDesignArea da) {
+    	myDesignArea = da;
         // TODO Auto-generated constructor stub
         myPane = new Pane();
         myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
@@ -84,7 +87,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public void setDetail(String paneType) {
         String className = "gameeditor.commanddetails." + paneType + "Detail";
         myPane.getChildren().remove(myDetailPane);
-        AbstractCommandDetail detailPane = new DetailFactory().create(className, myDetailStore);
+        AbstractCommandDetail detailPane = new DetailFactory().create(className, myDetailStore, myDesignArea);
         myDetailPane = detailPane.getPane();
         myPane.getChildren().add(myDetailPane);
     }

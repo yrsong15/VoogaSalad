@@ -1,9 +1,14 @@
 package gameeditor.view;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+
 import frontend.util.FileOpener;
 import gameeditor.view.interfaces.IDesignArea;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
@@ -15,7 +20,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * 
@@ -29,6 +36,8 @@ public class DesignArea implements IDesignArea {
 
     private Pane myPane;
     private ScrollPane myScrollPane;
+    private Group myGroup;
+    private Region myRegion;
 
     private ImageView myAvatar;
 
@@ -42,31 +51,9 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
         myScrollPane.setVmax(0);
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-    }
-
-//    public void setBackgroundImage(){
-//        HBox myHBox = new HBox();
-//        FileOpener myFileOpener = new FileOpener();
-////try {
-//        String filePath = myFileOpener.chooseFile(IMAGE_FILE_TYPE,IMAGE_FILE_LOCATION).toURI().toString();
-//        ImageView backgroundImage = new ImageView(new Image(filePath));
-//        backgroundImage.setFitHeight(SCENE_HEIGHT);
-//        backgroundImage.setFitWidth(SCENE_WIDTH);
-//        myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);
-//
-//        myHBox.getChildren().add(backgroundImage);
-//
-//        myScrollPane.setContent(myHBox);
-//         
-//
-//        // } catch (MalformedURLException error) {
-//        // Alert alert = new Alert(AlertType.ERROR);
-//        // alert.setContentText("No File Chosen");
-//        // alert.showAndWait();
-//        //}
-//    }
-
-    
+        myPane = new Pane();
+        myScrollPane.setContent(myPane);
+    }    
     
     public ScrollPane getScrollPane(){
         return myScrollPane;
@@ -75,11 +62,28 @@ public class DesignArea implements IDesignArea {
     public void updateAvatar(Image newAvatar){
 
     }
+    
+    public void setBackground(HBox bg){
+    	ObservableList<Node> currentChildren = myPane.getChildren();
+    	ArrayList<Node> children = new ArrayList<Node>();
+    	for (Node child : currentChildren){
+    		children.add(child);
+    	}
+    	myPane.getChildren().clear();
+    	bg.setLayoutX(0);
+    	bg.setLayoutY(0);
+    	myPane.getChildren().add(bg);
+    	myPane.getChildren().addAll(children);
+    }
 
 	@Override
 	public void addSprite(ImageView sprite) {
-		// TODO Auto-generated method stub
-		
+		myPane.getChildren().add(sprite);
+	}
+	
+	@Override
+	public void removeSprite(ImageView sprite) {
+		myPane.getChildren().remove(sprite);
 	}
 
 }

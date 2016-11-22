@@ -20,7 +20,7 @@ public class GameEditorTestMain {
 		myController.createGame("flappy bird");
 		
 		myController.createLevel(1);
-		
+		// Game Object x, y, width, height, file path, properties hashmap (contains nothing right now);
 		myController.createGameObject(15, 30, 100, 50, "bird3.png", new HashMap<String, String>());
 		myController.addCurrentGameObjectToLevel();
 		myController.setCurrentGameObjectToMainCharacter(myController.getCurrentGameObject());

@@ -38,13 +38,13 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     public Parent createRoot(){
-        myRoot.setLeft(createLeftAlt());
         myRoot.setCenter(createCenter());
+        myRoot.setLeft(createLeftAlt());
         return myRoot;
     }
 
     private HBox createLeftAlt(){
-        DetailPane dp = new DetailPane();
+        DetailPane dp = new DetailPane(myDesignArea);
         myDetailPane = dp;
         myCommandPane = new CommandPane(dp);
         myLeftBox = new HBox();
@@ -73,7 +73,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             backgroundImage.setFitWidth(SCENE_WIDTH);
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
             myHBox.getChildren().add(backgroundImage);        
-            myScrollPane.setContent(myHBox); 
+            myDesignArea.setBackground(myHBox); 
             
             //Setting Data For the Settings
             //mySettings.setBackgroundFilePath(filePath);

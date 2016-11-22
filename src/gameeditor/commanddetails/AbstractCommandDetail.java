@@ -1,6 +1,7 @@
 package gameeditor.commanddetails;
 
 import gameeditor.view.ViewResources;
+import gameeditor.view.interfaces.IDesignArea;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -16,6 +17,7 @@ public abstract class AbstractCommandDetail {
 	protected ScrollPane myContainerPane;
 	protected double myPaneWidth;
 	protected IDetailStore myDetailStore;
+	protected IDesignArea myDesignArea;
 	
 	public AbstractCommandDetail() {
 		double detailPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
@@ -44,6 +46,10 @@ public abstract class AbstractCommandDetail {
     
     public void setDetailStore(IDetailStore detailStore){
     	myDetailStore = detailStore;
+    }
+    
+    public void setDesignArea(IDesignArea da){
+    	myDesignArea = da;
     }
 	
 	public ScrollPane getPane(){
