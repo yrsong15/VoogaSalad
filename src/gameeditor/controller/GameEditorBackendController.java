@@ -1,7 +1,6 @@
 package gameeditor.controller;
 import java.util.HashMap;
 import java.util.Map;
-import gameeditor.controller.interfaces.IControlManager;
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ILevelManager;
