@@ -124,12 +124,14 @@
           <entry>
             <string>score</string>
             <string>10</string>
+            <int>10</int>
           </entry>
         </winConditions>
         <loseConditions>
           <entry>
             <string>time</string>
             <string>30</string>
+            <int>30</int>
           </entry>
         </loseConditions>
         <gameConditions/>

@@ -2,6 +2,7 @@ package objects;
 
 import java.util.*;
 
+
 /**
  * Created by Soravit on 11/18/2016.
  */
@@ -23,6 +24,7 @@ public class Level {
         winConditions = new HashMap<>();
         loseConditions = new HashMap<>();
         gameConditions = new HashMap<>();
+        viewSettings = new Settings();
         this.level = level;
     }
 
@@ -58,6 +60,10 @@ public class Level {
         winConditions.remove(type);
     }
 
+    public Map<String, String> getWinConditions(){
+    	return winConditions;
+    }
+    
     public void addLoseCondition(String type, String action) {
         loseConditions.put(type, action);
     }
@@ -66,6 +72,14 @@ public class Level {
         loseConditions.remove(type);
     }
 
+    public Map<String, String> getLoseConditions(){
+    	return loseConditions;
+    }
+    
+    public Map<String, Double> getGameConditions(){
+    	return gameConditions;
+    }
+    
     public GameObject getMainCharacter() {
         return mainCharacter;
     }

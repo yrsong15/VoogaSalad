@@ -12,11 +12,6 @@ import javafx.beans.property.StringProperty;
 public class Settings {
     private String musicFilePath;
     private String backgroundFilePath;
-    
-    public Settings(String musicFilePath, String backgroundFilePath){
-        this.musicFilePath = musicFilePath;
-        this.backgroundFilePath = backgroundFilePath;
-    }
 
     public void setMusicFile(String musicFilePath){
         this.musicFilePath = musicFilePath;

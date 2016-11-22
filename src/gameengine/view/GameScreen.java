@@ -37,13 +37,17 @@ public class GameScreen implements IGameScreen {
 	private Rectangle square = new Rectangle(0, 0, 50, 50);
 	private Circle circle = new Circle(GameEngineUI.myAppWidth/2, GameEngineUI.myAppHeight/2, 30);
 	
-	public GameScreen(Level level) {
+	public GameScreen() {
 		myScreen = new Pane();
 		myScreen.setMaxSize(screenWidth, screenHeight);
 		//myScreen.getChildren().addAll(square, circle);
+		//init();
+	}
+	
+	public void setLevel(Level level){
 		myLevel = level;
 		myGameObjects = level.getGameObjects();
-		init();
+
 	}
 	
 	public Pane getScreen() {
@@ -61,9 +65,10 @@ public class GameScreen implements IGameScreen {
 	
 	private void init() {
 		for (GameObject object : myGameObjects) {
-			System.out.println(object.getImageFileName());
-			Image image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));
+			Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
 			ImageView iv = new ImageView(image);
+			iv.setFitHeight(object.getHeight());
+			iv.setFitWidth(object.getWidth());
 			iv.setX(object.getXPosition());
 			iv.setY(object.getYPosition());
 			myScreen.getChildren().add(iv);
@@ -73,8 +78,10 @@ public class GameScreen implements IGameScreen {
 	@Override
 	public void update(Level level) {
 		for (GameObject object : level.getGameObjects()) {
-			Image image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));
+			Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
 			ImageView iv = new ImageView(image);
+			iv.setFitHeight(object.getHeight());
+			iv.setFitWidth(object.getWidth());
 			iv.setX(object.getXPosition());
 			iv.setY(object.getYPosition());
 			myScreen.getChildren().add(iv);
