@@ -46,5 +46,15 @@ public class LevelManager implements ICreateLevel{
 	public void addCurrentGameObjectToLevel() {
 		return;
 	}
+
+	@Override
+	public void addBackgroundMusic(String musicFilePath) {
+		myLevel.getViewSettings().setMusicFile(musicFilePath);
+	}
+
+	@Override
+	public void addBackgroundImage(String backgroundFilePath) {
+		myLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
+	}
     
 }

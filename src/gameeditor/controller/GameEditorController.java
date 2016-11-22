@@ -20,7 +20,7 @@ import objects.Level;
  *
  */
 //TODO: Add functions that allow user to toggle between Maps, GObjects, and Levels
-//TODO: Add rules to the XML
+//TODO: Add rules/key controls to the XML
 public class GameEditorController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
     private GameEditorView myGameEditor;
     private LevelManager myLevelManager;
@@ -109,5 +109,15 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
 	@Override
 	public void addTime(double time) {
 		myLevelManager.addTime(time);
+	}
+
+	@Override
+	public void addBackgroundMusic(String musicFilePath) {
+		myLevelManager.addBackgroundMusic(musicFilePath);
+	}
+
+	@Override
+	public void addBackgroundImage(String backgroundFilePath) {
+		myLevelManager.addBackgroundImage(backgroundFilePath);
 	}
 }
