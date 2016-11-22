@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
+import gameengine.model.LossChecker;
+import gameengine.model.WinChecker;
 import gameengine.model.interfaces.Rule;
 import gameengine.model.settings.Music;
 import gameengine.view.GameEngineUI;
@@ -56,6 +58,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void loopGame(){
 		Level currLevel = currentGame.getCurrentLevel();
 		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
+		LossChecker.checkLossConditions((RuleActionHandler)this, currLevel.getLoseConditions(), currLevel.getGameConditions());
+		WinChecker.checkWinConditions((RuleActionHandler)this, currLevel.getWinConditions(), currLevel.getGameConditions());
+		
 		//TO-DO: apply movement and scroll screen
 	}
 

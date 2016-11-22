@@ -2,6 +2,8 @@ package objects;
 
 import java.util.*;
 
+import gameengine.model.Condition;
+
 /**
  * Created by Soravit on 11/18/2016.
  */
@@ -9,8 +11,9 @@ public class Level {
 
     private int level;
     private List<GameObject> gameObjects;
-    private Map<String, String> winConditions;
-    private Map<String, String> loseConditions;
+    private List<Condition> gameObjectives;
+    private Map<String, Integer> winConditions;
+    private Map<String, Integer> loseConditions;
     private Map<String, Integer> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
@@ -20,8 +23,8 @@ public class Level {
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
         randomGenerations = new ArrayList<RandomGeneration>();
-        winConditions = new HashMap<String, String>();
-        loseConditions = new HashMap<String, String>();
+        winConditions = new HashMap<String, Integer>();
+        loseConditions = new HashMap<String, Integer>();
         this.level = level;
     }
 
@@ -49,7 +52,7 @@ public class Level {
         gameObjects.remove(go);
     }
 
-    public void addWinCondition(String type, String action) {
+    public void addWinCondition(String type, Integer action) {
         winConditions.put(type, action);
     }
 
@@ -57,7 +60,11 @@ public class Level {
         winConditions.remove(type);
     }
 
-    public void addLoseCondition(String type, String action) {
+    public Map<String, Integer> getWinConditions(){
+    	return winConditions;
+    }
+    
+    public void addLoseCondition(String type, Integer action) {
         loseConditions.put(type, action);
     }
 
@@ -65,6 +72,14 @@ public class Level {
         loseConditions.remove(type);
     }
 
+    public Map<String, Integer> getLoseConditions(){
+    	return loseConditions;
+    }
+    
+    public Map<String, Integer> getGameConditions(){
+    	return gameConditions;
+    }
+    
     public GameObject getMainCharacter() {
         return mainCharacter;
     }
