@@ -3,12 +3,9 @@ package gameeditor.view;
 import java.io.File;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorData;
-<<<<<<< HEAD
 import gameeditor.controller.interfaces.ILevelSettings;
-=======
 import gameeditor.controller.IGameEditorData;
 import gameeditor.controller.interfaces.ILevelManager;
->>>>>>> master
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -38,10 +35,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     // private ISettings mySettings;
     //private ISettings mySettings;
     // private ILevelManager myLevelSettings;
-    private ILevelSettings myLevelSettings;
-    private GameEditorData myGameEditorData;
-    private ILevelManager myLevelSettings;
-    private IGameEditorData myDataStore;
+//    private ILevelSettings myLevelSettings;
+//    private ILevelManager myLevelSettings;
+    private GameEditorData myDataStore;
     
     public GameEditorView(){
         myRoot = new BorderPane();  
@@ -86,7 +82,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myHBox.getChildren().add(backgroundImage);        
             myDesignArea.setBackground(myHBox); 
 
-            myGameEditorData.setBackgroundImage(filePath);
+            myDataStore.setBackgroundImage(filePath);
 
         }
     }
@@ -97,7 +93,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(newAvatar);
 
-            myGameEditorData.setMainCharacterImage(filePath);
+            myDataStore.setMainCharacterImage(filePath);
 
         } 
     }
@@ -114,7 +110,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         //mySettings.setMusicFile(musicFilePath);
         //myLevelSettings.addBackgroundMusic(musicFilePath);
 
-        myGameEditorData.setMusic(musicFilePath);
+        myDataStore.setMusic(musicFilePath);
     }
 
     private String getFilePath(String fileType, String fileLocation){
