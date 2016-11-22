@@ -1,8 +1,6 @@
 package gameeditor.controller;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ICreateLevel;
@@ -24,24 +22,31 @@ import objects.Level;
  * @author Ray Song(ys101)
  *
  */
+//TODO: Add functions that allow user to toggle between Maps, GObjects, and Levels
 public class GameEditorController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
     private GameEditorView myGameEditor;
     private LevelManager myLevelManager;
+
     private EditorLevels myEditorLevels;
     private Game myGame;
     private Level myCurrentLevel;
     private GameObject go;
     private Map<String, String> properties;
     private Map<Integer,GameEditorView> myLevelEditorMap;
+    private MapManager myMapManager;
 
     public GameEditorController(){
-        
         myLevelManager = new LevelManager();
     }
+
+
+
+    @Override
 
     public Game getGame(){
         return myGame;
     }
+
 
     public Map<String, String> getProperties(){
         return properties;
@@ -71,16 +76,8 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
         this.go = go;
     }
 
-    @Override
-    public void addToProperties(String key, String value) {
-        if(properties==null) createProperties();
-        properties.put(key, value);
-    }
 
-    @Override
-    public void addCurrentGameObjectToLevel() {
-        myCurrentLevel.addGameObject(go);
-    }
+
 
     private Map<?, ?> createProperties() {
         Map<String, String> properties = new HashMap<String, String>();
@@ -92,7 +89,7 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
     public Parent startEditor() {
         //myEditorLevels= new EditorLevels();
         //Parent parent = myEditorLevels.createRoot();
-         //myEditorLevels.getNewLevelButton().setOnAction( e-> print());
+        //myEditorLevels.getNewLevelButton().setOnAction( e-> print());
         //myEditorLevels.setOnAddLevel(e -> addNewLevel());
         //return parent;
 
@@ -100,27 +97,49 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
     }
 
 
-    @Override
-    public void addWinConditions(String type, String action) {
-        // TODO Auto-generated method stub
-    }
 
 
     private void displayLevel(){
         myLevelEditorMap = new HashMap<Integer,GameEditorView>();
         myGameEditor = new GameEditorView();
         myLevelEditorMap.put(myLevelEditorMap.size(), myGameEditor);
-       
+
         Stage myLevelStage = new Stage();
         Scene scene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
         myLevelStage.setScene(scene); 
         myLevelStage.show();
     }
 
+
+
+    @Override
+    public void addToProperties(String key, String value) {
+        //if(myCurrentMap==null) myMapManager.createMap();  //This is just in case 
+        //myCurrentMap = myMapManager.getCurrentMap();
+        //myCurrentMap.put(key, value);
+    }
+
+
+    @Override
+    public void addCurrentGameObjectToLevel() {
+        //myCurrentLevel.addGameObject(myGameObject);
+    }
+
+    @Override
+    public void addWinConditions(String type, String action) {
+        myLevelManager.addWinConditions(type, action);
+        myCurrentLevel = myLevelManager.getLevel();
+    }
+
     @Override
     public void addLoseConditions(String type, String action) {
-        // TODO Auto-generated method stub
-
+        myLevelManager.addLoseConditions(type, action);
+        myCurrentLevel = myLevelManager.getLevel();
     }
+
+
+
+
+
 
 }

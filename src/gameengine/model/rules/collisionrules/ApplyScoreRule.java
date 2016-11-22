@@ -10,5 +10,4 @@ public class ApplyScoreRule implements CollisionRule{
 		//TODO: not hard code key
 		handler.modifyScore(Integer.parseInt(obj.getProperty("points")));
 	}
-
 }
