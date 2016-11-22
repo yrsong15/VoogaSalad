@@ -70,9 +70,9 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	public Button createPreview(){
 		Button preview = new Button();
-		preview.setText("Preview Object");
-		preview.setMinWidth(paddedPaneWidth);
-		preview.setMaxWidth(paddedPaneWidth);
+		preview.setText(DetailResources.PREVIEW_BUTTON_TEXT.getResource());
+		preview.setMinWidth((myPaneWidth-4*myDetailPadding - hboxSpacing)/2);
+		preview.setMaxWidth((myPaneWidth-4*myDetailPadding - hboxSpacing)/2);
 		preview.setMinHeight(cbHeight);
 		preview.setOnAction((e) -> {handlePreview();});
 		return preview;
@@ -80,9 +80,9 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	public Button createSave(){
 		Button save = new Button();
-		save.setText("Save Object");
-		save.setMinWidth(paddedPaneWidth);
-		save.setMaxWidth(paddedPaneWidth);
+		save.setText(DetailResources.SAVE_BUTTON_TEXT.getResource());
+		save.setMinWidth((myPaneWidth-4*myDetailPadding - hboxSpacing)/2);
+		save.setMaxWidth((myPaneWidth-4*myDetailPadding - hboxSpacing)/2);
 		save.setMinHeight(cbHeight);
 		save.setOnAction((e) -> {handleSave();});
 		return save;
@@ -186,8 +186,8 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	public void createTypeChoice(){
 		myType = new ComboBox<String>();
-		myType.setMinWidth(myPaneWidth-2*myDetailPadding);
-		myType.setMaxWidth(myPaneWidth-2*myDetailPadding);
+		myType.setMinWidth(myPaneWidth-4*myDetailPadding);
+		myType.setMaxWidth(myPaneWidth-4*myDetailPadding);
 		myType.setMinHeight(cbHeight);
 		myType.setMaxHeight(cbHeight);
 		myType.getItems().addAll(myDataStore.getTypes());
