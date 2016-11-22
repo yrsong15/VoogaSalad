@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Observable;
 
 import gameengine.model.CollisionChecker;
-import gameengine.model.interfaces.Rule;
-import gameengine.model.settings.Music;
 import gameengine.view.GameEngineUI;
 import javafx.scene.input.KeyCode;
 import objects.GameObject;
@@ -38,9 +36,8 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void startGame() {
         currentGame = parser.convertXMLtoGame(xmlData);
         GameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
-        //Change music
-        //Change background
-        gameOver = false;
+        GameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
+        GameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
         while (!gameOver){
         	loopGame();
         }
