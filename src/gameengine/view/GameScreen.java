@@ -3,6 +3,7 @@
  */
 package gameengine.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -33,12 +34,17 @@ public class GameScreen implements IGameScreen {
 	private Pane myScreen;
 	private Level myLevel;
 	private List<GameObject> myGameObjects;
+	private List<ImageView> imageViews;
+	private boolean updated;
 	
 	public GameScreen() {
 		myScreen = new Pane();
 		myScreen.setMaxSize(screenWidth, screenHeight);
+		imageViews = new ArrayList<ImageView>();
+		updated = false;
 	}
 	
+	@Override
 	public void setLevel(Level level){
 		myLevel = level;
 		myGameObjects = level.getGameObjects();
@@ -60,12 +66,35 @@ public class GameScreen implements IGameScreen {
 
 	@Override
 	public void update(Level level) {
+		//TO-DO: need to figure out why imageViews causing memory leak
 		myScreen.getChildren().clear();
-		addGameObject(level.getMainCharacter());
-		for (GameObject object : level.getGameObjects()) {
-			addGameObject(object);
+		if (!updated){
+			for (GameObject object : level.getGameObjects()) {
+				addGameObject(object);
+			}
+			updated = true;
+		}
+		else{
+			addBackOld();
 		}
 		
+		
+/*		previous code
+ * myScreen.getChildren().clear();
+		for (GameObject object : level.getGameObjects()) {
+			addGameObject(object);
+		}*/
+		
+	}
+	//temporary fix
+	private void addBackOld(){
+		List<GameObject> objects = myLevel.getGameObjects();
+		for (int i = 0; i < imageViews.size(); i++){
+			ImageView iv = imageViews.get(i);
+			iv.setX(objects.get(i).getXPosition());
+			iv.setY(objects.get(i).getYPosition());
+			myScreen.getChildren().add(iv);
+		}
 	}
 	
 	private void addGameObject(GameObject object) {
@@ -75,6 +104,8 @@ public class GameScreen implements IGameScreen {
 		iv.setFitWidth(object.getWidth());
 		iv.setX(object.getXPosition());
 		iv.setY(object.getYPosition());
+		imageViews.add(iv);  //temporary fix
 		myScreen.getChildren().add(iv);
 	}
+	
 }
