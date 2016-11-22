@@ -30,28 +30,39 @@ public class MovementController implements MovementInterface{
 	
 	public void UPKeyPressed(){
 		
-		for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
+		/**for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
 			double newPos = obstacle.getYPosition() + movementSpeed;
 			obstacle.setYPosition(newPos);
-			//System.out.println(obstacle + " new position");
-		}
+		}**/
+		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
+		double newPos = mainChar.getYPosition() - movementSpeed;
+		mainChar.setYPosition(newPos);
 	}
 	
 	public void DOWNKeyPressed(){
-		for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
+	/**	for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
 			double newPos = obstacle.getYPosition() - movementSpeed;
 			obstacle.setYPosition(newPos);
 			
-		}
+		}**/
+		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
+		double newPos = mainChar.getYPosition() + movementSpeed;
+		mainChar.setYPosition(newPos);
 	}
 	public void RIGHTKeyPressed(){
-		for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){	
+		for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
+			if (obstacle==currentGame.getCurrentLevel().getMainCharacter()){
+				continue;
+			}
 			double newPos = obstacle.getXPosition() - movementSpeed;
 			obstacle.setXPosition(newPos);
 		}	
 	}
 	public void LEFTKeyPressed(){
 		for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){	
+			if (obstacle==currentGame.getCurrentLevel().getMainCharacter()){
+				continue;
+			}
 			double newPos = obstacle.getXPosition() + movementSpeed;
 			obstacle.setXPosition(newPos);
 		}
