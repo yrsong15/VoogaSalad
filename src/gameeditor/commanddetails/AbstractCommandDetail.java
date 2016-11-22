@@ -12,9 +12,9 @@ import javafx.scene.layout.CornerRadii;
 
 public abstract class AbstractCommandDetail {
 	
+	protected double myDetailPadding = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
 	protected ScrollPane myContainerPane;
 	protected double myPaneWidth;
-	protected double myDetailPadding = ViewResources.DETAIL_CONTENT_PADDING.getDoubleResource();
 	
 	public AbstractCommandDetail() {
 		double detailPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
