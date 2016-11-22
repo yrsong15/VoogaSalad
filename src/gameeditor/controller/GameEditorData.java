@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.IDetailStore;
+import gameeditor.controller.interfaces.ILevelSettings;
 import objects.GameObject;
 
 /**
  * @author pratikshasharma
  */
-public class GameEditorData implements IDetailStore, IGameEditorData{
+
+public class GameEditorData implements IDetailStore, IGameEditorData, ILevelSettings{
 
     private GameEditorBackendController myGameEditorBackEndController;
     HashMap<String,String> myControlMap;
@@ -54,7 +56,7 @@ public class GameEditorData implements IDetailStore, IGameEditorData{
 
     public void addGameObject(double xPos, double yPos, double width, double height, String imageFileName,
                               Map<String, String> properties){
-        
+
         GameObject myGameObject = new GameObject( xPos, yPos, width,  height, imageFileName,
                                                   properties);
 
@@ -62,10 +64,27 @@ public class GameEditorData implements IDetailStore, IGameEditorData{
         //myGameEditorBackEndController.addCurrentGameObjectToLevel(myGameObject);
     }
 
+    
     public void addGameObjectXYImage(double xposition, double yposition, String imageFilePath, String TypeName){
-        
-            
+
+    }
+
+    @Override
+    public void setBackgroundImage (String filePath) {
+        myGameEditorBackEndController.addBackgroundImage(filePath);
         
     }
 
+    @Override
+    public void setMusic (String filePath) {
+       myGameEditorBackEndController.addBackgroundMusic(filePath);
+        
+    }
+
+    @Override
+    public void setMainCharacterImage (String filePath) {
+       
+        
+        
+    }
 }

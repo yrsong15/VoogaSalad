@@ -17,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import objects.interfaces.ISettings;
 
 
 /**
@@ -32,7 +31,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
-    private ISettings mySettings;
+   // private ISettings mySettings;
     //private ISettings mySettings;
     private ILevelManager myLevelSettings;
     private IGameEditorData myDataStore;
@@ -80,12 +79,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myHBox.getChildren().add(backgroundImage);        
             myDesignArea.setBackground(myHBox); 
             
-            //Setting Data For the Settings
-            //mySettings.setBackgroundFilePath(filePath);
-
-            //mySettings.setBackgroundFilePath(filePath);
-            //myLevelSettings.addBackgroundImage(filePath);
-            
+            myLevelSettings.setBackgroundImage(filePath);
+             
         }
     }
  
@@ -94,6 +89,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         if(filePath!=null){
             Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(newAvatar);
+            
+            myLevelSettings.setMainCharacterImage(filePath);
                
         } 
     }
@@ -109,6 +106,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
        //mySettings.setMusicFile(musicFilePath);
        //myLevelSettings.addBackgroundMusic(musicFilePath);
+       
+       myLevelSettings.setMusic(musicFilePath);
     }
     
     private String getFilePath(String fileType, String fileLocation){
@@ -121,4 +120,3 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
     
 }
-

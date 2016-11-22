@@ -19,89 +19,89 @@ import objects.Level;
  */
 
 public class GameEditorBackendController
-		implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject {
+implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject {
 
-	private Game myGame;
-	private Level myCurrentLevel;
-	private GameObject myGameObject;
-	private HashMap<String, String> myControlMap;
+    private Game myGame;
+    private Level myCurrentLevel;
+    private GameObject myGameObject;
+    private HashMap<String, String> myControlMap;
 
-	@Override
-	public Game getGame() {
-		return myGame;
-	}
+    @Override
+    public Game getGame() {
+        return myGame;
+    }
 
-	@Override
-	public void createGame(String title) {
-		Game game = new Game(title);
-		myGame = game;
-	}
+    @Override
+    public void createGame(String title) {
+        Game game = new Game(title);
+        myGame = game;
+    }
 
-	@Override
-	public void createLevel(int levelNumber) {
-		myCurrentLevel = new Level(levelNumber);
-	}
+    @Override
+    public void createLevel(int levelNumber) {
+        myCurrentLevel = new Level(levelNumber);
+    }
 
-	@Override
-	public void addCurrentLevelToGame() {
-		myGame.addLevel(myCurrentLevel);
-	}
+    @Override
+    public void addCurrentLevelToGame() {
+        myGame.addLevel(myCurrentLevel);
+    }
 
-	@Override
-	public void addGameObjectToLevel(GameObject ob) {
-		myCurrentLevel.addGameObject(ob);
-	}
+    @Override
+    public void addGameObjectToLevel(GameObject ob) {
+        myCurrentLevel.addGameObject(ob);
+    }
 
-	@Override
-	public void addWinConditions(String type, String action) {
-		myCurrentLevel.addWinCondition(type, action);
-	}
+    @Override
+    public void addWinConditions(String type, String action) {
+        myCurrentLevel.addWinCondition(type, action);
+    }
 
-	@Override
-	public void addLoseConditions(String type, String action) {
-		myCurrentLevel.addLoseCondition(type, action);
-	}
+    @Override
+    public void addLoseConditions(String type, String action) {
+        myCurrentLevel.addLoseCondition(type, action);
+    }
 
-	@Override
-	public void addPropertiesToGameObject(Map<String, String> properties) {
-		myGameObject.setPropertiesList(properties);
+    @Override
+    public void addPropertiesToGameObject(Map<String, String> properties) {
+        myGameObject.setPropertiesList(properties);
 
-	}
+    }
 
-	@Override
-	public void addScore(double score) {
-		myCurrentLevel.setScore(score);
-	}
+    @Override
+    public void addScore(double score) {
+        myCurrentLevel.setScore(score);
+    }
 
-	@Override
-	public void addTime(double time) {
-		myCurrentLevel.setTime(time);
-	}
+    @Override
+    public void addTime(double time) {
+        myCurrentLevel.setTime(time);
+    }
 
-	@Override
-	public void addBackgroundMusic(String musicFilePath) {
-		myCurrentLevel.getViewSettings().setMusicFile(musicFilePath);
-	}
+    @Override
+    public void addBackgroundMusic(String musicFilePath) {
+        myCurrentLevel.getViewSettings().setMusicFile(musicFilePath);
+    }
 
-	@Override
-	public void addBackgroundImage(String backgroundFilePath) {
-		myCurrentLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
-	}
+    @Override
+    public void addBackgroundImage(String backgroundFilePath) {
+        myCurrentLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
+    }
 
-	@Override
-	public void setCurrentLevelToGame() {
-		myGame.setCurrentLevel(myCurrentLevel);
-	}
+    @Override
+    public void setCurrentLevelToGame() {
+        myGame.setCurrentLevel(myCurrentLevel);
+    }
 
-	@Override
-	public void setGameObjectToMainCharacter(GameObject object) {
-		myCurrentLevel.setMainCharacter(object);
-	}
+    @Override
+    public void setGameObjectToMainCharacter(GameObject object) {
+        myCurrentLevel.setMainCharacter(object);
+    }
 
-	public GameObject getCurrentGameObject() {
-		return myGameObject;
-	}
+    public GameObject getCurrentGameObject() {
+        return myGameObject;
+    }
 
-   
+
 
 }
