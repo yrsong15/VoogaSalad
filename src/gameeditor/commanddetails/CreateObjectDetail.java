@@ -23,6 +23,8 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	private double cbHeight = 30;
+	private double hboxSpacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
+	private double paddedPaneWidth = myPaneWidth-2*myDetailPadding-cbWidth-hboxSpacing;
 	private Pane myImagePane;
 	
 	private TextArea myXTextArea;
@@ -55,7 +57,6 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		Button save = createSave();
 		Button preview = createPreview();
 		HBox container = new HBox();
-		double hboxSpacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
 		container.setSpacing(hboxSpacing);
 		container.setAlignment(Pos.CENTER);
 		container.getChildren().add(preview);
@@ -66,7 +67,8 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	public Button createPreview(){
 		Button preview = new Button();
 		preview.setText("Preview Object");
-		preview.setMinWidth(cbWidth);
+		preview.setMinWidth(paddedPaneWidth);
+		preview.setMaxWidth(paddedPaneWidth);
 		preview.setMinHeight(cbHeight);
 		preview.setOnAction((e) -> {handlePreview();});
 		return preview;
@@ -75,7 +77,8 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	public Button createSave(){
 		Button save = new Button();
 		save.setText("Save Object");
-		save.setMinWidth(cbWidth);
+		save.setMinWidth(paddedPaneWidth);
+		save.setMaxWidth(paddedPaneWidth);
 		save.setMinHeight(cbHeight);
 		save.setOnAction((e) -> {handleSave();});
 		return save;
@@ -164,8 +167,8 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	public void createTypeChoice(){
 		myType = new ComboBox<String>();
-		myType.setMinWidth(myPaneWidth-4*myDetailPadding);
-		myType.setMaxWidth(myPaneWidth-4*myDetailPadding);
+		myType.setMinWidth(myPaneWidth-2*myDetailPadding);
+		myType.setMaxWidth(myPaneWidth-2*myDetailPadding);
 		myType.setMinHeight(cbHeight);
 		myType.setMaxHeight(cbHeight);
 		myType.getItems().addAll(myDataStore.getTypes());

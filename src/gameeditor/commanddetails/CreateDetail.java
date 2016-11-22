@@ -30,6 +30,8 @@ public class CreateDetail extends AbstractCommandDetail {
 	
 	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	private double cbHeight = 30;
+	private double hboxspacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
+	private double paddedPaneWidth = myPaneWidth-2*myDetailPadding-cbWidth-hboxspacing;
 	private String myFilePath = "";
 	private VBox myPropertiesVBox;
 	private Pane myImagePane;
@@ -91,8 +93,8 @@ public class CreateDetail extends AbstractCommandDetail {
 	
 	public void createImageChoose(){
 		BorderPane bp = new BorderPane();
-		bp.setMinWidth(myPaneWidth-4*myDetailPadding);
-		bp.setMaxWidth(myPaneWidth-4*myDetailPadding);
+		bp.setMinWidth(paddedPaneWidth);
+		bp.setMaxWidth(paddedPaneWidth);
 		myImagePane = new Pane();
 		myImagePane.setMinWidth(60);
 		myImagePane.setMaxWidth(60);
@@ -189,8 +191,8 @@ public class CreateDetail extends AbstractCommandDetail {
 	
 	public TextArea createInputField(String label, double hboxSpacing){
 		TextArea inputField = new TextArea(label);
-		inputField.setMinWidth(myPaneWidth-2*myDetailPadding-cbWidth-hboxSpacing);
-		inputField.setMaxWidth(myPaneWidth-2*myDetailPadding-cbWidth-hboxSpacing);
+		inputField.setMinWidth(paddedPaneWidth);
+		inputField.setMaxWidth(paddedPaneWidth);
 		inputField.setMinHeight(cbHeight);
 		inputField.setMaxHeight(cbHeight);
 		inputField.setOnMouseClicked(e -> handleClick(inputField));
