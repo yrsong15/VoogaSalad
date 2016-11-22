@@ -1,9 +1,11 @@
-package gameeditor.view;
+package frontend.util;
 
 import java.io.File;
-
+import java.net.MalformedURLException;
 import gameeditor.view.interfaces.IFileOpener;
 import gameeditor.view.interfaces.IGameEditorView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -15,7 +17,6 @@ import javafx.stage.Stage;
 public class FileOpener implements IFileOpener {
     private Stage myStage;
 
-
     public File chooseFile(String fileType , String fileLocation) {
         myStage = new Stage();
         FileChooser fileChooser = new FileChooser();
@@ -24,18 +25,11 @@ public class FileOpener implements IFileOpener {
         File userDirectory = new File(userDirectoryString);
         fileChooser.setInitialDirectory(userDirectory);
         File chosenFile = fileChooser.showOpenDialog(myStage);
-
-        //        if (chosenFile == null) {
-        //            Alert alert = new Alert(AlertType.ERROR);
-        //            alert.setContentText("No File Chosen");
-        //            alert.showAndWait();
-        //myStage.close(); 
-        //        }
-        
         return chosenFile;
     }
 
-    private void addFileExtensionFilter(String fileType, FileChooser myFileChooser){
+
+    public void addFileExtensionFilter(String fileType, FileChooser myFileChooser){
         if(fileType.equals(IGameEditorView.IMAGE_FILE_TYPE)){
             myFileChooser.getExtensionFilters().addAll(
                                                        new FileChooser.ExtensionFilter("All Images", "*.*"),

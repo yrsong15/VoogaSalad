@@ -12,7 +12,9 @@ public class Main extends Application {
 
     @Override
     public void start (Stage stage) {
-    	controller = new MainController(stage);
+
+        System.setProperty("glass.accessible.force", "false");
+        controller = new MainController(stage);
     }
 
     public static void main (String[] args) {

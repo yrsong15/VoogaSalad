@@ -1,13 +1,16 @@
 package general;
 
+import frontend.util.ButtonTemplate;
 import gameeditor.view.GameEditorView;
 import general.interfaces.ISplashScreen;
-import buttons.ButtonTemplate;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -18,6 +21,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 /**
  * Created by Delia on 11/15/2016.
@@ -62,6 +71,11 @@ public class SplashScreen implements ISplashScreen {
     }
 
     @Override
+    public void launchGameEditorWith() {
+
+    }
+
+    //    @Override
     public void launchWith() {
     }
 
@@ -71,7 +85,12 @@ public class SplashScreen implements ISplashScreen {
     }
 
     @Override
-    public void launchGallery() {
+    public void launchGameEditor() {
+    	
+    }
+
+    @Override
+    public void launchGallery() throws IOException {
         mainController.presentGallery();
     }
 
@@ -80,30 +99,45 @@ public class SplashScreen implements ISplashScreen {
 
     }
 
+    public void launchGameEngine() {
+    	mainController.launchEngine("");
+    }
+
+    public void launchGameLoader() {
+
+    }
+
     private void addButtons() {
-        ButtonTemplate engineButton = new ButtonTemplate("GameEngine");
-        Button engine = engineButton.getButton();
-        engine.setTranslateX(100);
-        engine.setTranslateY(350);
+        // TODO: Change this hash map into reflection where the method of launch + the buttonName is called
+        HashMap<String, EventHandler<MouseEvent>> eventHandlerForButton = new HashMap<String, EventHandler<MouseEvent>>();
+        eventHandlerForButton.put("GameEngine", e -> launchGameEngine());
+        eventHandlerForButton.put("GameEditor", e -> launchEditor());
+        eventHandlerForButton.put("GameGallery", e -> {
+            try {
+                launchGallery();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+        eventHandlerForButton.put("GameLoader", e -> launchGameLoader());
 
-        ButtonTemplate editorButton = new ButtonTemplate("GameEditor");
-        Button editor = editorButton.getButton();
-        editor.setTranslateX(100);
-        editor.setTranslateY(280);
-        editor.setOnMouseClicked(e -> launchEditor());
+        String[] buttonNames = {"GameEngine", "GameEditor", "GameGallery", "GameLoader"};
 
-        ButtonTemplate galleryButton = new ButtonTemplate("GameGallery");
-        Button gallery = galleryButton.getButton();
-        gallery.setTranslateX(100);
-        gallery.setTranslateY(420);
+        double initialX = 100;
+        double initialY = 280;
+        double xSpacing = 300;
+        double ySpacing = 70;
+        int buttonsPerCol = 3; // Also rows
 
-        gallery.setOnMouseClicked(e -> launchGallery());
-        ButtonTemplate loaderButton = new ButtonTemplate("GameLoader");
-        Button loader = loaderButton.getButton();
+        for (int i = 0; i < buttonNames.length; i++) {
+            ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i]);
+            Button button = buttonTemplate.getButton();
+            button.setTranslateX(initialX + (i / buttonsPerCol) * xSpacing);
+            button.setTranslateY(initialY + (i % buttonsPerCol) * ySpacing);
+            button.setOnMouseClicked(eventHandlerForButton.get(buttonNames[i]));
 
-        loader.setTranslateX(400);
-        loader.setTranslateY(280);
-        startWindow.getChildren().addAll(engine, editor, gallery, loader);
+            startWindow.getChildren().add(button);
+        }
     }
 
     private void addTitle() {

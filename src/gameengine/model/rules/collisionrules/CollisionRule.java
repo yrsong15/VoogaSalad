@@ -1,9 +1,16 @@
 package gameengine.model.rules.collisionrules;
 
+import gameengine.controller.RuleActionHandler;
 import objects.GameObject;
 
-public abstract class CollisionRule {
+/**
+ * @author Eric Song
+ * 
+ */
+public interface CollisionRule {
 
-	public abstract void applyRule(GameObject mainChar, GameObject obj);
+	//doesnt actually enforce implementation, but all implementing classes should implement this method
+	public static void applyRule(GameObject mainChar, GameObject obj, RuleActionHandler handler) {
+	}
 
 }

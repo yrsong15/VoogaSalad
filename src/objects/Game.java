@@ -26,6 +26,11 @@ public class Game {
 	}
 	
 	public Level getCurrentLevel(){
-		return currentLevel;
+	    return this.currentLevel;
 	}
+
+	public void setCurrentLevel(Level currentLevel){
+		this.currentLevel = currentLevel;
+	}
+	
 }

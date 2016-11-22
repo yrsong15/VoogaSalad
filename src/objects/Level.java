@@ -9,13 +9,29 @@ public class Level {
 
     private int level;
     private List<GameObject> gameObjects;
-    private Map<String, String> externalRules;
+    private Map<String, String> winConditions;
+    private Map<String, String> loseConditions;
+    private Map<String, Integer> gameConditions;
+    private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
+    private ScrollType scrollType;
+    private Settings viewSettings;
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
-        externalRules = new HashMap<String, String>();
+        randomGenerations = new ArrayList<RandomGeneration>();
+        winConditions = new HashMap<>();
+        loseConditions = new HashMap<>();
+        gameConditions = new HashMap<>();
         this.level = level;
+    }
+
+    public void setScrollType(ScrollType scrollType){
+        this.scrollType = scrollType;
+    }
+
+    public ScrollType scrollType(){
+        return scrollType;
     }
 
     public int getLevel() {
@@ -34,27 +50,55 @@ public class Level {
         gameObjects.remove(go);
     }
 
-    public void addRule(String type, String action) {
-        externalRules.put(type, action);
+    public void addWinCondition(String type, String action) {
+        winConditions.put(type, action);
     }
 
-    public void removeRule(String type) {
-        externalRules.remove(type);
+    public void removeWinCondition(String type, String action){
+        winConditions.remove(type);
+    }
+
+    public void addLoseCondition(String type, String action) {
+        loseConditions.put(type, action);
+    }
+
+    public void removeLoseCondition(String type, String action){
+        loseConditions.remove(type);
     }
 
     public GameObject getMainCharacter() {
         return mainCharacter;
     }
 
-    public void setMainCharacter(GameObject character) {
+    public void setMainCharacter(GameObject mainCharacter) {
         this.mainCharacter = mainCharacter;
     }
 
-    public Set<String> getExternalRules(){
-        return externalRules.keySet();
+    public int getScore(){
+    	return gameConditions.get("score");
+    }
+
+    public void setScore(int score){
+        gameConditions.put("score", score);
+    }
+
+    public int getTime(){
+    	return gameConditions.get("time");
+    }
+
+    public void setTime(int time){
+    	gameConditions.put("time", time);
     }
     
     public List<GameObject> getGameObjects(){
     	return gameObjects;
+    }
+    
+    public Settings getViewSettings(){
+        return viewSettings;
+    }
+    
+    public void setViewSettings(Settings viewSettings){
+        this.viewSettings = viewSettings;
     }
 }
