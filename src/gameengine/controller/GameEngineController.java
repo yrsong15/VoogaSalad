@@ -1,7 +1,9 @@
 package gameengine.controller;
 
+import java.util.List;
 import java.util.Observable;
 
+import gameengine.controller.interfaces.MovementHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.view.GameEngineUI;
 import objects.GameObject;
@@ -21,14 +23,14 @@ public class GameEngineController extends Observable implements GameOverHandler,
 	private Game currentGame;
 
 	private GameEngineUI gameEngineView;
-	private ScrollerController movementController;
-	private GameEngineUI GameEngineView = new GameEngineUI
+	private MovementController movementController;
+	private GameEngineUI GameEngineView;
 
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker();
-		movementController = new ScrollerController();
+		movementController = new MovementController(currentGame);
 		gameEngineView = new GameEngineUI(movementController);
 
 	}
@@ -41,14 +43,13 @@ public class GameEngineController extends Observable implements GameOverHandler,
         }
 	}
 	
+	
 	/**
 	 * Applies gravity and scrolls, checks for collisions
 	 */
 	public void loopGame(){
-		Game mainGame = null;
-		Level currLevel = mainGame.getCurrentLevel();
+		Level currLevel = currentGame.getCurrentLevel();
 		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects());
-		//TO-DO: apply movement and scroll screen
 	}
 
 	public void setCurrentXML(String xmlData) {
