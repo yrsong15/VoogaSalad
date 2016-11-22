@@ -11,7 +11,7 @@ import java.util.Collections;
 public class Gallery {
 	private Map<String, String> gallery;
 	private ArrayList<GameFile> myGallery;
-
+	
 	public Gallery() {
 		gallery = new HashMap<String, String>();
 		myGallery = new ArrayList<>();
@@ -22,8 +22,8 @@ public class Gallery {
 ////		gallery.put(gameName, XMLData);
 //		myGallery.add(new GameFile(gameName, XMLData));
 //	}
-	public void addToGallery(GameFile newGame) throws IOException {
-		FileUtils.writeStringToFile(new File(newGame.getGameName()), newGame.getGameData(), true);
+	public void addToGallery(GameFile newGame) { //throws IOException {
+//		FileUtils.writeStringToFile(new File(newGame.getGameName()), newGame.getGameData(), true);
 //		gallery.put(gameName, XMLData);
 		myGallery.add(newGame);
 	}
@@ -35,7 +35,7 @@ public class Gallery {
 	public String getGalleryItem(String key){
 		return gallery.get(key);
 	}
-
+	
 	// TODO: Makes this return an iterator
 	public List<GameFile> getUnmodifiableListOfGameFiles()
 	{

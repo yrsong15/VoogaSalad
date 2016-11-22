@@ -53,11 +53,11 @@ public class MainController {
     private void initializeGallery() throws IOException {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
-// 	   this.gallery = new Gallery();
-// 	   for(int i = 0; i < 40; i++)
-// 	   {
-// 		   myGallery.addToGallery(new GameFile());
-// 	   }
+// 	   this.myGallery = new Gallery();
+ 	   for(int i = 0; i < 40; i++)
+ 	   {
+ 		   myGallery.addToGallery(new GameFile());
+ 	   }
 // 	   this.galleryStage = new Stage();
     }
 

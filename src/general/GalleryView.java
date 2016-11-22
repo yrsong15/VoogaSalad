@@ -1,11 +1,16 @@
 package general;
 
+import java.util.ArrayList;
+
 import frontend.util.ButtonTemplate;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -25,10 +30,13 @@ public class GalleryView {
     private Pane galleryWindow;
     private String gameName;
     private MainController myMainController;
-
+    
+    private ArrayList<GameFileView> mySelectedFiles;
+    
     public GalleryView(Gallery gallery, MainController MC) {
         this.myMainController = MC;
         this.gallery = gallery;
+        this.mySelectedFiles = new ArrayList<GameFileView>();
         setUpWindow();
         configureEventListeners();
     }
@@ -38,8 +46,34 @@ public class GalleryView {
     }
 
     private void configureEventListeners() {
-        scene.addEventHandler(GameFileEvent.REMOVE_FROM_GALLERY, e -> removeGameFile());
+        scene.addEventHandler(GameFileViewEvent.REMOVE_FROM_GALLERY, e -> removeGameFile());
+        scene.addEventHandler(GameFileViewEvent.VIEW_CLICKED_ON, e -> gameFileViewClicked(e.getGameFileView()));
     }
+    
+    private void gameFileViewClicked(GameFileView gameFileView)
+    {
+    	if(mySelectedFiles.contains(gameFileView))
+    	{
+    		mySelectedFiles.remove(gameFileView);
+    		gameFileView.deselect();
+    	}
+    	else
+    	{
+    		deselectAllSelectedFiles();
+    		mySelectedFiles.add(gameFileView);
+    		gameFileView.select();
+    	}
+    }
+    
+    private void deselectAllSelectedFiles()
+    {
+    	for(GameFileView gameFileView : mySelectedFiles)
+    	{
+    		gameFileView.deselect();
+    	}
+    	mySelectedFiles.clear();
+    }
+    
 
     private void setUpWindow() {
         galleryWindow = new Pane();
@@ -53,14 +87,23 @@ public class GalleryView {
         addGameFileViews();
     }
 
+    private GameFileView createGameFileView(GameFile gameFile)
+    {
+    	GameFileView gameFileView = new GameFileView(gameFile);
+    	gameFileView.addEventHandlerToGameView(MouseEvent.MOUSE_ENTERED, e -> gameFileView.highlight());
+    	gameFileView.addEventHandlerToGameView(MouseEvent.MOUSE_EXITED, e -> gameFileView.dehighlight());
+    	return gameFileView;
+    }
     private void addGameFileViews() {
         ScrollPane gameFileWindow = new ScrollPane();
         HBox gameFileBox = new HBox();
         gameFileBox.setSpacing(10);
+      
         for (GameFile gameFile : gallery.getUnmodifiableListOfGameFiles())
 //		for(String gameFile : gallery.getUnmodifiableListOfGameFiles())
         {
-            gameFileBox.getChildren().add(new GameFileView(gameFile).getNode());
+        	Node gameFileNode = createGameFileView(gameFile).getNode();
+        	gameFileBox.getChildren().add(gameFileNode);
         }
         gameFileWindow.setContent(gameFileBox);
         gameFileWindow.setPrefViewportHeight(SCROLL_WINDOW_HEIGHT);
