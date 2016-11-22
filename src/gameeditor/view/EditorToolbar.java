@@ -40,18 +40,18 @@ public class EditorToolbar implements IEditorToolbar {
 		createButton(myBackgroundImageView, "/Background.png", BG_IMAGE_WIDTH, BG_IMAGE_XOFFSET, e -> myOutput.setBackground());
 		createButton(myAvatarImageView, "/Avatar.png", AVATAR_IMAGE_WIDTH, AVATAR_IMAGE_XOFFSET, e -> myOutput.setAvatar());
 		createButton(myMusicImageView, "/Music.png", MUSIC_IMAGE_WIDTH, MUSIC_IMAGE_XOFFSET, e -> myOutput.setMusic());
-	
 		// Create load button
-		createButton(myLoadGameImageView,"/Load.png",LOAD_GAME_IMAGE_WIDTH,LOAD_GAME_IMAGE_XOFFSET,e-> myOutput.sendDataToGameEngine());
+		createButton(myLoadGameImageView,"/Save.png",LOAD_GAME_IMAGE_WIDTH,LOAD_GAME_IMAGE_XOFFSET,e-> myOutput.sendDataToGameEngine());
 	}
 	
-	
+	// TODO: REFACTOR THIS METHOD TO WORK GENERALLY, USE image.getWidth();
 	private void createButton(ImageView myImageView, String fileLocation, 
 		double imageWidth, double imageXOffset, EventHandler<MouseEvent> handler){
 		Image buttonImage;
 		try {
 			buttonImage = new Image(new FileInputStream(IMAGE_FILE_LOCATION + fileLocation));
 			myImageView = new ImageView(buttonImage);
+			myImageView.setPreserveRatio(true);
 			myImageView.setFitHeight(BUTTON_IMAGE_HEIGHT);
 			myImageView.setFitWidth(imageWidth);
 			myImageView.setLayoutX(imageXOffset);

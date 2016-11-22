@@ -17,6 +17,8 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import gameeditor.commanddetails.*;
+import gameeditor.controller.GameEditorData;
+import gameeditor.controller.IGameEditorData;
 import gameeditor.view.interfaces.ICommandDetailDisplay;
 import gameeditor.view.interfaces.IDetailPane;
 
@@ -32,13 +34,14 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private double myPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
     private Rectangle myAvatarZone;
     private ScrollPane myDetailPane;
-    private IDetailStore myDetailStore = new DetailStore();
+    private IGameEditorData myDataStore;
     private IDesignArea myDesignArea;
 
     private ImageView myAvatarView;
 
-    public DetailPane(IDesignArea da) {
+    public DetailPane(IDesignArea da, IGameEditorData ged) {
     	myDesignArea = da;
+    	myDataStore = new GameEditorData();
         // TODO Auto-generated constructor stub
         myPane = new Pane();
         myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
@@ -87,7 +90,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public void setDetail(String paneType) {
         String className = "gameeditor.commanddetails." + paneType + "Detail";
         myPane.getChildren().remove(myDetailPane);
-        AbstractCommandDetail detailPane = new DetailFactory().create(className, myDetailStore, myDesignArea);
+        AbstractCommandDetail detailPane = new DetailFactory().create(className, myDataStore, myDesignArea);
         myDetailPane = detailPane.getPane();
         myPane.getChildren().add(myDetailPane);
     }
