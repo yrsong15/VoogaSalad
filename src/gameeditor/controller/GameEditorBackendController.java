@@ -6,8 +6,6 @@ import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ICreateLevel;
 import gameeditor.controller.interfaces.IGameEditorController;
-import gameeditor.view.GameEditorView;
-import javafx.scene.Parent;
 import objects.Game;
 import objects.GameObject;
 import objects.Level;
@@ -20,7 +18,6 @@ import objects.Level;
 //TODO: Add functions that allow user to toggle between Maps, GObjects, and Levels
 //TODO: Add rules/key controls to the XML
 public class GameEditorBackendController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject, IControlManager{  
-    private GameEditorView myGameEditor;
     private LevelManager myLevelManager;
     private MapManager myMapManager;
 
@@ -28,11 +25,9 @@ public class GameEditorBackendController implements IGameEditorController, ICrea
     private Level myCurrentLevel;
     private GameObject myGameObject;
     private Map<String, String> myCurrentMap;
-    private Map<String,String> myLevelEditorMap;
     private HashMap<String,String>myControlMap;
 
     public GameEditorBackendController(){
-        myGameEditor = new GameEditorView();
         myLevelManager = new LevelManager();
         myMapManager = new MapManager();
     }
