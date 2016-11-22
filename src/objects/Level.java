@@ -10,9 +10,9 @@ public class Level {
 
     private int level;
     private List<GameObject> gameObjects;
-    private Map<String, Integer> winConditions;
-    private Map<String, Integer> loseConditions;
-    private Map<String, Integer> gameConditions;
+    private Map<String, String> winConditions;
+    private Map<String, String> loseConditions;
+    private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
@@ -52,7 +52,7 @@ public class Level {
         gameObjects.remove(go);
     }
 
-    public void addWinCondition(String type, Integer action) {
+    public void addWinCondition(String type, String action) {
         winConditions.put(type, action);
     }
 
@@ -60,11 +60,11 @@ public class Level {
         winConditions.remove(type);
     }
 
-    public Map<String, Integer> getWinConditions(){
+    public Map<String, String> getWinConditions(){
     	return winConditions;
     }
     
-    public void addLoseCondition(String type, Integer action) {
+    public void addLoseCondition(String type, String action) {
         loseConditions.put(type, action);
     }
 
@@ -72,11 +72,11 @@ public class Level {
         loseConditions.remove(type);
     }
 
-    public Map<String, Integer> getLoseConditions(){
+    public Map<String, String> getLoseConditions(){
     	return loseConditions;
     }
     
-    public Map<String, Integer> getGameConditions(){
+    public Map<String, Double> getGameConditions(){
     	return gameConditions;
     }
     
@@ -88,19 +88,21 @@ public class Level {
         this.mainCharacter = mainCharacter;
     }
 
+    //TODO: getScore returns int, but Score is stored as double for functionality purposes 
+    //let me know if you think this is wrong!! - Ray Song
     public int getScore(){
-    	return gameConditions.get("score");
+    	return gameConditions.get("score").intValue();
     }
 
-    public void setScore(int score){
+    public void setScore(double score){
         gameConditions.put("score", score);
     }
 
-    public int getTime(){
+    public double getTime(){
     	return gameConditions.get("time");
     }
 
-    public void setTime(int time){
+    public void setTime(double time){
     	gameConditions.put("time", time);
     }
     

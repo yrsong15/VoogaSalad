@@ -20,6 +20,7 @@ import objects.Level;
  *
  */
 //TODO: Add functions that allow user to toggle between Maps, GObjects, and Levels
+//TODO: Add rules to the XML
 public class GameEditorController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
     private GameEditorView myGameEditor;
     private LevelManager myLevelManager;
@@ -92,5 +93,21 @@ public class GameEditorController implements IGameEditorController, ICreateGame,
 	public void addLoseConditions(String type, String action) {
 		myLevelManager.addLoseConditions(type, action);
 		myCurrentLevel = myLevelManager.getLevel();
+	}
+	
+	//TODO: Should I append a map, or add each property one-by-one? Depends on whether the map is used for other purposes.
+	@Override
+	public void addCurrentPropertiesToGameObject() {
+		myGameObject.setPropertiesList(myCurrentMap);	
+	}
+
+	@Override
+	public void addScore(double score) {
+		myLevelManager.addScore(score);
+	}
+
+	@Override
+	public void addTime(double time) {
+		myLevelManager.addTime(time);
 	}
 }
