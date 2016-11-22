@@ -77,10 +77,10 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myScrollPane.setContent(myHBox); 
             
             //Setting Data For the Settings
-            mySettings.setBackgroundFilePath(filePath);
+            //mySettings.setBackgroundFilePath(filePath);
 
             //mySettings.setBackgroundFilePath(filePath);
-            myLevelSettings.addBackgroundImage(filePath);
+            //myLevelSettings.addBackgroundImage(filePath);
             
         }
     }
@@ -103,8 +103,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     public void setMusic(){
        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-       mySettings.setMusicFile(musicFilePath);
-       myLevelSettings.addBackgroundMusic(musicFilePath);
+       //mySettings.setMusicFile(musicFilePath);
+       //myLevelSettings.addBackgroundMusic(musicFilePath);
     }
     
     private String getFilePath(String fileType, String fileLocation){
