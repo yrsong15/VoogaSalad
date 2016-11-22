@@ -1,25 +1,23 @@
 package gameeditor.controller;
+import java.util.HashMap;
 import java.util.Map;
+import gameeditor.controller.interfaces.IControlManager;
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ICreateLevel;
 import gameeditor.controller.interfaces.IGameEditorController;
-import gameeditor.view.GameEditorView;
-import javafx.scene.Parent;
 import objects.Game;
 import objects.GameObject;
 import objects.Level;
 /**
  * This is the central class for the Game Editor backend that contains all the methods that can be called
  * by the Game Editor frontend.
- * 
  * @author Ray Song(ys101)
  *
  */
 //TODO: Add functions that allow user to toggle between Maps, GObjects, and Levels
 //TODO: Add rules/key controls to the XML
-public class GameEditorBackendController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject{  
-    private GameEditorView myGameEditor;
+public class GameEditorBackendController implements IGameEditorController, ICreateGame, ICreateLevel, ICreateGameObject, IControlManager{  
     private LevelManager myLevelManager;
     private MapManager myMapManager;
 
@@ -27,10 +25,9 @@ public class GameEditorBackendController implements IGameEditorController, ICrea
     private Level myCurrentLevel;
     private GameObject myGameObject;
     private Map<String, String> myCurrentMap;
-    private Map<String,String> myLevelEditorMap;
+    private HashMap<String,String>myControlMap;
 
     public GameEditorBackendController(){
-        myGameEditor = new GameEditorView();
         myLevelManager = new LevelManager();
         myMapManager = new MapManager();
     }
@@ -124,8 +121,21 @@ public class GameEditorBackendController implements IGameEditorController, ICrea
     }
 
     @Override
-    public void setCurrentGameObjectToMainCharacter() {
-        myCurrentLevel.setMainCharacter(myGameObject);
+    public void setCurrentGameObjectToMainCharacter(GameObject object) {
+        myCurrentLevel.setMainCharacter(object);
     }
 
+    @Override
+    public void setLevelsControls (HashMap<String, String> newControlMap) {
+        this.myControlMap = newControlMap;   
+    }
+    
+    public HashMap<String, String> getLevelControls(){
+        return this.myControlMap;
+    }
+    
+    public GameObject getCurrentGameObject(){
+        return myGameObject;
+    }
+    
 }

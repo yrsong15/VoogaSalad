@@ -23,7 +23,7 @@ public class GameEditorTestMain {
 		
 		myController.createGameObject(15, 30, 100, 50, "bird3.png", new HashMap<String, String>());
 		myController.addCurrentGameObjectToLevel();
-		myController.setCurrentGameObjectToMainCharacter();
+		myController.setCurrentGameObjectToMainCharacter(myController.getCurrentGameObject());
 		
 		myController.createGameObject(100, 200, 300, 400, "Pipes.png", new HashMap<String, String>());
 		myController.addToProperties("damage", "30");
