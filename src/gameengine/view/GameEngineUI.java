@@ -60,6 +60,7 @@ public class GameEngineUI implements IGameEngineUI {
 		// All of the instantiable scrollercontrollers are in gameengine.controller package
 		//scrollerController = new ScrollerController();
 		//scrollerController.setScene(myScene);
+
 		setUpKeystrokeListeners();
 		setBackgroundImage("Sprite/bird2.gif");
 		setMusic("FlappyBirdThemeSong.mp3");

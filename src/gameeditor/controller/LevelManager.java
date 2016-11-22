@@ -1,6 +1,6 @@
 package gameeditor.controller;
 
-import gameeditor.controller.interfaces.ILevelManager;
+import gameeditor.controller.interfaces.ICreateLevel;
 import objects.Level;
 
 /**
@@ -8,7 +8,7 @@ import objects.Level;
  * @author Ray Song(ys101)
  *
  */
-public class LevelManager implements ILevelManager{
+public class LevelManager implements ICreateLevel{
 	
 	private Level myLevel;
 
@@ -30,6 +30,21 @@ public class LevelManager implements ILevelManager{
 	@Override
 	public void addLoseConditions(String type, String action) {
 		myLevel.addLoseCondition(type, Integer.parseInt(action));
+	}
+
+	@Override
+	public void addScore(double score) {
+		myLevel.setScore(score);
+	}
+
+	@Override
+	public void addTime(double time) {
+		myLevel.setTime(time);
+	}
+
+	@Override
+	public void addCurrentGameObjectToLevel() {
+		return;
 	}
     
 }
