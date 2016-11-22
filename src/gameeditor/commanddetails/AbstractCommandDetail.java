@@ -1,5 +1,6 @@
 package gameeditor.commanddetails;
 
+import gameeditor.controller.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.geometry.Insets;
@@ -16,7 +17,7 @@ public abstract class AbstractCommandDetail {
 	protected double myDetailPadding = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
 	protected ScrollPane myContainerPane;
 	protected double myPaneWidth;
-	protected IDetailStore myDetailStore;
+	protected IGameEditorData myDataStore;
 	protected IDesignArea myDesignArea;
 	
 	public AbstractCommandDetail() {
@@ -44,8 +45,8 @@ public abstract class AbstractCommandDetail {
 	
 	abstract public void init();
     
-    public void setDetailStore(IDetailStore detailStore){
-    	myDetailStore = detailStore;
+    public void setDataStore(IGameEditorData ged){
+    	myDataStore = ged;
     }
     
     public void setDesignArea(IDesignArea da){

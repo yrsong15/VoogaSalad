@@ -73,7 +73,7 @@ public class CreateDetail extends AbstractCommandDetail {
 			}
 			propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
 			propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
-			myDetailStore.storeType(propertiesMap);
+			myDataStore.storeType(propertiesMap);
 		} else {
 			
 		}

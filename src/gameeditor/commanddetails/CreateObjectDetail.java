@@ -83,7 +83,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	//TODO: ADD DATA VERIFICATION TO SAVE
 	public void handleSave(){
-		Map<String, String> typeMap = myDetailStore.getType(myType.getValue());
+		Map<String, String> typeMap = myDataStore.getType(myType.getValue());
 		String xString = myXTextArea.getText();
 		String yString = myYTextArea.getText();
 		double x = Double.parseDouble(xString);
@@ -168,7 +168,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		myType.setMaxWidth(myPaneWidth-4*myDetailPadding);
 		myType.setMinHeight(cbHeight);
 		myType.setMaxHeight(cbHeight);
-		myType.getItems().addAll(myDetailStore.getTypes());
+		myType.getItems().addAll(myDataStore.getTypes());
 		myType.setValue(DetailResources.DEFAULT_OBJECT_TYPE.getResource());
 		myType.setOnAction((e) -> {handleTypeSelection(myType);});
 		myPropertiesVBox.getChildren().add(myType);
@@ -176,7 +176,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	public void handleTypeSelection(ComboBox<String> cb){
 		String value = cb.getValue();
-		Map<String, String> myType = myDetailStore.getType(value);
+		Map<String, String> myType = myDataStore.getType(value);
 		myFilePath = myType.get(DetailResources.IMAGE_PATH.getResource());
 		createImageView();
 	}
