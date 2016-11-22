@@ -16,7 +16,13 @@ public class Level {
     private List<RandomGeneration> randomGenerations;
     private GameObject mainCharacter;
     private ScrollType scrollType;
-    private Settings viewSettings;
+
+   
+    private int score;
+    private int time;
+
+    private LevelSettings viewSettings;
+
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
@@ -24,7 +30,7 @@ public class Level {
         winConditions = new HashMap<>();
         loseConditions = new HashMap<>();
         gameConditions = new HashMap<>();
-        viewSettings = new Settings();
+        viewSettings = new LevelSettings();
         this.level = level;
     }
 
@@ -108,11 +114,13 @@ public class Level {
     	return gameObjects;
     }
     
-    public Settings getViewSettings(){
+
+    public LevelSettings getViewSettings(){
         return viewSettings;
     }
     
-    public void setViewSettings(Settings viewSettings){
+    public void setViewSettings(LevelSettings viewSettings){
         this.viewSettings = viewSettings;
+
     }
 }
