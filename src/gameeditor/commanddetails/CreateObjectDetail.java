@@ -1,16 +1,8 @@
 package gameeditor.commanddetails;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 
-import frontend.util.FileOpener;
 import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,9 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -35,8 +25,6 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	private VBox myPropertiesVBox;
 	private Pane myImagePane;
 	private ComboBox<String> myType;
-	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
-	private String [] myPropertiesArray = DetailResources.PROPERTIES.getArrayResource();
 	
 	public CreateObjectDetail() {
 		super();

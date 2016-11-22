@@ -76,4 +76,10 @@ public class DesignArea implements IDesignArea {
 
     }
 
+	@Override
+	public void addSprite(ImageView sprite) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
