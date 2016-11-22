@@ -10,6 +10,5 @@ import objects.Game;
  *
  */
 public interface IGameEditorController {
-	public Parent startEditor();
 	public Game getGame();
 }
