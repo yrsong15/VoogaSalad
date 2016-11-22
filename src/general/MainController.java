@@ -97,8 +97,8 @@ public class MainController {
         pipe5.setProperty("points","30");
         pipe5.setProperty("removeobject","");
         Level level = new Level(1);
-        level.addWinCondition("score", "10");
-        level.addLoseCondition("time", "30");
+        level.addWinCondition("score", 10);
+        level.addLoseCondition("time", 30);
         level.getViewSettings().setMusicFile("FlappyBirdThemeSong.mp3");
         level.getViewSettings().setBackgroundFilePath("Background/bg.png");
         level.addGameObject(bird);

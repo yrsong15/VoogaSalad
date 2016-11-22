@@ -1,9 +1,11 @@
 package gameengine.controller;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import gameengine.controller.interfaces.MovementHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.model.LossChecker;
 import gameengine.model.WinChecker;
@@ -28,14 +30,17 @@ public class GameEngineController extends Observable implements RuleActionHandle
     private boolean gameOver;
 	private Game currentGame;
 	private GameEngineUI gameEngineView;
+
+	private GameEngineUI GameEngineView;
 	private Map<String, KeyCode> controls;
-	private FreeRoamScrollerController movementController;
+	private MovementController movementController;
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
-		movementController = new FreeRoamScrollerController();
-        controls = new HashMap<String, KeyCode>();
+		movementController = new MovementController(currentGame);
+		controls = new HashMap<String, KeyCode>();
+		gameEngineView = new GameEngineUI();
 	}
 
 	public void startGame() {
@@ -44,7 +49,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
         //Change background
         gameOver = false;
         currentGame = parser.convertXMLtoGame(xmlData);
-        gameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
+        gameEngineView = new GameEngineUI();
         gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
         gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
         while (!gameOver){
@@ -56,6 +61,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
         //NEED TO DO
     }
 	
+	
 	/**
 	 * Applies gravity and scrolls, checks for collisions
 	 */
@@ -66,6 +72,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		WinChecker.checkWinConditions((RuleActionHandler)this, currLevel.getWinConditions(), currLevel.getGameConditions());
 		
 		//TO-DO: apply movement and scroll screen
+
 	}
 
 	public void setCurrentXML(String xmlData) {
@@ -96,7 +103,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	
 	public Scene getScene(){
 		currentGame = parser.convertXMLtoGame(xmlData);
-        gameEngineView = new GameEngineUI(currentGame.getCurrentLevel());
+        gameEngineView = new GameEngineUI();
 		return gameEngineView.getScene();
 	}
 }
