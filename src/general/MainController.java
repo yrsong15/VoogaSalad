@@ -6,6 +6,7 @@ import gameeditor.controller.GameEditorFrontEndController;
 import gameeditor.view.GameEditorView;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import objects.Game;
 import objects.GameObject;
@@ -75,6 +76,7 @@ public class MainController {
     	XStream mySerializer = new XStream(new DomDriver());
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 150, 100, "bird3.png", new HashMap<>());
+        bird.setProperty("verticalmovement", "20");
         GameObject pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
         pipe1.setProperty("removeobject","");
         pipe1.setProperty("damage","30");
@@ -108,11 +110,11 @@ public class MainController {
         level.addGameObject(pipe3);
         level.addGameObject(pipe4);
         level.addGameObject(pipe5);
+        level.addControl(KeyCode.W, "up");
+        level.addControl(KeyCode.S, "down");
         game.addLevel(level);
         game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
-        //System.out.println(s);
-        
         GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(s);
         myGameEngineStage = new Stage();

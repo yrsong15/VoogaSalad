@@ -132,4 +132,8 @@ public class Level implements ILevel {
     public void removeControl(KeyCode key){
         controls.remove(key);
     }
+
+    public Map<KeyCode, String> getControls(){
+        return controls;
+    }
 }

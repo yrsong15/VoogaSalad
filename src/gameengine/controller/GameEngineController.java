@@ -1,10 +1,13 @@
 package gameengine.controller;
 
+import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
+import gameengine.model.MovementChecker;
 import gameengine.view.GameEngineUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,23 +16,21 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import objects.GameObject;
 import objects.Game;
-import objects.Level;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel Moon
  *
  */
-public class GameEngineController extends Observable implements RuleActionHandler{
+public class GameEngineController extends Observable implements RuleActionHandler {
 
 	private String xmlData;
     private GameParser parser;
     private CollisionChecker collisionChecker;
+    private MovementChecker movementChecker;
 	private Game currentGame;
 	private GameEngineUI gameEngineView;
 	private Timeline animation;
-
-	private Map<String, KeyCode> controls;
-	private MovementController movementController;
+    private MovementController movementController;
 	
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -37,9 +38,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
+        movementChecker = new MovementChecker();
 		movementController = new MovementController();
         gameEngineView = new GameEngineUI(movementController);
-		controls = new HashMap<String, KeyCode>();
 	}
 
 	public void startGame() {
@@ -48,10 +49,17 @@ public class GameEngineController extends Observable implements RuleActionHandle
         gameEngineView.setLevel(currentGame.getCurrentLevel());
         gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
         gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
+        gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
         KeyFrame frame = new KeyFrame(Duration.millis(200),
-                e -> updateGame());
-//        KeyFrame scrollScreen = new KeyFrame(Duration.millis(200),
-//                e -> movementController.scroll());
+                e -> {
+                    try {
+                        updateGame();
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (InstantiationException e1) {
+                        e1.printStackTrace();
+                    }
+                });
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
@@ -66,11 +74,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	/**
 	 * Applies gravity and scrolls, checks for collisions
 	 */
-	public void updateGame(){
+	public void updateGame() throws ClassNotFoundException, InstantiationException {
         movementController.scroll();
         setChanged();
         notifyObservers();
         gameEngineView.update(currentGame.getCurrentLevel());
+        movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
 //		Level currLevel = currentGame.getCurrentLevel();
 //		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
 //		LossChecker.checkLossConditions((RuleActionHandler)this, currLevel.getLoseConditions(), currLevel.getGameConditions());

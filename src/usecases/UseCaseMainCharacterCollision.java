@@ -16,7 +16,7 @@ public class UseCaseMainCharacterCollision{
 	 * that were created based on the XML file.
 	 */
 	
-	public void useCaseMethod(){
+	public void useCaseMethod() throws InstantiationException, ClassNotFoundException {
 		GameEditorXML XMLEditor = new GameEditorXML();
 		BasicParser parser = new BasicParser(); 
 		parser.convertXMLtoGame(XMLEditor.getXML().toString());
