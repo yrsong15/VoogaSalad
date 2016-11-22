@@ -13,8 +13,6 @@ public class Game {
 	private Level currentLevel;
 	private LevelSettings myGameSettings;
 
-
-
 	public Game(String name) {
 		levels = new HashMap<Integer,Level>();
 		this.name = name;
