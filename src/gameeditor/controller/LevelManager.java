@@ -16,5 +16,5 @@ public class LevelManager implements ILevelManager{
 	public Level getLevel() {
 		return myLevel;
 	}
-    
+		    
 }
