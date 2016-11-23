@@ -2,12 +2,15 @@ package gameengine.controller;
 
 import java.security.Key;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.model.MovementChecker;
+import gameengine.scrolling.LimitedScrolling;
+import gameengine.scrolling.ScrollDirection;
 import gameengine.view.GameEngineUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -31,6 +34,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private GameEngineUI gameEngineView;
 	private Timeline animation;
     private MovementController movementController;
+    private LimitedScrolling lim;
 	
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -41,6 +45,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
         movementChecker = new MovementChecker();
 		movementController = new MovementController();
         gameEngineView = new GameEngineUI(movementController);
+        lim = new LimitedScrolling(ScrollDirection.Right, 30);
 	}
 
 	public void startGame() {
@@ -75,7 +80,8 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	 * Applies gravity and scrolls, checks for collisions
 	 */
 	public void updateGame() throws ClassNotFoundException, InstantiationException {
-        movementController.scroll();
+        //movementController.scroll();
+		lim.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), currentGame.getCurrentLevel().getMainCharacter());
         setChanged();
         notifyObservers();
         gameEngineView.update(currentGame.getCurrentLevel());
