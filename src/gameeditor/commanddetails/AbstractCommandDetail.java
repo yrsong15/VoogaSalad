@@ -16,18 +16,25 @@ public abstract class AbstractCommandDetail {
 	
 	protected double myDetailPadding = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
 	protected ScrollPane myContainerPane;
-	protected double myPaneWidth;
 	protected IGameEditorData myDataStore;
 	protected IDesignArea myDesignArea;
 	
+	protected double detailPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
+	protected double detailPaneHeight = ViewResources.SCENE_HEIGHT.getDoubleResource();
+	protected double avatarZoneWidth = detailPaneWidth-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource();
+	protected double avatarZoneHeight = avatarZoneWidth;
+	protected double detailPadding = ViewResources.COMMAND_DETAIL_PADDING.getDoubleResource();
+	protected double myPaneWidth = avatarZoneWidth;
+	protected double myPaneHeight = detailPaneHeight - 4*detailPadding - avatarZoneHeight;
+
+	
+	protected double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
+	protected double cbHeight = 30;
+	protected double hboxSpacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
+	protected double paddedPaneWidth = myPaneWidth-2*myDetailPadding;
+	protected double paddedDetailWidth = paddedPaneWidth-cbWidth-hboxSpacing;
+	
 	public AbstractCommandDetail() {
-		double detailPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
-		double detailPaneHeight = ViewResources.SCENE_HEIGHT.getDoubleResource();
-		double avatarZoneWidth = detailPaneWidth-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource();
-		double avatarZoneHeight = avatarZoneWidth;
-		double detailPadding = ViewResources.COMMAND_DETAIL_PADDING.getDoubleResource();
-		myPaneWidth = avatarZoneWidth;
-		double myPaneHeight = detailPaneHeight - 4*detailPadding - avatarZoneHeight;
 		myContainerPane = new ScrollPane();
 		myContainerPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		myContainerPane.setVbarPolicy(ScrollBarPolicy.NEVER);

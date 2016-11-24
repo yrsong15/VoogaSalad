@@ -1,5 +1,7 @@
 package gameeditor.view.interfaces;
 
+import gameeditor.commanddetails.ISelectDetail;
+import gameeditor.objects.GameObject;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -19,10 +21,15 @@ public interface IDesignArea {
     
     public void updateAvatar(Image newAvatar);
     
-    public void addSprite(ImageView sprite);
+    public void addSprite(GameObject gameObject);
     
-    public void removeSprite(ImageView sprite);
+    public void removeSprite(GameObject gameObject);
     
     public void setBackground(HBox bg);
+    
+    public void enableClick(ISelectDetail sd);
+    
+    public void disableClick();
+
         
 }

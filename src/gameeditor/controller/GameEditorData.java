@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
-import gameeditor.commanddetails.IDetailStore;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.controller.interfaces.ILevelSettings;
 import javafx.scene.input.KeyCode;
@@ -14,11 +13,15 @@ import objects.GameObject;
 import objects.interfaces.ILevel;
 
 /**
- * @author pratikshasharma
+ * @author pratikshasharma, John Martin
  */
 
-public class GameEditorData implements IDetailStore, IGameEditorData{
-    HashMap<String,String> myControlMap;
+public class GameEditorData implements IGameEditorData, ILevelSettings{
+
+    private GameEditorBackendController myGameEditorBackEndController;
+    private HashMap<String,String> myControlMap;
+    private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
+
     private ILevel myLevel;
     private List<Map<String,String>> myGameObjects;
 
@@ -30,7 +33,6 @@ public class GameEditorData implements IDetailStore, IGameEditorData{
         myGameObjects = new ArrayList<Map<String,String>>();
     }
 
-    private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
 
     public void storeType(Map<String, String> typeMap){
         myTypes.add(typeMap);
@@ -88,11 +90,28 @@ public class GameEditorData implements IDetailStore, IGameEditorData{
     public void addControlsMap(){
         
     }
+
+    @Override
+    public void setMainCharacterImage (String filePath) {
+         
+    }
+
+	@Override
+	public ArrayList<Map<String, String>> getTypeMaps() {
+		return myTypes;
+	}
+
+
+	@Override
+	public void setBackgroundImage(String filePath) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setMusic(String filePath) {
+		// TODO Auto-generated method stub
+		
+	}
 }
-
-
-
-
-
-
-

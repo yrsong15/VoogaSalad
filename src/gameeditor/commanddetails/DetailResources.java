@@ -33,6 +33,9 @@ public enum DetailResources {
 		
 		PREVIEW_BUTTON_TEXT("Preview"),
 		SAVE_BUTTON_TEXT("Save"),
+		
+		SELECT_LABEL_TEXT("Select An Object"),
+		UPDATE_BUTTON_TEXT("Update"),
 		;
 
     private double resourceDouble;

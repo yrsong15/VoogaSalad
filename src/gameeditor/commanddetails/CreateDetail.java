@@ -1,8 +1,6 @@
 package gameeditor.commanddetails;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -19,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -28,12 +25,8 @@ import javafx.scene.shape.Rectangle;
 
 public class CreateDetail extends AbstractCommandDetail {
 	
-	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
-	private double cbHeight = 30;
-	private double hboxspacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
-	private double paddedPaneWidth = myPaneWidth-2*myDetailPadding-cbWidth-hboxspacing;
 	private String myFilePath = "";
-	private VBox myPropertiesVBox;
+	private VBox myVBox;
 	private Pane myImagePane;
 	private TextArea myTypeTextArea;
 	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
@@ -46,10 +39,10 @@ public class CreateDetail extends AbstractCommandDetail {
 
 	@Override
 	public void init() {
-		myPropertiesVBox = new VBox();
-		myPropertiesVBox.setSpacing(myDetailPadding);
-		myPropertiesVBox.setAlignment(Pos.CENTER);
-		myContainerPane.setContent(myPropertiesVBox);	
+		myVBox = new VBox();
+		myVBox.setSpacing(myDetailPadding);
+		myVBox.setAlignment(Pos.CENTER);
+		myContainerPane.setContent(myVBox);	
 		createTypeName();
 		createProperties();
 		createImageChoose();
@@ -62,7 +55,7 @@ public class CreateDetail extends AbstractCommandDetail {
 		save.setMinWidth(cbWidth);
 		save.setMinHeight(cbHeight);
 		save.setOnAction((e) -> {handleSave();});
-		myPropertiesVBox.getChildren().add(save);
+		myVBox.getChildren().add(save);
 	}
 	
 	public void handleSave(){
@@ -104,15 +97,14 @@ public class CreateDetail extends AbstractCommandDetail {
 		imageZone.setArcHeight(DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource()); imageZone.setArcWidth(DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource());
 		bp.setLeft(choose);
 		bp.setRight(myImagePane);
-		bp.setAlignment(choose, Pos.CENTER_LEFT);
-		bp.setAlignment(myImagePane, Pos.CENTER_RIGHT);
-		myPropertiesVBox.getChildren().add(bp);
+		BorderPane.setAlignment(choose, Pos.CENTER_LEFT);
+		BorderPane.setAlignment(myImagePane, Pos.CENTER_RIGHT);
+		myVBox.getChildren().add(bp);
 	}
 	
 	public void createImageView(){
 	    myFilePath = getFilePath(ViewResources.IMAGE_FILE_TYPE.getResource(), ViewResources.SPRITE_IMAGE_LOCATION.getResource());       
 		Image i = new Image(myFilePath);
-		double aspectRatio = i.getWidth()/i.getHeight();
 		double imageZonePadding = DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource();
 		double imageZoneWidth = DetailResources.TYPE_IMAGE_ZONE_WIDTH.getDoubleResource();
 		double imageZoneHeight = DetailResources.TYPE_IMAGE_ZONE_HEIGHT.getDoubleResource();
@@ -154,26 +146,26 @@ public class CreateDetail extends AbstractCommandDetail {
 	
 	public void createTypeName(){
 		myTypeTextArea = new TextArea(DetailResources.TYPE_NAME.getResource());
-		myTypeTextArea.setMinWidth(myPaneWidth-4*myDetailPadding);
-		myTypeTextArea.setMaxWidth(myPaneWidth-4*myDetailPadding);
+		myTypeTextArea.setMinWidth(paddedPaneWidth);
+		myTypeTextArea.setMaxWidth(paddedPaneWidth);
 		myTypeTextArea.setMinHeight(cbHeight);
 		myTypeTextArea.setMaxHeight(cbHeight);
 		myTypeTextArea.setOnMouseClicked(e -> handleClick(myTypeTextArea));
-		myPropertiesVBox.getChildren().add(myTypeTextArea);
+		myVBox.getChildren().add(myTypeTextArea);
 	}
 	
 	public void createProperties(){
 		for (String label : myPropertiesArray){
 			BorderPane bp = new BorderPane();
-			bp.setMinWidth(myPaneWidth-4*myDetailPadding);
-			bp.setMaxWidth(myPaneWidth-4*myDetailPadding);
+			bp.setMinWidth(paddedPaneWidth);
+			bp.setMaxWidth(paddedPaneWidth);
 			Label labl = createPropertyLbl(label);
 			ComboBox<String> cb = createPropertyCB(label);
 			myComboBoxes.add(cb);
 			bp.setLeft(labl);
 			bp.setRight(cb);
-			bp.setAlignment(labl, Pos.CENTER_LEFT);
-			myPropertiesVBox.getChildren().add(bp);
+			BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
+			myVBox.getChildren().add(bp);
 		}
 	}
 	
@@ -191,8 +183,8 @@ public class CreateDetail extends AbstractCommandDetail {
 	
 	public TextArea createInputField(String label, double hboxSpacing){
 		TextArea inputField = new TextArea(label);
-		inputField.setMinWidth(paddedPaneWidth);
-		inputField.setMaxWidth(paddedPaneWidth);
+		inputField.setMinWidth(paddedDetailWidth);
+		inputField.setMaxWidth(paddedDetailWidth);
 		inputField.setMinHeight(cbHeight);
 		inputField.setMaxHeight(cbHeight);
 		inputField.setOnMouseClicked(e -> handleClick(inputField));

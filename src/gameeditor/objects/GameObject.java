@@ -18,17 +18,19 @@ public class GameObject {
 	private double myImageWidth;
 	private double myImageHeight;
 	private IDesignArea myDesignArea;
+	private String myType;
 
-	public GameObject(String imageFilePath, IDesignArea da) {
-		this(imageFilePath, DEFAULT_X, DEFAULT_Y, da);
+	public GameObject(String imageFilePath, String type, IDesignArea da) {
+		this(imageFilePath, DEFAULT_X, DEFAULT_Y, type, da);
 	}
 	
-	public GameObject(String imageFilePath, double x, double y, IDesignArea da) {
-		this(imageFilePath, x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, da);
+	public GameObject(String imageFilePath, double x, double y, String type, IDesignArea da) {
+		this(imageFilePath, x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, type, da);
 	}
 	
-	public GameObject(String imageFilePath, double x, double y, double fitWidth, double fitHeight, IDesignArea da) {
+	public GameObject(String imageFilePath, double x, double y, double fitWidth, double fitHeight, String type, IDesignArea da) {
 		myDesignArea = da;
+		myType = type;
 		myImageFilePath = imageFilePath;
 		myImage = new Image(myImageFilePath); 
 		myImageView = new ImageView(myImage);
@@ -42,11 +44,19 @@ public class GameObject {
         myImageHeight = myImage.getHeight()*ratio;
 		myImageView.setFitWidth(fitWidth);
 		myImageView.setFitHeight(fitHeight);
-		myDesignArea.addSprite(myImageView);
+		myDesignArea.addSprite(this);
 	}
 	
 	public void removeSelf(){
-		myDesignArea.removeSprite(myImageView);
+		myDesignArea.removeSprite(this);
+	}
+	
+	public ImageView getImageView(){
+		return myImageView;
+	}
+	
+	public String getType(){
+		return myType;
 	}
 
 }

@@ -14,7 +14,8 @@ public interface IGameEditorData {
     // Types Methods
     public Map<String, String> getType(String inputTypeName);
     public void storeType(Map<String, String> typeMap);
-    public ArrayList<String> getTypes();
+    public ArrayList<String> getTypes();	
+	public ArrayList<Map<String, String>> getTypeMaps();
 
     // Controls Methods
     public void addControl(KeyCode key, String value);
