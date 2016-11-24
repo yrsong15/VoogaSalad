@@ -10,6 +10,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import objects.interfaces.ILevel;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,7 +19,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import gameeditor.commanddetails.*;
 import gameeditor.controller.GameEditorData;
-import gameeditor.controller.IGameEditorData;
+import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.ICommandDetailDisplay;
 import gameeditor.view.interfaces.IDetailPane;
 
@@ -39,10 +40,9 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
     private ImageView myAvatarView;
 
-    public DetailPane(IDesignArea da, IGameEditorData ged) {
+    public DetailPane(IDesignArea da, ILevel currentLevel) {
     	myDesignArea = da;
-    	myDataStore = new GameEditorData();
-        // TODO Auto-generated constructor stub
+    	myDataStore = new GameEditorData(currentLevel);
         myPane = new Pane();
         myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
         myPane.setBackground(new Background(new BackgroundFill(ViewResources.DETAIL_PANE_BG.getColorResource(), CornerRadii.EMPTY, Insets.EMPTY)));

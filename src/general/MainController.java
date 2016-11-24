@@ -1,9 +1,5 @@
 package general;
-
-
-import gameeditor.controller.GameEditorBackendController;
 import gameeditor.controller.GameEditorFrontEndController;
-import gameeditor.view.GameEditorView;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -14,7 +10,6 @@ import objects.Level;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
