@@ -13,7 +13,7 @@ public class GameEditorTest extends Application {
 
     @Override
     public void start (Stage stage) {
-    	myGameEditorView = new GameEditorView();
+    	//myGameEditorView = new GameEditorView();
 		Scene scene = new Scene(myGameEditorView.createRoot(), 
 				ViewResources.SCENE_WIDTH.getDoubleResource(), ViewResources.SCENE_HEIGHT.getDoubleResource());
 	    stage.setScene(scene);

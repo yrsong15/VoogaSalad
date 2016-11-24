@@ -36,14 +36,19 @@ public class Level implements ILevel {
         this.level = level;
     }
 
+
     public void setScrollType(ScrollType scrollType){
         this.scrollType = scrollType;
     }
-
-    public ScrollType scrollType(){
+   
+    @Override
+    public ScrollType getscrollType () {
+        // TODO Auto-generated method stub
         return scrollType;
     }
-
+    
+    
+    
     public int getLevel() {
         return level;
     }
@@ -122,7 +127,6 @@ public class Level implements ILevel {
     
     public void setViewSettings(LevelSettings viewSettings){
         this.viewSettings = viewSettings;
-
     }
 
     public void addControl(KeyCode key, String action){
@@ -135,5 +139,13 @@ public class Level implements ILevel {
 
     public Map<KeyCode, String> getControls(){
         return controls;
+    }
+    
+    public void addBackgroundImage(String filePath){
+        viewSettings.setBackgroundFilePath(filePath);
+    }
+
+    public void addBackgroundMusic(String filePath){
+        viewSettings.setMusicFile(filePath);
     }
 }

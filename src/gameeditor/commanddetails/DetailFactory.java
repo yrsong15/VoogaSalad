@@ -1,6 +1,6 @@
 package gameeditor.commanddetails;
 
-import gameeditor.controller.IGameEditorData;
+import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 
 public class DetailFactory {

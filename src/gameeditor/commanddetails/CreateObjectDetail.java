@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class CreateObjectDetail extends AbstractCommandDetail {
-	
+
 	private Pane myImagePane;
 	
 	private TextArea myXTextArea;
@@ -33,7 +33,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 
 	private ComboBox<String> myType;
 	public static final String X_POSITON_KEY = "xPosition";
-	public static final String y_POSITION_KEY = "yPosition";
+	public static final String Y_POSITION_KEY = "yPosition";
 	
 	public CreateObjectDetail() {
 		super();
@@ -82,28 +82,30 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	}
 	
 	//TODO: ADD DATA VERIFICATION TO SAVE
-	public void handleSave(){
+    public void handleSave(){
 
-	    myGameObjectsMap = new ArrayList<Map<String,String>>();
+        myGameObjectsMap = new ArrayList<Map<String,String>>();
 
-		Map<String, String> typeMap = myDataStore.getType(myType.getValue());
+        Map<String, String> typeMap = myDataStore.getType(myType.getValue());
 
-		String xString = myXTextArea.getText();
-		String yString = myYTextArea.getText();
-		double x = Double.parseDouble(xString);
-		double y = Double.parseDouble(yString);
-		
-		typeMap.put("xPosition", String.valueOf(x));
-		typeMap.put("yPosition", String.valueOf(y));
-		typeMap.put("ImagePath",typeMap.get(DetailResources.IMAGE_PATH.getResource()));
-		
-		// Does doing this add all the game objects into the list ??
-		myGameObjectsMap.add(typeMap);
-		
-		// Create a Map with the properties and the types 
-		
-			
-	}
+        String xString = myXTextArea.getText();
+        String yString = myYTextArea.getText();
+        double x = Double.parseDouble(xString);
+        double y = Double.parseDouble(yString);
+        typeMap.put(X_POSITON_KEY, String.valueOf(x));
+        typeMap.put(Y_POSITION_KEY, String.valueOf(y));
+
+        myGameObjectsMap.add(typeMap);
+
+        // Create Game Object for the Object Saved 
+        myDataStore.addGameObjectToLevel(typeMap);
+
+        //          myGameObjectsMap.forEach(item -> {
+        //              System.out.println(item);
+        //              item.forEach((k,v)->System.out.println("Key : " + k + " Value : " + v));
+        //          });  
+
+    }
 	
 	public void handlePreview(){
 		String xString = myXTextArea.getText();

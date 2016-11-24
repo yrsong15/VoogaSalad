@@ -1,16 +1,12 @@
 package general;
 
 import frontend.util.ButtonTemplate;
-import gameeditor.view.GameEditorView;
 import general.interfaces.ISplashScreen;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -25,7 +21,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
@@ -33,7 +28,6 @@ import javafx.event.EventHandler;
  */
 public class SplashScreen implements ISplashScreen {
 
-    public static final String BG_IMAGE_LOCATION = "images";
     public static final int SPLASH_WIDTH = 700;
     public static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
@@ -134,8 +128,6 @@ public class SplashScreen implements ISplashScreen {
                     initialX + (i / buttonsPerCol) * xSpacing,
                     initialY + (i % buttonsPerCol) * ySpacing);
             Button button = buttonTemplate.getButton();
-//            button.setTranslateX(initialX + (i / buttonsPerCol) * xSpacing);
-//            button.setTranslateY(initialY + (i % buttonsPerCol) * ySpacing);
             button.setOnMouseClicked(eventHandlerForButton.get(buttonNames[i]));
 
             startWindow.getChildren().add(button);

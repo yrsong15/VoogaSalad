@@ -1,6 +1,6 @@
 package gameeditor.commanddetails;
 
-import gameeditor.controller.IGameEditorData;
+import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.geometry.Insets;

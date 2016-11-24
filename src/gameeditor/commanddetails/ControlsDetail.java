@@ -1,5 +1,9 @@
 package gameeditor.commanddetails;
 
+import java.io.FileInputStream;
+import java.util.Enumeration;
+import java.util.Properties;
+import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
