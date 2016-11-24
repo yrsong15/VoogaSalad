@@ -34,6 +34,10 @@ public class DesignArea implements IDesignArea {
     
     private boolean clickEnabled = false;
     private ISelectDetail mySelectDetail;
+    
+    private GameObject mySelectedSprite;
+    private double mySelectX;
+    private double mySelectY;
 
     private ImageView myAvatar;
 
@@ -49,7 +53,9 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         myPane = new Pane();
         myPane.setOnMouseClicked(e -> handleClick(e.getX(), e.getY()));
+        myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
+        myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }    
     
@@ -108,17 +114,36 @@ public class DesignArea implements IDesignArea {
 	}
 	
 	private void handleClick(double x, double y) {
+		mySelectedSprite = null;
 		GameObject sprite = checkForSprite(x, y);
 		if (clickEnabled && sprite != null){
 			mySelectDetail.initLevel2(sprite);
+			System.out.println("Click");
+
+		}
+	}
+	
+	private void handleRelease(double x, double y){
+		mySelectedSprite = null;
+	}
+	
+	private void handlePress(double x, double y){
+		mySelectedSprite = null;
+		GameObject sprite = checkForSprite(x, y);
+		if (clickEnabled && sprite != null){
+			mySelectDetail.initLevel2(sprite);
+			mySelectedSprite = sprite;
+			mySelectX = x;
+			mySelectY = y;
 		}
 	}
 	
     private void handleDrag(double x, double y) {
-    	GameObject sprite = checkForSprite(x, y);
-    	if (clickEnabled && sprite != null){
-			
-		}
+    	if (clickEnabled && mySelectedSprite != null){
+    		mySelectDetail.updateSpriteDetails(x, y);
+			mySelectedSprite.getImageView().setLayoutX(x);
+			mySelectedSprite.getImageView().setLayoutY(y);
+		}    	
 	}
 
 	

@@ -53,6 +53,21 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		createUpdate();
 	}
 	
+	public void clearSelect(){
+		init();
+		myXTextArea = null;
+		myYTextArea = null;
+		myIV = null;
+		myGO = null;
+		myImagePane = null;
+		myType = null;
+	}
+	
+	public void updateSpriteDetails(double x, double y){
+		myXTextArea.setText(Double.toString(x));
+		myYTextArea.setText(Double.toString(y));
+	}
+	
 	public void createUpdate(){
 		Button update = new Button();
 		update.setText(DetailResources.UPDATE_BUTTON_TEXT.getResource());
