@@ -3,7 +3,6 @@ package gameeditor.view;
 import java.io.File;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorData;
-import gameeditor.controller.interfaces.ILevelSettings;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.view.interfaces.IDesignArea;

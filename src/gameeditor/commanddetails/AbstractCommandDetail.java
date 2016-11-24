@@ -10,8 +10,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 
-
-
 public abstract class AbstractCommandDetail {
 	
 	protected double myDetailPadding = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();

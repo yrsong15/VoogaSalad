@@ -3,7 +3,6 @@ package gameeditor.commanddetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import gameeditor.objects.GameObject;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -97,13 +96,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 
         myGameObjectsMap.add(typeMap);
 
-        // Create Game Object for the Object Saved 
         myDataStore.addGameObjectToLevel(typeMap);
-
-        //          myGameObjectsMap.forEach(item -> {
-        //              System.out.println(item);
-        //              item.forEach((k,v)->System.out.println("Key : " + k + " Value : " + v));
-        //          });  
 
     }
 	
