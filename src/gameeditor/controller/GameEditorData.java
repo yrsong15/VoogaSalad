@@ -7,7 +7,6 @@ import java.util.Map;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameeditor.controller.interfaces.ILevelSettings;
 import javafx.scene.input.KeyCode;
 import objects.GameObject;
 import objects.interfaces.ILevel;
@@ -16,7 +15,7 @@ import objects.interfaces.ILevel;
  * @author pratikshasharma, John Martin
  */
 
-public class GameEditorData implements IGameEditorData, ILevelSettings{
+public class GameEditorData implements IGameEditorData{
 
     private GameEditorBackendController myGameEditorBackEndController;
     private HashMap<String,String> myControlMap;
@@ -86,32 +85,32 @@ public class GameEditorData implements IGameEditorData, ILevelSettings{
         });
         return properties;
     }
-    
+
     public void addControlsMap(){
-        
+
     }
+
+//    @Override
+//    public void setMainCharacterImage (String filePath) {
+//
+//    }
 
     @Override
-    public void setMainCharacterImage (String filePath) {
-         
+    public ArrayList<Map<String, String>> getTypeMaps() {
+        return myTypes;
     }
 
-	@Override
-	public ArrayList<Map<String, String>> getTypeMaps() {
-		return myTypes;
-	}
 
-
-	@Override
-	public void setBackgroundImage(String filePath) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void setMusic(String filePath) {
-		// TODO Auto-generated method stub
-		
-	}
+//    @Override
+//    public void setBackgroundImage(String filePath) {
+//        // TODO Auto-generated method stub
+//
+//    }
+//
+//
+//    @Override
+//    public void setMusic(String filePath) {
+//        // TODO Auto-generated method stub
+//
+//    }
 }
