@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import gameeditor.commanddetails.DetailResources;
-import gameeditor.commanddetails.IDetailStore;
 import gameeditor.controller.interfaces.ILevelSettings;
 import objects.GameObject;
 
@@ -12,17 +11,17 @@ import objects.GameObject;
  * @author pratikshasharma
  */
 
-public class GameEditorData implements IDetailStore, IGameEditorData, ILevelSettings{
+public class GameEditorData implements IGameEditorData, ILevelSettings{
 
     private GameEditorBackendController myGameEditorBackEndController;
-    HashMap<String,String> myControlMap;
+    private HashMap<String,String> myControlMap;
+    private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
 
     public GameEditorData(){
         myGameEditorBackEndController = new GameEditorBackendController();
         myControlMap = new HashMap<String,String>();
     }
 
-    private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
 
     public void storeType(Map<String, String> typeMap){
         myTypes.add(typeMap);
@@ -84,4 +83,9 @@ public class GameEditorData implements IDetailStore, IGameEditorData, ILevelSett
     public void setMainCharacterImage (String filePath) {
          
     }
+
+	@Override
+	public ArrayList<Map<String, String>> getTypeMaps() {
+		return myTypes;
+	}
 }

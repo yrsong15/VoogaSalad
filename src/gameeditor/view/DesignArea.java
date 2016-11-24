@@ -1,17 +1,14 @@
 package gameeditor.view;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import frontend.util.FileOpener;
+import gameeditor.commanddetails.ISelectDetail;
+import gameeditor.objects.GameObject;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,7 +17,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -31,13 +27,13 @@ import javafx.scene.shape.Rectangle;
  */
 
 public class DesignArea implements IDesignArea {
-    // TODO: Remove hardcoding of the following values
-    // Min Width, Max Width, Min Height
 
     private Pane myPane;
     private ScrollPane myScrollPane;
-    private Group myGroup;
-    private Region myRegion;
+    private ArrayList<GameObject> mySprites = new ArrayList<GameObject>();
+    
+    private boolean clickEnabled = false;
+    private ISelectDetail mySelectDetail;
 
     private ImageView myAvatar;
 
@@ -52,10 +48,12 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setVmax(0);
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         myPane = new Pane();
+        myPane.setOnMouseClicked(e -> handleClick(e.getX(), e.getY()));
+        myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }    
     
-    public ScrollPane getScrollPane(){
+	public ScrollPane getScrollPane(){
         return myScrollPane;
     }
 
@@ -77,13 +75,52 @@ public class DesignArea implements IDesignArea {
     }
 
 	@Override
-	public void addSprite(ImageView sprite) {
-		myPane.getChildren().add(sprite);
+	public void addSprite(GameObject sprite) {
+		mySprites.add(sprite);
+		myPane.getChildren().add(sprite.getImageView());
 	}
 	
 	@Override
-	public void removeSprite(ImageView sprite) {
+	public void removeSprite(GameObject sprite) {
+		mySprites.remove(sprite);
 		myPane.getChildren().remove(sprite);
 	}
+
+	@Override
+	public void enableClick(ISelectDetail sd) {
+		mySelectDetail = sd;
+		clickEnabled = true;	
+	}
+	
+	@Override
+	public void disableClick() {
+		clickEnabled = true;	
+	}
+	
+	private GameObject checkForSprite(double x, double y){
+		Rectangle test = new Rectangle(x, y, 1, 1);
+		for (GameObject sprite : mySprites){
+			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent())){
+			    return sprite;
+			}
+		}
+		return null;
+	}
+	
+	private void handleClick(double x, double y) {
+		GameObject sprite = checkForSprite(x, y);
+		if (clickEnabled && sprite != null){
+			mySelectDetail.initLevel2(sprite);
+		}
+	}
+	
+    private void handleDrag(double x, double y) {
+    	GameObject sprite = checkForSprite(x, y);
+    	if (clickEnabled && sprite != null){
+			
+		}
+	}
+
+	
 
 }

@@ -7,7 +7,7 @@ public class DetailFactory {
 
 	public AbstractCommandDetail create(String name, IGameEditorData ged, IDesignArea da) {
 		try {
-				Class c = Class.forName(name);
+				Class<?> c = Class.forName(name);
 				AbstractCommandDetail detail = (AbstractCommandDetail) c.newInstance();
 				detail.setDataStore(ged);
 				detail.setDesignArea(da);
