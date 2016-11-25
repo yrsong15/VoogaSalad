@@ -16,12 +16,16 @@ public class GameObject{
 	Map<String, String> properties;
     
 	public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName, Map<String,String> properties){
+		this(xPosition, yPosition, width, height, properties);
+		this.imageFileName = imageFileName;
+	}
+	
+	public GameObject(double xPosition, double yPosition, double width, double height, Map<String,String> properties){
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-		this.imageFileName = imageFileName;
-		this.properties = properties;
+        this.properties = properties;
 	}
 	
 

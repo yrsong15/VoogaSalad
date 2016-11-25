@@ -72,7 +72,7 @@ public class GameEngineUI implements IGameEngineUI {
 
         setUpKeystrokeListeners();
         setBackgroundImage("Sprite/bird2.gif");
-        setMusic("FlappyBirdThemeSong.mp3");
+        setMusic(level.getViewSettings().getMusicFilePath());
         return scene;
     }
 
@@ -89,8 +89,9 @@ public class GameEngineUI implements IGameEngineUI {
         gameScreen.update(level);
     }
 
-    public void setMusic(String musicFilename) {
-        URL resource = getClass().getClassLoader().getResource(musicFilename);
+    public void setMusic(String musicFileName) {
+    	if(musicFileName == null) return;
+        URL resource = getClass().getClassLoader().getResource(musicFileName);
         mediaPlayer = new MediaPlayer(new Media(resource.toString()));
         mediaPlayer.play();
     }
