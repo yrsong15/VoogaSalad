@@ -60,7 +60,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		currentGame = parser.convertXMLtoGame(xmlData);
 		movementController.setGame(currentGame);
 		gameEngineView.setLevel(currentGame.getCurrentLevel());
-        RGFrame = new RandomGenFrame(this,300,currentGame.getCurrentLevel());
+//        RGFrame = new RandomGenFrame(this,300,currentGame.getCurrentLevel());
 		gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
 		gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
@@ -107,8 +107,8 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		notifyObservers();
 		gameEngineView.update(currentGame.getCurrentLevel());
 		movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
-		RGFrame.possiblyGenerateNewFrame(0, currentGame.getCurrentLevel().getRandomGenRules(),
-				this.getClass().getMethod("setNewBenchmark"));
+//		RGFrame.possiblyGenerateNewFrame(0, currentGame.getCurrentLevel().getRandomGenRules(),
+//				this.gwetClass().getMethod("setNewBenchmark"));
 
 		// Level currLevel = currentGame.getCurrentLevel();
 		collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(),
