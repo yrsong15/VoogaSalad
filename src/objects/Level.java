@@ -6,11 +6,17 @@ import objects.interfaces.ILevel;
 import java.security.Key;
 import java.util.*;
 
+import gameengine.view.GameEngineUI;
+
 
 /**
  * Created by Soravit on 11/18/2016.
  */
 public class Level implements ILevel {
+	
+	private static final int minSpacing = 250;
+	private static final int maxSpacing = 500;
+	private static final int pipeWidth = 300;
 
     private int level;
     private List<GameObject> gameObjects;
@@ -18,7 +24,7 @@ public class Level implements ILevel {
     private Map<String, String> loseConditions;
     private Map<String, Double> gameConditions;
     private Map<KeyCode, String> controls;
-    private List<RandomGeneration> randomGenerations;
+    private RandomGeneration randomGenerations;
     private GameObject mainCharacter;
 
     private ScrollType scrollType;
@@ -27,7 +33,7 @@ public class Level implements ILevel {
 
     public Level(int level) {
         gameObjects = new ArrayList<GameObject>();
-        randomGenerations = new ArrayList<RandomGeneration>();
+        randomGenerations = new RandomGeneration(5,(int)GameEngineUI.myAppWidth/5,(int)GameEngineUI.myAppWidth,-100,(int)GameEngineUI.myAppHeight - pipeWidth,minSpacing,maxSpacing);
         winConditions = new HashMap<>();
         loseConditions = new HashMap<>();
         gameConditions = new HashMap<>();
@@ -43,7 +49,11 @@ public class Level implements ILevel {
     public ScrollType scrollType(){
         return scrollType;
     }
-
+    
+    public RandomGeneration getRandomGenRules(){
+    	return this.randomGenerations;
+    }
+    
     public int getLevel() {
         return level;
     }

@@ -1,14 +1,17 @@
 package gameengine.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.security.Key;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
+import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.model.MovementChecker;
+import gameengine.model.RandomGenFrame;
 import gameengine.scrolling.LimitedScrolling;
 import gameengine.scrolling.ScrollDirection;
 import gameengine.view.GameEngineUI;
@@ -18,13 +21,14 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import objects.GameObject;
+import objects.Level;
 import objects.Game;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel Moon
  *
  */
-public class GameEngineController extends Observable implements RuleActionHandler {
+public class GameEngineController extends Observable implements RuleActionHandler, RGInterface {
 
 	private String xmlData;
     private GameParser parser;
@@ -35,12 +39,14 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private Timeline animation;
     private MovementController movementController;
     private LimitedScrolling lim;
+    private RandomGenFrame RGFrame;
 	
     public static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
 	public GameEngineController() {
 		parser = new GameParser();
+		
 		collisionChecker = new CollisionChecker(this);
         movementChecker = new MovementChecker();
 		movementController = new MovementController();
@@ -52,6 +58,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
         currentGame = parser.convertXMLtoGame(xmlData);
         movementController.setGame(currentGame);
         gameEngineView.setLevel(currentGame.getCurrentLevel());
+        RGFrame = new RandomGenFrame(this,300,currentGame.getCurrentLevel());
         gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
         gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
         gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
@@ -63,7 +70,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
                         e1.printStackTrace();
                     } catch (InstantiationException e1) {
                         e1.printStackTrace();
+                    } catch (NoSuchMethodException e1) {
+                    	e1.printStackTrace();
                     }
+                    catch (Exception e1) {
+						e1.printStackTrace();
+					}
                 });
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
@@ -78,20 +90,33 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	
 	/**
 	 * Applies gravity and scrolls, checks for collisions
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws IllegalAccessException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
 	 */
-	public void updateGame() throws ClassNotFoundException, InstantiationException {
+	public void updateGame() throws ClassNotFoundException, InstantiationException, IllegalArgumentException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, SecurityException {
+		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
         //movementController.scroll();
-		lim.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), currentGame.getCurrentLevel().getMainCharacter());
+		lim.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
         setChanged();
         notifyObservers();
         gameEngineView.update(currentGame.getCurrentLevel());
         movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
+        RGFrame.possiblyGenerateNewFrame(0,currentGame.getCurrentLevel().getRandomGenRules(),this.getClass().getMethod("setNewBenchmark"));
+
 //		Level currLevel = currentGame.getCurrentLevel();
 //		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
 //		LossChecker.checkLossConditions((RuleActionHandler)this, currLevel.getLoseConditions(), currLevel.getGameConditions());
 //		WinChecker.checkWinConditions((RuleActionHandler)this, currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
-
+        
+    public void setNewBenchmark(){
+    	List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
+    	RGFrame.setNewBenchmark(new Integer((int)objects.get(objects.size()-1).getXPosition()/2));
+    }
+    
 	public void setCurrentXML(String xmlData) {
 		this.xmlData = xmlData;
 	}
