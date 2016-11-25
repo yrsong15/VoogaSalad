@@ -87,7 +87,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
         gameEngineView.update(currentGame.getCurrentLevel());
         movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
 //		Level currLevel = currentGame.getCurrentLevel();
-//		collisionChecker.checkCollisions(currLevel.getMainCharacter(), currLevel.getGameObjects(), (RuleActionHandler)this);
+		collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(), currentGame.getCurrentLevel().getGameObjects());
 //		LossChecker.checkLossConditions((RuleActionHandler)this, currLevel.getLoseConditions(), currLevel.getGameConditions());
 //		WinChecker.checkWinConditions((RuleActionHandler)this, currLevel.getWinConditions(), currLevel.getGameConditions());
 	}

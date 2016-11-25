@@ -44,6 +44,7 @@ public class GameScreen implements IGameScreen {
 	
 	@Override
 	public void setBackgroundImage(String imageFile) {
+		if(imageFile==null) return;
 		BackgroundImage bi = new BackgroundImage(new Image(getClass().getClassLoader().getResourceAsStream(imageFile), 
 				screenWidth, screenHeight, false, true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 		        BackgroundSize.DEFAULT);
@@ -60,6 +61,7 @@ public class GameScreen implements IGameScreen {
 		}
 	
 	private void addGameObject(GameObject object) {
+		if(object.getImageFileName()==null) return;
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
 		ImageView iv = new ImageView(image);
 		iv.setFitHeight(object.getHeight());
