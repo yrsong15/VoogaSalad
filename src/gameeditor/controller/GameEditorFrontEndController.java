@@ -8,6 +8,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import objects.Level;
 import objects.interfaces.ILevel;
@@ -32,14 +36,36 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
         myEditorLevels= new EditorLevels();
         Parent parent = myEditorLevels.createRoot();
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
+        
+        // Check for the Load Game Button
+        myEditorLevels.setOnLoadGameButton(e -> loadGame());
+        
+        // addListenerForGameTitle
+        addGameTitleListener();
         return parent;
     }
+    
+    
+    private void addGameTitleListener(){
+        myEditorLevels.getGameTitle().addListener(new ChangeListener<String>(){
+
+            @Override
+            public void changed (ObservableValue<? extends String> observable,
+                                 String oldValue,
+                                 String newValue) {
+               myGameEditorBackEndController.createGame(newValue.toString()); 
+            }
+            
+        });
+    }
+    
     private void addLevelButton(){
         myLevelEditorMap = new HashMap<String,GameEditorView>();
         myEditorLevels.addNewLevel();
         addActiveLevelButtonListener();
         myEditorLevels.setOnLevelClicked((e -> displayLevel()));
     }
+    
     private void addActiveLevelButtonListener(){
         myEditorLevels.getActiveLevelButtonID().addListener(new ChangeListener<String>(){
             @Override
@@ -82,6 +108,11 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
        myLevelScene.setRoot(myGameEditor.createRoot());
         }
     } 
+    
+    private void loadGame(){
+        // TODO: Create XMl Stuff Here 
+        
+    }
     
     private void setSavedLevelRoot(){
         myLevelScene.setRoot(myGameEditor.getRoot());
