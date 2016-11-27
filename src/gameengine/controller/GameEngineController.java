@@ -48,7 +48,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 
 	public GameEngineController() {
 		parser = new GameParser();
-
 		collisionChecker = new CollisionChecker(this);
 		movementChecker = new MovementChecker();
 		movementController = new MovementController();
@@ -82,10 +81,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-	}
-
-	public void mapControls() {
-		// NEED TO DO
 	}
 
 	/**

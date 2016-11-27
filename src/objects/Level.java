@@ -13,17 +13,13 @@ import gameengine.view.GameEngineUI;
  */
 public class Level implements ILevel {
 
-	private static final int minSpacing = 250;
-	private static final int maxSpacing = 500;
-	private static final int pipeWidth = 300;
-
 	private int level;
 	private List<GameObject> gameObjects;
 	private Map<String, String> winConditions;
 	private Map<String, String> loseConditions;
 	private Map<String, Double> gameConditions;
 	private Map<KeyCode, String> controls;
-	private RandomGeneration randomGenerations;
+	private RandomGeneration randomGeneration;
 	private GameObject mainCharacter;
 
 	private ScrollType scrollType;
@@ -31,8 +27,7 @@ public class Level implements ILevel {
 
 	public Level(int level) {
 		gameObjects = new ArrayList<GameObject>();
-		randomGenerations = new RandomGeneration(5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
-				-100, (int) GameEngineUI.myAppHeight - pipeWidth, minSpacing, maxSpacing);
+		randomGeneration = new RandomGeneration(0,0,0,0,0,0,0);
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
@@ -50,7 +45,7 @@ public class Level implements ILevel {
 	}
 
 	public RandomGeneration getRandomGenRules() {
-		return this.randomGenerations;
+		return randomGeneration;
 	}
 
 	public int getLevel() {

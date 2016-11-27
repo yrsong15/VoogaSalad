@@ -5,6 +5,7 @@ import gameeditor.controller.GameEditorBackendController;
 import gameeditor.controller.GameEditorFrontEndController;
 import gameeditor.view.GameEditorView;
 import gameengine.controller.GameEngineController;
+import gameengine.view.GameEngineUI;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import objects.RandomGeneration;
 
 public class MainController {
     public static final String STYLESHEET = "default.css";
@@ -108,8 +110,8 @@ public class MainController {
         level.addGameObject(pipe4);
         level.addGameObject(pipe5);
         level.addGameObject(ground);
-//        level.addControl(KeyCode.W, "up");
-//        level.addControl(KeyCode.S, "down");
+        RandomGeneration randomGeneration = new RandomGeneration(0, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
+                -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
         level.addControl(KeyCode.W, "jump");
         game.addLevel(level);
         game.setCurrentLevel(level);

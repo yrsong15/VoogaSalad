@@ -24,7 +24,7 @@ public class RandomGenFrame<T>{
 	}
 	
 	public <T extends Comparable<T>> void possiblyGenerateNewFrame(T xPosition, RandomGeneration<Integer> randomGenRules, Method callback) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
-		System.out.println("benchmark " + benchmark + " Position: " + xPosition);
+		//System.out.println("benchmark " + benchmark + " Position: " + xPosition);
 		if(xPosition.compareTo((T) benchmark) >= 0){
 			generateNewFrame(level,randomGenRules);
 		}
