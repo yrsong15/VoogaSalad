@@ -8,7 +8,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.security.Key;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import gameengine.controller.ScrollerController;
@@ -25,6 +27,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import objects.Level;
+import utils.ResourceReader;
 
 /**
  * @author Noel Moon (nm142)
@@ -32,160 +35,177 @@ import objects.Level;
  */
 public class GameEngineUI implements IGameEngineUI {
 
-    public static final double myAppWidth = 700;
-    public static final double myAppHeight = 775;
-    public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-    public static final String STYLESHEET = "default.css";
+	public static final double myAppWidth = 700;
+	public static final double myAppHeight = 775;
+	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+	public static final String STYLESHEET = "default.css";
 
-    private Scene scene;
-    private Level level;
-    private ScrollerController scrollerController;
+	private Scene scene;
+	private Level level;
+	private ScrollerController scrollerController;
 
-    private MovementInterface movementInterface;
+	private MovementInterface movementInterface;
 
-    public GameEngineUI(MovementInterface movementInterface) {
-        this.movementInterface = movementInterface;
-        scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-        setUpMethodMappings();
-    }
-    private String myGameFileLocation;
-    private String myLevelFileLocation;
-    private IToolbar toolbar;
-    private IGameScreen gameScreen;
-    private boolean isPaused;
-    private MediaPlayer mediaPlayer;
-    private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
-    private Map<String, Method> methodMappings = new HashMap<>();
+	public GameEngineUI(MovementInterface movementInterface) {
+		this.movementInterface = movementInterface;
+		scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		setUpMethodMappings();
+	}
 
-    public static final int FRAMES_PER_SECOND = 60;
-    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	private String myGameFileLocation;
+	private String myLevelFileLocation;
+	private IToolbar toolbar;
+	private IGameScreen gameScreen;
+	private boolean isPaused;
+	private MediaPlayer mediaPlayer;
+	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
+	private Map<String, Method> methodMappings = new HashMap<>();
 
-    //	public GameEngineUI(Level level, MovementInterface movementInterface) {
-    public Scene setLevel(Level level){
-        this.level = level;
-        //scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
+	public static final int FRAMES_PER_SECOND = 60;
+	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
-        //TODO: Instantiate the proper ScrollerController depending on game type, right now ScrollerController is abstract
-        // All of the instantiable scrollercontrollers are in gameengine.controller package
-        //scrollerController = new ScrollerController();
-        //scrollerController.setScene(scene);
+	// public GameEngineUI(Level level, MovementInterface movementInterface) {
+	public Scene setLevel(Level level) {
+		this.level = level;
+		// scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 
-        setUpKeystrokeListeners();
-        setBackgroundImage("Sprite/bird2.gif");
-        setMusic("FlappyBirdThemeSong.mp3");
-        return scene;
-    }
+		// TODO: Instantiate the proper ScrollerController depending on game
+		// type, right now ScrollerController is abstract
+		// All of the instantiable scrollercontrollers are in
+		// gameengine.controller package
+		// scrollerController = new ScrollerController();
+		// scrollerController.setScene(scene);
 
-    public ScrollerController getScrollerController(){
-        return scrollerController;
-    }
+		setUpKeystrokeListeners();
+		setBackgroundImage("Sprite/bird2.gif");
+		setMusic(level.getViewSettings().getMusicFilePath());
+		return scene;
+	}
 
-    public Scene getScene() {
-        return scene;
-    }
+	public ScrollerController getScrollerController() {
+		return scrollerController;
+	}
 
-    public void update(Level level) {
-        this.level = level;
-        gameScreen.update(level);
-    }
+	public Scene getScene() {
+		return scene;
+	}
 
-    public void setMusic(String musicFilename) {
-        URL resource = getClass().getClassLoader().getResource(musicFilename);
-        mediaPlayer = new MediaPlayer(new Media(resource.toString()));
-        mediaPlayer.play();
-    }
+	public void update(Level level) {
+		this.level = level;
+		gameScreen.update(level);
+	}
 
-    public void setBackgroundImage(String imageFile) {
-        gameScreen.setBackgroundImage(imageFile);
-    }
+	public void setMusic(String musicFileName) {
+		if (musicFileName == null)
+			return;
+		URL resource = getClass().getClassLoader().getResource(musicFileName);
+		mediaPlayer = new MediaPlayer(new Media(resource.toString()));
+		mediaPlayer.play();
+	}
 
-    public void mapKeys(Map<KeyCode, String> mappings){
-        mapKeysToMethods(mappings);
-        setUpKeystrokeListeners();
-    }
+	public void setBackgroundImage(String imageFile) {
+		gameScreen.setBackgroundImage(imageFile);
+	}
 
+	public void mapKeys(Map<KeyCode, String> mappings) {
+		mapKeysToMethods(mappings);
+		setUpKeystrokeListeners();
+	}
 
-    private void setUpMethodMappings(){
-        try {
-            methodMappings.put("up", movementInterface.getClass().getDeclaredMethod("moveUp"));
-            methodMappings.put("down", movementInterface.getClass().getDeclaredMethod("moveDown"));
-            methodMappings.put("right", movementInterface.getClass().getDeclaredMethod("moveRight"));
-            methodMappings.put("left", movementInterface.getClass().getDeclaredMethod("moveLeft"));
-            methodMappings.put("jump", movementInterface.getClass().getDeclaredMethod("jump"));
-            methodMappings.put("shoot", movementInterface.getClass().getDeclaredMethod("shootProjectile"));
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-    }
+	private void setUpMethodMappings() {
 
-    private void mapKeysToMethods(Map<KeyCode, String> mappings){
-        for(Map.Entry<KeyCode, String> m : mappings.entrySet()){
-            if(methodMappings.containsKey(m.getValue())){
-                keyMappings.put(m.getKey(), methodMappings.get(m.getValue()));
-            }
-        }
-    }
+		try {
+			ResourceReader resources = new ResourceReader("Controls");
+			Iterator<String> keys = resources.getKeys();
+			while(keys.hasNext()){
+				String key = keys.next();
+				methodMappings.put(key, movementInterface.getClass().getDeclaredMethod(resources.getResource(key)));
+			}
+			// methodMappings.put("down",
+			// movementInterface.getClass().getDeclaredMethod("moveDown"));
+			// methodMappings.put("right",
+			// movementInterface.getClass().getDeclaredMethod("moveRight"));
+			// methodMappings.put("left",
+			// movementInterface.getClass().getDeclaredMethod("moveLeft"));
+			// methodMappings.put("jump",
+			// movementInterface.getClass().getDeclaredMethod("jump"));
+			// methodMappings.put("shoot",
+			// movementInterface.getClass().getDeclaredMethod("shootProjectile"));
+		} catch (
 
-    private BorderPane makeRoot() {
-        BorderPane root = new BorderPane();
-        root.setTop(makeToolbar());
-        root.setCenter(makeGameScreen());
-        return root;
-    }
+		NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+	}
 
-    private Node makeToolbar() {
-        toolbar = new Toolbar(event -> loadGame(), event -> loadLevel(), event -> pause(), event -> reset());
-        return toolbar.getToolbar();
-    }
+	private void mapKeysToMethods(Map<KeyCode, String> mappings) {
+		for (Map.Entry<KeyCode, String> m : mappings.entrySet()) {
+			if (methodMappings.containsKey(m.getValue())) {
+				keyMappings.put(m.getKey(), methodMappings.get(m.getValue()));
+			}
+		}
+	}
 
-    private Node makeGameScreen() {
-        gameScreen = new GameScreen();
-        return gameScreen.getScreen();
-    }
+	private BorderPane makeRoot() {
+		BorderPane root = new BorderPane();
+		root.setTop(makeToolbar());
+		root.setCenter(makeGameScreen());
+		return root;
+	}
 
-    private void loadGame() {
-        FileChooser gameChooser = new FileChooser();
-        gameChooser.setTitle("Open Game File");
-        File gameFile = gameChooser.showOpenDialog(new Stage());
-    }
+	private Node makeToolbar() {
+		toolbar = new Toolbar(event -> loadGame(), event -> loadLevel(), event -> pause(), event -> reset());
+		return toolbar.getToolbar();
+	}
 
-    private void loadLevel() {
-        FileChooser levelChooser = new FileChooser();
-        levelChooser.setTitle("Open Level File");
-        File levelFile = levelChooser.showOpenDialog(new Stage());
-        myLevelFileLocation = levelFile.getAbsolutePath();
-        System.out.println(myLevelFileLocation);
-    }
+	private Node makeGameScreen() {
+		gameScreen = new GameScreen();
+		return gameScreen.getScreen();
+	}
 
-    private void pause() {
-        if (isPaused) {
-            isPaused = false;
-            toolbar.resume();
-            mediaPlayer.play();
-        } else {
-            isPaused = true;
-            toolbar.pause();
-            mediaPlayer.pause();
-        }
-    }
+	private void loadGame() {
+		FileChooser gameChooser = new FileChooser();
+		gameChooser.setTitle("Open Game File");
+		File gameFile = gameChooser.showOpenDialog(new Stage());
+	}
 
-    private void reset() {
-        System.out.println("reset");
-    }
+	private void loadLevel() {
+		FileChooser levelChooser = new FileChooser();
+		levelChooser.setTitle("Open Level File");
+		File levelFile = levelChooser.showOpenDialog(new Stage());
+		myLevelFileLocation = levelFile.getAbsolutePath();
+		System.out.println(myLevelFileLocation);
+	}
 
-    private void setUpKeystrokeListeners() {
-        this.scene.setOnKeyReleased(event -> {
-            try {
-                if(keyMappings.containsKey(event.getCode())) {
-                    keyMappings.get(event.getCode()).invoke(movementInterface);
-                    gameScreen.update(level);
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        });
-    }
+	private void pause() {
+		if (isPaused) {
+			isPaused = false;
+			toolbar.resume();
+			mediaPlayer.play();
+		} else {
+			isPaused = true;
+			toolbar.pause();
+			mediaPlayer.pause();
+		}
+	}
+
+	private void reset() {
+		System.out.println("reset");
+	}
+
+	private void setUpKeystrokeListeners() {
+		this.scene.setOnKeyReleased(event -> {
+			try {
+				if (keyMappings.containsKey(event.getCode())) {
+					keyMappings.get(event.getCode()).invoke(movementInterface);
+					gameScreen.update(level);
+				}
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		});
+	}
 
 }

@@ -57,7 +57,11 @@ public class MovementController implements MovementInterface{
 
     @Override
     public void jump() {
-
+    	GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
+    	String jumpVelocity = mainChar.getProperty("jump");
+    	if(jumpVelocity!=null){
+    		mainChar.setProperty("speed", "-"+jumpVelocity);
+    	}
     }
 
     @Override

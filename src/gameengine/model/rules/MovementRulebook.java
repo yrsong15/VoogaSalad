@@ -28,10 +28,12 @@ public class MovementRulebook {
                     Object o = ReflectionUtil.newInstanceOf(ruleName);
                     Method method = ReflectionUtil.getMethodFromClass(ruleName, "applyRule", GameObject.class);
                     method.invoke(o, obj);
+
                 } catch (IllegalAccessException | IllegalArgumentException
                         | InvocationTargetException | ClassNotFoundException | NoSuchMethodException
                         | SecurityException e) {
                     e.printStackTrace();
+                    //System.out.print(ruleName);
                     //throw new ClassNotFoundException();
                 }
             }

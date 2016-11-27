@@ -1,9 +1,13 @@
 package gameengine.model.interfaces;
 
+import java.util.List;
+
+import objects.GameObject;
+import objects.Level;
 
 /**
  * This interface should be implemented when adding a type of scrolling
- * @author Chalena
+ * @author Chalena Scholl
  */
 public interface Scrolling {
 	
@@ -18,6 +22,8 @@ public interface Scrolling {
 	/**
 	 * Completes the scrolling of the screen based on the speed
 	 */
-	void scrollScreen();
+	void scrollScreen(List<GameObject> gameObjects, GameObject mainChar);
+
+
 
 }

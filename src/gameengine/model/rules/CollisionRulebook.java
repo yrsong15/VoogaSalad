@@ -17,7 +17,7 @@ public class CollisionRulebook{
 	}
 	//might need to fully specify classpath to rule in properties file, instead of just rule name
 	 
-	public void applyRules(GameObject mainChar, GameObject obj, RuleActionHandler handler) throws ClassNotFoundException{
+	public void applyRules(GameObject mainChar, GameObject obj) throws ClassNotFoundException{
 		for(String property: obj.getPropertiesList()){
 			if(resources.containsResource(property)) {
 				String ruleName = resources.getResource(property);
