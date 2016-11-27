@@ -23,6 +23,7 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private Scene myLevelScene;
     private GameEditorBackendController myGameEditorBackEndController;
     private LevelManager myLevelManager;
+    private boolean isInitialStage;
 
     
     public Parent startEditor() {
@@ -53,26 +54,36 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private void displayLevel(){
         if(myLevelEditorMap.containsKey(activeButtonId)){
             myGameEditor=myLevelEditorMap.get(activeButtonId);
+            setSavedLevelRoot();
         } else{
             Level level = new Level(Integer.parseInt(activeButtonId));
             ILevel levelInterface = (ILevel) level;
             myLevelManager.createLevel(level,levelInterface);
-            //myLevelManager.setCurrentLevel(level);
             myGameEditor = new GameEditorView(levelInterface);
-            myLevelEditorMap.put(activeButtonId, myGameEditor);
-            displayInitiallyOnSytage();
+            myLevelEditorMap.put(activeButtonId, myGameEditor);  
+            setNewLevelSceneRoot();
         }
+        displayInitialStage();
     }
-    private void displayInitiallyOnSytage(){
-        
-        //myGameEditorBackEndController.setCurrentLevel(level);
-        //myLevelManager.createLevel(1);
-        
-        Stage myLevelStage = new Stage();
+    
+    private void displayInitialStage(){
+        Stage myLevelStage;
+        if(!isInitialStage){
+        myLevelStage = new Stage();
         myLevelScene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
         myLevelStage.setScene(myLevelScene);
-        myLevelStage.show();
+        isInitialStage = true;
+        myLevelStage.show();  
+        }
     }
     
+    private void setNewLevelSceneRoot(){
+        if(myLevelScene!=null){
+       myLevelScene.setRoot(myGameEditor.createRoot());
+        }
+    } 
     
+    private void setSavedLevelRoot(){
+        myLevelScene.setRoot(myGameEditor.getRoot());
+    }
 }
