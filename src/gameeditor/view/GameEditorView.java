@@ -115,4 +115,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         return null;
     }
 
+    public Parent getRoot(){
+        return this.myRoot;
+    }
 }

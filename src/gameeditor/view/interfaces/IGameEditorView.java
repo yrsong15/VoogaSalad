@@ -14,5 +14,8 @@ public interface IGameEditorView {
     public static final double SCENE_HEIGHT = ViewResources.SCENE_HEIGHT.getDoubleResource();
 
     public Parent createRoot();
+    
+    public Parent getRoot();
+    
 
 }
