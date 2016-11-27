@@ -37,6 +37,7 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
 
     @Override
     public void createGame(String title) {
+        System.out.println("Created Game " + title);
         Game game = new Game(title);
         myGame = game;
     }

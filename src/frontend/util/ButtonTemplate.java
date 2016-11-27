@@ -23,7 +23,6 @@ public class ButtonTemplate implements IButtonLayout {
      */
     public ButtonTemplate(String property, double x, double y){
         myResources = ResourceBundle.getBundle(BUTTON_LABEL_FILE, Locale.getDefault());
-
         String label = myResources.getString(property);
         myButton = new Button(label);
         myButton.setTranslateX(x);

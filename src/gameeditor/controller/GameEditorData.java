@@ -32,7 +32,6 @@ public class GameEditorData implements IGameEditorData{
         myGameObjects = new ArrayList<Map<String,String>>();
     }
 
-
     public void storeType(Map<String, String> typeMap){
         myTypes.add(typeMap);
     }
@@ -58,9 +57,7 @@ public class GameEditorData implements IGameEditorData{
         return types;
     }
 
-    public void addControl(KeyCode key, String action){
-        myLevel.addControl(key, action);
-    }
+
 
     // Adds Game Object TO level 
     //TODO: Rmeove hardcoding of String values
@@ -74,7 +71,6 @@ public class GameEditorData implements IGameEditorData{
     }
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
-
         // include everything except for xposition, yposition, imagefilePath, Type Name in the properties Map
         Map<String,String> properties = new HashMap<String,String>();
         properties.put("damage",myItemMap.get("damage"));
@@ -90,10 +86,14 @@ public class GameEditorData implements IGameEditorData{
 
     }
 
-//    @Override
-//    public void setMainCharacterImage (String filePath) {
-//
-//    }
+    public void addTime(){
+
+    }
+
+    public void addControl(KeyCode key, String action){
+        myLevel.addControl(key, action);
+    }
+
 
     @Override
     public ArrayList<Map<String, String>> getTypeMaps() {
@@ -101,16 +101,21 @@ public class GameEditorData implements IGameEditorData{
     }
 
 
-//    @Override
-//    public void setBackgroundImage(String filePath) {
-//        // TODO Auto-generated method stub
-//
-//    }
-//
-//
-//    @Override
-//    public void setMusic(String filePath) {
-//        // TODO Auto-generated method stub
-//
-//    }
+    //    @Override
+    //    public void setBackgroundImage(String filePath) {
+    //        // TODO Auto-generated method stub
+    //
+    //    }
+    //
+    //
+    //    @Override
+    //    public void setMusic(String filePath) {
+    //        // TODO Auto-generated method stub
+    //
+    //    }
+    //  @Override
+    //  public void setMainCharacterImage (String filePath) {
+    //
+    //  }
+
 }
