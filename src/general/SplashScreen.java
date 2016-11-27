@@ -104,7 +104,7 @@ public class SplashScreen implements ISplashScreen {
     private void addButtons() {
         // TODO: Change this hash map into reflection where the method of launch + the buttonName is called
         HashMap<String, EventHandler<MouseEvent>> eventHandlerForButton = new HashMap<String, EventHandler<MouseEvent>>();
-        eventHandlerForButton.put("GameEngine", e -> launchGameEngine());
+//        eventHandlerForButton.put("GameEngine", e -> launchGameEngine());
         eventHandlerForButton.put("GameEditor", e -> launchEditor());
         eventHandlerForButton.put("GameGallery", e -> {
             try {
@@ -113,19 +113,20 @@ public class SplashScreen implements ISplashScreen {
                 e1.printStackTrace();
             }
         });
-        eventHandlerForButton.put("GameLoader", e -> launchGameLoader());
+//        eventHandlerForButton.put("GameLoader", e -> launchGameLoader());
 
-        String[] buttonNames = {"GameEngine", "GameEditor", "GameGallery", "GameLoader"};
+//        String[] buttonNames = {"GameEngine", "GameEditor", "GameGallery", "GameLoader"};
+        String[] buttonNames = {"GameEditor", "GameGallery"};
 
         double initialX = 100;
         double initialY = 280;
         double xSpacing = 300;
-        double ySpacing = 70;
+        double ySpacing = 100;
         int buttonsPerCol = 3; // Also rows
 
         for (int i = 0; i < buttonNames.length; i++) {
             ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i],
-                    initialX + (i / buttonsPerCol) * xSpacing,
+                    initialX + (i / buttonsPerCol) * xSpacing + (i * 100),
                     initialY + (i % buttonsPerCol) * ySpacing);
             Button button = buttonTemplate.getButton();
             button.setOnMouseClicked(eventHandlerForButton.get(buttonNames[i]));
