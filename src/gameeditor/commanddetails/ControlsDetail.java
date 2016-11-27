@@ -1,10 +1,11 @@
 package gameeditor.commanddetails;
 
+import java.io.FileInputStream;
+import java.util.Enumeration;
+import java.util.Properties;
 import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
@@ -12,8 +13,6 @@ import javafx.scene.layout.VBox;
 
 public class ControlsDetail extends AbstractCommandDetail {
 
-	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
-	private double cbHeight = 30;
 	private VBox myVBox;
 	
 	public ControlsDetail() {
@@ -27,14 +26,13 @@ public class ControlsDetail extends AbstractCommandDetail {
 		myVBox.setAlignment(Pos.CENTER);
 		myContainerPane.setContent(myVBox);
 		String [] array = new String [] {"Up", "Down", "Left", "Right", "Shoot", "Interact"};
-		for (String string : array){
+		for (@SuppressWarnings("unused") String string : array){
 			createSelectDirectionsControl("Input", array);
 		}
 	}
 	
 	public void createSelectDirectionsControl(String label, String [] optionsArray){
 		HBox innerContainer = new HBox();
-		double hboxSpacing = 10;
 		innerContainer.setSpacing(hboxSpacing);
 		innerContainer.setAlignment(Pos.CENTER);
 		ComboBox<String> cb = createComboBox(optionsArray);
@@ -46,8 +44,8 @@ public class ControlsDetail extends AbstractCommandDetail {
 	
 	public TextArea createInputField(String label, double hboxSpacing){
 		TextArea inputField = new TextArea(label);
-		inputField.setMinWidth(myPaneWidth-2*myDetailPadding-cbWidth-hboxSpacing);
-		inputField.setMaxWidth(myPaneWidth-2*myDetailPadding-cbWidth-hboxSpacing);
+		inputField.setMinWidth(paddedDetailWidth);
+		inputField.setMaxWidth(paddedDetailWidth);
 		inputField.setMinHeight(cbHeight);
 		inputField.setMaxHeight(cbHeight);
 		inputField.setOnMouseClicked(e -> handleClick(inputField));

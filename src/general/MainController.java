@@ -1,9 +1,5 @@
 package general;
-
-
-import gameeditor.controller.GameEditorBackendController;
 import gameeditor.controller.GameEditorFrontEndController;
-import gameeditor.view.GameEditorView;
 import gameengine.controller.GameEngineController;
 import gameengine.view.GameEngineUI;
 import javafx.scene.Scene;
@@ -15,7 +11,6 @@ import objects.Level;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -29,6 +24,7 @@ public class MainController {
     private Gallery myGallery;
     private GalleryView myGalleryView;
     private Stage myGameEditorStage;
+    private Stage myGameEngineStage;
     //private GameEditorView myGameEditorView;
     private GameEditorFrontEndController myGameEditorController;
     private GameEngineController myGameEngineController;
@@ -118,7 +114,10 @@ public class MainController {
         String s = mySerializer.toXML(game);
         GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(s);
-        mainStage.setScene(gameEngineController.getScene());
+        myGameEngineStage = new Stage();
+        myGameEngineStage.setScene(gameEngineController.getScene());
+        myGameEngineStage.show();
+//        mainStage.setScene();
         gameEngineController.startGame();
     }
 }

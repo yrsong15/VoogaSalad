@@ -12,7 +12,12 @@
             <width>150.0</width>
             <height>100.0</height>
             <imageFileName>bird3.png</imageFileName>
-            <properties/>
+            <properties>
+              <entry>
+                <string>verticalmovement</string>
+                <string>20</string>
+              </entry>
+            </properties>
           </objects.GameObject>
           <objects.GameObject>
             <xPosition>50.0</xPosition>
@@ -124,17 +129,25 @@
           <entry>
             <string>score</string>
             <string>10</string>
-            <int>10</int>
           </entry>
         </winConditions>
         <loseConditions>
           <entry>
             <string>time</string>
             <string>30</string>
-            <int>30</int>
           </entry>
         </loseConditions>
         <gameConditions/>
+        <controls>
+          <entry>
+            <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
+            <string>up</string>
+          </entry>
+          <entry>
+            <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
+            <string>down</string>
+          </entry>
+        </controls>
         <randomGenerations/>
         <mainCharacter reference="../gameObjects/objects.GameObject"/>
         <viewSettings>

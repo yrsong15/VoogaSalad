@@ -27,8 +27,9 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
     private HashMap<String, String> myControlMap;
 
     public GameEditorBackendController(){
-        
+        //myCurrentLevel = new Level();  
     }
+
     @Override
     public Game getGame() {
         return myGame;
@@ -36,14 +37,15 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
 
     @Override
     public void createGame(String title) {
+        System.out.println("Created Game " + title);
         Game game = new Game(title);
         myGame = game;
     }
 
-    @Override
-    public void createLevel(int levelNumber) {
-        myCurrentLevel = new Level(levelNumber);
-    }
+//    @Override
+//    public void createLevel(int levelNumber) {
+//        myCurrentLevel = new Level(levelNumber);
+//    }
 
     @Override
     public void addCurrentLevelToGame() {
@@ -88,6 +90,7 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
 
     @Override
     public void addBackgroundImage(String backgroundFilePath) {
+        System.out.println(" Backgtound Image Set " + backgroundFilePath);
         myCurrentLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
     }
 
@@ -105,6 +108,8 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
         return myGameObject;
     }
 
-
+    public void setCurrentLevel(Level level){
+        myCurrentLevel = level;
+    }
 
 }

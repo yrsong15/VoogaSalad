@@ -6,7 +6,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -115,18 +114,14 @@ public class GalleryView {
     }
 
     private void addGalleryButtons() {
-        ButtonTemplate newB = new ButtonTemplate("GalleryGameEdit");
+        ButtonTemplate newB = new ButtonTemplate("GalleryGameEdit", 400, 400);
         Button edit = newB.getButton();
-        edit.setTranslateX(400);
-        edit.setTranslateY(400);
         edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
         edit.translateXProperty().bind(galleryWindow.widthProperty().divide(2).subtract(300));
         edit.setOnMouseClicked(e -> myMainController.presentEditor()); //pass in an XML to the editor eventually
 
-        newB = new ButtonTemplate("GalleryGameEngine");
+        newB = new ButtonTemplate("GalleryGameEngine", 600, 400);
         Button engine = newB.getButton();
-        engine.setTranslateX(600);
-        engine.setTranslateY(400);
         engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
         engine.translateXProperty().bind(galleryWindow.widthProperty().divide(2).add(100));
         //TODO: Change this later to be flexible
