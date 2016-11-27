@@ -96,7 +96,7 @@ public class MainController {
         Level level = new Level(1);
         level.addWinCondition("score", "10");
         level.addLoseCondition("time", "30");
-//        level.getViewSettings().setMusicFile("FlappyBirdThemeSong.mp3");
+        level.getViewSettings().setMusicFile("FlappyBirdThemeSong.mp3");
         level.getViewSettings().setBackgroundFilePath("Background/bg.png");
         level.addGameObject(bird);
         level.setMainCharacter(bird);
@@ -108,16 +108,17 @@ public class MainController {
         level.addGameObject(ground);
         RandomGeneration randomGeneration = new RandomGeneration(0, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
                 -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
+        level.setRandomGenerations(randomGeneration);
         level.addControl(KeyCode.W, "jump");
         game.addLevel(level);
         game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
         GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(s);
+        System.out.println(s);
         myGameEngineStage = new Stage();
         myGameEngineStage.setScene(gameEngineController.getScene());
         myGameEngineStage.show();
-//        mainStage.setScene();
         gameEngineController.startGame();
     }
 }

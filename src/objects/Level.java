@@ -7,7 +7,7 @@ import gameengine.view.GameEngineUI;
 /**
  * Created by Soravit on 11/18/2016.
  */
-public class Level {
+public class Level implements ILevel{
 	private static final int minSpacing = 250;
 	private static final int maxSpacing = 500;
 	private static final int pipeWidth = 300;
@@ -23,8 +23,7 @@ public class Level {
 	private LevelSettings viewSettings;
 	public Level(int level) {
 		gameObjects = new ArrayList<GameObject>();
-		randomGenerations = new RandomGeneration(5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
-				-100, (int) GameEngineUI.myAppHeight - pipeWidth, minSpacing, maxSpacing);
+		randomGenerations = new RandomGeneration(0, 0, 0, 0, 0, 0, 0);
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
@@ -35,11 +34,18 @@ public class Level {
 	public void setScrollType(ScrollType scrollType) {
 		this.scrollType = scrollType;
 	}
-	public ScrollType scrollType() {
-		return scrollType;
-	}
+
+    @Override
+    public ScrollType getscrollType() {
+        return null;
+    }
+
 	public RandomGeneration getRandomGenRules() {
 		return this.randomGenerations;
+	}
+
+	public void setRandomGenerations(RandomGeneration randomGen){
+		this.randomGenerations = randomGen;
 	}
 	public int getLevel() {
 		return level;
@@ -110,4 +116,14 @@ public class Level {
 	public Map<KeyCode, String> getControls() {
 		return controls;
 	}
+
+    @Override
+    public void addBackgroundImage(String filePath) {
+
+    }
+
+    @Override
+    public void addBackgroundMusic(String musicFilePath) {
+
+    }
 }
