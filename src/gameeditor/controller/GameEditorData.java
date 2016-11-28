@@ -67,6 +67,7 @@ public class GameEditorData implements IGameEditorData{
         double ypos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.Y_POSITION_KEY));
         String imagePath = myGameObjMap.get("Image Path");
         GameObject myObject = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,imagePath,properties);
+        
         myLevel.addGameObject(myObject);
     }
 
@@ -82,13 +83,6 @@ public class GameEditorData implements IGameEditorData{
         return properties;
     }
 
-    public void addControlsMap(){
-
-    }
-
-    public void addTime(){
-
-    }
 
     public void addControl(KeyCode key, String action){
         myLevel.addControl(key, action);
@@ -99,23 +93,10 @@ public class GameEditorData implements IGameEditorData{
     public ArrayList<Map<String, String>> getTypeMaps() {
         return myTypes;
     }
-
-
-    //    @Override
-    //    public void setBackgroundImage(String filePath) {
-    //        // TODO Auto-generated method stub
-    //
-    //    }
-    //
-    //
-    //    @Override
-    //    public void setMusic(String filePath) {
-    //        // TODO Auto-generated method stub
-    //
-    //    }
-    //  @Override
-    //  public void setMainCharacterImage (String filePath) {
-    //
-    //  }
+  
+    public void addWinCondition(String type, String value){
+        myLevel.addWinCondition(type, value);
+    }
+    
 
 }
