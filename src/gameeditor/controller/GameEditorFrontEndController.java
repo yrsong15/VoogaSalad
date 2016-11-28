@@ -32,6 +32,8 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private GameEditorBackendController myGameEditorBackEndController;
     private LevelManager myLevelManager;
     private boolean isInitialStage;
+    
+    public static final String DEFAULT_GAME_TITLE = "Untitled";
 //    private XMLSerializer mySerializer;
 
     
@@ -40,6 +42,8 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
         
         myGameEditorBackEndController = new GameEditorBackendController();
         
+        myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
+         
         myEditorLevels= new EditorLevels();
         Parent parent = myEditorLevels.createRoot();
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
@@ -60,7 +64,7 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
                                  String oldValue,
                                  String newValue) { 
                //System.out.println(" Game Title Changed: " );
-               myGameEditorBackEndController.createGame(newValue.toString()); 
+               myGameEditorBackEndController.setGameName(newValue.toString()); 
             }
         });
     }
