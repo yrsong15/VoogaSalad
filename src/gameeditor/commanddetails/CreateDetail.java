@@ -207,5 +207,4 @@ public class CreateDetail extends AbstractCommandDetail {
 	public void createTextField(){
 		
 	}
-
 }
