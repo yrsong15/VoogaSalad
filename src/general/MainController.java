@@ -57,7 +57,6 @@ public class MainController {
 // 	   {
 // 		   myGallery.addToGallery(new GameFile());
 // 	   }
-// 	   this.galleryStage = new Stage();
     }
 
     public void presentEditor() {

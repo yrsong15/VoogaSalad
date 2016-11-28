@@ -59,6 +59,7 @@ public class GalleryView {
         for (GameFile gameFile : gallery.getUnmodifiableListOfGameFiles())
 //		for(String gameFile : gallery.getUnmodifiableListOfGameFiles())
         {
+            System.out.println("gameFile added");
             gameFileBox.getChildren().add(new GameFileView(gameFile).getNode());
         }
         gameFileWindow.setContent(gameFileBox);
