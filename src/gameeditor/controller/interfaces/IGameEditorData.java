@@ -23,7 +23,4 @@ public interface IGameEditorData {
     // Add Game Object to Level
     public void addGameObjectToLevel(Map<String,String> myGameObjects);
 
-
-
-
 }

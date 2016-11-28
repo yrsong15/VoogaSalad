@@ -122,7 +122,7 @@ public class CreateDetail extends AbstractCommandDetail {
         iv.setLayoutY(imageZoneHeight/2 - endHeight/2);
 		iv.setLayoutX(imageZonePadding/2); iv.setLayoutY(imageZonePadding/2);
 		myImagePane.getChildren().add(iv);
-		System.out.println(myImagePane.getChildren());
+		//System.out.println(myImagePane.getChildren());
 	}
 	
 	public Button createImageButton(){
@@ -207,5 +207,4 @@ public class CreateDetail extends AbstractCommandDetail {
 	public void createTextField(){
 		
 	}
-
 }

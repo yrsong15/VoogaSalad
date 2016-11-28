@@ -128,4 +128,9 @@ public class Level implements ILevel{
     public void addBackgroundMusic(String musicFilePath) {
         viewSettings.setMusicFile(musicFilePath);
     }
+    @Override
+    public void addScrollWidth (double scrollWidth) {
+       viewSettings.setScrollWidth(scrollWidth);
+        
+    }
 }

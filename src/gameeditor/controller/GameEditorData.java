@@ -2,7 +2,6 @@ package gameeditor.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
@@ -16,20 +15,15 @@ import objects.interfaces.ILevel;
  */
 
 public class GameEditorData implements IGameEditorData{
-
-    private GameEditorBackendController myGameEditorBackEndController;
-    private HashMap<String,String> myControlMap;
     private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
 
     private ILevel myLevel;
-    private List<Map<String,String>> myGameObjects;
 
     public static final double SPRITE_WIDTH = 50;
     public static final double SPRITE_HEIGHT = 50;
 
     public GameEditorData(ILevel level){
         myLevel = level;
-        myGameObjects = new ArrayList<Map<String,String>>();
     }
 
     public void storeType(Map<String, String> typeMap){
@@ -66,6 +60,7 @@ public class GameEditorData implements IGameEditorData{
         double xpos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.X_POSITON_KEY));
         double ypos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.Y_POSITION_KEY));
         String imagePath = myGameObjMap.get("Image Path");
+        
         GameObject myObject = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,imagePath,properties);
         
         myLevel.addGameObject(myObject);
@@ -98,5 +93,4 @@ public class GameEditorData implements IGameEditorData{
         myLevel.addWinCondition(type, value);
     }
     
-
 }

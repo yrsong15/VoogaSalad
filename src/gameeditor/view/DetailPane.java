@@ -47,7 +47,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public DetailPane(IDesignArea da, ILevel currentLevel) {
     	myDesignArea = da;
     	myDataStore = new GameEditorData(currentLevel);
-    	
+ 
         myPane = new Pane();
         myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
         myPane.setBackground(new Background(new BackgroundFill(ViewResources.DETAIL_PANE_BG.getColorResource(), CornerRadii.EMPTY, Insets.EMPTY)));
