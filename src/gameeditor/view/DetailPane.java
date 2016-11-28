@@ -119,7 +119,6 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public void setDetail(String paneType) {
         String className = "gameeditor.commanddetails." + paneType + "Detail";
         myPane.getChildren().remove(myDetailPane);
-        myPane.getChildren().remove(myCharPropertiesButton);
         AbstractCommandDetail detailPane = new DetailFactory().create(className, myDataStore, myDesignArea);
         myDetailPane = detailPane.getPane();
         myPane.getChildren().add(myDetailPane);
