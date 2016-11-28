@@ -40,6 +40,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private IDesignArea myDesignArea;
     
     private boolean mainCharPropActive = false;
+    private Button myCharPropertiesButton;
 
     private ImageView myAvatarView;
 
@@ -93,16 +94,16 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     }
     
     public void createAvatarButton(double padding){
-    	Button avatar = new Button();
+    	myCharPropertiesButton = new Button();
     	double buttonWidth = 150;
     	double buttonHeight = 30;
-    	avatar.setText("Main Character Properties");
-    	avatar.setMinWidth(buttonWidth);
-    	avatar.setMinHeight(buttonHeight);
-    	avatar.setOnAction((e) -> {handleAvatar();});
-    	avatar.setLayoutX(myAvatarZone.getX()/2 + myAvatarZone.getWidth()/2 - buttonWidth/2);
-    	avatar.setLayoutY(myAvatarZone.getY() + padding/2 - buttonHeight/2);
-    	myPane.getChildren().add(avatar);
+    	myCharPropertiesButton.setText("Main Character Properties");
+    	myCharPropertiesButton.setMinWidth(buttonWidth);
+    	myCharPropertiesButton.setMinHeight(buttonHeight);
+    	myCharPropertiesButton.setOnAction((e) -> {handleAvatar();});
+    	myCharPropertiesButton.setLayoutX(myAvatarZone.getX()/2 + myAvatarZone.getWidth()/2 - buttonWidth/2);
+    	myCharPropertiesButton.setLayoutY(myAvatarZone.getY() + padding/2 - buttonHeight/2);
+    	myPane.getChildren().add(myCharPropertiesButton);
     }
     
     public void handleAvatar(){
@@ -118,6 +119,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public void setDetail(String paneType) {
         String className = "gameeditor.commanddetails." + paneType + "Detail";
         myPane.getChildren().remove(myDetailPane);
+        myPane.getChildren().remove(myCharPropertiesButton);
         AbstractCommandDetail detailPane = new DetailFactory().create(className, myDataStore, myDesignArea);
         myDetailPane = detailPane.getPane();
         myPane.getChildren().add(myDetailPane);
