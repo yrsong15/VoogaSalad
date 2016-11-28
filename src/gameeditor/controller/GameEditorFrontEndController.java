@@ -32,13 +32,12 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private GameEditorBackendController myGameEditorBackEndController;
     private LevelManager myLevelManager;
     private boolean isInitialStage;
-    private XMLSerializer mySerializer;
-    public static final String DEFAULT_GAME_TITLE = "Untitled";
+//    private XMLSerializer mySerializer;
 
     
     public Parent startEditor() {
         myLevelManager = new LevelManager();
-        mySerializer = new XMLSerializer();
+        
         myGameEditorBackEndController = new GameEditorBackendController();
         
         myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
@@ -124,10 +123,9 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     } 
     
     private void loadGame(){
-        // TODO: Create XMl Stuff Here      
-      String testResult = mySerializer.serializeGame(myGameEditorBackEndController.getGame());
-      System.out.println(testResult);
-      mySerializer.getGameFromString(testResult);   
+        // TODO: How is the Game object going to be passed onto the Game Engine?
+    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
+    	myGameEditorBackEndController.getGame();
     }
     
     private void setSavedLevelRoot(){

@@ -20,22 +20,21 @@ import objects.Level;
  */
 
 public class GameEditorBackendController
-implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject {
+implements IGameEditorController, ICreateGame, ICreateGameObject {
 
     private Game myGame;
     private Level myCurrentLevel;
     private GameObject myGameObject;
-    private HashMap<String, String> myControlMap;
-
+    private XMLSerializer mySerializer;
+//    private HashMap<String, String> myControlMap;
 
     public GameEditorBackendController(){
-        //myCurrentLevel = new Level();  
+    	mySerializer = new XMLSerializer();
     }
 
     @Override
     public Game getGame() {
         return myGame;
-        
     }
 
     @Override
@@ -44,30 +43,14 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
         Game game = new Game(title);
         myGame = game;
     }
-
-//    @Override
-//    public void createLevel(int levelNumber) {
-//        myCurrentLevel = new Level(levelNumber);
-//    }
+    
+    public void setCurrentLevel(Level level){
+        myCurrentLevel = level;
+    }
 
     @Override
     public void addCurrentLevelToGame() {
         myGame.addLevel(myCurrentLevel);
-    }
-
-    @Override
-    public void addGameObjectToLevel(GameObject ob) {
-        myCurrentLevel.addGameObject(ob);
-    }
-
-    @Override
-    public void addWinConditions(String type, String action) {
-        myCurrentLevel.addWinCondition(type, action);
-    }
-
-    @Override
-    public void addLoseConditions(String type, String action) {
-        myCurrentLevel.addLoseCondition(type, action);
     }
 
     @Override
@@ -77,45 +60,16 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
     }
 
     @Override
-    public void addScore(double score) {
-        myCurrentLevel.setScore(score);
-    }
-
-    @Override
-    public void addTime(double time) {
-        myCurrentLevel.setTime(time);
-    }
-
-    @Override
-    public void addBackgroundMusic(String musicFilePath) {
-        myCurrentLevel.getViewSettings().setMusicFile(musicFilePath);
-    }
-
-    @Override
-    public void addBackgroundImage(String backgroundFilePath) {
-        System.out.println(" Backgtound Image Set " + backgroundFilePath);
-        myCurrentLevel.getViewSettings().setBackgroundFilePath(backgroundFilePath);
-    }
-
-    @Override
     public void setCurrentLevelToGame() {
         myGame.setCurrentLevel(myCurrentLevel);
-    }
-
-    @Override
-    public void setGameObjectToMainCharacter(GameObject object) {
-        myCurrentLevel.setMainCharacter(object);
     }
 
     public GameObject getCurrentGameObject() {
         return myGameObject;
     }
-
-    public void setCurrentLevel(Level level){
-        myCurrentLevel = level;
-    }
     
-    public void setGameName(String name){
-        myGame.setGameName(name);
+    public String serializeGame(){
+    	return mySerializer.serializeGame(myGame);
     }
+
 }
