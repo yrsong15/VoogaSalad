@@ -71,5 +71,9 @@ implements IGameEditorController, ICreateGame, ICreateGameObject {
     public String serializeGame(){
     	return mySerializer.serializeGame(myGame);
     }
+    
+    public void setGameName(String name){
+        myGame.setGameName(name);
+    }
 
 }

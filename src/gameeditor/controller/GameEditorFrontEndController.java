@@ -32,6 +32,8 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private GameEditorBackendController myGameEditorBackEndController;
     private LevelManager myLevelManager;
     private boolean isInitialStage;
+    
+    public static final String DEFAULT_GAME_TITLE = "Untitled";
 //    private XMLSerializer mySerializer;
 
     
