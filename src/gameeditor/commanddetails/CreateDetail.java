@@ -72,7 +72,6 @@ public class CreateDetail extends AbstractCommandDetail {
 		} else {
 			
 		}
-		
 	}
 	
 	public boolean verifySave(){
