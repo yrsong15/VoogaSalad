@@ -1,6 +1,7 @@
 package gameengine.controller;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import objects.Game;
  *
  */
 public class GameEngineController extends Observable implements RuleActionHandler, RGInterface {
+	private ArrayList<RandomGenFrame> RGFrames;
 	private String xmlData;
 	private GameParser parser;
 	private CollisionChecker collisionChecker;
@@ -36,7 +38,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private Timeline animation;
 	private MovementController movementController;
 	private LimitedScrolling lim;
-	private RandomGenFrame RGFrame;
 	public static final double FRAMES_PER_SECOND = 10;
 	public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
@@ -47,12 +48,13 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		movementController = new MovementController();
 		gameEngineView = new GameEngineUI(movementController);
 		lim = new LimitedScrolling(ScrollDirection.Right, 30);
+		RGFrames = new ArrayList<>();
 	}
 	public void startGame() {
 		currentGame = parser.convertXMLtoGame(xmlData);
 		movementController.setGame(currentGame);
 		gameEngineView.setLevel(currentGame.getCurrentLevel());
-		RGFrame = new RandomGenFrame(this,300,currentGame.getCurrentLevel());
+		addRGFrames();
 		gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
 		gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
@@ -75,6 +77,11 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
+	
+	private void addRGFrames(){
+		RGFrames.add(new RandomGenFrame(this,300,currentGame.getCurrentLevel(),"Pipes.png"));
+		RGFrames.add(new RandomGenFrame(this,300,currentGame.getCurrentLevel(),"bird3.png"));
+	}
 	public void mapControls() {
 		// NEED TO DO
 	}
@@ -96,8 +103,11 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		notifyObservers();
 		gameEngineView.update(currentGame.getCurrentLevel());
 		movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
-		RGFrame.possiblyGenerateNewFrame(0, currentGame.getCurrentLevel().getRandomGenRules(),
+		for(RandomGenFrame elem: RGFrames){
+			elem.possiblyGenerateNewFrame(0, currentGame.getCurrentLevel().getRandomGenRules(),
 				this.getClass().getMethod("setNewBenchmark"));
+		}
+		
 		// Level currLevel = currentGame.getCurrentLevel();
 //		collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(),
 //				currentGame.getCurrentLevel().getGameObjects());
@@ -108,7 +118,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	public void setNewBenchmark() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
-		RGFrame.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
+		for(RandomGenFrame elem: RGFrames){
+			elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
+		}
 	}
 	public void setCurrentXML(String xmlData) {
 		this.xmlData = xmlData;
