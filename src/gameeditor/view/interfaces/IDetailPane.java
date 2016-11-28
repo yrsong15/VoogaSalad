@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 
 public interface IDetailPane {
 	
-	public void setAvatar(Image newAvatar);
+	public void setAvatar(String  filePath);
 	
 	public Pane getPane();
 }

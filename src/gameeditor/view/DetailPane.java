@@ -71,7 +71,12 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         return myPane;
     }
 
-    public void setAvatar(Image newAvatar){
+    public void setAvatar(String filePath ){
+        Image newAvatar = new Image(filePath);
+        
+        // Set the ImageFile Path in the gameEditorDataStore
+        myDataStore.addMainCharacterImage(filePath);
+        
         myPane.getChildren().remove(myAvatarView);
         double padding = 20;
         double buttonPadding = 50;
@@ -106,6 +111,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     	myPane.getChildren().add(myCharPropertiesButton);
     }
     
+// What does this DO ?
     public void handleAvatar(){
     	if (mainCharPropActive){
     		removeDetail();
@@ -127,7 +133,5 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     
     private void removeDetail(){
     	myPane.getChildren().remove(myDetailPane);
-    }
-
-    
+    }  
 }

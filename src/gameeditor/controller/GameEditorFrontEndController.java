@@ -92,7 +92,7 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
             myGameEditor=myLevelEditorMap.get(activeButtonId);
             setSavedLevelRoot();
         } else{
-            Level level = new Level(Integer.parseInt(activeButtonId));
+            Level level = new Level(Integer.parseInt(activeButtonId) + 1);
             ILevel levelInterface = (ILevel) level;
             myLevelManager.createLevel(level,levelInterface);
             myGameEditor = new GameEditorView(levelInterface);

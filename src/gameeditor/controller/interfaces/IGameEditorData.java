@@ -1,7 +1,6 @@
 package gameeditor.controller.interfaces;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import javafx.scene.input.KeyCode;
 /**
@@ -23,4 +22,6 @@ public interface IGameEditorData {
     // Add Game Object to Level
     public void addGameObjectToLevel(Map<String,String> myGameObjects);
 
+    public void addMainCharacterImage(String imageFilePath);
+    public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties);
 }
