@@ -1,10 +1,8 @@
 package gameeditor.view;
 
 import java.io.File;
+import java.util.Map;
 import frontend.util.FileOpener;
-import gameeditor.controller.GameEditorData;
-import gameeditor.controller.interfaces.IGameEditorData;
-import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -17,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import objects.GameObject;
 import objects.interfaces.ILevel;
 
 
@@ -94,12 +91,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         } 
     }
 
-    @Override
-    public void sendDataToGameEngine () {
-        // Call in the XMlSerializer to send the Xml file 
-        System.out.println(" Send Data ");
-        
-    }
+
 
     public void setMusic(){
         String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
@@ -118,4 +110,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public Parent getRoot(){
         return this.myRoot;
     }
+
+    @Override
+    public void saveLevelData (Map<String,String> myLevelData) {
+        myLevelSettings.addWinCondition(EditorToolbar.POINTS_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
+        myLevelSettings.addWinCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
+        myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
+       }
+    
 }
