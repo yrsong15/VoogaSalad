@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import objects.interfaces.ILevel;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +38,8 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private ScrollPane myDetailPane;
     private IGameEditorData myDataStore;
     private IDesignArea myDesignArea;
+    
+    private boolean mainCharPropActive = false;
 
     private ImageView myAvatarView;
 
@@ -70,6 +73,9 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public void setAvatar(Image newAvatar){
         myPane.getChildren().remove(myAvatarView);
         double padding = 20;
+        double buttonPadding = 50;
+        padding += buttonPadding;
+        createAvatarButton(buttonPadding);
         double fitWidth = myAvatarZone.getWidth() - padding;
         double fitHeight = myAvatarZone.getHeight() - padding;
         double widthRatio = fitWidth/newAvatar.getWidth();
@@ -82,9 +88,30 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         myAvatarView.setFitWidth(fitWidth);
         myAvatarView.setFitHeight(fitHeight);
         myAvatarView.setLayoutX(myAvatarZone.getX() + myAvatarZone.getWidth()/2 - endWidth/2);
-        myAvatarView.setLayoutY(myAvatarZone.getY() + myAvatarZone.getHeight()/2 - endHeight/2);
+        myAvatarView.setLayoutY(myAvatarZone.getY()+ buttonPadding + (myAvatarZone.getHeight()-buttonPadding)/2 - endHeight/2);
         myPane.getChildren().add(myAvatarView);
-
+    }
+    
+    public void createAvatarButton(double padding){
+    	Button avatar = new Button();
+    	double buttonWidth = 150;
+    	double buttonHeight = 30;
+    	avatar.setText("Main Character Properties");
+    	avatar.setMinWidth(buttonWidth);
+    	avatar.setMinHeight(buttonHeight);
+    	avatar.setOnAction((e) -> {handleAvatar();});
+    	avatar.setLayoutX(myAvatarZone.getX()/2 + myAvatarZone.getWidth()/2 - buttonWidth/2);
+    	avatar.setLayoutY(myAvatarZone.getY() + padding/2 - buttonHeight/2);
+    	myPane.getChildren().add(avatar);
+    }
+    
+    public void handleAvatar(){
+    	if (mainCharPropActive){
+    		removeDetail();
+    	} else {
+    		setDetail("MainCharacter");
+    	}
+    	mainCharPropActive = !mainCharPropActive;
     }
 
     @Override
@@ -94,6 +121,10 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         AbstractCommandDetail detailPane = new DetailFactory().create(className, myDataStore, myDesignArea);
         myDetailPane = detailPane.getPane();
         myPane.getChildren().add(myDetailPane);
+    }
+    
+    private void removeDetail(){
+    	myPane.getChildren().remove(myDetailPane);
     }
 
     
