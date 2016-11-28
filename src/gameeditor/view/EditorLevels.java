@@ -35,6 +35,8 @@ public class EditorLevels {
     public static final double LEVEL_PANE_X_POSITION = 180;
     public static final double LEVEL_PANE_Y_POSITION = 70;
     public static final double BUTTON_ICON_PROPORTION = 50;
+    public static final String DEFAULT_GAME_TITLE = "Untitled";
+    
     private VBox myVBox;
     private Button newLevelButton;
     private List<Button> myLevels;
@@ -82,6 +84,7 @@ public class EditorLevels {
         myHBox.setLayoutY(LEVEL_PANE_Y_POSITION/2);
         ButtonTemplate submitButton = new ButtonTemplate("SubmitCommand",0,0);
         submitButton.setOnButtonAction(e-> addGameTitleListener(myGameName));
+        addGameTitleListener(myGameName);
         myHBox.getChildren().addAll(gameLabel,myGameName,submitButton.getButton()); 
         return myHBox;
     }
@@ -89,6 +92,8 @@ public class EditorLevels {
     private void addGameTitleListener(TextField myGameName){
         if(myGameName.getText()!=null && !myGameName.getText().isEmpty()){
             myGameTitle.set(myGameName.getText());
+        }else{
+            myGameTitle.set(DEFAULT_GAME_TITLE);
         }
     }
     
@@ -150,8 +155,8 @@ public class EditorLevels {
         loadGameButton.setOnMouseClicked(handler);
     }
     
-    public void setOnGameTitleSubmitButton(EventHandler<MouseEvent> handler){
-        submitButton.setOnMouseClicked(handler);
-    }
+//    public void setOnGameTitleSubmitButton(EventHandler<MouseEvent> handler){
+//        submitButton.setOnMouseClicked(handler);
+//    }
     
 }

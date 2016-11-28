@@ -5,6 +5,7 @@ import java.util.Map;
 import gameeditor.controller.interfaces.ICreateGame;
 import gameeditor.controller.interfaces.ICreateGameObject;
 import gameeditor.controller.interfaces.ILevelManager;
+import gameeditor.xml.XMLSerializer;
 import gameeditor.controller.interfaces.IGameEditorController;
 import objects.Game;
 import objects.GameObject;
@@ -26,6 +27,7 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
     private GameObject myGameObject;
     private HashMap<String, String> myControlMap;
 
+
     public GameEditorBackendController(){
         //myCurrentLevel = new Level();  
     }
@@ -33,6 +35,7 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
     @Override
     public Game getGame() {
         return myGame;
+        
     }
 
     @Override
@@ -111,5 +114,7 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
     public void setCurrentLevel(Level level){
         myCurrentLevel = level;
     }
+    
+
 
 }

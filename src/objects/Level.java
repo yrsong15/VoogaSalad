@@ -104,9 +104,11 @@ public class Level implements ILevel{
 	public LevelSettings getViewSettings() {
 		return viewSettings;
 	}
+	
 	public void setViewSettings(LevelSettings viewSettings) {
 		this.viewSettings = viewSettings;
 	}
+	
 	public void addControl(KeyCode key, String action) {
 		controls.put(key, action);
 	}
@@ -119,11 +121,11 @@ public class Level implements ILevel{
 
     @Override
     public void addBackgroundImage(String filePath) {
-
+        viewSettings.setBackgroundFilePath(filePath);
     }
 
     @Override
     public void addBackgroundMusic(String musicFilePath) {
-
+        viewSettings.setMusicFile(musicFilePath);
     }
 }

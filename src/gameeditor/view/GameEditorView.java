@@ -78,7 +78,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
             myHBox.getChildren().add(backgroundImage);        
             myDesignArea.setBackground(myHBox); 
-
+            
             myLevelSettings.addBackgroundImage(filePath);
         }
     }
