@@ -115,6 +115,7 @@ implements IGameEditorController, ICreateGame, ILevelManager, ICreateGameObject 
         myCurrentLevel = level;
     }
     
-
-
+    public void setGameName(String name){
+        myGame.setGameName(name);
+    }
 }

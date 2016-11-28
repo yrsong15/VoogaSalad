@@ -34,4 +34,8 @@ public class Game {
 		this.currentLevel = currentLevel;
 	}
 	
+	public void setGameName(String name){
+	    this.name = name;
+	}
+	
 }

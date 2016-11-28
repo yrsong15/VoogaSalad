@@ -92,8 +92,6 @@ public class EditorLevels {
     private void addGameTitleListener(TextField myGameName){
         if(myGameName.getText()!=null && !myGameName.getText().isEmpty()){
             myGameTitle.set(myGameName.getText());
-        }else{
-            myGameTitle.set(DEFAULT_GAME_TITLE);
         }
     }
     
@@ -154,9 +152,5 @@ public class EditorLevels {
     public void setOnLoadGameButton(EventHandler<MouseEvent> handler){
         loadGameButton.setOnMouseClicked(handler);
     }
-    
-//    public void setOnGameTitleSubmitButton(EventHandler<MouseEvent> handler){
-//        submitButton.setOnMouseClicked(handler);
-//    }
     
 }
