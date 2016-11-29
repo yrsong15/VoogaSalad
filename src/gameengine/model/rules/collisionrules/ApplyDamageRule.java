@@ -10,7 +10,6 @@ public class ApplyDamageRule implements CollisionRule {
 		int currHealth = Integer.parseInt(mainChar.getProperty("health"));
 		currHealth -= Integer.parseInt(obj.getProperty("damage"));
 		if (currHealth <= 0) {
-			handler.removeObject(mainChar);
 			handler.endGame();
 		}
 		else {

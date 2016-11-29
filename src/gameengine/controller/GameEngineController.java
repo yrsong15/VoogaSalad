@@ -86,9 +86,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel(), randomGeneration.getGameObject().getImageFileName()));
 		}
 	}
-	public void mapControls() {
-		// NEED TO DO
-	}
+
 	/**
 	 * Applies gravity and scrolls, checks for collisions
 	 *

@@ -76,7 +76,7 @@ public class MainController {
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 150, 100, "bird3.png", new HashMap<>());
         bird.setProperty("gravity", "1.2");
-        bird.setProperty("health", "30");
+        bird.setProperty("health", "100000");
         bird.setProperty("jump", "600");
         GameObject pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
         pipe1.setProperty("damage","30");
