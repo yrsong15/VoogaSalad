@@ -9,15 +9,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Gallery {
+
 	private ArrayList<GameFile> gallery;
 
 	public Gallery() {
 		this.gallery = new ArrayList<GameFile>();
 	}
 
-
 	public void addToGallery(GameFile newGame) {
 		gallery.add(newGame);
+
 	}
 	//TODO: fix this for arrayList
 	public void removeFromGallery(String ganeName)
@@ -40,7 +41,7 @@ public class Gallery {
 		}
 		return "ERROR";
 	}
-
+	
 	// TODO: Makes this return an iterator
 	public List<GameFile> getUnmodifiableListOfGameFiles()
 	{

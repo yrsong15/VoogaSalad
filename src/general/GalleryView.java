@@ -33,6 +33,7 @@ public class GalleryView {
 
     private ArrayList<GameFileView> mySelectedFiles;
 
+
     public GalleryView(Gallery gallery, MainController MC) {
         this.myMainController = MC;
         this.gallery = gallery;
@@ -64,16 +65,15 @@ public class GalleryView {
             gameFileView.select();
         }
     }
-
+    
     private void deselectAllSelectedFiles()
     {
-        for(GameFileView gameFileView : mySelectedFiles)
-        {
-            gameFileView.deselect();
-        }
-        mySelectedFiles.clear();
+    	for(GameFileView gameFileView : mySelectedFiles)
+    	{
+    		gameFileView.deselect();
+    	}
+    	mySelectedFiles.clear();
     }
-
 
     private void setUpWindow() {
         galleryWindow = new Pane();
@@ -93,6 +93,7 @@ public class GalleryView {
         gameFileView.addEventHandlerToGameView(MouseEvent.MOUSE_ENTERED, e -> gameFileView.highlight());
         gameFileView.addEventHandlerToGameView(MouseEvent.MOUSE_EXITED, e -> gameFileView.dehighlight());
         return gameFileView;
+
     }
     private void addGameFileViews() {
         ScrollPane gameFileWindow = new ScrollPane();

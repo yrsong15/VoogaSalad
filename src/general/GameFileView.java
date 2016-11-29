@@ -3,13 +3,19 @@ package general;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+<<<<<<< HEAD
 import javafx.scene.control.Label;
+=======
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+<<<<<<< HEAD
 import javafx.scene.text.Text;
+=======
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 import javafx.scene.input.InputEvent;
 import javafx.event.EventType;
 
@@ -20,13 +26,29 @@ public class GameFileView
 	private Rectangle gameView;
 	private Paint gameViewColor;
 	private boolean isSelected;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 	public GameFileView(GameFile gameFile)
 	{
 		this.gameFile = gameFile;
 		this.view = createView();
 		this.isSelected = false;
 		configureEventHandlers();
+<<<<<<< HEAD
+=======
+	}
+	
+	/**
+	 * Regardless of purpose for the GameFileView, a GameFileViewEvent.VIEW_CLICKED_ON event
+	 * should always be fired whenever the view is clicked on
+	 */
+	private void configureEventHandlers()
+	{
+		gameView.setOnMouseClicked(e -> fireViewClickedOnEvent());
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 	}
 
 	/**
@@ -42,7 +64,11 @@ public class GameFileView
 	{
 		view.fireEvent(new GameFileViewEvent(GameFileViewEvent.REMOVE_FROM_GALLERY,this));
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 	/**
 	 * Adds an event handler directly to the GameView and not the entire node. This allows
 	 * the manipulation of a GameView's behavior from outside classes, allowing GameViews to be
@@ -51,6 +77,7 @@ public class GameFileView
 	 * @param eventHandler
 	 */
 	public void addEventHandlerToGameView(EventType<? extends Event> eventType, EventHandler<Event> eventHandler)
+<<<<<<< HEAD
 	{
 		gameView.addEventHandler(eventType, eventHandler);
 	}
@@ -60,6 +87,17 @@ public class GameFileView
 		gameView.setFill(Color.YELLOW);
 	}
 
+=======
+	{
+		gameView.addEventHandler(eventType, eventHandler);
+	}
+	
+	public void highlight()
+	{
+		gameView.setFill(Color.YELLOW);
+	}
+	
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 	public void dehighlight()
 	{
 		if(!isSelected)
@@ -67,6 +105,7 @@ public class GameFileView
 			gameView.setFill(gameViewColor);
 		}
 	}
+<<<<<<< HEAD
 
 	public void deselect()
 	{
@@ -75,12 +114,26 @@ public class GameFileView
 		dehighlight();
 	}
 
+=======
+	
+	public void deselect()
+	{
+		
+		isSelected = false;
+		dehighlight();
+	}
+	
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 	public void select()
 	{
 		isSelected = true;
 		highlight();
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 	private void fireViewClickedOnEvent()
 	{
 		gameView.fireEvent(new GameFileViewEvent(GameFileViewEvent.VIEW_CLICKED_ON, this));
@@ -105,6 +158,7 @@ public class GameFileView
 		gameViewColor = rect.getFill();
 		gameView = rect;
 		view.getChildren().add(gameView);
+<<<<<<< HEAD
 		Label name = new Label(gameFile.getGameName());
 		view.getChildren().add(name);
 		return view;
@@ -115,6 +169,11 @@ public class GameFileView
 		return gameFile;
 	}
 
+=======
+		return view;
+	}
+	
+>>>>>>> fbcd326b91464825a7efbe558416898f01db3a01
 	public Node getNode()
 	{
 		return view;
