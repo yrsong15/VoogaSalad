@@ -40,26 +40,32 @@ public class MainController {
         stage.setScene(scene);
         stage.setTitle("VoogaSalad");
         stage.show();
+        initializeGallery();
     }
 
-    public void presentGallery() throws IOException {
-        System.out.println("present");
-        initializeGallery();
+    public void presentGallery() {
         myGalleryView = new GalleryView(myGallery, this);
         myGalleryStage.setScene(myGalleryView.getScene());
         myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
         myGalleryStage.show();
     }
 
-    private void initializeGallery() throws IOException {
+    private void initializeGallery() {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
 // 	   this.gallery = new Gallery();
- 	   for(int i = 0; i < 40; i++)
- 	   {
- 		   myGallery.addToGallery(new GameFile());
- 	   }
+// 	   for(int i = 0; i < 40; i++)
+// 	   {
+// 		   myGallery.addToGallery(new GameFile());
+// 	   }
 
+    }
+    
+    private void addNewGameFile(String title, String gameData)
+    {
+    	GameFile newGame = new GameFile(title,gameData);
+    	myGallery.addToGallery(newGame);
+ 
     }
 
     public void presentEditor() {
@@ -74,7 +80,7 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-    	XStream mySerializer = new XStream(new DomDriver());
+    /*	XStream mySerializer = new XStream(new DomDriver());
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 150, 100, "bird3.png", new HashMap<>());
         bird.setProperty("gravity", "1.2");
@@ -128,13 +134,15 @@ public class MainController {
         myGameEngineStage.setScene(gameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stopMusic());
         myGameEngineStage.show();
-        gameEngineController.startGame();
+        gameEngineController.startGame(); */
+    	System.out.println(XMLData);
     }
     
-    private void sendDataToEngine(){
+    private void sendDataToEngine() {
         
         String title = myGameEditorController.getGameTitle();
         String gameFile = myGameEditorController.getGameFile();
+        addNewGameFile(title,gameFile);
         
         //System.out.println(" Title : " + title);
         //System.out.println(gameFile); 

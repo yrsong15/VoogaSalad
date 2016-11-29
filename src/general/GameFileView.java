@@ -3,11 +3,13 @@ package general;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.scene.input.InputEvent;
 import javafx.event.EventType;
 
@@ -103,7 +105,14 @@ public class GameFileView
 		gameViewColor = rect.getFill();
 		gameView = rect;
 		view.getChildren().add(gameView);
+		Label name = new Label(gameFile.getGameName());
+		view.getChildren().add(name);
 		return view;
+	}
+	
+	public GameFile getGameFile()
+	{
+		return gameFile;
 	}
 
 	public Node getNode()
