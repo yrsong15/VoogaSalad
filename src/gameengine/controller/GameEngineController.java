@@ -155,8 +155,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void endGame() {
 		animation.stop();
 	}
-	public void stopMusic() {
+	public void stop(){
 		gameEngineView.stopMusic();
+		endGame();
 	}
 	@Override
 	public void modifyScore(int score) {
