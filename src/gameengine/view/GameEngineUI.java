@@ -58,18 +58,20 @@ public class GameEngineUI implements IGameEngineUI {
 	private String myLevelFileLocation;
 	private IToolbar toolbar;
 	private HUD myHUD;
-	private IGameScreen gameScreen;
+	private GameScreen gameScreen;
 	private boolean isPaused;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
 	private EventHandler<ActionEvent> myResetEvent;
 
+
 	public GameEngineUI(MovementInterface movementInterface, EventHandler<ActionEvent> resetEvent) {
-		myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
-		myErrorMessage = new ErrorMessage();
+		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
+		this.myErrorMessage = new ErrorMessage();
+		this.myResetEvent = resetEvent;
 		this.movementInterface = movementInterface;
-		scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		setUpMethodMappings();
 	}
 
@@ -88,6 +90,10 @@ public class GameEngineUI implements IGameEngineUI {
 	public Scene getScene() {
 		return scene;
 	}
+	
+	public double getScreenHeight() {
+		return gameScreen.screenHeight;
+	}
 
 	public void update(Level level) {
 		this.level = level;
@@ -96,9 +102,11 @@ public class GameEngineUI implements IGameEngineUI {
 
 	public void setMusic(String musicFileName) {
 		try {
+			if (mediaPlayer != null) {
+				mediaPlayer.stop();
+			}
 			URL resource = getClass().getClassLoader().getResource(musicFileName);
 			mediaPlayer = new MediaPlayer(new Media(resource.toString()));
-			mediaPlayer.stop();
 			mediaPlayer.play();
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("MusicFileError"));
@@ -126,6 +134,11 @@ public class GameEngineUI implements IGameEngineUI {
 	public void updateStat(String name, String value) {
 		myHUD.addStat(name, value);
 		myHUD.updateStats();
+	}
+	
+	public void resetMusic() {
+		mediaPlayer.stop();
+		mediaPlayer.play();
 	}
 
 	private void setUpMethodMappings() {
@@ -210,11 +223,6 @@ public class GameEngineUI implements IGameEngineUI {
 			toolbar.pause();
 			mediaPlayer.pause();
 		}
-	}
-
-	private void resetMusic() {
-		mediaPlayer.stop();
-		mediaPlayer.play();
 	}
 
 	private void setUpKeystrokeListeners() {
