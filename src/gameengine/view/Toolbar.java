@@ -60,8 +60,10 @@ public class Toolbar implements IToolbar {
 	private void addButtons() {
 		myPauseButton = makeButton("PauseButton", myPauseEvent);
 		myPauseButton.setPrefWidth(70);
-		myToolbar.getChildren().addAll(makeButton("LoadGameButton", myLoadGameEvent), makeButton("LoadLevelButton", myLoadLevelEvent),
-				myPauseButton, makeButton("ResetButton", myResetEvent));
+		//myToolbar.getChildren().add(myPauseButton);
+		myToolbar.getChildren().add(makeButton("ResetButton", myResetEvent));
+		//myToolbar.getChildren().addAll(makeButton("LoadGameButton", myLoadGameEvent), makeButton("LoadLevelButton", myLoadLevelEvent),
+				//myPauseButton, makeButton("ResetButton", myResetEvent));
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
@@ -69,7 +71,6 @@ public class Toolbar implements IToolbar {
         String label = myResources.getString(property);
         result.setText(label);
         result.setOnAction(handler);
-        //result.set
         return result;
     }
 	

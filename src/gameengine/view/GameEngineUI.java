@@ -78,7 +78,7 @@ public class GameEngineUI implements IGameEngineUI {
 
 		setUpKeystrokeListeners();
 		setBackgroundImage("Sprite/bird2.gif");
-		setMusic(level.getViewSettings().getMusicFilePath());
+		//setMusic(level.getViewSettings().getMusicFilePath());
 		return scene;
 	}
 
@@ -100,6 +100,7 @@ public class GameEngineUI implements IGameEngineUI {
 			return;
 		URL resource = getClass().getClassLoader().getResource(musicFileName);
 		mediaPlayer = new MediaPlayer(new Media(resource.toString()));
+		mediaPlayer.stop();
 		mediaPlayer.play();
 	}
 
@@ -110,6 +111,10 @@ public class GameEngineUI implements IGameEngineUI {
 	public void mapKeys(Map<KeyCode, String> mappings) {
 		mapKeysToMethods(mappings);
 		setUpKeystrokeListeners();
+	}
+	
+	public void stopMusic() {
+		mediaPlayer.stop();
 	}
 
 	private void setUpMethodMappings() {
@@ -190,7 +195,8 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 
 	private void reset() {
-		System.out.println("reset");
+		mediaPlayer.stop();
+		mediaPlayer.play();
 	}
 
 	private void setUpKeystrokeListeners() {
