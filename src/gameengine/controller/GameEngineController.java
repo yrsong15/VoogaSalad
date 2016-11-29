@@ -161,7 +161,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		gameScroll.getDirections();
 		Class<?> cl = null;
 		try {
-			cl = Class.forName(gameScroll.getScrollType());
+			cl = Class.forName("gameengine.scrolling." + gameScroll.getScrollType());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
