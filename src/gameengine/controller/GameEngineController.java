@@ -121,6 +121,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void endGame() {
 		animation.stop();
 	}
+	public void stopMusic() {
+		gameEngineView.stopMusic();
+	}
 	@Override
 	public void modifyScore(int score) {
 		// TODO Auto-generated method stub

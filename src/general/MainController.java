@@ -118,6 +118,7 @@ public class MainController {
         System.out.println(s);
         myGameEngineStage = new Stage();
         myGameEngineStage.setScene(gameEngineController.getScene());
+        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stopMusic());
         myGameEngineStage.show();
         gameEngineController.startGame();
     }
