@@ -111,9 +111,9 @@ public class MainController {
         ScrollType gameScroll = new ScrollType("gameengine.scrolling.ForcedScrolling");
         gameScroll.addScrollDirection(Direction.RIGHT);
         level.setScrollType(gameScroll);
-        RandomGeneration randomGeneration = new RandomGeneration(0, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
+        RandomGeneration randomGeneration = new RandomGeneration(pipe1, 5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
                 -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
-        level.setRandomGenerations(randomGeneration);
+        level.addRandomGeneration(randomGeneration);
         level.addControl(KeyCode.W, "jump");
         game.addLevel(level);
         game.setCurrentLevel(level);

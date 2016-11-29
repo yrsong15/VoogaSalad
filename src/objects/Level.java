@@ -17,13 +17,13 @@ public class Level implements ILevel{
 	private Map<String, String> loseConditions;
 	private Map<String, Double> gameConditions;
 	private Map<KeyCode, String> controls;
-	private RandomGeneration randomGenerations;
+	private List<RandomGeneration> randomGenerations;
 	private GameObject mainCharacter;
 	private ScrollType scrollType;
 	private LevelSettings viewSettings;
 	public Level(int level) {
 		gameObjects = new ArrayList<GameObject>();
-		randomGenerations = new RandomGeneration(0, 0, 0, 0, 0, 0, 0);
+		randomGenerations = new ArrayList<>();
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
@@ -40,12 +40,12 @@ public class Level implements ILevel{
         return this.scrollType;
     }
 
-	public RandomGeneration getRandomGenRules() {
-		return this.randomGenerations;
+	public List<RandomGeneration> getRandomGenRules() {
+		return randomGenerations;
 	}
 
-	public void setRandomGenerations(RandomGeneration randomGen){
-		this.randomGenerations = randomGen;
+	public void addRandomGeneration(RandomGeneration randomGen){
+		randomGenerations.add(randomGen);
 	}
 	public int getLevel() {
 		return level;

@@ -23,11 +23,9 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
-import objects.GameObject;
-import objects.Level;
-import objects.ScrollType;
+import objects.*;
 import utils.ReflectionUtil;
-import objects.Game;
+
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
  *         Moon
@@ -85,8 +83,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	
 	private void addRGFrames(){
-		RGFrames.add(new RandomGenFrame(this,300,currentGame.getCurrentLevel(),"Pipes.png"));
-		RGFrames.add(new RandomGenFrame(this,300,currentGame.getCurrentLevel(),"bird3.png"));
+        List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
+		for(RandomGeneration randomGeneration : randomGenerations) {
+			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel(), randomGeneration.getGameObject().getImageFileName()));
+		}
 	}
 	public void mapControls() {
 		// NEED TO DO
@@ -112,8 +112,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		gameEngineView.update(currentGame.getCurrentLevel());
 		movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
 		for(RandomGenFrame elem: RGFrames){
-			elem.possiblyGenerateNewFrame(0, currentGame.getCurrentLevel().getRandomGenRules(),
-				this.getClass().getMethod("setNewBenchmark"));
+            for(RandomGeneration randomGeneration : currentGame.getCurrentLevel().getRandomGenRules()) {
+                elem.possiblyGenerateNewFrame(0, randomGeneration,
+                        this.getClass().getMethod("setNewBenchmark"));
+            }
 		}
 		
 		// Level currLevel = currentGame.getCurrentLevel();
