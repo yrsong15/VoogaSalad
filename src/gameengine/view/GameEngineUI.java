@@ -11,7 +11,9 @@ import java.security.Key;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import gameengine.controller.ScrollerController;
 import gameengine.view.interfaces.IGameEngineUI;
@@ -39,19 +41,16 @@ public class GameEngineUI implements IGameEngineUI {
 	public static final double myAppHeight = 775;
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
 	public static final String STYLESHEET = "default.css";
+	public static final String RESOURCE_FILENAME = "GameEngineUI";
+	public static final int FRAMES_PER_SECOND = 60;
+	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
+	private ResourceBundle myResources;
 	private Scene scene;
 	private Level level;
 	private ScrollerController scrollerController;
-
+	private ErrorMessage myErrorMessage;
 	private MovementInterface movementInterface;
-
-	public GameEngineUI(MovementInterface movementInterface) {
-		this.movementInterface = movementInterface;
-		scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-		setUpMethodMappings();
-	}
-
 	private String myGameFileLocation;
 	private String myLevelFileLocation;
 	private IToolbar toolbar;
@@ -61,8 +60,13 @@ public class GameEngineUI implements IGameEngineUI {
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
 
-	public static final int FRAMES_PER_SECOND = 60;
-	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	public GameEngineUI(MovementInterface movementInterface) {
+		myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
+		myErrorMessage = new ErrorMessage();
+		this.movementInterface = movementInterface;
+		scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		setUpMethodMappings();
+	}
 
 	// public GameEngineUI(Level level, MovementInterface movementInterface) {
 	public Scene setLevel(Level level) {
@@ -76,9 +80,10 @@ public class GameEngineUI implements IGameEngineUI {
 		// scrollerController = new ScrollerController();
 		// scrollerController.setScene(scene);
 
+		//setBackgroundImage("chicken");
+		
 		setUpKeystrokeListeners();
-		setBackgroundImage("Sprite/bird2.gif");
-		//setMusic(level.getViewSettings().getMusicFilePath());
+		
 		return scene;
 	}
 
@@ -96,16 +101,23 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 
 	public void setMusic(String musicFileName) {
-		if (musicFileName == null)
-			return;
-		URL resource = getClass().getClassLoader().getResource(musicFileName);
-		mediaPlayer = new MediaPlayer(new Media(resource.toString()));
-		mediaPlayer.stop();
-		mediaPlayer.play();
+		try {
+			URL resource = getClass().getClassLoader().getResource(musicFileName);
+			mediaPlayer = new MediaPlayer(new Media(resource.toString()));
+			mediaPlayer.stop();
+			mediaPlayer.play();
+		} catch (Exception e) {
+			myErrorMessage.showError(myResources.getString("MusicFileError"));
+		}
 	}
 
 	public void setBackgroundImage(String imageFile) {
-		gameScreen.setBackgroundImage(imageFile);
+		try {
+			gameScreen.setBackgroundImage(imageFile);
+		} catch (Exception e) {
+			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
+		}
+		
 	}
 
 	public void mapKeys(Map<KeyCode, String> mappings) {
@@ -159,7 +171,7 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(event -> loadGame(), event -> loadLevel(), event -> pause(), event -> reset());
+		toolbar = new Toolbar(myResources, event -> loadGame(), event -> loadLevel(), event -> pause(), event -> reset());
 		return toolbar.getToolbar();
 	}
 

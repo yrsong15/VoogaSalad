@@ -62,8 +62,8 @@ public class MainController {
 
     public void presentEditor() {
         myGameEditorStage = new Stage();
-        
         myGameEditorController = new GameEditorFrontEndController();
+        
         Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
@@ -114,6 +114,7 @@ public class MainController {
         game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
         GameEngineController gameEngineController = new GameEngineController();
+        
         gameEngineController.setCurrentXML(s);
         System.out.println(s);
         myGameEngineStage = new Stage();

@@ -63,6 +63,9 @@ public void addBackgroundImage(String filePath);
 
 public void addBackgroundMusic (String musicFilePath);
 
+public void addScrollWidth(double scrollWidth);
+
+
 }
 
 

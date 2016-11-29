@@ -89,7 +89,7 @@ public class DesignArea implements IDesignArea {
 	@Override
 	public void removeSprite(GameObject sprite) {
 		mySprites.remove(sprite);
-		myPane.getChildren().remove(sprite);
+		myPane.getChildren().remove(sprite.getImageView());
 	}
 
 	@Override
@@ -118,8 +118,6 @@ public class DesignArea implements IDesignArea {
 		GameObject sprite = checkForSprite(x, y);
 		if (clickEnabled && sprite != null){
 			mySelectDetail.initLevel2(sprite);
-			System.out.println("Click");
-
 		}
 	}
 	
@@ -141,8 +139,7 @@ public class DesignArea implements IDesignArea {
     private void handleDrag(double x, double y) {
     	if (clickEnabled && mySelectedSprite != null){
     		mySelectDetail.updateSpriteDetails(x, y);
-			mySelectedSprite.getImageView().setLayoutX(x);
-			mySelectedSprite.getImageView().setLayoutY(y);
+			mySelectedSprite.setLayout(x, y);
 		}    	
 	}
 

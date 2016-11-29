@@ -66,8 +66,6 @@ public class LevelManager implements  ICreateLevel{
 //        myLevel.setTime(time);
 //    }
     
-    
-    
 //
 //    @Override
 //    public void addGameObjectToLevel(GameObject ob) {
