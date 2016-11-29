@@ -29,7 +29,7 @@ import objects.Level;
  */
 public class GameScreen implements IGameScreen {
 	public static final double screenWidth = GameEngineUI.myAppWidth;
-	public static final double screenHeight = GameEngineUI.myAppHeight - 75;
+	public static final double screenHeight = GameEngineUI.myAppHeight - 100;
 
 	private Pane myScreen;
 

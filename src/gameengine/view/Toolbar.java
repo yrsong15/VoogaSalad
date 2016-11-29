@@ -29,14 +29,15 @@ public class Toolbar implements IToolbar {
 	private EventHandler<ActionEvent> myResetEvent;
 	private Button myPauseButton;
 	
-	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadGame, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause,
-			EventHandler<ActionEvent> reset) {
+	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadGame, EventHandler<ActionEvent> loadLevel, 
+			EventHandler<ActionEvent> pause, EventHandler<ActionEvent> reset) {
 		myResources = resources;
 		myLoadGameEvent = loadGame;
 		myLoadLevelEvent = loadLevel;
 		myPauseEvent = pause;
 		myResetEvent = reset;
 		myToolbar = new HBox();
+		myToolbar.setPrefHeight(40);
 		addButtons();
 	}
 
