@@ -270,7 +270,7 @@ public class GalleryView {
                 + System.getProperty("user.dir")
                 + "/images/Background/spinningScreens.jpg";
         Image background = new Image(userDirectoryString);
-        System.out.println(userDirectoryString);
+        //System.out.println(userDirectoryString);
         ImageView backgroundImageGalleryScreen = new ImageView(background);
         backgroundImageGalleryScreen.setTranslateY(0);
         backgroundImageGalleryScreen.setTranslateX(0);
