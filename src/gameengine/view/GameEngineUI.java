@@ -73,19 +73,8 @@ public class GameEngineUI implements IGameEngineUI {
 		setUpMethodMappings();
 	}
 
-	// public GameEngineUI(Level level, MovementInterface movementInterface) {
 	public Scene setLevel(Level level) {
 		this.level = level;
-		// scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
-
-		// TODO: Instantiate the proper ScrollerController depending on game
-		// type, right now ScrollerController is abstract
-		// All of the instantiable scrollercontrollers are in
-		// gameengine.controller package
-		// scrollerController = new ScrollerController();
-		// scrollerController.setScene(scene);
-
-		//setBackgroundImage("chicken");
 		
 		setUpKeystrokeListeners();
 		
@@ -208,7 +197,7 @@ public class GameEngineUI implements IGameEngineUI {
 		levelChooser.setTitle("Open Level File");
 		File levelFile = levelChooser.showOpenDialog(new Stage());
 		myLevelFileLocation = levelFile.getAbsolutePath();
-		System.out.println(myLevelFileLocation);
+		//System.out.println(myLevelFileLocation);
 	}
 
 	private void pause() {
@@ -242,5 +231,4 @@ public class GameEngineUI implements IGameEngineUI {
 			}
 		});
 	}
-
 }

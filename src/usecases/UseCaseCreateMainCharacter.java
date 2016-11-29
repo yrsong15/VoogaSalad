@@ -29,7 +29,7 @@ public class UseCaseCreateMainCharacter{
 		try {
 			build = dFact.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			System.out.println("Error in initializing document!");
+			//System.out.println("Error in initializing document!");
 		}
         myXML = build.newDocument();
         Element root = myXML.createElement("root");

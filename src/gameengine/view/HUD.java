@@ -34,7 +34,6 @@ public class HUD {
 		for (String stat : myStatMap.keySet()) {
 			Label label = new Label(stat + ":  " + myStatMap.get(stat));
 			label.minWidth(40);
-			System.out.println("hey");
 			myHUD.getChildren().add(label);
 		}
 	}

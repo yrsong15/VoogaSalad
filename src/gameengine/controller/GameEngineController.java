@@ -43,6 +43,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public static final double FRAMES_PER_SECOND = 10;
 	public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
+
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
@@ -99,10 +100,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void updateGame() throws ClassNotFoundException, InstantiationException, IllegalArgumentException,
 			InvocationTargetException, IllegalAccessException, NoSuchMethodException, SecurityException {
 		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
-		// movementController.scroll();
-		//lim.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
 		gameScrolling.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
-
 		setChanged();
 		notifyObservers();
 		gameEngineView.update(currentGame.getCurrentLevel());
@@ -113,7 +111,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
                         this.getClass().getMethod("setNewBenchmark"));
             }
 		}
-		
 		 Level currLevel = currentGame.getCurrentLevel();
 		 collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(), currentGame.getCurrentLevel().getGameObjects());
 //		 LossChecker.checkLossConditions((RuleActionHandler)this,
@@ -152,7 +149,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	
 	private void setScrolling(){
 		ScrollType gameScroll = currentGame.getCurrentLevel().getscrollType();
-		System.out.println(gameScroll);
+		//System.out.println(gameScroll);
 		gameScroll.getDirections();
 		Class<?> cl = null;
 		try {

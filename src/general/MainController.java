@@ -43,7 +43,7 @@ public class MainController {
     }
 
     public void presentGallery() throws IOException {
-        System.out.println("present");
+        //System.out.println("present");
         initializeGallery();
         myGalleryView = new GalleryView(myGallery, this);
         myGalleryStage.setScene(myGalleryView.getScene());
