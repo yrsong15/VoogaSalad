@@ -64,10 +64,12 @@ public class MainController {
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorFrontEndController();
-        
         Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
+        
+        myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
+         
     }
 
     public void launchEngine(String XMLData){
@@ -126,5 +128,14 @@ public class MainController {
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stopMusic());
         myGameEngineStage.show();
         gameEngineController.startGame();
+    }
+    
+    private void sendDataToEngine(){
+        
+        String title = myGameEditorController.getGameTitle();
+        String gameFile = myGameEditorController.getGameFile();
+        
+        //System.out.println(" Title : " + title);
+        //System.out.println(gameFile); 
     }
 }
