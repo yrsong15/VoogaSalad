@@ -10,6 +10,7 @@ import java.util.Observable;
 
 import com.sun.javafx.scene.traversal.Direction;
 
+import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
@@ -31,7 +32,7 @@ import utils.ReflectionUtil;
  *         Moon
  *
  */
-public class GameEngineController extends Observable implements RuleActionHandler, RGInterface {
+public class GameEngineController extends Observable implements RuleActionHandler, RGInterface, CommandInterface {
 	private ArrayList<RandomGenFrame> RGFrames;
 	private String xmlData;
 	private GameParser parser;
@@ -49,7 +50,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
 		movementChecker = new MovementChecker();
-		movementController = new MovementController();
+		movementController = new MovementController(this);
 		gameEngineView = new GameEngineUI(movementController);
 		RGFrames = new ArrayList<>();
 	}
@@ -106,15 +107,14 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		// movementController.scroll();
 		//lim.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
 		gameScrolling.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
-
 		setChanged();
 		notifyObservers();
+		removeOffscreenElements();
 		gameEngineView.update(currentGame.getCurrentLevel());
 		movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
 		for(RandomGenFrame elem: RGFrames){
             for(RandomGeneration randomGeneration : currentGame.getCurrentLevel().getRandomGenRules()) {
-                elem.possiblyGenerateNewFrame(0, randomGeneration,
-                        this.getClass().getMethod("setNewBenchmark"));
+                elem.possiblyGenerateNewFrame(0, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
             }
 		}
 		
@@ -125,6 +125,22 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		// currLevel.getLoseConditions(), currLevel.getGameConditions());
 		// WinChecker.checkWinConditions((RuleActionHandler)this,
 		// currLevel.getWinConditions(), currLevel.getGameConditions());
+	}
+	
+	private void removeOffscreenElements() {
+		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
+		if(objects.size() == 0 || objects == null) return;
+		for(int i=1; i<objects.size();){//CHANGE WHEN OBJECT LIST FIXED, BIRD SHOULDN"T BE FIRST OBJECT
+			if(objects.get(i).getXPosition()> -GameEngineUI.myAppWidth || objects.get(i) == null) break;//CHANGE THIS TO PIPE WIDTH
+			deReferenceObject(i);
+			//-700 IS HARD CODED, SHOULD BE - SCREEN WIDTH
+			objects.remove(i);
+		}
+		//System.out.println(objects.get(1).getXPosition());
+	}
+	
+	private void deReferenceObject(int index) {
+		currentGame.getCurrentLevel().removeGameObject(index);	
 	}
 	public void setNewBenchmark() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
@@ -157,7 +173,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	
 	private void setScrolling(){
 		ScrollType gameScroll = currentGame.getCurrentLevel().getscrollType();
-		System.out.println(gameScroll);
+		//System.out.println(gameScroll);
 		gameScroll.getDirections();
 		Class<?> cl = null;
 		try {
@@ -180,5 +196,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public void reset() {
+		animation.stop();
+		startGame();
 	}
 }

@@ -61,10 +61,10 @@ public class GameEngineUI implements IGameEngineUI {
 	private Map<String, Method> methodMappings = new HashMap<>();
 
 	public GameEngineUI(MovementInterface movementInterface) {
-		myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
-		myErrorMessage = new ErrorMessage();
+		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
+		this.myErrorMessage = new ErrorMessage();
 		this.movementInterface = movementInterface;
-		scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		setUpMethodMappings();
 	}
 
@@ -191,7 +191,7 @@ public class GameEngineUI implements IGameEngineUI {
 		levelChooser.setTitle("Open Level File");
 		File levelFile = levelChooser.showOpenDialog(new Stage());
 		myLevelFileLocation = levelFile.getAbsolutePath();
-		System.out.println(myLevelFileLocation);
+		//System.out.println(myLevelFileLocation);
 	}
 
 	private void pause() {
@@ -209,6 +209,7 @@ public class GameEngineUI implements IGameEngineUI {
 	private void reset() {
 		mediaPlayer.stop();
 		mediaPlayer.play();
+		movementInterface.reset();
 	}
 
 	private void setUpKeystrokeListeners() {

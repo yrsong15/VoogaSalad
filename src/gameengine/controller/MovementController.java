@@ -1,6 +1,7 @@
 package gameengine.controller;
 
 
+import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.MovementHandler;
 import gameengine.controller.interfaces.MovementInterface;
 import javafx.scene.Scene;
@@ -14,7 +15,12 @@ public class MovementController implements MovementInterface{
     private Scene myScene;
     private MovementHandler handler;
     private Game currentGame;
-
+    private CommandInterface commandInterface;
+    
+    public MovementController(CommandInterface commandInterface){
+    	this.commandInterface = commandInterface;
+    }
+    
     public void setGame(Game currentGame){
         this.currentGame = currentGame;
     }
@@ -68,9 +74,16 @@ public class MovementController implements MovementInterface{
     public void shootProjectile() {
 
     }
-
-
+	
     public void scroll(){
         moveRight();
     }
+
+	@Override
+	public void reset() {
+
+		commandInterface.reset();
+	}
+
+
 }
