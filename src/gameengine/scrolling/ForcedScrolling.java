@@ -4,16 +4,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import com.sun.javafx.scene.traversal.Direction;
+
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
 public class ForcedScrolling implements Scrolling{
-	private ScrollDirection direction;
+	private Direction direction;
 	private double scrollingSpeed;
 	
 	
-	public ForcedScrolling(ScrollDirection dir, double speed){
+	public ForcedScrolling(Direction dir, double speed){
 		this.direction = dir;
 		this.scrollingSpeed = speed;
 	}

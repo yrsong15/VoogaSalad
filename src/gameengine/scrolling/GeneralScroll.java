@@ -12,7 +12,7 @@ import objects.GameObject;
  */
 public class GeneralScroll {
 	
-	    public void scrollUp(List<GameObject> gameObjects, GameObject mainChar, double speed){
+	    public void scrollUP(List<GameObject> gameObjects, GameObject mainChar, double speed){
 			for(GameObject obstacle: gameObjects){
 	            if (obstacle== mainChar){
 	                continue;
@@ -22,7 +22,7 @@ public class GeneralScroll {
 			}
 	    }
 
-	    public void scrollDown(List<GameObject> gameObjects, GameObject mainChar, double speed){
+	    public void scrollDOWN(List<GameObject> gameObjects, GameObject mainChar, double speed){
 	    	for(GameObject obstacle: gameObjects){
 	            if (obstacle== mainChar){
 	                continue;
@@ -32,7 +32,7 @@ public class GeneralScroll {
 	    	}
 	    }
 
-	    public void scrollRight(List<GameObject> gameObjects, GameObject mainChar, double speed){
+	    public void scrollRIGHT(List<GameObject> gameObjects, GameObject mainChar, double speed){
 	        for(GameObject obstacle: gameObjects){
 	            if (obstacle== mainChar){
 	                continue;
@@ -42,7 +42,7 @@ public class GeneralScroll {
 	        }
 	    }
 
-	    public void scrollLeft(List<GameObject> gameObjects, GameObject mainChar, double speed){
+	    public void scrollLEFT(List<GameObject> gameObjects, GameObject mainChar, double speed){
 	        for(GameObject obstacle: gameObjects){
 	            if (obstacle== mainChar){
 	                continue;
