@@ -12,9 +12,11 @@ import objects.Level;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.sun.javafx.scene.traversal.Direction;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import objects.RandomGeneration;
+import objects.ScrollType;
 
 public class MainController {
     public static final String STYLESHEET = "default.css";
@@ -106,6 +108,9 @@ public class MainController {
         level.addGameObject(pipe4);
         level.addGameObject(pipe5);
         level.addGameObject(ground);
+        ScrollType gameScroll = new ScrollType("gameengine.scrolling.ForcedScrolling");
+        gameScroll.addScrollDirection(Direction.RIGHT);
+        level.setScrollType(gameScroll);
         RandomGeneration randomGeneration = new RandomGeneration(0, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
                 -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
         level.setRandomGenerations(randomGeneration);

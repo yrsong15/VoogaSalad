@@ -1,4 +1,5 @@
 package gameengine.controller;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Key;
 import java.util.ArrayList;
@@ -6,13 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+
+import com.sun.javafx.scene.traversal.Direction;
+
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.model.MovementChecker;
 import gameengine.model.RandomGenFrame;
+import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
-import gameengine.scrolling.ScrollDirection;
 import gameengine.view.GameEngineUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,6 +25,8 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import objects.GameObject;
 import objects.Level;
+import objects.ScrollType;
+import utils.ReflectionUtil;
 import objects.Game;
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
@@ -37,7 +43,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private GameEngineUI gameEngineView;
 	private Timeline animation;
 	private MovementController movementController;
-	private LimitedScrolling lim;
+	private Scrolling gameScrolling;
 	public static final double FRAMES_PER_SECOND = 10;
 	public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
@@ -47,7 +53,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		movementChecker = new MovementChecker();
 		movementController = new MovementController();
 		gameEngineView = new GameEngineUI(movementController);
-		lim = new LimitedScrolling(ScrollDirection.Right, 30);
 		RGFrames = new ArrayList<>();
 	}
 	public void startGame() {
@@ -58,6 +63,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
 		gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
+		setScrolling();
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
 			try {
 				updateGame();
@@ -98,7 +104,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 			InvocationTargetException, IllegalAccessException, NoSuchMethodException, SecurityException {
 		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
 		// movementController.scroll();
-		lim.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
+		//lim.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
+		gameScrolling.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
+
 		setChanged();
 		notifyObservers();
 		gameEngineView.update(currentGame.getCurrentLevel());
@@ -143,5 +151,32 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public Scene getScene() {
 		currentGame = parser.convertXMLtoGame(xmlData);
 		return gameEngineView.getScene();
+	}
+	
+	private void setScrolling(){
+		ScrollType gameScroll = currentGame.getCurrentLevel().getscrollType();
+		System.out.println(gameScroll);
+		gameScroll.getDirections();
+		Class<?> cl = null;
+		try {
+			cl = Class.forName(gameScroll.getScrollType());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Constructor<?> cons = null;
+		try {
+			cons = cl.getConstructor(Direction.class, double.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), 30);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

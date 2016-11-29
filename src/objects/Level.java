@@ -37,7 +37,7 @@ public class Level implements ILevel{
 
     @Override
     public ScrollType getscrollType() {
-        return null;
+        return this.scrollType;
     }
 
 	public RandomGeneration getRandomGenRules() {
