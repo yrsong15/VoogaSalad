@@ -48,7 +48,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		collisionChecker = new CollisionChecker(this);
 		movementChecker = new MovementChecker();
 		movementController = new MovementController();
-		gameEngineView = new GameEngineUI(movementController);
+		gameEngineView = new GameEngineUI(movementController, null);
 		RGFrames = new ArrayList<>();
 	}
 	public void startGame() {
