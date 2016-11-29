@@ -18,8 +18,8 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	private VBox myVBox = new VBox();
 	
 	private Label mySelectLabel;
-	private TextArea myXTextArea;
-	private TextArea myYTextArea;
+	private TextArea myXTextArea = new TextArea();
+	private TextArea myYTextArea = new TextArea();
 	private ImageView myIV;
 	private GameObject myGO;
 	private Pane myImagePane;
@@ -44,6 +44,7 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	}
 	
 	public void initLevel2(GameObject sprite){
+		init();
 		myGO = sprite;
 		mySelectLabel.setTextFill(Color.LIGHTGREY);
 		createTypeLabel();
@@ -55,12 +56,6 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	
 	public void clearSelect(){
 		init();
-		myXTextArea = null;
-		myYTextArea = null;
-		myIV = null;
-		myGO = null;
-		myImagePane = null;
-		myType = null;
 	}
 	
 	public void updateSpriteDetails(double x, double y){
@@ -79,8 +74,7 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	}
 	
 	private void handleUpdate() {
-		myGO.getImageView().setLayoutX(Double.parseDouble(myXTextArea.getText()));
-		myGO.getImageView().setLayoutY(Double.parseDouble(myYTextArea.getText()));		
+		myGO.update(Double.parseDouble(myXTextArea.getText()), Double.parseDouble(myYTextArea.getText()));		
 	}
 
 	private void addSelectLabel(){
@@ -93,16 +87,15 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	}	
 	
 	public void createPos(){
-		myXTextArea = createPosBP("X Pos: ", myGO.getImageView().getLayoutX());
-		myYTextArea = createPosBP("Y Pos: ", myGO.getImageView().getLayoutY());
+		myXTextArea = createPosBP("X Pos: ", myGO.getX(), myXTextArea);
+		myYTextArea = createPosBP("Y Pos: ", myGO.getY(), myYTextArea);
 	}
 	
-	public TextArea createPosBP(String label, double locationValue){
+	public TextArea createPosBP(String label, double locationValue, TextArea ta){
 		BorderPane bp = new BorderPane();
 		bp.setMinWidth(paddedPaneWidth);
 		bp.setMaxWidth(paddedPaneWidth);
 		Label labl = createLbl(label);
-		TextArea ta = new TextArea();
 		ta.setText(Double.toString(locationValue));
 		ta.setMinWidth(cbWidth); ta.setMaxWidth(cbWidth);
 		ta.setMinHeight(cbHeight); ta.setMaxHeight(cbHeight);
@@ -113,7 +106,7 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		myVBox.getChildren().add(bp);
 		return ta;
 	}
-	
+
 	public void createImageZone(){
 		double imageZoneWidth = DetailResources.OBJECT_IMAGE_ZONE_WIDTH.getDoubleResource();
 		double imageZoneHeight = DetailResources.OBJECT_IMAGE_ZONE_HEIGHT.getDoubleResource();

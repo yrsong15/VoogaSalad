@@ -30,6 +30,5 @@ public interface IDesignArea {
     public void enableClick(ISelectDetail sd);
     
     public void disableClick();
-
         
 }

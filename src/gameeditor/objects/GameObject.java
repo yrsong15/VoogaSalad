@@ -55,8 +55,27 @@ public class GameObject {
 		return myImageView;
 	}
 	
+	public void setLayout(double x, double y){
+		myImageView.setLayoutX(x);
+		myImageView.setLayoutY(y);
+	}
+	
+	public double getX(){
+		return myImageView.getLayoutX();
+	}
+	
+	public double getY(){
+		return myImageView.getLayoutY();
+	}
+	
 	public String getType(){
 		return myType;
+	}
+	
+	public void update(double x, double y){
+		setLayout(x, y);
+		myDesignArea.removeSprite(this);
+		myDesignArea.addSprite(this);
 	}
 
 }

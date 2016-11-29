@@ -1,11 +1,14 @@
 package gameeditor.controller;
+
 import java.util.HashMap;
 import gameeditor.controller.interfaces.IGameEditorFrontEndController;
 import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
+import gameeditor.xml.XMLSerializer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 import objects.Level;
 import objects.interfaces.ILevel;
 /**
@@ -28,11 +32,18 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private GameEditorBackendController myGameEditorBackEndController;
     private LevelManager myLevelManager;
     private boolean isInitialStage;
+    
+    public static final String DEFAULT_GAME_TITLE = "Untitled";
+//    private XMLSerializer mySerializer;
 
     
     public Parent startEditor() {
         myLevelManager = new LevelManager();
+        
         myGameEditorBackEndController = new GameEditorBackendController();
+        
+        myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
+         
         myEditorLevels= new EditorLevels();
         Parent parent = myEditorLevels.createRoot();
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
@@ -48,14 +59,13 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     
     private void addGameTitleListener(){
         myEditorLevels.getGameTitle().addListener(new ChangeListener<String>(){
-
             @Override
             public void changed (ObservableValue<? extends String> observable,
                                  String oldValue,
-                                 String newValue) {
-               myGameEditorBackEndController.createGame(newValue.toString()); 
+                                 String newValue) { 
+               //System.out.println(" Game Title Changed: " );
+               myGameEditorBackEndController.setGameName(newValue.toString()); 
             }
-            
         });
     }
     
@@ -82,12 +92,17 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
             myGameEditor=myLevelEditorMap.get(activeButtonId);
             setSavedLevelRoot();
         } else{
-            Level level = new Level(Integer.parseInt(activeButtonId));
+            Level level = new Level(Integer.parseInt(activeButtonId) + 1);
             ILevel levelInterface = (ILevel) level;
             myLevelManager.createLevel(level,levelInterface);
             myGameEditor = new GameEditorView(levelInterface);
             myLevelEditorMap.put(activeButtonId, myGameEditor);  
             setNewLevelSceneRoot();
+   
+            // Create new Level in back end
+            myGameEditorBackEndController.setCurrentLevel(level);
+            myGameEditorBackEndController.addCurrentLevelToGame();
+            
         }
         displayInitialStage();
     }
@@ -110,8 +125,9 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     } 
     
     private void loadGame(){
-        // TODO: Create XMl Stuff Here 
-        
+        // TODO: How is the Game object going to be passed onto the Game Engine?
+    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
+    	myGameEditorBackEndController.getGame();
     }
     
     private void setSavedLevelRoot(){
