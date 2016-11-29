@@ -7,6 +7,7 @@ import java.util.Random;
  */
 public class RandomGeneration<T> {
 
+    private GameObject gameObject;
     private T numObjects;
     private T minX;
     private T maxX;
@@ -15,7 +16,8 @@ public class RandomGeneration<T> {
     private T minSpacing;
     private T maxSpacing;
 
-    public RandomGeneration(T numObjects, T minX, T maxX, T minY, T maxY, T minSpacing, T maxSpacing){
+    public RandomGeneration(GameObject gameObject, T numObjects, T minX, T maxX, T minY, T maxY, T minSpacing, T maxSpacing){
+        this.gameObject = gameObject;
         this.numObjects = numObjects;
         this.minX = minX;
         this.maxX = maxX;
@@ -25,7 +27,8 @@ public class RandomGeneration<T> {
         this.maxSpacing = maxSpacing;
 
     }
-    
+
+    public GameObject getGameObject(){return gameObject;}
     public T getNumObjects(){
     	return numObjects;
     }

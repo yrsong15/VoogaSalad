@@ -39,7 +39,6 @@ implements IGameEditorController, ICreateGame, ICreateGameObject {
 
     @Override
     public void createGame(String title) {
-        System.out.println("Created Game " + title);
         Game game = new Game(title);
         myGame = game;
     }
@@ -70,6 +69,10 @@ implements IGameEditorController, ICreateGame, ICreateGameObject {
     
     public String serializeGame(){
     	return mySerializer.serializeGame(myGame);
+    }
+    
+    public void setGameName(String name){
+        myGame.setGameName(name);
     }
 
 }

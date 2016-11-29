@@ -92,8 +92,6 @@ public class EditorLevels {
     private void addGameTitleListener(TextField myGameName){
         if(myGameName.getText()!=null && !myGameName.getText().isEmpty()){
             myGameTitle.set(myGameName.getText());
-        }else{
-            myGameTitle.set(DEFAULT_GAME_TITLE);
         }
     }
     
@@ -116,7 +114,7 @@ public class EditorLevels {
     }
 
     public void addNewLevel(){
-        Button level = new Button("Level " + (myVBox.getChildren().size()+ 1)) ;
+        Button level = new Button("Level " + (myVBox.getChildren().size() + 1)) ;
         level.setId(Integer.toString(myVBox.getChildren().size()));
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
         ImageView levelIcon = new ImageView(new Image(userDirectoryString));
@@ -154,9 +152,5 @@ public class EditorLevels {
     public void setOnLoadGameButton(EventHandler<MouseEvent> handler){
         loadGameButton.setOnMouseClicked(handler);
     }
-    
-//    public void setOnGameTitleSubmitButton(EventHandler<MouseEvent> handler){
-//        submitButton.setOnMouseClicked(handler);
-//    }
     
 }

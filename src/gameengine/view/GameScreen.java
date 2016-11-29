@@ -44,7 +44,6 @@ public class GameScreen implements IGameScreen {
 	
 	@Override
 	public void setBackgroundImage(String imageFile) {
-		if(imageFile==null) return;
 		BackgroundImage bi = new BackgroundImage(new Image(getClass().getClassLoader().getResourceAsStream(imageFile), 
 				screenWidth, screenHeight, false, true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 		        BackgroundSize.DEFAULT);
