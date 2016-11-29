@@ -69,7 +69,7 @@ public class GameEngineUI implements IGameEngineUI {
 	public GameEngineUI(MovementInterface movementInterface, EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
-
+		this.myResetEvent = resetEvent;
 		this.movementInterface = movementInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		setUpMethodMappings();
@@ -109,9 +109,11 @@ public class GameEngineUI implements IGameEngineUI {
 
 	public void setMusic(String musicFileName) {
 		try {
+			if (mediaPlayer != null) {
+				mediaPlayer.stop();
+			}
 			URL resource = getClass().getClassLoader().getResource(musicFileName);
 			mediaPlayer = new MediaPlayer(new Media(resource.toString()));
-			mediaPlayer.stop();
 			mediaPlayer.play();
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("MusicFileError"));
@@ -139,6 +141,12 @@ public class GameEngineUI implements IGameEngineUI {
 	public void updateStat(String name, String value) {
 		myHUD.addStat(name, value);
 		myHUD.updateStats();
+	}
+	
+	public void resetMusic() {
+		mediaPlayer.stop();
+		mediaPlayer.play();
+		//movementInterface.reset();
 	}
 
 	private void setUpMethodMappings() {
@@ -223,12 +231,6 @@ public class GameEngineUI implements IGameEngineUI {
 			toolbar.pause();
 			mediaPlayer.pause();
 		}
-	}
-
-	private void resetMusic() {
-		mediaPlayer.stop();
-		mediaPlayer.play();
-		movementInterface.reset();
 	}
 
 	private void setUpKeystrokeListeners() {
