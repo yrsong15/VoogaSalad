@@ -43,7 +43,7 @@ public class MainController {
     }
 
     public void presentGallery() throws IOException {
-        System.out.println("present");
+        //System.out.println("present");
         initializeGallery();
         myGalleryView = new GalleryView(myGallery, this);
         myGalleryStage.setScene(myGalleryView.getScene());
@@ -77,7 +77,7 @@ public class MainController {
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 150, 100, "bird3.png", new HashMap<>());
         bird.setProperty("gravity", "1.2");
-        bird.setProperty("health", "30");
+        bird.setProperty("health", "100000");
         bird.setProperty("jump", "600");
         GameObject pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
         pipe1.setProperty("damage","30");
@@ -122,10 +122,9 @@ public class MainController {
         GameEngineController gameEngineController = new GameEngineController();
         
         gameEngineController.setCurrentXML(s);
-        System.out.println(s);
         myGameEngineStage = new Stage();
         myGameEngineStage.setScene(gameEngineController.getScene());
-        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stopMusic());
+        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
         gameEngineController.startGame();
     }

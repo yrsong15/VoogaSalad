@@ -33,6 +33,7 @@ public class GeneralScroll {
 	    }
 
 	    public void scrollRIGHT(List<GameObject> gameObjects, GameObject mainChar, double speed){
+	    	//System.out.println("Running with speed: " + speed);
 	        for(GameObject obstacle: gameObjects){
 	            if (obstacle== mainChar){
 	                continue;
