@@ -55,11 +55,10 @@ public class MainController {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
 // 	   this.gallery = new Gallery();
-// 	   for(int i = 0; i < 40; i++)
-// 	   {
-// 		   myGallery.addToGallery(new GameFile());
-// 	   }
-// 	   this.galleryStage = new Stage();
+ 	   for(int i = 0; i < 40; i++)
+ 	   {
+ 		   myGallery.addToGallery(new GameFile());
+ 	   }
     }
 
     public void presentEditor() {
