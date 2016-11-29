@@ -113,6 +113,7 @@ public class EditorLevels {
     }
 
     public void addNewLevel(){
+//        ButtonTemplate newLevelButton = new ButtonTemplate("Level " + (myVBox.getChildren().size() + 1));
         Button level = new Button("Level " + (myVBox.getChildren().size() + 1)) ;
         level.setId(Integer.toString(myVBox.getChildren().size()));
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
