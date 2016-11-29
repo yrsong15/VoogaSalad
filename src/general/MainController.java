@@ -1,5 +1,5 @@
 package general;
-import gameeditor.controller.GameEditorFrontEndController;
+import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
 import gameengine.view.GameEngineUI;
 import javafx.scene.Scene;
@@ -28,7 +28,7 @@ public class MainController {
     private Stage myGameEditorStage;
     private Stage myGameEngineStage;
     //private GameEditorView myGameEditorView;
-    private GameEditorFrontEndController myGameEditorController;
+    private GameEditorController myGameEditorController;
     private GameEngineController myGameEngineController;
 
     public MainController(Stage stage) {
@@ -43,7 +43,9 @@ public class MainController {
         initializeGallery();
     }
 
+
     public void presentGallery() {
+        //System.out.println("present");
         myGalleryView = new GalleryView(myGallery, this);
         myGalleryStage.setScene(myGalleryView.getScene());
         myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
@@ -70,7 +72,7 @@ public class MainController {
 
     public void presentEditor() {
         myGameEditorStage = new Stage();
-        myGameEditorController = new GameEditorFrontEndController();
+        myGameEditorController = new GameEditorController();
         Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
@@ -80,11 +82,11 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-    /*	XStream mySerializer = new XStream(new DomDriver());
+    	XStream mySerializer = new XStream(new DomDriver());
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 150, 100, "bird3.png", new HashMap<>());
         bird.setProperty("gravity", "1.2");
-        bird.setProperty("health", "30");
+        bird.setProperty("health", "100000");
         bird.setProperty("jump", "600");
         GameObject pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
         pipe1.setProperty("damage","30");
@@ -129,12 +131,11 @@ public class MainController {
         GameEngineController gameEngineController = new GameEngineController();
         
         gameEngineController.setCurrentXML(s);
-        System.out.println(s);
         myGameEngineStage = new Stage();
         myGameEngineStage.setScene(gameEngineController.getScene());
-        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stopMusic());
+        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
-        gameEngineController.startGame(); */
+        gameEngineController.startGame(); 
     	System.out.println(XMLData);
     }
     
