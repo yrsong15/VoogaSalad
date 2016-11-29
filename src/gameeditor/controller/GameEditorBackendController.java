@@ -26,7 +26,6 @@ implements IGameEditorController, ICreateGame, ICreateGameObject {
     private Level myCurrentLevel;
     private GameObject myGameObject;
     private XMLSerializer mySerializer;
-//    private HashMap<String, String> myControlMap;
 
     public GameEditorBackendController(){
     	mySerializer = new XMLSerializer();
