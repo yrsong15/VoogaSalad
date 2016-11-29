@@ -48,8 +48,8 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
 		movementChecker = new MovementChecker();
-		movementController = new MovementController();
-		gameEngineView = new GameEngineUI(movementController, null);
+		movementController = new MovementController(this);
+		gameEngineView = new GameEngineUI(movementController, event -> reset());
 
 		RGFrames = new ArrayList<>();
 	}
@@ -197,5 +197,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void reset() {
 		animation.stop();
 		startGame();
+		gameEngineView.resetMusic();
 	}
 }
