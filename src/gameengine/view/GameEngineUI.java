@@ -20,10 +20,13 @@ import gameengine.view.interfaces.IGameEngineUI;
 import gameengine.view.interfaces.IGameScreen;
 import gameengine.view.interfaces.IToolbar;
 import gameengine.controller.interfaces.MovementInterface;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -54,15 +57,19 @@ public class GameEngineUI implements IGameEngineUI {
 	private String myGameFileLocation;
 	private String myLevelFileLocation;
 	private IToolbar toolbar;
+	private HUD myHUD;
 	private IGameScreen gameScreen;
 	private boolean isPaused;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
+	private EventHandler<ActionEvent> myResetEvent;
 
-	public GameEngineUI(MovementInterface movementInterface) {
+
+	public GameEngineUI(MovementInterface movementInterface, EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
+
 		this.movementInterface = movementInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		setUpMethodMappings();
@@ -128,6 +135,11 @@ public class GameEngineUI implements IGameEngineUI {
 	public void stopMusic() {
 		mediaPlayer.stop();
 	}
+	
+	public void updateStat(String name, String value) {
+		myHUD.addStat(name, value);
+		myHUD.updateStats();
+	}
 
 	private void setUpMethodMappings() {
 
@@ -165,14 +177,21 @@ public class GameEngineUI implements IGameEngineUI {
 
 	private BorderPane makeRoot() {
 		BorderPane root = new BorderPane();
-		root.setTop(makeToolbar());
+		VBox vb = new VBox();
+		vb.getChildren().addAll(makeToolbar(), makeHUD());
+		root.setTop(vb);
 		root.setCenter(makeGameScreen());
 		return root;
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadGame(), event -> loadLevel(), event -> pause(), event -> reset());
+		toolbar = new Toolbar(myResources, event -> loadGame(), event -> loadLevel(), event -> pause(), myResetEvent);
 		return toolbar.getToolbar();
+	}
+	
+	private Node makeHUD() {
+		myHUD = new HUD();
+		return myHUD.getHUD();
 	}
 
 	private Node makeGameScreen() {
@@ -206,7 +225,7 @@ public class GameEngineUI implements IGameEngineUI {
 		}
 	}
 
-	private void reset() {
+	private void resetMusic() {
 		mediaPlayer.stop();
 		mediaPlayer.play();
 		movementInterface.reset();

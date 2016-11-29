@@ -46,12 +46,8 @@ public class RandomGenFrame<T>{
 			minX += nextSeparationDist;
 			
 			int randomYPosition = RNG.nextInt(randomGenRules.getMaxY()- randomGenRules.getMinY()) + randomGenRules.getMinY();
-			
-			
 	        GameObject pipe = new GameObject(minX, randomYPosition, 80, 200, objectURL, new HashMap<>());
-	        pipe.setProperty("removeobject","");
-	        pipe.setProperty("damage","30");
-	        pipe.setProperty("points","30");
+            pipe.setPropertiesList(randomGenRules.getGameObject().getProperties());
 			level.getGameObjects().add(pipe);
 		}
 	}

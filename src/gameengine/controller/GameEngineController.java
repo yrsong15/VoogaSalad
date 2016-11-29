@@ -13,9 +13,7 @@ import com.sun.javafx.scene.traversal.Direction;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
-import gameengine.model.CollisionChecker;
-import gameengine.model.MovementChecker;
-import gameengine.model.RandomGenFrame;
+import gameengine.model.*;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
 import gameengine.view.GameEngineUI;
@@ -50,8 +48,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
 		movementChecker = new MovementChecker();
-		movementController = new MovementController(this);
-		gameEngineView = new GameEngineUI(movementController);
+		movementController = new MovementController();
+		gameEngineView = new GameEngineUI(movementController, null);
+
 		RGFrames = new ArrayList<>();
 	}
 	public void startGame() {
@@ -89,9 +88,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel(), randomGeneration.getGameObject().getImageFileName()));
 		}
 	}
-	public void mapControls() {
-		// NEED TO DO
-	}
+
 	/**
 	 * Applies gravity and scrolls, checks for collisions
 	 *
@@ -118,13 +115,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
             }
 		}
 		
-		// Level currLevel = currentGame.getCurrentLevel();
-//		collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(),
-//				currentGame.getCurrentLevel().getGameObjects());
-		// LossChecker.checkLossConditions((RuleActionHandler)this,
-		// currLevel.getLoseConditions(), currLevel.getGameConditions());
-		// WinChecker.checkWinConditions((RuleActionHandler)this,
-		// currLevel.getWinConditions(), currLevel.getGameConditions());
+		 Level currLevel = currentGame.getCurrentLevel();
+		 collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(), currentGame.getCurrentLevel().getGameObjects());
+//		 LossChecker.checkLossConditions((RuleActionHandler)this,
+//		 currentGame.getCurrentLevel().getLoseConditions(), currentGame.getCurrentLevel().getGameConditions());
+//		 WinChecker.checkWinConditions((RuleActionHandler)this,
+//		 currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
 	
 	private void removeOffscreenElements() {
