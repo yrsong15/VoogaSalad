@@ -16,10 +16,10 @@ import javafx.stage.Stage;
 import objects.Level;
 import objects.interfaces.ILevel;
 /**
- * @author pratikshasharma
+ * @author pratikshasharma, Ray Song
  *
  */
-public class GameEditorFrontEndController implements IGameEditorFrontEndController{
+public class GameEditorController implements IGameEditorFrontEndController{
     private EditorLevels myEditorLevels;
     private HashMap<String,GameEditorView> myLevelEditorMap ;
     private String activeButtonId;
