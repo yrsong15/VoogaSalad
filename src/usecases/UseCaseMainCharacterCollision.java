@@ -4,6 +4,8 @@ import gameengine.controller.GameEngineController;
 import usecases.mockObjects.BasicParser;
 import usecases.mockObjects.GameEditorXML;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class UseCaseMainCharacterCollision{
 	
 	
@@ -16,12 +18,12 @@ public class UseCaseMainCharacterCollision{
 	 * that were created based on the XML file.
 	 */
 	
-	public void useCaseMethod(){
+	public void useCaseMethod() throws InstantiationException, ClassNotFoundException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		GameEditorXML XMLEditor = new GameEditorXML();
 		BasicParser parser = new BasicParser(); 
 		parser.convertXMLtoGame(XMLEditor.getXML().toString());
 		GameEngineController engineController = new GameEngineController();
-		engineController.update(null, null);
+		engineController.updateGame();
 	}
 	
 	

@@ -2,7 +2,7 @@ package gameengine.model;
 
 import java.util.List;
 
-import gameengine.controller.RuleActionHandler;
+import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.rules.CollisionRulebook;
 import objects.GameObject;
 
@@ -18,11 +18,11 @@ public class CollisionChecker {
 	 * @param mainChar
 	 * @param gameObjects
 	 */
-	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects, RuleActionHandler handler){
+	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects){
 		for (GameObject obj: gameObjects){
 			if (collision(mainChar, obj)){
 				try {
-					rulebook.applyRules(mainChar, obj, handler);
+					rulebook.applyRules(mainChar, obj);
 				} catch (ClassNotFoundException e) {
 					// TODO handle this error
 					e.printStackTrace();

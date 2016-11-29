@@ -3,9 +3,7 @@ package gameeditor.commanddetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import gameeditor.objects.GameObject;
-import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -21,39 +19,32 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class CreateObjectDetail extends AbstractCommandDetail {
-	
-	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
-	private double cbHeight = 30;
-	private double hboxSpacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
-	private double paddedPaneWidth = myPaneWidth-2*myDetailPadding-cbWidth-hboxSpacing;
+
 	private Pane myImagePane;
 	
 	private TextArea myXTextArea;
 	private TextArea myYTextArea;
 	private String myFilePath = "";
 	private ImageView myIV;
-	private ImageView myPreviewImageView;
-	private VBox myPropertiesVBox;
+	private VBox myVBox;
 	private GameObject myGO;
-	private List<Map<String,String>> myGameObjectsMap;
 
 	private ComboBox<String> myType;
 	public static final String X_POSITON_KEY = "xPosition";
-	public static final String y_POSITION_KEY = "yPosition";
+	public static final String Y_POSITION_KEY = "yPosition";
 	
 	public CreateObjectDetail() {
 		super();
 	}
 	
 	public void init(){
-		myPropertiesVBox = new VBox();
-		myPropertiesVBox.setSpacing(myDetailPadding);
-		myPropertiesVBox.setAlignment(Pos.CENTER);
-		myContainerPane.setContent(myPropertiesVBox);
+		myVBox = new VBox();
+		myVBox.setSpacing(myDetailPadding);
+		myVBox.setAlignment(Pos.CENTER);
+		myContainerPane.setContent(myVBox);
 		createTypeChoice();
 		createPos();
 		createImageZone();
-		//TODO: Create Preview
 		createSavePreview();
 	}
 	
@@ -65,14 +56,14 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		container.setAlignment(Pos.CENTER);
 		container.getChildren().add(preview);
 		container.getChildren().add(save);
-		myPropertiesVBox.getChildren().add(container);
+		myVBox.getChildren().add(container);
 	}
 	
 	public Button createPreview(){
 		Button preview = new Button();
 		preview.setText(DetailResources.PREVIEW_BUTTON_TEXT.getResource());
-		preview.setMinWidth((myPaneWidth-4*myDetailPadding - hboxSpacing)/2);
-		preview.setMaxWidth((myPaneWidth-4*myDetailPadding - hboxSpacing)/2);
+		preview.setMinWidth((paddedPaneWidth - hboxSpacing)/2);
+		preview.setMaxWidth((paddedPaneWidth - hboxSpacing)/2);
 		preview.setMinHeight(cbHeight);
 		preview.setOnAction((e) -> {handlePreview();});
 		return preview;
@@ -81,36 +72,26 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	public Button createSave(){
 		Button save = new Button();
 		save.setText(DetailResources.SAVE_BUTTON_TEXT.getResource());
-		save.setMinWidth((myPaneWidth-4*myDetailPadding - hboxSpacing)/2);
-		save.setMaxWidth((myPaneWidth-4*myDetailPadding - hboxSpacing)/2);
+		save.setMinWidth((paddedPaneWidth - hboxSpacing)/2);
+		save.setMaxWidth((paddedPaneWidth - hboxSpacing)/2);
 		save.setMinHeight(cbHeight);
 		save.setOnAction((e) -> {handleSave();});
 		return save;
 	}
 	
 	//TODO: ADD DATA VERIFICATION TO SAVE
-	public void handleSave(){
+    public void handleSave(){
+        Map<String, String> typeMap = myDataStore.getType(myType.getValue());
+        String xString = myXTextArea.getText();
+        String yString = myYTextArea.getText();
+        double x = Double.parseDouble(xString);
+        double y = Double.parseDouble(yString);
+        typeMap.put(X_POSITON_KEY, String.valueOf(x));
+        typeMap.put(Y_POSITION_KEY, String.valueOf(y));
 
-	        myGameObjectsMap = new ArrayList<Map<String,String>>();
+        myDataStore.addGameObjectToLevel(typeMap);
 
-		Map<String, String> typeMap = myDataStore.getType(myType.getValue());
-
-		String xString = myXTextArea.getText();
-		String yString = myYTextArea.getText();
-		double x = Double.parseDouble(xString);
-		double y = Double.parseDouble(yString);
-		
-		typeMap.put("xPosition", String.valueOf(x));
-		typeMap.put("yPosition", String.valueOf(y));
-		typeMap.put("ImagePath",typeMap.get(DetailResources.IMAGE_PATH.getResource()));
-		
-		// Does doing this add all the game objects into the list ??
-		myGameObjectsMap.add(typeMap);
-		
-		// Create a Map with the properties and the types 
-		
-			
-	}
+    }
 	
 	public void handlePreview(){
 		String xString = myXTextArea.getText();
@@ -118,10 +99,10 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		double x = Double.parseDouble(xString);
 		double y = Double.parseDouble(yString);
 		if (myGO == null){
-			myGO = new GameObject(myFilePath, x, y, 50, 50, myDesignArea);
+			myGO = new GameObject(myFilePath, x, y, 50, 50, myType.getValue(), myDesignArea);
 		} else {
 			myGO.removeSelf();
-			myGO = new GameObject(myFilePath, x, y, 50, 50, myDesignArea);
+			myGO = new GameObject(myFilePath, x, y, 50, 50, myType.getValue(), myDesignArea);
 		}
 	}
 	
@@ -132,8 +113,8 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	public TextArea createPosBP(String label){
 		BorderPane bp = new BorderPane();
-		bp.setMinWidth(myPaneWidth-4*myDetailPadding);
-		bp.setMaxWidth(myPaneWidth-4*myDetailPadding);
+		bp.setMinWidth(paddedPaneWidth);
+		bp.setMaxWidth(paddedPaneWidth);
 		Label labl = createLbl(label);
 		TextArea ta = new TextArea();
 		ta.setText("0");
@@ -142,8 +123,8 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		ta.setOnMouseClicked((e) -> handleClick(ta));
 		bp.setLeft(labl);
 		bp.setRight(ta);
-		bp.setAlignment(labl, Pos.CENTER_LEFT);
-		myPropertiesVBox.getChildren().add(bp);
+		BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
+		myVBox.getChildren().add(bp);
 		return ta;
 	}
 	
@@ -156,12 +137,11 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		Rectangle imageZone = new Rectangle(imageZoneWidth, imageZoneHeight, Color.GHOSTWHITE);
 		myImagePane.getChildren().add(imageZone);
 		imageZone.setArcHeight(DetailResources.OBJECT_IMAGE_ZONE_PADDING.getDoubleResource()); imageZone.setArcWidth(DetailResources.OBJECT_IMAGE_ZONE_PADDING.getDoubleResource());
-		myPropertiesVBox.getChildren().add(myImagePane);
+		myVBox.getChildren().add(myImagePane);
 	}
 	
 	public void createImageView(){
 		Image i = new Image(myFilePath);
-		double aspectRatio = i.getWidth()/i.getHeight();
 		double imageZonePadding = DetailResources.OBJECT_IMAGE_ZONE_PADDING.getDoubleResource();
 		double imageZoneWidth = DetailResources.OBJECT_IMAGE_ZONE_WIDTH.getDoubleResource();
 		double imageZoneHeight = DetailResources.OBJECT_IMAGE_ZONE_HEIGHT.getDoubleResource();
@@ -172,28 +152,26 @@ public class CreateObjectDetail extends AbstractCommandDetail {
         double ratio = Math.min(widthRatio, heightRatio);
         double endWidth = i.getWidth()*ratio;
         double endHeight = i.getHeight()*ratio;
-		ImageView iv = new ImageView(i);
 		myIV = new ImageView(i);
-		iv.setFitWidth(fitWidth);
-		iv.setFitHeight(fitHeight);
-		iv.setPreserveRatio(true);
-		iv.setLayoutX(imageZoneWidth/2 - endWidth/2);
-        iv.setLayoutY(imageZoneHeight/2 - endHeight/2);
-		iv.setLayoutX(imageZonePadding/2); iv.setLayoutY(imageZonePadding/2);
-		myImagePane.getChildren().add(iv);
-		System.out.println(myImagePane.getChildren());
+		myIV.setFitWidth(fitWidth);
+		myIV.setFitHeight(fitHeight);
+		myIV.setPreserveRatio(true);
+		myIV.setLayoutX(imageZoneWidth/2 - endWidth/2);
+		myIV.setLayoutY(imageZoneHeight/2 - endHeight/2);
+		myIV.setLayoutX(imageZonePadding/2); myIV.setLayoutY(imageZonePadding/2);
+		myImagePane.getChildren().add(myIV);
 	}
 	
 	public void createTypeChoice(){
 		myType = new ComboBox<String>();
-		myType.setMinWidth(myPaneWidth-4*myDetailPadding);
-		myType.setMaxWidth(myPaneWidth-4*myDetailPadding);
+		myType.setMinWidth(paddedPaneWidth);
+		myType.setMaxWidth(paddedPaneWidth);
 		myType.setMinHeight(cbHeight);
 		myType.setMaxHeight(cbHeight);
 		myType.getItems().addAll(myDataStore.getTypes());
 		myType.setValue(DetailResources.DEFAULT_OBJECT_TYPE.getResource());
 		myType.setOnAction((e) -> {handleTypeSelection(myType);});
-		myPropertiesVBox.getChildren().add(myType);
+		myVBox.getChildren().add(myType);
 	}
 	
 	public void handleTypeSelection(ComboBox<String> cb){
@@ -214,11 +192,6 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 
 	public void createTextField(){
 		
-	}
-	
-	// Add it in the map 
-	public List<Map<String,String>> getGameObstacleList(){
-	    return this.myGameObjectsMap;
 	}
 
 }

@@ -3,9 +3,7 @@ package objects;
 import com.sun.javafx.scene.traversal.Direction;
 
 /**
- * 
  * @author pratikshasharma
- *
  */
 public class Forced  extends ScrollType{
 

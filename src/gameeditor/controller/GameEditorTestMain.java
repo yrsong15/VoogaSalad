@@ -23,8 +23,10 @@
 //		
 //		myController.createGameObject(15, 30, 100, 50, "bird3.png", new HashMap<String, String>());
 //		myController.addCurrentGameObjectToLevel();
+
 //		myController.setCurrentGameObjectToMainCharacter(myController.getCurrentGameObject());
 //		
+
 //		myController.createGameObject(100, 200, 300, 400, "Pipes.png", new HashMap<String, String>());
 //		myController.addToProperties("damage", "30");
 //		myController.addToProperties("removeobject", "xxxxxx");
@@ -39,8 +41,11 @@
 //		myController.addCurrentPropertiesToGameObject();
 //		myController.addCurrentGameObjectToLevel();
 //		
+
 //		myController.addWinConditions("score", "10");
 //		myController.addLoseConditions("time", "30");
+
+
 //		myController.addScore(0);
 //		myController.addTime(0);
 //		

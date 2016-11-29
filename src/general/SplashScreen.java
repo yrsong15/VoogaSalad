@@ -1,16 +1,12 @@
 package general;
 
 import frontend.util.ButtonTemplate;
-import gameeditor.view.GameEditorView;
 import general.interfaces.ISplashScreen;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -25,7 +21,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
@@ -33,7 +28,6 @@ import javafx.event.EventHandler;
  */
 public class SplashScreen implements ISplashScreen {
 
-    public static final String BG_IMAGE_LOCATION = "images";
     public static final int SPLASH_WIDTH = 700;
     public static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
@@ -110,7 +104,7 @@ public class SplashScreen implements ISplashScreen {
     private void addButtons() {
         // TODO: Change this hash map into reflection where the method of launch + the buttonName is called
         HashMap<String, EventHandler<MouseEvent>> eventHandlerForButton = new HashMap<String, EventHandler<MouseEvent>>();
-        eventHandlerForButton.put("GameEngine", e -> launchGameEngine());
+//        eventHandlerForButton.put("GameEngine", e -> launchGameEngine());
         eventHandlerForButton.put("GameEditor", e -> launchEditor());
         eventHandlerForButton.put("GameGallery", e -> {
             try {
@@ -119,21 +113,22 @@ public class SplashScreen implements ISplashScreen {
                 e1.printStackTrace();
             }
         });
-        eventHandlerForButton.put("GameLoader", e -> launchGameLoader());
+//        eventHandlerForButton.put("GameLoader", e -> launchGameLoader());
 
-        String[] buttonNames = {"GameEngine", "GameEditor", "GameGallery", "GameLoader"};
+//        String[] buttonNames = {"GameEngine", "GameEditor", "GameGallery", "GameLoader"};
+        String[] buttonNames = {"GameEditor", "GameGallery"};
 
         double initialX = 100;
         double initialY = 280;
         double xSpacing = 300;
-        double ySpacing = 70;
+        double ySpacing = 100;
         int buttonsPerCol = 3; // Also rows
 
         for (int i = 0; i < buttonNames.length; i++) {
-            ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i]);
+            ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i],
+                    initialX + (i / buttonsPerCol) * xSpacing + (i * 100),
+                    initialY + (i % buttonsPerCol) * ySpacing);
             Button button = buttonTemplate.getButton();
-            button.setTranslateX(initialX + (i / buttonsPerCol) * xSpacing);
-            button.setTranslateY(initialY + (i % buttonsPerCol) * ySpacing);
             button.setOnMouseClicked(eventHandlerForButton.get(buttonNames[i]));
 
             startWindow.getChildren().add(button);

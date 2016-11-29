@@ -1,10 +1,17 @@
 package gameeditor.commanddetails;
 
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
@@ -12,9 +19,10 @@ import javafx.scene.layout.VBox;
 
 public class ControlsDetail extends AbstractCommandDetail {
 
-	private double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
-	private double cbHeight = 30;
 	private VBox myVBox;
+	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
+	private ArrayList<String> myControlsOptions;
+	private ArrayList<TextArea> myInputFields = new ArrayList<TextArea>();
 	
 	public ControlsDetail() {
 		super();
@@ -26,19 +34,60 @@ public class ControlsDetail extends AbstractCommandDetail {
 		myVBox.setSpacing(myDetailPadding);
 		myVBox.setAlignment(Pos.CENTER);
 		myContainerPane.setContent(myVBox);
-		String [] array = new String [] {"Up", "Down", "Left", "Right", "Shoot", "Interact"};
-		for (String string : array){
-			createSelectDirectionsControl("Input", array);
+		getControlsArray();
+		for (@SuppressWarnings("unused") String string : myControlsOptions){
+			createSelectDirectionsControl("Input", myControlsOptions);
+		}
+		createSave();
+	}
+	
+	public void getControlsArray(){
+		String [] array = new String [] {"Up", "Down", "Right", "Left", "Jump", "Shoot"};
+		myControlsOptions = new ArrayList<String>();
+		for (String a : array){
+			myControlsOptions.add(a);
 		}
 	}
 	
-	public void createSelectDirectionsControl(String label, String [] optionsArray){
+	public void createSave(){
+		Button save = new Button();
+		save.setText("Save Controls");
+		save.setMinWidth(cbWidth);
+		save.setMinHeight(cbHeight);
+		save.setOnAction((e) -> {handleSave();});
+		myVBox.getChildren().add(save);
+	}
+	
+	public void handleSave(){
+		ResourceBundle controlProps =  ResourceBundle.getBundle("Controls");
+		for (int i = 0; i < myComboBoxes.size(); i++){
+			String controlKey = myComboBoxes.get(i).getValue();
+			String kcString = myInputFields.get(i).getText();
+			if (controlKey != null && kcString != null){
+				KeyCode kc = KeyCode.getKeyCode(kcString);
+				
+				myDataStore.addControl(kc, controlProps.getString(controlKey.toLowerCase()));
+			}
+		}
+//		ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
+//		Enumeration<String> enumKeys = geprops.getKeys();
+//		Map<String, String> propertiesMap = new HashMap<String, String>();
+//		for (ComboBox<String> cb : myComboBoxes){
+//			propertiesMap.put(enumKeys.nextElement(), cb.getValue());
+//		}
+//		propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
+//		propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
+//		myDataStore.storeType(propertiesMap);
+	}
+	
+	public void createSelectDirectionsControl(String label, ArrayList<String> optionsArray){
 		HBox innerContainer = new HBox();
-		double hboxSpacing = 10;
 		innerContainer.setSpacing(hboxSpacing);
 		innerContainer.setAlignment(Pos.CENTER);
 		ComboBox<String> cb = createComboBox(optionsArray);
 		TextArea inputField = createInputField(label, hboxSpacing);
+		myInputFields.add(inputField);
+		myComboBoxes.add(cb);
 		innerContainer.getChildren().add(cb);
 		innerContainer.getChildren().add(inputField);
 		myVBox.getChildren().add(innerContainer);
@@ -46,8 +95,8 @@ public class ControlsDetail extends AbstractCommandDetail {
 	
 	public TextArea createInputField(String label, double hboxSpacing){
 		TextArea inputField = new TextArea(label);
-		inputField.setMinWidth(myPaneWidth-2*myDetailPadding-cbWidth-hboxSpacing);
-		inputField.setMaxWidth(myPaneWidth-2*myDetailPadding-cbWidth-hboxSpacing);
+		inputField.setMinWidth(paddedDetailWidth);
+		inputField.setMaxWidth(paddedDetailWidth);
 		inputField.setMinHeight(cbHeight);
 		inputField.setMaxHeight(cbHeight);
 		inputField.setOnMouseClicked(e -> handleClick(inputField));
@@ -56,7 +105,7 @@ public class ControlsDetail extends AbstractCommandDetail {
 		return inputField;
 	}
 	
-	public ComboBox<String> createComboBox(String [] boxOptions){
+	public ComboBox<String> createComboBox(ArrayList<String> boxOptions){
 		ComboBox<String> cb = new ComboBox<String>();
 		cb.getItems().addAll(boxOptions);
 		cb.setMinWidth(cbWidth);
@@ -73,6 +122,7 @@ public class ControlsDetail extends AbstractCommandDetail {
 	public void handleKey(TextArea field, KeyCode kc){
 		field.setText(kc.toString());
 	}
+	
 	public void createTextField(){
 		
 	}

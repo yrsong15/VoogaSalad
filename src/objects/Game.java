@@ -13,8 +13,6 @@ public class Game {
 	private Level currentLevel;
 	private LevelSettings myGameSettings;
 
-
-
 	public Game(String name) {
 		levels = new HashMap<Integer,Level>();
 		this.name = name;
@@ -34,6 +32,10 @@ public class Game {
 
 	public void setCurrentLevel(Level currentLevel){
 		this.currentLevel = currentLevel;
+	}
+	
+	public void setGameName(String name){
+	    this.name = name;
 	}
 	
 }

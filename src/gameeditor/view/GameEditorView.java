@@ -1,11 +1,8 @@
 package gameeditor.view;
 
 import java.io.File;
+import java.util.Map;
 import frontend.util.FileOpener;
-import gameeditor.controller.GameEditorData;
-import gameeditor.controller.interfaces.ILevelSettings;
-import gameeditor.controller.IGameEditorData;
-import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -18,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import objects.interfaces.ILevel;
 
 
 /**
@@ -32,16 +30,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
-    // private ISettings mySettings;
-    //private ISettings mySettings;
-    // private ILevelManager myLevelSettings;
-//    private ILevelSettings myLevelSettings;
-//    private ILevelManager myLevelSettings;
-    private GameEditorData myDataStore;
+    private ILevel myLevelSettings;
     
-    public GameEditorView(){
+
+    public GameEditorView(ILevel levelSettings){
+       this.myLevelSettings = levelSettings;
         myRoot = new BorderPane();  
-        myDataStore = new GameEditorData();
     }
 
     public Parent createRoot(){
@@ -51,7 +45,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     private HBox createLeftAlt(){
-        DetailPane dp = new DetailPane(myDesignArea, myDataStore);
+        DetailPane dp = new DetailPane(myDesignArea, myLevelSettings);
         myDetailPane = dp;
         myCommandPane = new CommandPane(dp);
         myLeftBox = new HBox();
@@ -81,36 +75,27 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
             myHBox.getChildren().add(backgroundImage);        
             myDesignArea.setBackground(myHBox); 
-
-            myDataStore.setBackgroundImage(filePath);
-
+            
+            myLevelSettings.addBackgroundImage(filePath);
         }
     }
 
     public void setAvatar(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
         if(filePath!=null){
-            Image newAvatar = new Image(filePath);
-            myDetailPane.setAvatar(newAvatar);
-
-            myDataStore.setMainCharacterImage(filePath);
-
+            //Image newAvatar = new Image(filePath);
+            myDetailPane.setAvatar(filePath);
+             
+            // Probably not Necessary to set this? 
+           //myLevelSettings.setMainCharacter(mainCharacter);
         } 
     }
 
-    @Override
-    public void sendDataToGameEngine () {
-        // Call in the XMlSerializer to send the Xml file 
-        System.out.println(" Send Data ");
 
-    }
 
     public void setMusic(){
         String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-        //mySettings.setMusicFile(musicFilePath);
-        //myLevelSettings.addBackgroundMusic(musicFilePath);
-
-        myDataStore.setMusic(musicFilePath);
+        myLevelSettings.addBackgroundMusic(musicFilePath);
     }
 
     private String getFilePath(String fileType, String fileLocation){
@@ -122,4 +107,15 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         return null;
     }
 
+    public Parent getRoot(){
+        return this.myRoot;
+    }
+
+    @Override
+    public void saveLevelData (Map<String,String> myLevelData) {
+        myLevelSettings.addWinCondition(EditorToolbar.POINTS_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
+        myLevelSettings.addWinCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
+        myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
+       }
+    
 }

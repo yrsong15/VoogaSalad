@@ -21,11 +21,12 @@ public class ButtonTemplate implements IButtonLayout {
      * @param property
      * Creates a button based on the String property
      */
-    public ButtonTemplate(String property){     
+    public ButtonTemplate(String property, double x, double y){
         myResources = ResourceBundle.getBundle(BUTTON_LABEL_FILE, Locale.getDefault());
-
         String label = myResources.getString(property);
         myButton = new Button(label);
+        myButton.setTranslateX(x);
+        myButton.setTranslateY(y);
     }
 
     /**
@@ -41,7 +42,7 @@ public class ButtonTemplate implements IButtonLayout {
     public void changeButtonSettings(double xPosition, double yPosition){
         myButton.setLayoutX(xPosition);
         myButton.setLayoutY(yPosition);
-        myButton.setFont(Font.font("Comic Sans",14));
+        myButton.setFont(Font.font("Comic Sans", 14));
     }
     
     

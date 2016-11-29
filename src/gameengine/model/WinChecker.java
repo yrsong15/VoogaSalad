@@ -2,7 +2,7 @@ package gameengine.model;
 
 import java.util.Map;
 
-import gameengine.controller.RuleActionHandler;
+import gameengine.controller.interfaces.RuleActionHandler;
 
 public class WinChecker {
 	
