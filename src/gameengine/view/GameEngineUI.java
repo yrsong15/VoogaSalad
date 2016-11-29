@@ -58,7 +58,7 @@ public class GameEngineUI implements IGameEngineUI {
 	private String myLevelFileLocation;
 	private IToolbar toolbar;
 	private HUD myHUD;
-	private IGameScreen gameScreen;
+	private GameScreen gameScreen;
 	private boolean isPaused;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
@@ -100,6 +100,10 @@ public class GameEngineUI implements IGameEngineUI {
 
 	public Scene getScene() {
 		return scene;
+	}
+	
+	public double getScreenHeight() {
+		return gameScreen.screenHeight;
 	}
 
 	public void update(Level level) {
@@ -146,7 +150,6 @@ public class GameEngineUI implements IGameEngineUI {
 	public void resetMusic() {
 		mediaPlayer.stop();
 		mediaPlayer.play();
-		//movementInterface.reset();
 	}
 
 	private void setUpMethodMappings() {
