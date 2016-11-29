@@ -12,9 +12,7 @@ import com.sun.javafx.scene.traversal.Direction;
 
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
-import gameengine.model.CollisionChecker;
-import gameengine.model.MovementChecker;
-import gameengine.model.RandomGenFrame;
+import gameengine.model.*;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
 import gameengine.view.GameEngineUI;
@@ -118,13 +116,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
             }
 		}
 		
-		// Level currLevel = currentGame.getCurrentLevel();
-//		collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(),
-//				currentGame.getCurrentLevel().getGameObjects());
-		// LossChecker.checkLossConditions((RuleActionHandler)this,
-		// currLevel.getLoseConditions(), currLevel.getGameConditions());
-		// WinChecker.checkWinConditions((RuleActionHandler)this,
-		// currLevel.getWinConditions(), currLevel.getGameConditions());
+		 Level currLevel = currentGame.getCurrentLevel();
+		 collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(), currentGame.getCurrentLevel().getGameObjects());
+//		 LossChecker.checkLossConditions((RuleActionHandler)this,
+//		 currentGame.getCurrentLevel().getLoseConditions(), currentGame.getCurrentLevel().getGameConditions());
+//		 WinChecker.checkWinConditions((RuleActionHandler)this,
+//		 currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
 	public void setNewBenchmark() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
