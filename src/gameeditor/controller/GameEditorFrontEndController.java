@@ -1,20 +1,16 @@
 package gameeditor.controller;
 
+import javafx.scene.input.MouseEvent;
 import java.util.HashMap;
 import gameeditor.controller.interfaces.IGameEditorFrontEndController;
-import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
-import gameeditor.xml.XMLSerializer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import objects.Level;
@@ -49,7 +45,7 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
         
         // Check for the Load Game Button
-        myEditorLevels.setOnLoadGameButton(e -> loadGame());
+        //myEditorLevels.setOnLoadGameButton(e -> loadGame());
         
         // addListenerForGameTitle
         addGameTitleListener();
@@ -124,13 +120,22 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
         }
     } 
     
-    private void loadGame(){
+    public String getGameFile(){
         // TODO: How is the Game object going to be passed onto the Game Engine?
-    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
-    	myGameEditorBackEndController.getGame();
+    	//System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
+    	//myGameEditorBackEndController.getGame();
+        return myGameEditorBackEndController.serializeGame();
     }
     
     private void setSavedLevelRoot(){
         myLevelScene.setRoot(myGameEditor.getRoot());
+    }
+    
+    public void setOnLoadGame(EventHandler<MouseEvent> handler){
+        myEditorLevels.getLoadButton().setOnMouseClicked( handler);  
+    }
+    
+    public String getGameTitle(){
+        return myEditorLevels.getGameTitle().get();
     }
 }
