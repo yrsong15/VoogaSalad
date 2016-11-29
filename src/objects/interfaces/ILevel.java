@@ -23,47 +23,46 @@ public interface ILevel {
 
     public void addWinCondition(String type, String action);
 
-
-public void removeWinCondition(String type, String action);
-public Map<String, String> getWinConditions();
-
-
-public void addLoseCondition(String type, String action) ;
-
-public void removeLoseCondition(String type, String action);
-
-public Map<String, String> getLoseConditions();
-
-public Map<String, Double> getGameConditions();
-
-public GameObject getMainCharacter() ;
-
-public void setMainCharacter(GameObject mainCharacter) ;
-
-public int getScore();
-
-public void setScore(double score);
-
-public double getTime();
-
-public void setTime(double time);
-
-public List<GameObject> getGameObjects();
-
-public LevelSettings getViewSettings();
-public void setViewSettings(LevelSettings viewSettings);
-
-public void addControl(KeyCode key, String action);
-
-public void removeControl(KeyCode key);
-
-public Map<KeyCode, String> getControls();
-
-public void addBackgroundImage(String filePath);
-
-public void addBackgroundMusic (String musicFilePath);
-
-public void addScrollWidth(double scrollWidth);
+	public void removeWinCondition(String type, String action);
+	public Map<String, String> getWinConditions();
+	
+	
+	public void addLoseCondition(String type, String action) ;
+	
+	public void removeLoseCondition(String type, String action);
+	
+	public Map<String, String> getLoseConditions();
+	
+	public Map<String, Double> getGameConditions();
+	
+	public GameObject getMainCharacter() ;
+	
+	public void setMainCharacter(GameObject mainCharacter) ;
+	
+	public int getScore();
+	
+	public void setScore(double score);
+	
+	public double getTime();
+	
+	public void setTime(double time);
+	
+	public List<GameObject> getGameObjects();
+	
+	public LevelSettings getViewSettings();
+	public void setViewSettings(LevelSettings viewSettings);
+	
+	public void addControl(KeyCode key, String action);
+	
+	public void removeControl(KeyCode key);
+	
+	public Map<KeyCode, String> getControls();
+	
+	public void addBackgroundImage(String filePath);
+	
+	public void addBackgroundMusic (String musicFilePath);
+	
+	public void addScrollWidth(double scrollWidth);
 
 
 }
