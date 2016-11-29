@@ -1,5 +1,6 @@
 package gameengine.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 import gameengine.controller.interfaces.RuleActionHandler;
@@ -19,10 +20,11 @@ public class CollisionChecker {
 	 * @param gameObjects
 	 */
 	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects){
-		for (GameObject obj: gameObjects){
-			if (collision(mainChar, obj)){
+		for(Iterator<GameObject> itr = gameObjects.iterator(); itr.hasNext();){
+			GameObject gameObject = itr.next();
+			if (collision(mainChar, gameObject)){
 				try {
-					rulebook.applyRules(mainChar, obj);
+					rulebook.applyRules(mainChar,gameObject);
 				} catch (ClassNotFoundException e) {
 					// TODO handle this error
 					e.printStackTrace();
