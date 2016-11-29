@@ -126,7 +126,11 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 	
 	public void stopMusic() {
-		mediaPlayer.stop();
+		try{
+			mediaPlayer.stop();
+		}catch (NullPointerException e){
+			System.out.println("GameEngineUI: Music was null");
+		}
 	}
 
 	private void setUpMethodMappings() {
