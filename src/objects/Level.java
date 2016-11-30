@@ -8,9 +8,9 @@ import gameengine.view.GameEngineUI;
  * Created by Soravit on 11/18/2016.
  */
 public class Level implements ILevel{
-	private static final int minSpacing = 250;
-	private static final int maxSpacing = 500;
-	private static final int pipeWidth = 300;
+//	private static final int minSpacing = 250;
+//	private static final int maxSpacing = 500;
+//	private static final int pipeWidth = 300;
 	private int level;
 	private List<GameObject> gameObjects;
 	private Map<String, String> winConditions;

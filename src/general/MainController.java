@@ -2,6 +2,7 @@ package general;
 import gameeditor.controller.GameEditorFrontEndController;
 import gameengine.controller.GameEngineController;
 import gameengine.view.GameEngineUI;
+import gameengine.view.GameScreen;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -74,10 +75,10 @@ public class MainController {
     public void launchEngine(String XMLData){
     	XStream mySerializer = new XStream(new DomDriver());
         Game game = new Game("Flappy Bird");
-        GameObject bird = new GameObject(250, 200, 150, 100, "bird3.png", new HashMap<>());
-        bird.setProperty("gravity", "1.2");
+        GameObject bird = new GameObject(250, 200, 75, 50, "bird3.png", new HashMap<>());
+        bird.setProperty("gravity", "0.8");
         bird.setProperty("health", "100000");
-        bird.setProperty("jump", "600");
+        bird.setProperty("jump", "400");
         GameObject pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
         pipe1.setProperty("damage","30");
         pipe1.setProperty("points","1");
@@ -102,17 +103,18 @@ public class MainController {
         level.getViewSettings().setBackgroundFilePath("Background/bg.png");
         level.addGameObject(bird);
         level.setMainCharacter(bird);
-        level.addGameObject(pipe1);
-        level.addGameObject(pipe2);
-        level.addGameObject(pipe3);
-        level.addGameObject(pipe4);
-        level.addGameObject(pipe5);
+//        level.addGameObject(pipe1);
+//        level.addGameObject(pipe2);
+//        level.addGameObject(pipe3);
+//        level.addGameObject(pipe4);
+//        level.addGameObject(pipe5);
         level.addGameObject(ground);
         ScrollType gameScroll = new ScrollType("ForcedScrolling");
         gameScroll.addScrollDirection(Direction.RIGHT);
         level.setScrollType(gameScroll);
-        RandomGeneration randomGeneration = new RandomGeneration(pipe1, 5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
-                -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
+        RandomGeneration randomGeneration = new RandomGeneration(pipe1.getProperties(), 5, (int) GameScreen.screenWidth / 5, (int) GameScreen.screenWidth,
+        		(int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
+        System.out.println(GameEngineUI.myAppHeight);
         level.addRandomGeneration(randomGeneration);
         level.addControl(KeyCode.W, "jump");
         game.addLevel(level);

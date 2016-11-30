@@ -48,7 +48,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
 		movementChecker = new MovementChecker();
-		movementController = new MovementController();
+		movementController = new MovementController(this);
 		gameEngineView = new GameEngineUI(movementController, null);
 
 		RGFrames = new ArrayList<>();
@@ -85,7 +85,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private void addRGFrames(){
         List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
 		for(RandomGeneration randomGeneration : randomGenerations) {
-			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel(), randomGeneration.getGameObject().getImageFileName()));
+			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
 		}
 	}
 
