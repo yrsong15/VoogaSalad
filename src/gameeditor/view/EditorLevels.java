@@ -3,6 +3,7 @@ package gameeditor.view;
 import java.util.ArrayList;
 import java.util.List;
 import frontend.util.ButtonTemplate;
+import general.NodeFactory;
 import general.SplashScreen;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -42,19 +43,23 @@ public class EditorLevels {
     private SimpleStringProperty myActiveButtonId;
     private Button submitButton;
     private Button loadGameButton;
-    private SimpleStringProperty myGameTitle; 
+    private SimpleStringProperty myGameTitle;
+    private NodeFactory myFactory;
 
     public EditorLevels(){
         myActiveButtonId = new SimpleStringProperty(null);
         myGameTitle = new SimpleStringProperty(null);
+        this.myFactory = new NodeFactory();
     }
     
     public Parent createRoot(){
         Group root = new Group();
         myVBox = new VBox(20);
         myLevels = new ArrayList<Button>();
-        String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/Background/bg2.jpg";
-        ImageView background = new ImageView(new Image(userDirectoryString));
+//        String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/Background/bg2.jpg";
+//        ImageView background = new ImageView(new Image(userDirectoryString));
+
+        ImageView background = myFactory.makeBackgroundImage("Space");
         background.setFitWidth(SplashScreen.SPLASH_WIDTH);
         background.setFitHeight(SplashScreen.SPLASH_HEIGHT);
 
@@ -67,6 +72,9 @@ public class EditorLevels {
         myPane.setStyle("-fx-border-color: black; -fx-border-width: 2px;"); 
         myPane.setLayoutX(LEVEL_PANE_X_POSITION);
         myPane.setLayoutY(LEVEL_PANE_Y_POSITION);
+        myPane.setOpacity(0.5);
+        myPane.setOnMouseEntered(e -> myPane.setOpacity(0.8));
+        myPane.setOnMouseExited(e -> myPane.setOpacity(0.5));
         
         addButton();
         myPane.setContent(myVBox);

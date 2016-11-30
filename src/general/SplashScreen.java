@@ -32,6 +32,7 @@ public class SplashScreen implements ISplashScreen {
     public static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
     private MainController mainController;
+    private NodeFactory myFactory;
 
     private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
             CycleMethod.NO_CYCLE,
@@ -44,6 +45,7 @@ public class SplashScreen implements ISplashScreen {
             new Stop(1, Color.WHITE));
 
     public SplashScreen(Stage myStage, MainController mainController) {
+        this.myFactory = new NodeFactory();
         this.mainController = mainController;
     }
 
@@ -51,11 +53,7 @@ public class SplashScreen implements ISplashScreen {
     public Parent setUpWindow() {
         startWindow = new Pane();
         startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
-        String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/Background/floatingCubes.jpg";
-
-        Image background = new Image(userDirectoryString);
-
-        ImageView backgroundImageMainScreen = new ImageView(background);
+        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
         startWindow.getChildren().add(backgroundImageMainScreen);
@@ -65,22 +63,8 @@ public class SplashScreen implements ISplashScreen {
     }
 
     @Override
-    public void launchGameEditorWith() {
-
-    }
-
-    //    @Override
-    public void launchWith() {
-    }
-
-    @Override
     public void launchEditor() {
         mainController.presentEditor();
-    }
-
-    @Override
-    public void launchGameEditor() {
-    	
     }
 
     @Override
@@ -89,23 +73,13 @@ public class SplashScreen implements ISplashScreen {
         mainController.presentGallery();
     }
 
-    //    @Override
-    public void launchSelectedGalleryItem() {
-
-    }
-
     public void launchGameEngine() {
     	mainController.launchEngine("");
-    }
-
-    public void launchGameLoader() {
-
     }
 
     private void addButtons() {
         // TODO: Change this hash map into reflection where the method of launch + the buttonName is called
         HashMap<String, EventHandler<MouseEvent>> eventHandlerForButton = new HashMap<String, EventHandler<MouseEvent>>();
-//        eventHandlerForButton.put("GameEngine", e -> launchGameEngine());
         eventHandlerForButton.put("GameEditor", e -> launchEditor());
         eventHandlerForButton.put("GameGallery", e -> {
             try {
@@ -114,9 +88,6 @@ public class SplashScreen implements ISplashScreen {
                 e1.printStackTrace();
             }
         });
-//        eventHandlerForButton.put("GameLoader", e -> launchGameLoader());
-
-//        String[] buttonNames = {"GameEngine", "GameEditor", "GameGallery", "GameLoader"};
         String[] buttonNames = {"GameEditor", "GameGallery"};
 
         double initialX = 100;

@@ -3,6 +3,7 @@ import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
 import gameengine.view.GameEngineUI;
 import gameengine.view.GameScreen;
+import general.interfaces.IMainController;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -19,7 +20,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import objects.RandomGeneration;
 import objects.ScrollType;
 
-public class MainController {
+public class MainController implements IMainController{
     public static final String STYLESHEET = "default.css";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
     private Stage myGalleryStage, myGameEditorStage, myGameEngineStage;
@@ -30,17 +31,13 @@ public class MainController {
     private GameObject bird, pipe1, pipe2, pipe3, pipe4, pipe5, ground;
     private ScrollType gameScroll;
     private RandomGeneration randomGeneration;
-
     private Level level;
-    //private GameEditorView myGameEditorView;
     private GameEditorController myGameEditorController;
     private GameEngineController myGameEngineController;
 
     public MainController(Stage stage) throws IOException {
     	mainStage = stage;
         Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
-        //GameEditorView myView = new GameEditorView();
-        //Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
         scene.getStylesheets().add(STYLESHEET);
         stage.setScene(scene);
         stage.setTitle("VoogaSalad");
@@ -48,7 +45,7 @@ public class MainController {
         initializeGallery();
     }
 
-
+    @Override
     public void presentGallery() {
         //System.out.println("present");
         myGalleryView = new GalleryView(myGallery, this);
@@ -75,6 +72,7 @@ public class MainController {
     	myGallery.addToGallery(newGame);
     }
 
+    @Override
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorController();
@@ -85,7 +83,9 @@ public class MainController {
         myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
 
-    //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
+    //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something
+    //for these strings
+    @Override
     public void launchEngine(String XMLData){
         game = new Game("Flappy Bird");
         createGameObjects();
@@ -102,22 +102,22 @@ public class MainController {
         bird.setProperty("health", "100000");
         bird.setProperty("jump", "400");
         pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe1.setProperty("damage","30");
-        pipe1.setProperty("points","1");
+        pipe1.setProperty("damage", "30");
+        pipe1.setProperty("points", "1");
         pipe2 = new GameObject(180, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe2.setProperty("damage","30");
-        pipe2.setProperty("points","1");
+        pipe2.setProperty("damage", "30");
+        pipe2.setProperty("points", "1");
         pipe3 = new GameObject(310, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe3.setProperty("damage","30");
-        pipe3.setProperty("points","1");
+        pipe3.setProperty("damage", "30");
+        pipe3.setProperty("points", "1");
         pipe4 = new GameObject(440, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe4.setProperty("damage","30");
-        pipe4.setProperty("points","1");
+        pipe4.setProperty("damage", "30");
+        pipe4.setProperty("points", "1");
         pipe5 = new GameObject(570, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe5.setProperty("damage","30");
-        pipe5.setProperty("points","1");
-        ground = new GameObject(0,600,1000000,200, new HashMap<>());
-        ground.setProperty("damage","30");
+        pipe5.setProperty("damage", "30");
+        pipe5.setProperty("points", "1");
+        ground = new GameObject(0, 600, 1000000, 200, new HashMap<>());
+        ground.setProperty("damage", "30");
     }
 
     private void generateGameAttributes(){
@@ -138,11 +138,14 @@ public class MainController {
         level.getViewSettings().setBackgroundFilePath("Background/bg.png");
         level.addGameObject(bird);
         level.setMainCharacter(bird);
+
+        //CAN WE GET RID OF THIS
 //        level.addGameObject(pipe1);
 //        level.addGameObject(pipe2);
 //        level.addGameObject(pipe3);
 //        level.addGameObject(pipe4);
 //        level.addGameObject(pipe5);
+
         level.addGameObject(ground);
         level.setScrollType(gameScroll);
         level.addRandomGeneration(randomGeneration);
