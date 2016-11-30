@@ -110,6 +110,8 @@ public class GameEditorController implements IGameEditorFrontEndController{
         if(!isInitialStage){
         myLevelStage = new Stage();
         myLevelScene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
+        
+        
         myLevelStage.setScene(myLevelScene);
         isInitialStage = true;
         myLevelStage.show();  
