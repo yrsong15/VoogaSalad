@@ -1,33 +1,19 @@
 package gameeditor.commanddetails;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
 
-import frontend.util.FileOpener;
-import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class MainCharacterDetail extends AbstractCommandDetail {
 	
-	private String myFilePath = "";
 	private VBox myVBox;
-	private Pane myImagePane;
 	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
 	private String [] myPropertiesArray = DetailResources.PROPERTIES.getArrayResource();
 	
