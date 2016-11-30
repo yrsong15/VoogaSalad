@@ -83,6 +83,10 @@ public class DesignArea implements IDesignArea {
 	@Override
 	public void addSprite(GameObject sprite) {
 		mySprites.add(sprite);
+		//TODO: Remove the hardcoding of the image size proportions
+		// Added image proportions for Demo
+//		sprite.getImageView().setFitHeight(200);
+//		sprite.getImageView().setFitWidth(300);
 		myPane.getChildren().add(sprite.getImageView());
 	}
 	

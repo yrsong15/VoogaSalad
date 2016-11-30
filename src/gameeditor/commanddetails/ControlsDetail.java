@@ -1,5 +1,6 @@
 package gameeditor.commanddetails;
 
+import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -54,7 +55,7 @@ public class ControlsDetail extends AbstractCommandDetail {
 		save.setText("Save Controls");
 		save.setMinWidth(cbWidth);
 		save.setMinHeight(cbHeight);
-		save.setOnAction((e) -> {handleSave();});
+		save.setOnMouseClicked(e-> {handleSave();});
 		myVBox.getChildren().add(save);
 	}
 	
@@ -63,12 +64,13 @@ public class ControlsDetail extends AbstractCommandDetail {
 		for (int i = 0; i < myComboBoxes.size(); i++){
 			String controlKey = myComboBoxes.get(i).getValue();
 			String kcString = myInputFields.get(i).getText();
-			if (controlKey != null && kcString != null){
-				KeyCode kc = KeyCode.getKeyCode(kcString);
-				
+			//System.out.println("KCString: " + kcString);
+			if (controlKey != null && kcString != null && kcString !="Input"){
+				KeyCode kc = KeyCode.valueOf(kcString);
 				myDataStore.addControl(kc, controlProps.getString(controlKey.toLowerCase()));
 			}
 		}
+		
 //		ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
 //		Enumeration<String> enumKeys = geprops.getKeys();
 //		Map<String, String> propertiesMap = new HashMap<String, String>();
