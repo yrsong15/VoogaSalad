@@ -37,6 +37,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
     
+    public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
+    
     
 
     public GameEditorView(ILevel levelSettings){
@@ -88,17 +90,16 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myDesignArea.setBackground(myHBox); 
             
             String file = filePath.substring(filePath.lastIndexOf("/") +1);
-            myLevelSettings.addBackgroundImage(file);
-        }
+            myLevelSettings.addBackgroundImage("Background/" + file);
+        } 
     }
 
     public void setAvatar(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
         if(filePath!=null){
             //Image newAvatar = new Image(filePath);
-            String file = filePath.substring(filePath.lastIndexOf("/") +1);
-            myDetailPane.setAvatar(file);
-        } 
+            myDetailPane.setAvatar(filePath);
+        }   
     }
 
 
@@ -128,6 +129,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myLevelSettings.addWinCondition(EditorToolbar.POINTS_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
         myLevelSettings.addWinCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
+       
        }
     
     public void addScrollType(){
