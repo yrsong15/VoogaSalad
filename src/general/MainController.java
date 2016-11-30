@@ -36,7 +36,7 @@ public class MainController {
     private GameEditorController myGameEditorController;
     private GameEngineController myGameEngineController;
 
-    public MainController(Stage stage) {
+    public MainController(Stage stage) throws IOException {
     	mainStage = stage;
         Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
         //GameEditorView myView = new GameEditorView();
@@ -57,7 +57,7 @@ public class MainController {
         myGalleryStage.show();
     }
 
-    private void initializeGallery() {
+    private void initializeGallery() throws IOException {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
 
@@ -174,9 +174,7 @@ public class MainController {
         GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(gameFile);
         myGameEngineStage = new Stage();
-        myGameEngineStage.setOnCloseRequest(e -> {
-            myGameEngineStage.close();
-        });
+        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());
         
         myGameEngineStage.setScene(gameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
