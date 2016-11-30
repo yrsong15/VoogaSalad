@@ -103,7 +103,10 @@ public class GalleryView {
         for (GameFile gameFile : gallery.getUnmodifiableListOfGameFiles())
 //		for(String gameFile : gallery.getUnmodifiableListOfGameFiles())
         {
-            Node gameFileNode = createGameFileView(gameFile).getNode();
+            GameFileView newGameFileView = createGameFileView(gameFile);
+//            Node gameFileNode = createGameFileView(gameFile).getNode();
+            Node gameFileNode = newGameFileView.getNode();
+            gameFileNode.setOnMouseClicked(e -> gameFileViewClicked(newGameFileView));
             gameFileBox.getChildren().add(gameFileNode);
         }
         // TODO: Extract this into a configure window method
@@ -179,6 +182,7 @@ public class GalleryView {
     
     private void launchSelectedFiles()
     {
+        System.out.println("Launch selected files");
     	for(GameFileView gameFileView : mySelectedFiles)
     	{
     		myMainController.launchEngine(gameFileView.getGameFile().getGameData());
