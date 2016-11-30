@@ -76,9 +76,9 @@ public class EditorLevels {
     }
     
     private HBox addGameTitle(){
-        Label gameLabel = new Label("Enter Game Title: ");
+        Label gameLabel = new Label("Game Title: ");
         TextField myGameName = new TextField();
-        HBox myHBox = new HBox(20);
+        HBox myHBox = new HBox(40);
         myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
         myHBox.setLayoutY(LEVEL_PANE_Y_POSITION/2);
         ButtonTemplate submitButton = new ButtonTemplate("SubmitCommand",0,0);
@@ -113,7 +113,6 @@ public class EditorLevels {
     }
 
     public void addNewLevel(){
-//        ButtonTemplate newLevelButton = new ButtonTemplate("Level " + (myVBox.getChildren().size() + 1));
         Button level = new Button("Level " + (myVBox.getChildren().size() + 1)) ;
         level.setId(Integer.toString(myVBox.getChildren().size()));
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
@@ -148,10 +147,6 @@ public class EditorLevels {
     public SimpleStringProperty getGameTitle(){
         return myGameTitle;
     }
-    
-//    public void setOnLoadGameButton(EventHandler<MouseEvent> handler){
-//        loadGameButton.setOnMouseClicked(handler);
-//    }
     
     public Button getLoadButton(){
         return this.loadGameButton;

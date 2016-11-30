@@ -131,7 +131,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     @Override
     public void saveLevelData (Map<String,String> myLevelData) {
         myLevelSettings.addWinCondition(EditorToolbar.POINTS_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
-        myLevelSettings.addWinCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
+        myLevelSettings.addLoseCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
         if(myLevelData.containsKey(EditorToolbar.SCROLL_WIDTH_PROPERTY)){
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
         }
@@ -139,7 +139,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
        
 
-    
     public void addScrollType(){
         createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
         createScrollType(ViewResources.LIMITED_SCROLLING_TYPE.getResource(),myToolbar.getLimitedScrollingMenu());
