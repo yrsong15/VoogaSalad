@@ -135,7 +135,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         if(myLevelData.containsKey(EditorToolbar.SCROLL_WIDTH_PROPERTY)){
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
         }
-        
         closeLevelWindow.set(true);
     }
        
@@ -144,9 +143,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public void addScrollType(){
         createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
         createScrollType(ViewResources.LIMITED_SCROLLING_TYPE.getResource(),myToolbar.getLimitedScrollingMenu());
-        addFreeScrollTypeListener();
-        
-        
+        addFreeScrollTypeListener(); 
     }
                
         private void createScrollType(String className, Menu myMenu){

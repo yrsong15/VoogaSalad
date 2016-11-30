@@ -44,7 +44,6 @@ public class EditorToolbar implements IEditorToolbar {
 	
 	private TextArea myXTextArea;
 	private BorderPane myXTextBP;
-	
 	private ComboBox<String> myDimComboBox;
 	private TextArea myTimeWin;
 	private TextArea myPointsWin;
@@ -105,9 +104,9 @@ public class EditorToolbar implements IEditorToolbar {
 	
 	private void createWinConditions(){
 		myTimeWin = createInputBP("Time: ", "N/A", 160, 5);
-		//myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
+		myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
 		myPointsWin = createInputBP("Points: ", "N/A", 160, 40);
-		//myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
+		myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
 		
 	}
 	
@@ -157,9 +156,8 @@ public class EditorToolbar implements IEditorToolbar {
 	public void cbOnAction(ComboBox<String> cb){
 		if (cb.getValue().equals("True")){
 			myXTextArea = createInputBP("Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 40);
-			 myLevelData.put(SCROLL_WIDTH_PROPERTY, myXTextArea.getText());
-		} 
-		else {
+			myLevelData.put(SCROLL_WIDTH_PROPERTY, myXTextArea.getText());
+		} else {
 			myPane.getChildren().remove(myXTextBP);	
 		}
 	}
@@ -191,7 +189,7 @@ public class EditorToolbar implements IEditorToolbar {
 	private void sendLevelData(){
 	    myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
 	    myLevelData.put(POINTS_PROPERTY, myPointsWin.getText());
-	   
+	    
 	    myOutput.saveLevelData(myLevelData);
 	}
 	
