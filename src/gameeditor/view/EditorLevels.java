@@ -32,7 +32,7 @@ public class EditorLevels {
     public static final double ADD_LEVELS_WIDTH = 400;
     public static final double ADD_LEVELS_HEIGHT=350;
     public static final double LEVEL_PANE_X_POSITION = 180;
-    public static final double LEVEL_PANE_Y_POSITION = 70;
+    public static final double LEVEL_PANE_Y_POSITION = 80;
     public static final double BUTTON_ICON_PROPORTION = 50;
     public static final String DEFAULT_GAME_TITLE = "Untitled";
     
@@ -95,8 +95,8 @@ public class EditorLevels {
     }
     
     private void addButton(){
-        newLevelButton = getButton("LevelCommand", LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6.5);
-        loadGameButton = getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2,LEVEL_PANE_Y_POSITION*6.5);
+        newLevelButton = getButton("LevelCommand", LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6);
+        loadGameButton = getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2.5,LEVEL_PANE_Y_POSITION*6);
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/AddLevelIcon.png";
         ImageView newLevelIcon = new ImageView(new Image(userDirectoryString));
         
