@@ -11,6 +11,8 @@ import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IToolbarParent;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
@@ -36,6 +38,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
+    private BooleanProperty closeLevelWindow;
     
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     
@@ -44,6 +47,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public GameEditorView(ILevel levelSettings){
        this.myLevelSettings = levelSettings;
         myRoot = new BorderPane();  
+        closeLevelWindow = new SimpleBooleanProperty(false);
     }
 
     public Parent createRoot(){
@@ -129,13 +133,17 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myLevelSettings.addWinCondition(EditorToolbar.POINTS_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
         myLevelSettings.addWinCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
+        
+        closeLevelWindow.set(true);
+    }
        
-       }
+
     
     public void addScrollType(){
         createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
         createScrollType(ViewResources.LIMITED_SCROLLING_TYPE.getResource(),myToolbar.getLimitedScrollingMenu());
         addFreeScrollTypeListener();
+        
         
     }
                
@@ -157,5 +165,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                 myScrollType.addScrollDirection(Direction.UP); 
                 myScrollType.addScrollDirection(Direction.DOWN); 
             });
-        }       
+        }
+        
+        public BooleanProperty getSaveLevelProperty(){
+            return this.closeLevelWindow;
+        }
 }
