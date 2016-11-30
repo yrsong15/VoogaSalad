@@ -1,5 +1,5 @@
 package general;
-import gameeditor.controller.GameEditorFrontEndController;
+import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
 import gameengine.view.GameEngineUI;
 import javafx.scene.Scene;
@@ -28,7 +28,7 @@ public class MainController {
     private Stage myGameEditorStage;
     private Stage myGameEngineStage;
     //private GameEditorView myGameEditorView;
-    private GameEditorFrontEndController myGameEditorController;
+    private GameEditorController myGameEditorController;
     private GameEngineController myGameEngineController;
 
     public MainController(Stage stage) {
@@ -40,30 +40,41 @@ public class MainController {
         stage.setScene(scene);
         stage.setTitle("VoogaSalad");
         stage.show();
+        initializeGallery();
     }
 
-    public void presentGallery() throws IOException {
-        System.out.println("present");
-        initializeGallery();
+
+    public void presentGallery() {
+        //System.out.println("present");
         myGalleryView = new GalleryView(myGallery, this);
         myGalleryStage.setScene(myGalleryView.getScene());
         myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
         myGalleryStage.show();
     }
 
-    private void initializeGallery() throws IOException {
+    private void initializeGallery() {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
+
 // 	   this.gallery = new Gallery();
- 	   for(int i = 0; i < 40; i++)
- 	   {
- 		   myGallery.addToGallery(new GameFile());
- 	   }
+// 	   for(int i = 0; i < 40; i++)
+// 	   {
+// 		   myGallery.addToGallery(new GameFile());
+// 	   }
+
+    }
+    
+    private void addNewGameFile(String title, String gameData)
+    {
+    	GameFile newGame = new GameFile(title,gameData);
+    	myGallery.addToGallery(newGame);
+ 
+
     }
 
     public void presentEditor() {
         myGameEditorStage = new Stage();
-        myGameEditorController = new GameEditorFrontEndController();
+        myGameEditorController = new GameEditorController();
         Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
@@ -77,7 +88,7 @@ public class MainController {
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 150, 100, "bird3.png", new HashMap<>());
         bird.setProperty("gravity", "1.2");
-        bird.setProperty("health", "30");
+        bird.setProperty("health", "100000");
         bird.setProperty("jump", "600");
         GameObject pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
         pipe1.setProperty("damage","30");
@@ -126,18 +137,19 @@ public class MainController {
         GameEngineController gameEngineController = new GameEngineController();
         
         gameEngineController.setCurrentXML(s);
-        System.out.println(s);
         myGameEngineStage = new Stage();
         myGameEngineStage.setScene(gameEngineController.getScene());
-        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stopMusic());
+        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
-        gameEngineController.startGame();
+        gameEngineController.startGame(); 
+    	System.out.println(XMLData);
     }
     
-    private void sendDataToEngine(){
+    private void sendDataToEngine() {
         
         String title = myGameEditorController.getGameTitle();
         String gameFile = myGameEditorController.getGameFile();
+        addNewGameFile(title,gameFile);
         
         //System.out.println(" Title : " + title);
         //System.out.println(gameFile); 

@@ -66,6 +66,9 @@ public class Level implements ILevel{
 	public void removeGameObject(GameObject go) {
 		gameObjects.remove(go);
 	}
+	public void removeGameObject(int index){
+		gameObjects.remove(index);
+	}
 	public void addWinCondition(String type, String action) {
 		winConditions.put(type, action);
 	}

@@ -19,4 +19,6 @@ public interface IGameEngineUI {
 	public void setMusic(String musicFileLocation);
 	
 	public void setBackgroundImage(String imageFileLocation);
+	
+	public void stopMusic();
 }
