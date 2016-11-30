@@ -84,6 +84,7 @@ public class MainController {
         myGameEditorController = new GameEditorController();
         Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene); 
+        scene.getStylesheets().add("gameEditorSplash.css");
         myGameEditorStage.show();
 
         myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
@@ -196,8 +197,9 @@ public class MainController {
         
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
         
-        //System.out.println(gameFile);
+        System.out.println(gameFile);
 //        String file=null;
+//        
 //        try {
 //            file = new String(Files.readAllBytes(Paths.get("testFiles/test1")));
 //
@@ -205,21 +207,24 @@ public class MainController {
 //        catch (IOException e) {
 //            e.printStackTrace();
 //        }     
-//        GameEngineController gameEngineController = new GameEngineController();   
-//        gameEngineController.setCurrentXML(file);
-//        //gameEngineController.setCurrentXML(gameFile);
-//        myGameEngineStage = new Stage();
-//        myGameEngineStage.setOnCloseRequest(e -> {
-//            myGameEngineStage.close();
-//        });
-//        myGameEngineStage.setScene(gameEngineController.getScene());
-//        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
-//        myGameEngineStage.show();
-//        gameEngineController.startGame(); 
-//        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());     
-//        myGameEngineStage.setScene(gameEngineController.getScene());
-//        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
-//        myGameEngineStage.show();
-//        gameEngineController.startGame();
+        GameEngineController gameEngineController = new GameEngineController();   
+        
+       //gameEngineController.setCurrentXML(file);
+        
+        gameEngineController.setCurrentXML(gameFile);
+       
+        myGameEngineStage = new Stage();
+        myGameEngineStage.setOnCloseRequest(e -> {
+            myGameEngineStage.close();
+        });
+        myGameEngineStage.setScene(gameEngineController.getScene());
+        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+        myGameEngineStage.show();
+        gameEngineController.startGame(); 
+        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());     
+        myGameEngineStage.setScene(gameEngineController.getScene());
+        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+        myGameEngineStage.show();
+        gameEngineController.startGame();
     }   
 }

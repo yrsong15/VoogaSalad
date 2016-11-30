@@ -21,8 +21,8 @@ public class GameEditorData implements IGameEditorData{
 
     private ILevel myLevel;
 
-    public static final double SPRITE_WIDTH = 100;
-    public static final double SPRITE_HEIGHT = 150;
+   // public static final double SPRITE_WIDTH = 100;
+   // public static final double SPRITE_HEIGHT = 150;
     public static final double MAIN_CHAR_WIDTH=50;
     public static final double MAIN_CHAR_HEIGHT = 50;
     private String mainCharacterImageFilePath;
@@ -60,15 +60,24 @@ public class GameEditorData implements IGameEditorData{
     //TODO: Rmeove hardcoding of String values
     
     public void addGameObjectToLevel(Map<String,String> myGameObjMap){       
-        Map<String,String> properties = getPropertiesMap(myGameObjMap);
-        double xpos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.X_POSITON_KEY));
+        double xpos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.X_POSITION_KEY));
         double ypos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.Y_POSITION_KEY));
+        double width = Double.parseDouble(myGameObjMap.get(CreateObjectDetail.SPRITE_WIDTH_KEY));
+        double height = Double.parseDouble(myGameObjMap.get(CreateObjectDetail.SPRITE_HEIGHT_KEY));
         
+        // remove position values and size values from map
+        myGameObjMap.remove(CreateObjectDetail.X_POSITION_KEY);
+        myGameObjMap.remove(CreateObjectDetail.Y_POSITION_KEY);
+        myGameObjMap.remove(CreateObjectDetail.SPRITE_WIDTH_KEY);
+        myGameObjMap.remove(CreateObjectDetail.SPRITE_HEIGHT_KEY);
+        
+        Map<String,String> properties = getPropertiesMap(myGameObjMap);
+                
         String imagePath = myGameObjMap.get("Image Path");
         
         String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
         
-        GameObject myObject = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,file,properties);
+        GameObject myObject = new GameObject(xpos,ypos,width,height,file,properties);
         
         // check if the Ramdon was set yes 
         if(properties.get("randomgeneration").equals("True")){
