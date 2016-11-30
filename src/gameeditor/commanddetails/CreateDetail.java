@@ -71,11 +71,11 @@ public class CreateDetail extends AbstractCommandDetail {
             Map<String, String> propertiesMap = new HashMap<String, String>();
 
             for(String label: myPropertiesComboLabels){
+          
                 propertiesMap.put(label,myComboBoxes.get(propertiesMap.size()).getValue());   
             }
-
+            int i=0;
             for(String label: myPropertiesTextBox){
-                int i=0;
                 propertiesMap.put(label.toLowerCase(), myTextFields.get(i).getText());  
                 i++;
             }
@@ -191,7 +191,9 @@ public void createProperties(){
         bp.setMaxWidth(paddedPaneWidth);
         Label labl = createPropertyLbl(label);
         TextArea text = createInputField();
+        
         myTextFields.add(text);
+        
         bp.setLeft(labl);
         bp.setRight(text);
         BorderPane.setAlignment(labl, Pos.CENTER_LEFT);

@@ -23,6 +23,8 @@ public class GameEditorData implements IGameEditorData{
 
     public static final double SPRITE_WIDTH = 100;
     public static final double SPRITE_HEIGHT = 150;
+    public static final double MAIN_CHAR_WIDTH=50;
+    public static final double MAIN_CHAR_HEIGHT = 50;
     private String mainCharacterImageFilePath;
 
     public GameEditorData(ILevel level){
@@ -56,6 +58,7 @@ public class GameEditorData implements IGameEditorData{
 
     // Adds Game Object TO level 
     //TODO: Rmeove hardcoding of String values
+    
     public void addGameObjectToLevel(Map<String,String> myGameObjMap){       
         Map<String,String> properties = getPropertiesMap(myGameObjMap);
         double xpos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.X_POSITON_KEY));
@@ -70,8 +73,9 @@ public class GameEditorData implements IGameEditorData{
         RandomGeneration randomGeneration = new RandomGeneration(myObject.getProperties(), 5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
                                                                  -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
                                                          
-        myLevel.addRandomGeneration(randomGeneration);                                           
-        myLevel.addGameObject(myObject);
+        myLevel.addRandomGeneration(randomGeneration); 
+        
+       // myLevel.addGameObject(myObject);
         
     }
 
@@ -89,7 +93,6 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void addControl(KeyCode key, String action){
-        
         myLevel.addControl(key, action);
     }
 
@@ -105,12 +108,11 @@ public class GameEditorData implements IGameEditorData{
 
     @Override
     public void addMainCharacterImage (String imageFilePath) {
-        // TODO Auto-generated method stub
         this.mainCharacterImageFilePath = imageFilePath;
     }
     
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
-        GameObject mainCharacter = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,this.mainCharacterImageFilePath,properties);
+        GameObject mainCharacter = new GameObject(xpos,ypos,MAIN_CHAR_WIDTH,MAIN_CHAR_HEIGHT,this.mainCharacterImageFilePath,properties);
         myLevel.addGameObject(mainCharacter);
         myLevel.setMainCharacter(mainCharacter);
     }
