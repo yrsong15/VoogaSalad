@@ -160,10 +160,7 @@ public class MainController {
 
     private void setMyGameEngineStage(){
         myGameEngineStage = new Stage();
-        myGameEngineStage.setOnCloseRequest(e -> {
-            System.out.println("Closed");
-            myGameEngineStage.close();
-        });
+        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());
         myGameEngineStage.setScene(myGameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> myGameEngineController.stop());
         myGameEngineStage.show();
