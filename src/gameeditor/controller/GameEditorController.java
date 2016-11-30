@@ -5,6 +5,7 @@ import java.util.HashMap;
 import gameeditor.controller.interfaces.IGameEditorFrontEndController;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
+import gameengine.view.GameEngineUI;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import objects.Level;
+import objects.RandomGeneration;
 import objects.interfaces.ILevel;
 /**
  * @author pratikshasharma, Ray Song
@@ -50,6 +52,7 @@ public class GameEditorController implements IGameEditorFrontEndController{
         // addListenerForGameTitle
         addGameTitleListener();
         return parent;
+        
     }
     
     
@@ -59,7 +62,6 @@ public class GameEditorController implements IGameEditorFrontEndController{
             public void changed (ObservableValue<? extends String> observable,
                                  String oldValue,
                                  String newValue) { 
-               //System.out.println(" Game Title Changed: " );
                myGameEditorBackEndController.setGameName(newValue.toString()); 
             }
         });
@@ -93,11 +95,14 @@ public class GameEditorController implements IGameEditorFrontEndController{
 //            myLevelManager.createLevel(level,levelInterface);
             myLevelManager.createLevel(level);
             myGameEditor = new GameEditorView(levelInterface);
+            
             myLevelEditorMap.put(activeButtonId, myGameEditor);  
+            
             setNewLevelSceneRoot();
    
             // Create new Level in back end
             myGameEditorBackEndController.setCurrentLevel(level);
+            
             myGameEditorBackEndController.addCurrentLevelToGame();
             
         }
@@ -125,6 +130,7 @@ public class GameEditorController implements IGameEditorFrontEndController{
         // TODO: How is the Game object going to be passed onto the Game Engine?
 //    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
     	//myGameEditorBackEndController.getGame();
+        
         return myGameEditorBackEndController.serializeGame();
     }
     
