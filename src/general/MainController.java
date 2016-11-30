@@ -85,7 +85,7 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-        System.out.println("engine launched");
+        //System.out.println("engine launched");
     	XStream mySerializer = new XStream(new DomDriver());
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 75, 50, "bird3.png", new HashMap<>());
@@ -146,7 +146,7 @@ public class MainController {
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
         gameEngineController.startGame(); 
-    	System.out.println(s);
+    	//System.out.println(s);
     }
     
     private void sendDataToEngine() {
