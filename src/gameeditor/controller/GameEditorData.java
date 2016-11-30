@@ -70,12 +70,15 @@ public class GameEditorData implements IGameEditorData{
         
         GameObject myObject = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,file,properties);
         
+        // check if the Ramdon was set yes 
+        if(properties.get("randomgeneration").equals("True")){
         RandomGeneration randomGeneration = new RandomGeneration(myObject.getProperties(), 5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
                                                                  -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
                                                          
         myLevel.addRandomGeneration(randomGeneration); 
+        }
         
-       // myLevel.addGameObject(myObject);
+        myLevel.addGameObject(myObject);
         
     }
 

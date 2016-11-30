@@ -198,14 +198,14 @@ public class MainController {
         
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
         
-        // System.out.println(gameFile);
+        //System.out.println(gameFile);
+        
 //        String file=null;
 //        try {
 //            file = new String(Files.readAllBytes(Paths.get("resources/test1")));
 //
 //        }
 //        catch (IOException e) {
-//            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
         
@@ -228,5 +228,5 @@ public class MainController {
         myGameEngineStage.show();
         gameEngineController.startGame();
     }
-
+    
 }
