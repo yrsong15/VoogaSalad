@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -22,6 +23,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -49,6 +51,7 @@ public class EditorToolbar implements IEditorToolbar {
 	private Menu limitedScrollSubMenu;
 	private Menu scrollTypeMenu;
 	private MenuItem freeScrollType;
+	//private Button updateScrollWidthButton;
 	
 	
 	public static final String TIME_PROPERTY = "time";
@@ -106,7 +109,7 @@ public class EditorToolbar implements IEditorToolbar {
 	}
 	
 	private void createDimensions(){
-		myXTextArea = createInputBP("Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 5);	
+		myXTextArea = createInputBP("Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 5);
 	}
 	
 	private void addScrollTypeOptions(){
@@ -184,9 +187,7 @@ public class EditorToolbar implements IEditorToolbar {
 	public String getWinPoints(){
 	    return myPointsWin.getText();
 	}
-	
-
-	
+		
 	public Menu getLimitedScrollingMenu(){
 	    return this.limitedScrollSubMenu;
 	}
