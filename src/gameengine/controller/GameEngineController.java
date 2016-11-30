@@ -149,9 +149,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	@Override
 	public void removeObject(GameObject obj) {
-		System.out.print(currentGame.getCurrentLevel().getGameObjects().size());
 		currentGame.getCurrentLevel().removeGameObject(obj);
-		System.out.println(" "+currentGame.getCurrentLevel().getGameObjects().size());
 	}
 	@Override
 	public void endGame() {
