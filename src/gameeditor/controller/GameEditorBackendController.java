@@ -1,32 +1,24 @@
 package gameeditor.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 import gameeditor.controller.interfaces.ICreateGame;
-import gameeditor.controller.interfaces.ICreateGameObject;
-import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.xml.XMLSerializer;
-import gameeditor.controller.interfaces.IGameEditorController;
+import gameeditor.controller.interfaces.IGameEditorBackEndController;
 import objects.Game;
-import objects.GameObject;
 import objects.Level;
 
 /**
- * This is the central class for the Game Editor backend that contains all the
- * methods that can be called by the Game Editor frontend.
+ * This controller manages the Game class used within the Game Editor.
  * 
  * @author Ray Song(ys101)
  *
  */
 
 public class GameEditorBackendController
-implements IGameEditorController, ICreateGame, ICreateGameObject {
+implements IGameEditorBackEndController, ICreateGame{
 
     private Game myGame;
     private Level myCurrentLevel;
-    private GameObject myGameObject;
     private XMLSerializer mySerializer;
-//    private HashMap<String, String> myControlMap;
 
     public GameEditorBackendController(){
     	mySerializer = new XMLSerializer();
@@ -53,18 +45,8 @@ implements IGameEditorController, ICreateGame, ICreateGameObject {
     }
 
     @Override
-    public void addPropertiesToGameObject(Map<String, String> properties) {
-        myGameObject.setPropertiesList(properties);
-
-    }
-
-    @Override
     public void setCurrentLevelToGame() {
         myGame.setCurrentLevel(myCurrentLevel);
-    }
-
-    public GameObject getCurrentGameObject() {
-        return myGameObject;
     }
     
     public String serializeGame(){
