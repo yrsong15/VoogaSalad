@@ -21,8 +21,8 @@ public class GameEditorData implements IGameEditorData{
 
     private ILevel myLevel;
 
-    public static final double SPRITE_WIDTH = 50;
-    public static final double SPRITE_HEIGHT = 50;
+    public static final double SPRITE_WIDTH = 100;
+    public static final double SPRITE_HEIGHT = 150;
     private String mainCharacterImageFilePath;
 
     public GameEditorData(ILevel level){
@@ -54,13 +54,13 @@ public class GameEditorData implements IGameEditorData{
     }
 
 
-
     // Adds Game Object TO level 
     //TODO: Rmeove hardcoding of String values
     public void addGameObjectToLevel(Map<String,String> myGameObjMap){       
         Map<String,String> properties = getPropertiesMap(myGameObjMap);
         double xpos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.X_POSITON_KEY));
         double ypos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.Y_POSITION_KEY));
+        
         String imagePath = myGameObjMap.get("Image Path");
         
         String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
@@ -78,7 +78,7 @@ public class GameEditorData implements IGameEditorData{
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
         // include everything except for xposition, yposition, imagefilePath, Type Name in the properties Map
         Map<String,String> properties = new HashMap<String,String>();
-        properties.put("damage",myItemMap.get("damage"));
+        //properties.put("damage",myItemMap.get("damage"));
         myItemMap.forEach((k,v)-> {
             if(!(k.equals("xPosition")|| k.equals("yPosition")|| k.equals("Type Name") || k.equals("Image Path" ))){
                 properties.put(k, v);
