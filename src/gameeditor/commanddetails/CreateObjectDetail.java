@@ -24,14 +24,19 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	private TextArea myXTextArea;
 	private TextArea myYTextArea;
+	private TextArea mySpriteWidth;
+	private TextArea mySpriteHeight;
+	
 	private String myFilePath = "";
 	private ImageView myIV;
 	private VBox myVBox;
 	private GameObject myGO;
 
 	private ComboBox<String> myType;
-	public static final String X_POSITON_KEY = "xPosition";
+	public static final String X_POSITION_KEY = "xPosition";
 	public static final String Y_POSITION_KEY = "yPosition";
+	public static final String SPRITE_WIDTH_KEY ="width";
+	public static final String SPRITE_HEIGHT_KEY ="height";
 	
 	public CreateObjectDetail() {
 		super();
@@ -84,11 +89,17 @@ public class CreateObjectDetail extends AbstractCommandDetail {
         Map<String, String> typeMap = myDataStore.getType(myType.getValue());
         String xString = myXTextArea.getText();
         String yString = myYTextArea.getText();
+        String width = mySpriteWidth.getText();
+        String height = mySpriteHeight.getText();
+        
         double x = Double.parseDouble(xString);
         double y = Double.parseDouble(yString);
-        typeMap.put(X_POSITON_KEY, String.valueOf(x));
+        typeMap.put(X_POSITION_KEY, String.valueOf(x));
         typeMap.put(Y_POSITION_KEY, String.valueOf(y));
 
+        typeMap.put(SPRITE_HEIGHT_KEY,height);
+        typeMap.put(SPRITE_WIDTH_KEY, width);
+        
         myDataStore.addGameObjectToLevel(typeMap);
 
     }
@@ -96,19 +107,25 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	public void handlePreview(){
 		String xString = myXTextArea.getText();
 		String yString = myYTextArea.getText();
+	        String width = mySpriteWidth.getText();
+	        String height = mySpriteHeight.getText();
 		double x = Double.parseDouble(xString);
 		double y = Double.parseDouble(yString);
+		double spriteWidth = Double.parseDouble(width);
+                double spriteHeight = Double.parseDouble(height);
 		if (myGO == null){
-			myGO = new GameObject(myFilePath, x, y, 50, 50, myType.getValue(), myDesignArea);
+			myGO = new GameObject(myFilePath, x, y,spriteWidth , spriteHeight, myType.getValue(), myDesignArea);
 		} else {
 			myGO.removeSelf();
-			myGO = new GameObject(myFilePath, x, y, 50, 50, myType.getValue(), myDesignArea);
+			myGO = new GameObject(myFilePath, x, y, spriteWidth, spriteHeight, myType.getValue(), myDesignArea);
 		}
 	}
 	
 	public void createPos(){
 		myXTextArea = createPosBP("X Pos: ");
 		myYTextArea = createPosBP("Y Pos: ");
+		mySpriteWidth=createPosBP("Width: ");
+		mySpriteHeight=createPosBP("Height: ");
 	}
 	
 	public TextArea createPosBP(String label){
