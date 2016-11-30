@@ -67,7 +67,7 @@ public class ControlsDetail extends AbstractCommandDetail {
 			//System.out.println("KCString: " + kcString);
 			if (controlKey != null && kcString != null && kcString !="Input"){
 				KeyCode kc = KeyCode.valueOf(kcString);
-				myDataStore.addControl(kc, controlKey.toLowerCase());
+				myDataStore.addControl(kc, controlProps.getString(controlKey.toLowerCase()));
 			}
 		}
 		
