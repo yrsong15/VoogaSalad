@@ -130,7 +130,6 @@ public class MainController {
         level.setScrollType(gameScroll);
         RandomGeneration randomGeneration = new RandomGeneration(pipe1.getProperties(), 5, (int) GameScreen.screenWidth / 5, (int) GameScreen.screenWidth,
         		(int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
-        
         level.addRandomGeneration(randomGeneration);
         level.addControl(KeyCode.W, "jump");
         game.addLevel(level);
@@ -140,7 +139,7 @@ public class MainController {
         gameEngineController.setCurrentXML(s);
         myGameEngineStage = new Stage();
         myGameEngineStage.setOnCloseRequest(e -> {
-            System.out.println("Closed");
+            //System.out.println("Closed");
             myGameEngineStage.close();
         });
         myGameEngineStage.setScene(gameEngineController.getScene());
