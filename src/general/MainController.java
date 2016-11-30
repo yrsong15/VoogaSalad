@@ -109,9 +109,13 @@ public class MainController {
         level.addGameObject(pipe4);
         level.addGameObject(pipe5);
         level.addGameObject(ground);
+        
         ScrollType gameScroll = new ScrollType("ForcedScrolling");
+        
         gameScroll.addScrollDirection(Direction.RIGHT);
+        
         level.setScrollType(gameScroll);
+        
         RandomGeneration randomGeneration = new RandomGeneration(pipe1, 5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
                 -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
         level.addRandomGeneration(randomGeneration);
