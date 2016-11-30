@@ -89,7 +89,7 @@ public class MainController {
         Game game = new Game("Flappy Bird");
         GameObject bird = new GameObject(250, 200, 75, 50, "bird3.png", new HashMap<>());
         bird.setProperty("gravity", "0.8");
-        bird.setProperty("health", "100000");
+        bird.setProperty("health", "30");
         bird.setProperty("jump", "400");
         GameObject pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
         pipe1.setProperty("damage","30");

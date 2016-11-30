@@ -149,7 +149,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	@Override
 	public void removeObject(GameObject obj) {
+		System.out.print(currentGame.getCurrentLevel().getGameObjects().size());
 		currentGame.getCurrentLevel().removeGameObject(obj);
+		System.out.println(" "+currentGame.getCurrentLevel().getGameObjects().size());
 	}
 	@Override
 	public void endGame() {
@@ -166,7 +168,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	@Override
 	public void modifyScore(int score) {
-		// TODO Auto-generated method stub
+		int prevScore = currentGame.getCurrentLevel().getScore();
+		int currScore = prevScore+score;
+		currentGame.getCurrentLevel().setScore(currScore);
+		gameEngineView.updateStat("Score", Integer.toString(currScore));
 	}
 	public Scene getScene() {
 		currentGame = parser.convertXMLtoGame(xmlData);
