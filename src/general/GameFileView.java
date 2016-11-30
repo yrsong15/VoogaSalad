@@ -3,12 +3,11 @@ package general;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.input.InputEvent;
 import javafx.event.EventType;
 
 public class GameFileView
@@ -18,7 +17,6 @@ public class GameFileView
 	private Rectangle gameView;
 	private Paint gameViewColor;
 	private boolean isSelected;
-
 	public GameFileView(GameFile gameFile)
 	{
 		this.gameFile = gameFile;
@@ -83,6 +81,7 @@ public class GameFileView
 	{
 		gameView.fireEvent(new GameFileViewEvent(GameFileViewEvent.VIEW_CLICKED_ON, this));
 	}
+
 	private Pane createView()
 	{
 		Pane view = new Pane();
@@ -103,7 +102,14 @@ public class GameFileView
 		gameViewColor = rect.getFill();
 		gameView = rect;
 		view.getChildren().add(gameView);
+		Label name = new Label(gameFile.getGameName());
+		view.getChildren().add(name);
 		return view;
+	}
+
+	public GameFile getGameFile()
+	{
+		return gameFile;
 	}
 
 	public Node getNode()

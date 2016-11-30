@@ -6,6 +6,7 @@ import javafx.event.EventType;
 
 public class GameFileViewEvent extends Event
 {
+
     private GameFileView gameFileView;
 
     /**

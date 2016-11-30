@@ -12,14 +12,20 @@ public class Level implements ILevel{
 //	private static final int maxSpacing = 500;
 //	private static final int pipeWidth = 300;
 	private int level;
+	
 	private List<GameObject> gameObjects;
 	private Map<String, String> winConditions;
 	private Map<String, String> loseConditions;
 	private Map<String, Double> gameConditions;
 	private Map<KeyCode, String> controls;
+	
 	private List<RandomGeneration> randomGenerations;
+	
 	private GameObject mainCharacter;
+	
+	
 	private ScrollType scrollType;
+	
 	private LevelSettings viewSettings;
 	public Level(int level) {
 		gameObjects = new ArrayList<GameObject>();
@@ -31,6 +37,7 @@ public class Level implements ILevel{
 		viewSettings = new LevelSettings();
 		this.level = level;
 	}
+	
 	public void setScrollType(ScrollType scrollType) {
 		this.scrollType = scrollType;
 	}

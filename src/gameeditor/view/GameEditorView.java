@@ -1,7 +1,10 @@
 package gameeditor.view;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import com.sun.javafx.scene.traversal.Direction;
 import frontend.util.FileOpener;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
@@ -9,12 +12,14 @@ import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IToolbarParent;
 import javafx.scene.Parent;
+import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import objects.ScrollType;
 import objects.interfaces.ILevel;
 
 
@@ -32,6 +37,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
     
+    
 
     public GameEditorView(ILevel levelSettings){
        this.myLevelSettings = levelSettings;
@@ -41,7 +47,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public Parent createRoot(){
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
+        
+        addScrollType();
+        
         return myRoot;
+        
+        
     }
 
     private HBox createLeftAlt(){
@@ -118,4 +129,30 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
        }
     
+    public void addScrollType(){
+        createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
+        createScrollType(ViewResources.LIMITED_SCROLLING_TYPE.getResource(),myToolbar.getLimitedScrollingMenu());
+        addFreeScrollTypeListener();
+        
+    }
+               
+        private void createScrollType(String className, Menu myMenu){
+            ScrollType myScrollType = new ScrollType(className);
+            myMenu.getItems().stream().forEach(item -> {
+                item.setOnAction(e -> {
+                    myScrollType.addScrollDirection(Direction.valueOf(item.getText()));
+                    myLevelSettings.setScrollType(myScrollType);
+                });
+            });
+        }   
+        
+        private void addFreeScrollTypeListener(){
+            ScrollType myScrollType = new ScrollType(ViewResources.FREE_SCROLLING_TYPE.getResource());
+            myToolbar.getFreeScrollTypeMenuItem().setOnAction(e -> {
+                myScrollType.addScrollDirection(Direction.LEFT); 
+                myScrollType.addScrollDirection(Direction.RIGHT); 
+                myScrollType.addScrollDirection(Direction.UP); 
+                myScrollType.addScrollDirection(Direction.DOWN); 
+            });
+        }       
 }
