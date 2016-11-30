@@ -28,7 +28,6 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	private ImageView myIV;
 	private VBox myVBox;
 	private GameObject myGO;
-	private List<Map<String,String>> myGameObjectsMap;
 
 	private ComboBox<String> myType;
 	public static final String X_POSITON_KEY = "xPosition";
@@ -82,19 +81,13 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	//TODO: ADD DATA VERIFICATION TO SAVE
     public void handleSave(){
-
-        myGameObjectsMap = new ArrayList<Map<String,String>>();
-
         Map<String, String> typeMap = myDataStore.getType(myType.getValue());
-
         String xString = myXTextArea.getText();
         String yString = myYTextArea.getText();
         double x = Double.parseDouble(xString);
         double y = Double.parseDouble(yString);
         typeMap.put(X_POSITON_KEY, String.valueOf(x));
         typeMap.put(Y_POSITION_KEY, String.valueOf(y));
-
-        myGameObjectsMap.add(typeMap);
 
         myDataStore.addGameObjectToLevel(typeMap);
 
@@ -199,11 +192,6 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 
 	public void createTextField(){
 		
-	}
-	
-	// Add it in the map 
-	public List<Map<String,String>> getGameObstacleList(){
-	    return this.myGameObjectsMap;
 	}
 
 }

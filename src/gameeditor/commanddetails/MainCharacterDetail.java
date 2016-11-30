@@ -1,8 +1,11 @@
 package gameeditor.commanddetails;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
-
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -10,12 +13,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import objects.GameObject;
 
+// TODO: Refactor this class - duplicated code with CreateDetail
 public class MainCharacterDetail extends AbstractCommandDetail {
-	
+
 	private VBox myVBox;
 	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
 	private String [] myPropertiesArray = DetailResources.PROPERTIES.getArrayResource();
+	
+	public static final double MAIN_CHARACTER_INITIAL_X_POSITION = 20;
+	public static final double MAIN_CHARACTER_INITIAL_Y_POSITION = 20;
+	public static final double MAIN_CHARACTER_HEIGHT = 100;
+	public static final double MAIN_CHARACTER_WIDTH = 100;
 	
 	public MainCharacterDetail() {
 		super();
@@ -45,15 +55,14 @@ public class MainCharacterDetail extends AbstractCommandDetail {
 		if (verifySave()){
 			// TODO: Create this for saving maincharacter
 			// TODO: Input file path when creating pane
-//			ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
-//			Enumeration<String> enumKeys = geprops.getKeys();
-//			Map<String, String> propertiesMap = new HashMap<String, String>();
-//			for (ComboBox<String> cb : myComboBoxes){
-//				propertiesMap.put(enumKeys.nextElement(), cb.getValue());
-//			}
-//			propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
-//			propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
-//			myDataStore.storeType(propertiesMap);
+			ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
+			Enumeration<String> enumKeys = geprops.getKeys();
+			Map<String, String> propertiesMap = new HashMap<String, String>();
+			for (ComboBox<String> cb : myComboBoxes){
+				propertiesMap.put(enumKeys.nextElement(), cb.getValue());
+			}
+			
+			myDataStore.addMainCharacter(MAIN_CHARACTER_INITIAL_X_POSITION, MAIN_CHARACTER_INITIAL_Y_POSITION, MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT, propertiesMap);
 		} else {
 			
 		}

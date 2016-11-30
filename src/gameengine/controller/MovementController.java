@@ -1,6 +1,7 @@
 package gameengine.controller;
 
 
+import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.MovementHandler;
 import gameengine.controller.interfaces.MovementInterface;
 import javafx.scene.Scene;
@@ -14,7 +15,12 @@ public class MovementController implements MovementInterface{
     private Scene myScene;
     private MovementHandler handler;
     private Game currentGame;
-
+    private CommandInterface commandInterface;
+    
+    public MovementController(CommandInterface commandInterface){
+    	this.commandInterface = commandInterface;
+    }
+    
     public void setGame(Game currentGame){
         this.currentGame = currentGame;
     }
@@ -35,24 +41,16 @@ public class MovementController implements MovementInterface{
 
     @Override
     public void moveRight(){
-        for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
-            if (obstacle==currentGame.getCurrentLevel().getMainCharacter()){
-                continue;
-            }
-            double newPos = obstacle.getXPosition() - movementSpeed;
-            obstacle.setXPosition(newPos);
-        }
+        GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
+        double newPos = mainChar.getXPosition() + Math.abs(movementSpeed);
+        mainChar.setYPosition(newPos);
     }
 
     @Override
     public void moveLeft(){
-        for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
-            if (obstacle==currentGame.getCurrentLevel().getMainCharacter()){
-                continue;
-            }
-            double newPos = obstacle.getXPosition() + movementSpeed;
-            obstacle.setXPosition(newPos);
-        }
+        GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
+        double newPos = mainChar.getXPosition() - Math.abs(movementSpeed);
+        mainChar.setXPosition(newPos);
     }
 
     @Override
@@ -69,8 +67,9 @@ public class MovementController implements MovementInterface{
 
     }
 
+	@Override
+	public void reset() {
 
-    public void scroll(){
-        moveRight();
-    }
+		commandInterface.reset();
+	}
 }

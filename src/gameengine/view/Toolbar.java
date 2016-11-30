@@ -20,8 +20,6 @@ import javafx.stage.Stage;
  *
  */
 public class Toolbar implements IToolbar {
-
-	public static final String RESOURCE_FILENAME = "GameEngineUI";
 	
 	private ResourceBundle myResources;
 	private HBox myToolbar;
@@ -31,14 +29,15 @@ public class Toolbar implements IToolbar {
 	private EventHandler<ActionEvent> myResetEvent;
 	private Button myPauseButton;
 	
-	public Toolbar(EventHandler<ActionEvent> loadGame, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause,
-			EventHandler<ActionEvent> reset) {
-		myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
+	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadGame, EventHandler<ActionEvent> loadLevel, 
+			EventHandler<ActionEvent> pause, EventHandler<ActionEvent> reset) {
+		myResources = resources;
 		myLoadGameEvent = loadGame;
 		myLoadLevelEvent = loadLevel;
 		myPauseEvent = pause;
 		myResetEvent = reset;
 		myToolbar = new HBox();
+		myToolbar.setPrefHeight(40);
 		addButtons();
 	}
 
@@ -60,8 +59,10 @@ public class Toolbar implements IToolbar {
 	private void addButtons() {
 		myPauseButton = makeButton("PauseButton", myPauseEvent);
 		myPauseButton.setPrefWidth(70);
-		myToolbar.getChildren().addAll(makeButton("LoadGameButton", myLoadGameEvent), makeButton("LoadLevelButton", myLoadLevelEvent),
-				myPauseButton, makeButton("ResetButton", myResetEvent));
+		//myToolbar.getChildren().add(myPauseButton);
+		myToolbar.getChildren().add(makeButton("ResetButton", myResetEvent));
+		//myToolbar.getChildren().addAll(makeButton("LoadGameButton", myLoadGameEvent), makeButton("LoadLevelButton", myLoadLevelEvent),
+				//myPauseButton, makeButton("ResetButton", myResetEvent));
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
@@ -69,7 +70,7 @@ public class Toolbar implements IToolbar {
         String label = myResources.getString(property);
         result.setText(label);
         result.setOnAction(handler);
-        //result.set
+        result.setFocusTraversable(false);
         return result;
     }
 	

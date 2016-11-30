@@ -1,29 +1,25 @@
 package gameeditor.controller;
 
+import javafx.scene.input.MouseEvent;
 import java.util.HashMap;
 import gameeditor.controller.interfaces.IGameEditorFrontEndController;
-import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
-import gameeditor.xml.XMLSerializer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import objects.Level;
 import objects.interfaces.ILevel;
 /**
- * @author pratikshasharma
+ * @author pratikshasharma, Ray Song
  *
  */
-public class GameEditorFrontEndController implements IGameEditorFrontEndController{
+public class GameEditorController implements IGameEditorFrontEndController{
     private EditorLevels myEditorLevels;
     private HashMap<String,GameEditorView> myLevelEditorMap ;
     private String activeButtonId;
@@ -34,14 +30,13 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
     private boolean isInitialStage;
     
     public static final String DEFAULT_GAME_TITLE = "Untitled";
-//    private XMLSerializer mySerializer;
 
     
     public Parent startEditor() {
         myLevelManager = new LevelManager();
         
         myGameEditorBackEndController = new GameEditorBackendController();
-        
+       
         myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
          
         myEditorLevels= new EditorLevels();
@@ -49,7 +44,7 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
         
         // Check for the Load Game Button
-        myEditorLevels.setOnLoadGameButton(e -> loadGame());
+        //myEditorLevels.setOnLoadGameButton(e -> loadGame());
         
         // addListenerForGameTitle
         addGameTitleListener();
@@ -92,7 +87,8 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
             myGameEditor=myLevelEditorMap.get(activeButtonId);
             setSavedLevelRoot();
         } else{
-            Level level = new Level(Integer.parseInt(activeButtonId));
+        	//TODO: create level here, or in LevelManager?
+            Level level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             ILevel levelInterface = (ILevel) level;
             myLevelManager.createLevel(level,levelInterface);
             myGameEditor = new GameEditorView(levelInterface);
@@ -124,13 +120,22 @@ public class GameEditorFrontEndController implements IGameEditorFrontEndControll
         }
     } 
     
-    private void loadGame(){
+    public String getGameFile(){
         // TODO: How is the Game object going to be passed onto the Game Engine?
-    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
-    	myGameEditorBackEndController.getGame();
+//    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
+    	//myGameEditorBackEndController.getGame();
+        return myGameEditorBackEndController.serializeGame();
     }
     
     private void setSavedLevelRoot(){
         myLevelScene.setRoot(myGameEditor.getRoot());
+    }
+    
+    public void setOnLoadGame(EventHandler<MouseEvent> handler){
+        myEditorLevels.getLoadButton().setOnMouseClicked( handler);  
+    }
+    
+    public String getGameTitle(){
+        return myEditorLevels.getGameTitle().get();
     }
 }

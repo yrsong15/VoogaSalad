@@ -21,6 +21,7 @@ public class GameEditorData implements IGameEditorData{
 
     public static final double SPRITE_WIDTH = 50;
     public static final double SPRITE_HEIGHT = 50;
+    private String mainCharacterImageFilePath;
 
     public GameEditorData(ILevel level){
         myLevel = level;
@@ -62,7 +63,7 @@ public class GameEditorData implements IGameEditorData{
         String imagePath = myGameObjMap.get("Image Path");
         
         GameObject myObject = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,imagePath,properties);
-        
+    
         myLevel.addGameObject(myObject);
     }
 
@@ -80,6 +81,7 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void addControl(KeyCode key, String action){
+        
         myLevel.addControl(key, action);
     }
 
@@ -92,5 +94,15 @@ public class GameEditorData implements IGameEditorData{
     public void addWinCondition(String type, String value){
         myLevel.addWinCondition(type, value);
     }
+
+    @Override
+    public void addMainCharacterImage (String imageFilePath) {
+        // TODO Auto-generated method stub
+        this.mainCharacterImageFilePath = imageFilePath;
+    }
     
+    public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
+        GameObject mainCharacter = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,this.mainCharacterImageFilePath,properties);
+        myLevel.setMainCharacter(mainCharacter);
+    }
 }

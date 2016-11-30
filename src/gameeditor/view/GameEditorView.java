@@ -83,8 +83,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public void setAvatar(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
         if(filePath!=null){
-            Image newAvatar = new Image(filePath);
-            myDetailPane.setAvatar(newAvatar);
+            //Image newAvatar = new Image(filePath);
+            myDetailPane.setAvatar(filePath);
              
             // Probably not Necessary to set this? 
            //myLevelSettings.setMainCharacter(mainCharacter);

@@ -1,11 +1,17 @@
 package general;
 
+import java.util.ArrayList;
+
 import frontend.util.ButtonTemplate;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -25,9 +31,13 @@ public class GalleryView {
     private String gameName;
     private MainController myMainController;
 
+    private ArrayList<GameFileView> mySelectedFiles;
+
+
     public GalleryView(Gallery gallery, MainController MC) {
         this.myMainController = MC;
         this.gallery = gallery;
+        this.mySelectedFiles = new ArrayList<GameFileView>();
         setUpWindow();
         configureEventListeners();
     }
@@ -37,7 +47,32 @@ public class GalleryView {
     }
 
     private void configureEventListeners() {
-        scene.addEventHandler(GameFileEvent.REMOVE_FROM_GALLERY, e -> removeGameFile());
+        scene.addEventHandler(GameFileViewEvent.REMOVE_FROM_GALLERY, e -> removeGameFile());
+        scene.addEventHandler(GameFileViewEvent.VIEW_CLICKED_ON, e -> gameFileViewClicked(e.getGameFileView()));
+    }
+
+    private void gameFileViewClicked(GameFileView gameFileView)
+    {
+        if(mySelectedFiles.contains(gameFileView))
+        {
+            mySelectedFiles.remove(gameFileView);
+            gameFileView.deselect();
+        }
+        else
+        {
+            deselectAllSelectedFiles();
+            mySelectedFiles.add(gameFileView);
+            gameFileView.select();
+        }
+    }
+    
+    private void deselectAllSelectedFiles()
+    {
+    	for(GameFileView gameFileView : mySelectedFiles)
+    	{
+    		gameFileView.deselect();
+    	}
+    	mySelectedFiles.clear();
     }
 
     private void setUpWindow() {
@@ -52,15 +87,26 @@ public class GalleryView {
         addGameFileViews();
     }
 
+    private GameFileView createGameFileView(GameFile gameFile)
+    {
+        GameFileView gameFileView = new GameFileView(gameFile);
+        gameFileView.addEventHandlerToGameView(MouseEvent.MOUSE_ENTERED, e -> gameFileView.highlight());
+        gameFileView.addEventHandlerToGameView(MouseEvent.MOUSE_EXITED, e -> gameFileView.dehighlight());
+        return gameFileView;
+
+    }
     private void addGameFileViews() {
         ScrollPane gameFileWindow = new ScrollPane();
         HBox gameFileBox = new HBox();
         gameFileBox.setSpacing(10);
+
         for (GameFile gameFile : gallery.getUnmodifiableListOfGameFiles())
 //		for(String gameFile : gallery.getUnmodifiableListOfGameFiles())
         {
-            gameFileBox.getChildren().add(new GameFileView(gameFile).getNode());
+            Node gameFileNode = createGameFileView(gameFile).getNode();
+            gameFileBox.getChildren().add(gameFileNode);
         }
+        // TODO: Extract this into a configure window method
         gameFileWindow.setContent(gameFileBox);
         gameFileWindow.setPrefViewportHeight(SCROLL_WINDOW_HEIGHT);
         gameFileWindow.setPrefViewportWidth(SCROLL_WINDOW_WIDTH);
@@ -75,7 +121,7 @@ public class GalleryView {
     }
 
     private void removeGameFile() {
-        gallery.removeFromGallery(gameName);
+        //gallery.removeFromGallery(gameName);
         updateView();
     }
 
@@ -88,7 +134,7 @@ public class GalleryView {
                 + System.getProperty("user.dir")
                 + "/images/Background/spinningScreens.jpg";
         Image background = new Image(userDirectoryString);
-        System.out.println(userDirectoryString);
+        //System.out.println(userDirectoryString);
         ImageView backgroundImageGalleryScreen = new ImageView(background);
         backgroundImageGalleryScreen.setTranslateY(0);
         backgroundImageGalleryScreen.setTranslateX(0);
@@ -125,8 +171,17 @@ public class GalleryView {
         engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
         engine.translateXProperty().bind(galleryWindow.widthProperty().divide(2).add(100));
         //TODO: Change this later to be flexible
-        engine.setOnMouseClicked(e -> myMainController.launchEngine(gallery.getGalleryItem(gameName)));
+  
+        engine.setOnMouseClicked(e -> launchSelectedFiles());
 
         galleryWindow.getChildren().addAll(edit, engine);
+    }
+    
+    private void launchSelectedFiles()
+    {
+    	for(GameFileView gameFileView : mySelectedFiles)
+    	{
+    		myMainController.launchEngine(gameFileView.getGameFile().getGameData());
+    	}
     }
 }

@@ -29,6 +29,14 @@ public class GameObject {
 		this.properties = properties;
 	}
 
+	public GameObject(GameObject gameObject){
+		this.xPosition = gameObject.getXPosition();
+		this.yPosition = gameObject.getXPosition();
+		this.width = gameObject.getWidth();
+		this.height = gameObject.getHeight();
+		this.properties = gameObject.getProperties();
+	}
+
 	public double getXPosition() {
 		return xPosition;
 	}
@@ -67,7 +75,7 @@ public class GameObject {
 
 	public void setProperty(String propertyName, String propertyValue) {
 		properties.put(propertyName, propertyValue);
-		
+
 		// find a better way to do this
 		if (propertyName.equals("gravity") && getProperty("speed")==null) {
 			setProperty("speed", "0");
@@ -76,6 +84,10 @@ public class GameObject {
 
 	public String getImageFileName() {
 		return imageFileName;
+	}
+
+	public Map<String, String> getProperties(){
+		return properties;
 	}
 
 	public Set<String> getPropertiesList() {

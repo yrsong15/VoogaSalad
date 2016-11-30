@@ -65,7 +65,8 @@ public class ControlsDetail extends AbstractCommandDetail {
 			String kcString = myInputFields.get(i).getText();
 			if (controlKey != null && kcString != null){
 				KeyCode kc = KeyCode.getKeyCode(kcString);
-				myDataStore.addControl(kc, controlProps.getString(controlKey));
+				
+				myDataStore.addControl(kc, controlProps.getString(controlKey.toLowerCase()));
 			}
 		}
 //		ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
@@ -121,6 +122,7 @@ public class ControlsDetail extends AbstractCommandDetail {
 	public void handleKey(TextArea field, KeyCode kc){
 		field.setText(kc.toString());
 	}
+	
 	public void createTextField(){
 		
 	}

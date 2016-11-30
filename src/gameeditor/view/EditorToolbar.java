@@ -37,7 +37,6 @@ public class EditorToolbar implements IEditorToolbar {
 	private ImageView myLoadGameImageView;
 	
 	private TextArea myXTextArea;
-	private TextArea myYTextArea;
 	private TextArea myTimeWin;
 	private TextArea myPointsWin;
 	private Map<String,String> myLevelData;
@@ -94,7 +93,6 @@ public class EditorToolbar implements IEditorToolbar {
 	
 	private void createDimensions(){
 		myXTextArea = createInputBP("Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 5);
-		//myYTextArea = createInputBP("Height: ", Double.toString(ViewResources.AREA_HEIGHT.getDoubleResource()), 10, 40);
 	}
 	
 	public TextArea createInputBP(String label, String initValue, double x, double y){

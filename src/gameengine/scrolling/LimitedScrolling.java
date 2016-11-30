@@ -3,16 +3,20 @@ package gameengine.scrolling;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import com.sun.javafx.scene.traversal.Direction;
+
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
+/* To-DO: right now this is just forced scrolling*/
 public class LimitedScrolling implements Scrolling{
-	private ScrollDirection direction;
+	private Direction direction;
 	private double scrollingSpeed;
 	
 	
-	public LimitedScrolling(ScrollDirection dir, double speed){
+	public LimitedScrolling(Direction dir, double speed){
 		this.direction = dir;
 		this.scrollingSpeed = speed;
 	}

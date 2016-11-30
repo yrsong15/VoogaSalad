@@ -17,10 +17,13 @@ public class RandomGenFrame<T>{
 	private Level level;
 	private RGInterface RGinterface;
 	private static final Random RNG = new Random();
-	public RandomGenFrame(RGInterface RGinterface, T newFramePoint, Level level){
+	private String objectURL;
+	
+	public RandomGenFrame(RGInterface RGinterface, T newFramePoint, Level level,String objectURL){
 		this.benchmark = newFramePoint;
 		this.level = level;
 		this.RGinterface = RGinterface;
+		this.objectURL = objectURL;
 	}
 	
 	public <T extends Comparable<T>> void possiblyGenerateNewFrame(T xPosition, RandomGeneration<Integer> randomGenRules, Method callback) throws IllegalArgumentException, InvocationTargetException, IllegalAccessException {
@@ -43,12 +46,8 @@ public class RandomGenFrame<T>{
 			minX += nextSeparationDist;
 			
 			int randomYPosition = RNG.nextInt(randomGenRules.getMaxY()- randomGenRules.getMinY()) + randomGenRules.getMinY();
-			
-			
-	        GameObject pipe = new GameObject(minX, randomYPosition, 80, 200, "Pipes.png", new HashMap<>());
-	        pipe.setProperty("removeobject","");
-	        pipe.setProperty("damage","30");
-	        pipe.setProperty("points","30");
+	        GameObject pipe = new GameObject(minX, randomYPosition, 80, 200, objectURL, new HashMap<>());
+            pipe.setPropertiesList(randomGenRules.getGameObject().getProperties());
 			level.getGameObjects().add(pipe);
 		}
 	}
