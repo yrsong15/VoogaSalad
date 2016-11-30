@@ -156,7 +156,7 @@ public class MainController {
         String gameFile = myGameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
         
-        System.out.println(gameFile);
+        //System.out.println(gameFile);
         
         GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(gameFile);
