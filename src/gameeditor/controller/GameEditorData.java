@@ -6,8 +6,10 @@ import java.util.Map;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameengine.view.GameEngineUI;
 import javafx.scene.input.KeyCode;
 import objects.GameObject;
+import objects.RandomGeneration;
 import objects.interfaces.ILevel;
 
 /**
@@ -27,6 +29,7 @@ public class GameEditorData implements IGameEditorData{
         myLevel = level;
     }
 
+
     public void storeType(Map<String, String> typeMap){
         myTypes.add(typeMap);
     }
@@ -34,8 +37,6 @@ public class GameEditorData implements IGameEditorData{
     public Map<String, String> getType(String inputTypeName){
         for (Map<String, String> type : myTypes){
             String testTypeName = type.get(DetailResources.TYPE_NAME.getResource());
-
-            // Type Name is the String for the part
             if (inputTypeName.equals(testTypeName)){
                 return type;
             }
@@ -62,9 +63,16 @@ public class GameEditorData implements IGameEditorData{
         double ypos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.Y_POSITION_KEY));
         String imagePath = myGameObjMap.get("Image Path");
         
-        GameObject myObject = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,imagePath,properties);
-    
+        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
+        
+        GameObject myObject = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,file,properties);
+        
+//        RandomGeneration randomGeneration = new RandomGeneration(myObject, 5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
+//                                                                 -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
+//                                                         
+//        myLevel.addRandomGeneration(randomGeneration);                                           
         myLevel.addGameObject(myObject);
+        
     }
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){

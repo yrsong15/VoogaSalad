@@ -87,7 +87,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myHBox.getChildren().add(backgroundImage);        
             myDesignArea.setBackground(myHBox); 
             
-            myLevelSettings.addBackgroundImage(filePath);
+            String file = filePath.substring(filePath.lastIndexOf("/") +1);
+            myLevelSettings.addBackgroundImage(file);
         }
     }
 
@@ -95,10 +96,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
         if(filePath!=null){
             //Image newAvatar = new Image(filePath);
-            myDetailPane.setAvatar(filePath);
-             
-            // Probably not Necessary to set this? 
-           //myLevelSettings.setMainCharacter(mainCharacter);
+            String file = filePath.substring(filePath.lastIndexOf("/") +1);
+            myDetailPane.setAvatar(file);
         } 
     }
 
@@ -106,7 +105,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     public void setMusic(){
         String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-        myLevelSettings.addBackgroundMusic(musicFilePath);
+        String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
+       
+        myLevelSettings.addBackgroundMusic(file);
     }
 
     private String getFilePath(String fileType, String fileLocation){
