@@ -1,0 +1,41 @@
+.scroll-pane {
+	-fx-background-color: transparent;
+	-fx-border-color: purple;
+	-fx-border-width: 4px;
+}
+.scroll-bar:horizontal .thumb {
+	-fx-background-color: derive(black, 90%);
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 4em;
+}
+
+.button {
+	-fx-background-color: linear-gradient(to left, #AA076B , #61045F); 
+	-fx-background-radius: 10;
+	-fx-text-fill: white;
+    -fx-font: 15 "Century Gothic";
+	-fx-border-insets: 5;
+	-fx-border-color: #0000FF;
+}
+
+.button:hover {
+	-fx-background-color:linear-gradient( #614385 , #516395);
+	-fx-border-color: white;
+}
+
+.label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.text-area .content {
+    -fx-background-color: #4fffef;
+    -fx-border-color: black;
+    -fx-background-radius: 4em;
+	-fx-text-fill: white;
+    -fx-font: 15 "Century Gothic";
+	-fx-border-insets: 5;
+    
+}
