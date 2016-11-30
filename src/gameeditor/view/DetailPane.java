@@ -46,6 +46,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
     public DetailPane(IDesignArea da, ILevel currentLevel) {
     	myDesignArea = da;
+    	
     	myDataStore = new GameEditorData(currentLevel);
  
         myPane = new Pane();
@@ -112,7 +113,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     	myPane.getChildren().add(myCharPropertiesButton);
     }
     
-// What does this DO ?
+
     public void handleAvatar(){
     	if (mainCharPropActive){
     		removeDetail();

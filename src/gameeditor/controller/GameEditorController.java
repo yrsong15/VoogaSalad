@@ -124,7 +124,6 @@ public class GameEditorController implements IGameEditorFrontEndController{
     
     private void addSaveLevelListener(Stage myLevelStage){
         myGameEditor.getSaveLevelProperty().addListener(new ChangeListener<Boolean>(){
-
             @Override
             public void changed (ObservableValue<? extends Boolean> observable,
                                  Boolean oldValue,
