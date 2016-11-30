@@ -130,7 +130,7 @@ public class MainController {
         level.setScrollType(gameScroll);
         RandomGeneration randomGeneration = new RandomGeneration(pipe1.getProperties(), 5, (int) GameScreen.screenWidth / 5, (int) GameScreen.screenWidth,
         		(int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
-        System.out.println(GameEngineUI.myAppHeight);
+        
         level.addRandomGeneration(randomGeneration);
         level.addControl(KeyCode.W, "jump");
         game.addLevel(level);
@@ -147,7 +147,7 @@ public class MainController {
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
         gameEngineController.startGame(); 
-    	System.out.println(XMLData);
+    	System.out.println(s);
     }
     
     private void sendDataToEngine() {
@@ -156,7 +156,21 @@ public class MainController {
         String gameFile = myGameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
         
-        //System.out.println(" Title : " + title);
-        //System.out.println(gameFile); 
+        System.out.println(gameFile);
+        
+        GameEngineController gameEngineController = new GameEngineController();
+        gameEngineController.setCurrentXML(gameFile);
+        myGameEngineStage = new Stage();
+        myGameEngineStage.setOnCloseRequest(e -> {
+            myGameEngineStage.close();
+        });
+        
+        myGameEngineStage.setScene(gameEngineController.getScene());
+        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+        myGameEngineStage.show();
+        gameEngineController.startGame(); 
+        
+        
+        
     }
 }
