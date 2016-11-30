@@ -117,9 +117,26 @@ public class GameEditorController implements IGameEditorFrontEndController{
         myLevelStage.setScene(myLevelScene);
         isInitialStage = true;
         myLevelStage.show();  
+        addSaveLevelListener( myLevelStage);
         }
     }
     
+    
+    private void addSaveLevelListener(Stage myLevelStage){
+        myGameEditor.getSaveLevelProperty().addListener(new ChangeListener<Boolean>(){
+
+            @Override
+            public void changed (ObservableValue<? extends Boolean> observable,
+                                 Boolean oldValue,
+                                 Boolean newValue) {
+                // TODO Auto-generated method stub
+                if(newValue.booleanValue()==true){
+                    myLevelStage.close();
+                }
+            }
+            
+        });
+    }
     private void setNewLevelSceneRoot(){
         if(myLevelScene!=null){
        myLevelScene.setRoot(myGameEditor.createRoot());
