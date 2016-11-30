@@ -75,8 +75,11 @@ public class MainController implements IMainController{
     @Override
     public void presentEditor() {
         myGameEditorStage = new Stage();
+        myGameEditorStage.setTitle("Game Editor");
         myGameEditorController = new GameEditorController();
-        Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
+        Scene scene = new Scene(myGameEditorController.startEditor(),
+                SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
+        scene.getStylesheets().add(STYLESHEET);
         myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
         

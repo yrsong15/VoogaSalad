@@ -33,6 +33,7 @@ import utils.ReflectionUtil;
  *
  */
 public class GameEngineController extends Observable implements RuleActionHandler, RGInterface, CommandInterface {
+	public static final String STYLESHEET = "default.css";
 	private ArrayList<RandomGenFrame> RGFrames;
 	private String xmlData;
 	private GameParser parser;
