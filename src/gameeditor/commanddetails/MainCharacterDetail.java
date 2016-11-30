@@ -1,4 +1,5 @@
 package gameeditor.commanddetails;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import objects.GameObject;
 
 // TODO: Refactor this class - duplicated code with CreateDetail
 public class MainCharacterDetail extends AbstractCommandDetail {
+
 	private VBox myVBox;
 	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
 	private String [] myPropertiesArray = DetailResources.PROPERTIES.getArrayResource();
