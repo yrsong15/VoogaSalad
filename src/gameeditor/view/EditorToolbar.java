@@ -9,7 +9,11 @@ import gameeditor.view.interfaces.IToolbarParent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,9 +45,16 @@ public class EditorToolbar implements IEditorToolbar {
 	private TextArea myPointsWin;
 	private Map<String,String> myLevelData;
 	
+	private Menu forcedScrollSubMenu;
+	private Menu limitedScrollSubMenu;
+	private Menu scrollTypeMenu;
+	private MenuItem freeScrollType;
+	
+	
 	public static final String TIME_PROPERTY = "time";
 	public static final String POINTS_PROPERTY = "points";
 	public static final String SCROLL_WIDTH_PROPERTY = "scrollWidth";
+
 	
 	
 	public EditorToolbar(IToolbarParent toolOut) {
@@ -60,6 +71,9 @@ public class EditorToolbar implements IEditorToolbar {
 		createButton(myLoadGameImageView,"/Save.png",LOAD_GAME_IMAGE_WIDTH,LOAD_GAME_IMAGE_XOFFSET,e-> sendLevelData());
 		createDimensions();
 		createWinConditions();
+		
+		addScrollTypeOptions();
+		
 	}
 	
 	// TODO: REFACTOR THIS METHOD TO WORK GENERALLY, USE image.getWidth();
@@ -92,7 +106,31 @@ public class EditorToolbar implements IEditorToolbar {
 	}
 	
 	private void createDimensions(){
-		myXTextArea = createInputBP("Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 5);
+		myXTextArea = createInputBP("Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 5);	
+	}
+	
+	private void addScrollTypeOptions(){
+	   MenuBar menuBar = new MenuBar();
+	   menuBar.setLayoutX(300);
+	   menuBar.setLayoutY(10);
+	   scrollTypeMenu = new Menu(SCROLL_TYPE_LABEL);
+	   limitedScrollSubMenu = createSubMenu(LIMITED_SCROLL_TYPE_LABEL);
+	   forcedScrollSubMenu = createSubMenu(FORCED_SCROLL_TYPE_LABEL);
+	   freeScrollType = createMenuItem(FREE_SCROLL_TYPE_LABEL);
+	   scrollTypeMenu.getItems().addAll(limitedScrollSubMenu,forcedScrollSubMenu, freeScrollType);
+	   menuBar.getMenus().add(scrollTypeMenu);
+	   myPane.getChildren().add(menuBar);
+	}
+	
+	private Menu createSubMenu(String type){
+	    // TODO: going to use ReosurceBundle 
+	    Menu m = new Menu(type);
+	    m.getItems().addAll(createMenuItem("LEFT"), createMenuItem("RIGHT"), createMenuItem("UP"), createMenuItem("DOWN"));
+	    return m;
+	}
+	
+	private MenuItem createMenuItem(String property){
+	    return new MenuItem(property);
 	}
 	
 	public TextArea createInputBP(String label, String initValue, double x, double y){
@@ -113,6 +151,7 @@ public class EditorToolbar implements IEditorToolbar {
 		BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
 		bp.setLayoutX(x);
 		bp.setLayoutY(y);
+		
 		myPane.getChildren().add(bp);
 		return ta;
 	}
@@ -145,4 +184,21 @@ public class EditorToolbar implements IEditorToolbar {
 	public String getWinPoints(){
 	    return myPointsWin.getText();
 	}
+	
+
+	
+	public Menu getLimitedScrollingMenu(){
+	    return this.limitedScrollSubMenu;
+	}
+	
+	public Menu getForcedScrollMenu(){
+	    return this.forcedScrollSubMenu;
+	}
+
+    @Override
+    public MenuItem getFreeScrollTypeMenuItem () {
+        return this.freeScrollType;
+    }
+	
+	
 }

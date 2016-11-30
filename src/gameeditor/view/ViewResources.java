@@ -15,7 +15,7 @@ public enum ViewResources {
 		IMAGE_FILE_LOCATION("images/Toolbar"),
 		SPRITE_IMAGE_LOCATION("images/Sprite"),
 		AVATAR_IMAGE_LOCATION("images/Sprite"),
-		SCENE_WIDTH(1000),
+		SCENE_WIDTH(1200),
 		SCENE_HEIGHT(600),
 		
 		// Detail Pane
@@ -52,6 +52,16 @@ public enum ViewResources {
 		MUSIC_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.MUSIC_IMAGE_WIDTH_RATIO.getDoubleResource()),
 		MUSIC_IMAGE_XOFFSET(ViewResources.AVATAR_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.MUSIC_IMAGE_WIDTH.getDoubleResource()),
 		LOAD_IMAGE_WIDTH_RATIO(0.90),
+		
+		// Scrolling
+		FORCED_SCROLLING_TYPE("ForcedScrolling"),
+		LIMITED_SCROLLING_TYPE ("LimitedScrolling"),
+		FREE_SCROLLING_TYPE ("FreeScrolling"),
+		FORCED_SCROLLING_TYPE_LABEL("Forced Scrolling"),
+		LIMITED_SCROLLING_TYPE_LABEL ("Limited Scrolling"),
+                FREE_SCROLLING_TYPE_LABEL ("Free Scrolling"),
+                SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
+    
 		
 		
 		LOAD_GAME_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.LOAD_IMAGE_WIDTH_RATIO.getDoubleResource()),
