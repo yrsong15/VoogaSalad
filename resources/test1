@@ -1,6 +1,5 @@
-
 <objects.Game>
-  <name>Untitled</name>
+  <name>Flappy Bird</name>
   <levels>
     <entry>
       <int>1</int>
@@ -12,7 +11,7 @@
             <yPosition>20.0</yPosition>
             <width>50.0</width>
             <height>50.0</height>
-            <imageFileName>bird4.gif</imageFileName>
+            <imageFileName>bird2.gif</imageFileName>
             <properties>
               <entry>
                 <string>damage</string>
@@ -24,7 +23,7 @@
               </entry>
               <entry>
                 <string>health</string>
-                <string>40000</string>
+                <string>4000</string>
               </entry>
               <entry>
                 <string>time</string>
@@ -44,52 +43,24 @@
               </entry>
             </properties>
           </objects.GameObject>
-        </gameObjects>
-        <winConditions>
-          <entry>
-            <string>points</string>
-            <string>500</string>
-          </entry>
-        </winConditions>
-        <loseConditions>
-          <entry>
-            <string>time</string>
-            <string>4000</string>
-          </entry>
-        </loseConditions>
-        <gameConditions/>
-        <controls>
-          <entry>
-            <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            <string>moveRight</string>
-          </entry>
-          <entry>
-            <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-            <string>moveDown</string>
-          </entry>
-          <entry>
-            <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-            <string>jump</string>
-          </entry>
-          <entry>
-            <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-            <string>moveUp</string>
-          </entry>
-        </controls>
-        <randomGenerations>
-          <objects.RandomGeneration>
-            <objectProperties>
+          <objects.GameObject>
+            <xPosition>0.0</xPosition>
+            <yPosition>0.0</yPosition>
+            <width>100.0</width>
+            <height>150.0</height>
+            <imageFileName>Pipes.png</imageFileName>
+            <properties>
               <entry>
                 <string>damage</string>
                 <string>30</string>
               </entry>
               <entry>
                 <string>isDestructible</string>
-                <string>True</string>
+                <string>False</string>
               </entry>
               <entry>
                 <string>movable</string>
-                <string>False</string>
+                <string>True</string>
               </entry>
               <entry>
                 <string>gravity</string>
@@ -119,7 +90,47 @@
                 <string>jump</string>
                 <string></string>
               </entry>
-            </objectProperties>
+            </properties>
+          </objects.GameObject>
+        </gameObjects>
+        <winConditions>
+          <entry>
+            <string>points</string>
+            <string>300</string>
+          </entry>
+        </winConditions>
+        <loseConditions>
+          <entry>
+            <string>time</string>
+            <string>4000</string>
+          </entry>
+        </loseConditions>
+        <gameConditions/>
+        <controls>
+          <entry>
+            <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+            <string>moveRight</string>
+          </entry>
+          <entry>
+            <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+            <string>moveLeft</string>
+          </entry>
+          <entry>
+            <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+            <string>moveUp</string>
+          </entry>
+          <entry>
+            <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+            <string>jump</string>
+          </entry>
+          <entry>
+            <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+            <string>moveDown</string>
+          </entry>
+        </controls>
+        <randomGenerations>
+          <objects.RandomGeneration>
+            <objectProperties reference="../../../gameObjects/objects.GameObject[2]/properties"/>
             <numObjects class="int">5</numObjects>
             <minX class="int">140</minX>
             <maxX class="int">700</maxX>
@@ -137,9 +148,9 @@
           </myScrollDirectionList>
         </scrollType>
         <viewSettings>
-          <musicFilePath>FlappyBirdThemeSong.mp3</musicFilePath>
           <backgroundFilePath>Background/bg.png</backgroundFilePath>
-          <scrollWidth>825.0</scrollWidth>
+          <scrollWidth>0.0</scrollWidth>
+          <musicFilePath>FlappyBirdThemeSong.mp3</musicFilePath>
         </viewSettings>
       </objects.Level>
     </entry>
