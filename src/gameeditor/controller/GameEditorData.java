@@ -67,10 +67,10 @@ public class GameEditorData implements IGameEditorData{
         
         GameObject myObject = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,file,properties);
         
-//        RandomGeneration randomGeneration = new RandomGeneration(myObject, 5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
-//                                                                 -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
-//                                                         
-//        myLevel.addRandomGeneration(randomGeneration);                                           
+        RandomGeneration randomGeneration = new RandomGeneration(myObject.getProperties(), 5, (int) GameEngineUI.myAppWidth / 5, (int) GameEngineUI.myAppWidth,
+                                                                 -100, (int) GameEngineUI.myAppHeight - 300, 250, 500);
+                                                         
+        myLevel.addRandomGeneration(randomGeneration);                                           
         myLevel.addGameObject(myObject);
         
     }
@@ -111,6 +111,7 @@ public class GameEditorData implements IGameEditorData{
     
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
         GameObject mainCharacter = new GameObject(xpos,ypos,SPRITE_WIDTH,SPRITE_HEIGHT,this.mainCharacterImageFilePath,properties);
+        myLevel.addGameObject(mainCharacter);
         myLevel.setMainCharacter(mainCharacter);
     }
 }

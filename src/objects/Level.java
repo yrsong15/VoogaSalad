@@ -6,6 +6,7 @@ import java.util.*;
 import gameengine.view.GameEngineUI;
 /**
  * Created by Soravit on 11/18/2016.
+ * @ author : Soravit, Pratiksha
  */
 public class Level implements ILevel{
 //	private static final int minSpacing = 250;
@@ -120,11 +121,14 @@ public class Level implements ILevel{
 	}
 	
 	public void addControl(KeyCode key, String action) {
+	    if(!controls.containsKey(key)){
 		controls.put(key, action);
+	    }
 	}
 	public void removeControl(KeyCode key) {
 		controls.remove(key);
 	}
+	
 	public Map<KeyCode, String> getControls() {
 		return controls;
 	}

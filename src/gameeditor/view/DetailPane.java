@@ -75,8 +75,9 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         Image newAvatar = new Image(filePath);
         
         // Set the ImageFile Path in the gameEditorDataStore
-        myDataStore.addMainCharacterImage(filePath);
-        
+        String file = filePath.substring(filePath.lastIndexOf("/") +1);
+        myDataStore.addMainCharacterImage(file);
+       
         myPane.getChildren().remove(myAvatarView);
         double padding = 20;
         double buttonPadding = 50;

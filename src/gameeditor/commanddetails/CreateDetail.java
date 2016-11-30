@@ -63,9 +63,11 @@ public class CreateDetail extends AbstractCommandDetail {
 			ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
 			Enumeration<String> enumKeys = geprops.getKeys();
 			Map<String, String> propertiesMap = new HashMap<String, String>();
+			
 			for (ComboBox<String> cb : myComboBoxes){
 				propertiesMap.put(enumKeys.nextElement(), cb.getValue());
 			}
+			
 			propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
 			propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
 			myDataStore.storeType(propertiesMap);
@@ -159,8 +161,11 @@ public class CreateDetail extends AbstractCommandDetail {
 			bp.setMinWidth(paddedPaneWidth);
 			bp.setMaxWidth(paddedPaneWidth);
 			Label labl = createPropertyLbl(label);
+			
 			ComboBox<String> cb = createPropertyCB(label);
+			
 			myComboBoxes.add(cb);
+			
 			bp.setLeft(labl);
 			bp.setRight(cb);
 			BorderPane.setAlignment(labl, Pos.CENTER_LEFT);

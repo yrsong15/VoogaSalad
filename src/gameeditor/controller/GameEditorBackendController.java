@@ -37,6 +37,7 @@ implements IGameEditorBackEndController, ICreateGame{
     
     public void setCurrentLevel(Level level){
         myCurrentLevel = level;
+        myGame.setCurrentLevel(level);
     }
 
     @Override
