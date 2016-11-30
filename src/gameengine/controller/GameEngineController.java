@@ -17,10 +17,12 @@ import gameengine.model.*;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
 import gameengine.view.GameEngineUI;
+import gameengine.view.SplashScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.*;
 import utils.ReflectionUtil;
@@ -152,6 +154,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	@Override
 	public void endGame() {
 		animation.stop();
+		SplashScreen splash = new SplashScreen();
+		Stage stage = new Stage();
+		stage.setScene(splash.getScene());
+		stage.showAndWait();
 	}
 
 	public void stop(){
