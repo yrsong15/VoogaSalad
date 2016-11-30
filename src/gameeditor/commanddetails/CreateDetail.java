@@ -30,7 +30,9 @@ public class CreateDetail extends AbstractCommandDetail {
 	private Pane myImagePane;
 	private TextArea myTypeTextArea;
 	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
-	private String [] myPropertiesArray = DetailResources.PROPERTIES.getArrayResource();
+	//private String [] myPropertiesComBoArray = DetailResources.PROPERTIES_COMBO.getArrayResource();
+	//private String[] myPropertiesTextBox = DetailResources.PROPERTIES_TEXT_INPUT.getArrayResource();
+	private String[] myProperties= DetailResources.PROPERTIES.getArrayResource();
 	
 	public CreateDetail() {
 		super();
@@ -156,7 +158,7 @@ public class CreateDetail extends AbstractCommandDetail {
 	}
 	
 	public void createProperties(){
-		for (String label : myPropertiesArray){
+		for (String label : myProperties){
 			BorderPane bp = new BorderPane();
 			bp.setMinWidth(paddedPaneWidth);
 			bp.setMaxWidth(paddedPaneWidth);
