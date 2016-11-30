@@ -1,18 +1,13 @@
 package gameeditor.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 import gameeditor.controller.interfaces.ICreateGame;
-import gameeditor.controller.interfaces.ILevelManager;
 import gameeditor.xml.XMLSerializer;
 import gameeditor.controller.interfaces.IGameEditorBackEndController;
 import objects.Game;
-import objects.GameObject;
 import objects.Level;
 
 /**
- * This is the central class for the Game Editor backend that contains all the
- * methods that can be called by the Game Editor frontend.
+ * This controller manages the Game class used within the Game Editor.
  * 
  * @author Ray Song(ys101)
  *

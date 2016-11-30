@@ -29,6 +29,7 @@ public class GameEditorController implements IGameEditorFrontEndController{
     private LevelManager myLevelManager;
     private boolean isInitialStage;
     
+    //TODO: move all hard-coded strings into a resource bundle
     public static final String DEFAULT_GAME_TITLE = "Untitled";
 
     
@@ -87,10 +88,10 @@ public class GameEditorController implements IGameEditorFrontEndController{
             myGameEditor=myLevelEditorMap.get(activeButtonId);
             setSavedLevelRoot();
         } else{
-        	//TODO: create level here, or in LevelManager?
             Level level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             ILevel levelInterface = (ILevel) level;
-            myLevelManager.createLevel(level,levelInterface);
+//            myLevelManager.createLevel(level,levelInterface);
+            myLevelManager.createLevel(level);
             myGameEditor = new GameEditorView(levelInterface);
             myLevelEditorMap.put(activeButtonId, myGameEditor);  
             setNewLevelSceneRoot();
