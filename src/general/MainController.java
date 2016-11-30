@@ -41,8 +41,6 @@ public class MainController {
 
     public MainController(Stage stage) throws IOException {
         mainStage = stage;
-
- 
         Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
         //GameEditorView myView = new GameEditorView();
         //Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
@@ -199,34 +197,29 @@ public class MainController {
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
         
         //System.out.println(gameFile);
-        
 //        String file=null;
 //        try {
-//            file = new String(Files.readAllBytes(Paths.get("resources/test1")));
+//            file = new String(Files.readAllBytes(Paths.get("testFiles/test1")));
 //
 //        }
 //        catch (IOException e) {
 //            e.printStackTrace();
-//        }
-        
-        GameEngineController gameEngineController = new GameEngineController();   
-        //gameEngineController.setCurrentXML(file);
-        
-        gameEngineController.setCurrentXML(gameFile);
-        myGameEngineStage = new Stage();
-        myGameEngineStage.setOnCloseRequest(e -> {
-            myGameEngineStage.close();
-        });
-
-        myGameEngineStage.setScene(gameEngineController.getScene());
-        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
-        myGameEngineStage.show();
-        gameEngineController.startGame(); 
-        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());     
-        myGameEngineStage.setScene(gameEngineController.getScene());
-        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
-        myGameEngineStage.show();
-        gameEngineController.startGame();
-    }
-    
+//        }     
+//        GameEngineController gameEngineController = new GameEngineController();   
+//        gameEngineController.setCurrentXML(file);
+//        //gameEngineController.setCurrentXML(gameFile);
+//        myGameEngineStage = new Stage();
+//        myGameEngineStage.setOnCloseRequest(e -> {
+//            myGameEngineStage.close();
+//        });
+//        myGameEngineStage.setScene(gameEngineController.getScene());
+//        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+//        myGameEngineStage.show();
+//        gameEngineController.startGame(); 
+//        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());     
+//        myGameEngineStage.setScene(gameEngineController.getScene());
+//        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+//        myGameEngineStage.show();
+//        gameEngineController.startGame();
+    }   
 }
