@@ -89,7 +89,6 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void addControl(KeyCode key, String action){
-        
         myLevel.addControl(key, action);
     }
 
@@ -105,7 +104,6 @@ public class GameEditorData implements IGameEditorData{
 
     @Override
     public void addMainCharacterImage (String imageFilePath) {
-        // TODO Auto-generated method stub
         this.mainCharacterImageFilePath = imageFilePath;
     }
     

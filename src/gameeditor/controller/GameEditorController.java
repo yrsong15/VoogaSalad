@@ -144,10 +144,8 @@ public class GameEditorController implements IGameEditorFrontEndController{
     } 
     
     public String getGameFile(){
-        // TODO: How is the Game object going to be passed onto the Game Engine?
-//    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
+    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints Game as XML on console
     	//myGameEditorBackEndController.getGame();
-        
         return myGameEditorBackEndController.serializeGame();
     }
     
