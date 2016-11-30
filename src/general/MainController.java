@@ -137,6 +137,10 @@ public class MainController {
         GameEngineController gameEngineController = new GameEngineController();
         gameEngineController.setCurrentXML(s);
         myGameEngineStage = new Stage();
+        myGameEngineStage.setOnCloseRequest(e -> {
+            System.out.println("Closed");
+            myGameEngineStage.close();
+        });
         myGameEngineStage.setScene(gameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
