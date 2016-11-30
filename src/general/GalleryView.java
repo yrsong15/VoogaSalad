@@ -47,8 +47,8 @@ public class GalleryView {
     }
 
     private void configureEventListeners() {
-        scene.addEventHandler(GameFileViewEvent.REMOVE_FROM_GALLERY, e -> removeGameFile());
-        scene.addEventHandler(GameFileViewEvent.VIEW_CLICKED_ON, e -> gameFileViewClicked(e.getGameFileView()));
+//        scene.addEventHandler(GameFileViewEvent.REMOVE_FROM_GALLERY, e -> removeGameFile());
+//        scene.addEventHandler(GameFileViewEvent.VIEW_CLICKED_ON, e -> gameFileViewClicked(e.getGameFileView()));
     }
 
     private void gameFileViewClicked(GameFileView gameFileView)

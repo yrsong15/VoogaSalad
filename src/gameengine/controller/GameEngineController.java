@@ -17,10 +17,12 @@ import gameengine.model.*;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
 import gameengine.view.GameEngineUI;
+import gameengine.view.SplashScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.*;
 import utils.ReflectionUtil;
@@ -86,7 +88,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private void addRGFrames(){
         List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
 		for(RandomGeneration randomGeneration : randomGenerations) {
-			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel(), randomGeneration.getGameObject().getImageFileName()));
+			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
 		}
 	}
 
@@ -115,10 +117,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		}
 		 Level currLevel = currentGame.getCurrentLevel();
 		 collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(), currentGame.getCurrentLevel().getGameObjects());
-//		 LossChecker.checkLossConditions((RuleActionHandler)this,
-//		 currentGame.getCurrentLevel().getLoseConditions(), currentGame.getCurrentLevel().getGameConditions());
-//		 WinChecker.checkWinConditions((RuleActionHandler)this,
-//		 currLevel.getWinConditions(), currLevel.getGameConditions());
+		 LossChecker.checkLossConditions((RuleActionHandler)this,
+		 currentGame.getCurrentLevel().getLoseConditions(), currentGame.getCurrentLevel().getGameConditions());
+		 WinChecker.checkWinConditions((RuleActionHandler)this,
+		 currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
 	
 	private void removeOffscreenElements() {
@@ -152,10 +154,15 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	@Override
 	public void endGame() {
 		animation.stop();
+		SplashScreen splash = new SplashScreen();
+		Stage stage = new Stage();
+		stage.setScene(splash.getScene());
+		stage.showAndWait();
 	}
+
 	public void stop(){
 		gameEngineView.stopMusic();
-		endGame();
+		animation.stop();
 	}
 	@Override
 	public void modifyScore(int score) {
@@ -196,6 +203,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void reset() {
 		animation.stop();
 		startGame();
-		gameEngineView.resetMusic();
+//		gameEngineView.resetMusic();
 	}
 }
