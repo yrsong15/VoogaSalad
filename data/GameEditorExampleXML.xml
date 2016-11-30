@@ -9,117 +9,36 @@
           <objects.GameObject>
             <xPosition>250.0</xPosition>
             <yPosition>200.0</yPosition>
-            <width>150.0</width>
-            <height>100.0</height>
+            <width>75.0</width>
+            <height>50.0</height>
             <imageFileName>bird3.png</imageFileName>
             <properties>
               <entry>
-                <string>verticalmovement</string>
-                <string>20</string>
+                <string>gravity</string>
+                <string>0.8</string>
+              </entry>
+              <entry>
+                <string>health</string>
+                <string>100000</string>
+              </entry>
+              <entry>
+                <string>speed</string>
+                <string>0</string>
+              </entry>
+              <entry>
+                <string>jump</string>
+                <string>400</string>
               </entry>
             </properties>
           </objects.GameObject>
           <objects.GameObject>
-            <xPosition>50.0</xPosition>
-            <yPosition>450.0</yPosition>
-            <width>80.0</width>
+            <xPosition>0.0</xPosition>
+            <yPosition>600.0</yPosition>
+            <width>1000000.0</width>
             <height>200.0</height>
-            <imageFileName>Pipes.png</imageFileName>
             <properties>
               <entry>
                 <string>damage</string>
-                <string>30</string>
-              </entry>
-              <entry>
-                <string>removeobject</string>
-                <string></string>
-              </entry>
-              <entry>
-                <string>points</string>
-                <string>30</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
-          <objects.GameObject>
-            <xPosition>180.0</xPosition>
-            <yPosition>450.0</yPosition>
-            <width>80.0</width>
-            <height>200.0</height>
-            <imageFileName>Pipes.png</imageFileName>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>30</string>
-              </entry>
-              <entry>
-                <string>removeobject</string>
-                <string></string>
-              </entry>
-              <entry>
-                <string>points</string>
-                <string>30</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
-          <objects.GameObject>
-            <xPosition>310.0</xPosition>
-            <yPosition>450.0</yPosition>
-            <width>80.0</width>
-            <height>200.0</height>
-            <imageFileName>Pipes.png</imageFileName>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>30</string>
-              </entry>
-              <entry>
-                <string>removeobject</string>
-                <string></string>
-              </entry>
-              <entry>
-                <string>points</string>
-                <string>30</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
-          <objects.GameObject>
-            <xPosition>440.0</xPosition>
-            <yPosition>450.0</yPosition>
-            <width>80.0</width>
-            <height>200.0</height>
-            <imageFileName>Pipes.png</imageFileName>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>30</string>
-              </entry>
-              <entry>
-                <string>removeobject</string>
-                <string></string>
-              </entry>
-              <entry>
-                <string>points</string>
-                <string>30</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
-          <objects.GameObject>
-            <xPosition>570.0</xPosition>
-            <yPosition>450.0</yPosition>
-            <width>80.0</width>
-            <height>200.0</height>
-            <imageFileName>Pipes.png</imageFileName>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>30</string>
-              </entry>
-              <entry>
-                <string>removeobject</string>
-                <string></string>
-              </entry>
-              <entry>
-                <string>points</string>
                 <string>30</string>
               </entry>
             </properties>
@@ -141,18 +60,41 @@
         <controls>
           <entry>
             <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
-            <string>up</string>
-          </entry>
-          <entry>
-            <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
-            <string>down</string>
+            <string>jump</string>
           </entry>
         </controls>
-        <randomGenerations/>
+        <randomGenerations>
+          <objects.RandomGeneration>
+            <objectProperties>
+              <entry>
+                <string>damage</string>
+                <string>30</string>
+              </entry>
+              <entry>
+                <string>points</string>
+                <string>1</string>
+              </entry>
+            </objectProperties>
+            <numObjects class="int">5</numObjects>
+            <minX class="int">140</minX>
+            <maxX class="int">700</maxX>
+            <minY class="int">135</minY>
+            <maxY class="int">405</maxY>
+            <minSpacing class="int">250</minSpacing>
+            <maxSpacing class="int">500</maxSpacing>
+          </objects.RandomGeneration>
+        </randomGenerations>
         <mainCharacter reference="../gameObjects/objects.GameObject"/>
+        <scrollType>
+          <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+          <myScrollDirectionList>
+            <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
+          </myScrollDirectionList>
+        </scrollType>
         <viewSettings>
           <musicFilePath>FlappyBirdThemeSong.mp3</musicFilePath>
           <backgroundFilePath>Background/bg.png</backgroundFilePath>
+          <scrollWidth>0.0</scrollWidth>
         </viewSettings>
       </objects.Level>
     </entry>
