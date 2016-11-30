@@ -3,6 +3,8 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 import com.sun.javafx.scene.traversal.Direction;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
 /**
  * @author pratikshasharma, Chalena Scholl
@@ -16,7 +18,9 @@ public class ScrollType {
     }
 
     public void addScrollDirection(Direction direction){
+        if(!myScrollDirectionList.contains(direction)){
         myScrollDirectionList.add(direction);
+        }
     }
 
     public String getScrollType(){
@@ -25,7 +29,5 @@ public class ScrollType {
     
     public List<Direction> getDirections(){
     	return myScrollDirectionList;
-    }
-    
-    
+    }     
 }
