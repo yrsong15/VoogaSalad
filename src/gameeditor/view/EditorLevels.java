@@ -7,7 +7,6 @@ import general.SplashScreen;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -149,8 +148,13 @@ public class EditorLevels {
         return myGameTitle;
     }
     
-    public void setOnLoadGameButton(EventHandler<MouseEvent> handler){
-        loadGameButton.setOnMouseClicked(handler);
+//    public void setOnLoadGameButton(EventHandler<MouseEvent> handler){
+//        loadGameButton.setOnMouseClicked(handler);
+//    }
+    
+    public Button getLoadButton(){
+        return this.loadGameButton;
     }
+    
     
 }

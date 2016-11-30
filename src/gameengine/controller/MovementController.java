@@ -41,24 +41,16 @@ public class MovementController implements MovementInterface{
 
     @Override
     public void moveRight(){
-        for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
-            if (obstacle==currentGame.getCurrentLevel().getMainCharacter()){
-                continue;
-            }
-            double newPos = obstacle.getXPosition() - movementSpeed;
-            obstacle.setXPosition(newPos);
-        }
+        GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
+        double newPos = mainChar.getXPosition() + Math.abs(movementSpeed);
+        mainChar.setYPosition(newPos);
     }
 
     @Override
     public void moveLeft(){
-        for(GameObject obstacle:currentGame.getCurrentLevel().getGameObjects()){
-            if (obstacle==currentGame.getCurrentLevel().getMainCharacter()){
-                continue;
-            }
-            double newPos = obstacle.getXPosition() + movementSpeed;
-            obstacle.setXPosition(newPos);
-        }
+        GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
+        double newPos = mainChar.getXPosition() - Math.abs(movementSpeed);
+        mainChar.setXPosition(newPos);
     }
 
     @Override
@@ -74,16 +66,10 @@ public class MovementController implements MovementInterface{
     public void shootProjectile() {
 
     }
-	
-    public void scroll(){
-        moveRight();
-    }
 
 	@Override
 	public void reset() {
 
 		commandInterface.reset();
 	}
-
-
 }

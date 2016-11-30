@@ -23,7 +23,7 @@ public class Gallery {
 //		myGallery.add(new GameFile(gameName, XMLData));
 //	}
 	public void addToGallery(GameFile newGame) throws IOException {
-		FileUtils.writeStringToFile(new File(newGame.getGameName()), newGame.getGameData(), true);
+//		FileUtils.writeStringToFile(new File(newGame.getGameName()), newGame.getGameData(), true);
 //		gallery.put(gameName, XMLData);
 		myGallery.add(newGame);
 	}

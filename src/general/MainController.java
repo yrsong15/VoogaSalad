@@ -44,7 +44,7 @@ public class MainController {
     }
 
     public void presentGallery() throws IOException {
-        System.out.println("present");
+        //System.out.println("present");
         initializeGallery();
         myGalleryView = new GalleryView(myGallery, this);
         myGalleryStage.setScene(myGalleryView.getScene());
@@ -56,20 +56,21 @@ public class MainController {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
 // 	   this.gallery = new Gallery();
-// 	   for(int i = 0; i < 40; i++)
-// 	   {
-// 		   myGallery.addToGallery(new GameFile());
-// 	   }
-// 	   this.galleryStage = new Stage();
+ 	   for(int i = 0; i < 40; i++)
+ 	   {
+ 		   myGallery.addToGallery(new GameFile());
+ 	   }
     }
 
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorFrontEndController();
-        
         Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene); 
         myGameEditorStage.show();
+        
+        myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
+         
     }
 
     public void launchEngine(String XMLData){
@@ -121,12 +122,20 @@ public class MainController {
         game.setCurrentLevel(level);
         String s = mySerializer.toXML(game);
         GameEngineController gameEngineController = new GameEngineController();
-        
         gameEngineController.setCurrentXML(s);
         myGameEngineStage = new Stage();
         myGameEngineStage.setScene(gameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
         gameEngineController.startGame();
+    }
+    
+    private void sendDataToEngine(){
+        
+        String title = myGameEditorController.getGameTitle();
+        String gameFile = myGameEditorController.getGameFile();
+        
+        //System.out.println(" Title : " + title);
+        //System.out.println(gameFile); 
     }
 }

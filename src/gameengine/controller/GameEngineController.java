@@ -44,12 +44,13 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public static final double FRAMES_PER_SECOND = 10;
 	public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
+
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
 		movementChecker = new MovementChecker();
 		movementController = new MovementController(this);
-		gameEngineView = new GameEngineUI(movementController, null);
+		gameEngineView = new GameEngineUI(movementController, event -> reset());
 
 		RGFrames = new ArrayList<>();
 	}
@@ -101,8 +102,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void updateGame() throws ClassNotFoundException, InstantiationException, IllegalArgumentException,
 			InvocationTargetException, IllegalAccessException, NoSuchMethodException, SecurityException {
 		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
-		// movementController.scroll();
-		//lim.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
 		gameScrolling.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
 		setChanged();
 		notifyObservers();
@@ -114,13 +113,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
                 elem.possiblyGenerateNewFrame(0, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
             }
 		}
-		
 		 Level currLevel = currentGame.getCurrentLevel();
 		 collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(), currentGame.getCurrentLevel().getGameObjects());
-//		 LossChecker.checkLossConditions((RuleActionHandler)this,
-//		 currentGame.getCurrentLevel().getLoseConditions(), currentGame.getCurrentLevel().getGameConditions());
-//		 WinChecker.checkWinConditions((RuleActionHandler)this,
-//		 currLevel.getWinConditions(), currLevel.getGameConditions());
+		 LossChecker.checkLossConditions((RuleActionHandler)this,
+		 currentGame.getCurrentLevel().getLoseConditions(), currentGame.getCurrentLevel().getGameConditions());
+		 WinChecker.checkWinConditions((RuleActionHandler)this,
+		 currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
 	
 	private void removeOffscreenElements() {
@@ -155,6 +153,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void endGame() {
 		animation.stop();
 	}
+
 	public void stop(){
 		gameEngineView.stopMusic();
 		endGame();
@@ -198,5 +197,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void reset() {
 		animation.stop();
 		startGame();
+//		gameEngineView.resetMusic();
 	}
 }

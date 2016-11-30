@@ -58,7 +58,7 @@ public class GameEngineUI implements IGameEngineUI {
 	private String myLevelFileLocation;
 	private IToolbar toolbar;
 	private HUD myHUD;
-	private IGameScreen gameScreen;
+	private GameScreen gameScreen;
 	private boolean isPaused;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
@@ -69,25 +69,14 @@ public class GameEngineUI implements IGameEngineUI {
 	public GameEngineUI(MovementInterface movementInterface, EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
-
+		this.myResetEvent = resetEvent;
 		this.movementInterface = movementInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		setUpMethodMappings();
 	}
 
-	// public GameEngineUI(Level level, MovementInterface movementInterface) {
 	public Scene setLevel(Level level) {
 		this.level = level;
-		// scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
-
-		// TODO: Instantiate the proper ScrollerController depending on game
-		// type, right now ScrollerController is abstract
-		// All of the instantiable scrollercontrollers are in
-		// gameengine.controller package
-		// scrollerController = new ScrollerController();
-		// scrollerController.setScene(scene);
-
-		//setBackgroundImage("chicken");
 		
 		setUpKeystrokeListeners();
 		
@@ -101,6 +90,10 @@ public class GameEngineUI implements IGameEngineUI {
 	public Scene getScene() {
 		return scene;
 	}
+	
+	public double getScreenHeight() {
+		return gameScreen.screenHeight;
+	}
 
 	public void update(Level level) {
 		this.level = level;
@@ -109,9 +102,11 @@ public class GameEngineUI implements IGameEngineUI {
 
 	public void setMusic(String musicFileName) {
 		try {
+			if (mediaPlayer != null) {
+				mediaPlayer.stop();
+			}
 			URL resource = getClass().getClassLoader().getResource(musicFileName);
 			mediaPlayer = new MediaPlayer(new Media(resource.toString()));
-			mediaPlayer.stop();
 			mediaPlayer.play();
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("MusicFileError"));
@@ -139,6 +134,11 @@ public class GameEngineUI implements IGameEngineUI {
 	public void updateStat(String name, String value) {
 		myHUD.addStat(name, value);
 		myHUD.updateStats();
+	}
+	
+	public void resetMusic() {
+		mediaPlayer.stop();
+		mediaPlayer.play();
 	}
 
 	private void setUpMethodMappings() {
@@ -225,12 +225,6 @@ public class GameEngineUI implements IGameEngineUI {
 		}
 	}
 
-	private void resetMusic() {
-		mediaPlayer.stop();
-		mediaPlayer.play();
-		movementInterface.reset();
-	}
-
 	private void setUpKeystrokeListeners() {
 		this.scene.setOnKeyReleased(event -> {
 			try {
@@ -245,5 +239,4 @@ public class GameEngineUI implements IGameEngineUI {
 			}
 		});
 	}
-
 }
