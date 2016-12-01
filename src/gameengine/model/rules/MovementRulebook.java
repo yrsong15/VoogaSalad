@@ -7,6 +7,7 @@ import utils.ResourceReader;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Iterator;
 
 /**
  * Created by Soravit on 11/22/2016.
@@ -20,7 +21,9 @@ public class MovementRulebook {
     }
 
     public void applyRules(GameObject obj) throws ClassNotFoundException, InstantiationException {
-        for(String property: obj.getPropertiesList()){
+    	Iterator<String> itr = obj.getPropertiesList().iterator();
+    	while ( itr.hasNext()) {
+    	String property = itr.next();
             if(resources.containsResource(property)) {
                 String ruleName = resources.getResource(property);
                 ruleName = "gameengine.model.rules.movementrules." + ruleName;
