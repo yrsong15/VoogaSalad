@@ -90,7 +90,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-	
+
 	private void addRGFrames(){
         List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
 		for(RandomGeneration randomGeneration : randomGenerations) {
@@ -118,9 +118,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
 		for(RandomGenFrame elem: RGFrames){
             for(RandomGeneration randomGeneration : currentGame.getCurrentLevel().getRandomGenRules()) {
-                elem.possiblyGenerateNewFrame(0, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
+                elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
             }
 		}
+		//System.out.println(currentGame.getCurrentLevel().getGameObjects().size());
 		 Level currLevel = currentGame.getCurrentLevel();
 		 collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(), currentGame.getCurrentLevel().getGameObjects());
 		 LossChecker.checkLossConditions((RuleActionHandler)this,
@@ -132,13 +133,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private void removeOffscreenElements() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
 		if(objects.size() == 0 || objects == null) return;
-		for(int i=1; i<objects.size();){//CHANGE WHEN OBJECT LIST FIXED, BIRD SHOULDN"T BE FIRST OBJECT
-			if(objects.get(i).getXPosition()> -GameEngineUI.myAppWidth || objects.get(i) == null) break;//CHANGE THIS TO PIPE WIDTH
+		for(int i= objects.size()-1; i>=0; i--){
+			if(objects.get(1).getXPosition()> -(2*GameEngineUI.myAppWidth) || objects.get(i) == null) continue;
+			if(objects.get(i).getXPosition()> -(1.5*GameEngineUI.myAppWidth) || objects.get(i) == null) continue;//CHANGE THIS TO PIPE WIDTH
 			deReferenceObject(i);
-			//-700 IS HARD CODED, SHOULD BE - SCREEN WIDTH
 			objects.remove(i);
 		}
-		//System.out.println(objects.get(1).getXPosition());
 	}
 	
 	private void deReferenceObject(int index) {
@@ -148,7 +148,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void setNewBenchmark() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
 		for(RandomGenFrame elem: RGFrames){
-			elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
+			elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 4));
 		}
 	}
 

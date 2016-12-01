@@ -43,7 +43,7 @@ public class RandomGenFrame<T> {
 
     private void generateNewFrame (Level level, RandomGeneration<Integer> randomGenRules) {
         int val = 0;
-        int minX = randomGenRules.getMinX();
+        int minX = randomGenRules.getMinX() + 400;
         int minSep = randomGenRules.getMinSpacing();
         int maxSep = randomGenRules.getMaxSpacing();
 
