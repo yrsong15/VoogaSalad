@@ -1,4 +1,3 @@
-
 <objects.Game>
   <name>Untitled</name>
   <levels>
@@ -12,7 +11,7 @@
             <yPosition>20.0</yPosition>
             <width>50.0</width>
             <height>50.0</height>
-            <imageFileName>bird4.gif</imageFileName>
+            <imageFileName>bird3.png</imageFileName>
             <properties>
               <entry>
                 <string>damage</string>
@@ -24,7 +23,7 @@
               </entry>
               <entry>
                 <string>health</string>
-                <string>100000</string>
+                <string>10000</string>
               </entry>
               <entry>
                 <string>time</string>
@@ -32,7 +31,7 @@
               </entry>
               <entry>
                 <string>speed</string>
-                <string>0</string>
+                <string>20</string>
               </entry>
               <entry>
                 <string>points</string>
@@ -46,22 +45,55 @@
           </objects.GameObject>
           <objects.GameObject>
             <xPosition>0.0</xPosition>
-            <yPosition>0.0</yPosition>
-            <width>100.0</width>
-            <height>150.0</height>
-            <imageFileName>Pipes.png</imageFileName>
+            <yPosition>600.0</yPosition>
+            <width>1000000.0</width>
+            <height>200.0</height>
             <properties>
+              <entry>
+                <string>damage</string>
+                <string>30</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+        </gameObjects>
+        <winConditions>
+          <entry>
+            <string>score</string>
+            <string>200</string>
+          </entry>
+        </winConditions>
+        <loseConditions>
+          <entry>
+            <string>time</string>
+            <string>400</string>
+          </entry>
+        </loseConditions>
+        <gameConditions>
+          <entry>
+            <string>scrollspeed</string>
+            <double>30.0</double>
+          </entry>
+        </gameConditions>
+        <controls>
+          <entry>
+            <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+            <string>jump</string>
+          </entry>
+        </controls>
+        <randomGenerations>
+          <objects.RandomGeneration>
+            <objectProperties>
               <entry>
                 <string>damage</string>
                 <string>30</string>
               </entry>
               <entry>
                 <string>isDestructible</string>
-                <string>True</string>
+                <string>False</string>
               </entry>
               <entry>
                 <string>movable</string>
-                <string>False</string>
+                <null/>
               </entry>
               <entry>
                 <string>gravity</string>
@@ -91,48 +123,7 @@
                 <string>jump</string>
                 <string></string>
               </entry>
-            </properties>
-          </objects.GameObject>
-          <objects.GameObject>
-            <xPosition>0.0</xPosition>
-            <yPosition>600.0</yPosition>
-            <width>1000000.0</width>
-            <height>200.0</height>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>30</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
-        </gameObjects>
-        <winConditions>
-          <entry>
-            <string>score</string>
-            <string>20</string>
-          </entry>
-        </winConditions>
-        <loseConditions>
-          <entry>
-            <string>time</string>
-            <string>40</string>
-          </entry>
-        </loseConditions>
-        <gameConditions>
-          <entry>
-            <string>scrollspeed</string>
-            <double>30.0</double>
-          </entry>
-        </gameConditions>
-        <controls>
-          <entry>
-            <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-            <string>jump</string>
-          </entry>
-        </controls>
-        <randomGenerations>
-          <objects.RandomGeneration>
-            <objectProperties reference="../../../gameObjects/objects.GameObject[2]/properties"/>
+            </objectProperties>
             <numObjects class="int">5</numObjects>
             <minX class="int">140</minX>
             <maxX class="int">700</maxX>
