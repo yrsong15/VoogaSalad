@@ -3,6 +3,7 @@ package general;
 import java.util.ArrayList;
 
 import frontend.util.ButtonTemplate;
+import general.interfaces.IGalleryView;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -20,17 +21,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class GalleryView {
-    private static final int GALLERY_WIDTH = 1200;
-    private static final int GALLERY_HEIGHT = 600;
-    private static final double SCROLL_WINDOW_HEIGHT = 100;
-    private static final double SCROLL_WINDOW_WIDTH = .4 * GALLERY_WIDTH;
+public class GalleryView implements IGalleryView{
     private Scene scene;
     private Gallery gallery;
     private Pane galleryWindow;
-    private String gameName;
     private MainController myMainController;
-
+    private ScrollPane gameFileWindow;
+    private NodeFactory myFactory;
     private ArrayList<GameFileView> mySelectedFiles;
 
 
@@ -38,10 +35,12 @@ public class GalleryView {
         this.myMainController = MC;
         this.gallery = gallery;
         this.mySelectedFiles = new ArrayList<GameFileView>();
+        this.myFactory = new NodeFactory();
         setUpWindow();
         configureEventListeners();
     }
 
+    @Override
     public Scene getScene() {
         return scene;
     }
@@ -51,8 +50,7 @@ public class GalleryView {
 //        scene.addEventHandler(GameFileViewEvent.VIEW_CLICKED_ON, e -> gameFileViewClicked(e.getGameFileView()));
     }
 
-    private void gameFileViewClicked(GameFileView gameFileView)
-    {
+    private void gameFileViewClicked(GameFileView gameFileView) {
         if(mySelectedFiles.contains(gameFileView))
         {
             mySelectedFiles.remove(gameFileView);
@@ -96,7 +94,6 @@ public class GalleryView {
 
     }
     private void addGameFileViews() {
-        ScrollPane gameFileWindow = new ScrollPane();
         HBox gameFileBox = new HBox();
         gameFileBox.setSpacing(10);
 
@@ -109,7 +106,13 @@ public class GalleryView {
             gameFileNode.setOnMouseClicked(e -> gameFileViewClicked(newGameFileView));
             gameFileBox.getChildren().add(gameFileNode);
         }
-        // TODO: Extract this into a configure window method
+
+        setUpGameFileWindow(gameFileBox);
+        galleryWindow.getChildren().add(gameFileWindow);
+    }
+
+    private void setUpGameFileWindow(HBox gameFileBox){
+        gameFileWindow = new ScrollPane();
         gameFileWindow.setContent(gameFileBox);
         gameFileWindow.setPrefViewportHeight(SCROLL_WINDOW_HEIGHT);
         gameFileWindow.setPrefViewportWidth(SCROLL_WINDOW_WIDTH);
@@ -120,7 +123,6 @@ public class GalleryView {
         gameFileWindow.opacityProperty().setValue(0.5);
         gameFileWindow.setOnMouseEntered(e -> gameFileWindow.opacityProperty().setValue(0.8));
         gameFileWindow.setOnMouseExited(e -> gameFileWindow.opacityProperty().setValue(0.5));
-        galleryWindow.getChildren().add(gameFileWindow);
     }
 
     private void removeGameFile() {
@@ -133,14 +135,7 @@ public class GalleryView {
     }
 
     private void addGalleryBackgroundImage() {
-        String userDirectoryString = "file:"
-                + System.getProperty("user.dir")
-                + "/images/Background/spinningScreens.jpg";
-        Image background = new Image(userDirectoryString);
-        //System.out.println(userDirectoryString);
-        ImageView backgroundImageGalleryScreen = new ImageView(background);
-        backgroundImageGalleryScreen.setTranslateY(0);
-        backgroundImageGalleryScreen.setTranslateX(0);
+        ImageView backgroundImageGalleryScreen = myFactory.makeBackgroundImage("SpinningScreens");
         backgroundImageGalleryScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
         backgroundImageGalleryScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
         galleryWindow.getChildren().add(backgroundImageGalleryScreen);
@@ -179,10 +174,8 @@ public class GalleryView {
 
         galleryWindow.getChildren().addAll(edit, engine);
     }
-    
-    private void launchSelectedFiles()
-    {
-        //System.out.println("Launch selected files");
+
+    private void launchSelectedFiles(){
     	for(GameFileView gameFileView : mySelectedFiles)
     	{
     		myMainController.launchEngine(gameFileView.getGameFile().getGameData());
