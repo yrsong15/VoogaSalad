@@ -5,9 +5,12 @@ package gameengine.view;
 
 import java.util.ArrayList;
 
+import frontend.util.ButtonTemplate;
+import gameengine.controller.GameEngineController;
 import general.NodeFactory;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -20,6 +23,7 @@ import org.w3c.dom.css.Rect;
 
 /**
  * @author Noel Moon (nm142)
+ * 			Delia Li (dl202)
  *
  */
 public class HighScoreScreen {
@@ -30,11 +34,13 @@ public class HighScoreScreen {
 	private Level myLevel;
 	private ArrayList<Integer> myHighScores;
 	private BorderPane root;
+	private GameEngineController myEngine;
 	
-	public HighScoreScreen(Level level, ArrayList<Integer> highScores) {
+	public HighScoreScreen(Level level, ArrayList<Integer> highScores, GameEngineController engine) {
 		myHighScores = highScores;
 		myLevel = level;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		myEngine = engine;
 	}
 	
 	public Scene getScene() {
@@ -60,6 +66,16 @@ public class HighScoreScreen {
 			root.getChildren().add(text);
 			index++;
 		}
+		ButtonTemplate exitTemplate = new ButtonTemplate("Quit", 10, 10);
+		ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
+		Button exit = exitTemplate.getButton();
+		exit.setOnMouseClicked(e -> {
+			myEngine.stop();
+			//stage.close();
+		});
+		Button replay = replayTemplate.getButton();
+		replay.setOnMouseClicked(e -> myEngine.reset());
+		root.getChildren().addAll(exit, replay);
 		return root;
 	}
 

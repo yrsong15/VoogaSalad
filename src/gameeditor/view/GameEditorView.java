@@ -137,7 +137,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         if(myLevelData.containsKey(EditorToolbar.SCROLL_WIDTH_PROPERTY)){
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
         }
-        
+
          addGround();
         closeLevelWindow.set(true);
     }
