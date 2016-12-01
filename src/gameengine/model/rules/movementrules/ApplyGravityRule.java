@@ -15,9 +15,9 @@ public class ApplyGravityRule implements MovementRule {
 	}
 
 	private double modifySpeed(GameObject obj, double gravity) {
-		double speed = Double.parseDouble(obj.getProperty("movespeed"));
+		double speed = Double.parseDouble(obj.getProperty("fallspeed"));
 		speed += GameEngineController.MILLISECOND_DELAY * gravity;
-		obj.setProperty("movespeed", Double.toString(speed));
+		obj.setProperty("fallspeed", Double.toString(speed));
 		return speed;
 	}
 }
