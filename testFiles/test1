@@ -1,5 +1,6 @@
+
 <objects.Game>
-  <name>Flappy Bird</name>
+  <name>Untitled</name>
   <levels>
     <entry>
       <int>1</int>
@@ -11,7 +12,7 @@
             <yPosition>20.0</yPosition>
             <width>50.0</width>
             <height>50.0</height>
-            <imageFileName>bird2.gif</imageFileName>
+            <imageFileName>bird4.gif</imageFileName>
             <properties>
               <entry>
                 <string>damage</string>
@@ -23,7 +24,7 @@
               </entry>
               <entry>
                 <string>health</string>
-                <string>4000</string>
+                <string>100000</string>
               </entry>
               <entry>
                 <string>time</string>
@@ -31,7 +32,7 @@
               </entry>
               <entry>
                 <string>speed</string>
-                <string>10</string>
+                <string>0</string>
               </entry>
               <entry>
                 <string>points</string>
@@ -56,11 +57,11 @@
               </entry>
               <entry>
                 <string>isDestructible</string>
-                <string>False</string>
+                <string>True</string>
               </entry>
               <entry>
                 <string>movable</string>
-                <string>True</string>
+                <string>False</string>
               </entry>
               <entry>
                 <string>gravity</string>
@@ -92,40 +93,41 @@
               </entry>
             </properties>
           </objects.GameObject>
+          <objects.GameObject>
+            <xPosition>0.0</xPosition>
+            <yPosition>600.0</yPosition>
+            <width>1000000.0</width>
+            <height>200.0</height>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>30</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
         </gameObjects>
         <winConditions>
           <entry>
-            <string>points</string>
-            <string>300</string>
+            <string>score</string>
+            <string>20</string>
           </entry>
         </winConditions>
         <loseConditions>
           <entry>
             <string>time</string>
-            <string>4000</string>
+            <string>40</string>
           </entry>
         </loseConditions>
-        <gameConditions/>
+        <gameConditions>
+          <entry>
+            <string>scrollspeed</string>
+            <double>30.0</double>
+          </entry>
+        </gameConditions>
         <controls>
-          <entry>
-            <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            <string>moveRight</string>
-          </entry>
-          <entry>
-            <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            <string>moveLeft</string>
-          </entry>
-          <entry>
-            <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-            <string>moveUp</string>
-          </entry>
           <entry>
             <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
             <string>jump</string>
-          </entry>
-          <entry>
-            <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-            <string>moveDown</string>
           </entry>
         </controls>
         <randomGenerations>
@@ -134,8 +136,8 @@
             <numObjects class="int">5</numObjects>
             <minX class="int">140</minX>
             <maxX class="int">700</maxX>
-            <minY class="int">-100</minY>
-            <maxY class="int">475</maxY>
+            <minY class="int">135</minY>
+            <maxY class="int">405</maxY>
             <minSpacing class="int">250</minSpacing>
             <maxSpacing class="int">500</maxSpacing>
           </objects.RandomGeneration>
@@ -148,9 +150,9 @@
           </myScrollDirectionList>
         </scrollType>
         <viewSettings>
-          <backgroundFilePath>Background/bg.png</backgroundFilePath>
-          <scrollWidth>0.0</scrollWidth>
           <musicFilePath>FlappyBirdThemeSong.mp3</musicFilePath>
+          <backgroundFilePath>Background/bg.png</backgroundFilePath>
+          <scrollWidth>825.0</scrollWidth>
         </viewSettings>
       </objects.Level>
     </entry>

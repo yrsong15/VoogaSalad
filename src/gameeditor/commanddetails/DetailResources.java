@@ -13,6 +13,7 @@ public enum DetailResources {
 		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
 		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
+		
 		//DAMAGE(new String [] {"0", "1"}),
 		//POINTS(new String [] {"0", "1"}),
 		//TIME(new String [] {"0", "1"}),
@@ -21,8 +22,10 @@ public enum DetailResources {
 		//SPEED(new String [] {"0", "1"}),
 		RANDOM(new String [] {"True", "False"}),
 		MOVABLE(new String [] {"True", "False"}),
+		RANDOM_PROPERTY_KEY ( "randomgeneration"),
 		DETAIL_CONTENT_PADDING(10),
-		
+		RANDOM_GENERATION_PARAMETERS(new String[]{"Objects per Frame", "Minimum X ","Maximum X","Minimum Y ","Maximum Y","Minimum Spacing","Maximum Spacing"}),
+//		RANDOM_GENERATION_KEYS(new String[]{"numObjects","minX","minY",)
 		
 		
 		TYPE_IMAGE_ZONE_WIDTH(50),
