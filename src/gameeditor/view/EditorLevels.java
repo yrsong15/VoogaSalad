@@ -32,7 +32,7 @@ public class EditorLevels {
     public static final double ADD_LEVELS_WIDTH = 400;
     public static final double ADD_LEVELS_HEIGHT=350;
     public static final double LEVEL_PANE_X_POSITION = 180;
-    public static final double LEVEL_PANE_Y_POSITION = 70;
+    public static final double LEVEL_PANE_Y_POSITION = 80;
     public static final double BUTTON_ICON_PROPORTION = 50;
     public static final String DEFAULT_GAME_TITLE = "Untitled";
     
@@ -76,9 +76,9 @@ public class EditorLevels {
     }
     
     private HBox addGameTitle(){
-        Label gameLabel = new Label("Enter Game Title: ");
+        Label gameLabel = new Label("Game Title: ");
         TextField myGameName = new TextField();
-        HBox myHBox = new HBox(20);
+        HBox myHBox = new HBox(40);
         myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
         myHBox.setLayoutY(LEVEL_PANE_Y_POSITION/2);
         ButtonTemplate submitButton = new ButtonTemplate("SubmitCommand",0,0);
@@ -95,8 +95,8 @@ public class EditorLevels {
     }
     
     private void addButton(){
-        newLevelButton = getButton("LevelCommand", LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6.5);
-        loadGameButton = getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2,LEVEL_PANE_Y_POSITION*6.5);
+        newLevelButton = getButton("LevelCommand", LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6);
+        loadGameButton = getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2.5,LEVEL_PANE_Y_POSITION*6);
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/AddLevelIcon.png";
         ImageView newLevelIcon = new ImageView(new Image(userDirectoryString));
         
@@ -113,7 +113,6 @@ public class EditorLevels {
     }
 
     public void addNewLevel(){
-//        ButtonTemplate newLevelButton = new ButtonTemplate("Level " + (myVBox.getChildren().size() + 1));
         Button level = new Button("Level " + (myVBox.getChildren().size() + 1)) ;
         level.setId(Integer.toString(myVBox.getChildren().size()));
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
@@ -148,10 +147,6 @@ public class EditorLevels {
     public SimpleStringProperty getGameTitle(){
         return myGameTitle;
     }
-    
-//    public void setOnLoadGameButton(EventHandler<MouseEvent> handler){
-//        loadGameButton.setOnMouseClicked(handler);
-//    }
     
     public Button getLoadButton(){
         return this.loadGameButton;

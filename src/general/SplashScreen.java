@@ -85,8 +85,8 @@ public class SplashScreen implements ISplashScreen {
 
     @Override
     public void launchGallery() throws IOException {
-        //mainController.presentGallery();
-    	mainController.launchEngine(null);
+        mainController.presentGallery();
+
     }
 
     //    @Override

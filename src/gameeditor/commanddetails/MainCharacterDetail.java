@@ -3,6 +3,7 @@ package gameeditor.commanddetails;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -19,9 +20,9 @@ import objects.GameObject;
 public class MainCharacterDetail extends AbstractCommandDetail {
 
 	private VBox myVBox;
-	private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
-	private String [] myPropertiesArray = DetailResources.PROPERTIES.getArrayResource();
-	
+	//private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
+	private String [] myPropertiesArray = DetailResources.PROPERTIES_TEXT_INPUT.getArrayResource();
+	private List<TextArea> myTextInputs = new ArrayList<TextArea>();
 	public static final double MAIN_CHARACTER_INITIAL_X_POSITION = 20;
 	public static final double MAIN_CHARACTER_INITIAL_Y_POSITION = 20;
 	public static final double MAIN_CHARACTER_HEIGHT = 100;
@@ -55,13 +56,18 @@ public class MainCharacterDetail extends AbstractCommandDetail {
 		if (verifySave()){
 			// TODO: Create this for saving maincharacter
 			// TODO: Input file path when creating pane
-			ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
-			Enumeration<String> enumKeys = geprops.getKeys();
-			Map<String, String> propertiesMap = new HashMap<String, String>();
-			for (ComboBox<String> cb : myComboBoxes){
-				propertiesMap.put(enumKeys.nextElement(), cb.getValue());
-			}
+			//ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
 			
+			//Enumeration<String> enumKeys = geprops.getKeys();
+		    
+			//String [] propertiesList = DetailResources.PROPERTIES_TEXT_INPUT.getArrayResource();
+			
+		    
+			Map<String, String> propertiesMap = new HashMap<String, String>();
+			for(String label: myPropertiesArray){
+		                propertiesMap.put(label.toLowerCase(), myTextInputs.get(propertiesMap.size()).getText());     
+		            }
+		          
 			myDataStore.addMainCharacter(MAIN_CHARACTER_INITIAL_X_POSITION, MAIN_CHARACTER_INITIAL_Y_POSITION, MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT, propertiesMap);
 		} else {
 			
@@ -78,18 +84,18 @@ public class MainCharacterDetail extends AbstractCommandDetail {
 	}
 	
 	public void createProperties(){
-		for (String label : myPropertiesArray){
-			BorderPane bp = new BorderPane();
-			bp.setMinWidth(paddedPaneWidth);
-			bp.setMaxWidth(paddedPaneWidth);
-			Label labl = createPropertyLbl(label);
-			ComboBox<String> cb = createPropertyCB(label);
-			myComboBoxes.add(cb);
-			bp.setLeft(labl);
-			bp.setRight(cb);
-			BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
-			myVBox.getChildren().add(bp);
-		}
+	    for (String label : myPropertiesArray){           
+	            BorderPane bp = new BorderPane();
+	            bp.setMinWidth(paddedPaneWidth);
+	            bp.setMaxWidth(paddedPaneWidth);
+	            Label labl = createPropertyLbl(label);
+	            TextArea text = createInputField();
+	            myTextInputs.add(text);
+	            bp.setLeft(labl);
+	            bp.setRight(text);
+	            BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
+	            myVBox.getChildren().add(bp);
+	        }
 	}
 	
 	public Label createPropertyLbl(String property){
@@ -104,8 +110,8 @@ public class MainCharacterDetail extends AbstractCommandDetail {
 		return cb;
 	}
 	
-	public TextArea createInputField(String label, double hboxSpacing){
-		TextArea inputField = new TextArea(label);
+	public TextArea createInputField(){
+		TextArea inputField = new TextArea();
 		inputField.setMinWidth(paddedDetailWidth);
 		inputField.setMaxWidth(paddedDetailWidth);
 		inputField.setMinHeight(cbHeight);

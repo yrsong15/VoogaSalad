@@ -3,7 +3,8 @@
  */
 package gameengine.view;
 
-import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -17,7 +18,7 @@ import objects.Level;
 public class HUD {
 	
 	private HBox myHUD;
-	private TreeMap<String, String> myStatMap;
+	private Map<String, String> myStatMap;
 
 	public HUD() {
 		myHUD = new HBox();

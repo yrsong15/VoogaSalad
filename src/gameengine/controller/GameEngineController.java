@@ -20,9 +20,11 @@ import gameengine.view.GameEngineUI;
 import gameengine.view.HighScoreScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import objects.*;
 import utils.ReflectionUtil;
@@ -158,7 +160,12 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), gameEngineView.getHighScores());
 		Stage stage = new Stage();
 		stage.setScene(splash.getScene());
-		stage.showAndWait();
+		stage.show();
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+                reset();
+			}
+		});
 	}
 
 	public void stop(){
@@ -167,7 +174,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	@Override
 	public void modifyScore(int score) {
-		// TODO Auto-generated method stub
+		int prevScore = currentGame.getCurrentLevel().getScore();
+		int currScore = prevScore+score;
+		currentGame.getCurrentLevel().setScore(currScore);
+		gameEngineView.updateStat("Score", Integer.toString(currScore));
 	}
 	public Scene getScene() {
 		currentGame = parser.convertXMLtoGame(xmlData);
@@ -193,7 +203,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 			e.printStackTrace();
 		}
 		try {
-			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), 30);
+			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), currentGame.getCurrentLevel().getGameConditions().get("scrollspeed"));
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			// TODO Auto-generated catch block

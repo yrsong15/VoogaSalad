@@ -8,15 +8,22 @@ import javafx.scene.paint.Color;
  */
 
 public enum DetailResources {
-		PROPERTIES(new String [] {"Destructible", "Damage", "Points", "Time", "Random", "Health", "Movable"}),
+                //PROPERTIES(new String[]{"Destructible","Damage","Points","Time","Health","Gravity","Speed","Random","Movable"}),
+		PROPERTIES_TEXT_INPUT(new String [] { "Damage", "Points", "Time", "Health","Gravity","Speed","Jump"}),
+		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
+		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
-		DAMAGE(new String [] {"True", "False"}),
-		POINTS(new String [] {"True", "False"}),
-		TIME(new String [] {"True", "False"}),
+		//DAMAGE(new String [] {"0", "1"}),
+		//POINTS(new String [] {"0", "1"}),
+		//TIME(new String [] {"0", "1"}),
+		//HEALTH(new String [] {"0", "1"}),
+		//GRAVITY(new String [] {"0", "1"}),
+		//SPEED(new String [] {"0", "1"}),
 		RANDOM(new String [] {"True", "False"}),
-		HEALTH(new String [] {"True", "False"}),
 		MOVABLE(new String [] {"True", "False"}),
 		DETAIL_CONTENT_PADDING(10),
+		
+		
 		
 		TYPE_IMAGE_ZONE_WIDTH(50),
 		TYPE_IMAGE_ZONE_HEIGHT(50),

@@ -11,6 +11,8 @@ import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IToolbarParent;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
@@ -36,12 +38,16 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDesignArea myDesignArea;
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
+    private BooleanProperty closeLevelWindow;
+    
+    public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     
     
 
     public GameEditorView(ILevel levelSettings){
        this.myLevelSettings = levelSettings;
         myRoot = new BorderPane();  
+        closeLevelWindow = new SimpleBooleanProperty(false);
     }
 
     public Parent createRoot(){
@@ -87,8 +93,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myHBox.getChildren().add(backgroundImage);        
             myDesignArea.setBackground(myHBox); 
             
-            myLevelSettings.addBackgroundImage(filePath);
-        }
+            String file = filePath.substring(filePath.lastIndexOf("/") +1);
+            myLevelSettings.addBackgroundImage("Background/" + file);
+        } 
     }
 
     public void setAvatar(){
@@ -96,17 +103,15 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         if(filePath!=null){
             //Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(filePath);
-             
-            // Probably not Necessary to set this? 
-           //myLevelSettings.setMainCharacter(mainCharacter);
-        } 
+        }   
     }
 
 
 
     public void setMusic(){
         String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-        myLevelSettings.addBackgroundMusic(musicFilePath);
+        String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
+        myLevelSettings.addBackgroundMusic(file);
     }
 
     private String getFilePath(String fileType, String fileLocation){
@@ -125,15 +130,18 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     @Override
     public void saveLevelData (Map<String,String> myLevelData) {
         myLevelSettings.addWinCondition(EditorToolbar.POINTS_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
-        myLevelSettings.addWinCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
+        myLevelSettings.addLoseCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
+        if(myLevelData.containsKey(EditorToolbar.SCROLL_WIDTH_PROPERTY)){
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
-       }
-    
+        }
+        closeLevelWindow.set(true);
+    }
+       
+
     public void addScrollType(){
         createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
         createScrollType(ViewResources.LIMITED_SCROLLING_TYPE.getResource(),myToolbar.getLimitedScrollingMenu());
-        addFreeScrollTypeListener();
-        
+        addFreeScrollTypeListener(); 
     }
                
         private void createScrollType(String className, Menu myMenu){
@@ -154,5 +162,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                 myScrollType.addScrollDirection(Direction.UP); 
                 myScrollType.addScrollDirection(Direction.DOWN); 
             });
-        }       
+        }
+        
+        public BooleanProperty getSaveLevelProperty(){
+            return this.closeLevelWindow;
+        }
 }
