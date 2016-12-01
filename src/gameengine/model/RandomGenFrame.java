@@ -58,7 +58,7 @@ public class RandomGenFrame<T> {
 
 	private void generatePipesAndScoreObjects(double xPosition, double yPosition, double width,
 			Map objectProperties) {
-		double gapHeight = 100; // between the two pipes
+		double gapHeight = 200; // between the two pipes
 
 		GameObject topPipe = new GameObject(xPosition, 0, width, yPosition - gapHeight / 2, "Pipes.png", new HashMap<>());
 		topPipe.setPropertiesList(objectProperties);
@@ -69,6 +69,11 @@ public class RandomGenFrame<T> {
 		bottomPipe.setPropertiesList(objectProperties);
 		level.getGameObjects().add(bottomPipe);
 		
+		Map<String,String> scoreMap = new HashMap<String,String>();
+		scoreMap.put("points", "1");
+		scoreMap.put("removeobject", "");
+		GameObject scoreObject = new GameObject(xPosition+width,-100,1,GameScreen.screenHeight+100,scoreMap);
+		level.getGameObjects().add(scoreObject);
 		
 	}
 

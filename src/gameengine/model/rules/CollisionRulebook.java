@@ -23,8 +23,6 @@ public class CollisionRulebook{
 				String ruleName = resources.getResource(property);
 				ruleName = "gameengine.model.rules.collisionrules." + ruleName;
 				try {
-					//System.out.println(this.getClass().getName());
-					//System.out.println(ruleName);
 					Method method = ReflectionUtil.getMethodFromClass(ruleName, "applyRule", new Class[]{RuleActionHandler.class, GameObject.class, GameObject.class});
 
 					method.invoke(null, handler, mainChar, obj);

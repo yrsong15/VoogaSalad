@@ -111,7 +111,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public void setMusic(){
         String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
         String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
-       
         myLevelSettings.addBackgroundMusic(file);
     }
 

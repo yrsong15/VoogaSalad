@@ -166,7 +166,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	@Override
 	public void modifyScore(int score) {
-		// TODO Auto-generated method stub
+		int prevScore = currentGame.getCurrentLevel().getScore();
+		int currScore = prevScore+score;
+		currentGame.getCurrentLevel().setScore(currScore);
+		gameEngineView.updateStat("Score", Integer.toString(currScore));
 	}
 	public Scene getScene() {
 		currentGame = parser.convertXMLtoGame(xmlData);
