@@ -146,7 +146,4 @@ public class DesignArea implements IDesignArea {
 			mySelectedSprite.setLayout(x, y);
 		}    	
 	}
-
-	
-
 }

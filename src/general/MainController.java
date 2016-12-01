@@ -10,6 +10,8 @@ import objects.Game;
 import objects.GameObject;
 import objects.Level;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import com.sun.javafx.scene.traversal.Direction;
 import com.thoughtworks.xstream.XStream;
@@ -52,13 +54,12 @@ public class MainController {
     private void initializeGallery() throws IOException {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
-// 	   this.gallery = new Gallery();
-// 	   for(int i = 0; i < 40; i++)
-// 	   {
-// 		   myGallery.addToGallery(new GameFile());
-// 	   }
+        // 	   this.gallery = new Gallery();
+        // 	   for(int i = 0; i < 40; i++)
+        // 	   {
+        // 		   myGallery.addToGallery(new GameFile());
+        // 	   }
     }
-
     private void addNewGameFile(String title, String gameData)
     {
         GameFile newGame = new GameFile(title,gameData);
@@ -69,12 +70,16 @@ public class MainController {
         myGameEditorController = new GameEditorController();
         Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
         myGameEditorStage.setScene(scene);
+        scene.getStylesheets().add("gameEditorSplash.css");
         myGameEditorStage.show();
-
         myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
     //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
     public void launchEngine(String XMLData){
+        System.out.println("engine launched");
+        XStream mySerializer = new XStream(new DomDriver());
+        Game game = new Game("Flappy Bird");
+        GameObject bird = new GameObject(250, 200, 75, 50, "bird3.png", new HashMap<>());
         game = new Game("Flappy Bird");
         createGameObjects();
         generateGameAttributes();
@@ -86,7 +91,7 @@ public class MainController {
     private void createGameObjects(){
         bird = new GameObject(250, 200, 75, 50, "bird3.png", new HashMap<>());
         bird.setProperty("gravity", "0.8");
-        bird.setProperty("health", "30");
+        bird.setProperty("health", "100000");
         bird.setProperty("jump", "400");
         pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
         pipe1.setProperty("damage","30");
@@ -123,12 +128,17 @@ public class MainController {
         level.getViewSettings().setBackgroundFilePath("Background/bg.png");
         level.addGameObject(bird);
         level.setMainCharacter(bird);
-//        level.addGameObject(pipe1);
-//        level.addGameObject(pipe2);
-//        level.addGameObject(pipe3);
-//        level.addGameObject(pipe4);
-//        level.addGameObject(pipe5);
+        //        level.addGameObject(pipe1);
+        //        level.addGameObject(pipe2);
+        //        level.addGameObject(pipe3);
+        //        level.addGameObject(pipe4);
+        //        level.addGameObject(pipe5);
         level.addGameObject(ground);
+        ScrollType gameScroll = new ScrollType("ForcedScrolling");
+        gameScroll.addScrollDirection(Direction.RIGHT);
+        level.setScrollType(gameScroll);
+        RandomGeneration randomGeneration = new RandomGeneration(pipe1.getProperties(), 5, (int) GameScreen.screenWidth / 5, (int) GameScreen.screenWidth,
+                (int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
         level.setScrollType(gameScroll);
         level.addRandomGeneration(randomGeneration);
         level.addControl(KeyCode.W, "jump");
@@ -147,18 +157,41 @@ public class MainController {
         myGameEngineStage.setScene(myGameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> myGameEngineController.stop());
         myGameEngineStage.show();
+//        myGameEngineController.startGame();
+//        System.out.println(s);
     }
-
     private void sendDataToEngine() {
         String title = myGameEditorController.getGameTitle();
         String gameFile = myGameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
 
-        GameEngineController gameEngineController = new GameEngineController();
-        gameEngineController.setCurrentXML(gameFile);
-        myGameEngineStage = new Stage();
-        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());
+        // THIS IS ENTIRELY FOR TEST PURPOSES ::
 
+        System.out.println(gameFile);
+//        String file=null;
+//
+//        try {
+//            file = new String(Files.readAllBytes(Paths.get("testFiles/test1")));
+//
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        GameEngineController gameEngineController = new GameEngineController();
+
+        //gameEngineController.setCurrentXML(file);
+
+        gameEngineController.setCurrentXML(gameFile);
+
+        myGameEngineStage = new Stage();
+        myGameEngineStage.setOnCloseRequest(e -> {
+            myGameEngineStage.close();
+        });
+        myGameEngineStage.setScene(gameEngineController.getScene());
+        myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+        myGameEngineStage.show();
+        gameEngineController.startGame();
+        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());
         myGameEngineStage.setScene(gameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();

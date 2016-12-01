@@ -43,7 +43,7 @@ public class EditorToolbar implements IEditorToolbar {
 	private ImageView myLoadGameImageView;
 	
 	private TextArea myXTextArea;
-	private BorderPane myXTextBP;
+	private BorderPane myXTextBP = new BorderPane();
 	private ComboBox<String> myDimComboBox;
 	private TextArea myTimeWin;
 	private TextArea myPointsWin;
@@ -103,9 +103,9 @@ public class EditorToolbar implements IEditorToolbar {
 	}
 	
 	private void createWinConditions(){
-		myTimeWin = createInputBP("Time: ", "N/A", 160, 5);
+		myTimeWin = createInputBP(new BorderPane(), "Time: ", "N/A", 160, 5);
 		myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
-		myPointsWin = createInputBP("Points: ", "N/A", 160, 40);
+		myPointsWin = createInputBP(new BorderPane(), "Points: ", "N/A", 160, 40);
 		myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
 		
 	}
@@ -155,17 +155,16 @@ public class EditorToolbar implements IEditorToolbar {
 	
 	public void cbOnAction(ComboBox<String> cb){
 		if (cb.getValue().equals("True")){
-			myXTextArea = createInputBP("Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 40);
+			myXTextArea = createInputBP(myXTextBP, "Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 40);
 			myLevelData.put(SCROLL_WIDTH_PROPERTY, myXTextArea.getText());
 		} else {
 			myPane.getChildren().remove(myXTextBP);	
 		}
 	}
 	
-	public TextArea createInputBP(String label, String initValue, double x, double y){
-		myXTextBP = new BorderPane();
-		myXTextBP.setMinWidth(125);
-		myXTextBP.setMaxWidth(125);
+	public TextArea createInputBP(BorderPane bp, String label, String initValue, double x, double y){
+		bp.setMinWidth(125);
+		bp.setMaxWidth(125);
 		Label labl = createLbl(label);
 		
 		TextArea ta = new TextArea();
@@ -175,13 +174,13 @@ public class EditorToolbar implements IEditorToolbar {
 		
 		ta.setOnMouseClicked((e) -> handleClick(ta));
 		
-		myXTextBP.setLeft(labl);
-		myXTextBP.setRight(ta);
+		bp.setLeft(labl);
+		bp.setRight(ta);
 		BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
-		myXTextBP.setLayoutX(x);
-		myXTextBP.setLayoutY(y);
+		bp.setLayoutX(x);
+		bp.setLayoutY(y);
 		
-		myPane.getChildren().add(myXTextBP);
+		myPane.getChildren().add(bp);
 		return ta;
 	}
 	
