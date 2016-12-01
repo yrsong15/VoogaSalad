@@ -33,7 +33,9 @@ public class HUD {
 	public void update(Level level) {
 		myHUD.getChildren().clear();
 		Text text = new Text("Score: " + Integer.toString(level.getScore()));
+		Text health = new Text("  |  Health: " + level.getMainCharacter().getProperty("health"));
 		myHUD.getChildren().add(text);
+		myHUD.getChildren().add(health);
 	}
 	
 	public void addStat(String statName, String statValue) {

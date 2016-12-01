@@ -174,17 +174,10 @@ public class MainController {
         String gameFile = myGameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
-
         System.out.println(gameFile);
-//<<<<<<< HEAD
-//=======
-//
-//        String file=null;
-//>>>>>>> b114032be5fde49844d7ebadbe90a8356cb3012c
-
         String file=null;
         try {
-            file = new String(Files.readAllBytes(Paths.get("testFiles/test1")));
+            file = new String(Files.readAllBytes(Paths.get("testFiles/test1.xml")));
         }
         catch (IOException e) {
             e.printStackTrace();

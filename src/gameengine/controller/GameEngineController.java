@@ -180,7 +180,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
-                reset();
+                //reset();
 			}
 		});
 	}

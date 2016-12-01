@@ -23,14 +23,14 @@
               </entry>
               <entry>
                 <string>health</string>
-                <string>10000</string>
+                <string>30</string>
               </entry>
               <entry>
                 <string>time</string>
                 <string></string>
               </entry>
               <entry>
-                <string>speed</string>
+                <string>movespeed</string>
                 <string>20</string>
               </entry>
               <entry>

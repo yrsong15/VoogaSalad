@@ -76,7 +76,7 @@ public class RandomGenFrame<T> {
 
         
         Map<String, String> bottomPipeMap = new HashMap<String, String>();
-        topPipeMap.put("damage", objectProperties.get("damage"));
+        bottomPipeMap.put("damage", objectProperties.get("damage"));
         GameObject bottomPipe = new GameObject(xPosition, yPosition + gapHeight / 2, width,
                                                GameScreen.screenHeight - (yPosition +
                                                                           gapHeight / 2),
