@@ -5,6 +5,7 @@ package gameengine.view;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
