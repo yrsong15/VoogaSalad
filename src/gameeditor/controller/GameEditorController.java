@@ -141,6 +141,8 @@ public class GameEditorController implements IGameEditorFrontEndController{
     } 
     
     public String getGameFile(){
+    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints Game as XML on console
+    	//myGameEditorBackEndController.getGame();
         return myGameEditorBackEndController.serializeGame();
     }
     
