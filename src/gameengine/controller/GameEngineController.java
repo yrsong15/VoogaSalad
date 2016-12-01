@@ -195,7 +195,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 			e.printStackTrace();
 		}
 		try {
-			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), 30);
+			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), currentGame.getCurrentLevel().getGameConditions().get("scrollspeed"));
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			// TODO Auto-generated catch block

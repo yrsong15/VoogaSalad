@@ -22,7 +22,7 @@
                 <string>100000</string>
               </entry>
               <entry>
-                <string>speed</string>
+                <string>movespeed</string>
                 <string>0</string>
               </entry>
               <entry>
@@ -56,7 +56,12 @@
             <string>30</string>
           </entry>
         </loseConditions>
-        <gameConditions/>
+          <gameConditions>
+              <entry>
+                  <string>scrollspeed</string>
+                  <double>30</double>
+              </entry>
+          </gameConditions>
         <controls>
           <entry>
             <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>

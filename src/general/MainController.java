@@ -76,16 +76,9 @@ public class MainController {
     }
     //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
     public void launchEngine(String XMLData){
-        System.out.println("engine launched");
-        XStream mySerializer = new XStream(new DomDriver());
-        Game game = new Game("Flappy Bird");
-        GameObject bird = new GameObject(250, 200, 75, 50, "bird3.png", new HashMap<>());
-        game = new Game("Flappy Bird");
-        createGameObjects();
-        generateGameAttributes();
-        setUpLevel();
-        setMyGameEngineController();
+        setMyGameEngineController(XMLData);
         setMyGameEngineStage();
+        myGameEngineController.setCurrentXML(XMLData);
         myGameEngineController.startGame();
     }
     private void createGameObjects(){
@@ -143,13 +136,12 @@ public class MainController {
         level.addRandomGeneration(randomGeneration);
         level.addControl(KeyCode.W, "jump");
     }
-    private void setMyGameEngineController(){
-        XStream mySerializer = new XStream(new DomDriver());
-        game.addLevel(level);
-        game.setCurrentLevel(level);
-        String s = mySerializer.toXML(game);
+    private void setMyGameEngineController(String xmlData){
         myGameEngineController = new GameEngineController();
-        myGameEngineController.setCurrentXML(s);
+//        game.addLevel(level);
+//        game.setCurrentLevel(level);
+//        String s = mySerializer.toXML(game);
+        myGameEngineController.setCurrentXML(xmlData);
     }
     private void setMyGameEngineStage(){
         myGameEngineStage = new Stage();
