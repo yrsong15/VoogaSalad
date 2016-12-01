@@ -134,8 +134,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
 		if(objects.size() == 0 || objects == null) return;
 		for(int i= objects.size()-1; i>=0; i--){
-			if(objects.get(1).getXPosition()> -(2*GameEngineUI.myAppWidth) || objects.get(i) == null) continue;
-			if(objects.get(i).getXPosition()> -(1.5*GameEngineUI.myAppWidth) || objects.get(i) == null) continue;//CHANGE THIS TO PIPE WIDTH
+			if(objects.get(i).getXPosition()> -(2*GameEngineUI.myAppWidth) || objects.get(i) == null) continue;//CHANGE THIS TO PIPE WIDTH
 			deReferenceObject(i);
 			objects.remove(i);
 		}
