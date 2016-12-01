@@ -182,7 +182,7 @@ public class GalleryView {
     
     private void launchSelectedFiles()
     {
-        System.out.println("Launch selected files");
+        //System.out.println("Launch selected files");
     	for(GameFileView gameFileView : mySelectedFiles)
     	{
     		myMainController.launchEngine(gameFileView.getGameFile().getGameData());

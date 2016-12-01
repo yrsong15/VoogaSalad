@@ -36,7 +36,7 @@ public class CommandButton implements ICommandButton {
 	public CommandButton(String fileLocation, double buttonNumber, double paneWidth, ICommandButtonOut commandOut, ICommandDetailDisplay detailDisplay) {
 		int myTypeEnd = fileLocation.length()-4;
 		myType = fileLocation.substring(1,myTypeEnd);
-		System.out.println(myType);
+		//System.out.println(myType);
 		myCommandOut = commandOut;
 		myDetailDisplay = detailDisplay;
 		double xOffset = (paneWidth - BUTTON_WIDTH)/2;
