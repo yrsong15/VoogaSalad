@@ -48,7 +48,8 @@ public class MainCharacterDetail extends AbstractCommandDetail {
         save.setText("Save New Type");
         save.setMinWidth(cbWidth);
         save.setMinHeight(cbHeight);
-        save.setOnAction((e) -> {handleSave();});
+
+        save.setOnMouseClicked((e) -> {handleSave();});
         myVBox.getChildren().add(save);
     }
 
@@ -64,10 +65,15 @@ public class MainCharacterDetail extends AbstractCommandDetail {
 
 
             Map<String, String> propertiesMap = new HashMap<String, String>();
+   
+            int i=0;
             for(String label: myPropertiesArray){
-                propertiesMap.put(label.toLowerCase(), myTextInputs.get(propertiesMap.size()).getText());     
-            }
-
+                if(!myTextInputs.get(i).getText().isEmpty()){
+                propertiesMap.put(label.toLowerCase(), myTextInputs.get(i).getText()); 
+                }
+                i++;
+            }  
+            
             myDataStore.addMainCharacter(MAIN_CHARACTER_INITIAL_X_POSITION, MAIN_CHARACTER_INITIAL_Y_POSITION, MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT, propertiesMap);
         } else {
 
