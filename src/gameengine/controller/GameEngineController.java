@@ -148,7 +148,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	public void setNewBenchmark() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
 		for(RandomGenFrame elem: RGFrames){
-			elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 4));
+			elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
 		}
 	}
 
