@@ -1,6 +1,8 @@
 package general;
 
-public class GameFile {
+import general.interfaces.IGameFile;
+
+public class GameFile implements IGameFile{
 
     private String myGameName;
     private String myXMLData;
@@ -14,10 +16,12 @@ public class GameFile {
         this.myXMLData = XMLData;
     }
 
+    @Override
     public String getGameName(){
         return myGameName;
     }
 
+    @Override
     public String getGameData(){
         return myXMLData;
     }
