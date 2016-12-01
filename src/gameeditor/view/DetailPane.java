@@ -80,6 +80,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         myDataStore.addMainCharacterImage(file);
        
         myPane.getChildren().remove(myAvatarView);
+        
         double padding = 20;
         double buttonPadding = 50;
         padding += buttonPadding;
