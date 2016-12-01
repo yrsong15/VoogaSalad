@@ -115,14 +115,14 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	public void handlePreview(){
 		String xString = myXTextArea.getText();
 		String yString = myYTextArea.getText();
-	        String width = mySpriteWidth.getText();
-	        String height = mySpriteHeight.getText();
+	    String width = mySpriteWidth.getText();
+	    String height = mySpriteHeight.getText();
 		double x = Double.parseDouble(xString);
 		double y = Double.parseDouble(yString);
 		double spriteWidth = Double.parseDouble(width);
-                double spriteHeight = Double.parseDouble(height);
+        double spriteHeight = Double.parseDouble(height);
 		if (myGO == null){
-			myGO = new GameObject(myFilePath, x, y,spriteWidth , spriteHeight, myType.getValue(), myDesignArea);
+			myGO = new GameObject(myFilePath, x, y, spriteWidth, spriteHeight, myType.getValue(), myDesignArea);
 		} else {
 			myGO.removeSelf();
 			myGO = new GameObject(myFilePath, x, y, spriteWidth, spriteHeight, myType.getValue(), myDesignArea);
@@ -130,19 +130,19 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	}
 	
 	public void createPos(){
-		myXTextArea = createPosBP("X Pos: ");
-		myYTextArea = createPosBP("Y Pos: ");
-		mySpriteWidth=createPosBP("Width: ");
-		mySpriteHeight=createPosBP("Height: ");
+		myXTextArea = createPosBP("X Pos: ", "0");
+		myYTextArea = createPosBP("Y Pos: ", "0");
+		mySpriteWidth = createPosBP("Width: ", "50");
+		mySpriteHeight = createPosBP("Height: ", "50");
 	}
 	
-	public TextArea createPosBP(String label){
+	public TextArea createPosBP(String label, String initText){
 		BorderPane bp = new BorderPane();
 		bp.setMinWidth(paddedPaneWidth);
 		bp.setMaxWidth(paddedPaneWidth);
 		Label labl = createLbl(label);
 		TextArea ta = new TextArea();
-		ta.setText("0");
+		ta.setText(initText);
 		ta.setMinWidth(cbWidth); ta.setMaxWidth(cbWidth);
 		ta.setMinHeight(cbHeight); ta.setMaxHeight(cbHeight);
 		ta.setOnMouseClicked((e) -> handleClick(ta));
@@ -216,7 +216,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	// Adding in the random generation parameters
 	private void addRandomGenerationParameters(){
 	    for(String label: myRandomGenerationParameters){
-	        myRandomGenerationList.add(createPosBP(label));
+	        myRandomGenerationList.add(createPosBP(label, "0"));
 	    } 
 	}
 	
