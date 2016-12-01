@@ -10,6 +10,7 @@ import java.util.Observable;
 
 import com.sun.javafx.scene.traversal.Direction;
 
+import frontend.util.ButtonTemplate;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
@@ -17,11 +18,12 @@ import gameengine.model.*;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
 import gameengine.view.GameEngineUI;
-import gameengine.view.SplashScreen;
+import gameengine.view.HighScoreScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -35,6 +37,7 @@ import utils.ReflectionUtil;
  *
  */
 public class GameEngineController extends Observable implements RuleActionHandler, RGInterface, CommandInterface {
+	public static final String STYLESHEET = "default.css";
 	private ArrayList<RandomGenFrame> RGFrames;
 	private String xmlData;
 	private GameParser parser;
@@ -155,11 +158,26 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	@Override
 	public void endGame() {
+		gameEngineView.addHighScore(currentGame.getCurrentLevel().getScore());
 		animation.stop();
-		SplashScreen splash = new SplashScreen();
+		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), gameEngineView.getHighScores());
 		Stage stage = new Stage();
 		stage.setScene(splash.getScene());
+		stage.getScene().getStylesheets().add("gameEditorSplash.css");
+		ButtonTemplate exitTemplate = new ButtonTemplate("Quit", 10, 10);
+		ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
+		Button exit = exitTemplate.getButton();
+		exit.setOnMouseClicked(e -> {
+			stop();
+			stage.close();
+		});
+		Button replay = replayTemplate.getButton();
+		replay.setOnMouseClicked(e -> reset());
+		splash.getRoot().getChildren().addAll(exit, replay);
+		stage.setScene(splash.getScene());
+		stage.setTitle("GAME OVER");
 		stage.show();
+
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
                 reset();
@@ -176,7 +194,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		int prevScore = currentGame.getCurrentLevel().getScore();
 		int currScore = prevScore+score;
 		currentGame.getCurrentLevel().setScore(currScore);
-		gameEngineView.updateStat("Score", Integer.toString(currScore));
 	}
 	public Scene getScene() {
 		currentGame = parser.convertXMLtoGame(xmlData);

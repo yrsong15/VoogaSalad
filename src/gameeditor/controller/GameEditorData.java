@@ -85,9 +85,10 @@ public class GameEditorData implements IGameEditorData{
         // Add random Generation
         if(myRandomGenerationParameters.size()>0){
             addRandomGeneration(myObject.getProperties(), myRandomGenerationParameters);
-        }
+        }else {
 
         myLevel.addGameObject(myObject);
+        }
 
     }
 

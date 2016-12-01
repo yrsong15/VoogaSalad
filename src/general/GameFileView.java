@@ -1,5 +1,6 @@
 package general;
 
+import general.interfaces.IGameFileView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -10,13 +11,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventType;
 
-public class GameFileView
+public class GameFileView implements IGameFileView
 {
 	private GameFile gameFile;
 	private Pane view;
 	private Rectangle gameView;
 	private Paint gameViewColor;
 	private boolean isSelected;
+
 	public GameFileView(GameFile gameFile)
 	{
 		this.gameFile = gameFile;
@@ -34,28 +36,25 @@ public class GameFileView
 		gameView.setOnMouseClicked(e -> fireViewClickedOnEvent());
 	}
 
+	@Override
 	public void fireDeleteEvent()
 	{
 		view.fireEvent(new GameFileViewEvent(GameFileViewEvent.REMOVE_FROM_GALLERY,this));
 	}
 
-	/**
-	 * Adds an event handler directly to the GameView and not the entire node. This allows
-	 * the manipulation of a GameView's behavior from outside classes, allowing GameViews to be
-	 * used in other settings that the GalleryView.
-	 * @param eventType- type of event being added to the gameView
-	 * @param eventHandler
-	 */
+	@Override
 	public void addEventHandlerToGameView(EventType<? extends Event> eventType, EventHandler<Event> eventHandler)
 	{
 		gameView.addEventHandler(eventType, eventHandler);
 	}
 
+	@Override
 	public void highlight()
 	{
 		gameView.setFill(Color.YELLOW);
 	}
 
+	@Override
 	public void dehighlight()
 	{
 		if(!isSelected)
@@ -64,13 +63,13 @@ public class GameFileView
 		}
 	}
 
-	public void deselect()
-	{
-
+	@Override
+	public void deselect() {
 		isSelected = false;
 		dehighlight();
 	}
 
+	@Override
 	public void select()
 	{
 		isSelected = true;
@@ -107,11 +106,13 @@ public class GameFileView
 		return view;
 	}
 
+	@Override
 	public GameFile getGameFile()
 	{
 		return gameFile;
 	}
 
+	@Override
 	public Node getNode()
 	{
 		return view;
