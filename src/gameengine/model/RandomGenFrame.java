@@ -70,13 +70,13 @@ public class RandomGenFrame<T> {
         Map<String, String> topPipeMap = new HashMap<String, String>();
         topPipeMap.put("damage", objectProperties.get("damage"));
         GameObject topPipe =
-                new GameObject(xPosition, 0, width, yPosition - gapHeight / 2, "Pipes.png",
+                new GameObject(xPosition, 0, width, yPosition - gapHeight / 2, "PipeOpposite.png",
                                topPipeMap);
         level.getGameObjects().add(topPipe);
 
         
         Map<String, String> bottomPipeMap = new HashMap<String, String>();
-        topPipeMap.put("damage", objectProperties.get("damage"));
+        bottomPipeMap.put("damage", objectProperties.get("damage"));
         GameObject bottomPipe = new GameObject(xPosition, yPosition + gapHeight / 2, width,
                                                GameScreen.screenHeight - (yPosition +
                                                                           gapHeight / 2),

@@ -25,7 +25,7 @@ public class CollisionChecker {
 		for (Iterator<GameObject> itr = gameObjects.iterator(); itr.hasNext();) {
 			try {
 				GameObject gameObject = itr.next();
-				if (collision(mainChar, gameObject)) {
+				if (mainChar != gameObject && collision(mainChar, gameObject)) {
 					try {
 						rulebook.applyRules(mainChar, gameObject);
 					} catch (ClassNotFoundException e) {

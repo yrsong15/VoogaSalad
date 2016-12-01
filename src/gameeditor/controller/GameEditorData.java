@@ -75,6 +75,7 @@ public class GameEditorData implements IGameEditorData{
         myGameObjMap.remove(CreateObjectDetail.SPRITE_HEIGHT_KEY);
 
         Map<String,String> properties = getPropertiesMap(myGameObjMap);
+        
 
         String imagePath = myGameObjMap.get("Image Path");
 
@@ -86,14 +87,12 @@ public class GameEditorData implements IGameEditorData{
         if(myRandomGenerationParameters.size()>0){
             addRandomGeneration(myObject.getProperties(), myRandomGenerationParameters);
         }else {
-
-        myLevel.addGameObject(myObject);
+            myLevel.addGameObject(myObject);
         }
 
     }
 
     private void addRandomGeneration(Map<String,String> properties, List<TextArea>myRandomGenParameters){
-
         Integer num = Integer.parseInt(myRandomGenParameters.get(0).getText());
         if(num==0){num=5;}
         Integer xMin = Integer.parseInt(myRandomGenParameters.get(1).getText());
@@ -116,13 +115,11 @@ public class GameEditorData implements IGameEditorData{
     }
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
-        // include everything except for xposition, yposition, imagefilePath, Type Name in the properties Map
         Map<String,String> properties = new HashMap<String,String>();
-        //properties.put("damage",myItemMap.get("damage"));
         myItemMap.forEach((k,v)-> {
-            if(!(k.equals("xPosition")|| k.equals("yPosition")|| k.equals("Type Name") || k.equals("Image Path" ))){
-                properties.put(k, v);
-            }
+
+                    properties.put(k, v);
+
         });
         return properties;
     }

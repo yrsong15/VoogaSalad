@@ -70,16 +70,16 @@ public class GameObject {
 	}
 
 	public String getProperty(String propertyName) {
-		return properties.get(propertyName);
+		String val = properties.get(propertyName);
+		if(propertyName.equals("fallspeed")&&val==null){
+			val = "0.0";
+			setProperty("fallspeed",val);
+		}
+		return val;
 	}
 
 	public void setProperty(String propertyName, String propertyValue) {
 		properties.put(propertyName, propertyValue);
-
-		// find a better way to do this
-		if (propertyName.equals("gravity") && getProperty("speed")==null) {
-			setProperty("speed", "0");
-		}
 	}
 
 	public String getImageFileName() {
