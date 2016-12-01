@@ -19,7 +19,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import objects.RandomGeneration;
 import objects.ScrollType;
 public class MainController {
-    public static final String STYLESHEET = "default.css";
+    public static final String STYLESHEET = "gameEditorSplash.css";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
     private Stage myGalleryStage, myGameEditorStage, myGameEngineStage;
     private Stage mainStage;
@@ -140,8 +140,6 @@ public class MainController {
 
         level.addControl(KeyCode.W, "jump");
     }
-
-
     private void setMyGameEngineController(){
         XStream mySerializer = new XStream(new DomDriver());
         game.addLevel(level);
@@ -149,7 +147,6 @@ public class MainController {
 
         String s = mySerializer.toXML(game);
     }
-
 
     private void setMyGameEngineController(String xmlData){
         myGameEngineController = new GameEngineController();
@@ -171,26 +168,15 @@ public class MainController {
         String title = myGameEditorController.getGameTitle();
         String gameFile = myGameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
-
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
-
         System.out.println(gameFile);
-
         String file=null;
-
         try {
             file = new String(Files.readAllBytes(Paths.get("testFiles/test1.xml")));
-
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
-        //gameEngineController.setCurrentXML(gameFile);
-
-        setMyGameEngineController(file);
-        setMyGameEngineStage();
-        myGameEngineController.setCurrentXML(file);
-        myGameEngineController.startGame();
+        launchEngine(file);
     }
 }

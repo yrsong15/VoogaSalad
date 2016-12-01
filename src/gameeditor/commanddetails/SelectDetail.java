@@ -20,6 +20,8 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	private Label mySelectLabel;
 	private TextArea myXTextArea = new TextArea();
 	private TextArea myYTextArea = new TextArea();
+	private TextArea myWidthTextArea = new TextArea();
+	private TextArea myHeightTextArea = new TextArea();
 	private ImageView myIV;
 	private GameObject myGO;
 	private Pane myImagePane;
@@ -58,9 +60,14 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		init();
 	}
 	
-	public void updateSpriteDetails(double x, double y){
+	public void updateSpritePosition(double x, double y){
 		myXTextArea.setText(Double.toString(x));
 		myYTextArea.setText(Double.toString(y));
+	}
+	
+	public void updateSpriteDimensions(double width, double height){
+		myWidthTextArea.setText(Double.toString(width));
+		myHeightTextArea.setText(Double.toString(height));
 	}
 	
 	public void createUpdate(){
@@ -74,7 +81,8 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	}
 	
 	private void handleUpdate() {
-		myGO.update(Double.parseDouble(myXTextArea.getText()), Double.parseDouble(myYTextArea.getText()));		
+		myGO.update(Double.parseDouble(myXTextArea.getText()), Double.parseDouble(myYTextArea.getText()),
+				Double.parseDouble(myWidthTextArea.getText()), Double.parseDouble(myHeightTextArea.getText()));		
 	}
 
 	private void addSelectLabel(){
@@ -89,6 +97,8 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	public void createPos(){
 		myXTextArea = createPosBP("X Pos: ", myGO.getX(), myXTextArea);
 		myYTextArea = createPosBP("Y Pos: ", myGO.getY(), myYTextArea);
+		myWidthTextArea = createPosBP("Width: ", myGO.getWidth(), myWidthTextArea);
+		myHeightTextArea = createPosBP("Height: ", myGO.getHeight(), myHeightTextArea);
 	}
 	
 	public TextArea createPosBP(String label, double locationValue, TextArea ta){
