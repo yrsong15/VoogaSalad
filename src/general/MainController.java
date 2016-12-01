@@ -173,7 +173,9 @@ public class MainController {
         XStream mySerializer = new XStream(new DomDriver());
         game.addLevel(level);
         game.setCurrentLevel(level);
+        
         String s = mySerializer.toXML(game);
+        
         myGameEngineController = new GameEngineController();
         myGameEngineController.setCurrentXML(s);
     }
@@ -198,6 +200,7 @@ public class MainController {
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
         
         System.out.println(gameFile);
+//        
 //        String file=null;
 //        
 //        try {
