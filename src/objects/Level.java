@@ -36,6 +36,7 @@ public class Level implements ILevel {
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
+		gameConditions.put("scrollspeed", 30.0);
 		controls = new HashMap<>();
 		viewSettings = new LevelSettings();
 		this.level = level;
