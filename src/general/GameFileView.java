@@ -84,8 +84,8 @@ public class GameFileView implements IGameFileView
 	private Pane createView()
 	{
 		Pane view = new Pane();
-		Rectangle rect = new Rectangle(100,100);
-		int randVal = (int)(Math.random()*3);
+		Rectangle rect = new Rectangle(150, 100);
+		int randVal = (int)(Math.random() * 3);
 		if(randVal == 0)
 		{
 			rect.setFill(Color.GREEN);
