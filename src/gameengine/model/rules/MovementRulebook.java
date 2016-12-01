@@ -23,7 +23,7 @@ public class MovementRulebook {
     }
 
     public void applyRules(GameObject obj) throws ClassNotFoundException, InstantiationException {
-//    	if(obj.getProperty("fallspeed")==null) obj.setProperty("fallspeed", "0");
+    	if(obj.getProperty("fallspeed")==null) obj.setProperty("fallspeed", "0");
 ////    	Iterator<String> itr = obj.getPropertiesList().iterator();
 //    	String[] propertiesArray = Collection.toArray(obj.getPropertiesList());
 //    	while ( itr.hasNext()) {
