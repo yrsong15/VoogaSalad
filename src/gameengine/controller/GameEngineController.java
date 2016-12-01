@@ -157,7 +157,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		SplashScreen splash = new SplashScreen();
 		Stage stage = new Stage();
 		stage.setScene(splash.getScene());
-		stage.showAndWait();
+		stage.show();
 	}
 
 	public void stop(){
