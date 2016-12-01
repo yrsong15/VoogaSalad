@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -64,9 +66,11 @@ public class GameEngineUI implements IGameEngineUI {
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
 	private EventHandler<ActionEvent> myResetEvent;
+	private ArrayList<Integer> myHighScores;
 
 
 	public GameEngineUI(MovementInterface movementInterface, EventHandler<ActionEvent> resetEvent) {
+		myHighScores = new ArrayList<Integer>();
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.myResetEvent = resetEvent;
@@ -98,6 +102,29 @@ public class GameEngineUI implements IGameEngineUI {
 	public void update(Level level) {
 		this.level = level;
 		gameScreen.update(level);
+		myHUD.update(level);
+	}
+	
+	public ArrayList<Integer> getHighScores() {
+		return myHighScores;
+	}
+	
+	public void addHighScore(Integer score) {
+		if (myHighScores.size() == 0) {
+			myHighScores.add(score);
+		} else if (myHighScores.size() < 5) {
+			myHighScores.add(score);
+			Collections.sort(myHighScores);
+			Collections.reverse(myHighScores);
+		} else {
+			Integer lowestHighScore = myHighScores.get(4);
+			if (score > lowestHighScore) {
+				myHighScores.remove(lowestHighScore);
+				myHighScores.add(score);
+				Collections.sort(myHighScores);
+				Collections.reverse(myHighScores);
+			}
+		}
 	}
 
 	public void setMusic(String musicFileName) {
@@ -133,11 +160,6 @@ public class GameEngineUI implements IGameEngineUI {
 		}catch (NullPointerException e){
 			System.out.println("GameEngineUI: Music was null");
 		}
-	}
-	
-	public void updateStat(String name, String value) {
-		myHUD.addStat(name, value);
-		myHUD.updateStats();
 	}
 	
 	public void resetMusic() {

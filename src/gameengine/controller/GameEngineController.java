@@ -17,7 +17,7 @@ import gameengine.model.*;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
 import gameengine.view.GameEngineUI;
-import gameengine.view.SplashScreen;
+import gameengine.view.HighScoreScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -153,8 +153,9 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	@Override
 	public void endGame() {
+		gameEngineView.addHighScore(currentGame.getCurrentLevel().getScore());
 		animation.stop();
-		SplashScreen splash = new SplashScreen();
+		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), gameEngineView.getHighScores());
 		Stage stage = new Stage();
 		stage.setScene(splash.getScene());
 		stage.showAndWait();
