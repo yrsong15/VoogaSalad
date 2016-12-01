@@ -108,10 +108,10 @@ public class MainController {
         gameScroll = new ScrollType("ForcedScrolling");
         gameScroll.addScrollDirection(Direction.RIGHT);
         randomGeneration = new RandomGeneration(pipe1.getProperties(), 5,
-                (int) GameScreen.screenWidth / 5,
-                (int) GameScreen.screenWidth,
-                (int) (GameScreen.screenHeight*0.2),
-                (int) (GameScreen.screenHeight*0.6), 250, 500);
+                                                (int) GameScreen.screenWidth / 5,
+                                                (int) GameScreen.screenWidth,
+                                                (int) (GameScreen.screenHeight*0.2),
+                                                (int) (GameScreen.screenHeight*0.6), 250, 500);
     }
     private void setUpLevel(){
         level = new Level(1);
@@ -130,10 +130,14 @@ public class MainController {
         ScrollType gameScroll = new ScrollType("ForcedScrolling");
         gameScroll.addScrollDirection(Direction.RIGHT);
         level.setScrollType(gameScroll);
+
         RandomGeneration randomGeneration = new RandomGeneration(pipe1.getProperties(), 5, (int) GameScreen.screenWidth / 5, (int) GameScreen.screenWidth,
-                (int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
+                                                                 (int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
+
         level.setScrollType(gameScroll);
+
         level.addRandomGeneration(randomGeneration);
+
         level.addControl(KeyCode.W, "jump");
     }
 
@@ -142,16 +146,16 @@ public class MainController {
         XStream mySerializer = new XStream(new DomDriver());
         game.addLevel(level);
         game.setCurrentLevel(level);
-        
+
         String s = mySerializer.toXML(game);
     }
-        
+
 
     private void setMyGameEngineController(String xmlData){
         myGameEngineController = new GameEngineController();
-//        game.addLevel(level);
-//        game.setCurrentLevel(level);
-//        String s = mySerializer.toXML(game);
+        //        game.addLevel(level);
+        //        game.setCurrentLevel(level);
+        //        String s = mySerializer.toXML(game);
         myGameEngineController.setCurrentXML(xmlData);
     }
     private void setMyGameEngineStage(){
@@ -160,8 +164,8 @@ public class MainController {
         myGameEngineStage.setScene(myGameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> myGameEngineController.stop());
         myGameEngineStage.show();
-//        myGameEngineController.startGame();
-//        System.out.println(s);
+        //        myGameEngineController.startGame();
+        //        System.out.println(s);
     }
     private void sendDataToEngine() {
         String title = myGameEditorController.getGameTitle();
@@ -169,9 +173,9 @@ public class MainController {
         addNewGameFile(title,gameFile);
 
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
-        
+
         System.out.println(gameFile);
-        
+
         String file=null;
 
         try {
@@ -182,16 +186,16 @@ public class MainController {
             e.printStackTrace();
         }
         GameEngineController gameEngineController = new GameEngineController();
-//
+        //
         gameEngineController.setCurrentXML(file);
 
-       // gameEngineController.setCurrentXML(gameFile);
+        //gameEngineController.setCurrentXML(gameFile);
 
         myGameEngineStage = new Stage();
         myGameEngineStage.setOnCloseRequest(e -> {
             myGameEngineStage.close();
         });
-        
+
         myGameEngineStage.setScene(gameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
