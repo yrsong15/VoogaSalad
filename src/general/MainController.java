@@ -65,6 +65,7 @@ public class MainController {
         GameFile newGame = new GameFile(title,gameData);
         myGallery.addToGallery(newGame);
     }
+
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorController();
@@ -132,8 +133,8 @@ public class MainController {
         level.setScrollType(gameScroll);
         RandomGeneration randomGeneration = new RandomGeneration(pipe1.getProperties(), 5, (int) GameScreen.screenWidth / 5, (int) GameScreen.screenWidth,
                 (int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
-        level.setScrollType(gameScroll);
         level.addRandomGeneration(randomGeneration);
+        level.setScrollType(gameScroll);
         level.addControl(KeyCode.W, "jump");
     }
     private void setMyGameEngineController(String xmlData){
@@ -159,7 +160,7 @@ public class MainController {
 
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
 
-        System.out.println(gameFile);
+//        System.out.println(gameFile);
 //        String file=null;
 //
 //        try {

@@ -88,10 +88,10 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	
 	private void addRGFrames(){
-        List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
-		for(RandomGeneration randomGeneration : randomGenerations) {
-			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
-		}
+            List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
+            for (RandomGeneration randomGeneration : randomGenerations) {
+                RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
+            }
 	}
 
 	/**
@@ -185,8 +185,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	
 	private void setScrolling(){
 		ScrollType gameScroll = currentGame.getCurrentLevel().getscrollType();
-		//System.out.println(gameScroll);
-		gameScroll.getDirections();
 		Class<?> cl = null;
 		try {
 			cl = Class.forName("gameengine.scrolling." + gameScroll.getScrollType());
