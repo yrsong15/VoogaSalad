@@ -39,7 +39,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	public static final String Y_POSITION_KEY = "yPosition";
 	public static final String SPRITE_WIDTH_KEY ="width";
 	public static final String SPRITE_HEIGHT_KEY ="height";
-	private Map<String,String> randomGenerationMap = new HashMap<String,String>();
+	
 	private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
 	String[] myRandomGenerationParameters = DetailResources.RANDOM_GENERATION_PARAMETERS.getArrayResource();
 	

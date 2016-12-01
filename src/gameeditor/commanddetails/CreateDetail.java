@@ -70,10 +70,12 @@ public class CreateDetail extends AbstractCommandDetail {
 
             Map<String, String> propertiesMap = new HashMap<String, String>();
 
+            int j=0;
             for(String label: myPropertiesComboLabels){
-                if(myComboBoxes.get(propertiesMap.size()).getValue()!=null){
-                    propertiesMap.put(label,myComboBoxes.get(propertiesMap.size()).getValue());   
+                if(myComboBoxes.get(j).getValue()!=null){
+                    propertiesMap.put(label,myComboBoxes.get(j).getValue()); 
                 }
+                j++;;
             }
             
             int i=0;
@@ -86,6 +88,7 @@ public class CreateDetail extends AbstractCommandDetail {
 
             propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
+            
             myDataStore.storeType(propertiesMap);
 
 
