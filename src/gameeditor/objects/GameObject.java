@@ -15,8 +15,11 @@ public class GameObject {
 	private Image myImage;
 	private String myImageFilePath;
 	private ImageView myImageView;
+	private double myOriginalImageWidth;
+	private double myOriginalImageHeight;
 	private double myImageWidth;
 	private double myImageHeight;
+	private double myRatio;
 	private IDesignArea myDesignArea;
 	private String myType;
 
@@ -39,11 +42,13 @@ public class GameObject {
 		myImageView.setLayoutY(y);
 		double widthRatio = fitWidth/myImage.getWidth();
         double heightRatio = fitHeight/myImage.getHeight();
-        double ratio = Math.min(widthRatio, heightRatio);
-        myImageWidth = myImage.getWidth()*ratio;
-        myImageHeight = myImage.getHeight()*ratio;
-		myImageView.setFitWidth(fitWidth);
-		myImageView.setFitHeight(fitHeight);
+        myOriginalImageWidth = myImage.getWidth();
+        myOriginalImageHeight = myImage.getHeight();
+        myRatio = Math.min(widthRatio, heightRatio);
+        myImageWidth = myOriginalImageWidth*myRatio;
+        myImageHeight = myOriginalImageHeight*myRatio;
+		myImageView.setFitWidth(myImageWidth);
+		myImageView.setFitHeight(myImageHeight);
 		myDesignArea.addSprite(this);
 	}
 	
@@ -58,6 +63,26 @@ public class GameObject {
 	public void setLayout(double x, double y){
 		myImageView.setLayoutX(x);
 		myImageView.setLayoutY(y);
+	}	
+	
+	public void setDimensions(double fitWidth, double fitHeight){
+		double widthRatio = fitWidth/myImage.getWidth();
+        double heightRatio = fitHeight/myImage.getHeight();
+        myOriginalImageWidth = myImage.getWidth();
+        myOriginalImageHeight = myImage.getHeight();
+        myRatio = Math.min(widthRatio, heightRatio);
+        myImageWidth = myOriginalImageWidth*myRatio;
+        myImageHeight = myOriginalImageHeight*myRatio;
+		myImageView.setFitWidth(myImageWidth);
+		myImageView.setFitHeight(myImageHeight);
+	}
+	
+	public double getWidth(){
+		return myImageWidth;
+	}
+	
+	public double getHeight(){
+		return myImageHeight;
 	}
 	
 	public double getX(){
@@ -72,8 +97,9 @@ public class GameObject {
 		return myType;
 	}
 	
-	public void update(double x, double y){
+	public void update(double x, double y, double width, double height){
 		setLayout(x, y);
+		setDimensions(width, height);
 		myDesignArea.removeSprite(this);
 		myDesignArea.addSprite(this);
 	}
