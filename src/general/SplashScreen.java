@@ -94,12 +94,12 @@ public class SplashScreen implements ISplashScreen {
         double initialY = 280;
         double xSpacing = 300;
         double ySpacing = 100;
-        int buttonsPerCol = 3; // Also rows
+        int buttonsPerCol = 2; // Also rows
 
         for (int i = 0; i < buttonNames.length; i++) {
             ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i],
-                    initialX + (i / buttonsPerCol) * xSpacing + (i * 100),
-                    initialY + (i % buttonsPerCol) * ySpacing);
+                    initialX + (i % buttonsPerCol) * xSpacing,
+                    initialY + (i / buttonsPerCol) * ySpacing);
             Button button = buttonTemplate.getButton();
             button.setOnMouseClicked(eventHandlerForButton.get(buttonNames[i]));
 
