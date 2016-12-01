@@ -7,6 +7,8 @@ import utils.ResourceReader;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -21,8 +23,11 @@ public class MovementRulebook {
     }
 
     public void applyRules(GameObject obj) throws ClassNotFoundException, InstantiationException {
-    	Iterator<String> itr = obj.getPropertiesList().iterator();
-    	while ( itr.hasNext()) {
+//    	if(obj.getProperty("fallspeed")==null) obj.setProperty("fallspeed", "0");
+////    	Iterator<String> itr = obj.getPropertiesList().iterator();
+//    	String[] propertiesArray = Collection.toArray(obj.getPropertiesList());
+//    	while ( itr.hasNext()) {
+    	for (Iterator<String> itr = obj.getPropertiesList().iterator(); itr.hasNext();) {
     	String property = itr.next();
             if(resources.containsResource(property)) {
                 String ruleName = resources.getResource(property);
