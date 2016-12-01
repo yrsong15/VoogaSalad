@@ -40,7 +40,7 @@ public class HighScoreScreen {
 		root.getChildren().addAll(score, highScoreText);
 		int index = 0;
 		for (Integer highScore : myHighScores) {
-			Text text = new Text (50, 120 + index * 20, Integer.toString(highScore));
+			Text text = new Text (50, 123 + index * 23, Integer.toString(highScore));
 			root.getChildren().add(text);
 			index++;
 		}

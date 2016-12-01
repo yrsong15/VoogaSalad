@@ -163,7 +163,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		stage.show();
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
-                reset();
+                //reset();
 			}
 		});
 	}
