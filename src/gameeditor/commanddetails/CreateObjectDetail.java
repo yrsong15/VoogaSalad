@@ -1,6 +1,7 @@
 package gameeditor.commanddetails;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import gameeditor.objects.GameObject;
@@ -26,6 +27,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	private TextArea myYTextArea;
 	private TextArea mySpriteWidth;
 	private TextArea mySpriteHeight;
+	private boolean randomGeneration;
 	
 	private String myFilePath = "";
 	private ImageView myIV;
@@ -37,6 +39,9 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	public static final String Y_POSITION_KEY = "yPosition";
 	public static final String SPRITE_WIDTH_KEY ="width";
 	public static final String SPRITE_HEIGHT_KEY ="height";
+	private Map<String,String> randomGenerationMap = new HashMap<String,String>();
+	private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
+	String[] myRandomGenerationParameters = DetailResources.RANDOM_GENERATION_PARAMETERS.getArrayResource();
 	
 	public CreateObjectDetail() {
 		super();
@@ -50,7 +55,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		createTypeChoice();
 		createPos();
 		createImageZone();
-		createSavePreview();
+		//createSavePreview();
 	}
 	
 	public void createSavePreview(){
@@ -87,6 +92,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	//TODO: ADD DATA VERIFICATION TO SAVE
     public void handleSave(){
         Map<String, String> typeMap = myDataStore.getType(myType.getValue());
+        
         String xString = myXTextArea.getText();
         String yString = myYTextArea.getText();
         String width = mySpriteWidth.getText();
@@ -96,12 +102,14 @@ public class CreateObjectDetail extends AbstractCommandDetail {
         double y = Double.parseDouble(yString);
         typeMap.put(X_POSITION_KEY, String.valueOf(x));
         typeMap.put(Y_POSITION_KEY, String.valueOf(y));
-
+        
+        // Create Random Generation here
+        
         typeMap.put(SPRITE_HEIGHT_KEY,height);
         typeMap.put(SPRITE_WIDTH_KEY, width);
+         
+        myDataStore.addGameObjectToLevel(typeMap,myRandomGenerationList);
         
-        myDataStore.addGameObjectToLevel(typeMap);
-
     }
 	
 	public void handlePreview(){
@@ -195,7 +203,21 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 		String value = cb.getValue();
 		Map<String, String> myType = myDataStore.getType(value);
 		myFilePath = myType.get(DetailResources.IMAGE_PATH.getResource());
+		randomGeneration = Boolean.valueOf(myType.get(DetailResources.RANDOM_PROPERTY_KEY.getResource()));
+		if(randomGeneration){
+		    addRandomGenerationParameters();
+		    createSavePreview();
+		}else{
+		    createSavePreview();
+		}
 		createImageView();
+	}
+	
+	// Adding in the random generation parameters
+	private void addRandomGenerationParameters(){
+	    for(String label: myRandomGenerationParameters){
+	        myRandomGenerationList.add(createPosBP(label));
+	    } 
 	}
 	
 	public Label createLbl(String property){

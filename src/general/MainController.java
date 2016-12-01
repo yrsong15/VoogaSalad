@@ -136,6 +136,17 @@ public class MainController {
         level.addRandomGeneration(randomGeneration);
         level.addControl(KeyCode.W, "jump");
     }
+
+
+    private void setMyGameEngineController(){
+        XStream mySerializer = new XStream(new DomDriver());
+        game.addLevel(level);
+        game.setCurrentLevel(level);
+        
+        String s = mySerializer.toXML(game);
+    }
+        
+
     private void setMyGameEngineController(String xmlData){
         myGameEngineController = new GameEngineController();
 //        game.addLevel(level);
@@ -158,27 +169,29 @@ public class MainController {
         addNewGameFile(title,gameFile);
 
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
-
+        
         System.out.println(gameFile);
-//        String file=null;
-//
-//        try {
-//            file = new String(Files.readAllBytes(Paths.get("testFiles/test1")));
-//
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        
+        String file=null;
+
+        try {
+            file = new String(Files.readAllBytes(Paths.get("testFiles/test1")));
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
         GameEngineController gameEngineController = new GameEngineController();
+//
+        gameEngineController.setCurrentXML(file);
 
-        //gameEngineController.setCurrentXML(file);
-
-        gameEngineController.setCurrentXML(gameFile);
+       // gameEngineController.setCurrentXML(gameFile);
 
         myGameEngineStage = new Stage();
         myGameEngineStage.setOnCloseRequest(e -> {
             myGameEngineStage.close();
         });
+        
         myGameEngineStage.setScene(gameEngineController.getScene());
         myGameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         myGameEngineStage.show();
