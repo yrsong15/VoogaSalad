@@ -19,25 +19,19 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import objects.RandomGeneration;
 import objects.ScrollType;
 public class MainController {
+
     public static final String STYLESHEET = "gameEditorSplash.css";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
     private Stage myGalleryStage, myGameEditorStage, myGameEngineStage;
     private Stage mainStage;
     private Gallery myGallery;
     private GalleryView myGalleryView;
-    private Game game;
-    private GameObject bird, pipe1, pipe2, pipe3, pipe4, pipe5, ground;
-    private ScrollType gameScroll;
-    private RandomGeneration randomGeneration;
-    private Level level;
-    //private GameEditorView myGameEditorView;
     private GameEditorController myGameEditorController;
     private GameEngineController myGameEngineController;
+
     public MainController(Stage stage) throws IOException {
         mainStage = stage;
         Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
-        //GameEditorView myView = new GameEditorView();
-        //Scene scene = new Scene(myView.createRoot(),GameEditorView.SCENE_WIDTH,GameEditorView.SCENE_HEIGHT);
         scene.getStylesheets().add(STYLESHEET);
         stage.setScene(scene);
         stage.setTitle("VoogaSalad");
@@ -54,18 +48,12 @@ public class MainController {
     private void initializeGallery() throws IOException {
         this.myGallery = new Gallery();
         this.myGalleryStage = new Stage();
-        // 	   this.gallery = new Gallery();
-        // 	   for(int i = 0; i < 40; i++)
-        // 	   {
-        // 		   myGallery.addToGallery(new GameFile());
-        // 	   }
     }
     private void addNewGameFile(String title, String gameData)
     {
         GameFile newGame = new GameFile(title,gameData);
         myGallery.addToGallery(newGame);
     }
-
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorController();
@@ -78,104 +66,25 @@ public class MainController {
     //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
     public void launchEngine(String XMLData){
         setMyGameEngineController(XMLData);
-        setMyGameEngineStage();
         myGameEngineController.setCurrentXML(XMLData);
-        myGameEngineController.startGame();
-    }
-    private void createGameObjects(){
-        bird = new GameObject(250, 200, 75, 50, "bird3.png", new HashMap<>());
-        bird.setProperty("gravity", "0.8");
-        bird.setProperty("health", "100000");
-        bird.setProperty("jump", "400");
-        pipe1 = new GameObject(50, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe1.setProperty("damage","30");
-        pipe1.setProperty("points","1");
-        pipe2 = new GameObject(180, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe2.setProperty("damage","30");
-        pipe2.setProperty("points","1");
-        pipe3 = new GameObject(310, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe3.setProperty("damage","30");
-        pipe3.setProperty("points","1");
-        pipe4 = new GameObject(440, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe4.setProperty("damage","30");
-        pipe4.setProperty("points","1");
-        pipe5 = new GameObject(570, 450, 80, 200, "Pipes.png", new HashMap<>());
-        pipe5.setProperty("damage","30");
-        pipe5.setProperty("points","1");
-        ground = new GameObject(0,600,1000000,200, new HashMap<>());
-        ground.setProperty("damage","30");
-    }
-    private void generateGameAttributes(){
-        gameScroll = new ScrollType("ForcedScrolling");
-        gameScroll.addScrollDirection(Direction.RIGHT);
-        randomGeneration = new RandomGeneration(pipe1.getProperties(), 5,
-                                                (int) GameScreen.screenWidth / 5,
-                                                (int) GameScreen.screenWidth,
-                                                (int) (GameScreen.screenHeight*0.2),
-                                                (int) (GameScreen.screenHeight*0.6), 250, 500);
-    }
-    private void setUpLevel(){
-        level = new Level(1);
-        level.addWinCondition("score", "10");
-        level.addLoseCondition("time", "30");
-        level.getViewSettings().setMusicFile("FlappyBirdThemeSong.mp3");
-        level.getViewSettings().setBackgroundFilePath("Background/bg.png");
-        
-        level.addGameObject(bird);
-        level.setMainCharacter(bird);
-        
-        //        level.addGameObject(pipe1);
-        //        level.addGameObject(pipe2);
-        //        level.addGameObject(pipe3);
-        //        level.addGameObject(pipe4);
-        //        level.addGameObject(pipe5);
-        
-        level.addGameObject(ground);
-        ScrollType gameScroll = new ScrollType("ForcedScrolling");
-        gameScroll.addScrollDirection(Direction.RIGHT);
-        level.setScrollType(gameScroll);
-
-        RandomGeneration randomGeneration = new RandomGeneration(pipe1.getProperties(), 5, (int) GameScreen.screenWidth / 5, (int) GameScreen.screenWidth,
-<<<<<<< HEAD
-                (int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
-        level.addRandomGeneration(randomGeneration);
-        level.setScrollType(gameScroll);
-=======
-                                                                 (int) (GameScreen.screenHeight*0.2), (int) (GameScreen.screenHeight*0.6), 250, 500);
-
-        level.setScrollType(gameScroll);
-
-        level.addRandomGeneration(randomGeneration);
-
->>>>>>> d0692d3f86368c2f4f98058b75fb02e0477a52fc
-        level.addControl(KeyCode.W, "jump");
-    }
-    private void setMyGameEngineController(){
-        XStream mySerializer = new XStream(new DomDriver());
-        game.addLevel(level);
-        game.setCurrentLevel(level);
-
-        String s = mySerializer.toXML(game);
+        if(myGameEngineController.startGame()) {
+            setMyGameEngineStage();
+        }
     }
 
     private void setMyGameEngineController(String xmlData){
         myGameEngineController = new GameEngineController();
-        //        game.addLevel(level);
-        //        game.setCurrentLevel(level);
-        //        String s = mySerializer.toXML(game);
         myGameEngineController.setCurrentXML(xmlData);
     }
     private void setMyGameEngineStage(){
         myGameEngineStage = new Stage();
-        myGameEngineStage.setOnCloseRequest(e -> myGameEngineStage.close());
-        myGameEngineStage.setScene(myGameEngineController.getScene());
+        myGameEngineStage.setOnCloseRequest(event -> myGameEngineStage.close());
         myGameEngineStage.setOnCloseRequest(event -> myGameEngineController.stop());
+        myGameEngineStage.setScene(myGameEngineController.getScene());
         myGameEngineStage.show();
-        //        myGameEngineController.startGame();
-        //        System.out.println(s);
     }
-    
-    
+
+
     private void sendDataToEngine() {
         String title = myGameEditorController.getGameTitle();
         String gameFile = myGameEditorController.getGameFile();
