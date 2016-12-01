@@ -42,5 +42,4 @@ public class CommandPane implements ICommandButtonOut {
 	public Pane getPane(){
 		return myPane;
 	}
-
 }

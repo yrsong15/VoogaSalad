@@ -13,7 +13,6 @@ import objects.interfaces.ILevel;
  * @author Ray Song(ys101)
  */
 
-//TODO: evaluate whether we need the hashmap for levelManager
 public class LevelManager implements  ICreateLevel{
     private Level myLevel;
 //    private Map<Level, ILevel> myLevels;

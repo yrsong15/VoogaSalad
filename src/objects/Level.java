@@ -8,7 +8,7 @@ import gameengine.view.GameEngineUI;
 
 /**
  * Created by Soravit on 11/18/2016.
- * @ author : Soravit, Pratiksha
+ * @author : Soravit, Pratiksha
  */
 public class Level implements ILevel {
 	// private static final int minSpacing = 250;

@@ -2,6 +2,7 @@ package gameeditor.view;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.sun.javafx.scene.traversal.Direction;
@@ -21,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import objects.GameObject;
 import objects.ScrollType;
 import objects.interfaces.ILevel;
 
@@ -41,6 +43,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private BooleanProperty closeLevelWindow;
     
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
+    public static final String SCORE_PROPERTY="score";
     
     
 
@@ -129,14 +132,21 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     @Override
     public void saveLevelData (Map<String,String> myLevelData) {
-        myLevelSettings.addWinCondition(EditorToolbar.POINTS_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
+        myLevelSettings.addWinCondition(SCORE_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
         myLevelSettings.addLoseCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
         if(myLevelData.containsKey(EditorToolbar.SCROLL_WIDTH_PROPERTY)){
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
         }
+
+         addGround();
         closeLevelWindow.set(true);
     }
        
+    private void addGround(){
+        GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
+        ground.setProperty("damage","30");
+        myLevelSettings.addGameObject(ground);
+    }
 
     public void addScrollType(){
         createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
@@ -167,4 +177,5 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         public BooleanProperty getSaveLevelProperty(){
             return this.closeLevelWindow;
         }
+        
 }

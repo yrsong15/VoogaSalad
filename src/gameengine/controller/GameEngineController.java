@@ -10,6 +10,7 @@ import java.util.Observable;
 
 import com.sun.javafx.scene.traversal.Direction;
 
+import frontend.util.ButtonTemplate;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
@@ -22,6 +23,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -35,6 +37,7 @@ import utils.ReflectionUtil;
  *
  */
 public class GameEngineController extends Observable implements RuleActionHandler, RGInterface, CommandInterface {
+	public static final String STYLESHEET = "default.css";
 	private ArrayList<RandomGenFrame> RGFrames;
 	private String xmlData;
 	private GameParser parser;
@@ -45,7 +48,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private Timeline animation;
 	private MovementController movementController;
 	private Scrolling gameScrolling;
-	public static final double FRAMES_PER_SECOND = 10;
+	public static final double FRAMES_PER_SECOND = 30;
 	public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
 
@@ -58,6 +61,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 
 		RGFrames = new ArrayList<>();
 	}
+
 	public void startGame() {
 		currentGame = parser.convertXMLtoGame(xmlData);
 		movementController.setGame(currentGame);
@@ -140,30 +144,39 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private void deReferenceObject(int index) {
 		currentGame.getCurrentLevel().removeGameObject(index);	
 	}
+
 	public void setNewBenchmark() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
 		for(RandomGenFrame elem: RGFrames){
 			elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
 		}
 	}
+
 	public void setCurrentXML(String xmlData) {
 		this.xmlData = xmlData;
 	}
+
 	@Override
 	public void removeObject(GameObject obj) {
 		currentGame.getCurrentLevel().removeGameObject(obj);
 	}
+
 	@Override
 	public void endGame() {
 		gameEngineView.addHighScore(currentGame.getCurrentLevel().getScore());
 		animation.stop();
-		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), gameEngineView.getHighScores());
+		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(),
+				gameEngineView.getHighScores(), this);
 		Stage stage = new Stage();
 		stage.setScene(splash.getScene());
+		stage.getScene().getStylesheets().add("gameEditorSplash.css");
+
+		stage.setTitle("GAME OVER");
 		stage.show();
+
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
-                reset();
+                //reset();
 			}
 		});
 	}
@@ -172,12 +185,14 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		gameEngineView.stopMusic();
 		animation.stop();
 	}
+
 	@Override
 	public void modifyScore(int score) {
 		int prevScore = currentGame.getCurrentLevel().getScore();
 		int currScore = prevScore+score;
 		currentGame.getCurrentLevel().setScore(currScore);
 	}
+
 	public Scene getScene() {
 		currentGame = parser.convertXMLtoGame(xmlData);
 		return gameEngineView.getScene();
@@ -209,6 +224,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void reset() {
 		animation.stop();
