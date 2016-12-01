@@ -199,22 +199,22 @@ public class MainController {
         
         // THIS IS ENTIRELY FOR TEST PURPOSES ::
         
-        System.out.println(gameFile);
-//        
-//        String file=null;
-//        
-//        try {
-//            file = new String(Files.readAllBytes(Paths.get("testFiles/test1")));
-//
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }     
+       // System.out.println(gameFile);
+        
+        String file=null;
+        
+        try {
+            file = new String(Files.readAllBytes(Paths.get("testFiles/test1")));
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }     
         GameEngineController gameEngineController = new GameEngineController();   
         
-       //gameEngineController.setCurrentXML(file);
+       gameEngineController.setCurrentXML(file);
         
-        gameEngineController.setCurrentXML(gameFile);
+//        gameEngineController.setCurrentXML(gameFile);
        
         myGameEngineStage = new Stage();
         myGameEngineStage.setOnCloseRequest(e -> {
