@@ -48,7 +48,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private Timeline animation;
 	private MovementController movementController;
 	private Scrolling gameScrolling;
-	public static final double FRAMES_PER_SECOND = 10;
+	public static final double FRAMES_PER_SECOND = 30;
 	public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
 
