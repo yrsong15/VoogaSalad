@@ -11,7 +11,7 @@ import objects.GameObject;
 
 
 public class MovementController implements MovementInterface{
-    private static final double movementSpeed = 30;// CHANGE LATER
+
     private Scene myScene;
     private MovementHandler handler;
     private Game currentGame;
@@ -28,28 +28,28 @@ public class MovementController implements MovementInterface{
     @Override
     public void moveUp(){
         GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
-        double newPos = mainChar.getYPosition() - movementSpeed;
+        double newPos = mainChar.getYPosition() - Double.parseDouble(mainChar.getProperty("movespeed"));
         mainChar.setYPosition(newPos);
     }
 
     @Override
     public void moveDown(){
         GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
-        double newPos = mainChar.getYPosition() + movementSpeed;
+        double newPos = mainChar.getYPosition() + Double.parseDouble(mainChar.getProperty("movespeed"));
         mainChar.setYPosition(newPos);
     }
 
     @Override
     public void moveRight(){
         GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
-        double newPos = mainChar.getXPosition() + Math.abs(movementSpeed);
+        double newPos = mainChar.getXPosition() + Math.abs(Double.parseDouble(mainChar.getProperty("movespeed")));
         mainChar.setYPosition(newPos);
     }
 
     @Override
     public void moveLeft(){
         GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
-        double newPos = mainChar.getXPosition() - Math.abs(movementSpeed);
+        double newPos = mainChar.getXPosition() - Math.abs(Double.parseDouble(mainChar.getProperty("movespeed")));
         mainChar.setXPosition(newPos);
     }
 
@@ -58,7 +58,7 @@ public class MovementController implements MovementInterface{
     	GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
     	String jumpVelocity = mainChar.getProperty("jump");
     	if(jumpVelocity!=null){
-    		mainChar.setProperty("speed", "-"+jumpVelocity);
+    		mainChar.setProperty("movespeed", "-"+jumpVelocity);
     	}
     }
 
