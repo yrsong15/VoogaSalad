@@ -24,7 +24,6 @@ public class CollisionRulebook{
 				ruleName = "gameengine.model.rules.collisionrules." + ruleName;
 				try {
 					Method method = ReflectionUtil.getMethodFromClass(ruleName, "applyRule", new Class[]{RuleActionHandler.class, GameObject.class, GameObject.class});
-					if(obj==null) System.out.print("dfadsf");
 					method.invoke(null, handler, mainChar, obj);
 				} catch (IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException | ClassNotFoundException | NoSuchMethodException

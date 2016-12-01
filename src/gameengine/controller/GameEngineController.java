@@ -17,12 +17,14 @@ import gameengine.model.*;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
 import gameengine.view.GameEngineUI;
-import gameengine.view.SplashScreen;
+import gameengine.view.HighScoreScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import objects.*;
 import utils.ReflectionUtil;
@@ -153,11 +155,17 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	}
 	@Override
 	public void endGame() {
+		gameEngineView.addHighScore(currentGame.getCurrentLevel().getScore());
 		animation.stop();
-		SplashScreen splash = new SplashScreen();
+		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), gameEngineView.getHighScores());
 		Stage stage = new Stage();
 		stage.setScene(splash.getScene());
 		stage.show();
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+                reset();
+			}
+		});
 	}
 
 	public void stop(){
@@ -169,7 +177,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		int prevScore = currentGame.getCurrentLevel().getScore();
 		int currScore = prevScore+score;
 		currentGame.getCurrentLevel().setScore(currScore);
-		gameEngineView.updateStat("Score", Integer.toString(currScore));
 	}
 	public Scene getScene() {
 		currentGame = parser.convertXMLtoGame(xmlData);
