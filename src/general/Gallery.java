@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import general.interfaces.IGallery;
 import objects.Game;
 import org.apache.commons.io.FileUtils;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Gallery {
+public class Gallery implements IGallery {
 
 	private ArrayList<GameFile> gallery;
 
@@ -27,6 +28,7 @@ public class Gallery {
 		addToGallery(defaultGame);
 	}
 
+	@Override
 	public String readFile(String path) throws IOException{
 		StringBuilder sb = new StringBuilder();
 		String sCurrentLine;
@@ -39,11 +41,14 @@ public class Gallery {
 		return sb.toString();
 	}
 
+	@Override
 	public void addToGallery(GameFile newGame) {
 		gallery.add(newGame);
 
 	}
+
 	//TODO: fix this for arrayList
+	@Override
 	public void removeFromGallery(String ganeName)
 	{
 		gallery.remove(ganeName);
@@ -66,6 +71,7 @@ public class Gallery {
 	}
 	
 	// TODO: Makes this return an iterator
+	@Override
 	public List<GameFile> getUnmodifiableListOfGameFiles()
 	{
 		return Collections.unmodifiableList(gallery);
