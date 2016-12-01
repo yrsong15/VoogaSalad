@@ -45,10 +45,7 @@ public class GameEditorController implements IGameEditorFrontEndController{
         myEditorLevels= new EditorLevels();
         Parent parent = myEditorLevels.createRoot();
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
-        
-        // Check for the Load Game Button
-        //myEditorLevels.setOnLoadGameButton(e -> loadGame());
-        
+
         // addListenerForGameTitle
         addGameTitleListener();
         return parent;
@@ -100,7 +97,6 @@ public class GameEditorController implements IGameEditorFrontEndController{
             
             setNewLevelSceneRoot();
    
-            // Create new Level in back end
             myGameEditorBackEndController.setCurrentLevel(level);
             
             myGameEditorBackEndController.addCurrentLevelToGame();
@@ -114,12 +110,15 @@ public class GameEditorController implements IGameEditorFrontEndController{
         if(!isInitialStage){
         myLevelStage = new Stage();
         myLevelScene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
+        
+        
         myLevelStage.setScene(myLevelScene);
         isInitialStage = true;
         myLevelStage.show();  
         addSaveLevelListener( myLevelStage);
         }
     }
+
     
     
     private void addSaveLevelListener(Stage myLevelStage){
@@ -128,7 +127,6 @@ public class GameEditorController implements IGameEditorFrontEndController{
             public void changed (ObservableValue<? extends Boolean> observable,
                                  Boolean oldValue,
                                  Boolean newValue) {
-                // TODO Auto-generated method stub
                 if(newValue.booleanValue()==true){
                     myLevelStage.close();
                 }
@@ -143,10 +141,6 @@ public class GameEditorController implements IGameEditorFrontEndController{
     } 
     
     public String getGameFile(){
-        // TODO: How is the Game object going to be passed onto the Game Engine?
-//    	System.out.println(myGameEditorBackEndController.serializeGame());  //prints out XML on console
-    	//myGameEditorBackEndController.getGame();
-        
         return myGameEditorBackEndController.serializeGame();
     }
     
