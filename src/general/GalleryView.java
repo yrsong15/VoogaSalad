@@ -174,9 +174,8 @@ public class GalleryView implements IGalleryView{
 
         galleryWindow.getChildren().addAll(edit, engine);
     }
-    
+
     private void launchSelectedFiles(){
-        System.out.println("Launch selected files");
     	for(GameFileView gameFileView : mySelectedFiles)
     	{
     		myMainController.launchEngine(gameFileView.getGameFile().getGameData());
