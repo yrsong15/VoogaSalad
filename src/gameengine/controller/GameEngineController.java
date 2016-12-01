@@ -23,13 +23,17 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import objects.*;
 import utils.ReflectionUtil;
+
+import javax.swing.*;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
@@ -61,12 +65,19 @@ public class GameEngineController extends Observable implements RuleActionHandle
 
 		RGFrames = new ArrayList<>();
 	}
-
-	public void startGame() {
+	public boolean startGame() {
 		currentGame = parser.convertXMLtoGame(xmlData);
 		movementController.setGame(currentGame);
-		gameEngineView.setLevel(currentGame.getCurrentLevel());
-		addRGFrames();
+        gameEngineView.setLevel(currentGame.getCurrentLevel());
+		try {
+            addRGFrames();
+        }catch (NullPointerException e) {
+            Alert dialogueBox = new Alert(Alert.AlertType.ERROR);
+            dialogueBox.setHeaderText("Could not start game.");
+            dialogueBox.setContentText("You must create a level to start a game.");
+            dialogueBox.show();
+            return false;
+        }
 		gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
 		gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
@@ -74,28 +85,22 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
 			try {
 				updateGame();
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (InstantiationException e1) {
-				e1.printStackTrace();
-			} catch (NoSuchMethodException e1) {
-				e1.printStackTrace();
-			}
-			catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception exception) {
+				exception.printStackTrace();
 			}
 		});
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
+        return true;
 	}
 
 	private void addRGFrames(){
-        List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
-		for(RandomGeneration randomGeneration : randomGenerations) {
-			RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
-		}
+            List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
+            for (RandomGeneration randomGeneration : randomGenerations) {
+                RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
+            }
 	}
 
 	/**
@@ -199,8 +204,6 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	
 	private void setScrolling(){
 		ScrollType gameScroll = currentGame.getCurrentLevel().getscrollType();
-		//System.out.println(gameScroll);
-		gameScroll.getDirections();
 		Class<?> cl = null;
 		try {
 			cl = Class.forName("gameengine.scrolling." + gameScroll.getScrollType());

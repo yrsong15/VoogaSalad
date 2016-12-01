@@ -86,8 +86,10 @@ public class GameFileView implements IGameFileView
 	private Pane createView()
 	{
 		Pane view = new Pane();
-		Rectangle rect = new Rectangle(100,100);
-		int randVal = (int)(Math.random()*3);
+		Label name = new Label(gameFile.getGameName());
+		double rectWidth = name.getText().length() * name.getFont().getSize();
+		Rectangle rect = new Rectangle(rectWidth, 100);
+		int randVal = (int)(Math.random() * 3);
 		if(randVal == 0)
 		{
 			rect.setFill(Color.LAWNGREEN);
@@ -103,10 +105,6 @@ public class GameFileView implements IGameFileView
 		gameViewColor = rect.getFill();
 		gameView = rect;
 		view.getChildren().add(gameView);
-		Text name = new Text(gameFile.getGameName());
-		name.setWrappingWidth(100);
-		name.setLayoutY(20);
-		
 		
 		view.getChildren().add(name);
 		return view;

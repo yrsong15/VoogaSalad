@@ -7,10 +7,15 @@ import objects.interfaces.ISettings;
 
 
 public class LevelSettings implements ISettings{
+
     private String musicFilePath;
     private String backgroundFilePath;
     private double scrollWidth;
 
+    public LevelSettings(){
+        musicFilePath = "FlappyBirdThemeSong.mp3";
+        backgroundFilePath = "Background/bg.png";
+    }
   
     public void setMusicFile(String musicFilePath){
         this.musicFilePath = musicFilePath;

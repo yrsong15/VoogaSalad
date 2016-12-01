@@ -1,5 +1,6 @@
 package objects;
 
+import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.input.KeyCode;
 import objects.interfaces.ILevel;
 import java.security.Key;
@@ -40,6 +41,9 @@ public class Level implements ILevel {
 		controls = new HashMap<>();
 		viewSettings = new LevelSettings();
 		this.level = level;
+        ScrollType def = new ScrollType("ForcedScrolling");
+        def.addScrollDirection(Direction.RIGHT);
+		setScrollType(def);
 	}
 
 	public void setScrollType(ScrollType scrollType) {
