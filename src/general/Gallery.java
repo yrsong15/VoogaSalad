@@ -37,9 +37,7 @@ public class Gallery implements IGallery {
 			while ((sCurrentLine = br.readLine()) != null) {
 				sb.append(sCurrentLine);
 			}
-
 		}
-
 		return sb.toString();
 	}
 

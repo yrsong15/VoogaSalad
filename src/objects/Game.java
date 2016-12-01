@@ -19,7 +19,7 @@ public class Game {
 	}
 
 	public void addLevel(Level level) {
-		levels.put( level.getLevel(),level);
+		levels.put(level.getLevel(),level);
 	}
 
 	public void removeLevel(int level) {
@@ -37,5 +37,4 @@ public class Game {
 	public void setGameName(String name){
 	    this.name = name;
 	}
-	
 }

@@ -136,7 +136,7 @@ public class GameEngineUI implements IGameEngineUI {
 			mediaPlayer = new MediaPlayer(new Media(resource.toString()));
 			mediaPlayer.play();
 		} catch (Exception e) {
-			myErrorMessage.showError(myResources.getString("MusicFileError"));
+            e.printStackTrace();
 		}
 	}
 
