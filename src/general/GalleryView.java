@@ -142,18 +142,20 @@ public class GalleryView implements IGalleryView{
     }
 
     private void addGalleryBackdrop() {
-        Rectangle backdrop = new Rectangle(1000, 200, Color.MIDNIGHTBLUE);
-        backdrop.setTranslateX(100);
-        backdrop.setTranslateY(100);
-        backdrop.opacityProperty().setValue(0.5);
+//        Rectangle backdrop = new Rectangle(1000, 200, Color.MIDNIGHTBLUE);
+//        backdrop.setTranslateX(100);
+//        backdrop.setTranslateY(100);
+//        backdrop.opacityProperty().setValue(0.5);
+        Rectangle backdrop = myFactory.makeBackdrop(100, 100, 100, 100, Color.MIDNIGHTBLUE);
         backdrop.heightProperty().bind(galleryWindow.heightProperty().subtract(400));
         backdrop.widthProperty().bind(galleryWindow.widthProperty().subtract(200));
 
-        Text label = new Text("Gallery");
-        label.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-        label.setFill(Color.LIGHTBLUE);
-        label.setTranslateX(110);
-        label.setTranslateY(115);
+//        Text label = new Text("Gallery");
+//        label.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+//        label.setFill(Color.LIGHTBLUE);
+//        label.setTranslateX(110);
+//        label.setTranslateY(115);
+        Text label = myFactory.makeLabel("Gallery", 110, 115);
         galleryWindow.getChildren().addAll(backdrop, label);
     }
 

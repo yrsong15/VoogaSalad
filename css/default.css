@@ -9,14 +9,15 @@
 	-fx-background-radius: 4em;
 }
 .button {
-	-fx-background-color: linear-gradient(#0079b3, #00110e);
-	-fx-background-radius: 20;
+	-fx-background-color: linear-gradient(to left, #AA076B , #61045F);
+	-fx-background-radius: 10;
 	-fx-text-fill: white;
-    -fx-font: 15 "Century Gothic";
+    -fx-font: 20 "Century Gothic";
 	-fx-border-insets: 15;
 	-fx-border-color: #0000FF;
 }
+
 .button:hover {
-	-fx-background-color: linear-gradient(#00110e, #0079b3);
+	-fx-background-color:linear-gradient( #614385 , #516395);
 	-fx-border-color: white;
 }
