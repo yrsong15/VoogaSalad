@@ -22,9 +22,12 @@ public enum ViewResources {
 		DETAIL_PANE_BG(Color.SLATEGREY),
 		DETAIL_PANE_WIDTH(300),
 		AVATAR_ZONE_PADDING(25),
-		AVATAR_ZONE_WIDTH(ViewResources.DETAIL_PANE_WIDTH.getDoubleResource()-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource()),
-		AVATAR_ZONE_HEIGHT(ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()),
+		AVATAR_ZONE_WIDTH(0.5*ViewResources.DETAIL_PANE_WIDTH.getDoubleResource()-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource()),
+		AVATAR_ZONE_HEIGHT(1.4*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()),
 		AVATAR_ZONE_RADIUS(25),
+		DETAIL_ZONE_PADDING(25),
+		DETAIL_ZONE_WIDTH(ViewResources.DETAIL_PANE_WIDTH.getDoubleResource()-2*ViewResources.DETAIL_ZONE_PADDING.getDoubleResource()),
+		DETAIL_ZONE_HEIGHT(ViewResources.SCENE_HEIGHT.getDoubleResource() - 3*ViewResources.DETAIL_ZONE_PADDING.getDoubleResource() - ViewResources.AVATAR_ZONE_HEIGHT.getDoubleResource()),
 		COMMAND_DETAIL_PADDING(25),
 		
 		// Command Pane
