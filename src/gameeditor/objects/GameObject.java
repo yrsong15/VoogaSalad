@@ -69,7 +69,6 @@ public class GameObject {
 	
 	private void handlePress(double x, double y){
 		// TODO: Sort this shit out
-//		myDesignArea.initSelectDetail2(this);
 		initBound();
 		xDistanceFromCorner = x;
 		yDistanceFromCorner = y;
@@ -88,6 +87,7 @@ public class GameObject {
 	}
 	
 	public void initBound(){
+		myDesignArea.initSelectDetail2(this);
 		myBoundingBox = new BoundingBox(this, myDesignArea);
 		myBoundingBox.show();
 	}
