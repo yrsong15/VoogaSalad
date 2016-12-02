@@ -12,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -37,18 +36,6 @@ public class DesignArea implements IDesignArea {
     private ISelectDetail mySelectDetail;
     
     private GameObject mySelectedSprite;
-    private Rectangle myScaleRectangle = new Rectangle(20, 20);;
-    private double mySelectX;
-    private double mySelectY;
-    
-    private double xDistanceFromCorner = 0;
-    private double yDistanceFromCorner = 0;
-    
-    private boolean scaling = false;
-    private boolean moving = false;
-    
-
-    private ImageView myAvatar;
 
     public DesignArea() {
         myScrollPane = new ScrollPane();
@@ -61,10 +48,7 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setVmax(0);
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         myPane = new Pane();
-//        myPane.setOnMouseClicked(e -> handleClick(e.getX(), e.getY()));
-//        myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
-//        myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
-//        myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
+        myPane.setOnMouseClicked(e -> handlePress(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }    
     
@@ -116,30 +100,18 @@ public class DesignArea implements IDesignArea {
 		clickEnabled = true;	
 	}
 	
-	private void handleRelease(double x, double y){
-		scaling = false;
-		moving = false;
-		if (mySelectedSprite != null){
-			myScaleRectangle.setLayoutX(mySelectedSprite.getX()+mySelectedSprite.getWidth()-20);
-			myScaleRectangle.setLayoutY(mySelectedSprite.getY()+mySelectedSprite.getHeight()-20);
-		}
-		xDistanceFromCorner = 0;
-		yDistanceFromCorner = 0;
-		mySelectedSprite = null;
-	}
-	
 	private void handlePress(double x, double y){
-		if (!scaling){
-			mySelectedSprite = null;
-		}
 		GameObject sprite = checkForSprite(x, y);
-		if (clickEnabled && sprite != null){
-			mySelectDetail.initLevel2(sprite);
+		if (clickEnabled && sprite != null && mySelectedSprite != null){
+			mySelectedSprite.removeBound();
+			mySelectedSprite.setOff();
+			sprite.initBound();
+			sprite.setOn();
 			mySelectedSprite = sprite;
-			mySelectX = x;
-			mySelectY = y;
-			xDistanceFromCorner = mySelectX - mySelectedSprite.getX();
-			yDistanceFromCorner = mySelectY - mySelectedSprite.getY();
+		} else if (clickEnabled && sprite != null){
+			sprite.initBound();
+			sprite.setOn();
+			mySelectedSprite = sprite;
 		}
 	}
 	
@@ -152,31 +124,6 @@ public class DesignArea implements IDesignArea {
 	public void updateSpriteDetails(GameObject sprite, double x, double y, double width, double height){
 		mySelectDetail.updateSpritePosition(x, y);
 		mySelectDetail.updateSpriteDimensions(width, height);
-	}
-	
-	private void moveSelectedSprite(double x, double y){
-		double newX = x - xDistanceFromCorner;
-		double newY = y - yDistanceFromCorner;
-		mySelectDetail.updateSpritePosition(newX, newY);
-		mySelectedSprite.setLayout(newX, newY);
-		myScaleRectangle.setLayoutX(mySelectedSprite.getX()+mySelectedSprite.getWidth()-20);
-		myScaleRectangle.setLayoutY(mySelectedSprite.getY()+mySelectedSprite.getHeight()-20);
-	}
-	
-    private void handleDrag(double x, double y) {
-    	if (!moving && checkForScale(x,y) && clickEnabled && mySelectedSprite != null){
-    		myScaleRectangle.setLayoutX(mySelectedSprite.getX()+mySelectedSprite.getWidth()-20);
-			myScaleRectangle.setLayoutY(mySelectedSprite.getY()+mySelectedSprite.getHeight()-20);
-    		double spriteX = mySelectedSprite.getX();
-    		double spriteY = mySelectedSprite.getY();
-    		double newSpriteWidth = x - spriteX;
-    		double newSpriteHeight = y - spriteY;
-    		mySelectDetail.updateSpriteDimensions(newSpriteWidth, newSpriteHeight);
-			mySelectedSprite.setDimensions(newSpriteWidth, newSpriteHeight);
-		} 
-    	else if (!scaling && clickEnabled && mySelectedSprite != null){
-    		moveSelectedSprite(x, y);
-		}    	
 	}
     
     public void addBoundingBox(BoundingBox bb){
@@ -195,25 +142,9 @@ public class DesignArea implements IDesignArea {
 		Rectangle test = new Rectangle(x, y, 1, 1);
 		for (GameObject sprite : mySprites){
 			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
-				myPane.getChildren().remove(myScaleRectangle);
-				myScaleRectangle.setLayoutX(sprite.getX()+sprite.getWidth()-20);
-				myScaleRectangle.setLayoutY(sprite.getY()+sprite.getHeight()-20);
-				myScaleRectangle.setFill(Color.RED);
-				myPane.getChildren().add(myScaleRectangle);
 				return sprite;
 			}
 		}
 		return null;
-	}
-    
-	private boolean checkForScale(double x, double y){
-		Rectangle test = new Rectangle(x, y, 1, 1);
-		if (scaling){
-			return true;
-		}else if(myScaleRectangle != null && myScaleRectangle.getBoundsInParent().intersects(test.getBoundsInParent())){
-			scaling = true;
-			return true;
-		}
-		return false;
 	}
 }

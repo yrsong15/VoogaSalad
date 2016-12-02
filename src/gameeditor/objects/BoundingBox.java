@@ -22,6 +22,10 @@ public class BoundingBox {
 	private double previousX = 0;
 	private double previousY = 0;
 	private double myBoxSize = 5;
+	
+	private double xDistanceFromCorner = 0;
+	private double yDistanceFromCorner = 0;
+
 
 	public BoundingBox(GameObject sprite, IDesignArea da) {
 		mySprite = sprite;
@@ -37,21 +41,29 @@ public class BoundingBox {
 		createCorners(spriteX, spriteY, spriteWidth, spriteHeight);
 	}
 	
+	private void handleCenterPress(double x, double y){
+		mySprite.setDistanceFromCorner(x, y);
+	}
+	
 	private void handleCenterDrag(double x, double y){
 		mySprite.handleDrag(x, y);
 		updateLayout();
 	}
 	
-	private void handleCornerDrag(double x, double y, double xMultiplier, double yMultiplier){
-		double xDifference = x - mySprite.getX();
-		double yDifference = y - mySprite.getY();
+	private void handleCornerPress(double x, double y){
+		xDistanceFromCorner = x;
+		yDistanceFromCorner = y;
+	}
+	
+	private void handleCornerDrag(Rectangle corner, double x, double y, double xMultiplier, double yMultiplier){
+		double xDifference = x - xDistanceFromCorner;
+		double yDifference = y - yDistanceFromCorner;
 		double newWidth = mySprite.getWidth() + xMultiplier*xDifference;
 		double newHeight = mySprite.getHeight() + yMultiplier*yDifference;
 		mySprite.setDimensions(newWidth, newHeight);
-		System.out.println("new");
-		System.out.println(newWidth);
-		System.out.println(newHeight);
-		updateDimensions();		
+		updateDimensions();	
+		xDistanceFromCorner = x;
+		yDistanceFromCorner = y;
 	}
 	
 	public void createLines(double spriteX, double spriteY, double spriteWidth, double spriteHeight, double lineWidth){
@@ -59,20 +71,22 @@ public class BoundingBox {
 		myBounds.setFill(Color.TRANSPARENT);
 		myBounds.setStroke(Color.LIGHTGRAY);
 		myBounds.setOnMouseDragged((e) -> handleCenterDrag(e.getX(), e.getY()));
+		myBounds.setOnMousePressed((e) -> handleCenterPress(e.getX(), e.getY()));
 		myShapes.add(myBounds);
 	}
 	
 	public void createCorners(double spriteX, double spriteY, double spriteWidth, double spriteHeight){
-		myTopLeft = createCorner(spriteX-myBoxSize/2, spriteY-myBoxSize/2, myBoxSize, -1, -1);
-		myTopRight = createCorner(spriteX+spriteWidth-myBoxSize/2, spriteY-myBoxSize/2, myBoxSize, 1, -1);
-		myBottomLeft = createCorner(spriteX-myBoxSize/2, spriteY+spriteHeight-myBoxSize/2, myBoxSize, -1, 1);
-		myBottomRight = createCorner(spriteX+spriteWidth-myBoxSize/2, spriteY+spriteHeight-myBoxSize/2, myBoxSize, 1, 1);
+		myTopLeft = createCorner(spriteX-myBoxSize/2, spriteY-myBoxSize/2, -1, -1);
+		myTopRight = createCorner(spriteX+spriteWidth-myBoxSize/2, spriteY-myBoxSize/2, 1, -1);
+		myBottomLeft = createCorner(spriteX-myBoxSize/2, spriteY+spriteHeight-myBoxSize/2, -1, 1);
+		myBottomRight = createCorner(spriteX+spriteWidth-myBoxSize/2, spriteY+spriteHeight-myBoxSize/2, 1, 1);
 		myShapes.addAll(myCorners);
 	}
 	
-	public Rectangle createCorner(double x, double y, double myBoxSize, double xMultiplier, double yMultiplier){
+	public Rectangle createCorner(double x, double y, double xMultiplier, double yMultiplier){
 		Rectangle r = new Rectangle(x, y, myBoxSize, myBoxSize);
-		r.setOnMouseDragged((e) -> handleCornerDrag(e.getX(), e.getY(), xMultiplier, yMultiplier));
+		r.setOnMouseDragged((e) -> handleCornerDrag(r, e.getX(), e.getY(), xMultiplier, yMultiplier));
+		r.setOnMousePressed((e) -> handleCornerPress(e.getX(), e.getY()));
 		r.setFill(Color.LIGHTGRAY);
 		myCorners.add(r);
 		return r;
@@ -92,23 +106,21 @@ public class BoundingBox {
 	}
 	
 	public void updateDimensions(){
-		double spriteX = mySprite.getX();
-		double spriteY = mySprite.getY();
 		double spriteWidth = mySprite.getWidth();
 		double spriteHeight = mySprite.getHeight();
-		System.out.println("Sprite width" + spriteWidth);
-		System.out.println("Sprite height" + spriteHeight);
 		myBounds.setWidth(spriteWidth);
 		myBounds.setHeight(spriteHeight);
-		updateCornerLocation(myTopLeft, spriteX-myBoxSize/2, spriteY-myBoxSize/2);
-		updateCornerLocation(myTopRight, spriteX+spriteWidth-myBoxSize/2, spriteY-myBoxSize/2);
-		updateCornerLocation(myBottomLeft, spriteX-myBoxSize/2, spriteY+spriteHeight-myBoxSize/2);
-		updateCornerLocation(myBottomRight, spriteX+spriteWidth-myBoxSize/2, spriteY+spriteHeight-myBoxSize/2);
+		double boundsX = myBounds.getX();
+		double boundsY = myBounds.getY();
+		updateCornerLocation(myTopLeft, boundsX-myBoxSize/2, boundsY-myBoxSize/2);
+		updateCornerLocation(myTopRight, boundsX+spriteWidth-myBoxSize/2, boundsY-myBoxSize/2);
+		updateCornerLocation(myBottomLeft, boundsX-myBoxSize/2, boundsY+spriteHeight-myBoxSize/2);
+		updateCornerLocation(myBottomRight, boundsX+spriteWidth-myBoxSize/2, boundsY+spriteHeight-myBoxSize/2);
 	}
 	
 	public void updateCornerLocation(Rectangle corner, double x, double y){
-		corner.setLayoutX(x);
-		corner.setLayoutY(y);
+		corner.setX(x);
+		corner.setY(y);
 	}
 	
 	public void show(){

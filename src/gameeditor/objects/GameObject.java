@@ -54,14 +54,28 @@ public class GameObject {
         myImageHeight = myOriginalImageHeight*myRatio;
 		myImageView.setFitWidth(myImageWidth);
 		myImageView.setFitHeight(myImageHeight);
-		myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
-		myImageView.setOnMouseDragged((e) -> handleDrag(e.getX(), e.getY()));
 		myDesignArea.addSprite(this);
 	}
 	
+	public void setOn(){
+		myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
+		myImageView.setOnMouseDragged((e) -> handleDrag(e.getX(), e.getY()));
+	}
+	
+	public void setOff(){
+		myImageView.setOnMousePressed(null);
+		myImageView.setOnMouseDragged(null);
+	}
+	
 	private void handlePress(double x, double y){
-		myDesignArea.initSelectDetail2(this);
+		// TODO: Sort this shit out
+//		myDesignArea.initSelectDetail2(this);
 		initBound();
+		xDistanceFromCorner = x;
+		yDistanceFromCorner = y;
+	}
+	
+	public void setDistanceFromCorner(double x, double y){
 		xDistanceFromCorner = x - getX();
 		yDistanceFromCorner = y - getY();
 	}
