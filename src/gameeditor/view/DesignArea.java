@@ -48,7 +48,7 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setVmax(0);
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         myPane = new Pane();
-        myPane.setOnMouseClicked(e -> handlePress(e.getX(), e.getY()));
+        myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }    
     
@@ -102,15 +102,15 @@ public class DesignArea implements IDesignArea {
 	
 	private void handlePress(double x, double y){
 		GameObject sprite = checkForSprite(x, y);
-		if (clickEnabled && sprite != null && mySelectedSprite != null){
+		if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
 			mySelectedSprite.removeBound();
 			mySelectedSprite.setOff();
 			sprite.initBound();
-			sprite.setOn();
+			sprite.setOn(x, y);
 			mySelectedSprite = sprite;
-		} else if (clickEnabled && sprite != null){
+		} else if (clickEnabled && sprite != null && mySelectedSprite == null){
 			sprite.initBound();
-			sprite.setOn();
+			sprite.setOn(x, y);
 			mySelectedSprite = sprite;
 		}
 	}
@@ -140,11 +140,14 @@ public class DesignArea implements IDesignArea {
     
     private GameObject checkForSprite(double x, double y){
 		Rectangle test = new Rectangle(x, y, 1, 1);
+		GameObject selectedSprite = null;
 		for (GameObject sprite : mySprites){
-			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
+			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled && mySelectedSprite == sprite){
 				return sprite;
+			} else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
+				selectedSprite = sprite;
 			}
 		}
-		return null;
+		return selectedSprite;
 	}
 }

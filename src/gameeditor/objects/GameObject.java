@@ -57,9 +57,10 @@ public class GameObject {
 		myDesignArea.addSprite(this);
 	}
 	
-	public void setOn(){
+	public void setOn(double x, double y){
 		myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
 		myImageView.setOnMouseDragged((e) -> handleDrag(e.getX(), e.getY()));
+		handlePress(x, y);
 	}
 	
 	public void setOff(){
@@ -69,14 +70,13 @@ public class GameObject {
 	
 	private void handlePress(double x, double y){
 		// TODO: Sort this shit out
-		initBound();
-		xDistanceFromCorner = x;
-		yDistanceFromCorner = y;
+		xDistanceFromCorner = x - getX();
+		yDistanceFromCorner = y - getY();
 	}
 	
 	public void setDistanceFromCorner(double x, double y){
-		xDistanceFromCorner = x - getX();
-		yDistanceFromCorner = y - getY();
+		xDistanceFromCorner = x;
+		yDistanceFromCorner = y;
 	}
 	
 	public void handleDrag(double x, double y){
