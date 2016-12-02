@@ -20,7 +20,7 @@ import objects.RandomGeneration;
 import objects.ScrollType;
 public class MainController {
 
-    public static final String STYLESHEET = "gameEditorSplash.css";
+    public static final String STYLESHEET = "default.css";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
     private Stage myGalleryStage, myGameEditorStage, myGameEngineStage;
     private Stage mainStage;

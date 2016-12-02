@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.event.EventType;
 
@@ -87,6 +88,7 @@ public class GameFileView implements IGameFileView
 	{
 		Pane view = new Pane();
 		Label name = new Label(gameFile.getGameName());
+		name.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 		double rectWidth = name.getText().length() * name.getFont().getSize();
 		Rectangle rect = new Rectangle(rectWidth, 100);
 		int randVal = (int)(Math.random() * 3);
