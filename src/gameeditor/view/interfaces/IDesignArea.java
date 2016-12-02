@@ -1,11 +1,11 @@
 package gameeditor.view.interfaces;
 
 import gameeditor.commanddetails.ISelectDetail;
+import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObject;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public interface IDesignArea {
@@ -30,5 +30,13 @@ public interface IDesignArea {
     public void enableClick(ISelectDetail sd);
     
     public void disableClick();
+    
+    public void updateSpriteDetails(GameObject sprite, double x, double y, double width, double height);
         
+    public void initSelectDetail2(GameObject sprite);
+    
+    public void addBoundingBox(BoundingBox bb);
+    
+    public void removeBoundingBox(BoundingBox bb);
+
 }

@@ -22,6 +22,11 @@ public class GameObject {
 	private double myRatio;
 	private IDesignArea myDesignArea;
 	private String myType;
+	
+	private double xDistanceFromCorner = 0;
+	private double yDistanceFromCorner = 0;
+	
+	private BoundingBox myBoundingBox;
 
 	public GameObject(String imageFilePath, String type, IDesignArea da) {
 		this(imageFilePath, DEFAULT_X, DEFAULT_Y, type, da);
@@ -49,7 +54,32 @@ public class GameObject {
         myImageHeight = myOriginalImageHeight*myRatio;
 		myImageView.setFitWidth(myImageWidth);
 		myImageView.setFitHeight(myImageHeight);
+		myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
+		myImageView.setOnMouseDragged((e) -> handleDrag(e.getX(), e.getY()));
 		myDesignArea.addSprite(this);
+	}
+	
+	private void handlePress(double x, double y){
+		myDesignArea.initSelectDetail2(this);
+		initBound();
+		xDistanceFromCorner = x - getX();
+		yDistanceFromCorner = y - getY();
+	}
+	
+	public void handleDrag(double x, double y){
+		double newX = getX() + x - xDistanceFromCorner;
+		double newY = getY() + y - yDistanceFromCorner;
+		setLayout(newX, newY);
+		myBoundingBox.updateLayout();
+	}
+	
+	public void initBound(){
+		myBoundingBox = new BoundingBox(this, myDesignArea);
+		myBoundingBox.show();
+	}
+	
+	public void removeBound(){
+		myBoundingBox.hide();
 	}
 	
 	public void removeSelf(){

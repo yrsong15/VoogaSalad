@@ -3,6 +3,7 @@ package gameeditor.view;
 import java.util.ArrayList;
 
 import gameeditor.commanddetails.ISelectDetail;
+import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObject;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.collections.ObservableList;
@@ -61,9 +62,9 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         myPane = new Pane();
 //        myPane.setOnMouseClicked(e -> handleClick(e.getX(), e.getY()));
-        myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
-        myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
-        myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
+//        myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
+//        myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
+//        myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }    
     
@@ -91,8 +92,8 @@ public class DesignArea implements IDesignArea {
 	@Override
 	public void addSprite(GameObject sprite) {
 		mySprites.add(sprite);
-		//TODO: Remove the hardcoding of the image size proportions
-		// Added image proportions for Demo
+//		TODO: Remove the hardcoding of the image size proportions
+//		Added image proportions for Demo
 //		sprite.getImageView().setFitHeight(200);
 //		sprite.getImageView().setFitWidth(300);
 		myPane.getChildren().add(sprite.getImageView());
@@ -142,6 +143,17 @@ public class DesignArea implements IDesignArea {
 		}
 	}
 	
+	public void initSelectDetail2(GameObject sprite){
+		if (clickEnabled){
+			mySelectDetail.initLevel2(sprite);
+		}
+	}
+	
+	public void updateSpriteDetails(GameObject sprite, double x, double y, double width, double height){
+		mySelectDetail.updateSpritePosition(x, y);
+		mySelectDetail.updateSpriteDimensions(width, height);
+	}
+	
 	private void moveSelectedSprite(double x, double y){
 		double newX = x - xDistanceFromCorner;
 		double newY = y - yDistanceFromCorner;
@@ -166,6 +178,18 @@ public class DesignArea implements IDesignArea {
     		moveSelectedSprite(x, y);
 		}    	
 	}
+    
+    public void addBoundingBox(BoundingBox bb){
+    	for(Rectangle rect : bb.getShapes()){
+    		myPane.getChildren().add(rect);
+    	}
+    }
+    
+    public void removeBoundingBox(BoundingBox bb){
+    	for(Rectangle rect : bb.getShapes()){
+    		myPane.getChildren().remove(rect);
+    	}
+    }
     
     private GameObject checkForSprite(double x, double y){
 		Rectangle test = new Rectangle(x, y, 1, 1);
