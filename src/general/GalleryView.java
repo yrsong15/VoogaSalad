@@ -134,7 +134,6 @@ public class GalleryView implements IGalleryView{
         gameFileWindow.setTranslateY(GALLERY_CORNER_Y + 30);
         gameFileWindow.setOpacity(0.5);
         gameFileWindow.setOnMouseEntered(e -> {
-            System.out.println("gamefile mouse entered");
             gameFileWindow.setOpacity(0.8);
             backdrop.setOpacity(0.8);
         });
@@ -162,7 +161,7 @@ public class GalleryView implements IGalleryView{
 //        backdrop.setTranslateX(100);
 //        backdrop.setTranslateY(100);
 //        backdrop.opacityProperty().setValue(0.5);
-        backdrop = myFactory.makeBackdrop(GALLERY_CORNER_X, GALLERY_CORNER_Y, 100, 100, Color.MIDNIGHTBLUE);
+        backdrop = myFactory.makeBackdrop(GALLERY_CORNER_X, GALLERY_CORNER_Y - 15, 890, 320, Color.MIDNIGHTBLUE);
 //        backdrop.heightProperty().bind(galleryWindow.heightProperty().subtract(400));
 //        backdrop.widthProperty().bind(galleryWindow.widthProperty().subtract(200));
 
@@ -172,7 +171,7 @@ public class GalleryView implements IGalleryView{
 //        label.setFill(Color.LIGHTBLUE);
 //        label.setTranslateX(110);
 //        label.setTranslateY(115);
-        Text label = myFactory.makeLabel("Gallery", GALLERY_CORNER_X + 10, GALLERY_CORNER_Y + 15);
+        Text label = myFactory.makeLabel("To edit or load an existing game, select from the gallery", GALLERY_CORNER_X + 10, GALLERY_CORNER_Y + 15, 20);
         label.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         galleryWindow.getChildren().addAll(backdrop, label);
     }
@@ -180,14 +179,16 @@ public class GalleryView implements IGalleryView{
     private void addGalleryButtons() {
         ButtonTemplate newB = new ButtonTemplate("GalleryGameEdit", 400, 400);
         Button edit = newB.getButton();
-        edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
+        edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(150));
         edit.translateXProperty().bind(galleryWindow.widthProperty().divide(2).subtract(300));
         edit.setOnMouseClicked(e -> myMainController.presentEditor()); //pass in an XML to the editor eventually
+        edit.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 
         newB = new ButtonTemplate("GalleryGameEngine", 600, 400);
         Button engine = newB.getButton();
-        engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(200));
+        engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(150));
         engine.translateXProperty().bind(galleryWindow.widthProperty().divide(2).add(100));
+        engine.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         //TODO: Change this later to be flexible
   
         engine.setOnMouseClicked(e -> launchSelectedFiles());

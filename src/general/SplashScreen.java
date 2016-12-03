@@ -29,7 +29,7 @@ import javafx.event.EventHandler;
  */
 public class SplashScreen implements ISplashScreen {
 
-    public static final int SPLASH_WIDTH = 1700;
+    public static final int SPLASH_WIDTH = 1030;
     public static final int SPLASH_HEIGHT = 900;
     private Pane startWindow;
 //    private Rectangle backdrop;
@@ -65,7 +65,7 @@ public class SplashScreen implements ISplashScreen {
 //        backdrop = myFactory.makeBackdrop(65, 65, 590, 400, Color.MIDNIGHTBLUE);
         startWindow.getChildren().add(backgroundImageMainScreen);
         addTitle();
-        addButtons();
+//        addButtons();
         this.editorSplash = new EditorSplash(mainController, startWindow);
         this.myGallery = new GalleryView(galleryItem, mainController, startWindow);
         return startWindow;
@@ -122,7 +122,7 @@ public class SplashScreen implements ISplashScreen {
     private void addTitle() {
         BigNameText title = new BigNameText("Welcome to VoogaSalad");
         title.setTranslateX(75);
-        title.setTranslateY(75);
+        title.setTranslateY(55);
 //        title.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         startWindow.getChildren().add(title);
     }

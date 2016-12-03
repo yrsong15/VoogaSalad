@@ -60,6 +60,16 @@ public class NodeFactory implements INodeFactory{
         return backdrop;
     }
 
+    public Text makeLabel(String text, int x, int y, int fontSize){
+        Text label = new Text(text);
+        label.setFont(Font.font("Verdana", FontWeight.BOLD, fontSize));
+        label.setFill(Color.LIGHTBLUE);
+        label.setTranslateX(x);
+        label.setTranslateY(y);
+
+        return label;
+    }
+
     public Text makeLabel(String text, int x, int y){
         Text label = new Text(text);
         label.setFont(Font.font("Verdana", FontWeight.BOLD, 15));

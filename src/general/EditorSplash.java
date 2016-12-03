@@ -19,7 +19,7 @@ public class EditorSplash {
     public static final int SPLASH_WIDTH = 700;
     public static final int SPLASH_HEIGHT = 600;
     public static final int EDITOR_CORNER_X = 60;
-    public static final int EDITOR_CORNER_Y = 160;
+    public static final int EDITOR_CORNER_Y = 145;
     private Pane splashWindow;
     private Rectangle backdrop;
     private NodeFactory myFactory;
@@ -56,9 +56,9 @@ public class EditorSplash {
     }
 
     private void addTitle() {
-        Text title = myFactory.makeLabel("Select a game model to create:", EDITOR_CORNER_X + 15,
+        Text title = myFactory.makeLabel("To start from scratch, select a game model", EDITOR_CORNER_X + 15,
                 EDITOR_CORNER_Y + 40);
-        title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        title.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         title.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         splashWindow.getChildren().add(title);
     }
