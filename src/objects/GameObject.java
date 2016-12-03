@@ -3,9 +3,6 @@ package objects;
 import java.util.Map;
 import java.util.Set;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 public class GameObject {
 
 	private double xPosition;

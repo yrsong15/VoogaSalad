@@ -19,14 +19,14 @@ public abstract class AbstractCommandDetail {
 	
 	protected double detailPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
 	protected double detailPaneHeight = ViewResources.SCENE_HEIGHT.getDoubleResource();
-	protected double avatarZoneWidth = detailPaneWidth-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource();
-	protected double avatarZoneHeight = avatarZoneWidth;
+	protected double detailZoneWidth = detailPaneWidth-2*ViewResources.DETAIL_ZONE_PADDING.getDoubleResource();
+	protected double detailZoneHeight = ViewResources.DETAIL_ZONE_HEIGHT.getDoubleResource();
 	protected double detailPadding = ViewResources.COMMAND_DETAIL_PADDING.getDoubleResource();
-	protected double myPaneWidth = avatarZoneWidth;
-	protected double myPaneHeight = detailPaneHeight - 4*detailPadding - avatarZoneHeight;
+	protected double myPaneWidth = detailZoneWidth;
+	protected double myPaneHeight = detailZoneHeight;
 
 	
-	protected double cbWidth = 7*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
+	protected double cbWidth = 7*ViewResources.DETAIL_ZONE_WIDTH.getDoubleResource()/15 - myDetailPadding;
 	protected double cbHeight = 30;
 	protected double hboxSpacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
 	protected double paddedPaneWidth = myPaneWidth-2*myDetailPadding;
