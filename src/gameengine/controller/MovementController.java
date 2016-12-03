@@ -43,7 +43,7 @@ public class MovementController implements MovementInterface{
     public void moveRight(){
         GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
         double newPos = mainChar.getXPosition() + Math.abs(Double.parseDouble(mainChar.getProperty("movespeed")));
-        mainChar.setYPosition(newPos);
+        mainChar.setXPosition(newPos);
     }
 
     @Override
@@ -51,6 +51,7 @@ public class MovementController implements MovementInterface{
         GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
         double newPos = mainChar.getXPosition() - Math.abs(Double.parseDouble(mainChar.getProperty("movespeed")));
         mainChar.setXPosition(newPos);
+        System.out.println("currPos: " + newPos);
     }
 
     @Override

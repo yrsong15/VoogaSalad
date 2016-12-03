@@ -98,6 +98,10 @@ public class GameEngineUI implements IGameEngineUI {
 	public double getScreenHeight() {
 		return gameScreen.screenHeight;
 	}
+	
+	public double getScreenWidth() {
+		return gameScreen.screenWidth;
+	}
 
 	public void update(Level level) {
 		this.level = level;

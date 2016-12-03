@@ -66,7 +66,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		currentGame = parser.convertXMLtoGame(xmlData);
 		movementController.setGame(currentGame);
 		gameEngineView.setLevel(currentGame.getCurrentLevel());
-		addRGFrames();
+		//addRGFrames();
 		gameEngineView.setMusic(currentGame.getCurrentLevel().getViewSettings().getMusicFilePath());
 		gameEngineView.setBackgroundImage(currentGame.getCurrentLevel().getViewSettings().getBackgroundFilePath());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
@@ -113,14 +113,14 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		gameScrolling.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
 		setChanged();
 		notifyObservers();
-		removeOffscreenElements();
+		//removeOffscreenElements();
 		gameEngineView.update(currentGame.getCurrentLevel());
 		movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
-		for(RandomGenFrame elem: RGFrames){
+		/**for(RandomGenFrame elem: RGFrames){
             for(RandomGeneration randomGeneration : currentGame.getCurrentLevel().getRandomGenRules()) {
                 elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
             }
-		}
+		}**/
 		//System.out.println(currentGame.getCurrentLevel().getGameObjects().size());
 		 Level currLevel = currentGame.getCurrentLevel();
 		 collisionChecker.checkCollisions(currentGame.getCurrentLevel().getMainCharacter(), currentGame.getCurrentLevel().getGameObjects());
@@ -210,13 +210,15 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		}
 		Constructor<?> cons = null;
 		try {
-			cons = cl.getConstructor(Direction.class, double.class);
+			cons = cl.getConstructor(Direction.class, double.class, double.class, double.class);
 		} catch (NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), currentGame.getCurrentLevel().getGameConditions().get("scrollspeed"));
+			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), 
+					currentGame.getCurrentLevel().getGameConditions().get("scrollspeed"),
+					gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			// TODO Auto-generated catch block
