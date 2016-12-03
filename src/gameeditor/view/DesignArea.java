@@ -12,6 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -48,10 +50,20 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setVmax(0);
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         myPane = new Pane();
-        myPane.setOnMouseClicked(e -> handlePress(e.getX(), e.getY()));
+        myPane.addEventFilter(KeyEvent.KEY_TYPED, (e) -> handleKeyType(e.getCode()));
+        myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }    
     
+    //TODO: get keytyped working
+	private void handleKeyType(KeyCode code) {
+		System.out.println("key typed");
+		if (code == KeyCode.BACK_SPACE){
+			// TODO: Remove from backend
+			removeSprite(mySelectedSprite);
+		}
+	}
+
 	public ScrollPane getScrollPane(){
         return myScrollPane;
     }
@@ -102,15 +114,15 @@ public class DesignArea implements IDesignArea {
 	
 	private void handlePress(double x, double y){
 		GameObject sprite = checkForSprite(x, y);
-		if (clickEnabled && sprite != null && mySelectedSprite != null){
+		if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
 			mySelectedSprite.removeBound();
 			mySelectedSprite.setOff();
 			sprite.initBound();
-			sprite.setOn();
+			sprite.setOn(x, y);
 			mySelectedSprite = sprite;
-		} else if (clickEnabled && sprite != null){
+		} else if (clickEnabled && sprite != null && mySelectedSprite == null){
 			sprite.initBound();
-			sprite.setOn();
+			sprite.setOn(x, y);
 			mySelectedSprite = sprite;
 		}
 	}
@@ -140,11 +152,14 @@ public class DesignArea implements IDesignArea {
     
     private GameObject checkForSprite(double x, double y){
 		Rectangle test = new Rectangle(x, y, 1, 1);
+		GameObject selectedSprite = null;
 		for (GameObject sprite : mySprites){
-			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
+			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled && mySelectedSprite == sprite){
 				return sprite;
+			} else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
+				selectedSprite = sprite;
 			}
 		}
-		return null;
+		return selectedSprite;
 	}
 }

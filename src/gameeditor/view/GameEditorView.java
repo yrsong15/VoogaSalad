@@ -57,7 +57,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
         
-        addScrollType();
+        //addScrollType();
         
         return myRoot;
         
@@ -150,32 +150,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myLevelSettings.addGameObject(ground);
     }
 
-    public void addScrollType(){
-        createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
-        createScrollType(ViewResources.LIMITED_SCROLLING_TYPE.getResource(),myToolbar.getLimitedScrollingMenu());
-        addFreeScrollTypeListener(); 
-    }
-               
-        private void createScrollType(String className, Menu myMenu){
-            ScrollType myScrollType = new ScrollType(className);
-            myMenu.getItems().stream().forEach(item -> {
-                item.setOnAction(e -> {
-                    myScrollType.addScrollDirection(Direction.valueOf(item.getText()));
-                    myLevelSettings.setScrollType(myScrollType);
-                });
-            });
-        }   
-        
-        private void addFreeScrollTypeListener(){
-            ScrollType myScrollType = new ScrollType(ViewResources.FREE_SCROLLING_TYPE.getResource());
-            myToolbar.getFreeScrollTypeMenuItem().setOnAction(e -> {
-                myScrollType.addScrollDirection(Direction.LEFT); 
-                myScrollType.addScrollDirection(Direction.RIGHT); 
-                myScrollType.addScrollDirection(Direction.UP); 
-                myScrollType.addScrollDirection(Direction.DOWN); 
-            });
-        }
-        
+
+                       
         public BooleanProperty getSaveLevelProperty(){
             return this.closeLevelWindow;
         }

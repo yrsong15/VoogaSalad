@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
+import objects.ScrollType;
 /**
  *  To be used by the front end components to send data to the back end controller
  * @author pratikshasharma
@@ -26,4 +27,11 @@ public interface IGameEditorData {
 
     public void addMainCharacterImage(String imageFilePath);
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties);
+    
+    public void addScrollType(ScrollType scrollType);
+    public void addLoseCondition(String type, String action);
+    public void addWinCondition(String type, String action);
+    public void addScrollWidth(String width);
+    
+    public void addScrollSpeed(String speed);
 }
