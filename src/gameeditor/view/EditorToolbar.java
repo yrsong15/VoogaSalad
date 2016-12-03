@@ -36,35 +36,13 @@ public class EditorToolbar implements IEditorToolbar {
 	private IToolbarParent myOutput;
 	
 	private Pane myPane;
-	
 	private ImageView myBackgroundImageView;
 	private ImageView myAvatarImageView;
 	private ImageView myMusicImageView;
 	private ImageView myLoadGameImageView;
 	
-	private TextArea myXTextArea;
-	private BorderPane myXTextBP = new BorderPane();
-	private ComboBox<String> myDimComboBox;
-	private TextArea myTimeWin;
-	private TextArea myPointsWin;
-	private Map<String,String> myLevelData;
-	
-	private Menu forcedScrollSubMenu;
-	private Menu limitedScrollSubMenu;
-	private Menu scrollTypeMenu;
-	private MenuItem freeScrollType;
-	//private Button updateScrollWidthButton;
-	
-	
-	public static final String TIME_PROPERTY = "time";
-	public static final String POINTS_PROPERTY = "points";
-	public static final String SCROLL_WIDTH_PROPERTY = "scrollWidth";
-
-	
-	
 	public EditorToolbar(IToolbarParent toolOut) {
 		myOutput = toolOut;
-		myLevelData = new HashMap<String,String>();
 		myPane = new Pane();
 		myPane.setMinWidth(TOOLBAR_WIDTH); myPane.setMaxWidth(TOOLBAR_WIDTH);
 		myPane.setMinHeight(TOOLBAR_HEIGHT); myPane.setMaxHeight(TOOLBAR_HEIGHT);
@@ -96,12 +74,8 @@ public class EditorToolbar implements IEditorToolbar {
 		}
 	}
 	
-
-
-	private void sendLevelData(){
-//	    myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
-//	    myLevelData.put(POINTS_PROPERTY, myPointsWin.getText());	    
-//	    myOutput.saveLevelData(myLevelData);
+	private void sendLevelData(){    
+	    myOutput.saveLevelData();
 	}
 	
 	public Label createLbl(String labelText){
@@ -115,28 +89,5 @@ public class EditorToolbar implements IEditorToolbar {
 
 	public Pane getPane(){
 		return myPane;
-	}
-	
-	public String getTimeWin(){
-	    return myTimeWin.getText();
-	}
-	
-	public String getWinPoints(){
-	    return myPointsWin.getText();
-	}
-		
-	public Menu getLimitedScrollingMenu(){
-	    return this.limitedScrollSubMenu;
-	}
-	
-	public Menu getForcedScrollMenu(){
-	    return this.forcedScrollSubMenu;
-	}
-
-    @Override
-    public MenuItem getFreeScrollTypeMenuItem () {
-        return this.freeScrollType;
-    }
-	
-	
+	}	
 }

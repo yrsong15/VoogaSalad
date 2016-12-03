@@ -35,7 +35,7 @@ public class CreateDetail extends AbstractCommandDetail {
     private String[] myPropertiesTextBox = DetailResources.PROPERTIES_TEXT_INPUT.getArrayResource();
     private String[] myPropertiesComboLabels = DetailResources.PROPERTIES_COMBO_LABELS.getArrayResource();
     private ArrayList<TextArea> myTextFields = new ArrayList<TextArea>();
-    //private String[] myProperties= DetailResources.PROPERTIES.getArrayResource();
+  
 
     public CreateDetail() {
         super();

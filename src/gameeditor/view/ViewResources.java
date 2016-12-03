@@ -59,11 +59,13 @@ public enum ViewResources {
    	
 		LOAD_GAME_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.LOAD_IMAGE_WIDTH_RATIO.getDoubleResource()),
 		LOAD_GAME_IMAGE_XOFFSET(ViewResources.MUSIC_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.LOAD_GAME_IMAGE_WIDTH.getDoubleResource()),
-             
+                 
 		
 		// Scroll Pane
 		AREA_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
 		AREA_HEIGHT(ViewResources.SCENE_HEIGHT.getDoubleResource() - ViewResources.TOOLBAR_HEIGHT.getDoubleResource()),
+		
+		
 		
 		;
 	

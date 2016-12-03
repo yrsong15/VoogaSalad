@@ -24,7 +24,6 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private TextArea myTimeWin;
     private TextArea myPointsWin;
     private TextArea scrollSpeedTextBox;
-    private Map<String,String> myLevelData;
     private BorderPane myScrollWidthBP;
     public static final String DEFAULT_TIME_VALUE = "400";
     public static final String DEFAULT_POINTS_VALUE = "20";

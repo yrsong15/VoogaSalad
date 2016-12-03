@@ -41,14 +41,14 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
     private BooleanProperty closeLevelWindow;
-    
+
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     public static final String SCORE_PROPERTY="score";
-    
-    
+
+
 
     public GameEditorView(ILevel levelSettings){
-       this.myLevelSettings = levelSettings;
+        this.myLevelSettings = levelSettings;
         myRoot = new BorderPane();  
         closeLevelWindow = new SimpleBooleanProperty(false);
     }
@@ -56,12 +56,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public Parent createRoot(){
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
-        
+
         //addScrollType();
-        
+
         return myRoot;
-        
-        
+
+
     }
 
     private HBox createLeftAlt(){
@@ -95,7 +95,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
             myHBox.getChildren().add(backgroundImage);        
             myDesignArea.setBackground(myHBox); 
-            
+
             String file = filePath.substring(filePath.lastIndexOf("/") +1);
             myLevelSettings.addBackgroundImage("Background/" + file);
         } 
@@ -131,29 +131,20 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     @Override
-    public void saveLevelData (Map<String,String> myLevelData) {
-        myLevelSettings.addWinCondition(SCORE_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
-        myLevelSettings.addLoseCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
-        if(myLevelData.containsKey(EditorToolbar.SCROLL_WIDTH_PROPERTY)){
-        myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
-        }
-
-        //TODO: Change the fact that addGround is called by default, rather randomly
+    public void saveLevelData () {
         addGround();
         closeLevelWindow.set(true);
     }
-       
-  //TODO: Change hardcoded value for ground values
+
+    //TODO: Change hardcoded value for ground values
     private void addGround(){
         GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
         ground.setProperty("damage","30");
         myLevelSettings.addGameObject(ground);
     }
 
+    public BooleanProperty getSaveLevelProperty(){
+        return this.closeLevelWindow;
+    }
 
-                       
-        public BooleanProperty getSaveLevelProperty(){
-            return this.closeLevelWindow;
-        }
-        
 }

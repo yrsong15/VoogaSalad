@@ -68,12 +68,16 @@ public class MainController {
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorController();
-        Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
-        myGameEditorStage.setScene(scene);
-        scene.getStylesheets().add("gameEditorSplash.css");
-        myGameEditorStage.show();
-        myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
+       // Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
+        //myGameEditorStage.setScene(scene);
+        //scene.getStylesheets().add("gameEditorSplash.css");
+       // myGameEditorStage.show();
+        //myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        myGameEditorController.startEditor();
     }
+    
+    
+    
     //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
     public void launchEngine(String XMLData){
         setMyGameEngineController(XMLData);

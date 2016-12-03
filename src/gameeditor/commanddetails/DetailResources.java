@@ -44,7 +44,8 @@ public enum DetailResources {
 		RANDOM_PROPERTY_KEY ( "randomgeneration"),
 		DETAIL_CONTENT_PADDING(10),
 		RANDOM_GENERATION_PARAMETERS(new String[]{"Objects per Frame", "Minimum X ","Maximum X","Minimum Y ","Maximum Y","Minimum Spacing","Maximum Spacing"}),
-//		RANDOM_GENERATION_KEYS(new String[]{"numObjects","minX","minY",)
+
+		//		RANDOM_GENERATION_KEYS(new String[]{"numObjects","minX","minY",)
 		
 		
 		TYPE_IMAGE_ZONE_WIDTH(50),
