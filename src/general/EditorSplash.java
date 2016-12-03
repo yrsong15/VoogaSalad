@@ -18,14 +18,26 @@ import javafx.scene.text.Text;
 public class EditorSplash {
     public static final int SPLASH_WIDTH = 700;
     public static final int SPLASH_HEIGHT = 600;
+    public static final int EDITOR_CORNER_X = 60;
+    public static final int EDITOR_CORNER_Y = 160;
     private Pane splashWindow;
     private Rectangle backdrop;
     private NodeFactory myFactory;
     private MainController myMainController;
 
-    public EditorSplash(MainController mainController){
+    public EditorSplash(MainController mainController, Pane startwindow){
         this.myFactory = new NodeFactory();
         this.myMainController = mainController;
+        this.splashWindow = startwindow;
+//        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
+//        backgroundImageMainScreen.fitWidthProperty().bind(splashWindow.widthProperty());
+//        backgroundImageMainScreen.fitHeightProperty().bind(splashWindow.heightProperty());
+        backdrop = myFactory.makeBackdrop(EDITOR_CORNER_X, EDITOR_CORNER_Y, 890, 370, Color.MIDNIGHTBLUE);
+        splashWindow.getChildren().addAll(backdrop);
+        addTitle();
+        addButtons();
+        addThumbnails();
+        addThumbnailLabels();
     }
 
     public Parent setUpWindow() {
@@ -44,25 +56,29 @@ public class EditorSplash {
     }
 
     private void addTitle() {
-        Text title = myFactory.makeLabel("Select a game model to create:", 75, 100);
+        Text title = myFactory.makeLabel("Select a game model to create:", EDITOR_CORNER_X + 15,
+                EDITOR_CORNER_Y + 40);
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         title.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         splashWindow.getChildren().add(title);
     }
 
     private void addButtons(){
-        ButtonTemplate newTemplate = new ButtonTemplate("ForcedScroll", 120, 150);
+        ButtonTemplate newTemplate = new ButtonTemplate("ForcedScroll",
+                EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 90);
         Button forced = newTemplate.getButton();
         forced.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         forced.setOnMouseClicked(e -> myMainController.presentEditor());
         Tooltip TForced = myFactory.makeTooltip("Forced");
         Tooltip.install(forced, TForced);
-        newTemplate = new ButtonTemplate("LimitedScroll", 120, 350);
+        newTemplate = new ButtonTemplate("LimitedScroll",
+                EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 90);
         Button limited = newTemplate.getButton();
         limited.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         Tooltip TLimited = myFactory.makeTooltip("Limited");
         Tooltip.install(limited, TLimited);
-        newTemplate = new ButtonTemplate("FreeScroll", 120, 250);
+        newTemplate = new ButtonTemplate("FreeScroll",
+                EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 90);
         Button free = newTemplate.getButton();
         free.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         Tooltip TFree = myFactory.makeTooltip("Free");
@@ -71,23 +87,23 @@ public class EditorSplash {
     }
 
     private void addThumbnails(){
-        ImageView flappy = myFactory.makeThumbnailImage("Flappy", 420, 170, 150, 50);
+        ImageView flappy = myFactory.makeThumbnailImage("Flappy", EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 210, 150, 50);
         flappy.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        ImageView mario = myFactory.makeThumbnailImage("Mario", 420, 270, 150, 50);
+        ImageView mario = myFactory.makeThumbnailImage("Mario", EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 210, 150, 50);
         mario.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        ImageView doodle = myFactory.makeThumbnailImage("Doodle", 440, 370, 98, 130);
+        ImageView doodle = myFactory.makeThumbnailImage("Doodle", EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 210, 98, 130);
         doodle.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         splashWindow.getChildren().addAll(flappy, mario, doodle);
     }
 
     private void addThumbnailLabels(){
-        Text flappyLabel = myFactory.makeLabel("e.g. Flappy Bird", 420, 160);
+        Text flappyLabel = myFactory.makeLabel("e.g. Flappy Bird", EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 200);
         flappyLabel.setFont(Font.font("Century Gothic", 15));
         flappyLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        Text marioLabel = myFactory.makeLabel("e.g. Super Mario", 420, 260);
+        Text marioLabel = myFactory.makeLabel("e.g. Super Mario", EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 200);
         marioLabel.setFont(Font.font("Century Gothic", 15));
         marioLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        Text doodleLabel = myFactory.makeLabel("e.g. Doodle Jump", 420, 360);
+        Text doodleLabel = myFactory.makeLabel("e.g. Doodle Jump", EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 200);
         doodleLabel.setFont(Font.font("Century Gothic", 15));
         doodleLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         splashWindow.getChildren().addAll(flappyLabel, marioLabel, doodleLabel);

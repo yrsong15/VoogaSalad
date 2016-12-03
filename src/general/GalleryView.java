@@ -22,20 +22,32 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class GalleryView implements IGalleryView{
+    public static final int GALLERY_CORNER_X = 60;
+    public static final int GALLERY_CORNER_Y = 540;
     private Scene scene;
     private Gallery gallery;
     private Pane galleryWindow;
     private MainController myMainController;
     private ScrollPane gameFileWindow;
     private NodeFactory myFactory;
+    private Rectangle backdrop;
     private ArrayList<GameFileView> mySelectedFiles;
 
 
-    public GalleryView(Gallery gallery, MainController MC) {
+    public GalleryView(Gallery gallery, MainController MC, Pane startwindow) {
         this.myMainController = MC;
         this.gallery = gallery;
         this.mySelectedFiles = new ArrayList<GameFileView>();
         this.myFactory = new NodeFactory();
+        galleryWindow = startwindow;
+//        galleryWindow.setPrefSize(GALLERY_WIDTH, GALLERY_HEIGHT);
+//        addGalleryBackgroundImage();
+        addGalleryBackdrop();
+        addGalleryButtons();
+//        scene = new Scene(galleryWindow);
+//        scene.getStylesheets().add(MainController.STYLESHEET);
+
+        addGameFileViews();
         setUpWindow();
         configureEventListeners();
     }
@@ -74,15 +86,15 @@ public class GalleryView implements IGalleryView{
     }
 
     private void setUpWindow() {
-        galleryWindow = new Pane();
-        galleryWindow.setPrefSize(GALLERY_WIDTH, GALLERY_HEIGHT);
-        addGalleryBackgroundImage();
-        addGalleryBackdrop();
-        addGalleryButtons();
-        scene = new Scene(galleryWindow);
-        scene.getStylesheets().add(MainController.STYLESHEET);
-
-        addGameFileViews();
+//        galleryWindow = new Pane();
+//        galleryWindow.setPrefSize(GALLERY_WIDTH, GALLERY_HEIGHT);
+//        addGalleryBackgroundImage();
+//        addGalleryBackdrop();
+//        addGalleryButtons();
+//        scene = new Scene(galleryWindow);
+//        scene.getStylesheets().add(MainController.STYLESHEET);
+//
+//        addGameFileViews();
     }
 
     private GameFileView createGameFileView(GameFile gameFile)
@@ -116,13 +128,17 @@ public class GalleryView implements IGalleryView{
         gameFileWindow.setContent(gameFileBox);
         gameFileWindow.setPrefViewportHeight(SCROLL_WINDOW_HEIGHT);
         gameFileWindow.setPrefViewportWidth(SCROLL_WINDOW_WIDTH);
-        gameFileWindow.prefViewportHeightProperty().bind(galleryWindow.heightProperty().subtract(470));
-        gameFileWindow.prefViewportWidthProperty().bind(galleryWindow.widthProperty().subtract(250));
-        gameFileWindow.setTranslateX(110);
-        gameFileWindow.setTranslateY(130);
-        gameFileWindow.opacityProperty().setValue(0.5);
-        gameFileWindow.setOnMouseEntered(e -> gameFileWindow.opacityProperty().setValue(0.8));
-        gameFileWindow.setOnMouseExited(e -> gameFileWindow.opacityProperty().setValue(0.5));
+//        gameFileWindow.prefViewportHeightProperty().bind(galleryWindow.heightProperty().subtract(470));
+//        gameFileWindow.prefViewportWidthProperty().bind(galleryWindow.widthProperty().subtract(250));
+        gameFileWindow.setTranslateX(GALLERY_CORNER_X + 30);
+        gameFileWindow.setTranslateY(GALLERY_CORNER_Y + 30);
+        gameFileWindow.setOpacity(0.5);
+        gameFileWindow.setOnMouseEntered(e -> {
+            System.out.println("gamefile mouse entered");
+            gameFileWindow.setOpacity(0.8);
+            backdrop.setOpacity(0.8);
+        });
+        gameFileWindow.setOnMouseExited(e -> gameFileWindow.setOpacity(0.5));
     }
 
     private void removeGameFile() {
@@ -146,16 +162,18 @@ public class GalleryView implements IGalleryView{
 //        backdrop.setTranslateX(100);
 //        backdrop.setTranslateY(100);
 //        backdrop.opacityProperty().setValue(0.5);
-        Rectangle backdrop = myFactory.makeBackdrop(100, 100, 100, 100, Color.MIDNIGHTBLUE);
-        backdrop.heightProperty().bind(galleryWindow.heightProperty().subtract(400));
-        backdrop.widthProperty().bind(galleryWindow.widthProperty().subtract(200));
+        backdrop = myFactory.makeBackdrop(GALLERY_CORNER_X, GALLERY_CORNER_Y, 100, 100, Color.MIDNIGHTBLUE);
+//        backdrop.heightProperty().bind(galleryWindow.heightProperty().subtract(400));
+//        backdrop.widthProperty().bind(galleryWindow.widthProperty().subtract(200));
+
 
 //        Text label = new Text("Gallery");
 //        label.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 //        label.setFill(Color.LIGHTBLUE);
 //        label.setTranslateX(110);
 //        label.setTranslateY(115);
-        Text label = myFactory.makeLabel("Gallery", 110, 115);
+        Text label = myFactory.makeLabel("Gallery", GALLERY_CORNER_X + 10, GALLERY_CORNER_Y + 15);
+        label.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         galleryWindow.getChildren().addAll(backdrop, label);
     }
 
