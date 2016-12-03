@@ -13,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import objects.GameObject;
 import objects.RandomGeneration;
+import objects.ScrollType;
 import objects.interfaces.ILevel;
 
 /**
@@ -75,7 +76,7 @@ public class GameEditorData implements IGameEditorData{
         myGameObjMap.remove(CreateObjectDetail.SPRITE_HEIGHT_KEY);
 
         Map<String,String> properties = getPropertiesMap(myGameObjMap);
-        
+
 
         String imagePath = myGameObjMap.get("Image Path");
 
@@ -118,7 +119,7 @@ public class GameEditorData implements IGameEditorData{
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
 
-                    properties.put(k, v);
+            properties.put(k, v);
 
         });
         return properties;
@@ -135,19 +136,38 @@ public class GameEditorData implements IGameEditorData{
         return myTypes;
     }
 
-    public void addWinCondition(String type, String value){
-        myLevel.addWinCondition(type, value);
+    public void addWinCondition(String type, String action){
+        myLevel.addWinCondition(type, action);
+    }
+
+    public void addLoseCondition(String type, String action){
+        myLevel.addLoseCondition(type, action);
+    }
+
+    public void addScrollType(ScrollType scrollType){
+        myLevel.setScrollType(scrollType);
     }
 
     @Override
     public void addMainCharacterImage (String imageFilePath) {
         this.mainCharacterImageFilePath = imageFilePath;
     }
+    
+    public void addScrollWidth(String width){
+        myLevel.addScrollWidth(Double.parseDouble(width));
+    }
 
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
         GameObject mainCharacter = new GameObject(xpos,ypos,MAIN_CHAR_WIDTH,MAIN_CHAR_HEIGHT,this.mainCharacterImageFilePath,properties);
         myLevel.addGameObject(mainCharacter);
         myLevel.setMainCharacter(mainCharacter);
+    }
+
+
+    @Override
+    public void addScrollSpeed (String speed) {
+        //myLevel.addScrollSpeed(speed);
+        
     }   
 }
 

@@ -1,5 +1,6 @@
 package gameeditor.commanddetails;
 import java.util.Map;
+import com.sun.javafx.scene.traversal.Direction;
 import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -12,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import objects.ScrollType;
 
 public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail {
 
@@ -21,8 +23,12 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private TextArea scrollWidthTextBox ;
     private TextArea myTimeWin;
     private TextArea myPointsWin;
+    private TextArea scrollSpeedTextBox;
     private Map<String,String> myLevelData;
     private BorderPane myScrollWidthBP;
+    public static final String DEFAULT_TIME_VALUE = "400";
+    public static final String DEFAULT_POINTS_VALUE = "20";
+    public static final String DEFAULT_SCROLL_SPEED = "10";
 
 
     public BehaviorDetail() {
@@ -41,11 +47,21 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         addScrollTypeOptions();
         addWidthOptions();
         createWinConditions();
+        addScrollSpeed();
     }
 
+    private void addScrollSpeed(){
+        scrollSpeedTextBox = createInputField(DEFAULT_SCROLL_SPEED);
+        BorderPane scrollSpeed = createBorderpane(scrollSpeedTextBox,createLabel(SCROLL_SPEED_LABEL));
+        myVBox.getChildren().add(scrollSpeed);
+       
+    }
+    
     private void createWinConditions(){
-        myTimeWin = addTextInputBP(TIME_PROPERTY_LABEL, "0.0");
-        myPointsWin = addTextInputBP(POINTS_PROPERTY_LABEL, "0.0");    
+        myTimeWin = createInputField(DEFAULT_TIME_VALUE);
+        myVBox.getChildren().add(createBorderpane(myTimeWin,createLabel(TIME_PROPERTY_LABEL)));
+        myPointsWin = createInputField(DEFAULT_POINTS_VALUE); 
+        myVBox.getChildren().add(createBorderpane(myPointsWin,createLabel(POINTS_PROPERTY_LABEL)));
     }
 
     public void createSave(){
@@ -64,6 +80,11 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         Menu limitedScrollSubMenu = createDirectionSubMenu(FORCED_SCROLL_TYPE_LABEL);
         Menu forcedScrollSubMenu = createDirectionSubMenu(LIMITED_SCROLL_TYPE_LABEL);
         MenuItem freeScrollType = createMenuItem(FREE_SCROLL_TYPE_LABEL);
+
+        addFreeScrollTypeListener(freeScrollType);
+        addScrollTypeListener(LIMITED_SCROLL_TYPE,limitedScrollSubMenu);
+        addScrollTypeListener(FORCED_SCROLL_TYPE,forcedScrollSubMenu);
+
         scrollTypeMenu.getItems().addAll(limitedScrollSubMenu,forcedScrollSubMenu, freeScrollType);
         menuBar.getMenus().add(scrollTypeMenu);
         myVBox.getChildren().add(menuBar);
@@ -82,8 +103,10 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
             BorderPane bp = createBorderpane(scrollWidthTextBox,createLabel(SCROLL_WIDTH_LABEL));
             int index = myVBox.getChildren().indexOf(myScrollWidthBP);
             myVBox.getChildren().add(index+1, bp);
-        } else {
+           
+        } else if((cb.getValue().equals("False"))){
             myVBox.getChildren().remove(myVBox.getChildren().indexOf(myScrollWidthBP)+1);
+            
         }
     }
 
@@ -120,23 +143,12 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         field.setText("");
     }
 
-    private TextArea addTextInputBP(String label, String initValue){
-        BorderPane bp = new BorderPane();
-        bp.setMinWidth(paddedPaneWidth);
-        bp.setMaxWidth(paddedPaneWidth);
-        Label labl = createLabel(label);
-        TextArea text = createInputField(initValue);
-        bp.setLeft(labl);
-        bp.setRight(text);
-        BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
-        // Add in the VBox
-        myVBox.getChildren().add(bp);
-        return text;
-    }
-
     public void handleSave(){
-        myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
-        myLevelData.put(POINTS_PROPERTY,myTimeWin.getText());
+        myDataStore.addWinCondition(POINTS_PROPERTY, myPointsWin.getText());
+        myDataStore.addLoseCondition(TIME_PROPERTY, myTimeWin.getText());
+        myDataStore.addScrollWidth(scrollWidthTextBox.getText());
+        myDataStore.addScrollSpeed(DEFAULT_SCROLL_SPEED);
+       
     }
 
     private Label createLabel(String property){
@@ -161,4 +173,23 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         return new MenuItem(property);
     }
 
+    private void addScrollTypeListener(String className, Menu myMenu){
+        ScrollType myScrollType = new ScrollType(className);
+        myMenu.getItems().stream().forEach(item -> {
+            item.setOnAction(e -> {
+                myScrollType.addScrollDirection(Direction.valueOf(item.getText()));
+                myDataStore.addScrollType(myScrollType);
+            });
+        });
+    }
+
+    private void addFreeScrollTypeListener(MenuItem item){
+        item.setOnAction(e -> {
+            ScrollType myScrollType = new ScrollType(FREE_SCROLL_TYPE);
+            myScrollType.addScrollDirection(Direction.LEFT); 
+            myScrollType.addScrollDirection(Direction.RIGHT); 
+            myScrollType.addScrollDirection(Direction.UP); 
+            myScrollType.addScrollDirection(Direction.DOWN); 
+        });
+    }
 }
