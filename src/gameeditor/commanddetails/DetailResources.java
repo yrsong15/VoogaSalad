@@ -12,11 +12,11 @@ public enum DetailResources {
 		PROPERTIES_TEXT_INPUT(new String [] { "Damage", "Points", "Time", "Health","Gravity","Speed","Jump"}),
 		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
 		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
+		RANDOM_GEN_COMBO_LABEL("randomgeneration"),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
 		
-		//SCROLL_TYPE_OPTIONS_CLASS(new String[] {"ForcedScrolling","LimitedScrolling","FreeScrolling"}),
+
 		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
-		//SCROLL_TYPE_OPTIONS(new String[] {"Forced Scrolling","Limited Scrolling","Free Scrolling"}),
 		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
 		
 		// Limit Width
@@ -28,6 +28,8 @@ public enum DetailResources {
                 POINTS_LABEL("points"),
                 POINTS_PROPERTY_LABEL("Points"),
                 SCROLL_WIDTH_PROPERTY("scrollWidth"),
+                SCROLL_SPEED_PROPERTY("scrollspeed"),
+                SCROLL_SPEED_LABEL("Scroll Speed"),
 		
 		
 		// Scrolling
@@ -37,14 +39,7 @@ public enum DetailResources {
                 FORCED_SCROLLING_TYPE_LABEL("Forced Scrolling"),
                 LIMITED_SCROLLING_TYPE_LABEL ("Limited Scrolling"),
                 FREE_SCROLLING_TYPE_LABEL ("Free Scrolling"),
-                //SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
-                
-		//DAMAGE(new String [] {"0", "1"}),
-		//POINTS(new String [] {"0", "1"}),
-		//TIME(new String [] {"0", "1"}),
-		//HEALTH(new String [] {"0", "1"}),
-		//GRAVITY(new String [] {"0", "1"}),
-		//SPEED(new String [] {"0", "1"}),
+
 		RANDOM(new String [] {"True", "False"}),
 		MOVABLE(new String [] {"True", "False"}),
 		RANDOM_PROPERTY_KEY ( "randomgeneration"),

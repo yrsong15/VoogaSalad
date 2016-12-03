@@ -7,5 +7,6 @@ public class PlatformGameBlock extends AbstractGameBlock{
 		east = false;
 		south = true;
 		north = false;
+		isBreakable = false;
 	}
 }
