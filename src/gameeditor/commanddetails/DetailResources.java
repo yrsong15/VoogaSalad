@@ -14,12 +14,31 @@ public enum DetailResources {
 		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
 		
-		//DAMAGE(new String [] {"0", "1"}),
-		//POINTS(new String [] {"0", "1"}),
-		//TIME(new String [] {"0", "1"}),
-		//HEALTH(new String [] {"0", "1"}),
-		//GRAVITY(new String [] {"0", "1"}),
-		//SPEED(new String [] {"0", "1"}),
+
+		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
+		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
+		
+		// Limit Width
+		LIMIT_DIMENSION_LABEL("Limit Dimension"),
+                LIMIT_DIMENSION_OPTIONS(new String [] {"True", "False"}),
+                SCROLL_WIDTH_LABEL("Width"),
+                TIME_PROPERTY("time"),
+                TIME_LABEL("Time"),
+                POINTS_LABEL("points"),
+                POINTS_PROPERTY_LABEL("Points"),
+                SCROLL_WIDTH_PROPERTY("scrollWidth"),
+                SCROLL_SPEED_PROPERTY("scrollspeed"),
+                SCROLL_SPEED_LABEL("Scroll Speed"),
+		
+		
+		// Scrolling
+                FORCED_SCROLLING_TYPE("ForcedScrolling"),
+                LIMITED_SCROLLING_TYPE ("LimitedScrolling"),
+                FREE_SCROLLING_TYPE ("FreeScrolling"),
+                FORCED_SCROLLING_TYPE_LABEL("Forced Scrolling"),
+                LIMITED_SCROLLING_TYPE_LABEL ("Limited Scrolling"),
+                FREE_SCROLLING_TYPE_LABEL ("Free Scrolling"),
+
 		RANDOM(new String [] {"True", "False"}),
 		MOVABLE(new String [] {"True", "False"}),
 		RANDOM_PROPERTY_KEY ( "randomgeneration"),
