@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 public interface IGalleryView {
     int GALLERY_WIDTH = 1200;
     int GALLERY_HEIGHT = 600;
-    double SCROLL_WINDOW_HEIGHT = 130;
+    double SCROLL_WINDOW_HEIGHT = 80;
     double SCROLL_WINDOW_WIDTH = 810;
 
     Scene getScene();

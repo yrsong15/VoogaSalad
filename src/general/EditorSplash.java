@@ -19,7 +19,7 @@ public class EditorSplash {
     public static final int SPLASH_WIDTH = 700;
     public static final int SPLASH_HEIGHT = 600;
     public static final int EDITOR_CORNER_X = 60;
-    public static final int EDITOR_CORNER_Y = 145;
+    public static final int EDITOR_CORNER_Y = 115;
     private Pane splashWindow;
     private Rectangle backdrop;
     private NodeFactory myFactory;
@@ -32,12 +32,12 @@ public class EditorSplash {
 //        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
 //        backgroundImageMainScreen.fitWidthProperty().bind(splashWindow.widthProperty());
 //        backgroundImageMainScreen.fitHeightProperty().bind(splashWindow.heightProperty());
-        backdrop = myFactory.makeBackdrop(EDITOR_CORNER_X, EDITOR_CORNER_Y, 890, 370, Color.MIDNIGHTBLUE);
+        backdrop = myFactory.makeBackdrop(EDITOR_CORNER_X, EDITOR_CORNER_Y, 890, 170, Color.MIDNIGHTBLUE);
         splashWindow.getChildren().addAll(backdrop);
         addTitle();
         addButtons();
-        addThumbnails();
-        addThumbnailLabels();
+//        addThumbnails();
+//        addThumbnailLabels();
     }
 
     public Parent setUpWindow() {
@@ -46,12 +46,12 @@ public class EditorSplash {
         ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
         backgroundImageMainScreen.fitWidthProperty().bind(splashWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(splashWindow.heightProperty());
-        backdrop = myFactory.makeBackdrop(65, 65, 590, 470, Color.MIDNIGHTBLUE);
+        backdrop = myFactory.makeBackdrop(65, 65, 590, 270, Color.MIDNIGHTBLUE);
         splashWindow.getChildren().addAll(backgroundImageMainScreen, backdrop);
         addTitle();
         addButtons();
-        addThumbnails();
-        addThumbnailLabels();
+//        addThumbnails();
+//        addThumbnailLabels();
         return splashWindow;
     }
 
@@ -65,23 +65,26 @@ public class EditorSplash {
 
     private void addButtons(){
         ButtonTemplate newTemplate = new ButtonTemplate("ForcedScroll",
-                EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 90);
+                EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 70);
         Button forced = newTemplate.getButton();
         forced.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         forced.setOnMouseClicked(e -> myMainController.presentEditor());
-        Tooltip TForced = myFactory.makeTooltip("Forced");
+        ImageView flappy = myFactory.makeThumbnailImage("Flappy", 150, 50);
+        Tooltip TForced = myFactory.makeTooltip("Forced", flappy);
         Tooltip.install(forced, TForced);
         newTemplate = new ButtonTemplate("LimitedScroll",
-                EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 90);
+                EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 70);
         Button limited = newTemplate.getButton();
         limited.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        Tooltip TLimited = myFactory.makeTooltip("Limited");
+        ImageView doodle = myFactory.makeThumbnailImage("Doodle", 98, 130);
+        Tooltip TLimited = myFactory.makeTooltip("Limited", doodle);
         Tooltip.install(limited, TLimited);
         newTemplate = new ButtonTemplate("FreeScroll",
-                EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 90);
+                EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 70);
         Button free = newTemplate.getButton();
         free.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        Tooltip TFree = myFactory.makeTooltip("Free");
+        ImageView mario = myFactory.makeThumbnailImage("Mario", 150, 50);
+        Tooltip TFree = myFactory.makeTooltip("Free", mario);
         Tooltip.install(free, TFree);
         splashWindow.getChildren().addAll(forced, limited, free);
     }
