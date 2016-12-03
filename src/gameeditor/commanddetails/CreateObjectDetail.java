@@ -43,7 +43,7 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 			Map<String, String> type = myDataStore.getType(typeName);
 			String filePath = type.get(DetailResources.IMAGE_PATH.getResource());
 			double size = paddedPaneWidth/2-myDetailPadding;
-			SpriteTypeButton stb = new SpriteTypeButton(size, size, filePath, typeName, myDesignArea, myDataStore);
+			SpriteTypeButton stb = new SpriteTypeButton(size, size, filePath, typeName, myDesignArea, myDataStore, myDetailPane);
 			sprites.add(stb);
 		}
 		positionTypeImages(sprites);		

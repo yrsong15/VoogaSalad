@@ -9,14 +9,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class SelectDetail extends AbstractCommandDetail implements ISelectDetail {
 	
@@ -142,8 +140,6 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		bp.setLeft(ta1);
 		bp.setRight(ta2);
 		myVBox.getChildren().add(bp);
-		System.out.println("added");
-		System.out.println(myVBox.getChildren().size());
 	}
 	
 	private TextArea createTextArea(String label, double value, TextArea ta){

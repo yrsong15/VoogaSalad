@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
@@ -161,5 +162,15 @@ public class DesignArea implements IDesignArea {
 			}
 		}
 		return selectedSprite;
+	}
+
+	@Override
+	public void addDragIn(ImageView tempIV) {
+		myPane.getChildren().add(tempIV);
+	}
+	
+	@Override
+	public void removeDragIn(ImageView tempIV) {
+		myPane.getChildren().remove(tempIV);
 	}
 }
