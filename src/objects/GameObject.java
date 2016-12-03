@@ -3,17 +3,15 @@ package objects;
 import java.util.Map;
 import java.util.Set;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-public class GameObject {
-
-	private double xPosition;
-	private double yPosition;
-	private double width;
-	private double height;
-	String imageFileName;
-	Map<String, String> properties;
+/**
+ * 
+ * @author Ray Song, Soravit
+ *
+ */
+public class GameObject extends AbstractGameObject{
+	
+	private String imageFileName;
+	private Map<String, String> properties;
 
 	public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
 			Map<String, String> properties) {
@@ -22,51 +20,13 @@ public class GameObject {
 	}
 
 	public GameObject(double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
-		this.xPosition = xPosition;
-		this.yPosition = yPosition;
-		this.width = width;
-		this.height = height;
+		super(xPosition, yPosition, width, height);
 		this.properties = properties;
 	}
 
 	public GameObject(GameObject gameObject){
-		this.xPosition = gameObject.getXPosition();
-		this.yPosition = gameObject.getXPosition();
-		this.width = gameObject.getWidth();
-		this.height = gameObject.getHeight();
+		super(gameObject.getXPosition(), gameObject.getXPosition(), gameObject.getWidth(), gameObject.getHeight());
 		this.properties = gameObject.getProperties();
-	}
-
-	public double getXPosition() {
-		return xPosition;
-	}
-
-	public void setXPosition(double xPosition) {
-		this.xPosition = xPosition;
-	}
-
-	public double getYPosition() {
-		return yPosition;
-	}
-
-	public void setYPosition(double yPosition) {
-		this.yPosition = yPosition;
-	}
-
-	public double getWidth() {
-		return width;
-	}
-
-	public void setWidth(double width) {
-		this.width = width;
-	}
-
-	public double getHeight() {
-		return height;
-	}
-
-	public void setHeight(double height) {
-		this.height = height;
 	}
 
 	public String getProperty(String propertyName) {

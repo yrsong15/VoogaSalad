@@ -22,12 +22,13 @@ public class MainController {
 
     public static final String STYLESHEET = "default.css";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery"; //TODO: Replace this with a resource file
-    private Stage myGalleryStage, myGameEditorStage, myGameEngineStage;
+    private Stage myGalleryStage, myEditorSplashStage, myGameEditorStage, myGameEngineStage;
     private Stage mainStage;
     private Gallery myGallery;
     private GalleryView myGalleryView;
     private GameEditorController myGameEditorController;
     private GameEngineController myGameEngineController;
+    private EditorSplash myEditorSplash;
 
     public MainController(Stage stage) throws IOException {
         mainStage = stage;
@@ -54,6 +55,16 @@ public class MainController {
         GameFile newGame = new GameFile(title,gameData);
         myGallery.addToGallery(newGame);
     }
+
+    public void editorSplash(){
+        myEditorSplash = new EditorSplash(this);
+        myEditorSplashStage = new Stage();
+        Scene scene = new Scene(myEditorSplash.setUpWindow());
+        scene.getStylesheets().add(STYLESHEET);
+        myEditorSplashStage.setScene(scene);
+        myEditorSplashStage.show();
+    }
+
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorController();

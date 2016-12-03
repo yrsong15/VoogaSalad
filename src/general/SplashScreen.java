@@ -67,7 +67,8 @@ public class SplashScreen implements ISplashScreen {
 
     @Override
     public void launchEditor() {
-        mainController.presentEditor();
+        mainController.editorSplash();
+//        mainController.presentEditor();
     }
 
     @Override
