@@ -16,12 +16,6 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 	
 	private VBox myVBox;
 	private GameObject myGO;
-
-	private ComboBox<String> myType;
-	public static final String X_POSITION_KEY = "xPosition";
-	public static final String Y_POSITION_KEY = "yPosition";
-	public static final String SPRITE_WIDTH_KEY ="width";
-	public static final String SPRITE_HEIGHT_KEY ="height";
 	
 	private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
 	String[] myRandomGenerationParameters = DetailResources.RANDOM_GENERATION_PARAMETERS.getArrayResource();
@@ -68,76 +62,5 @@ public class CreateObjectDetail extends AbstractCommandDetail {
 			myVBox.getChildren().add(sprites.get(sprites.size()-1).getPane());
 		}
 	}
-	
-//	public void createSavePreview(){
-//		Button save = createSave();
-//		Button preview = createPreview();
-//		HBox container = new HBox();
-//		container.setSpacing(hboxSpacing);
-//		container.setAlignment(Pos.CENTER);
-//		container.getChildren().add(preview);
-//		container.getChildren().add(save);
-//		myVBox.getChildren().add(container);
-//	}
-	
-//	public Button createPreview(){
-//		Button preview = new Button();
-//		preview.setText(DetailResources.PREVIEW_BUTTON_TEXT.getResource());
-//		preview.setMinWidth((paddedPaneWidth - hboxSpacing)/2);
-//		preview.setMaxWidth((paddedPaneWidth - hboxSpacing)/2);
-//		preview.setMinHeight(cbHeight);
-//		preview.setOnAction((e) -> {handlePreview();});
-//		return preview;
-//	}
-//	
-//	public Button createSave(){
-//		Button save = new Button();
-//		save.setText(DetailResources.SAVE_BUTTON_TEXT.getResource());
-//		save.setMinWidth((paddedPaneWidth - hboxSpacing)/2);
-//		save.setMaxWidth((paddedPaneWidth - hboxSpacing)/2);
-//		save.setMinHeight(cbHeight);
-//		save.setOnAction((e) -> {handleSave();});
-//		return save;
-//	}
-	
-//	//TODO: ADD DATA VERIFICATION TO SAVE
-//    public void handleSave(){
-//        Map<String, String> typeMap = myDataStore.getType(myType.getValue());
-//        
-//        String xString = myXTextArea.getText();
-//        String yString = myYTextArea.getText();
-//        String width = mySpriteWidth.getText();
-//        String height = mySpriteHeight.getText();
-//        
-//        double x = Double.parseDouble(xString);
-//        double y = Double.parseDouble(yString);
-//        typeMap.put(X_POSITION_KEY, String.valueOf(x));
-//        typeMap.put(Y_POSITION_KEY, String.valueOf(y));
-//        
-//        // Create Random Generation here
-//        
-//        typeMap.put(SPRITE_HEIGHT_KEY,height);
-//        typeMap.put(SPRITE_WIDTH_KEY, width);
-//         
-//        myDataStore.addGameObjectToLevel(typeMap,myRandomGenerationList);
-//        
-//    }
-	
-//	public void handlePreview(){
-//		String xString = myXTextArea.getText();
-//		String yString = myYTextArea.getText();
-//	    String width = mySpriteWidth.getText();
-//	    String height = mySpriteHeight.getText();
-//		double x = Double.parseDouble(xString);
-//		double y = Double.parseDouble(yString);
-//		double spriteWidth = Double.parseDouble(width);
-//        double spriteHeight = Double.parseDouble(height);
-//		if (myGO == null){
-//			myGO = new GameObject(myFilePath, x, y, spriteWidth, spriteHeight, myType.getValue(), myDesignArea);
-//		} else {
-//			myGO.removeSelf();
-//			myGO = new GameObject(myFilePath, x, y, spriteWidth, spriteHeight, myType.getValue(), myDesignArea);
-//		}
-//	}
 
 }

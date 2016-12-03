@@ -81,7 +81,7 @@ public class SpriteTypeButton {
     }
 	
 	private void handleClick(){
-		GameObject go = new GameObject(myFilePath, myX, myY, myWidth, myHeight, myType, myDesignArea);
+		GameObject go = new GameObject(myFilePath, myX, myY, myWidth, myHeight, myType, myDesignArea, myDataStore);
 		Map<String, String> typeMap = myDataStore.getType(myType);
 
 		typeMap.put(X_POSITION_KEY, String.valueOf(myX));
@@ -89,8 +89,8 @@ public class SpriteTypeButton {
         
         // Create Random Generation here
         
-        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(myHeight));
         typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(myWidth));
+        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(myHeight));
          
 //        myDataStore.addGameObjectToLevel(typeMap, myRandomGenerationList);
         

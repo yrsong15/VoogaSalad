@@ -1,5 +1,7 @@
 package gameeditor.commanddetails;
 
+import java.util.ArrayList;
+
 import gameeditor.objects.GameObject;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -7,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -15,9 +18,15 @@ import javafx.scene.shape.Rectangle;
 
 public class SelectDetail extends AbstractCommandDetail implements ISelectDetail {
 	
+	private static final String X_LABEL = "X: ";
+	private static final String Y_LABEL = "Y: ";
+	private static final String WIDTH_LABEL = "W: ";
+	private static final String HEIGHT_LABEL = "H: ";
+	
 	private VBox myVBox = new VBox();
 	
 	private Label mySelectLabel;
+		
 	private TextArea myXTextArea = new TextArea();
 	private TextArea myYTextArea = new TextArea();
 	private TextArea myWidthTextArea = new TextArea();
@@ -51,8 +60,6 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		mySelectLabel.setTextFill(Color.LIGHTGREY);
 		createTypeLabel();
 		createPos();
-		createImageZone();
-		createImageView();
 		createUpdate();
 	}
 	
@@ -61,13 +68,13 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	}
 	
 	public void updateSpritePosition(double x, double y){
-		myXTextArea.setText(Double.toString(x));
-		myYTextArea.setText(Double.toString(y));
+		myXTextArea.setText(X_LABEL + Double.toString(x));
+		myYTextArea.setText(Y_LABEL + Double.toString(y));
 	}
 	
 	public void updateSpriteDimensions(double width, double height){
-		myWidthTextArea.setText(Double.toString(width));
-		myHeightTextArea.setText(Double.toString(height));
+		myWidthTextArea.setText(WIDTH_LABEL + Double.toString(width));
+		myHeightTextArea.setText(HEIGHT_LABEL + Double.toString(height));
 	}
 	
 	public void createUpdate(){
@@ -81,8 +88,15 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	}
 	
 	private void handleUpdate() {
-		myGO.update(Double.parseDouble(myXTextArea.getText()), Double.parseDouble(myYTextArea.getText()),
-				Double.parseDouble(myWidthTextArea.getText()), Double.parseDouble(myHeightTextArea.getText()));		
+		String xString = myXTextArea.getText();
+		String yString = myYTextArea.getText();
+		String widthString = myWidthTextArea.getText();
+		String heightString = myHeightTextArea.getText();
+		double x = Double.parseDouble(xString.substring(X_LABEL.length()));
+		double y = Double.parseDouble(yString.substring(Y_LABEL.length()));
+		double width = Double.parseDouble(widthString.substring(WIDTH_LABEL.length()));
+		double height = Double.parseDouble(heightString.substring(HEIGHT_LABEL.length()));
+		myGO.update(x, y, width, height);
 	}
 
 	private void addSelectLabel(){
@@ -95,79 +109,57 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	}	
 	
 	public void createPos(){
-		myXTextArea = createPosBP("X Pos: ", myGO.getX(), myXTextArea);
-		myYTextArea = createPosBP("Y Pos: ", myGO.getY(), myYTextArea);
-		myWidthTextArea = createPosBP("Width: ", myGO.getWidth(), myWidthTextArea);
-		myHeightTextArea = createPosBP("Height: ", myGO.getHeight(), myHeightTextArea);
+		createInfoBP(myXTextArea, X_LABEL, myGO.getX(), myYTextArea, Y_LABEL, myGO.getY());
+		createInfoBP(myWidthTextArea, WIDTH_LABEL, myGO.getWidth(), myHeightTextArea, HEIGHT_LABEL, myGO.getHeight());
 	}
 	
-	public TextArea createPosBP(String label, double locationValue, TextArea ta){
+	public void createInfoBP(TextArea ta1, String label1, double value1, TextArea ta2, String label2, double value2){
 		BorderPane bp = new BorderPane();
 		bp.setMinWidth(paddedPaneWidth);
 		bp.setMaxWidth(paddedPaneWidth);
-		Label labl = createLbl(label);
-		ta.setText(Double.toString(locationValue));
-		ta.setMinWidth(cbWidth); ta.setMaxWidth(cbWidth);
-		ta.setMinHeight(cbHeight); ta.setMaxHeight(cbHeight);
-		ta.setOnMouseClicked((e) -> handleClick(ta));
-		bp.setLeft(labl);
-		bp.setRight(ta);
-		BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
+		ta1 = createTextArea(label1, value1, ta1);
+		ta2 = createTextArea(label2, value2, ta2);
+		bp.setLeft(ta1);
+		bp.setRight(ta2);
 		myVBox.getChildren().add(bp);
-		return ta;
-	}
-
-	public void createImageZone(){
-		double imageZoneWidth = DetailResources.OBJECT_IMAGE_ZONE_WIDTH.getDoubleResource();
-		double imageZoneHeight = DetailResources.OBJECT_IMAGE_ZONE_HEIGHT.getDoubleResource();
-		myImagePane = new Pane();
-		myImagePane.setMinWidth(imageZoneWidth); myImagePane.setMaxWidth(imageZoneWidth);
-		myImagePane.setMaxHeight(imageZoneHeight); myImagePane.setMaxHeight(imageZoneHeight);
-		Rectangle imageZone = new Rectangle(imageZoneWidth, imageZoneHeight, Color.GHOSTWHITE);
-		myImagePane.getChildren().add(imageZone);
-		imageZone.setArcHeight(DetailResources.OBJECT_IMAGE_ZONE_PADDING.getDoubleResource()); imageZone.setArcWidth(DetailResources.OBJECT_IMAGE_ZONE_PADDING.getDoubleResource());
-		myVBox.getChildren().add(myImagePane);
+		System.out.println("added");
+		System.out.println(myVBox.getChildren().size());
 	}
 	
-	public void createImageView(){
-		Image i = myGO.getImageView().getImage();
-		double imageZonePadding = DetailResources.OBJECT_IMAGE_ZONE_PADDING.getDoubleResource();
-		double imageZoneWidth = DetailResources.OBJECT_IMAGE_ZONE_WIDTH.getDoubleResource();
-		double imageZoneHeight = DetailResources.OBJECT_IMAGE_ZONE_HEIGHT.getDoubleResource();
-		double fitWidth = imageZoneWidth-imageZonePadding;
-		double fitHeight = imageZoneHeight-imageZonePadding;
-		double widthRatio = fitWidth/i.getWidth();
-        double heightRatio = fitHeight/i.getHeight();
-        double ratio = Math.min(widthRatio, heightRatio);
-        double endWidth = i.getWidth()*ratio;
-        double endHeight = i.getHeight()*ratio;
-		myIV = new ImageView(i);
-		myIV.setFitWidth(fitWidth);
-		myIV.setFitHeight(fitHeight);
-		myIV.setPreserveRatio(true);
-		myIV.setLayoutX(imageZoneWidth/2 - endWidth/2);
-		myIV.setLayoutY(imageZoneHeight/2 - endHeight/2);
-		myIV.setLayoutX(imageZonePadding/2); myIV.setLayoutY(imageZonePadding/2);
-		myImagePane.getChildren().add(myIV);
+	public TextArea createTextArea(String label, double value, TextArea ta){
+		ta.setText(label + Double.toString(value));
+		ta.setMinWidth(cbWidth); ta.setMaxWidth(cbWidth);
+		ta.setMinHeight(cbHeight); ta.setMaxHeight(cbHeight);
+		ta.setOnKeyReleased((e) -> handleKeyRelease(e.getCode(), e.getCharacter(), ta, label));
+//		ta.setOnMouseClicked((e) -> handleClick(ta));
+		return ta;
 	}
 	
 	public void createTypeLabel(){
 		myType = myGO.getType();
-		BorderPane bp = new BorderPane();
-		mySelectLabel = new Label(myType);
-		bp.setCenter(mySelectLabel);
-		bp.setMinWidth(paddedPaneWidth);
-		bp.setMaxWidth(paddedPaneWidth);
-		myVBox.getChildren().add(bp);
-	}
-	
-	public Label createLbl(String property){
-		Label labl = new Label (property);
-		return labl;
+		mySelectLabel.setText(myType);
 	}
 	
 	public void handleClick(TextArea field){
 		field.setText("");
+	}
+	
+	public void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
+//		if (kc == KeyCode.BACK_SPACE){
+		if (field.getText().length() < label.length() && kc.isDigitKey()){
+			field.setText(label + character);
+			field.positionCaret(field.getText().length());
+		} else if (field.getText().length() < label.length()){
+			field.setText(label);
+			field.positionCaret(field.getText().length());
+		} else if (kc.isDigitKey()){
+			field.setText(label + field.getText().substring(label.length()));
+			field.positionCaret(field.getText().length());
+		} else if (kc.isLetterKey() || kc.isWhitespaceKey()){
+			field.setText(label + field.getText().substring(label.length(), field.getText().length()-1));
+			field.positionCaret(field.getText().length());
+		}
+		
 	}
 
 	public void createTextField(){
