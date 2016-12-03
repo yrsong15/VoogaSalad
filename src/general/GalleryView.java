@@ -23,7 +23,7 @@ import javafx.scene.text.Text;
 
 public class GalleryView implements IGalleryView{
     public static final int GALLERY_CORNER_X = 60;
-    public static final int GALLERY_CORNER_Y = 540;
+    public static final int GALLERY_CORNER_Y = 325;
     private Scene scene;
     private Gallery gallery;
     private Pane galleryWindow;
@@ -161,7 +161,7 @@ public class GalleryView implements IGalleryView{
 //        backdrop.setTranslateX(100);
 //        backdrop.setTranslateY(100);
 //        backdrop.opacityProperty().setValue(0.5);
-        backdrop = myFactory.makeBackdrop(GALLERY_CORNER_X, GALLERY_CORNER_Y - 15, 890, 320, Color.MIDNIGHTBLUE);
+        backdrop = myFactory.makeBackdrop(GALLERY_CORNER_X, GALLERY_CORNER_Y - 15, 890, 260, Color.MIDNIGHTBLUE);
 //        backdrop.heightProperty().bind(galleryWindow.heightProperty().subtract(400));
 //        backdrop.widthProperty().bind(galleryWindow.widthProperty().subtract(200));
 
@@ -179,14 +179,14 @@ public class GalleryView implements IGalleryView{
     private void addGalleryButtons() {
         ButtonTemplate newB = new ButtonTemplate("GalleryGameEdit", 400, 400);
         Button edit = newB.getButton();
-        edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(150));
+        edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(120));
         edit.translateXProperty().bind(galleryWindow.widthProperty().divide(2).subtract(300));
         edit.setOnMouseClicked(e -> myMainController.presentEditor()); //pass in an XML to the editor eventually
         edit.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 
         newB = new ButtonTemplate("GalleryGameEngine", 600, 400);
         Button engine = newB.getButton();
-        engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(150));
+        engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(120));
         engine.translateXProperty().bind(galleryWindow.widthProperty().divide(2).add(100));
         engine.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         //TODO: Change this later to be flexible

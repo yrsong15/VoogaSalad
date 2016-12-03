@@ -39,10 +39,19 @@ public class NodeFactory implements INodeFactory{
     }
 
     public ImageView makeThumbnailImage(String property, int x, int y, double width, double height){
-        Image thumbNailImg = new Image(userDirectoryThumbnailPrefix + myImageResources.getString(property));
-        ImageView thumbNail = new ImageView(thumbNailImg);
+        ImageView thumbNail = makeThumbnailImage(property, width, height);
+//        Image thumbNailImg = new Image(userDirectoryThumbnailPrefix + myImageResources.getString(property));
+//        ImageView thumbNail = new ImageView(thumbNailImg);
         thumbNail.setTranslateX(x);
         thumbNail.setTranslateY(y);
+//        thumbNail.setFitWidth(width);
+//        thumbNail.setFitHeight(height);
+        return thumbNail;
+    }
+
+    public ImageView makeThumbnailImage(String property, double width, double height){
+        Image thumbNailImg = new Image(userDirectoryThumbnailPrefix + myImageResources.getString(property));
+        ImageView thumbNail = new ImageView(thumbNailImg);
         thumbNail.setFitWidth(width);
         thumbNail.setFitHeight(height);
         return thumbNail;
@@ -82,6 +91,12 @@ public class NodeFactory implements INodeFactory{
 
     public Tooltip makeTooltip(String property) {
         Tooltip t = new Tooltip(myTooltipResources.getString(property));
+        return t;
+    }
+
+    public Tooltip makeTooltip(String property, ImageView icon){
+        Tooltip t = makeTooltip(property);
+        t.setGraphic(icon);
         return t;
     }
 }

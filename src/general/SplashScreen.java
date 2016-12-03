@@ -30,7 +30,7 @@ import javafx.event.EventHandler;
 public class SplashScreen implements ISplashScreen {
 
     public static final int SPLASH_WIDTH = 1030;
-    public static final int SPLASH_HEIGHT = 900;
+    public static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
 //    private Rectangle backdrop;
     private MainController mainController;
@@ -121,8 +121,8 @@ public class SplashScreen implements ISplashScreen {
 
     private void addTitle() {
         BigNameText title = new BigNameText("Welcome to VoogaSalad");
-        title.setTranslateX(75);
-        title.setTranslateY(55);
+        title.setTranslateX(55);
+        title.setTranslateY(35);
 //        title.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         startWindow.getChildren().add(title);
     }
@@ -133,7 +133,7 @@ public class SplashScreen implements ISplashScreen {
          */
         public BigNameText(String Name) {
             Text titleText = new Text(Name);
-            titleText.setFont(Font.font("Verdana", FontWeight.BOLD, 60));
+            titleText.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
             titleText.setFill(textAndBoxGradient);
             getChildren().add(titleText);
         }
