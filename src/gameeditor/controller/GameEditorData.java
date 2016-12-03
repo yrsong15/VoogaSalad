@@ -7,7 +7,6 @@ import java.util.Map;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameengine.view.GameEngineUI;
 import gameengine.view.GameScreen;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
