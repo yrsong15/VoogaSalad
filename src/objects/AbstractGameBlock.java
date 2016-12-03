@@ -1,8 +1,8 @@
 package objects;
 
 /**
- * This is an abstract class that provides the template for the Game Blocks that will be used
- * throughout the game design.
+ * This is an abstract class that provides the template for the Game Blocks that will be used throughout VOOGA.
+ * The four boolean values correspond to the four sides; "true" means character can pass through, "false" means impenetrable.
  * 
  * @author Ray Song
  *

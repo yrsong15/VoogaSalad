@@ -1,5 +1,12 @@
 package objects;
 
+/**
+ * This is a template abstract class that contains xPos, yPos, width, and height.
+ * It can potentially be used to merge AbstractGameBlock and GameObject in order to avoid duplicate code.
+ * 
+ * @author Ray Song
+ *
+ */
 public class AbstractGameObject {
 	private double xPosition;
 	private double yPosition;
