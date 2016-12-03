@@ -1,6 +1,7 @@
 package general;
 
 import general.interfaces.INodeFactory;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
  * Created by Delia on 11/30/2016.
  */
 public class NodeFactory implements INodeFactory{
-    private ResourceBundle myResources;
+    private ResourceBundle myImageResources, myTooltipResources;
     private String userDirectoryBackgroundPrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/Background/";
@@ -26,19 +27,19 @@ public class NodeFactory implements INodeFactory{
             + "/images/DesignImages/";
 
     public NodeFactory(){
-        myResources = ResourceBundle.getBundle(IMAGE_LABEL_FILE, Locale.getDefault());
-
+        myImageResources = ResourceBundle.getBundle(IMAGE_LABEL_FILE, Locale.getDefault());
+        myTooltipResources = ResourceBundle.getBundle(TOOLTIP_LABEL_FILE, Locale.getDefault());
     }
 
     @Override
     public ImageView makeBackgroundImage(String property){
-        Image background = new Image(userDirectoryBackgroundPrefix + myResources.getString(property));
+        Image background = new Image(userDirectoryBackgroundPrefix + myImageResources.getString(property));
         ImageView backgroundImage = new ImageView(background);
         return backgroundImage;
     }
 
     public ImageView makeThumbnailImage(String property, int x, int y, double width, double height){
-        Image thumbNailImg = new Image(userDirectoryThumbnailPrefix + myResources.getString(property));
+        Image thumbNailImg = new Image(userDirectoryThumbnailPrefix + myImageResources.getString(property));
         ImageView thumbNail = new ImageView(thumbNailImg);
         thumbNail.setTranslateX(x);
         thumbNail.setTranslateY(y);
@@ -67,5 +68,10 @@ public class NodeFactory implements INodeFactory{
         label.setTranslateY(y);
 
         return label;
+    }
+
+    public Tooltip makeTooltip(String property) {
+        Tooltip t = new Tooltip(myTooltipResources.getString(property));
+        return t;
     }
 }

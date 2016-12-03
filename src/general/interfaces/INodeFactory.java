@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
  */
 public interface INodeFactory {
     String IMAGE_LABEL_FILE = "Image";
+    String TOOLTIP_LABEL_FILE = "Tooltip";
 
     ImageView makeBackgroundImage(String property);
 }

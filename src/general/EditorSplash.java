@@ -3,6 +3,7 @@ package general;
 import frontend.util.ButtonTemplate;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -54,12 +55,18 @@ public class EditorSplash {
         Button forced = newTemplate.getButton();
         forced.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         forced.setOnMouseClicked(e -> myMainController.presentEditor());
+        Tooltip TForced = myFactory.makeTooltip("Forced");
+        Tooltip.install(forced, TForced);
         newTemplate = new ButtonTemplate("LimitedScroll", 120, 350);
         Button limited = newTemplate.getButton();
         limited.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+        Tooltip TLimited = myFactory.makeTooltip("Limited");
+        Tooltip.install(limited, TLimited);
         newTemplate = new ButtonTemplate("FreeScroll", 120, 250);
         Button free = newTemplate.getButton();
         free.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+        Tooltip TFree = myFactory.makeTooltip("Free");
+        Tooltip.install(free, TFree);
         splashWindow.getChildren().addAll(forced, limited, free);
     }
 
