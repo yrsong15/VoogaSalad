@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -31,6 +32,7 @@ public class SplashScreen implements ISplashScreen {
     public static final int SPLASH_WIDTH = 700;
     public static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
+    private Rectangle backdrop;
     private MainController mainController;
     private NodeFactory myFactory;
 
@@ -56,7 +58,8 @@ public class SplashScreen implements ISplashScreen {
         ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
-        startWindow.getChildren().add(backgroundImageMainScreen);
+        backdrop = myFactory.makeBackdrop(65, 65, 590, 400, Color.MIDNIGHTBLUE);
+        startWindow.getChildren().addAll(backgroundImageMainScreen, backdrop);
         addTitle();
         addButtons();
         return startWindow;
@@ -94,14 +97,16 @@ public class SplashScreen implements ISplashScreen {
         double initialY = 280;
         double xSpacing = 300;
         double ySpacing = 100;
-        int buttonsPerCol = 3; // Also rows
+        int buttonsPerCol = 2; // Also rows
 
         for (int i = 0; i < buttonNames.length; i++) {
             ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i],
-                    initialX + (i / buttonsPerCol) * xSpacing + (i * 100),
-                    initialY + (i % buttonsPerCol) * ySpacing);
+                    initialX + (i % buttonsPerCol) * xSpacing,
+                    initialY + (i / buttonsPerCol) * ySpacing);
             Button button = buttonTemplate.getButton();
             button.setOnMouseClicked(eventHandlerForButton.get(buttonNames[i]));
+            button.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+            button.setFont(Font.font(50));
 
             startWindow.getChildren().add(button);
         }
@@ -111,6 +116,7 @@ public class SplashScreen implements ISplashScreen {
         BigNameText title = new BigNameText("Welcome to \n\tVoogaSalad");
         title.setTranslateX(75);
         title.setTranslateY(75);
+        title.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         startWindow.getChildren().add(title);
     }
 

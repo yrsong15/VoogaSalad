@@ -25,7 +25,7 @@ public class GameEditorController implements IGameEditorFrontEndController{
     private EditorLevels myEditorLevels;
     private HashMap<String,GameEditorView> myLevelEditorMap ;
     private String activeButtonId;
-    private GameEditorView myGameEditor;
+    private GameEditorView myGameEditorView;
     private Scene myLevelScene;
     private GameEditorBackendController myGameEditorBackEndController;
     private LevelManager myLevelManager;
@@ -84,21 +84,20 @@ public class GameEditorController implements IGameEditorFrontEndController{
     
     private void displayLevel(){
         if(myLevelEditorMap.containsKey(activeButtonId)){
-            myGameEditor=myLevelEditorMap.get(activeButtonId);
+            myGameEditorView=myLevelEditorMap.get(activeButtonId);
             setSavedLevelRoot();
         } else{
             Level level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             ILevel levelInterface = (ILevel) level;
-//            myLevelManager.createLevel(level,levelInterface);
             myLevelManager.createLevel(level);
-            myGameEditor = new GameEditorView(levelInterface);
+            myGameEditorView = new GameEditorView(levelInterface);
             
-            myLevelEditorMap.put(activeButtonId, myGameEditor);  
+            myLevelEditorMap.put(activeButtonId, myGameEditorView);  
             
             setNewLevelSceneRoot();
    
             myGameEditorBackEndController.setCurrentLevel(level);
-            
+       
             myGameEditorBackEndController.addCurrentLevelToGame();
             
         }
@@ -109,7 +108,7 @@ public class GameEditorController implements IGameEditorFrontEndController{
         Stage myLevelStage;
         if(!isInitialStage){
         myLevelStage = new Stage();
-        myLevelScene = new Scene(myGameEditor.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
+        myLevelScene = new Scene(myGameEditorView.createRoot(), GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
         
         
         myLevelStage.setScene(myLevelScene);
@@ -122,7 +121,7 @@ public class GameEditorController implements IGameEditorFrontEndController{
     
     
     private void addSaveLevelListener(Stage myLevelStage){
-        myGameEditor.getSaveLevelProperty().addListener(new ChangeListener<Boolean>(){
+        myGameEditorView.getSaveLevelProperty().addListener(new ChangeListener<Boolean>(){
             @Override
             public void changed (ObservableValue<? extends Boolean> observable,
                                  Boolean oldValue,
@@ -136,18 +135,17 @@ public class GameEditorController implements IGameEditorFrontEndController{
     }
     private void setNewLevelSceneRoot(){
         if(myLevelScene!=null){
-       myLevelScene.setRoot(myGameEditor.createRoot());
+       myLevelScene.setRoot(myGameEditorView.createRoot());
         }
     } 
     
     public String getGameFile(){
     	System.out.println(myGameEditorBackEndController.serializeGame());  //prints Game as XML on console
-    	//myGameEditorBackEndController.getGame();
         return myGameEditorBackEndController.serializeGame();
     }
     
     private void setSavedLevelRoot(){
-        myLevelScene.setRoot(myGameEditor.getRoot());
+        myLevelScene.setRoot(myGameEditorView.getRoot());
     }
     
     public void setOnLoadGame(EventHandler<MouseEvent> handler){

@@ -22,9 +22,12 @@ public enum ViewResources {
 		DETAIL_PANE_BG(Color.SLATEGREY),
 		DETAIL_PANE_WIDTH(300),
 		AVATAR_ZONE_PADDING(25),
-		AVATAR_ZONE_WIDTH(ViewResources.DETAIL_PANE_WIDTH.getDoubleResource()-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource()),
-		AVATAR_ZONE_HEIGHT(ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()),
+		AVATAR_ZONE_WIDTH(0.5*ViewResources.DETAIL_PANE_WIDTH.getDoubleResource()-2*ViewResources.AVATAR_ZONE_PADDING.getDoubleResource()),
+		AVATAR_ZONE_HEIGHT(1.4*ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource()),
 		AVATAR_ZONE_RADIUS(25),
+		DETAIL_ZONE_PADDING(25),
+		DETAIL_ZONE_WIDTH(ViewResources.DETAIL_PANE_WIDTH.getDoubleResource()-2*ViewResources.DETAIL_ZONE_PADDING.getDoubleResource()),
+		DETAIL_ZONE_HEIGHT(ViewResources.SCENE_HEIGHT.getDoubleResource() - 3*ViewResources.DETAIL_ZONE_PADDING.getDoubleResource() - ViewResources.AVATAR_ZONE_HEIGHT.getDoubleResource()),
 		COMMAND_DETAIL_PADDING(25),
 		
 		// Command Pane
@@ -53,17 +56,7 @@ public enum ViewResources {
 		MUSIC_IMAGE_XOFFSET(ViewResources.AVATAR_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.MUSIC_IMAGE_WIDTH.getDoubleResource()),
 		LOAD_IMAGE_WIDTH_RATIO(0.90),
 		
-		// Scrolling
-		FORCED_SCROLLING_TYPE("ForcedScrolling"),
-		LIMITED_SCROLLING_TYPE ("LimitedScrolling"),
-		FREE_SCROLLING_TYPE ("FreeScrolling"),
-		FORCED_SCROLLING_TYPE_LABEL("Forced Scrolling"),
-		LIMITED_SCROLLING_TYPE_LABEL ("Limited Scrolling"),
-                FREE_SCROLLING_TYPE_LABEL ("Free Scrolling"),
-                SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
-    
-		
-		
+   	
 		LOAD_GAME_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.LOAD_IMAGE_WIDTH_RATIO.getDoubleResource()),
 		LOAD_GAME_IMAGE_XOFFSET(ViewResources.MUSIC_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.LOAD_GAME_IMAGE_WIDTH.getDoubleResource()),
              

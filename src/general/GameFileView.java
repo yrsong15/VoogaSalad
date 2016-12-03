@@ -9,6 +9,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.event.EventType;
 
 public class GameFileView implements IGameFileView
@@ -84,24 +87,27 @@ public class GameFileView implements IGameFileView
 	private Pane createView()
 	{
 		Pane view = new Pane();
-		Rectangle rect = new Rectangle(150, 100);
+		Label name = new Label(gameFile.getGameName());
+		name.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+		double rectWidth = name.getText().length() * name.getFont().getSize();
+		Rectangle rect = new Rectangle(rectWidth, 100);
 		int randVal = (int)(Math.random() * 3);
 		if(randVal == 0)
 		{
-			rect.setFill(Color.GREEN);
+			rect.setFill(Color.LAWNGREEN);
 		}
 		else if(randVal == 1)
 		{
-			rect.setFill(Color.RED);
+			rect.setFill(Color.ORANGE);
 		}
 		else
 		{
-			rect.setFill(Color.BLUE);
+			rect.setFill(Color.BLUEVIOLET);
 		}
 		gameViewColor = rect.getFill();
 		gameView = rect;
 		view.getChildren().add(gameView);
-		Label name = new Label(gameFile.getGameName());
+		
 		view.getChildren().add(name);
 		return view;
 	}

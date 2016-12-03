@@ -57,7 +57,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
         
-        addScrollType();
+        //addScrollType();
         
         return myRoot;
         
@@ -138,41 +138,43 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
         }
 
-         addGround();
+        //TODO: Change the fact that addGround is called by default, rather randomly
+        addGround();
         closeLevelWindow.set(true);
     }
        
+  //TODO: Change hardcoded value for ground values
     private void addGround(){
         GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
         ground.setProperty("damage","30");
         myLevelSettings.addGameObject(ground);
     }
 
-    public void addScrollType(){
-        createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
-        createScrollType(ViewResources.LIMITED_SCROLLING_TYPE.getResource(),myToolbar.getLimitedScrollingMenu());
-        addFreeScrollTypeListener(); 
-    }
+//    public void addScrollType(){
+//        createScrollType(ViewResources.FORCED_SCROLLING_TYPE.getResource(),myToolbar.getForcedScrollMenu());
+//        createScrollType(ViewResources.LIMITED_SCROLLING_TYPE.getResource(),myToolbar.getLimitedScrollingMenu());
+//        addFreeScrollTypeListener(); 
+//    }
                
-        private void createScrollType(String className, Menu myMenu){
-            ScrollType myScrollType = new ScrollType(className);
-            myMenu.getItems().stream().forEach(item -> {
-                item.setOnAction(e -> {
-                    myScrollType.addScrollDirection(Direction.valueOf(item.getText()));
-                    myLevelSettings.setScrollType(myScrollType);
-                });
-            });
-        }   
+//        private void createScrollType(String className, Menu myMenu){
+//            ScrollType myScrollType = new ScrollType(className);
+//            myMenu.getItems().stream().forEach(item -> {
+//                item.setOnAction(e -> {
+//                    myScrollType.addScrollDirection(Direction.valueOf(item.getText()));
+//                    myLevelSettings.setScrollType(myScrollType);
+//                });
+//            });
+//        }   
         
-        private void addFreeScrollTypeListener(){
-            ScrollType myScrollType = new ScrollType(ViewResources.FREE_SCROLLING_TYPE.getResource());
-            myToolbar.getFreeScrollTypeMenuItem().setOnAction(e -> {
-                myScrollType.addScrollDirection(Direction.LEFT); 
-                myScrollType.addScrollDirection(Direction.RIGHT); 
-                myScrollType.addScrollDirection(Direction.UP); 
-                myScrollType.addScrollDirection(Direction.DOWN); 
-            });
-        }
+//        private void addFreeScrollTypeListener(){
+//            ScrollType myScrollType = new ScrollType(ViewResources.FREE_SCROLLING_TYPE.getResource());
+//            myToolbar.getFreeScrollTypeMenuItem().setOnAction(e -> {
+//                myScrollType.addScrollDirection(Direction.LEFT); 
+//                myScrollType.addScrollDirection(Direction.RIGHT); 
+//                myScrollType.addScrollDirection(Direction.UP); 
+//                myScrollType.addScrollDirection(Direction.DOWN); 
+//            });
+//        }
         
         public BooleanProperty getSaveLevelProperty(){
             return this.closeLevelWindow;

@@ -51,7 +51,7 @@ public class HighScoreScreen {
 		ImageView background = myFactory.makeBackgroundImage("GameOver");
 		background.setFitHeight(myAppHeight);
 		background.setFitWidth(myAppWidth);
-		Rectangle backdrop = myFactory.makeBackdrop(20, 20, 350, 300);
+		Rectangle backdrop = myFactory.makeBackdrop(20, 20, 350, 300, Color.WHITE);
 		root = new BorderPane();
 		Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
 		score.setFont(Font.font("Arial", FontWeight.BOLD, 15));

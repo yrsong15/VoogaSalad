@@ -5,6 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -31,8 +34,8 @@ public class NodeFactory implements INodeFactory{
         return backgroundImage;
     }
 
-    public Rectangle makeBackdrop(int x, int y, int width, int height){
-        Rectangle backdrop = new Rectangle(width, height, Color.WHITE);
+    public Rectangle makeBackdrop(int x, int y, int width, int height, Color color){
+        Rectangle backdrop = new Rectangle(width, height, color);
         backdrop.setStroke(Color.BLUE);
         backdrop.setStrokeWidth(5);
         backdrop.setTranslateX(x);
@@ -43,5 +46,13 @@ public class NodeFactory implements INodeFactory{
         return backdrop;
     }
 
+    public Text makeLabel(String text, int x, int y){
+        Text label = new Text(text);
+        label.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        label.setFill(Color.LIGHTBLUE);
+        label.setTranslateX(x);
+        label.setTranslateY(y);
 
+        return label;
+    }
 }

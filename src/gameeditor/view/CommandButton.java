@@ -33,14 +33,14 @@ public class CommandButton implements ICommandButton {
 	private Image myButtonImage;
 	private String myType;
 	
-	public CommandButton(String fileLocation, double buttonNumber, double paneWidth, ICommandButtonOut commandOut, ICommandDetailDisplay detailDisplay) {
-		int myTypeEnd = fileLocation.length()-4;
-		myType = fileLocation.substring(1,myTypeEnd);
-		//System.out.println(myType);
+	public CommandButton(String fileLocation, double buttonNumber, double paneWidth,
+						 ICommandButtonOut commandOut, ICommandDetailDisplay detailDisplay) {
+		int myTypeEnd = fileLocation.length() - 4;
+		myType = fileLocation.substring(1, myTypeEnd);
 		myCommandOut = commandOut;
 		myDetailDisplay = detailDisplay;
-		double xOffset = (paneWidth - BUTTON_WIDTH)/2;
-		double yOffset = (buttonNumber+1)*BUTTON_PADDING+buttonNumber*BUTTON_HEIGHT;
+		double xOffset = (paneWidth - BUTTON_WIDTH) / 2;
+		double yOffset = (buttonNumber + 1) * BUTTON_PADDING + buttonNumber * BUTTON_HEIGHT;
 		createBorder(xOffset, yOffset);
 		try {
 			myButtonImage = new Image(new FileInputStream(IMAGE_FILE_LOCATION + fileLocation));
@@ -62,7 +62,8 @@ public class CommandButton implements ICommandButton {
 	}
 	
 	private void createBG(double x, double y){
-		myBG = new Rectangle(x, y, BUTTON_WIDTH - 2*BUTTON_IMAGE_PADDING, BUTTON_HEIGHT - 2*BUTTON_IMAGE_PADDING);
+		myBG = new Rectangle(x, y, BUTTON_WIDTH - 2 * BUTTON_IMAGE_PADDING,
+				BUTTON_HEIGHT - 2 * BUTTON_IMAGE_PADDING);
 		myBG.setFill(BG_COLOUR);
 		myBG.setArcHeight(CORNER_RADIUS);
 		myBG.setArcWidth(CORNER_RADIUS);
@@ -70,13 +71,13 @@ public class CommandButton implements ICommandButton {
 	}
 	
 	private void createImageView(double x, double y){
-		double fitWidth = myBG.getWidth() - 2*BUTTON_IMAGE_PADDING;
-		double fitHeight = myBG.getHeight() - 2*BUTTON_IMAGE_PADDING;
+		double fitWidth = myBG.getWidth() - 2 * BUTTON_IMAGE_PADDING;
+		double fitHeight = myBG.getHeight() - 2 * BUTTON_IMAGE_PADDING;
 		double widthRatio = fitWidth/myButtonImage.getWidth();
 		double heightRatio = fitHeight/myButtonImage.getHeight();
 		double ratio = Math.min(widthRatio, heightRatio);
-        double endWidth = myButtonImage.getWidth()*ratio;
-        double endHeight = myButtonImage.getHeight()*ratio;
+        double endWidth = myButtonImage.getWidth() * ratio;
+        double endHeight = myButtonImage.getHeight() * ratio;
 		myImageView = new ImageView(myButtonImage);
 		myImageView.setPreserveRatio(true);
 		myImageView.setFitHeight(fitWidth);

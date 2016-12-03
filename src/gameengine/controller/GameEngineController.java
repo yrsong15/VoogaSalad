@@ -65,6 +65,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 
 		RGFrames = new ArrayList<>();
 	}
+
 	public boolean startGame() {
 		currentGame = parser.convertXMLtoGame(xmlData);
 		movementController.setGame(currentGame);
