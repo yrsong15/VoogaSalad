@@ -11,7 +11,7 @@
             <yPosition>200.0</yPosition>
             <width>75.0</width>
             <height>50.0</height>
-            <imageFileName>bird3.png</imageFileName>
+            <imageFileName>doodler.png</imageFileName>
             <properties>
               <entry>
                 <string>gravity</string>
