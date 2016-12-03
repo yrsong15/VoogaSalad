@@ -15,11 +15,9 @@ import objects.interfaces.ILevel;
 
 public class LevelManager implements  ICreateLevel{
     private Level myLevel;
-//    private Map<Level, ILevel> myLevels;
     private List<Level> myLevels;
 
     public LevelManager(){
-//        myLevels = new HashMap<Level,ILevel>();
     	myLevels = new ArrayList<Level>();
     }
     
@@ -29,17 +27,11 @@ public class LevelManager implements  ICreateLevel{
     
     public void createLevel(Level level) {
         this.myLevel = level;
-//        myLevels.put(level, levelInterface);
         myLevels.add(level);
     }
 
     public void setCurrentLevel(Level level){
         this.myLevel = level; 
     }
-    
-    
-//    public ILevel getCurrentLevelInterface(){
-//        return myLevels.get(myLevel);
-//    }
     
 }

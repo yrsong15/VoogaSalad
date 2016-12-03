@@ -138,10 +138,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
         }
 
-         addGround();
+        //TODO: Change the fact that addGround is called by default, rather randomly
+        addGround();
         closeLevelWindow.set(true);
     }
        
+  //TODO: Change hardcoded value for ground values
     private void addGround(){
         GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
         ground.setProperty("damage","30");
