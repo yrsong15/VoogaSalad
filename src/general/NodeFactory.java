@@ -21,6 +21,9 @@ public class NodeFactory implements INodeFactory{
     private String userDirectoryBackgroundPrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/Background/";
+    private String userDirectoryThumbnailPrefix = "file:"
+            + System.getProperty("user.dir")
+            + "/images/DesignImages/";
 
     public NodeFactory(){
         myResources = ResourceBundle.getBundle(IMAGE_LABEL_FILE, Locale.getDefault());
@@ -32,6 +35,16 @@ public class NodeFactory implements INodeFactory{
         Image background = new Image(userDirectoryBackgroundPrefix + myResources.getString(property));
         ImageView backgroundImage = new ImageView(background);
         return backgroundImage;
+    }
+
+    public ImageView makeThumbnailImage(String property, int x, int y, double width, double height){
+        Image thumbNailImg = new Image(userDirectoryThumbnailPrefix + myResources.getString(property));
+        ImageView thumbNail = new ImageView(thumbNailImg);
+        thumbNail.setTranslateX(x);
+        thumbNail.setTranslateY(y);
+        thumbNail.setFitWidth(width);
+        thumbNail.setFitHeight(height);
+        return thumbNail;
     }
 
     public Rectangle makeBackdrop(int x, int y, int width, int height, Color color){
