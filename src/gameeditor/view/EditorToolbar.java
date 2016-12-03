@@ -72,13 +72,7 @@ public class EditorToolbar implements IEditorToolbar {
 		createButton(myBackgroundImageView, "/Background.png", BG_IMAGE_WIDTH, BG_IMAGE_XOFFSET, e -> myOutput.setBackground());
 		createButton(myAvatarImageView, "/Avatar.png", AVATAR_IMAGE_WIDTH, AVATAR_IMAGE_XOFFSET, e -> myOutput.setAvatar());
 		createButton(myMusicImageView, "/Music.png", MUSIC_IMAGE_WIDTH, MUSIC_IMAGE_XOFFSET, e -> myOutput.setMusic());
-		// Create load button
-		createButton(myLoadGameImageView,"/Save.png",LOAD_GAME_IMAGE_WIDTH,LOAD_GAME_IMAGE_XOFFSET,e-> sendLevelData());
-		createDimensions();
-		createWinConditions();
-		
-		addScrollTypeOptions();
-		
+		createButton(myLoadGameImageView,"/Save.png",LOAD_GAME_IMAGE_WIDTH,LOAD_GAME_IMAGE_XOFFSET,e-> sendLevelData());	
 	}
 	
 	// TODO: REFACTOR THIS METHOD TO WORK GENERALLY, USE image.getWidth();
@@ -102,94 +96,12 @@ public class EditorToolbar implements IEditorToolbar {
 		}
 	}
 	
-	private void createWinConditions(){
-		myTimeWin = createInputBP(new BorderPane(), "Time: ", "N/A", 160, 5);
-		myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
-		myPointsWin = createInputBP(new BorderPane(), "Points: ", "N/A", 160, 40);
-		myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
-		
-	}
-	
-	private void createDimensions(){
-		myDimComboBox = createWidthDimCB("Limit Width: ", 10, 5);
-	}
-	
-	private void addScrollTypeOptions(){
-	   MenuBar menuBar = new MenuBar();
-	   menuBar.setLayoutX(350);
-	   menuBar.setLayoutY(10);
-	   scrollTypeMenu = new Menu(SCROLL_TYPE_LABEL);
-	   limitedScrollSubMenu = createSubMenu(LIMITED_SCROLL_TYPE_LABEL);
-	   forcedScrollSubMenu = createSubMenu(FORCED_SCROLL_TYPE_LABEL);
-	   freeScrollType = createMenuItem(FREE_SCROLL_TYPE_LABEL);
-	   scrollTypeMenu.getItems().addAll(limitedScrollSubMenu,forcedScrollSubMenu, freeScrollType);
-	   menuBar.getMenus().add(scrollTypeMenu);
-	   myPane.getChildren().add(menuBar);
-	}
-	
-	private Menu createSubMenu(String type){
-	    // TODO: going to use ReosurceBundle 
-	    Menu m = new Menu(type);
-	    m.getItems().addAll(createMenuItem("LEFT"), createMenuItem("RIGHT"), createMenuItem("UP"), createMenuItem("DOWN"));
-	    return m;
-	}
-	
-	private MenuItem createMenuItem(String property){
-	    return new MenuItem(property);
-	}
 
-	private ComboBox<String> createWidthDimCB(String initValue, double x, double y){
-		ComboBox<String> cb = new ComboBox<String>();
-		cb.setValue(initValue);
-		cb.getItems().add("True");
-		cb.getItems().add("False");
-		cb.setMinWidth(125); cb.setMaxWidth(125);
-		cb.setMinHeight(30); cb.setMaxHeight(30);
-		cb.setLayoutX(x);
-		cb.setLayoutY(y);
-		cb.setOnAction((e) -> cbOnAction(cb));
-		myPane.getChildren().add(cb);		
-		return cb;
-		
-	}
-	
-	public void cbOnAction(ComboBox<String> cb){
-		if (cb.getValue().equals("True")){
-			myXTextArea = createInputBP(myXTextBP, "Width: ", Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()), 10, 40);
-			myLevelData.put(SCROLL_WIDTH_PROPERTY, myXTextArea.getText());
-		} else {
-			myPane.getChildren().remove(myXTextBP);	
-		}
-	}
-	
-	public TextArea createInputBP(BorderPane bp, String label, String initValue, double x, double y){
-		bp.setMinWidth(125);
-		bp.setMaxWidth(125);
-		Label labl = createLbl(label);
-		
-		TextArea ta = new TextArea();
-		ta.setText(initValue);
-		ta.setMinWidth(75); ta.setMaxWidth(75);
-		ta.setMinHeight(30); ta.setMaxHeight(30);
-		
-		ta.setOnMouseClicked((e) -> handleClick(ta));
-		
-		bp.setLeft(labl);
-		bp.setRight(ta);
-		BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
-		bp.setLayoutX(x);
-		bp.setLayoutY(y);
-		
-		myPane.getChildren().add(bp);
-		return ta;
-	}
-	
-	
+
 	private void sendLevelData(){
-	    myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
-	    myLevelData.put(POINTS_PROPERTY, myPointsWin.getText());
-	    
-	    myOutput.saveLevelData(myLevelData);
+//	    myLevelData.put(TIME_PROPERTY,myTimeWin.getText());
+//	    myLevelData.put(POINTS_PROPERTY, myPointsWin.getText());	    
+//	    myOutput.saveLevelData(myLevelData);
 	}
 	
 	public Label createLbl(String labelText){
