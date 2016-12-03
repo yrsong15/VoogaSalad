@@ -6,48 +6,35 @@ import objects.GameObject;
 
 
 /**
- * This is a general scrolling class that shifts all objects on the screen to 
- * give the appearance of movement to mainCharacter
+ * This is a general scrolling class that shifts all objects given to it to give the 
+ * appearance of movement to whichever objects are not given to it.
  * @author Chalena Scholl, 
  */
 public class GeneralScroll {
 	
-	    public void scrollUP(List<GameObject> gameObjects, GameObject mainChar, double speed){
+	    public void scrollUP(List<GameObject> gameObjects, double speed){
 			for(GameObject obstacle: gameObjects){
-	            if (obstacle== mainChar){
-	                continue;
-	            }
 				double newPos = obstacle.getYPosition() + speed;
 				obstacle.setYPosition(newPos);
 			}
 	    }
 
-	    public void scrollDOWN(List<GameObject> gameObjects, GameObject mainChar, double speed){
+	    public void scrollDOWN(List<GameObject> gameObjects, double speed){
 	    	for(GameObject obstacle: gameObjects){
-	            if (obstacle== mainChar){
-	                continue;
-	            }
 				double newPos = obstacle.getYPosition() - speed;
 				obstacle.setYPosition(newPos);
 	    	}
 	    }
 
-	    public void scrollRIGHT(List<GameObject> gameObjects, GameObject mainChar, double speed){
-	    	//System.out.println("Running with speed: " + speed);
+	    public void scrollRIGHT(List<GameObject> gameObjects, double speed){
 	        for(GameObject obstacle: gameObjects){
-	            if (obstacle== mainChar){
-	                continue;
-	            }
 	            double newPos = obstacle.getXPosition() - speed;
 	            obstacle.setXPosition(newPos);
 	        }
 	    }
 
-	    public void scrollLEFT(List<GameObject> gameObjects, GameObject mainChar, double speed){
+	    public void scrollLEFT(List<GameObject> gameObjects, double speed){
 	        for(GameObject obstacle: gameObjects){
-	            if (obstacle== mainChar){
-	                continue;
-	            }
 	            double newPos = obstacle.getXPosition() + speed;
 	            obstacle.setXPosition(newPos);
 	        }
@@ -55,3 +42,4 @@ public class GeneralScroll {
 
 
 }
+
