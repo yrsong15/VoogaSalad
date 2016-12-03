@@ -14,11 +14,15 @@ public abstract class AbstractGameBlock extends AbstractGameObject{
 	protected boolean north;
 	protected boolean south;
 	
-	protected String imageFileName;
+	private String imageFileName;
 	
 	public AbstractGameBlock(double xPosition, double yPosition, double width, double height, String imageFileName) {
 		super(xPosition, yPosition, width, height);
 		this.imageFileName = imageFileName;
+	}
+	
+	public String getImageFileName() {
+		return imageFileName;
 	}
 
 	
