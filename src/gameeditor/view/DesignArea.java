@@ -12,6 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -48,10 +50,20 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setVmax(0);
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         myPane = new Pane();
+        myPane.addEventFilter(KeyEvent.KEY_TYPED, (e) -> handleKeyType(e.getCode()));
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }    
     
+    //TODO: get keytyped working
+	private void handleKeyType(KeyCode code) {
+		System.out.println("key typed");
+		if (code == KeyCode.BACK_SPACE){
+			// TODO: Remove from backend
+			removeSprite(mySelectedSprite);
+		}
+	}
+
 	public ScrollPane getScrollPane(){
         return myScrollPane;
     }

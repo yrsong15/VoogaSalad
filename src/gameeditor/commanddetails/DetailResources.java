@@ -12,6 +12,7 @@ public enum DetailResources {
 		PROPERTIES_TEXT_INPUT(new String [] { "Damage", "Points", "Time", "Health","Gravity","Speed","Jump"}),
 		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
 		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
+		RANDOM_GEN_COMBO_LABEL("randomgeneration"),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
 		
 		//DAMAGE(new String [] {"0", "1"}),

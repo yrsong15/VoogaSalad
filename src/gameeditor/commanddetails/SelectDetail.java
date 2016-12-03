@@ -1,6 +1,8 @@
 package gameeditor.commanddetails;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import gameeditor.objects.GameObject;
 import javafx.geometry.Pos;
@@ -34,6 +36,10 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	private ImageView myIV;
 	private GameObject myGO;
 	private Pane myImagePane;
+	
+	private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
+	String[] myRandomGenerationParameters = DetailResources.RANDOM_GENERATION_PARAMETERS.getArrayResource();
+	
 
 	private String myType;
 	public static final String X_POSITON_KEY = "xPosition";
@@ -61,6 +67,12 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		createTypeLabel();
 		createPos();
 		createUpdate();
+		String typeName = myGO.getType();
+		Map<String, String> typeMap = myDataStore.getType(typeName);
+		String randomGen = typeMap.get(DetailResources.RANDOM_GEN_COMBO_LABEL.getResource());
+		if(randomGen != null && randomGen.equals("True")){
+			createProperties();
+		}
 	}
 	
 	public void clearSelect(){
@@ -68,16 +80,24 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 	}
 	
 	public void updateSpritePosition(double x, double y){
-		myXTextArea.setText(X_LABEL + Double.toString(x));
-		myYTextArea.setText(Y_LABEL + Double.toString(y));
+		String xString = Double.toString(x);
+		xString = xString.substring(0, xString.indexOf(".")+2);
+		String yString = Double.toString(y);
+		yString = yString.substring(0, yString.indexOf(".")+2);
+		myXTextArea.setText(X_LABEL + xString);
+		myYTextArea.setText(Y_LABEL + yString);
 	}
 	
 	public void updateSpriteDimensions(double width, double height){
-		myWidthTextArea.setText(WIDTH_LABEL + Double.toString(width));
-		myHeightTextArea.setText(HEIGHT_LABEL + Double.toString(height));
+		String widthString = Double.toString(width);
+		widthString = widthString.substring(0, widthString.indexOf(".")+2);
+		String heightString = Double.toString(height);
+		heightString = heightString.substring(0, heightString.indexOf(".")+2);
+		myWidthTextArea.setText(WIDTH_LABEL + widthString);
+		myHeightTextArea.setText(HEIGHT_LABEL + heightString);
 	}
 	
-	public void createUpdate(){
+	private void createUpdate(){
 		Button update = new Button();
 		update.setText(DetailResources.UPDATE_BUTTON_TEXT.getResource());
 		update.setMinWidth((paddedPaneWidth - hboxSpacing)/2);
@@ -108,12 +128,12 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		myVBox.getChildren().add(bp);
 	}	
 	
-	public void createPos(){
+	private void createPos(){
 		createInfoBP(myXTextArea, X_LABEL, myGO.getX(), myYTextArea, Y_LABEL, myGO.getY());
 		createInfoBP(myWidthTextArea, WIDTH_LABEL, myGO.getWidth(), myHeightTextArea, HEIGHT_LABEL, myGO.getHeight());
 	}
 	
-	public void createInfoBP(TextArea ta1, String label1, double value1, TextArea ta2, String label2, double value2){
+	private void createInfoBP(TextArea ta1, String label1, double value1, TextArea ta2, String label2, double value2){
 		BorderPane bp = new BorderPane();
 		bp.setMinWidth(paddedPaneWidth);
 		bp.setMaxWidth(paddedPaneWidth);
@@ -126,8 +146,10 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		System.out.println(myVBox.getChildren().size());
 	}
 	
-	public TextArea createTextArea(String label, double value, TextArea ta){
-		ta.setText(label + Double.toString(value));
+	private TextArea createTextArea(String label, double value, TextArea ta){
+		String valueString = Double.toString(value);
+		valueString = valueString.substring(0, valueString.indexOf(".")+2);
+		ta.setText(label + valueString);
 		ta.setMinWidth(cbWidth); ta.setMaxWidth(cbWidth);
 		ta.setMinHeight(cbHeight); ta.setMaxHeight(cbHeight);
 		ta.setOnKeyReleased((e) -> handleKeyRelease(e.getCode(), e.getCharacter(), ta, label));
@@ -135,16 +157,48 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 		return ta;
 	}
 	
-	public void createTypeLabel(){
+	private void createTypeLabel(){
 		myType = myGO.getType();
 		mySelectLabel.setText(myType);
 	}
 	
-	public void handleClick(TextArea field){
+	private void createProperties(){
+		for (String label : myRandomGenerationParameters){           
+	        BorderPane bp = new BorderPane();
+	        bp.setMinWidth(paddedPaneWidth);
+	        bp.setMaxWidth(paddedPaneWidth);
+	        Label labl = createPropertyLbl(label);
+	        TextArea text = createInputField();
+
+	        myRandomGenerationList.add(text);
+
+	        bp.setLeft(labl);
+	        bp.setRight(text);
+	        BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
+	        myVBox.getChildren().add(bp);
+	    }
+	}
+	
+	private Label createPropertyLbl(String property){
+	    Label labl = new Label (property);
+	    return labl;
+	}
+	
+	private TextArea createInputField(){
+	    TextArea inputField = new TextArea();
+	    inputField.setMinWidth(paddedDetailWidth);
+	    inputField.setMaxWidth(paddedDetailWidth);
+	    inputField.setMinHeight(cbHeight);
+	    inputField.setMaxHeight(cbHeight);
+	    inputField.setOnMouseClicked(e -> handleClick(inputField));
+	    return inputField;
+	}	
+	
+	private void handleClick(TextArea field){
 		field.setText("");
 	}
 	
-	public void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
+	private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
 //		if (kc == KeyCode.BACK_SPACE){
 		if (field.getText().length() < label.length() && kc.isDigitKey()){
 			field.setText(label + character);
@@ -159,10 +213,6 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 			field.setText(label + field.getText().substring(label.length(), field.getText().length()-1));
 			field.positionCaret(field.getText().length());
 		}
-		
-	}
-
-	public void createTextField(){
 		
 	}
 
