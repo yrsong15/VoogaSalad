@@ -89,7 +89,7 @@ public class GameEngineUI {
 	}
 	
 	public double getScreenHeight() {
-		return gameScreen.screenHeight;
+		return gameScreen.getScreenHeight();
 	}
 
 	public void update(Level level) {
@@ -115,6 +115,7 @@ public class GameEngineUI {
 
 	public void setBackgroundImage(String imageFile) {
 		try {
+			System.out.println("wtf");
 			gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
@@ -135,6 +136,7 @@ public class GameEngineUI {
 
 	public void resetGameScreen(){
         gameScreen.reset();
+        myHUD.resetTimer();
     }
 
     public void removeObject(GameObject object){
@@ -175,7 +177,7 @@ public class GameEngineUI {
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), myResetEvent, event -> mute());
+		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, event -> mute());
 		return toolbar.getToolbar();
 	}
 	

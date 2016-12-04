@@ -54,8 +54,7 @@ public class HUD {
 	}
 	
 	public void resetTimer() {
-		timer.stop();
-		timer.play();
+		timeCount = 0;
 	}
 	
 	private void incrementTime() {

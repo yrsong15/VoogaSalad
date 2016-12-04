@@ -39,6 +39,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	private Timeline animation;
 	private MovementController movementController;
 	private Scrolling gameScrolling;
+	private Stage endGameStage;
 
 	public GameEngineController() {
 		parser = new GameParser();
@@ -124,11 +125,13 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         animation.stop();
         HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(),
                 highScores, this);
-        Stage stage = new Stage();
-        stage.setScene(splash.getScene());
-        stage.getScene().getStylesheets().add("gameEditorSplash.css");
-        stage.setTitle("GAME OVER");
-        stage.show();
+        if (endGameStage == null) {
+        	endGameStage = new Stage();
+        }
+        endGameStage.setScene(splash.getScene());
+        endGameStage.getScene().getStylesheets().add("gameEditorSplash.css");
+        endGameStage.setTitle("GAME OVER");
+        endGameStage.show();
     }
 
     @Override
