@@ -7,10 +7,6 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -18,8 +14,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import gameengine.controller.ScrollerController;
-import gameengine.view.interfaces.IGameEngineUI;
-import gameengine.view.interfaces.IGameScreen;
 import gameengine.view.interfaces.IToolbar;
 import gameengine.controller.interfaces.MovementInterface;
 import javafx.event.ActionEvent;
@@ -33,6 +27,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import objects.GameObject;
 import objects.Level;
 import utils.ResourceReader;
 
@@ -40,15 +35,11 @@ import utils.ResourceReader;
  * @author Noel Moon (nm142)
  *
  */
-public class GameEngineUI implements IGameEngineUI {
+public class GameEngineUI {
 
 	public static final double myAppWidth = 700;
 	public static final double myAppHeight = 775;
-	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-	public static final String STYLESHEET = "default.css";
 	public static final String RESOURCE_FILENAME = "GameEngineUI";
-	public static final int FRAMES_PER_SECOND = 60;
-	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
 	private ResourceBundle myResources;
 	private Scene scene;
@@ -65,27 +56,28 @@ public class GameEngineUI implements IGameEngineUI {
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
-	private EventHandler<ActionEvent> myResetEvent;
-	private EventHandler<ActionEvent> myMuteEvent;
-	private ArrayList<Integer> myHighScores;
+	private EventHandler<ActionEvent> resetEvent;
 
 
 	public GameEngineUI(MovementInterface movementInterface, EventHandler<ActionEvent> resetEvent) {
-		myHighScores = new ArrayList<Integer>();
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
-		this.myResetEvent = resetEvent;
+		this.resetEvent = resetEvent;
 		this.movementInterface = movementInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		setUpMethodMappings();
 	}
 
-	public Scene setLevel(Level level) {
+	public void initLevel(Level level) {
 		this.level = level;
-		
 		setUpKeystrokeListeners();
-		
-		return scene;
+        if(level.getMusicFilePath() != null){
+            playMusic(level.getMusicFilePath());
+        }
+        if(level.getBackgroundFilePath() != null){
+            setBackgroundImage(level.getBackgroundFilePath());
+        }
+        gameScreen.init(level);
 	}
 
 	public ScrollerController getScrollerController() {
@@ -105,30 +97,8 @@ public class GameEngineUI implements IGameEngineUI {
 		gameScreen.update(level);
 		myHUD.update(level);
 	}
-	
-	public ArrayList<Integer> getHighScores() {
-		return myHighScores;
-	}
-	
-	public void addHighScore(Integer score) {
-		if (myHighScores.size() == 0) {
-			myHighScores.add(score);
-		} else if (myHighScores.size() < 5) {
-			myHighScores.add(score);
-			Collections.sort(myHighScores);
-			Collections.reverse(myHighScores);
-		} else {
-			Integer lowestHighScore = myHighScores.get(4);
-			if (score > lowestHighScore) {
-				myHighScores.remove(lowestHighScore);
-				myHighScores.add(score);
-				Collections.sort(myHighScores);
-				Collections.reverse(myHighScores);
-			}
-		}
-	}
 
-	public void setMusic(String musicFileName) {
+	public void playMusic(String musicFileName) {
 		try {
 			if (mediaPlayer != null) {
 				mediaPlayer.stop();
@@ -158,20 +128,18 @@ public class GameEngineUI implements IGameEngineUI {
 	}
 	
 	public void stopMusic() {
-		try{
-			mediaPlayer.stop();
-		}catch (NullPointerException e){
-			//System.out.println("GameEngineUI: Music was null");
-		}
+		if(level.getMusicFilePath() != null) {
+            mediaPlayer.stop();
+        }
 	}
-	
-	public void reset() {
-		if (!isMuted) {
-			mediaPlayer.stop();
-			mediaPlayer.play();
-		}
-		myHUD.resetTimer();
-	}
+
+	public void resetGameScreen(){
+        gameScreen.reset();
+    }
+
+    public void removeObject(GameObject object){
+        gameScreen.removeObject(object);
+    }
 
 	private void setUpMethodMappings() {
 
@@ -182,16 +150,6 @@ public class GameEngineUI implements IGameEngineUI {
 				String key = keys.next();
 				methodMappings.put(key, movementInterface.getClass().getDeclaredMethod(resources.getResource(key)));
 			}
-			// methodMappings.put("down",
-			// movementInterface.getClass().getDeclaredMethod("moveDown"));
-			// methodMappings.put("right",
-			// movementInterface.getClass().getDeclaredMethod("moveRight"));
-			// methodMappings.put("left",
-			// movementInterface.getClass().getDeclaredMethod("moveLeft"));
-			// methodMappings.put("jump",
-			// movementInterface.getClass().getDeclaredMethod("jump"));
-			// methodMappings.put("shoot",
-			// movementInterface.getClass().getDeclaredMethod("shootProjectile"));
 		} catch (
 
 		NoSuchMethodException e) {

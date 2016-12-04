@@ -46,7 +46,7 @@ public class SplashScreen implements ISplashScreen {
             new Stop(0.75, Color.HONEYDEW),
             new Stop(1, Color.WHITE));
 
-    public SplashScreen(Stage myStage, MainController mainController) {
+    public SplashScreen(MainController mainController) {
         this.myFactory = new NodeFactory();
         this.mainController = mainController;
     }
@@ -67,7 +67,8 @@ public class SplashScreen implements ISplashScreen {
 
     @Override
     public void launchEditor() {
-        mainController.presentEditor();
+        mainController.editorSplash();
+//        mainController.presentEditor();
     }
 
     @Override
@@ -77,7 +78,7 @@ public class SplashScreen implements ISplashScreen {
     }
 
     public void launchGameEngine() {
-    	mainController.launchEngine("");
+        mainController.launchEngine("");
     }
 
     private void addButtons() {

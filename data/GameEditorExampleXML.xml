@@ -47,7 +47,7 @@
         <winConditions>
           <entry>
             <string>score</string>
-            <string>10</string>
+            <string>100</string>
           </entry>
         </winConditions>
         <loseConditions>
@@ -96,11 +96,6 @@
             <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
           </myScrollDirectionList>
         </scrollType>
-        <viewSettings>
-          <musicFilePath>FlappyBirdThemeSong.mp3</musicFilePath>
-          <backgroundFilePath>Background/bg.png</backgroundFilePath>
-          <scrollWidth>0.0</scrollWidth>
-        </viewSettings>
       </objects.Level>
     </entry>
   </levels>
