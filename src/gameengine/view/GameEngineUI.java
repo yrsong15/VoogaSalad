@@ -47,12 +47,12 @@ public class GameEngineUI {
 	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
 	private MovementInterface movementInterface;
-	private String myGameFileLocation;
 	private String myLevelFileLocation;
-	private IToolbar toolbar;
+	private Toolbar toolbar;
 	private HUD myHUD;
 	private GameScreen gameScreen;
 	private boolean isPaused;
+	private boolean isMuted;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
@@ -105,7 +105,9 @@ public class GameEngineUI {
 			}
 			URL resource = getClass().getClassLoader().getResource(musicFileName);
 			mediaPlayer = new MediaPlayer(new Media(resource.toString()));
-			mediaPlayer.play();
+			if (!isMuted) {
+				mediaPlayer.play();
+			}
 		} catch (Exception e) {
             e.printStackTrace();
 		}
@@ -173,7 +175,7 @@ public class GameEngineUI {
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadGame(), event -> loadLevel(), event -> pause(), resetEvent);
+		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), myResetEvent, event -> mute());
 		return toolbar.getToolbar();
 	}
 	
@@ -187,10 +189,17 @@ public class GameEngineUI {
 		return gameScreen.getScreen();
 	}
 
-	private void loadGame() {
-		FileChooser gameChooser = new FileChooser();
-		gameChooser.setTitle("Open Game File");
-		File gameFile = gameChooser.showOpenDialog(new Stage());
+	private void mute() {
+		if (isMuted) {
+			isMuted = false;
+			toolbar.unmute();
+			mediaPlayer.play();
+			mediaPlayer.setMute(false);
+		} else {
+			isMuted = true;
+			toolbar.mute();
+			mediaPlayer.setMute(true);
+		}
 	}
 
 	private void loadLevel() {
