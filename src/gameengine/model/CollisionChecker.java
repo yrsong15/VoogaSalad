@@ -4,6 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
+import exception.CollisionRuleNotFoundException;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.rules.CollisionRulebook;
 import objects.GameObject;
@@ -28,8 +29,8 @@ public class CollisionChecker {
 				if (mainChar != gameObject && collision(mainChar, gameObject)) {
 					try {
 						rulebook.applyRules(mainChar, gameObject);
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
+					} catch (CollisionRuleNotFoundException e) {
+						
 					}
 				}
 			} catch (ConcurrentModificationException e) {

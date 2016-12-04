@@ -32,6 +32,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     public static final double FRAMES_PER_SECOND = 30;
     public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
+    private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 
 	private List<RandomGenFrame> RGFrames;
     private List<Integer> highScores;
@@ -95,23 +96,18 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
 	/**
 	 * Applies gravity and scrolls, checks for collisions
-	 *
-	 * @throws SecurityException
-	 * @throws NoSuchMethodException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws IllegalArgumentException
 	 */
 	public void updateGame(){
-		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
-		gameScrolling.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
-        if(currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
+		Level currLevel = currentGame.getCurrentLevel();
+		GameObject mainChar = currLevel.getMainCharacter();
+		gameScrolling.scrollScreen(currLevel.getGameObjects(), mainChar);
+        if(currLevel.getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
             removeOffscreenElements();
         }
-		gameEngineView.update(currentGame.getCurrentLevel());
-		movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
+		gameEngineView.update(currLevel);
+		movementChecker.updateMovement(currLevel.getGameObjects());
 		for(RandomGenFrame elem: RGFrames){
-            for(RandomGeneration randomGeneration : currentGame.getCurrentLevel().getRandomGenRules()) {
+            for(RandomGeneration randomGeneration : currLevel.getRandomGenRules()) {
                 try {
 					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
 				} catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException
@@ -121,10 +117,9 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 				}
             }
 		}
-         Level currLevel = currentGame.getCurrentLevel();
          collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
 		 LossChecker.checkLossConditions(this,
-				 		currentGame.getCurrentLevel().getLoseConditions(), currLevel.getGameConditions());
+				 		currLevel.getLoseConditions(), currLevel.getGameConditions());
 		 WinChecker.checkWinConditions(this,
 				 		currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
@@ -151,7 +146,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         	endGameStage = new Stage();
         }
         endGameStage.setScene(splash.getScene());
-        endGameStage.getScene().getStylesheets().add("gameEditorSplash.css");
+        endGameStage.getScene().getStylesheets().add(EDITOR_SPLASH_STYLE);
         endGameStage.setTitle("GAME OVER");
         endGameStage.show();
     }

@@ -17,9 +17,9 @@ public class ReflectionUtil {
 	public static void runMethod(String classPath, String methodName, Object[] parameters, Class<?>[]parameterTypes) 
 			throws NoSuchMethodException, SecurityException, ClassNotFoundException, InstantiationException, 
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException{	
-        Object o = ReflectionUtil.newInstanceOf(classPath);
+        Object classInstance = ReflectionUtil.newInstanceOf(classPath);
         Method method = ReflectionUtil.getMethodFromClass(classPath, methodName, parameterTypes);
-        method.invoke(o, parameters);
+        method.invoke(classInstance, parameters);
 	}
 	
 	public static Object newInstanceOf(String className) 
@@ -45,7 +45,6 @@ public class ReflectionUtil {
 																			InstantiationException, IllegalAccessException, 
 																			IllegalArgumentException, InvocationTargetException{
 		Class<?> classRequested = Class.forName(classPath);
-		System.out.println(classRequested.getConstructors()[0]);
 		Constructor<?> classConstructor = classRequested.getConstructor(parameterTypes);
 		return classConstructor.newInstance(parameters); 
 	}
