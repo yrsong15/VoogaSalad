@@ -71,7 +71,7 @@
         <gameConditions>
           <entry>
             <string>scrollspeed</string>
-            <double>30.0</double>
+            <double>10</double>
           </entry>
         </gameConditions>
         <controls>

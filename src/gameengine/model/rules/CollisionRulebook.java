@@ -29,7 +29,6 @@ public class CollisionRulebook{
 						| InvocationTargetException | ClassNotFoundException | NoSuchMethodException
 						| SecurityException e) {
 					e.printStackTrace();
-					//throw new ClassNotFoundException();
 				}
 			}
 		}

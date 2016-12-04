@@ -58,12 +58,13 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public Parent createRoot(){
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
+        addBackground();
+
         //addScrollType();
         return myRoot;
     }
 
     private HBox createLeftAlt(){
-
         DetailPane dp = new DetailPane(myDesignArea, myLevelSettings);
         myDetailPane = dp;
         myCommandPane = new CommandPane(dp);
@@ -85,22 +86,26 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
 
     public void setBackground(){
-        //HBox myHBox = new HBox();
-        String filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
-        if(filePath!=null){
-            ImageView backgroundImage = new ImageView(new Image(filePath));          
-            backgroundImage.setFitHeight(0.85*SCENE_HEIGHT);
-            backgroundImage.setFitWidth(0.75*SCENE_WIDTH);
-            backgroundImage.setId(BACKGROUND_IMAGE_ID);
-            
-            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, 0.85*SCENE_HEIGHT); 
-            
-            //myHBox.getChildren().add(backgroundImage); 
-            myDesignArea.setBackground(backgroundImage); 
-            
-            String file = filePath.substring(filePath.lastIndexOf("/") +1);
-            myLevelSettings.addBackgroundImage("Background/" + file);
-        } 
+        String filePath;
+        if(myLevelSettings.getBackgroundFilePath()!=null){
+            filePath= getUserDirectory()+ myLevelSettings.getBackgroundFilePath();   
+        }else{
+            filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
+            if(filePath!=null){
+                ImageView backgroundImage = new ImageView(new Image(filePath));          
+                backgroundImage.setFitHeight(0.85*SCENE_HEIGHT);
+                backgroundImage.setFitWidth(0.75*SCENE_WIDTH);
+                backgroundImage.setId(BACKGROUND_IMAGE_ID);
+
+                myScrollPane.setPrefSize(0.75*SCENE_WIDTH, 0.85*SCENE_HEIGHT); 
+
+                //myHBox.getChildren().add(backgroundImage); 
+                myDesignArea.setBackground(backgroundImage); 
+
+                String file = filePath.substring(filePath.lastIndexOf("/") +1);
+                myLevelSettings.setBackgroundImage("Background/" + file);
+            } 
+        }
     }
 
     public void setAvatar(){
@@ -111,12 +116,10 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         }   
     }
 
-
-
     public void setMusic(){
         String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
         String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
-        myLevelSettings.addBackgroundMusic(file);
+        myLevelSettings.setBackgroundMusic(file);
     }
 
     private String getFilePath(String fileType, String fileLocation){
@@ -137,7 +140,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         addGround();
         closeLevelWindow.set(true);
     }
-    
+
     //TODO: Change hardcoded value for ground values
     private void addGround(){
         GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
@@ -148,9 +151,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public BooleanProperty getSaveLevelProperty(){
         return this.closeLevelWindow;
     }
-    
+
     public void setSaveProperty(Boolean bool){
         closeLevelWindow.set(bool);
     }
 
+    private String getUserDirectory(){
+        return System.getProperty("user.dir") + "/" ;
+    }
 }

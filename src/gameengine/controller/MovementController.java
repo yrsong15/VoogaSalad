@@ -12,15 +12,13 @@ import objects.GameObject;
 
 public class MovementController implements MovementInterface{
 
-    private Scene myScene;
-    private MovementHandler handler;
     private Game currentGame;
     private CommandInterface commandInterface;
     
     public MovementController(CommandInterface commandInterface){
     	this.commandInterface = commandInterface;
     }
-    
+
     public void setGame(Game currentGame){
         this.currentGame = currentGame;
     }

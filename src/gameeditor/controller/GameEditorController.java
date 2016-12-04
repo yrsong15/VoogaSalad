@@ -103,16 +103,16 @@ public class GameEditorController implements IGameEditorController{
 
     private void displayLevel(){
         if(myLevelEditorMap.containsKey(activeButtonId)){
-            System.out.println(" Display Level There ");
             myGameEditorView=myLevelEditorMap.get(activeButtonId);
             setSavedLevelRoot();
             myGameEditorView.setSaveProperty(false);
             addSaveLevelListener();
         } else{
-            System.out.println(" Display new Level");
             Level level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             ILevel levelInterface = (ILevel) level;
-            myLevelManager.createLevel(level);         
+            
+            myLevelManager.createLevel(level);   
+            
             myGameEditorView = new GameEditorView(levelInterface);          
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         

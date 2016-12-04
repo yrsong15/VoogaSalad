@@ -18,7 +18,7 @@ public class UseCaseStartGameFromXML {
     }
 
     public void startGameFromXML(String fileName) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException, NoSuchMethodException, ClassNotFoundException {
-        controller.setCurrentXML(fileName);
-        controller.startGame();
+        //controller.setCurrentXML(fileName);
+        //controller.startGame();
     }
 }
