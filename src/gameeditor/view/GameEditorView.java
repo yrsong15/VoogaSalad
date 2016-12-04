@@ -1,12 +1,15 @@
 package gameeditor.view;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.sun.javafx.scene.traversal.Direction;
 import frontend.util.FileOpener;
+import frontend.util.GameEditorException;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -58,9 +61,10 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public Parent createRoot(){
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
-        addBackground();
-
-        //addScrollType();
+        if(myLevelSettings.getBackgroundFilePath()!=null){
+            String filePath = FILE_PREFIX+getUserDirectory()+IMAGES_LOCATION + myLevelSettings.getBackgroundFilePath();
+            changeBackground(filePath);
+        }
         return myRoot;
     }
 
@@ -86,77 +90,75 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
 
     public void setBackground(){
-        String filePath;
-        if(myLevelSettings.getBackgroundFilePath()!=null){
-            filePath= getUserDirectory()+ myLevelSettings.getBackgroundFilePath();   
-        }else{
-            filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
-            if(filePath!=null){
-                ImageView backgroundImage = new ImageView(new Image(filePath));          
-                backgroundImage.setFitHeight(0.85*SCENE_HEIGHT);
-                backgroundImage.setFitWidth(0.75*SCENE_WIDTH);
-                backgroundImage.setId(BACKGROUND_IMAGE_ID);
+        String filePath = getFilePath(IMAGE_FILE_TYPE,BG_IMAGE_LOCATION);
+        changeBackground(filePath);
+        String file = filePath.substring(filePath.lastIndexOf("/") +1);
+        myLevelSettings.setBackgroundImage("Background/" + file);
+}
 
-                myScrollPane.setPrefSize(0.75*SCENE_WIDTH, 0.85*SCENE_HEIGHT); 
+private void changeBackground(String filePath){
+    if(filePath!=null){
+        ImageView backgroundImage = new ImageView(new Image(filePath));
+        backgroundImage.setFitHeight(0.85*SCENE_HEIGHT);
+        backgroundImage.setFitWidth(0.75*SCENE_WIDTH);
+        backgroundImage.setId(BACKGROUND_IMAGE_ID);
 
-                //myHBox.getChildren().add(backgroundImage); 
-                myDesignArea.setBackground(backgroundImage); 
+        myScrollPane.setPrefSize(0.75*SCENE_WIDTH, 0.85*SCENE_HEIGHT); 
 
-                String file = filePath.substring(filePath.lastIndexOf("/") +1);
-                myLevelSettings.setBackgroundImage("Background/" + file);
-            } 
-        }
+        myDesignArea.setBackground(backgroundImage); 
     }
 
-    public void setAvatar(){
-        String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
-        if(filePath!=null){
-            //Image newAvatar = new Image(filePath);
-            myDetailPane.setAvatar(filePath);
-        }   
-    }
+}
 
-    public void setMusic(){
-        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-        String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
-        myLevelSettings.setBackgroundMusic(file);
-    }
+public void setAvatar(){
+    String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
+    if(filePath!=null){
+        //Image newAvatar = new Image(filePath);
+        myDetailPane.setAvatar(filePath);
+    }   
+}
 
-    private String getFilePath(String fileType, String fileLocation){
-        FileOpener myFileOpener = new FileOpener();
-        File file =(myFileOpener.chooseFile(fileType, fileLocation));
-        if(file !=null){
-            return file.toURI().toString();
-        }
-        return null;
-    }
+public void setMusic(){
+    String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
+    String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
+    myLevelSettings.setBackgroundMusic(file);
+}
 
-    public Parent getRoot(){
-        return this.myRoot;
+private String getFilePath(String fileType, String fileLocation){
+    FileOpener myFileOpener = new FileOpener();
+    File file =(myFileOpener.chooseFile(fileType, fileLocation));
+    if(file !=null){
+        return file.toURI().toString();
     }
+    return null;
+}
 
-    @Override
-    public void saveLevelData () {
-        addGround();
-        closeLevelWindow.set(true);
-    }
+public Parent getRoot(){
+    return this.myRoot;
+}
 
-    //TODO: Change hardcoded value for ground values
-    private void addGround(){
-        GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
-        ground.setProperty("damage","30");
-        myLevelSettings.addGameObject(ground);
-    }
+@Override
+public void saveLevelData () {
+    addGround();
+    closeLevelWindow.set(true);
+}
 
-    public BooleanProperty getSaveLevelProperty(){
-        return this.closeLevelWindow;
-    }
+//TODO: Change hardcoded value for ground values
+private void addGround(){
+    GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
+    ground.setProperty("damage","30");
+    myLevelSettings.addGameObject(ground);
+}
 
-    public void setSaveProperty(Boolean bool){
-        closeLevelWindow.set(bool);
-    }
+public BooleanProperty getSaveLevelProperty(){
+    return this.closeLevelWindow;
+}
 
-    private String getUserDirectory(){
-        return System.getProperty("user.dir") + "/" ;
-    }
+public void setSaveProperty(Boolean bool){
+    closeLevelWindow.set(bool);
+}
+
+private String getUserDirectory(){
+    return System.getProperty("user.dir") + "/" ;
+}
 }

@@ -2,12 +2,13 @@ package objects;
 
 import java.util.HashMap;
 import java.util.Map;
+import objects.interfaces.IGame;
 
 /**
  * Created by Soravit on 11/18/2016.
  * @ author Soravit, pratiksha Sharma
  */
-public class Game {
+public class Game implements IGame{
 
 	private String name;
 	private Map<Integer, Level> levels;

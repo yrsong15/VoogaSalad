@@ -8,7 +8,6 @@ import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import objects.Game;
 
 import java.io.IOException;
@@ -99,7 +98,7 @@ public class MainController {
         String title = gameEditorController.getGameTitle();
         String gameFile = gameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
-        launchEngine(gameFile);
+        //launchEngine(gameFile);
     }
 
     public void editGame(){

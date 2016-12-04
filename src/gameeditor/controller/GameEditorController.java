@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import objects.Game;
 import objects.Level;
+import objects.interfaces.IGame;
 import objects.interfaces.ILevel;
 /**
  * @author pratikshasharma, Ray Song
@@ -29,6 +30,7 @@ public class GameEditorController implements IGameEditorController{
     private LevelManager myLevelManager;
     private Stage myLevelStage;
     private Parent myRoot;
+    private IGame myGameInterface;
 
     //TODO: move all hard-coded strings into a resource bundle
     public static final String DEFAULT_GAME_TITLE = "Untitled";
@@ -41,6 +43,7 @@ public class GameEditorController implements IGameEditorController{
             myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
         }else{
             myGameEditorBackEndController.setGame(game);
+            myGameInterface = (IGame) game;
         }
         myEditorLevels= new EditorLevels();
         myRoot = myEditorLevels.createRoot(myGameEditorBackEndController.getGame().getGameName());
@@ -108,11 +111,16 @@ public class GameEditorController implements IGameEditorController{
             myGameEditorView.setSaveProperty(false);
             addSaveLevelListener();
         } else{
-            Level level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
+            Level level;
+            if(myGameInterface!=null){
+                level = myGameInterface.getCurrentLevel(); 
+            }else {
+                level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
+            }
             ILevel levelInterface = (ILevel) level;
-            
+
             myLevelManager.createLevel(level);   
-            
+
             myGameEditorView = new GameEditorView(levelInterface);          
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
@@ -167,7 +175,6 @@ public class GameEditorController implements IGameEditorController{
 
     public void setOnLoadGame(EventHandler<MouseEvent> handler){
         if(myEditorLevels!=null){
-
             myEditorLevels.getLoadButton().setOnMouseClicked( handler);  
         }
     }
