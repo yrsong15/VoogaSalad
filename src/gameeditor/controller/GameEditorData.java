@@ -110,7 +110,7 @@ public class GameEditorData implements IGameEditorData{
 
         RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
 
-        myLevel.addRandomGeneration(randomGeneration); 
+        myLevel.addRandomGeneration(randomGeneration);
     }
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
@@ -125,7 +125,7 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void addControl(KeyCode key, String action){
-        myLevel.addControl(key, action);
+        myLevel.setControl(key, action);
     }
 
 
@@ -160,14 +160,6 @@ public class GameEditorData implements IGameEditorData{
         myLevel.addGameObject(mainCharacter);
         myLevel.setMainCharacter(mainCharacter);
     }
-
-
-    @Override
-    public void addScrollSpeed (String speed) {
-        //myLevel.addScrollSpeed(speed);
-        
-    }   
 }
-
 
 

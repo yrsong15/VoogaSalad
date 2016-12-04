@@ -11,7 +11,6 @@ public class Game {
 	private String name;
 	private Map<Integer, Level> levels;
 	private Level currentLevel;
-	private LevelSettings myGameSettings;
 
 	public Game(String name) {
 		levels = new HashMap<Integer,Level>();

@@ -1,11 +1,9 @@
 package gameeditor.view;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import com.sun.javafx.scene.traversal.Direction;
+
 import frontend.util.FileOpener;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
@@ -15,7 +13,6 @@ import gameeditor.view.interfaces.IToolbarParent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Parent;
-import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +20,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import objects.GameObject;
-import objects.ScrollType;
 import objects.interfaces.ILevel;
 
 
@@ -97,7 +93,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myDesignArea.setBackground(myHBox); 
             
             String file = filePath.substring(filePath.lastIndexOf("/") +1);
-            myLevelSettings.addBackgroundImage("Background/" + file);
+            myLevelSettings.setBackgroundImage("Background/" + file);
         } 
     }
 
@@ -114,7 +110,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public void setMusic(){
         String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
         String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
-        myLevelSettings.addBackgroundMusic(file);
+        myLevelSettings.setBackgroundMusic(file);
     }
 
     private String getFilePath(String fileType, String fileLocation){

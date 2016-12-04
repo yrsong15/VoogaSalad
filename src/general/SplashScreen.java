@@ -84,7 +84,7 @@ public class SplashScreen implements ISplashScreen {
     }
 
     public void launchGameEngine() {
-    	mainController.launchEngine("");
+        mainController.launchEngine("");
     }
 
     private void addButtons() {
