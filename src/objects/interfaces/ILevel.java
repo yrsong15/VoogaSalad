@@ -2,7 +2,6 @@ package objects.interfaces;
 
 import javafx.scene.input.KeyCode;
 import objects.GameObject;
-import objects.LevelSettings;
 import objects.RandomGeneration;
 import objects.ScrollType;
 import objects.interfaces.ILevel;
@@ -49,9 +48,6 @@ public interface ILevel {
 	public void setTime(double time);
 	
 	public List<GameObject> getGameObjects();
-	
-	public LevelSettings getViewSettings();
-	public void setViewSettings(LevelSettings viewSettings);
 	
 	public void addControl(KeyCode key, String action);
 	
