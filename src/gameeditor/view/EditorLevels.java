@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,7 +28,7 @@ import javafx.scene.layout.VBox;
 
 public class EditorLevels implements IEditorLevels{
     // TODO Add values to the resources file
-   
+
     private VBox myVBox;
     private Button newLevelButton;
     private List<Button> myLevels;
@@ -38,13 +37,14 @@ public class EditorLevels implements IEditorLevels{
     private SimpleStringProperty myGameTitle;
     private NodeFactory myFactory;
     private Group root;
+    private Button saveGameButton;
 
     public EditorLevels(){
         myActiveButtonId = new SimpleStringProperty(null);
         myGameTitle = new SimpleStringProperty(null);
         this.myFactory = new NodeFactory();
     }
-    
+
     public Parent createRoot(){
         root = new Group();
         myVBox = new VBox(20);
@@ -57,7 +57,7 @@ public class EditorLevels implements IEditorLevels{
         root.getChildren().add(background);
 
         ScrollPane myPane = new ScrollPane();
-        
+
         myPane.setMaxSize(ADD_LEVELS_WIDTH,ADD_LEVELS_HEIGHT);
         myPane.setPrefSize(ADD_LEVELS_WIDTH, ADD_LEVELS_HEIGHT);
         myPane.setLayoutX(LEVEL_PANE_X_POSITION);
@@ -65,24 +65,22 @@ public class EditorLevels implements IEditorLevels{
         myPane.setOpacity(0.5);
         myPane.setOnMouseEntered(e -> myPane.setOpacity(0.8));
         myPane.setOnMouseExited(e -> myPane.setOpacity(0.5));
-        
-        addButton();
+
+        addButtons();
         myPane.setContent(myVBox);
-        
-        root.getChildren().addAll(myPane,newLevelButton,addGameTitle(),loadGameButton);
+
+        root.getChildren().addAll(myPane,newLevelButton,addGameTitle(),loadGameButton,saveGameButton);
         return root; 
     }
-    
+
     private HBox addGameTitle(){
         Label gameLabel = new Label("Game Title: ");
         TextField myGameName = new TextField();
+        myGameName.setOnMouseExited(e->addGameTitleListener(myGameName));
         HBox myHBox = new HBox(40);
         myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
         myHBox.setLayoutY(LEVEL_PANE_Y_POSITION/2);
-        ButtonTemplate submitButton = new ButtonTemplate("SubmitCommand",0,0);
-        submitButton.setOnButtonAction(e-> addGameTitleListener(myGameName));
-        addGameTitleListener(myGameName);
-        myHBox.getChildren().addAll(gameLabel,myGameName,submitButton.getButton()); 
+        myHBox.getChildren().addAll(gameLabel,myGameName); 
         return myHBox;
     }
 
@@ -91,17 +89,22 @@ public class EditorLevels implements IEditorLevels{
             myGameTitle.set(myGameName.getText());
         }
     }
-    
-    private void addButton(){
+
+    private void addButtons(){
         newLevelButton = getButton("LevelCommand", LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6);
         loadGameButton = getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2.5,LEVEL_PANE_Y_POSITION*6);
+        saveGameButton = new Button(SAVE_LABEL);
+        
+        saveGameButton.setLayoutX(LEVEL_PANE_X_POSITION*2);
+        saveGameButton.setLayoutY(LEVEL_PANE_Y_POSITION*6);
+        
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/AddLevelIcon.png";
         ImageView newLevelIcon = new ImageView(new Image(userDirectoryString));
+
         
         newLevelIcon.setFitHeight(BUTTON_ICON_PROPORTION);
         newLevelIcon.setFitWidth(BUTTON_ICON_PROPORTION);
-        
-        
+
         newLevelButton.setGraphic(newLevelIcon);
 
         newLevelButton.setOnAction(e -> addNewLevel());
@@ -129,29 +132,34 @@ public class EditorLevels implements IEditorLevels{
             myActiveButtonId.set(l.getId());
         }   
     }
-    
+
     private Button getButton(String property, double xposition, double yposition){
         ButtonTemplate myButton = new ButtonTemplate(property, xposition, yposition);
         return myButton.getButton();
     }
+
     private void updateActiveButtonIdAndHandler(EventHandler<MouseEvent> handler, Button b){
         myActiveButtonId.set(b.getId());
         b.setOnMouseClicked(handler);   
     }
-    
+
     public SimpleStringProperty getActiveLevelButtonID(){
         return myActiveButtonId;
     }
-    
+
     public SimpleStringProperty getGameTitle(){
         return myGameTitle;
     }
-    
+
     public Button getLoadButton(){
         return this.loadGameButton;
     }  
-    
+
     public Parent getRoot(){
         return this.root;
+    }
+
+    public void setOnSaveGame(EventHandler<MouseEvent> handler){
+        saveGameButton.setOnMouseClicked(handler);
     }
 }

@@ -106,6 +106,7 @@ public class MainController {
         String title = myGameEditorController.getGameTitle();
         String gameFile = myGameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
+        
         launchEngine(gameFile);
     }
 }

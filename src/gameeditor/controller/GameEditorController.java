@@ -2,6 +2,7 @@ package gameeditor.controller;
 
 import javafx.scene.input.MouseEvent;
 import java.util.HashMap;
+import frontend.util.FileOpener;
 import gameeditor.controller.interfaces.IGameEditorController;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
@@ -41,9 +42,16 @@ public class GameEditorController implements IGameEditorController{
         myEditorLevels= new EditorLevels();
         myRoot = myEditorLevels.createRoot();
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
+        myEditorLevels.setOnSaveGame(e-> saveGameToFile());
         addGameTitleListener();
         displayInitialStage(); 
         addActiveLevelButtonListener();
+        
+    }
+    
+    private void saveGameToFile(){
+        FileOpener chooser = new FileOpener();
+        chooser.saveFile("XML", "data", getGameFile());
     }
     
     private void displayInitialStage(){  
@@ -138,7 +146,8 @@ public class GameEditorController implements IGameEditorController{
     }
     
     public String getGameFile(){
-         System.out.println (myGameEditorBackEndController.serializeGame());
+        //System.out.println (myGameEditorBackEndController.serializeGame());
+        
         return myGameEditorBackEndController.serializeGame();
     }
     
@@ -149,11 +158,14 @@ public class GameEditorController implements IGameEditorController{
     
     public void setOnLoadGame(EventHandler<MouseEvent> handler){
         if(myEditorLevels!=null){
+        
         myEditorLevels.getLoadButton().setOnMouseClicked( handler);  
         }
     }
-    
+ 
     public String getGameTitle(){
         return myEditorLevels.getGameTitle().get();
     }
+    
+
 }
