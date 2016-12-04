@@ -101,10 +101,9 @@ public class MainController {
 
     private void setUpGameEngineStage(){
         gameEngineStage = new Stage();
-        gameEngineStage.setOnCloseRequest(event -> gameEngineStage.close());
-        gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
+        gameEngineStage.setOnCloseRequest(event -> gameEngineController.reset());
     }
 
     private void sendDataToEngine() {

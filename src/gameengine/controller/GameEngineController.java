@@ -18,8 +18,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.*;
 
-import javax.swing.*;
-
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
  *         Moon
