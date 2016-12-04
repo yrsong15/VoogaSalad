@@ -77,7 +77,9 @@ public class GameEngineUI {
         if(level.getBackgroundFilePath() != null){
             setBackgroundImage(level.getBackgroundFilePath());
         }
+        gameScreen.reset();
         gameScreen.init(level);
+        myHUD.resetTimer();
 	}
 
 	public ScrollerController getScrollerController() {
@@ -119,7 +121,6 @@ public class GameEngineUI {
 
 	public void setBackgroundImage(String imageFile) {
 		try {
-			System.out.println("wtf");
 			gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
