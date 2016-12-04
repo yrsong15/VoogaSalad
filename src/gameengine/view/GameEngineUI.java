@@ -89,7 +89,7 @@ public class GameEngineUI {
 	}
 	
 	public double getScreenHeight() {
-		return gameScreen.screenHeight;
+		return gameScreen.getScreenHeight();
 	}
 	
 	public double getScreenWidth() {		
@@ -119,6 +119,7 @@ public class GameEngineUI {
 
 	public void setBackgroundImage(String imageFile) {
 		try {
+			System.out.println("wtf");
 			gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
@@ -139,6 +140,7 @@ public class GameEngineUI {
 
 	public void resetGameScreen(){
         gameScreen.reset();
+        myHUD.resetTimer();
     }
 
     public void removeObject(GameObject object){
