@@ -11,6 +11,8 @@ import java.util.*;
 
 public interface ILevel {
 
+    public void setScrollType(ScrollType scrollType);
+    
     public int getLevel();
 
     public void setLevel(int level) ;

@@ -11,7 +11,7 @@ public class MainController {
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
     private static final String GALLERY_STAGE_TITLE = "Game Gallery";
-    private Stage galleryStage, editorSplashStqage, gameEditorStage, gameEngineStage;
+    private Stage galleryStage, editorSplashStage, gameEditorStage, gameEngineStage;
     private Gallery gallery;
     private GalleryView galleryView;
     private GameEditorController gameEditorController;
@@ -19,9 +19,8 @@ public class MainController {
     private EditorSplash editorSplash;
 
     public MainController(Stage stage) throws IOException {
-        this.mainStage = stage;
-        this.myGallery = new Gallery();
-        Scene scene = new Scene(new SplashScreen(myGallery, this).setUpWindow());
+        this.gallery = new Gallery();
+        Scene scene = new Scene(new SplashScreen(gallery, this).setUpWindow());
         scene.getStylesheets().add(STYLESHEET);
         stage.setScene(scene);
         stage.setTitle(GAME_TITLE);
