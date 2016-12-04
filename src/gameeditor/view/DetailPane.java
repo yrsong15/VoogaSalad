@@ -38,6 +38,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private ScrollPane myDetailPane;
     private IGameEditorData myDataStore;
     private IDesignArea myDesignArea;
+    private ImageView myTempImageView;
     
     private boolean mainCharPropActive = false;
     private Button myCharPropertiesButton;
@@ -128,12 +129,12 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public void setDetail(String paneType) {
         String className = "gameeditor.commanddetails." + paneType + "Detail";
         myPane.getChildren().remove(myDetailPane);
-        AbstractCommandDetail detailPane = new DetailFactory().create(className, myDataStore, myDesignArea);
+        AbstractCommandDetail detailPane = new DetailFactory().create(className, myDataStore, myDesignArea, this);
         myDetailPane = detailPane.getPane();
         myPane.getChildren().add(myDetailPane);
     }
     
     private void removeDetail(){
     	myPane.getChildren().remove(myDetailPane);
-    }  
+    }
 }

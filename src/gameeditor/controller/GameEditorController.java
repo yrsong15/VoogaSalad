@@ -9,6 +9,7 @@ import gameengine.view.GameEngineUI;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,6 +32,7 @@ public class GameEditorController implements IGameEditorFrontEndController{
     private LevelManager myLevelManager;
     private boolean isInitialStage;
     private Stage myLevelStage;
+    private Parent myRoot;
     
     //TODO: move all hard-coded strings into a resource bundle
     public static final String DEFAULT_GAME_TITLE = "Untitled";
@@ -43,19 +45,19 @@ public class GameEditorController implements IGameEditorFrontEndController{
         myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
          
         myEditorLevels= new EditorLevels();
-        Parent parent = myEditorLevels.createRoot();
+        myRoot = myEditorLevels.createRoot();
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
         addGameTitleListener();
-        displayInitialStage(parent); 
+        displayInitialStage(); 
+        addActiveLevelButtonListener();
     }
     
-    private void displayInitialStage(Parent parent){  
+    private void displayInitialStage(){  
         myLevelStage = new Stage();
-        Scene scene = new Scene(parent, GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
-        myLevelStage.setScene(scene);
+        myLevelScene = new Scene(myRoot, GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
+        myLevelStage.setScene(myLevelScene);
         isInitialStage = true;
         myLevelStage.show();  
-        addSaveLevelListener( myLevelStage);
     }
     
     
@@ -92,42 +94,36 @@ public class GameEditorController implements IGameEditorFrontEndController{
         if(myLevelEditorMap.containsKey(activeButtonId)){
             myGameEditorView=myLevelEditorMap.get(activeButtonId);
             setSavedLevelRoot();
+            myGameEditorView.setSaveProperty(false);
+            addSaveLevelListener();
         } else{
             Level level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             ILevel levelInterface = (ILevel) level;
-            myLevelManager.createLevel(level);
-            myGameEditorView = new GameEditorView(levelInterface);
-            
-            myLevelEditorMap.put(activeButtonId, myGameEditorView);  
-            
-            setNewLevelSceneRoot();
-   
+            myLevelManager.createLevel(level);         
+            myGameEditorView = new GameEditorView(levelInterface);          
+            myLevelEditorMap.put(activeButtonId, myGameEditorView);             
+            setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);
-       
             myGameEditorBackEndController.addCurrentLevelToGame();  
-        }
-        displayInitialStage(null);
+            addSaveLevelListener();
+        }     
     }
     
-   
-  
-    private void addSaveLevelListener(Stage myLevelStage){
+    private void addSaveLevelListener(){
         myGameEditorView.getSaveLevelProperty().addListener(new ChangeListener<Boolean>(){
             @Override
             public void changed (ObservableValue<? extends Boolean> observable,
                                  Boolean oldValue,
                                  Boolean newValue) {
                 if(newValue.booleanValue()==true){
-                    myLevelStage.close();
+                  myLevelScene.setRoot(myEditorLevels.getRoot());
                 }
             }   
         });
     }
     
     private void setNewLevelSceneRoot(){
-        if(myLevelScene!=null){
-       myLevelScene.setRoot(myGameEditorView.createRoot());
-        }
+       myLevelScene.setRoot(myGameEditorView.createRoot());     
     } 
     
     public String getGameFile(){

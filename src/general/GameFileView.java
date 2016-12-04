@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -21,6 +22,7 @@ public class GameFileView implements IGameFileView
 	private Rectangle gameView;
 	private Paint gameViewColor;
 	private boolean isSelected;
+	private NodeFactory myFactory = new NodeFactory();
 
 	public GameFileView(GameFile gameFile)
 	{
@@ -90,7 +92,7 @@ public class GameFileView implements IGameFileView
 		Label name = new Label(gameFile.getGameName());
 		name.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 		double rectWidth = name.getText().length() * name.getFont().getSize();
-		Rectangle rect = new Rectangle(rectWidth, 100);
+		Rectangle rect = new Rectangle(rectWidth, 85);
 		int randVal = (int)(Math.random() * 3);
 		if(randVal == 0)
 		{
@@ -106,6 +108,8 @@ public class GameFileView implements IGameFileView
 		}
 		gameViewColor = rect.getFill();
 		gameView = rect;
+		Tooltip Trect = myFactory.makeTooltip("GalleryItem");
+		Tooltip.install(rect, Trect);
 		view.getChildren().add(gameView);
 		
 		view.getChildren().add(name);

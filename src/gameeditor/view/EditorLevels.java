@@ -40,6 +40,7 @@ public class EditorLevels implements IEditorLevels{
     private Button loadGameButton;
     private SimpleStringProperty myGameTitle;
     private NodeFactory myFactory;
+    private Group root;
 
     public EditorLevels(){
         myActiveButtonId = new SimpleStringProperty(null);
@@ -48,7 +49,7 @@ public class EditorLevels implements IEditorLevels{
     }
     
     public Parent createRoot(){
-        Group root = new Group();
+        root = new Group();
         myVBox = new VBox(20);
         myLevels = new ArrayList<Button>();
 
@@ -150,5 +151,9 @@ public class EditorLevels implements IEditorLevels{
     
     public Button getLoadButton(){
         return this.loadGameButton;
-    }   
+    }  
+    
+    public Parent getRoot(){
+        return this.root;
+    }
 }

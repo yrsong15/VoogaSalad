@@ -7,7 +7,6 @@ import java.util.Map;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameengine.view.GameEngineUI;
 import gameengine.view.GameScreen;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -60,20 +59,19 @@ public class GameEditorData implements IGameEditorData{
     }
 
 
-    // Adds Game Object TO level 
-    //TODO: Rmeove hardcoding of String values
-
+    // Adds Game Object TO level
     public void addGameObjectToLevel(Map<String,String> myGameObjMap, List<TextArea> myRandomGenerationParameters){       
-        double xpos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.X_POSITION_KEY));
-        double ypos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.Y_POSITION_KEY));
-        double width = Double.parseDouble(myGameObjMap.get(CreateObjectDetail.SPRITE_WIDTH_KEY));
-        double height = Double.parseDouble(myGameObjMap.get(CreateObjectDetail.SPRITE_HEIGHT_KEY));
+        // TODO: Remove hardcoded default values in the next 8 lines
+    	double xpos =  Double.parseDouble(myGameObjMap.get(0));
+        double ypos =  Double.parseDouble(myGameObjMap.get(0));
+        double width = Double.parseDouble(myGameObjMap.get(50));
+        double height = Double.parseDouble(myGameObjMap.get(50));
 
         // remove position values and size values from map
-        myGameObjMap.remove(CreateObjectDetail.X_POSITION_KEY);
-        myGameObjMap.remove(CreateObjectDetail.Y_POSITION_KEY);
-        myGameObjMap.remove(CreateObjectDetail.SPRITE_WIDTH_KEY);
-        myGameObjMap.remove(CreateObjectDetail.SPRITE_HEIGHT_KEY);
+        myGameObjMap.remove(0);
+        myGameObjMap.remove(0);
+        myGameObjMap.remove(50);
+        myGameObjMap.remove(50);
 
         Map<String,String> properties = getPropertiesMap(myGameObjMap);
 

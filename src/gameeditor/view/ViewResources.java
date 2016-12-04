@@ -65,6 +65,9 @@ public enum ViewResources {
 		AREA_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
 		AREA_HEIGHT(ViewResources.SCENE_HEIGHT.getDoubleResource() - ViewResources.TOOLBAR_HEIGHT.getDoubleResource()),
 		
+		// Design Area
+		BACKGROUND_IMAGE_ID("background")
+		
 		
 		
 		;

@@ -6,6 +6,7 @@ import gameeditor.objects.GameObject;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public interface IDesignArea {
@@ -25,7 +26,7 @@ public interface IDesignArea {
     
     public void removeSprite(GameObject gameObject);
     
-    public void setBackground(HBox bg);
+    public void setBackground(ImageView bg);
     
     public void enableClick(ISelectDetail sd);
     
@@ -38,5 +39,9 @@ public interface IDesignArea {
     public void addBoundingBox(BoundingBox bb);
     
     public void removeBoundingBox(BoundingBox bb);
+    
+    public void addDragIn(ImageView tempIV);
+
+	void removeDragIn(ImageView tempIV);
 
 }
