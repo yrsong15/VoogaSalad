@@ -46,4 +46,8 @@ public class Game implements IGame{
 	public String getGameName(){
 	    return this.name;
 	}
+	
+	public Level getLevelByIndex(int index){
+	    return levels.get(index);
+	}
 }

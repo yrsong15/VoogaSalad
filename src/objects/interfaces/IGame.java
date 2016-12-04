@@ -2,9 +2,7 @@ package objects.interfaces;
 
 import objects.Level;
 /**
- * 
  * @author pratikshasharma
- *
  */
 
 public interface IGame {
@@ -15,5 +13,6 @@ public interface IGame {
     public void setGameName(String name);
     public int getNumberOfLevels();
     public String getGameName();
+    public Level getLevelByIndex(int index);
     
 }

@@ -1,11 +1,19 @@
 <objects.Game>
-  <name>Untitled</name>
+  <name>Flappy Bird</name>
   <levels>
     <entry>
       <int>1</int>
       <objects.Level>
         <level>1</level>
         <gameObjects>
+          <objects.GameObject>
+            <xPosition>20.0</xPosition>
+            <yPosition>20.0</yPosition>
+            <width>50.0</width>
+            <height>50.0</height>
+            <imageFileName>bird3.png</imageFileName>
+            <properties/>
+          </objects.GameObject>
           <objects.GameObject>
             <xPosition>0.0</xPosition>
             <yPosition>600.0</yPosition>
@@ -23,8 +31,10 @@
         <loseConditions/>
         <gameConditions/>
         <controls/>
-        <backgroundFilePath>Background/bg.png</backgroundFilePath>
+        <musicFilePath>FlappyBirdThemeSong.mp3</musicFilePath>
+        <backgroundFilePath>Background/bg2.jpg</backgroundFilePath>
         <randomGenerations/>
+        <mainCharacter reference="../gameObjects/objects.GameObject"/>
       </objects.Level>
     </entry>
     <entry>
@@ -33,6 +43,14 @@
         <level>2</level>
         <gameObjects>
           <objects.GameObject>
+            <xPosition>20.0</xPosition>
+            <yPosition>20.0</yPosition>
+            <width>50.0</width>
+            <height>50.0</height>
+            <imageFileName>bird4.gif</imageFileName>
+            <properties/>
+          </objects.GameObject>
+          <objects.GameObject>
             <xPosition>0.0</xPosition>
             <yPosition>600.0</yPosition>
             <width>1000000.0</width>
@@ -49,8 +67,9 @@
         <loseConditions/>
         <gameConditions/>
         <controls/>
-        <backgroundFilePath>Background/bg.png</backgroundFilePath>
+        <backgroundFilePath>Background/mario-background-7.png</backgroundFilePath>
         <randomGenerations/>
+        <mainCharacter reference="../gameObjects/objects.GameObject"/>
       </objects.Level>
     </entry>
   </levels>

@@ -113,7 +113,7 @@ public class GameEditorController implements IGameEditorController{
         } else{
             Level level;
             if(myGameInterface!=null){
-                level = myGameInterface.getCurrentLevel(); 
+                level = myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1);
             }else {
                 level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             }

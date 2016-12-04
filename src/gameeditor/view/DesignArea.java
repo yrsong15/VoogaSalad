@@ -86,7 +86,6 @@ public class DesignArea implements IDesignArea {
             }
         }
         
-         
         bg.setLayoutX(0);
         bg.setLayoutY(0);
 
