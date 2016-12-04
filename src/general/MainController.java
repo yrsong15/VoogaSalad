@@ -67,8 +67,9 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-        setUpGameEngineStage();
-        gameEngineController.startGame(XMLData);
+        if(gameEngineController.startGame(XMLData) == true){
+            setUpGameEngineStage();
+        };
     }
 
     private void setUpGameEngineStage(){

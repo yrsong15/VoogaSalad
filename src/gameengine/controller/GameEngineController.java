@@ -13,14 +13,17 @@ import gameengine.view.HighScoreScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.*;
 
+import javax.swing.*;
+
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
  *         Moon
- *
  */
 
 public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface {
@@ -54,9 +57,16 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         return gameEngineView.getScene();
     }
 
-	public void startGame(String xmlData) {
+	public boolean startGame(String xmlData) {
         this.xmlData = xmlData;
 		currentGame = parser.convertXMLtoGame(xmlData);
+        if(currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getMainCharacter() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Cannot start game.");
+            alert.setContentText("You must create a level with a main character to start a game.");
+            alert.showAndWait();
+            return false;
+        }
 		movementController.setGame(currentGame);
         gameEngineView.initLevel(currentGame.getCurrentLevel());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
@@ -73,6 +83,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
+        return true;
 	}
 
 	/**

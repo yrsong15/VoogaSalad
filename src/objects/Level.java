@@ -11,7 +11,7 @@ import gameengine.view.GameEngineUI;
  * Created by Soravit on 11/18/2016.
  * @author : Soravit, Pratiksha
  */
-public class Level {
+public class Level implements ILevel{
 
 	private int level;
 	private List<GameObject> gameObjects;
@@ -148,16 +148,23 @@ public class Level {
 		return controls;
 	}
 
-    public void setMusicFile(String musicFilePath){
+    @Override
+    public void setBackgroundImage(String filePath) {
+        this.backgroundFilePath = backgroundFilePath;
+    }
+
+    @Override
+    public void setBackgroundMusic(String musicFilePath) {
         this.musicFilePath = musicFilePath;
+    }
+
+    @Override
+    public void addScrollWidth(double scrollWidth) {
+
     }
 
     public String getMusicFilePath(){
         return musicFilePath;
-    }
-
-    public void setBackgroundFilePath(String backgroundFilePath){
-        this.backgroundFilePath = backgroundFilePath;
     }
 
     public String getBackgroundFilePath(){

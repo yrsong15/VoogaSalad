@@ -62,7 +62,7 @@ public class GameEditorData implements IGameEditorData{
     // Adds Game Object TO level 
     //TODO: Rmeove hardcoding of String values
 
-    public void addGameObjectToLevel(Map<String,String> myGameObjMap, List<TextArea> myRandomGenerationParameters){       
+    public void addGameObjectToLevel(Map<String,String> myGameObjMap, List<TextArea> myRandomGenerationParameters){
         double xpos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.X_POSITION_KEY));
         double ypos =  Double.parseDouble(myGameObjMap.get(CreateObjectDetail.Y_POSITION_KEY));
         double width = Double.parseDouble(myGameObjMap.get(CreateObjectDetail.SPRITE_WIDTH_KEY));
@@ -75,7 +75,7 @@ public class GameEditorData implements IGameEditorData{
         myGameObjMap.remove(CreateObjectDetail.SPRITE_HEIGHT_KEY);
 
         Map<String,String> properties = getPropertiesMap(myGameObjMap);
-        
+
 
         String imagePath = myGameObjMap.get("Image Path");
 
@@ -111,22 +111,20 @@ public class GameEditorData implements IGameEditorData{
 
         RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
 
-        myLevel.addRandomGeneration(randomGeneration); 
+        myLevel.addRandomGeneration(randomGeneration);
     }
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
-
-                    properties.put(k, v);
-
+            properties.put(k, v);
         });
         return properties;
     }
 
 
     public void addControl(KeyCode key, String action){
-        myLevel.addControl(key, action);
+        myLevel.setControl(key, action);
     }
 
 
@@ -148,7 +146,7 @@ public class GameEditorData implements IGameEditorData{
         GameObject mainCharacter = new GameObject(xpos,ypos,MAIN_CHAR_WIDTH,MAIN_CHAR_HEIGHT,this.mainCharacterImageFilePath,properties);
         myLevel.addGameObject(mainCharacter);
         myLevel.setMainCharacter(mainCharacter);
-    }   
+    }
 }
 
 

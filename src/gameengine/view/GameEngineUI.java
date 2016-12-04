@@ -32,7 +32,7 @@ import objects.Level;
 import utils.ResourceReader;
 
 /**
- * @author Noel Moon (nm142)
+ * @author Noel Moon (nm142), Soravit
  *
  */
 public class GameEngineUI {
