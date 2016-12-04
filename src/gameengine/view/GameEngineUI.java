@@ -179,7 +179,7 @@ public class GameEngineUI {
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), myResetEvent, event -> mute());
+		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, event -> mute());
 		return toolbar.getToolbar();
 	}
 	
