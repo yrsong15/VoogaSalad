@@ -53,7 +53,7 @@ public class MainController {
     }
     private void addNewGameFile(String title, String gameData)
     {
-        GameFile newGame = new GameFile(title,gameData);
+        GameFile newGame = new GameFile(title, gameData);
         myGallery.addToGallery(newGame);
     }
 
@@ -100,7 +100,7 @@ public class MainController {
     private void sendDataToEngine() {
         String title = myGameEditorController.getGameTitle();
         String gameFile = myGameEditorController.getGameFile();
-        addNewGameFile(title,gameFile);
+        addNewGameFile(title, gameFile);
         launchEngine(gameFile);
     }
 }
