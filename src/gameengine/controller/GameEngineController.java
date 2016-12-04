@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.*;
+import utils.ReflectionUtil;
 
 import javax.swing.*;
 
@@ -99,7 +100,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 			InvocationTargetException, IllegalAccessException, NoSuchMethodException, SecurityException {
 		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
 		gameScrolling.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
-        if(currentGame.getCurrentLevel().getScrollType().getScrollType().equals("ForcedScrolling")) {
+        if(currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
             removeOffscreenElements();
         }
 		gameEngineView.update(currentGame.getCurrentLevel());
@@ -200,29 +201,14 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	
 	private void setScrolling(){
 		ScrollType gameScroll = currentGame.getCurrentLevel().getScrollType();
-		Class<?> cl = null;
+		String classPath = "gameengine.scrolling." + gameScroll.getScrollTypeName();
+		Object[] parameters = new Object[]{gameScroll.getDirections().get(0), gameScroll.getScrollSpeed(), 
+											gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight()};
+		Class<?>[] parameterTypes = new Class<?>[]{Direction.class, double.class, double.class, double.class};
 		try {
-			cl = Class.forName("gameengine.scrolling." + gameScroll.getScrollType());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Constructor<?> cons = null;
-		try {
-			cons = cl.getConstructor(Direction.class, double.class, double.class, double.class);
-		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
- 			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), 
- 					 
- 						gameScroll.getScrollSpeed(),
- 
- 						gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight()); 
-
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
+			gameScrolling = (Scrolling) ReflectionUtil.getInstance(classPath, parameters, parameterTypes);
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
