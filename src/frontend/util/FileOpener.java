@@ -39,11 +39,11 @@ public class FileOpener implements IFileOpener {
 
         }else if(fileType.equals(IEditorLevels.XML_FILE_TYPE)){
             myFileChooser.getExtensionFilters().addAll(
-                                                       new FileChooser.ExtensionFilter("XML Files", "*.*"), 
                                                        new FileChooser.ExtensionFilter("XML", "*.xml"));
-
-        }
-    }
+        }else{
+                // do nothing
+            }
+}
 
     private void setUpFileChooser(String fileType, String fileLocation){
         myStage = new Stage();
@@ -56,8 +56,9 @@ public class FileOpener implements IFileOpener {
 
 
     @Override
-    public void saveFile (String fileType, String fileLocation, String data) {
+    public void saveFile (String fileType, String fileLocation, String data, String defaultFileName) {
         setUpFileChooser( fileType, fileLocation);
+        fileChooser.setInitialFileName(defaultFileName);
         File file = fileChooser.showSaveDialog(myStage);
         try {
             FileWriter fileWriter = new FileWriter(file);

@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * Created by Soravit on 11/18/2016.
+ * @ author Soravit, pratiksha Sharma
  */
 public class Game {
 
@@ -36,5 +37,13 @@ public class Game {
 	
 	public void setGameName(String name){
 	    this.name = name;
+	}
+	
+	public int getNumberOfLevels(){
+	   return levels.size();
+	}
+	
+	public String getGameName(){
+	    return this.name;
 	}
 }

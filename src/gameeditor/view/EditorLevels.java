@@ -21,9 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * 
  * @author pratikshasharma
- *
  */
 
 public class EditorLevels implements IEditorLevels{
@@ -38,6 +36,8 @@ public class EditorLevels implements IEditorLevels{
     private NodeFactory myFactory;
     private Group root;
     private Button saveGameButton;
+    
+    private Button testEditButton;
 
     public EditorLevels(){
         myActiveButtonId = new SimpleStringProperty(null);
@@ -45,7 +45,7 @@ public class EditorLevels implements IEditorLevels{
         this.myFactory = new NodeFactory();
     }
 
-    public Parent createRoot(){
+    public Parent createRoot(String gameName){
         root = new Group();
         myVBox = new VBox(20);
         myLevels = new ArrayList<Button>();
@@ -53,11 +53,8 @@ public class EditorLevels implements IEditorLevels{
         ImageView background = myFactory.makeBackgroundImage("Space");
         background.setFitWidth(SplashScreen.SPLASH_WIDTH);
         background.setFitHeight(SplashScreen.SPLASH_HEIGHT);
-
         root.getChildren().add(background);
-
         ScrollPane myPane = new ScrollPane();
-
         myPane.setMaxSize(ADD_LEVELS_WIDTH,ADD_LEVELS_HEIGHT);
         myPane.setPrefSize(ADD_LEVELS_WIDTH, ADD_LEVELS_HEIGHT);
         myPane.setLayoutX(LEVEL_PANE_X_POSITION);
@@ -69,13 +66,13 @@ public class EditorLevels implements IEditorLevels{
         addButtons();
         myPane.setContent(myVBox);
 
-        root.getChildren().addAll(myPane,newLevelButton,addGameTitle(),loadGameButton,saveGameButton);
+        root.getChildren().addAll(myPane,newLevelButton,addGameTitle(gameName),loadGameButton,saveGameButton);
         return root; 
     }
 
-    private HBox addGameTitle(){
+    private HBox addGameTitle(String gameName){
         Label gameLabel = new Label("Game Title: ");
-        TextField myGameName = new TextField();
+        TextField myGameName = new TextField(gameName);
         myGameName.setOnMouseExited(e->addGameTitleListener(myGameName));
         HBox myHBox = new HBox(40);
         myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
