@@ -73,8 +73,9 @@ public class MainController {
         //myGameEditorStage.setScene(scene);
         //scene.getStylesheets().add("gameEditorSplash.css");
        // myGameEditorStage.show();
-        //myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
         myGameEditorController.startEditor();
+        myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        
     }
     
     

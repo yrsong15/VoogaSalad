@@ -29,10 +29,7 @@ import javafx.scene.layout.VBox;
 
 public class EditorLevels implements IEditorLevels{
     // TODO Add values to the resources file
-    
-
-
-    
+   
     private VBox myVBox;
     private Button newLevelButton;
     private List<Button> myLevels;
@@ -103,6 +100,7 @@ public class EditorLevels implements IEditorLevels{
         
         newLevelIcon.setFitHeight(BUTTON_ICON_PROPORTION);
         newLevelIcon.setFitWidth(BUTTON_ICON_PROPORTION);
+        
         
         newLevelButton.setGraphic(newLevelIcon);
 

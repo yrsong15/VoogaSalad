@@ -16,7 +16,7 @@ public enum ViewResources {
 		SPRITE_IMAGE_LOCATION("images/Sprite"),
 		AVATAR_IMAGE_LOCATION("images/Sprite"),
 		SCENE_WIDTH(1200),
-		SCENE_HEIGHT(600),
+		SCENE_HEIGHT(620),
 		
 		// Detail Pane
 		DETAIL_PANE_BG(Color.SLATEGREY),
@@ -67,8 +67,6 @@ public enum ViewResources {
 		
 		// Design Area
 		BACKGROUND_IMAGE_ID("background")
-		
-		
 		
 		;
 	
