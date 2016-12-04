@@ -21,8 +21,6 @@ import javafx.util.Duration;
 import objects.*;
 import utils.ReflectionUtil;
 
-import javax.swing.*;
-
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
  *         Moon

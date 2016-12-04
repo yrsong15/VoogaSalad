@@ -89,6 +89,7 @@ public class MainController {
         Level level = new Level(1);
         ScrollType scrollType = new ScrollType("ForcedScrolling");
         scrollType.addScrollDirection(Direction.RIGHT);
+        scrollType.setScrollSpeed(30);
         level.setScrollType(scrollType);
         level.setBackgroundImage("bg.png");
         game.setCurrentLevel(level);
@@ -101,10 +102,9 @@ public class MainController {
 
     private void setUpGameEngineStage(){
         gameEngineStage = new Stage();
-        gameEngineStage.setOnCloseRequest(event -> gameEngineStage.close());
-        gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
+        gameEngineStage.setOnCloseRequest(event -> gameEngineController.reset());
     }
 
     private void sendDataToEngine() {
