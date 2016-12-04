@@ -14,6 +14,8 @@ import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IToolbarParent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.ScrollPane;
@@ -41,14 +43,14 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
     private BooleanProperty closeLevelWindow;
-    
+
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     public static final String SCORE_PROPERTY="score";
-    
-    
+
+
 
     public GameEditorView(ILevel levelSettings){
-       this.myLevelSettings = levelSettings;
+        this.myLevelSettings = levelSettings;
         myRoot = new BorderPane();  
         closeLevelWindow = new SimpleBooleanProperty(false);
     }
@@ -56,15 +58,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public Parent createRoot(){
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
-        
         //addScrollType();
-        
         return myRoot;
-        
-        
     }
 
     private HBox createLeftAlt(){
+
         DetailPane dp = new DetailPane(myDesignArea, myLevelSettings);
         myDetailPane = dp;
         myCommandPane = new CommandPane(dp);
@@ -86,15 +85,18 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
 
     public void setBackground(){
-        HBox myHBox = new HBox();
+        //HBox myHBox = new HBox();
         String filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
         if(filePath!=null){
-            ImageView backgroundImage = new ImageView(new Image(filePath));
-            backgroundImage.setFitHeight(SCENE_HEIGHT);
-            backgroundImage.setFitWidth(SCENE_WIDTH);
-            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
-            myHBox.getChildren().add(backgroundImage);        
-            myDesignArea.setBackground(myHBox); 
+            ImageView backgroundImage = new ImageView(new Image(filePath));          
+            backgroundImage.setFitHeight(0.85*SCENE_HEIGHT);
+            backgroundImage.setFitWidth(0.75*SCENE_WIDTH);
+            backgroundImage.setId(BACKGROUND_IMAGE_ID);
+            
+            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, 0.85*SCENE_HEIGHT); 
+            
+            //myHBox.getChildren().add(backgroundImage); 
+            myDesignArea.setBackground(backgroundImage); 
             
             String file = filePath.substring(filePath.lastIndexOf("/") +1);
             myLevelSettings.addBackgroundImage("Background/" + file);
@@ -131,29 +133,24 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     @Override
-    public void saveLevelData (Map<String,String> myLevelData) {
-        myLevelSettings.addWinCondition(SCORE_PROPERTY,myLevelData.get(EditorToolbar.POINTS_PROPERTY));
-        myLevelSettings.addLoseCondition(EditorToolbar.TIME_PROPERTY, myLevelData.get(EditorToolbar.TIME_PROPERTY));
-        if(myLevelData.containsKey(EditorToolbar.SCROLL_WIDTH_PROPERTY)){
-        myLevelSettings.addScrollWidth(Double.parseDouble(myLevelData.get(EditorToolbar.SCROLL_WIDTH_PROPERTY)));
-        }
-
-        //TODO: Change the fact that addGround is called by default, rather randomly
+    public void saveLevelData () {
         addGround();
         closeLevelWindow.set(true);
     }
-       
-  //TODO: Change hardcoded value for ground values
+    
+    //TODO: Change hardcoded value for ground values
     private void addGround(){
         GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
         ground.setProperty("damage","30");
         myLevelSettings.addGameObject(ground);
     }
 
+    public BooleanProperty getSaveLevelProperty(){
+        return this.closeLevelWindow;
+    }
+    
+    public void setSaveProperty(Boolean bool){
+        closeLevelWindow.set(bool);
+    }
 
-                       
-        public BooleanProperty getSaveLevelProperty(){
-            return this.closeLevelWindow;
-        }
-        
 }

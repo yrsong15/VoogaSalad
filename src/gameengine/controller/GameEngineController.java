@@ -214,13 +214,18 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		}
 		Constructor<?> cons = null;
 		try {
-			cons = cl.getConstructor(Direction.class, double.class);
+			cons = cl.getConstructor(Direction.class, double.class, double.class, double.class);
 		} catch (NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), currentGame.getCurrentLevel().getGameConditions().get("scrollspeed"));
+ 			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), 
+ 					 
+ 						currentGame.getCurrentLevel().getGameConditions().get("scrollspeed"),
+ 
+ 						gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight()); 
+
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			// TODO Auto-generated catch block

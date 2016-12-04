@@ -31,20 +31,21 @@ public class MainController {
     private EditorSplash myEditorSplash;
 
     public MainController(Stage stage) throws IOException {
-        mainStage = stage;
-        Scene scene = new Scene(new SplashScreen(stage, this).setUpWindow());
+        this.mainStage = stage;
+        this.myGallery = new Gallery();
+        Scene scene = new Scene(new SplashScreen(myGallery, this).setUpWindow());
         scene.getStylesheets().add(STYLESHEET);
         stage.setScene(scene);
         stage.setTitle("VoogaSalad");
         stage.show();
-        initializeGallery();
+//        initializeGallery();
     }
     public void presentGallery() {
         //System.out.println("present");
-        myGalleryView = new GalleryView(myGallery, this);
-        myGalleryStage.setScene(myGalleryView.getScene());
-        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
-        myGalleryStage.show();
+//        myGalleryView = new GalleryView(myGallery, this);
+//        myGalleryStage.setScene(myGalleryView.getScene());
+//        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
+//        myGalleryStage.show();
     }
     private void initializeGallery() throws IOException {
         this.myGallery = new Gallery();
@@ -57,23 +58,28 @@ public class MainController {
     }
 
     public void editorSplash(){
-        myEditorSplash = new EditorSplash(this);
-        myEditorSplashStage = new Stage();
-        Scene scene = new Scene(myEditorSplash.setUpWindow());
-        scene.getStylesheets().add(STYLESHEET);
-        myEditorSplashStage.setScene(scene);
-        myEditorSplashStage.show();
+//        myEditorSplash = new EditorSplash(this);
+//        myEditorSplashStage = new Stage();
+//        Scene scene = new Scene(myEditorSplash.setUpWindow());
+//        scene.getStylesheets().add(STYLESHEET);
+//        myEditorSplashStage.setScene(scene);
+//        myEditorSplashStage.show();
     }
 
     public void presentEditor() {
         myGameEditorStage = new Stage();
         myGameEditorController = new GameEditorController();
-        Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
-        myGameEditorStage.setScene(scene);
-        scene.getStylesheets().add("gameEditorSplash.css");
-        myGameEditorStage.show();
+       // Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
+        //myGameEditorStage.setScene(scene);
+        //scene.getStylesheets().add("gameEditorSplash.css");
+       // myGameEditorStage.show();
+        myGameEditorController.startEditor();
         myGameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        
     }
+    
+    
+    
     //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
     public void launchEngine(String XMLData){
         setMyGameEngineController(XMLData);

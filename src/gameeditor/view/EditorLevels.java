@@ -27,24 +27,17 @@ import javafx.scene.layout.VBox;
  *
  */
 
-public class EditorLevels {
+public class EditorLevels implements IEditorLevels{
     // TODO Add values to the resources file
-    
-    public static final double ADD_LEVELS_WIDTH = 400;
-    public static final double ADD_LEVELS_HEIGHT=350;
-    public static final double LEVEL_PANE_X_POSITION = 180;
-    public static final double LEVEL_PANE_Y_POSITION = 80;
-    public static final double BUTTON_ICON_PROPORTION = 50;
-    public static final String DEFAULT_GAME_TITLE = "Untitled";
-    
+   
     private VBox myVBox;
     private Button newLevelButton;
     private List<Button> myLevels;
     private SimpleStringProperty myActiveButtonId;
-    private Button submitButton;
     private Button loadGameButton;
     private SimpleStringProperty myGameTitle;
     private NodeFactory myFactory;
+    private Group root;
 
     public EditorLevels(){
         myActiveButtonId = new SimpleStringProperty(null);
@@ -53,11 +46,9 @@ public class EditorLevels {
     }
     
     public Parent createRoot(){
-        Group root = new Group();
+        root = new Group();
         myVBox = new VBox(20);
         myLevels = new ArrayList<Button>();
-//        String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/Background/bg2.jpg";
-//        ImageView background = new ImageView(new Image(userDirectoryString));
 
         ImageView background = myFactory.makeBackgroundImage("Space");
         background.setFitWidth(SplashScreen.SPLASH_WIDTH);
@@ -69,7 +60,6 @@ public class EditorLevels {
         
         myPane.setMaxSize(ADD_LEVELS_WIDTH,ADD_LEVELS_HEIGHT);
         myPane.setPrefSize(ADD_LEVELS_WIDTH, ADD_LEVELS_HEIGHT);
-        myPane.setStyle("-fx-border-color: black; -fx-border-width: 2px;"); 
         myPane.setLayoutX(LEVEL_PANE_X_POSITION);
         myPane.setLayoutY(LEVEL_PANE_Y_POSITION);
         myPane.setOpacity(0.5);
@@ -111,8 +101,9 @@ public class EditorLevels {
         newLevelIcon.setFitHeight(BUTTON_ICON_PROPORTION);
         newLevelIcon.setFitWidth(BUTTON_ICON_PROPORTION);
         
+        
         newLevelButton.setGraphic(newLevelIcon);
-        newLevelButton.setTooltip(new Tooltip("Click Here to add a Level"));
+
         newLevelButton.setOnAction(e -> addNewLevel());
     }
 
@@ -121,7 +112,7 @@ public class EditorLevels {
     }
 
     public void addNewLevel(){
-        Button level = new Button("Level " + (myVBox.getChildren().size() + 1)) ;
+        Button level = new Button(Integer.toString(myVBox.getChildren().size() + 1)) ;
         level.setId(Integer.toString(myVBox.getChildren().size()));
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
         ImageView levelIcon = new ImageView(new Image(userDirectoryString));
@@ -158,7 +149,9 @@ public class EditorLevels {
     
     public Button getLoadButton(){
         return this.loadGameButton;
+    }  
+    
+    public Parent getRoot(){
+        return this.root;
     }
-    
-    
 }

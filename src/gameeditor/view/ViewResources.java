@@ -16,7 +16,7 @@ public enum ViewResources {
 		SPRITE_IMAGE_LOCATION("images/Sprite"),
 		AVATAR_IMAGE_LOCATION("images/Sprite"),
 		SCENE_WIDTH(1200),
-		SCENE_HEIGHT(600),
+		SCENE_HEIGHT(620),
 		
 		// Detail Pane
 		DETAIL_PANE_BG(Color.SLATEGREY),
@@ -59,11 +59,14 @@ public enum ViewResources {
    	
 		LOAD_GAME_IMAGE_WIDTH(ViewResources.BUTTON_IMAGE_HEIGHT.getDoubleResource()*ViewResources.LOAD_IMAGE_WIDTH_RATIO.getDoubleResource()),
 		LOAD_GAME_IMAGE_XOFFSET(ViewResources.MUSIC_IMAGE_XOFFSET.getDoubleResource() - ViewResources.BUTTON_IMAGE_PADDING.getDoubleResource() - ViewResources.LOAD_GAME_IMAGE_WIDTH.getDoubleResource()),
-             
+                 
 		
 		// Scroll Pane
 		AREA_WIDTH(ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.DETAIL_PANE_WIDTH.getDoubleResource() - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource()),
 		AREA_HEIGHT(ViewResources.SCENE_HEIGHT.getDoubleResource() - ViewResources.TOOLBAR_HEIGHT.getDoubleResource()),
+		
+		// Design Area
+		BACKGROUND_IMAGE_ID("background")
 		
 		;
 	
