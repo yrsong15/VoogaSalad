@@ -1,6 +1,7 @@
 package gameeditor.commanddetails;
 import java.util.Map;
 import com.sun.javafx.scene.traversal.Direction;
+import frontend.util.ButtonTemplate;
 import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -47,15 +48,25 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         addWidthOptions();
         createWinConditions();
         addScrollSpeed();
+        createSave();
+    }
+
+    private void createSave(){
+        Button save = new Button(SAVE_BUTTON_LABEL);
+        save.setMinHeight(cbHeight);
+        save.setMinWidth(cbWidth);
+        save.setOnMouseClicked((e) -> {handleSave();});
+        myVBox.getChildren().add(save);
+
     }
 
     private void addScrollSpeed(){
         scrollSpeedTextBox = createInputField(DEFAULT_SCROLL_SPEED);
         BorderPane scrollSpeed = createBorderpane(scrollSpeedTextBox,createLabel(SCROLL_SPEED_LABEL));
         myVBox.getChildren().add(scrollSpeed);
-       
+
     }
-    
+
     private void createWinConditions(){
         myTimeWin = createInputField(DEFAULT_TIME_VALUE);
         myVBox.getChildren().add(createBorderpane(myTimeWin,createLabel(TIME_PROPERTY_LABEL)));
@@ -63,14 +74,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         myVBox.getChildren().add(createBorderpane(myPointsWin,createLabel(POINTS_PROPERTY_LABEL)));
     }
 
-    public void createSave(){
-        Button save = new Button();
-        save.setText("");
-        save.setMinWidth(cbWidth);
-        save.setMinHeight(cbHeight);
-        save.setOnAction((e) -> {handleSave();});
-        myVBox.getChildren().add(save);
-    }
+
 
     private void addScrollTypeOptions(){
         MenuBar menuBar = new MenuBar();
@@ -102,10 +106,10 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
             BorderPane bp = createBorderpane(scrollWidthTextBox,createLabel(SCROLL_WIDTH_LABEL));
             int index = myVBox.getChildren().indexOf(myScrollWidthBP);
             myVBox.getChildren().add(index+1, bp);
-           
+
         } else if((cb.getValue().equals("False"))){
             myVBox.getChildren().remove(myVBox.getChildren().indexOf(myScrollWidthBP)+1);
-            
+
         }
     }
 
@@ -147,7 +151,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         myDataStore.addLoseCondition(TIME_PROPERTY, myTimeWin.getText());
         myDataStore.addScrollWidth(scrollWidthTextBox.getText());
         myDataStore.addScrollSpeed(DEFAULT_SCROLL_SPEED);
-       
+
     }
 
     private Label createLabel(String property){

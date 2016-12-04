@@ -1,5 +1,6 @@
 package gameeditor.view;
 
+import gameeditor.commanddetails.DetailResources;
 import javafx.scene.Parent;
 
 public interface IEditorLevels {
@@ -11,6 +12,8 @@ public interface IEditorLevels {
     public static final double LEVEL_PANE_Y_POSITION = 80;
     public static final double BUTTON_ICON_PROPORTION = 50;
     public static final String DEFAULT_GAME_TITLE = "Untitled";
+    public static final String XML_FILE_TYPE="XML";
+    public static final String SAVE_LABEL=DetailResources.SAVE_BUTTON_TEXT.getResource();
     
     public Parent createRoot();
     
