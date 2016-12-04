@@ -59,8 +59,8 @@
         </loseConditions>
           <gameConditions>
               <entry>
-                  <string>scrollspeed</string>
-                  <double>10</double>
+                  <string>score</string>
+                  <double>0.0</double>
               </entry>
           </gameConditions>
         <controls>
@@ -96,6 +96,7 @@
           <myScrollDirectionList>
             <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
           </myScrollDirectionList>
+            <scrollSpeed class="int">10</scrollSpeed>
         </scrollType>
       </objects.Level>
     </entry>

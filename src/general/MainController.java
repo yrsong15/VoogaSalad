@@ -77,7 +77,7 @@ public class MainController {
 
 
     public void launchEngine(String XMLData){
-        XMLData = testGameEngine();
+        //XMLData = testGameEngine();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
         };
@@ -89,6 +89,7 @@ public class MainController {
         Level level = new Level(1);
         ScrollType scrollType = new ScrollType("ForcedScrolling");
         scrollType.addScrollDirection(Direction.RIGHT);
+        scrollType.setScrollSpeed(30);
         level.setScrollType(scrollType);
         level.setBackgroundImage("bg.png");
         game.setCurrentLevel(level);
