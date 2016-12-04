@@ -2,7 +2,7 @@ package objects;
 
 /**
  * This is a template abstract class that contains xPos, yPos, width, and height.
- * It can potentially be used to merge AbstractGameBlock and GameObject in order to avoid duplicate code.
+ * It is used to merge AbstractGameBlock and GameObject in order to avoid duplicate code.
  * 
  * @author Ray Song
  *

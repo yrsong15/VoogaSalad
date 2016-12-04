@@ -3,6 +3,7 @@ package gameeditor.commanddetails;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
+import gameeditor.view.interfaces.IDetailPane;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -31,6 +32,7 @@ public abstract class AbstractCommandDetail {
 	protected double hboxSpacing = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
 	protected double paddedPaneWidth = myPaneWidth-2*myDetailPadding;
 	protected double paddedDetailWidth = paddedPaneWidth-cbWidth-hboxSpacing;
+	protected IDetailPane myDetailPane;
 	
 	public AbstractCommandDetail() {
 		myContainerPane = new ScrollPane();
@@ -60,6 +62,10 @@ public abstract class AbstractCommandDetail {
 	
 	public ScrollPane getPane(){
 		return myContainerPane;
+	}
+
+	public void setDetailPane(IDetailPane idp) {
+		myDetailPane = idp;
 	}
 
 }

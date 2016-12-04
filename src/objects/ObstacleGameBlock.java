@@ -7,6 +7,7 @@ public class ObstacleGameBlock extends AbstractGameBlock{
 		east = false;
 		south = false;
 		north = false;
+		isBreakable = false;
 	}
 	
 }

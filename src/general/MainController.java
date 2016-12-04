@@ -19,7 +19,9 @@ public class MainController {
     private EditorSplash editorSplash;
 
     public MainController(Stage stage) throws IOException {
-        Scene scene = new Scene(new SplashScreen(this).setUpWindow());
+        this.mainStage = stage;
+        this.myGallery = new Gallery();
+        Scene scene = new Scene(new SplashScreen(myGallery, this).setUpWindow());
         scene.getStylesheets().add(STYLESHEET);
         stage.setScene(scene);
         stage.setTitle(GAME_TITLE);
@@ -31,10 +33,11 @@ public class MainController {
     }
 
     public void presentGallery() {
-        galleryView = new GalleryView(gallery, this);
-        galleryStage.setScene(galleryView.getScene());
-        galleryStage.setTitle(GALLERY_STAGE_TITLE);
-        galleryStage.show();
+        //System.out.println("present");
+//        myGalleryView = new GalleryView(myGallery, this);
+//        myGalleryStage.setScene(myGalleryView.getScene());
+//        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
+//        myGalleryStage.show();
     }
 
     private void initializeGallery() throws IOException {
@@ -49,12 +52,12 @@ public class MainController {
     }
 
     public void editorSplash(){
-        editorSplash = new EditorSplash(this);
-        editorSplashStqage = new Stage();
-        Scene scene = new Scene(editorSplash.setUpWindow());
-        scene.getStylesheets().add(STYLESHEET);
-        editorSplashStqage.setScene(scene);
-        editorSplashStqage.show();
+//        myEditorSplash = new EditorSplash(this);
+//        myEditorSplashStage = new Stage();
+//        Scene scene = new Scene(myEditorSplash.setUpWindow());
+//        scene.getStylesheets().add(STYLESHEET);
+//        myEditorSplashStage.setScene(scene);
+//        myEditorSplashStage.show();
     }
 
     public void presentEditor() {
