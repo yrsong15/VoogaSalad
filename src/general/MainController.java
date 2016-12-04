@@ -1,10 +1,17 @@
 package general;
+import com.sun.javafx.scene.traversal.Direction;
 import gameeditor.controller.GameEditorController;
+import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import objects.Game;
+import objects.GameObject;
+import objects.Level;
+import objects.ScrollType;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MainController {
 
@@ -68,10 +75,28 @@ public class MainController {
         gameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
 
+
     public void launchEngine(String XMLData){
+        //XMLData = testGameEngine();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
         };
+    }
+
+    private String testGameEngine(){
+        //FOR TESTING PURPOSES ONLY
+        Game game = new Game("Test Game");
+        Level level = new Level(1);
+        ScrollType scrollType = new ScrollType("ForcedScrolling");
+        scrollType.addScrollDirection(Direction.RIGHT);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("bg.png");
+        game.setCurrentLevel(level);
+        GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
+        level.setMainCharacter(mainChar);
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        return xml;
     }
 
     private void setUpGameEngineStage(){
