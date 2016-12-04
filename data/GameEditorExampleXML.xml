@@ -5,6 +5,7 @@
       <int>1</int>
       <objects.Level>
         <level>1</level>
+        <backgroundFilePath>Background/bg.png</backgroundFilePath>
         <gameObjects>
           <objects.GameObject>
             <xPosition>250.0</xPosition>
