@@ -52,6 +52,7 @@ public class GameEngineController extends Observable implements RuleActionHandle
 	private Timeline animation;
 	private MovementController movementController;
 	private Scrolling gameScrolling;
+	private Stage endGameStage;
 	public static final double FRAMES_PER_SECOND = 30;
 	public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
@@ -172,14 +173,16 @@ public class GameEngineController extends Observable implements RuleActionHandle
 		animation.stop();
 		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(),
 				gameEngineView.getHighScores(), this);
-		Stage stage = new Stage();
-		stage.setScene(splash.getScene());
-		stage.getScene().getStylesheets().add("gameEditorSplash.css");
+		if (endGameStage == null) {
+			endGameStage = new Stage();
+		}
+		endGameStage.setScene(splash.getScene());
+		endGameStage.getScene().getStylesheets().add("gameEditorSplash.css");
 
-		stage.setTitle("GAME OVER");
-		stage.show();
+		endGameStage.setTitle("GAME OVER");
+		endGameStage.show();
 
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		endGameStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
                 //reset();
 			}
