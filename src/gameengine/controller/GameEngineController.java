@@ -217,7 +217,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		try {
  			gameScrolling = (Scrolling) cons.newInstance(gameScroll.getDirections().get(0), 
  					 
- 						currentGame.getCurrentLevel().getGameConditions().get("scrollspeed"),
+ 						gameScroll.getScrollSpeed(),
  
  						gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight()); 
 
