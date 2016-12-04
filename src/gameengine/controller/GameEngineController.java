@@ -3,6 +3,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
+
+import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
@@ -72,7 +74,11 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         gameEngineView.initLevel(currentGame.getCurrentLevel());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
         addRGFrames();
-        setScrolling();
+        try {
+			setScrolling();
+		} catch (ScrollTypeNotFoundException e1) {
+			System.out.println("The scroll type could not be found/instantiated through reflection.");
+		}
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
 			try {
 				updateGame();
@@ -96,8 +102,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	 * @throws InvocationTargetException
 	 * @throws IllegalArgumentException
 	 */
-	public void updateGame() throws ClassNotFoundException, InstantiationException, IllegalArgumentException,
-			InvocationTargetException, IllegalAccessException, NoSuchMethodException, SecurityException {
+	public void updateGame(){
 		GameObject mainChar = currentGame.getCurrentLevel().getMainCharacter();
 		gameScrolling.scrollScreen(currentGame.getCurrentLevel().getGameObjects(), mainChar);
         if(currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
@@ -107,15 +112,21 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		movementChecker.updateMovement(currentGame.getCurrentLevel().getGameObjects());
 		for(RandomGenFrame elem: RGFrames){
             for(RandomGeneration randomGeneration : currentGame.getCurrentLevel().getRandomGenRules()) {
-                elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
+                try {
+					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
+				} catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException
+						| NoSuchMethodException | SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 		}
-        Level currLevel = currentGame.getCurrentLevel();
-        collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
+         Level currLevel = currentGame.getCurrentLevel();
+         collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
 		 LossChecker.checkLossConditions(this,
-		 currentGame.getCurrentLevel().getLoseConditions(), currLevel.getGameConditions());
+				 		currentGame.getCurrentLevel().getLoseConditions(), currLevel.getGameConditions());
 		 WinChecker.checkWinConditions(this,
-		 currLevel.getWinConditions(), currLevel.getGameConditions());
+				 		currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
 
     public void setNewBenchmark() {
@@ -199,7 +210,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		currentGame.getCurrentLevel().setScore(currScore);
 	}
 	
-	private void setScrolling(){
+	private void setScrolling() throws ScrollTypeNotFoundException{
 		ScrollType gameScroll = currentGame.getCurrentLevel().getScrollType();
 		String classPath = "gameengine.scrolling." + gameScroll.getScrollTypeName();
 		Object[] parameters = new Object[]{gameScroll.getDirections().get(0), gameScroll.getScrollSpeed(), 
@@ -209,8 +220,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 			gameScrolling = (Scrolling) ReflectionUtil.getInstance(classPath, parameters, parameterTypes);
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw (new ScrollTypeNotFoundException());
 		}
 	}
 }

@@ -7,10 +7,20 @@ import java.lang.reflect.Method;
 import com.sun.javafx.scene.traversal.Direction;
 
 import gameengine.model.interfaces.Scrolling;
+import objects.GameObject;
 import objects.ScrollType;
 
 
 public class ReflectionUtil {
+	
+	
+	public static void runMethod(String classPath, String methodName, Object[] parameters, Class<?>[]parameterTypes) 
+			throws NoSuchMethodException, SecurityException, ClassNotFoundException, InstantiationException, 
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException{	
+        Object o = ReflectionUtil.newInstanceOf(classPath);
+        Method method = ReflectionUtil.getMethodFromClass(classPath, methodName, parameterTypes);
+        method.invoke(o, parameters);
+	}
 	
 	public static Object newInstanceOf(String className) 
 			throws InstantiationException, IllegalAccessException,
@@ -41,12 +51,3 @@ public class ReflectionUtil {
 	}
 	
 }
-	/**private static Class<?>[] getClassTypes(Object[] parameters) throws ClassNotFoundException {
-		Class<?>[] classTypes = new Class<?>[parameters.length];
-		for (int j = 0; j < parameters.length; j++) {
-			//System.out.println(parameters[j].getClass());
-			classTypes[j] = parameters[j].getClass();
-		}
-		return classTypes;
-	
-	}**/

@@ -11,39 +11,38 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
+import com.sun.javafx.scene.traversal.Direction;
+
+import exception.MovementRuleNotFoundException;
+
 /**
  * Created by Soravit on 11/22/2016.
+ * Other contributors: Chalena
  */
 public class MovementRulebook {
 
     private ResourceReader resources;
+    private static final String resourcesPath = "GameEngineMovementProperties";
+    private static final String rulesPath = "gameengine.model.rules.movementrules.";
 
     public MovementRulebook() {
-        resources = new ResourceReader("GameEngineMovementProperties");
+        resources = new ResourceReader(resourcesPath);
     }
 
-    public void applyRules(GameObject obj) throws ClassNotFoundException, InstantiationException {
+    public void applyRules(GameObject obj) throws MovementRuleNotFoundException{
     	if(obj.getProperty("fallspeed")==null) obj.setProperty("fallspeed", "0");
-////    	Iterator<String> itr = obj.getPropertiesList().iterator();
-//    	String[] propertiesArray = Collection.toArray(obj.getPropertiesList());
-//    	while ( itr.hasNext()) {
     	for (Iterator<String> itr = obj.getPropertiesList().iterator(); itr.hasNext();) {
     	String property = itr.next();
             if(resources.containsResource(property)) {
-                String ruleName = resources.getResource(property);
-                ruleName = "gameengine.model.rules.movementrules." + ruleName;
+                String ruleName = rulesPath + resources.getResource(property);
+        		Object[] parameters = new Object[]{obj};
+        		Class<?>[] parameterTypes = new Class<?>[]{GameObject.class};
                 try {
-                    Object o = ReflectionUtil.newInstanceOf(ruleName);
-                    Method method = ReflectionUtil.getMethodFromClass(ruleName, "applyRule", GameObject.class);
-                    method.invoke(o, obj);
-
-                } catch (IllegalAccessException | IllegalArgumentException
-                        | InvocationTargetException | ClassNotFoundException | NoSuchMethodException
-                        | SecurityException e) {
-                    e.printStackTrace();
-                    //System.out.print(ruleName);
-                    //throw new ClassNotFoundException();
-                }
+					ReflectionUtil.runMethod(ruleName, "applyRule", parameters, parameterTypes);
+				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
+						| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					throw (new MovementRuleNotFoundException());
+				}
             }
         }
     }
