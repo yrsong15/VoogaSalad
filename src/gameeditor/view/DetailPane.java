@@ -98,7 +98,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         myAvatarView.setFitWidth(fitWidth);
         myAvatarView.setFitHeight(fitHeight);
         myAvatarView.setLayoutX(myAvatarZone.getX() + myAvatarZone.getWidth()/2 - endWidth/2);
-        myAvatarView.setLayoutY(myAvatarZone.getY()+ buttonPadding + (myAvatarZone.getHeight()-buttonPadding)/2 - endHeight/2);
+        myAvatarView.setLayoutY(myAvatarZone.getY() + buttonPadding + (myAvatarZone.getHeight() - buttonPadding)/2 - endHeight/2);
         myPane.getChildren().add(myAvatarView);
     }
     

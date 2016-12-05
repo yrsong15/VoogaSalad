@@ -155,7 +155,8 @@ public class DesignArea implements IDesignArea {
 		Rectangle test = new Rectangle(x, y, 1, 1);
 		GameObject selectedSprite = null;
 		for (GameObject sprite : mySprites){
-			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled && mySelectedSprite == sprite){
+			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent())
+					&& clickEnabled && mySelectedSprite == sprite){
 				return sprite;
 			} else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
 				selectedSprite = sprite;
