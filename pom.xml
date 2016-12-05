@@ -6,6 +6,7 @@
   <groupId>com.example</groupId>
   <version>1.0-SNAPSHOT</version>
   <artifactId>voogasalad-dreamteam</artifactId>
+  <packaging>war</packaging>
   <dependencies>
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -52,7 +53,7 @@
           <appendAssemblyId>false</appendAssemblyId>
           <archive>
             <manifest>
-              <mainClass>TestMain</mainClass>
+              <mainClass>Main</mainClass>
             </manifest>
           </archive>
         </configuration>
