@@ -12,6 +12,8 @@ public enum ViewResources {
 		MUSIC_FILE_TYPE("Music"),
 		MUSIC_FILE_LOCATION("music/"),
 		BG_FILE_LOCATION("images/Background"),
+		IMAGES_LOCATION("images/"),
+		FILE_PREFIX("file:"),
 		IMAGE_FILE_LOCATION("images/Toolbar"),
 		SPRITE_IMAGE_LOCATION("images/Sprite"),
 		AVATAR_IMAGE_LOCATION("images/Sprite"),

@@ -17,8 +17,6 @@ import javafx.scene.layout.VBox;
 import objects.ScrollType;
 
 public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail {
-
-
     private VBox myVBox;
     private Menu scrollTypeMenu;
     private TextArea scrollWidthTextBox ;
@@ -75,7 +73,6 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
 
-
     private void addScrollTypeOptions(){
         MenuBar menuBar = new MenuBar();
         menuBar.setMaxWidth(150);
@@ -109,7 +106,6 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
 
         } else if((cb.getValue().equals("False"))){
             myVBox.getChildren().remove(myVBox.getChildren().indexOf(myScrollWidthBP)+1);
-
         }
     }
 
@@ -151,7 +147,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         myDataStore.addLoseCondition(TIME_PROPERTY, myTimeWin.getText());
         myDataStore.addScrollWidth(scrollWidthTextBox.getText());
         myDataStore.addScrollSpeed(DEFAULT_SCROLL_SPEED);
-
+        
     }
 
     private Label createLabel(String property){

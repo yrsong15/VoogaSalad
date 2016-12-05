@@ -21,7 +21,7 @@ public class MainCharacterDetail extends AbstractCommandDetail {
 
     private VBox myVBox;
     //private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
-    private String [] myPropertiesArray = DetailResources.PROPERTIES_TEXT_INPUT.getArrayResource();
+    private String [] myPropertiesArray = DetailResources.MAIN_CHARACTER_PROPERTIES.getArrayResource();
     private List<TextArea> myTextInputs = new ArrayList<TextArea>();
     public static final double MAIN_CHARACTER_INITIAL_X_POSITION = 20;
     public static final double MAIN_CHARACTER_INITIAL_Y_POSITION = 20;

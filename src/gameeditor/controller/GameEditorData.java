@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
+import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameengine.view.GameScreen;
 import javafx.scene.control.TextArea;
@@ -60,35 +61,37 @@ public class GameEditorData implements IGameEditorData{
 
 
     // Adds Game Object TO level
-    public void addGameObjectToLevel(Map<String,String> myGameObjMap, List<TextArea> myRandomGenerationParameters){       
-        // TODO: Remove hardcoded default values in the next 8 lines
-    	double xpos =  Double.parseDouble(myGameObjMap.get(0));
-        double ypos =  Double.parseDouble(myGameObjMap.get(0));
-        double width = Double.parseDouble(myGameObjMap.get(50));
-        double height = Double.parseDouble(myGameObjMap.get(50));
+    public void addGameObjectToLevel(Map<String,String> myGameObjMap){ 
+////        for(String key: myGameObjMap.keySet()){
+////            System.out.println(" Key: " + key + " Value: " +myGameObjMap.get(key) );
+////        }
+//   
+//        double xPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.X_POSITION_KEY));
+//        double yPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.Y_POSITION_KEY));
+//        double width = Double.valueOf(myGameObjMap.get(WIDTH_KEY));
+//        double height = Double.valueOf(myGameObjMap.get(HEIGHT_KEY));
+//        String imagePath = myGameObjMap.get(IMAGE_PATH_KEY);
+//        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
+//        
+//        Map<String,String> properties = getPropertiesMap(myGameObjMap);
 
-        // remove position values and size values from map
-        myGameObjMap.remove(0);
-        myGameObjMap.remove(0);
-        myGameObjMap.remove(50);
-        myGameObjMap.remove(50);
 
-        Map<String,String> properties = getPropertiesMap(myGameObjMap);
-
-
-        String imagePath = myGameObjMap.get("Image Path");
-
-        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
-
-        GameObject myObject = new GameObject(xpos,ypos,width,height,file,properties);
-
+        //GameObject myObject = new GameObject(xpos,ypos,width,height,file,properties);
         // Add random Generation
-        if(myRandomGenerationParameters.size()>0){
-            addRandomGeneration(myObject.getProperties(), myRandomGenerationParameters);
-        }else {
-            myLevel.addGameObject(myObject);
-        }
+        //        if(myRandomGenerationParameters.size()>0){
+        //            addRandomGeneration(myObject.getProperties(), myRandomGenerationParameters);
+        //        }else {
+        //            myLevel.addGameObject(myObject);
+        //        }
 
+    }
+
+    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters){
+        Map<String,String> properties=  getType(type);
+        Map<String,String> propertiesMap = getPropertiesMap(properties);
+        addRandomGeneration(propertiesMap, myRandomGenerationParameters);
+        // Remove map from list
+        myTypes.remove(properties);
     }
 
     private void addRandomGeneration(Map<String,String> properties, List<TextArea>myRandomGenParameters){
@@ -105,27 +108,33 @@ public class GameEditorData implements IGameEditorData{
         Integer minSpacing = Integer.parseInt(myRandomGenParameters.get(5).getText());
         if(minSpacing==0){minSpacing=250;}
         Integer maxSpacing = Integer.parseInt(myRandomGenParameters.get(6).getText());
-
         if(maxSpacing==0){maxSpacing=500;}
-
+//
+//        System.out.println(" num: " + num);
+//        System.out.println(" xmin: " + xMin);
+//        System.out.println(" yMin: " + yMin);
+//        System.out.println(" yMax: " + yMax);
+//        System.out.println(" minSpacing: " + minSpacing);
+//        System.out.println(" maxSpacing: " + maxSpacing);
+   
+        
         RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
 
-        myLevel.addRandomGeneration(randomGeneration); 
+        myLevel.addRandomGeneration(randomGeneration);
     }
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
+        removeValuesExceptProperties(myItemMap);
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
-
             properties.put(k, v);
-
         });
         return properties;
     }
 
 
     public void addControl(KeyCode key, String action){
-        myLevel.addControl(key, action);
+        myLevel.setControl(key, action);
     }
 
 
@@ -150,9 +159,14 @@ public class GameEditorData implements IGameEditorData{
     public void addMainCharacterImage (String imageFilePath) {
         this.mainCharacterImageFilePath = imageFilePath;
     }
-    
+
     public void addScrollWidth(String width){
         myLevel.addScrollWidth(Double.parseDouble(width));
+    }
+
+    @Override
+    public void addScrollSpeed(String speed) {
+
     }
 
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
@@ -161,13 +175,30 @@ public class GameEditorData implements IGameEditorData{
         myLevel.setMainCharacter(mainCharacter);
     }
 
+    public void addGameObjectsToLevel(){
+        for (Map<String, String> type : myTypes){
+            String imagePath = type.get(IMAGE_PATH_KEY).substring(type.get(IMAGE_PATH_KEY).lastIndexOf("/")+1);
+            double xPosition = Double.valueOf(type.get(ISelectDetail.X_POSITION_KEY));
+            double yPosition = Double.valueOf(type.get(ISelectDetail.Y_POSITION_KEY));
+            double width = Double.valueOf(type.get(WIDTH_KEY));
+            double height = Double.valueOf(type.get(HEIGHT_KEY));
+            //String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
 
-    @Override
-    public void addScrollSpeed (String speed) {
-        //myLevel.addScrollSpeed(speed);
-        
-    }   
+            Map<String,String> properties = getPropertiesMap(type);
+            
+          GameObject myObject = new GameObject(xPosition,yPosition,width,height,imagePath,properties);
+          myLevel.addGameObject(myObject);   
+        }
+    }
+
+    private void removeValuesExceptProperties(Map<String,String> typeMap){
+        typeMap.remove(IMAGE_PATH_KEY);
+        typeMap.remove(HEIGHT_KEY);
+        typeMap.remove(WIDTH_KEY);
+        typeMap.remove(ISelectDetail.X_POSITION_KEY);
+        typeMap.remove(ISelectDetail.Y_POSITION_KEY);
+        typeMap.remove(DetailResources.TYPE_NAME.getResource());  
+    }
 }
-
 
 

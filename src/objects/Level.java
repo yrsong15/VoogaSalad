@@ -11,17 +11,16 @@ import gameengine.view.GameEngineUI;
  * Created by Soravit on 11/18/2016.
  * @author : Soravit, Pratiksha
  */
-public class Level implements ILevel {
-	// private static final int minSpacing = 250;
-	// private static final int maxSpacing = 500;
-	// private static final int pipeWidth = 300;
-	private int level;
+public class Level implements ILevel{
 
+	private int level;
 	private List<GameObject> gameObjects;
 	private Map<String, String> winConditions;
 	private Map<String, String> loseConditions;
 	private Map<String, Double> gameConditions;
 	private Map<KeyCode, String> controls;
+	private String musicFilePath;
+	private String backgroundFilePath;
 
 	private List<RandomGeneration> randomGenerations;
 
@@ -29,29 +28,21 @@ public class Level implements ILevel {
 
 	private ScrollType scrollType;
 
-	private LevelSettings viewSettings;
-
 	public Level(int level) {
-		gameObjects = new ArrayList<GameObject>();
+        this.level = level;
+        gameObjects = new ArrayList<>();
 		randomGenerations = new ArrayList<>();
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
-		gameConditions.put("scrollspeed", 30.0);
 		controls = new HashMap<>();
-		viewSettings = new LevelSettings();
-		this.level = level;
-        ScrollType def = new ScrollType("ForcedScrolling");
-        def.addScrollDirection(Direction.RIGHT);
-		setScrollType(def);
 	}
 
 	public void setScrollType(ScrollType scrollType) {
 		this.scrollType = scrollType;
 	}
 
-	@Override
-	public ScrollType getscrollType() {
+	public ScrollType getScrollType() {
 		return this.scrollType;
 	}
 
@@ -120,12 +111,10 @@ public class Level implements ILevel {
 	}
 
 	public int getScore() {
-		Double score = gameConditions.get("score");
-		if (score == null) {
-			score = 0.0;
-			setScore(score);
-		}
-		return score.intValue();
+        if(gameConditions.get("score") == null){
+            gameConditions.put("score", 0.0);
+        }
+		return gameConditions.get("score").intValue();
 	}
 
 	public void setScore(double score) {
@@ -133,6 +122,9 @@ public class Level implements ILevel {
 	}
 
 	public double getTime() {
+        if(gameConditions.get("time") == null){
+            gameConditions.put("time", 0.0);
+        }
 		return gameConditions.get("time");
 	}
 
@@ -144,18 +136,8 @@ public class Level implements ILevel {
 		return gameObjects;
 	}
 
-	public LevelSettings getViewSettings() {
-		return viewSettings;
-	}
-
-	public void setViewSettings(LevelSettings viewSettings) {
-		this.viewSettings = viewSettings;
-	}
-
-	public void addControl(KeyCode key, String action) {
-	    if(!controls.containsKey(key)){
+	public void setControl(KeyCode key, String action) {
 		controls.put(key, action);
-	    }
 	}
 
 	public void removeControl(KeyCode key) {
@@ -166,19 +148,26 @@ public class Level implements ILevel {
 		return controls;
 	}
 
-	@Override
-	public void addBackgroundImage(String filePath) {
-		viewSettings.setBackgroundFilePath(filePath);
-	}
+    @Override
+    public void setBackgroundImage(String filePath) {
+        this.backgroundFilePath = filePath;
+    }
 
-	@Override
-	public void addBackgroundMusic(String musicFilePath) {
-		viewSettings.setMusicFile(musicFilePath);
-	}
+    @Override
+    public void setBackgroundMusic(String musicFilePath) {
+        this.musicFilePath = musicFilePath;
+    }
 
-	@Override
-	public void addScrollWidth(double scrollWidth) {
-		viewSettings.setScrollWidth(scrollWidth);
+    @Override
+    public void addScrollWidth(double scrollWidth) {
 
-	}
+    }
+
+    public String getMusicFilePath(){
+        return musicFilePath;
+    }
+
+    public String getBackgroundFilePath(){
+        return backgroundFilePath;
+    }
 }

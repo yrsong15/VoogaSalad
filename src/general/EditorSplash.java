@@ -68,7 +68,7 @@ public class EditorSplash {
                 EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 70);
         Button forced = newTemplate.getButton();
         forced.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        forced.setOnMouseClicked(e -> myMainController.presentEditor());
+        forced.setOnMouseClicked(e -> myMainController.presentEditor(null));
         ImageView flappy = myFactory.makeThumbnailImage("Flappy", 150, 50);
         Tooltip TForced = myFactory.makeTooltip("Forced", flappy);
         Tooltip.install(forced, TForced);

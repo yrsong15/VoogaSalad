@@ -12,6 +12,10 @@ import objects.ScrollType;
  *
  */
 public interface IGameEditorData {
+    
+    public static final String IMAGE_PATH_KEY="Image Path";
+    public static final String WIDTH_KEY="width";
+    public static final String HEIGHT_KEY="height";
 
     // Types Methods
     public Map<String, String> getType(String inputTypeName);
@@ -23,7 +27,7 @@ public interface IGameEditorData {
     public void addControl(KeyCode key, String value);
 
     // Add Game Object to Level
-    public void addGameObjectToLevel(Map<String,String> myGameObjects, List<TextArea> myRandomGenerationLists);
+    public void addGameObjectToLevel(Map<String,String> myGameObjects);
 
     public void addMainCharacterImage(String imageFilePath);
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties);
@@ -34,4 +38,9 @@ public interface IGameEditorData {
     public void addScrollWidth(String width);
     
     public void addScrollSpeed(String speed);
+    
+    public void addGameObjectsToLevel();
+    
+    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters);
+    
 }

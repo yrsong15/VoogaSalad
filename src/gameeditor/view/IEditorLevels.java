@@ -14,7 +14,6 @@ public interface IEditorLevels {
     public static final String DEFAULT_GAME_TITLE = "Untitled";
     public static final String XML_FILE_TYPE="XML";
     public static final String SAVE_LABEL=DetailResources.SAVE_BUTTON_TEXT.getResource();
-    
-    public Parent createRoot();
+    public Parent createRoot(String gameName);
     
 }

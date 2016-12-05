@@ -1,5 +1,6 @@
 package gameeditor.view;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import gameeditor.commanddetails.ISelectDetail;
@@ -10,6 +11,7 @@ import gameeditor.view.interfaces.IGameEditorView;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
@@ -84,13 +86,12 @@ public class DesignArea implements IDesignArea {
             }
         }
         
-        myPane.getChildren().clear();
-
         bg.setLayoutX(0);
         bg.setLayoutY(0);
-      
+
         myPane.getChildren().add(bg);
         myPane.getChildren().addAll(children);
+        
     }
 
     @Override
