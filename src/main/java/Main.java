@@ -1,4 +1,3 @@
-package main;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -13,21 +12,6 @@ import spark.ModelAndView;
 import static spark.Spark.get;
 
 import com.heroku.sdk.jdbc.DatabaseUrl;
-
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-
-//@WebServlet(name="hello",urlPatterns={"/hello"})
-//public class Main extends HttpServlet {
-//	  public void doGet(HttpServletRequest request,
-//	                    HttpServletResponse response)
-//	      throws ServletException, IOException {
-//	    PrintWriter out = response.getWriter();
-//	    out.println("Hello World");
-//	  }
-//	}
 
 public class Main {
 
