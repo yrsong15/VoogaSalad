@@ -48,7 +48,7 @@
         <version>1.1.2</version>
       </plugin>
       <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
+        <artifactId>maven-assembly-plugin</artifactId>
         <version>2.3</version>
         <configuration>
           <descriptorRefs>
@@ -57,9 +57,8 @@
           <finalName>voogasalad-dreamteam</finalName>
           <appendAssemblyId>false</appendAssemblyId>
           <archive>
-          <index>true</index>
             <manifest>
-              <mainClass>main.Main</mainClass>
+              <mainClass>Main</mainClass>
             </manifest>
           </archive>
         </configuration>
