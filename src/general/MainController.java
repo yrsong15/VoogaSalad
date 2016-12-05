@@ -88,4 +88,12 @@ public class MainController {
         addNewGameFile(title, gameFile);
         launchEngine(gameFile);
     }
+
+    public void editGame(){
+        FileOpener chooser= new FileOpener();
+        File file = chooser.chooseFile("XML", "data");
+        XStream mySerializer = new XStream(new DomDriver());
+        Game myGame =  (Game) mySerializer.fromXML(file); 
+        presentEditor(myGame);  
+    }
 }

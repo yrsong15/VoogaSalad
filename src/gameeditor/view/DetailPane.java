@@ -78,6 +78,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         
         // Set the ImageFile Path in the gameEditorDataStore
         String file = filePath.substring(filePath.lastIndexOf("/") +1);
+       
         myDataStore.addMainCharacterImage(file);
        
         myPane.getChildren().remove(myAvatarView);
