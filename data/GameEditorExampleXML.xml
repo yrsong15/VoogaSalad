@@ -96,7 +96,7 @@
           <myScrollDirectionList>
             <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
           </myScrollDirectionList>
-            <scrollSpeed class="int">10</scrollSpeed>
+            <scrollSpeed class="double">10</scrollSpeed>
         </scrollType>
       </objects.Level>
     </entry>
