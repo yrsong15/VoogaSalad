@@ -72,73 +72,73 @@ public class DesignArea implements IDesignArea {
     public void updateAvatar(Image newAvatar){
 
     }
-    
-    public void setBackground(HBox bg){
-    	ObservableList<Node> currentChildren = myPane.getChildren();
-    	ArrayList<Node> children = new ArrayList<Node>();
-    	for (Node child : currentChildren){
-    		children.add(child);
-    	}
-    	myPane.getChildren().clear();
-    	bg.setLayoutX(0);
-    	bg.setLayoutY(0);
-    	myPane.getChildren().add(bg);
-    	myPane.getChildren().addAll(children);
+
+    public void setBackground(ImageView bg){
+        ObservableList<Node> currentChildren = myPane.getChildren();
+        ArrayList<Node> children = new ArrayList<Node>();
+        for (Node child : currentChildren){
+            if(child.getId()==null || !(child.getId().equals(IGameEditorView.BACKGROUND_IMAGE_ID))){
+                children.add(child);
+            }
+        }
+        myPane.getChildren().clear();
+        bg.setLayoutX(0);
+        bg.setLayoutY(0);
+
+        myPane.getChildren().add(bg);
+        myPane.getChildren().addAll(children);
     }
 
-	@Override
-	public void addSprite(GameObject sprite) {
-		mySprites.add(sprite);
-//		TODO: Remove the hardcoding of the image size proportions
-//		Added image proportions for Demo
-//		sprite.getImageView().setFitHeight(200);
-//		sprite.getImageView().setFitWidth(300);
-		myPane.getChildren().add(sprite.getImageView());
-	}
-	
-	@Override
-	public void removeSprite(GameObject sprite) {
-		mySprites.remove(sprite);
-		myPane.getChildren().remove(sprite.getImageView());
-	}
+    @Override
+    public void addSprite(GameObject sprite) {
+        mySprites.add(sprite);
+        //		TODO: Remove the hardcoding of the image size proportions
+        myPane.getChildren().add(sprite.getImageView());
+    }
 
-	@Override
-	public void enableClick(ISelectDetail sd) {
-		mySelectDetail = sd;
-		clickEnabled = true;	
-	}
-	
-	@Override
-	public void disableClick() {
-		clickEnabled = true;	
-	}
-	
-	private void handlePress(double x, double y){
-		GameObject sprite = checkForSprite(x, y);
-		if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
-			mySelectedSprite.removeBound();
-			mySelectedSprite.setOff();
-			sprite.initBound();
-			sprite.setOn(x, y);
-			mySelectedSprite = sprite;
-		} else if (clickEnabled && sprite != null && mySelectedSprite == null){
-			sprite.initBound();
-			sprite.setOn(x, y);
-			mySelectedSprite = sprite;
-		}
-	}
-	
-	public void initSelectDetail2(GameObject sprite){
-		if (clickEnabled){
-			mySelectDetail.initLevel2(sprite);
-		}
-	}
-	
-	public void updateSpriteDetails(GameObject sprite, double x, double y, double width, double height){
-		mySelectDetail.updateSpritePosition(x, y);
-		mySelectDetail.updateSpriteDimensions(width, height);
-	}
-    
+    @Override
+    public void removeSprite(GameObject sprite) {
+        mySprites.remove(sprite);
+        myPane.getChildren().remove(sprite.getImageView());
+    }
+
+    @Override
+    public void enableClick(ISelectDetail sd) {
+        mySelectDetail = sd;
+        clickEnabled = true;	
+    }
+
+    @Override
+    public void disableClick() {
+        clickEnabled = true;	
+    }
+
+    private void handlePress(double x, double y){
+        GameObject sprite = checkForSprite(x, y);
+        if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
+            mySelectedSprite.removeBound();
+            mySelectedSprite.setOff();
+            sprite.initBound();
+            sprite.setOn(x, y);
+            mySelectedSprite = sprite;
+        } else if (clickEnabled && sprite != null && mySelectedSprite == null){
+            sprite.initBound();
+            sprite.setOn(x, y);
+            mySelectedSprite = sprite;
+        }
+    }
+
+    public void initSelectDetail2(GameObject sprite){
+        if (clickEnabled){
+            mySelectDetail.initLevel2(sprite);
+        }
+    }
+
+    public void updateSpriteDetails(GameObject sprite, double x, double y, double width, double height){
+        mySelectDetail.updateSpritePosition(x, y);
+        mySelectDetail.updateSpriteDimensions(width, height);
+    }
+
     public void addBoundingBox(BoundingBox bb){
     	for(Rectangle rect : bb.getShapes()){
     		myPane.getChildren().add(rect);

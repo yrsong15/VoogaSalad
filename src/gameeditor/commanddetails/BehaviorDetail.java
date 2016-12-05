@@ -24,7 +24,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private TextArea myTimeWin;
     private TextArea myPointsWin;
     private TextArea scrollSpeedTextBox;
-    private Map<String,String> myLevelData;
+    private BorderPane myLimitWidthOption;
     private BorderPane myScrollWidthBP;
     public static final String DEFAULT_TIME_VALUE = "400";
     public static final String DEFAULT_POINTS_VALUE = "20";
@@ -92,21 +92,22 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
 
     private void addWidthOptions(){
         ComboBox<String>limitDimension = createComboBox(DetailResources.LIMIT_DIMENSION_OPTIONS.getArrayResource());
-        myScrollWidthBP = createBorderpane(limitDimension,createLabel(LIMIT_SCROLL_WIDTH_LABEL));
-        myVBox.getChildren().add(myScrollWidthBP);
+        myLimitWidthOption = createBorderpane(limitDimension,createLabel(LIMIT_SCROLL_WIDTH_LABEL));
+        myVBox.getChildren().add(myLimitWidthOption);
         limitDimension.setOnAction(e-> cbOnAction(limitDimension));
     }
 
     public void cbOnAction(ComboBox<String> cb){
         if (cb.getValue().equals(TRUE)){
             scrollWidthTextBox = createInputField(Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()));
-            BorderPane bp = createBorderpane(scrollWidthTextBox,createLabel(SCROLL_WIDTH_LABEL));
-            int index = myVBox.getChildren().indexOf(myScrollWidthBP);
-            myVBox.getChildren().add(index+1, bp);
-           
+            myScrollWidthBP = createBorderpane(scrollWidthTextBox,createLabel(SCROLL_WIDTH_LABEL));
+            int index = myVBox.getChildren().indexOf(myLimitWidthOption);
+            myVBox.getChildren().add(index+1, myScrollWidthBP);
+
         } else if((cb.getValue().equals("False"))){
-            myVBox.getChildren().remove(myVBox.getChildren().indexOf(myScrollWidthBP)+1);
-            
+            if(myVBox.getChildren().contains(myScrollWidthBP)){
+            myVBox.getChildren().remove(myVBox.getChildren().indexOf(myLimitWidthOption)+1);
+            }
         }
     }
 

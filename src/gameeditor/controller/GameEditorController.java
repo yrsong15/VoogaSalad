@@ -43,7 +43,13 @@ public class GameEditorController implements IGameEditorFrontEndController{
         myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
          
         myEditorLevels= new EditorLevels();
-        Parent parent = myEditorLevels.createRoot();
+        myRoot = myEditorLevels.createRoot(myGameEditorBackEndController.getGame().getGameName());
+        
+        if(myGameEditorBackEndController.getGame().getNumberOfLevels()!=0){
+            for(int i=0;i<myGameEditorBackEndController.getGame().getNumberOfLevels();i++){
+                addLevelButton();
+            }
+        }
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
 
         // addListenerForGameTitle
@@ -87,7 +93,12 @@ public class GameEditorController implements IGameEditorFrontEndController{
             myGameEditorView=myLevelEditorMap.get(activeButtonId);
             setSavedLevelRoot();
         } else{
-            Level level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
+            Level level;
+            if(myGameInterface!=null && myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1)!=null){
+                level = myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1);
+            }else {
+                level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
+            }
             ILevel levelInterface = (ILevel) level;
             myLevelManager.createLevel(level);
             myGameEditorView = new GameEditorView(levelInterface);
