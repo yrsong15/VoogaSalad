@@ -29,7 +29,6 @@ public class CollisionChecker {
 					try {
 						rulebook.applyRules(mainChar, gameObject);
 					} catch (ClassNotFoundException e) {
-						// TODO handle this error
 						e.printStackTrace();
 					}
 				}

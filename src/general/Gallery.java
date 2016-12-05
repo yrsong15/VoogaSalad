@@ -33,7 +33,6 @@ public class Gallery implements IGallery {
 		StringBuilder sb = new StringBuilder();
 		String sCurrentLine;
 		try (BufferedReader br = new BufferedReader(new FileReader(path))){
-
 			while ((sCurrentLine = br.readLine()) != null) {
 				sb.append(sCurrentLine);
 			}
@@ -49,25 +48,9 @@ public class Gallery implements IGallery {
 
 	//TODO: fix this for arrayList
 	@Override
-	public void removeFromGallery(String ganeName)
+	public void removeFromGallery(String gameName)
 	{
-		gallery.remove(ganeName);
-	}
-	
-	/**
-	 * THIS METHOD WILL BE REMOVED EVENTUALLY
-	 * @param key
-	 * @return
-	 */
-	public String getGalleryItem(String key){
-		for(GameFile gameFile : gallery)
-		{
-			if(gameFile.getGameName().equals(key))
-			{
-				return gameFile.getGameData();
-			}
-		}
-		return "ERROR";
+		gallery.remove(gameName);
 	}
 	
 	// TODO: Makes this return an iterator

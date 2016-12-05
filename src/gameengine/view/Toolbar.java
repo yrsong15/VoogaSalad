@@ -23,19 +23,18 @@ public class Toolbar implements IToolbar {
 	
 	private ResourceBundle myResources;
 	private HBox myToolbar;
-	private EventHandler<ActionEvent> myLoadGameEvent;
-	private EventHandler<ActionEvent> myLoadLevelEvent;
 	private EventHandler<ActionEvent> myPauseEvent;
 	private EventHandler<ActionEvent> myResetEvent;
+	private EventHandler<ActionEvent> myMuteEvent;
 	private Button myPauseButton;
+	private Button myMuteButton;
 	
-	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadGame, EventHandler<ActionEvent> loadLevel, 
-			EventHandler<ActionEvent> pause, EventHandler<ActionEvent> reset) {
+	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause, 
+			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute) {
 		myResources = resources;
-		myLoadGameEvent = loadGame;
-		myLoadLevelEvent = loadLevel;
 		myPauseEvent = pause;
 		myResetEvent = reset;
+		myMuteEvent = mute;
 		myToolbar = new HBox();
 		myToolbar.setPrefHeight(40);
 		addButtons();
@@ -56,13 +55,21 @@ public class Toolbar implements IToolbar {
 		myPauseButton.setText(myResources.getString("ResumeButton"));
 	}
 	
+	public void mute() {
+		myMuteButton.setText(myResources.getString("UnmuteButton"));
+	}
+	
+	public void unmute() {
+		myMuteButton.setText(myResources.getString("MuteButton"));
+	}
+	
 	private void addButtons() {
-		myPauseButton = makeButton("PauseButton", myPauseEvent);
-		myPauseButton.setPrefWidth(70);
-		//myToolbar.getChildren().add(myPauseButton);
-		myToolbar.getChildren().add(makeButton("ResetButton", myResetEvent));
-		//myToolbar.getChildren().addAll(makeButton("LoadGameButton", myLoadGameEvent), makeButton("LoadLevelButton", myLoadLevelEvent),
-				//myPauseButton, makeButton("ResetButton", myResetEvent));
+		Button resetButton = makeButton("ResetButton", myResetEvent);
+		myMuteButton = makeButton("MuteButton", myMuteEvent);
+		resetButton.setPrefWidth(75);
+		myMuteButton.setPrefWidth(75);
+		myToolbar.getChildren().add(resetButton);
+		myToolbar.getChildren().add(myMuteButton);
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {

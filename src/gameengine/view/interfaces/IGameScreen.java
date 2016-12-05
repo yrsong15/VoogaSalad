@@ -12,7 +12,7 @@ import objects.Level;
  */
 public interface IGameScreen {
 
-	public Pane getScreen();
+	public Pane getRoot();
 
 	public void update(Level level);
 
