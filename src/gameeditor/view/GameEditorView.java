@@ -2,10 +2,9 @@ package gameeditor.view;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
+
 import frontend.util.FileOpener;
-import frontend.util.GameEditorException;
-import gameeditor.controller.GameEditorData;
-import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -36,16 +35,17 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IEditorToolbar myToolbar;
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
-    private IGameEditorData myDataStoreInterface;
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
     private BooleanProperty closeLevelWindow;
+    
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     public static final String SCORE_PROPERTY="score";
-
+    
+    
 
     public GameEditorView(ILevel levelSettings){
-        this.myLevelSettings = levelSettings;
+       this.myLevelSettings = levelSettings;
         myRoot = new BorderPane();  
         closeLevelWindow = new SimpleBooleanProperty(false);
     }
@@ -62,6 +62,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             exception.showError(e.getMessage());
         }
         return myRoot;
+        
+        
     }
 
     
@@ -81,8 +83,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
     
     private HBox createLeftAlt(){
-        myDataStoreInterface = new GameEditorData(myLevelSettings);
-        DetailPane dp = new DetailPane(myDesignArea, myDataStoreInterface);
+        DetailPane dp = new DetailPane(myDesignArea, myLevelSettings);
         myDetailPane = dp;
         myCommandPane = new CommandPane(dp);
         myLeftBox = new HBox();
@@ -119,31 +120,30 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     public void setBackground(){
-        String filePath = getFilePath(IMAGE_FILE_TYPE,BG_IMAGE_LOCATION);
-        displayBackgroundOnScreen(filePath);
-    }
-
-    private void displayBackgroundOnScreen(String filePath){
+        HBox myHBox = new HBox();
+        String filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
         if(filePath!=null){
             ImageView backgroundImage = new ImageView(new Image(filePath));
-            backgroundImage.setFitHeight(0.85*SCENE_HEIGHT);
-            backgroundImage.setFitWidth(0.75*SCENE_WIDTH);
-            backgroundImage.setId(BACKGROUND_IMAGE_ID);
-
-            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, 0.85*SCENE_HEIGHT); 
-            myDesignArea.setBackground(backgroundImage); 
+            backgroundImage.setFitHeight(SCENE_HEIGHT);
+            backgroundImage.setFitWidth(SCENE_WIDTH);
+            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, SCENE_HEIGHT);      
+            myHBox.getChildren().add(backgroundImage);        
+            myDesignArea.setBackground(myHBox); 
             
             String file = filePath.substring(filePath.lastIndexOf("/") +1);
             myLevelSettings.setBackgroundImage("Background/" + file);
-        }
+        } 
     }
 
     public void setAvatar(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
         if(filePath!=null){
+            //Image newAvatar = new Image(filePath);
             myDetailPane.setAvatar(filePath);
         }   
     }
+
+
 
     public void setMusic(){
         String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
@@ -173,23 +173,18 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         addGround();
         closeLevelWindow.set(true);
     }
-
-    //TODO: Change hardcoded value for ground values
+       
+  //TODO: Change hardcoded value for ground values
     private void addGround(){
         GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
         ground.setProperty("damage","30");
         myLevelSettings.addGameObject(ground);
     }
 
-    public BooleanProperty getSaveLevelProperty(){
-        return this.closeLevelWindow;
-    }
 
-    public void setSaveProperty(Boolean bool){
-        closeLevelWindow.set(bool);
-    }
-
-    private String getUserDirectory(){
-        return System.getProperty("user.dir") + "/" ;
-    }
+                       
+        public BooleanProperty getSaveLevelProperty(){
+            return this.closeLevelWindow;
+        }
+        
 }

@@ -1,17 +1,14 @@
 package gameeditor.view;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObject;
 import gameeditor.view.interfaces.IDesignArea;
-import gameeditor.view.interfaces.IGameEditorView;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
@@ -37,12 +34,11 @@ public class DesignArea implements IDesignArea {
     private Pane myPane;
     private ScrollPane myScrollPane;
     private ArrayList<GameObject> mySprites = new ArrayList<GameObject>();
-
+    
     private boolean clickEnabled = false;
     private ISelectDetail mySelectDetail;
-
+    
     private GameObject mySelectedSprite;
- 
 
     public DesignArea() {
         myScrollPane = new ScrollPane();
@@ -59,17 +55,17 @@ public class DesignArea implements IDesignArea {
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }    
-
+    
     //TODO: get keytyped working
-    private void handleKeyType(KeyCode code) {
-        System.out.println("key typed");
-        if (code == KeyCode.BACK_SPACE){
-            // TODO: Remove from backend
-            removeSprite(mySelectedSprite);
-        }
-    }
+	private void handleKeyType(KeyCode code) {
+		System.out.println("key typed");
+		if (code == KeyCode.BACK_SPACE){
+			// TODO: Remove from backend
+			removeSprite(mySelectedSprite);
+		}
+	}
 
-    public ScrollPane getScrollPane(){
+	public ScrollPane getScrollPane(){
         return myScrollPane;
     }
 
@@ -144,37 +140,37 @@ public class DesignArea implements IDesignArea {
     }
 
     public void addBoundingBox(BoundingBox bb){
-        for(Rectangle rect : bb.getShapes()){
-            myPane.getChildren().add(rect);
-        }
+    	for(Rectangle rect : bb.getShapes()){
+    		myPane.getChildren().add(rect);
+    	}
     }
-
+    
     public void removeBoundingBox(BoundingBox bb){
-        for(Rectangle rect : bb.getShapes()){
-            myPane.getChildren().remove(rect);
-        }
+    	for(Rectangle rect : bb.getShapes()){
+    		myPane.getChildren().remove(rect);
+    	}
     }
-
+    
     private GameObject checkForSprite(double x, double y){
-        Rectangle test = new Rectangle(x, y, 1, 1);
-        GameObject selectedSprite = null;
-        for (GameObject sprite : mySprites){
-            if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled && mySelectedSprite == sprite){
-                return sprite;
-            } else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
-                selectedSprite = sprite;
-            }
-        }
-        return selectedSprite;
-    }
+		Rectangle test = new Rectangle(x, y, 1, 1);
+		GameObject selectedSprite = null;
+		for (GameObject sprite : mySprites){
+			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled && mySelectedSprite == sprite){
+				return sprite;
+			} else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
+				selectedSprite = sprite;
+			}
+		}
+		return selectedSprite;
+	}
 
-    @Override
-    public void addDragIn(ImageView tempIV) {
-        myPane.getChildren().add(tempIV);
-    }
-
-    @Override
-    public void removeDragIn(ImageView tempIV) {
-        myPane.getChildren().remove(tempIV);
-    }
+	@Override
+	public void addDragIn(ImageView tempIV) {
+		myPane.getChildren().add(tempIV);
+	}
+	
+	@Override
+	public void removeDragIn(ImageView tempIV) {
+		myPane.getChildren().remove(tempIV);
+	}
 }
