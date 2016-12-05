@@ -57,7 +57,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		collisionChecker = new CollisionChecker(this);
 		movementController = new MovementController(this);
 		gameEngineView = new GameEngineUI(movementController, event -> reset());
-        screenBoundary = new ToroidalBoundary(gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
+        screenBoundary = new NoBoundary(gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
 		movementChecker = new MovementChecker(screenBoundary);
 		RGFrames = new ArrayList<>();
         highScores = new ArrayList<>();
