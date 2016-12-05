@@ -1,1 +1,1 @@
-web:    java -jar target/voogasalad-dreamteam.jar
+web:    java -cp target/classes:"target/dependency/*" Main
