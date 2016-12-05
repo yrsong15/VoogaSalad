@@ -9,7 +9,7 @@ import objects.Level;
 /**
  * This controller manages the Game class used within the Game Editor.
  * 
- * @author Ray Song(ys101), pratiksha sharma
+ * @author Ray Song(ys101)
  *
  */
 
@@ -56,10 +56,6 @@ implements IGameEditorBackEndController, ICreateGame{
     
     public void setGameName(String name){
         myGame.setGameName(name);
-    }
-    
-    public void setGame(Game game){
-        this.myGame=game;
     }
 
 }

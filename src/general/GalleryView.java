@@ -181,13 +181,7 @@ public class GalleryView implements IGalleryView{
         Button edit = newB.getButton();
         edit.translateYProperty().bind(galleryWindow.heightProperty().subtract(120));
         edit.translateXProperty().bind(galleryWindow.widthProperty().divide(2).subtract(300));
-        
-        
-        // Calls the Method to edit a file
-        //edit.setOnMouseClicked(e -> myMainController.presentEditor()); //pass in an XML to the editor eventually
-        
-        edit.setOnMouseClicked(e -> myMainController.editGame());
-        
+        edit.setOnMouseClicked(e -> myMainController.presentEditor()); //pass in an XML to the editor eventually
         edit.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 
         newB = new ButtonTemplate("GalleryGameEngine", 600, 400);

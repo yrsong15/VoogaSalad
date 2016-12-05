@@ -1,13 +1,16 @@
 package gameeditor.controller;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import gameeditor.controller.interfaces.ICreateLevel;
 import objects.Level;
+import objects.interfaces.ILevel;
 
 
 /**
  * This is an intermediate controller that manages levels of the Game.
- * @author Pratiksha Sharma, Ray Song(ys101)
+ * @author Ray Song(ys101)
  */
 
 public class LevelManager implements  ICreateLevel{
