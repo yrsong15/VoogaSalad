@@ -85,20 +85,18 @@ public class DesignArea implements IDesignArea {
                 children.add(child);
             }
         }
-        
+        myPane.getChildren().clear();
         bg.setLayoutX(0);
         bg.setLayoutY(0);
 
         myPane.getChildren().add(bg);
         myPane.getChildren().addAll(children);
-        
     }
 
     @Override
     public void addSprite(GameObject sprite) {
         mySprites.add(sprite);
         //		TODO: Remove the hardcoding of the image size proportions
-
         myPane.getChildren().add(sprite.getImageView());
     }
 
