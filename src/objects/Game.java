@@ -2,13 +2,11 @@ package objects;
 
 import java.util.HashMap;
 import java.util.Map;
-import objects.interfaces.IGame;
 
 /**
  * Created by Soravit on 11/18/2016.
- * @ author Soravit, pratiksha Sharma
  */
-public class Game implements IGame{
+public class Game {
 
 	private String name;
 	private Map<Integer, Level> levels;
@@ -37,17 +35,5 @@ public class Game implements IGame{
 	
 	public void setGameName(String name){
 	    this.name = name;
-	}
-	
-	public int getNumberOfLevels(){
-	   return levels.size();
-	}
-	
-	public String getGameName(){
-	    return this.name;
-	}
-	
-	public Level getLevelByIndex(int index){
-	    return levels.get(index);
 	}
 }

@@ -10,7 +10,7 @@ public interface IToolbarParent {
 
     public void setMusic ();
     
-    public void saveLevelData ();
+    public void saveLevelData (Map<String, String> myLevelData);
 
 
 
