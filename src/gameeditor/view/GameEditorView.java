@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import frontend.util.FileOpener;
 import frontend.util.GameEditorException;
+import gameeditor.controller.GameEditorData;
+import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -33,6 +35,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IEditorToolbar myToolbar;
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
+    private IGameEditorData myDataStoreInterface;
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
     private BooleanProperty closeLevelWindow;
@@ -60,7 +63,8 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     private HBox createLeftAlt(){
-        DetailPane dp = new DetailPane(myDesignArea, myLevelSettings);
+        myDataStoreInterface = new GameEditorData(myLevelSettings);
+        DetailPane dp = new DetailPane(myDesignArea, myDataStoreInterface);
         myDetailPane = dp;
         myCommandPane = new CommandPane(dp);
         myLeftBox = new HBox();
@@ -115,7 +119,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         }
     }
 
-
     public void setAvatar(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, AVATAR_IMAGE_LOCATION);
         if(filePath!=null){
@@ -144,6 +147,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     @Override
     public void saveLevelData () {
+        myDataStoreInterface.addGameObjectsToLevel();
         addGround();
         closeLevelWindow.set(true);
     }
