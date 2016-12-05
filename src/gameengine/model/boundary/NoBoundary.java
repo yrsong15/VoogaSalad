@@ -2,11 +2,23 @@ package gameengine.model.boundary;
 
 import objects.GameObject;
 
-public class NoBoundary implements ScreenBoundary{
+public class NoBoundary extends BasicBoundary{
 
-	public void moveGameObject(GameObject toMove, double newXPos, double newYPos) {
-		toMove.setXPosition(newXPos);
-		toMove.setYPosition(newYPos);
+	public NoBoundary(double width, double height) {
+		super(width, height);
 	}
+	
+	
+	@Override
+	public void moveToXPos(GameObject toMove, double newXPos) {
+		toMove.setXPosition(newXPos);	
+	}
+
+	@Override
+	public void moveToYPos(GameObject toMove, double newYPos) {
+		toMove.setYPosition(newYPos);		
+	}
+	
+	
 
 }

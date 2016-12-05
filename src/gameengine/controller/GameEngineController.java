@@ -10,6 +10,10 @@ import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.*;
+import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.StopAtEdgeBoundary;
+import gameengine.model.boundary.BasicBoundary;
+import gameengine.model.boundary.NoBoundary;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.view.GameEngineUI;
 import gameengine.view.HighScoreScreen;
@@ -45,6 +49,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	private MovementController movementController;
 	private Scrolling gameScrolling;
 	private Stage endGameStage;
+	private ScreenBoundary screenBoundary;
 
 	public GameEngineController() {
 		parser = new GameParser();
@@ -54,6 +59,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		gameEngineView = new GameEngineUI(movementController, event -> reset());
 		RGFrames = new ArrayList<>();
         highScores = new ArrayList<>();
+        screenBoundary = new StopAtEdgeBoundary(gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
     }
 
     public Scene getScene() {
@@ -70,7 +76,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             alert.showAndWait();
             return false;
         }
-		movementController.setGame(currentGame);
+		movementController.setGame(currentGame, screenBoundary);
         gameEngineView.initLevel(currentGame.getCurrentLevel());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
         addRGFrames();

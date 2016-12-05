@@ -230,7 +230,7 @@ public class GameEngineUI {
 	}
 
 	private void setUpKeystrokeListeners() {
-		this.scene.setOnKeyReleased(event -> {
+		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
 					keyMappings.get(event.getCode()).invoke(movementInterface);

@@ -2,23 +2,27 @@ package gameengine.model.boundary;
 
 import objects.GameObject;
 
-public class StopAtEdgeBoundary implements ScreenBoundary{
-	private double screenWidth;
-	private double screenHeight;
+public class StopAtEdgeBoundary extends BasicBoundary{
 	
-	public StopAtEdgeBoundary(double width, double height){
-		screenWidth = width;
-		screenHeight = height;
+	public StopAtEdgeBoundary(double width, double height) {
+		super(width, height);
 	}
 
+
 	@Override
-	public void moveGameObject(GameObject toMove, double newXPos, double newYPos) {
-		if (newYPos <= screenHeight && newYPos >= 0){
-			toMove.setYPosition(newYPos);
-		}
-		if(newXPos <= screenWidth && newXPos >= 0){
+	public void moveToXPos(GameObject toMove, double newXPos) {
+		if(newXPos <= getScreenWidth()-toMove.getWidth() && newXPos >= 0){
 			toMove.setXPosition(newXPos);
 		}
+		
+	}
+
+
+	@Override
+	public void moveToYPos(GameObject toMove, double newYPos) {
+		if (newYPos <= getScreenHeight()-toMove.getHeight() && newYPos >= 0){
+			toMove.setYPosition(newYPos);
+		}		
 	}
 
 }

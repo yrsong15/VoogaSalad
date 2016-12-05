@@ -10,4 +10,8 @@ public interface ScreenBoundary {
 	 */
 	
 	public void moveGameObject(GameObject toMove, double newXPos, double newYPos);
+	
+	public void moveToXPos(GameObject toMove, double newXPos);
+	
+	public void moveToYPos(GameObject toMove, double newYPos);
 }

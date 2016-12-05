@@ -1,11 +1,11 @@
 <objects.Game>
-  <name>Flappy Bird</name>
+  <name>Doodle Jump</name>
   <levels>
     <entry>
       <int>1</int>
       <objects.Level>
         <level>1</level>
-        <backgroundFilePath>Background/bg.png</backgroundFilePath>
+        <backgroundFilePath>Background/graphPaper.png</backgroundFilePath>
         <gameObjects>
           <objects.GameObject>
             <xPosition>250.0</xPosition>
@@ -16,7 +16,7 @@
             <properties>
               <entry>
                 <string>gravity</string>
-                <string>0.8</string>
+                <string>0</string>
               </entry>
               <entry>
                 <string>health</string>
@@ -24,11 +24,24 @@
               </entry>
               <entry>
                 <string>movespeed</string>
-                <string>0</string>
+                <string>10</string>
               </entry>
               <entry>
                 <string>jump</string>
                 <string>400</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+           <objects.GameObject>
+            <xPosition>250.0</xPosition>
+            <yPosition>200.0</yPosition>
+            <width>75.0</width>
+            <height>50.0</height>
+            <imageFileName>platform.png</imageFileName>
+            <properties>
+              <entry>
+                <string>movespeed</string>
+                <string>0</string>
               </entry>
             </properties>
           </objects.GameObject>
@@ -68,6 +81,22 @@
             <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
             <string>jump</string>
           </entry>
+           <entry>
+            <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+            <string>left</string>
+          </entry>
+                    <entry>
+            <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+            <string>right</string>
+          </entry>
+                    <entry>
+            <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+            <string>up</string>
+          </entry>
+                    <entry>
+            <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+            <string>down</string>
+          </entry>
         </controls>
         <randomGenerations>
           <objects.RandomGeneration>
@@ -92,9 +121,9 @@
         </randomGenerations>
         <mainCharacter reference="../gameObjects/objects.GameObject"/>
         <scrollType>
-          <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+          <myScrollTypeName>LimitedScrolling</myScrollTypeName>
           <myScrollDirectionList>
-            <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
+            <com.sun.javafx.scene.traversal.Direction>UP</com.sun.javafx.scene.traversal.Direction>
           </myScrollDirectionList>
             <scrollSpeed class="double">10</scrollSpeed>
         </scrollType>

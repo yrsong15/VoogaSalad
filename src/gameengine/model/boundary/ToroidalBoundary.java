@@ -2,12 +2,21 @@ package gameengine.model.boundary;
 
 import objects.GameObject;
 
-public class ToroidalBoundary implements ScreenBoundary{
+public class ToroidalBoundary extends BasicBoundary{
+
+	public ToroidalBoundary(double width, double height) {
+		super(width, height);
+	}
+	
+	@Override
+	public void moveToXPos(GameObject toMove, double newXPos) {
+		toMove.setXPosition(newXPos);	
+	}
 
 	@Override
-	public void moveGameObject(GameObject toMove, double newXPos, double newYPos) {
-		// TODO Auto-generated method stub
-		
+	public void moveToYPos(GameObject toMove, double newYPos) {
+		toMove.setYPosition(newYPos);		
 	}
+
 
 }
