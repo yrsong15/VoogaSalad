@@ -62,6 +62,8 @@ public interface ILevel {
 	public void addScrollWidth(double scrollWidth);
 
     public void addRandomGeneration (RandomGeneration randomGeneration);
+    public String getMusicFilePath();
+    public String getBackgroundFilePath();
 
 
 }
