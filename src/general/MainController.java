@@ -106,6 +106,6 @@ public class MainController {
         File file = chooser.chooseFile("XML", "data");
         XStream mySerializer = new XStream(new DomDriver());
         Game myGame =  (Game) mySerializer.fromXML(file); 
-        presentEditor(myGame);   
+        presentEditor(myGame);  
     }
 }

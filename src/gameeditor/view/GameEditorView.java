@@ -21,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import objects.GameObject;
+
 import objects.interfaces.ILevel;
 
 
@@ -55,6 +56,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         try{
             addBackground();
             addAvatar();
+           // addSprites();
         }catch(NullPointerException e){
             GameEditorException exception = new GameEditorException();
             exception.showError(e.getMessage());
@@ -62,6 +64,22 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         return myRoot;
     }
 
+    
+    private void addSprites(){
+        if(myLevelSettings.getGameObjects().size()>0){
+            for(GameObject object: myLevelSettings.getGameObjects()){
+                double height = object.getHeight();
+                double width = object.getWidth();
+                String fileName = object.getImageFileName();
+                Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
+                ImageView spriteimageView = new ImageView(image);
+                
+                
+            }
+        }
+        
+    }
+    
     private HBox createLeftAlt(){
         myDataStoreInterface = new GameEditorData(myLevelSettings);
         DetailPane dp = new DetailPane(myDesignArea, myDataStoreInterface);
@@ -85,12 +103,13 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     private void addBackground(){
         if(myLevelSettings.getBackgroundFilePath()!=null){
-            String filePath = FILE_PREFIX+getUserDirectory()+ IMAGES_LOCATION + myLevelSettings.getBackgroundFilePath();
+            String filePath = FILE_PREFIX + getUserDirectory()+ IMAGES_LOCATION + myLevelSettings.getBackgroundFilePath();
             displayBackgroundOnScreen(filePath);
         }
     }
 
     private void addAvatar(){
+        System.out.println(myLevelSettings.getMainCharacter());
         if(myLevelSettings.getMainCharacter()!=null){
             if(myLevelSettings.getMainCharacter().getImageFileName()!=null){
                 String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+myLevelSettings.getMainCharacter().getImageFileName();
@@ -148,6 +167,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     @Override
     public void saveLevelData () {
         myDataStoreInterface.addGameObjectsToLevel();
+        if(myLevelSettings.getMainCharacter()==null){
+            myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
+        }
         addGround();
         closeLevelWindow.set(true);
     }

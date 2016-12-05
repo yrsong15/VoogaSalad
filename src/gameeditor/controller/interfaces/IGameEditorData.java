@@ -16,6 +16,8 @@ public interface IGameEditorData {
     public static final String IMAGE_PATH_KEY="Image Path";
     public static final String WIDTH_KEY="width";
     public static final String HEIGHT_KEY="height";
+    public static final double MAIN_CHAR_WIDTH=50;
+    public static final double MAIN_CHAR_HEIGHT = 50;
 
     // Types Methods
     public Map<String, String> getType(String inputTypeName);
