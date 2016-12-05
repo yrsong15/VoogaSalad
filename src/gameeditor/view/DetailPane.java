@@ -45,10 +45,9 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
     private ImageView myAvatarView;
 
-    public DetailPane(IDesignArea da, ILevel currentLevel) {
+    public DetailPane(IDesignArea da, IGameEditorData dataStore) {
     	myDesignArea = da;
-    	
-    	myDataStore = new GameEditorData(currentLevel);
+    	myDataStore =dataStore;
  
         myPane = new Pane();
         myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
@@ -78,6 +77,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         
         // Set the ImageFile Path in the gameEditorDataStore
         String file = filePath.substring(filePath.lastIndexOf("/") +1);
+       
         myDataStore.addMainCharacterImage(file);
        
         myPane.getChildren().remove(myAvatarView);

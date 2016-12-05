@@ -26,7 +26,7 @@ public interface IDesignArea {
     
     public void removeSprite(GameObject gameObject);
     
-    public void setBackground(HBox bg);
+    public void setBackground(ImageView bg);
     
     public void enableClick(ISelectDetail sd);
     
