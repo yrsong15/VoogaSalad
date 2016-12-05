@@ -9,8 +9,10 @@ import gameeditor.view.GameEditorView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import objects.Game;
 import objects.Level;
@@ -161,6 +163,9 @@ public class GameEditorController implements IGameEditorController{
         myLevelStage.setHeight(GameEditorView.SCENE_HEIGHT+20);
         myLevelStage.setWidth(GameEditorView.SCENE_WIDTH);
         myLevelScene.getStylesheets().remove(CSS_STYLING_EDITOR_LEVELS);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        myLevelStage.setX((screenBounds.getWidth() - myLevelStage.getWidth()) / 2); 
+        myLevelStage.setY((screenBounds.getHeight() - myLevelStage.getHeight()) / 2);
     }
 
     public String getGameFile(){
