@@ -29,6 +29,7 @@ public class MovementController implements MovementInterface{
         double newPos = mainChar.getYPosition() - Double.parseDouble(mainChar.getProperty("movespeed"));
         mainChar.setYPosition(newPos);
     }
+    
 
     @Override
     public void moveDown(){

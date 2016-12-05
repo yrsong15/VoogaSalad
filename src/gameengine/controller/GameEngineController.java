@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
 
+import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.RGInterface;
@@ -98,7 +99,11 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	public void updateGame(){
 		Level currLevel = currentGame.getCurrentLevel();
 		GameObject mainChar = currLevel.getMainCharacter();
-		gameScrolling.scrollScreen(currLevel.getGameObjects(), mainChar);
+		try {
+			gameScrolling.scrollScreen(currLevel.getGameObjects(), mainChar);
+		} catch (ScrollDirectionNotFoundException e1) {
+			
+		}
         if(currLevel.getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
             removeOffscreenElements();
         }
