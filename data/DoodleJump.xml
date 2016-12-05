@@ -45,18 +45,6 @@
               </entry>
             </properties>
           </objects.GameObject>
-          <objects.GameObject>
-            <xPosition>0.0</xPosition>
-            <yPosition>600.0</yPosition>
-            <width>1000000.0</width>
-            <height>200.0</height>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>30</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
         </gameObjects>
         <winConditions>
           <entry>
@@ -99,25 +87,6 @@
           </entry>
         </controls>
         <randomGenerations>
-          <objects.RandomGeneration>
-            <objectProperties>
-              <entry>
-                <string>damage</string>
-                <string>30</string>
-              </entry>
-              <entry>
-                <string>points</string>
-                <string>1</string>
-              </entry>
-            </objectProperties>
-            <numObjects class="int">5</numObjects>
-            <minX class="int">140</minX>
-            <maxX class="int">700</maxX>
-            <minY class="int">135</minY>
-            <maxY class="int">405</maxY>
-            <minSpacing class="int">250</minSpacing>
-            <maxSpacing class="int">500</maxSpacing>
-          </objects.RandomGeneration>
         </randomGenerations>
         <mainCharacter reference="../gameObjects/objects.GameObject"/>
         <scrollType>

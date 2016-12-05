@@ -12,6 +12,7 @@ import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.*;
 import gameengine.model.boundary.ScreenBoundary;
 import gameengine.model.boundary.StopAtEdgeBoundary;
+import gameengine.model.boundary.ToroidalBoundary;
 import gameengine.model.boundary.BasicBoundary;
 import gameengine.model.boundary.NoBoundary;
 import gameengine.model.interfaces.Scrolling;
@@ -56,7 +57,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		collisionChecker = new CollisionChecker(this);
 		movementController = new MovementController(this);
 		gameEngineView = new GameEngineUI(movementController, event -> reset());
-        screenBoundary = new StopAtEdgeBoundary(gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
+        screenBoundary = new ToroidalBoundary(gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
 		movementChecker = new MovementChecker(screenBoundary);
 		RGFrames = new ArrayList<>();
         highScores = new ArrayList<>();

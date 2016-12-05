@@ -12,7 +12,6 @@ public class ApplyGravityRule implements MovementRule {
 	public void applyRule(GameObject obj, ScreenBoundary gameBoundaries) {
 		double gravity = Double.parseDouble(obj.getProperty("gravity"));
 		double speed = modifySpeed(obj, gravity);
-		System.out.println("applying gravity");
 		gameBoundaries.moveToYPos(obj, obj.getYPosition() + GameEngineController.SECOND_DELAY * speed);
 	}
 
