@@ -20,6 +20,7 @@ public class StopAtEdgeBoundary extends BasicBoundary{
 
 	@Override
 	public void moveToYPos(GameObject toMove, double newYPos) {
+		System.out.println("checking y");
 		if (newYPos <= getScreenHeight()-toMove.getHeight() && newYPos >= 0){
 			toMove.setYPosition(newYPos);
 		}		

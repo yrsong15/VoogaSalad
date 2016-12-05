@@ -54,12 +54,12 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
-		movementChecker = new MovementChecker();
 		movementController = new MovementController(this);
 		gameEngineView = new GameEngineUI(movementController, event -> reset());
+        screenBoundary = new StopAtEdgeBoundary(gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
+		movementChecker = new MovementChecker(screenBoundary);
 		RGFrames = new ArrayList<>();
         highScores = new ArrayList<>();
-        screenBoundary = new StopAtEdgeBoundary(gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
     }
 
     public Scene getScene() {
@@ -108,7 +108,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		try {
 			gameScrolling.scrollScreen(currLevel.getGameObjects(), mainChar);
 		} catch (ScrollDirectionNotFoundException e1) {
-			
+			e1.printStackTrace();
 		}
         if(currLevel.getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
             removeOffscreenElements();

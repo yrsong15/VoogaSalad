@@ -1,6 +1,7 @@
 package gameengine.model.rules;
 
 import gameengine.controller.interfaces.RuleActionHandler;
+import gameengine.model.boundary.ScreenBoundary;
 import objects.GameObject;
 import utils.ReflectionUtil;
 import utils.ResourceReader;
@@ -21,12 +22,15 @@ import exception.MovementRuleNotFoundException;
  */
 public class MovementRulebook {
 
-    private ResourceReader resources;
     private static final String resourcesPath = "GameEngineMovementProperties";
     private static final String rulesPath = "gameengine.model.rules.movementrules.";
+    
+    private ResourceReader resources;
+    private ScreenBoundary gameBoundaries;
 
-    public MovementRulebook() {
-        resources = new ResourceReader(resourcesPath);
+    public MovementRulebook(ScreenBoundary gameBoundaries) {
+        this.resources = new ResourceReader(resourcesPath);
+        this.gameBoundaries = gameBoundaries;
     }
 
     public void applyRules(GameObject obj) throws MovementRuleNotFoundException{
@@ -35,12 +39,13 @@ public class MovementRulebook {
     	String property = itr.next();
             if(resources.containsResource(property)) {
                 String ruleName = rulesPath + resources.getResource(property);
-        		Object[] parameters = new Object[]{obj};
-        		Class<?>[] parameterTypes = new Class<?>[]{GameObject.class};
+        		Object[] parameters = new Object[]{obj, gameBoundaries};
+        		Class<?>[] parameterTypes = new Class<?>[]{GameObject.class, ScreenBoundary.class};
                 try {
 					ReflectionUtil.runMethod(ruleName, "applyRule", parameters, parameterTypes);
 				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
 						| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
 					throw (new MovementRuleNotFoundException());
 				}
             }

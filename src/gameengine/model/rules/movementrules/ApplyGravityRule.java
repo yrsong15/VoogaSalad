@@ -1,6 +1,7 @@
 package gameengine.model.rules.movementrules;
 
 import gameengine.controller.GameEngineController;
+import gameengine.model.boundary.ScreenBoundary;
 import objects.GameObject;
 
 /**
@@ -8,10 +9,11 @@ import objects.GameObject;
  */
 public class ApplyGravityRule implements MovementRule {
 	@Override
-	public void applyRule(GameObject obj) {
+	public void applyRule(GameObject obj, ScreenBoundary gameBoundaries) {
 		double gravity = Double.parseDouble(obj.getProperty("gravity"));
 		double speed = modifySpeed(obj, gravity);
-		obj.setYPosition(obj.getYPosition() + GameEngineController.SECOND_DELAY * speed);
+		System.out.println("applying gravity");
+		gameBoundaries.moveToYPos(obj, obj.getYPosition() + GameEngineController.SECOND_DELAY * speed);
 	}
 
 	private double modifySpeed(GameObject obj, double gravity) {
