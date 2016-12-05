@@ -156,25 +156,26 @@ public class DesignArea implements IDesignArea {
     }
 
     private GameObject checkForSprite(double x, double y){
-        Rectangle test = new Rectangle(x, y, 1, 1);
-        GameObject selectedSprite = null;
-        for (GameObject sprite : mySprites){
-            if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled && mySelectedSprite == sprite){
-                return sprite;
-            } else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
-                selectedSprite = sprite;
-            }
-        }
-        return selectedSprite;
-    }
+		Rectangle test = new Rectangle(x, y, 1, 1);
+		GameObject selectedSprite = null;
+		for (GameObject sprite : mySprites){
+			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent())
+					&& clickEnabled && mySelectedSprite == sprite){
+				return sprite;
+			} else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
+				selectedSprite = sprite;
+			}
+		}
+		return selectedSprite;
+	}
 
-    @Override
-    public void addDragIn(ImageView tempIV) {
-        myPane.getChildren().add(tempIV);
-    }
-
-    @Override
-    public void removeDragIn(ImageView tempIV) {
-        myPane.getChildren().remove(tempIV);
-    }
+	@Override
+	public void addDragIn(ImageView tempIV) {
+		myPane.getChildren().add(tempIV);
+	}
+	
+	@Override
+	public void removeDragIn(ImageView tempIV) {
+		myPane.getChildren().remove(tempIV);
+	}
 }

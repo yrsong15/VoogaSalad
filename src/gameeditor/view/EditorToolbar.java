@@ -6,16 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IToolbarParent;
+import general.NodeFactory;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -34,45 +29,46 @@ public class EditorToolbar implements IEditorToolbar {
 	// Min Width, Max Width, Min Height
 	
 	private IToolbarParent myOutput;
-	
+    private NodeFactory myFactory = new NodeFactory();
 	private Pane myPane;
 	private ImageView myBackgroundImageView;
 	private ImageView myAvatarImageView;
 	private ImageView myMusicImageView;
 	private ImageView myLoadGameImageView;
-	
-	public EditorToolbar(IToolbarParent toolOut) {
-		myOutput = toolOut;
-		myPane = new Pane();
-		myPane.setMinWidth(TOOLBAR_WIDTH); myPane.setMaxWidth(TOOLBAR_WIDTH);
-		myPane.setMinHeight(TOOLBAR_HEIGHT); myPane.setMaxHeight(TOOLBAR_HEIGHT);
-		myPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-		createButton(myBackgroundImageView, "/Background.png", BG_IMAGE_WIDTH, BG_IMAGE_XOFFSET, e -> myOutput.setBackground());
-		createButton(myAvatarImageView, "/Avatar.png", AVATAR_IMAGE_WIDTH, AVATAR_IMAGE_XOFFSET, e -> myOutput.setAvatar());
-		createButton(myMusicImageView, "/Music.png", MUSIC_IMAGE_WIDTH, MUSIC_IMAGE_XOFFSET, e -> myOutput.setMusic());
-		createButton(myLoadGameImageView,"/Save.png",LOAD_GAME_IMAGE_WIDTH,LOAD_GAME_IMAGE_XOFFSET,e-> sendLevelData());	
-	}
-	
-	// TODO: REFACTOR THIS METHOD TO WORK GENERALLY, USE image.getWidth();
-	private void createButton(ImageView myImageView, String fileLocation, 
-		double imageWidth, double imageXOffset, EventHandler<MouseEvent> handler){
-		Image buttonImage;
-		try {
-			buttonImage = new Image(new FileInputStream(IMAGE_FILE_LOCATION + fileLocation));
-			myImageView = new ImageView(buttonImage);
-			myImageView.setPreserveRatio(true);
-			myImageView.setFitHeight(BUTTON_IMAGE_HEIGHT);
-			myImageView.setFitWidth(imageWidth);
-			myImageView.setLayoutX(imageXOffset);
-		
-			myImageView.setLayoutY(BUTTON_IMAGE_YOFFSET);
-			myImageView.setOnMouseClicked(handler);
-			myPane.getChildren().add(myImageView);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
+    public EditorToolbar(IToolbarParent toolOut) {
+        myOutput = toolOut;
+//        myLevelData = new HashMap<String,String>();
+        myPane = new Pane();
+        myPane.setMinWidth(TOOLBAR_WIDTH); myPane.setMaxWidth(TOOLBAR_WIDTH);
+        myPane.setMinHeight(TOOLBAR_HEIGHT); myPane.setMaxHeight(TOOLBAR_HEIGHT);
+        myPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        createButton(myBackgroundImageView, "/Background.png", BG_IMAGE_WIDTH, BG_IMAGE_XOFFSET, myFactory.makeTooltip("Background"), e -> myOutput.setBackground());
+        createButton(myAvatarImageView, "/Avatar.png", AVATAR_IMAGE_WIDTH, AVATAR_IMAGE_XOFFSET, myFactory.makeTooltip("Avatar"), e -> myOutput.setAvatar());
+        createButton(myMusicImageView, "/eighthNote.png", MUSIC_IMAGE_WIDTH, MUSIC_IMAGE_XOFFSET, myFactory.makeTooltip("Music"), e -> myOutput.setMusic());
+        createButton(myLoadGameImageView, "/Save.png", LOAD_GAME_IMAGE_WIDTH, LOAD_GAME_IMAGE_XOFFSET, myFactory.makeTooltip("Save"), e-> sendLevelData());
+    }
+
+    // TODO: REFACTOR THIS METHOD TO WORK GENERALLY, USE image.getWidth();
+    private void createButton(ImageView myImageView, String fileLocation, double imageWidth, double imageXOffset,
+                              Tooltip tooltip, EventHandler<MouseEvent> handler){
+        Image buttonImage;
+        try {
+            buttonImage = new Image(new FileInputStream(IMAGE_FILE_LOCATION + fileLocation));
+            myImageView = new ImageView(buttonImage);
+            myImageView.setPreserveRatio(true);
+            myImageView.setFitHeight(BUTTON_IMAGE_HEIGHT);
+            myImageView.setFitWidth(imageWidth);
+            myImageView.setLayoutX(imageXOffset);
+            myImageView.setLayoutY(BUTTON_IMAGE_YOFFSET);
+            Tooltip.install(myImageView, tooltip);
+            myImageView.setOnMouseClicked(handler);
+            myPane.getChildren().add(myImageView);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 	
 	private void sendLevelData(){    
 	    myOutput.saveLevelData();
