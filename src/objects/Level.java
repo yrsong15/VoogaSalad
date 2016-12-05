@@ -150,7 +150,7 @@ public class Level implements ILevel{
 
     @Override
     public void setBackgroundImage(String filePath) {
-        this.backgroundFilePath = filePath;
+        this.backgroundFilePath = backgroundFilePath;
     }
 
     @Override

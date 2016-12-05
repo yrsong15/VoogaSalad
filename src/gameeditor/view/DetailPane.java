@@ -45,9 +45,10 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
     private ImageView myAvatarView;
 
-    public DetailPane(IDesignArea da, IGameEditorData dataStore) {
+    public DetailPane(IDesignArea da, ILevel currentLevel) {
     	myDesignArea = da;
-    	myDataStore =dataStore;
+    	
+    	myDataStore = new GameEditorData(currentLevel);
  
         myPane = new Pane();
         myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);

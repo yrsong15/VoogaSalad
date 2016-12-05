@@ -1,14 +1,8 @@
 package general;
-import java.io.File;
-import java.io.IOException;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import objects.Game;
 
 import java.io.IOException;
 
@@ -31,7 +25,6 @@ public class MainController {
         stage.setScene(scene);
         stage.setTitle(GAME_TITLE);
         stage.show();
-
         initializeGallery();
         gameEngineController = new GameEngineController();
         gameEditorController = new GameEditorController();
@@ -40,10 +33,10 @@ public class MainController {
 
     public void presentGallery() {
         //System.out.println("present");
-        //        myGalleryView = new GalleryView(myGallery, this);
-        //        myGalleryStage.setScene(myGalleryView.getScene());
-        //        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
-        //        myGalleryStage.show();
+//        myGalleryView = new GalleryView(myGallery, this);
+//        myGalleryStage.setScene(myGalleryView.getScene());
+//        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
+//        myGalleryStage.show();
     }
 
     private void initializeGallery() throws IOException {
@@ -53,32 +46,27 @@ public class MainController {
 
     private void addNewGameFile(String title, String gameData)
     {
-        GameFile newGame = new GameFile(title,gameData);
+        GameFile newGame = new GameFile(title, gameData);
         gallery.addToGallery(newGame);
     }
 
     public void editorSplash(){
-        //        myEditorSplash = new EditorSplash(this);
-        //        myEditorSplashStage = new Stage();
-        //        Scene scene = new Scene(myEditorSplash.setUpWindow());
-        //        scene.getStylesheets().add(STYLESHEET);
-        //        myEditorSplashStage.setScene(scene);
-        //        myEditorSplashStage.show();
+//        myEditorSplash = new EditorSplash(this);
+//        myEditorSplashStage = new Stage();
+//        Scene scene = new Scene(myEditorSplash.setUpWindow());
+//        scene.getStylesheets().add(STYLESHEET);
+//        myEditorSplashStage.setScene(scene);
+//        myEditorSplashStage.show();
     }
 
-
-  //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
-    public void presentEditor(Game game ) {
+    public void presentEditor() {
         gameEditorStage = new Stage();
-        gameEditorController = new GameEditorController();
-        // Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
-        //myGameEditorStage.setScene(scene);
-        //scene.getStylesheets().add("gameEditorSplash.css");
-        // myGameEditorStage.show();
-        gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendDataToEngine());   
+        Scene scene = new Scene(gameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
+        gameEditorStage.setScene(scene);
+        scene.getStylesheets().add("gameEditorSplash.css");
+        gameEditorStage.show();
+        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
-
 
     public void launchEngine(String XMLData){
         if(gameEngineController.startGame(XMLData) == true){
@@ -97,15 +85,7 @@ public class MainController {
     private void sendDataToEngine() {
         String title = gameEditorController.getGameTitle();
         String gameFile = gameEditorController.getGameFile();
-        addNewGameFile(title,gameFile);
+        addNewGameFile(title, gameFile);
         launchEngine(gameFile);
-    }
-
-    public void editGame(){
-        FileOpener chooser= new FileOpener();
-        File file = chooser.chooseFile("XML", "data");
-        XStream mySerializer = new XStream(new DomDriver());
-        Game myGame =  (Game) mySerializer.fromXML(file); 
-        presentEditor(myGame);   
     }
 }
