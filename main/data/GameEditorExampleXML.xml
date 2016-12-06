@@ -1,0 +1,108 @@
+<objects.Game>
+  <name>Flappy Bird</name>
+  <levels>
+    <entry>
+      <int>1</int>
+      <objects.Level>
+        <level>1</level>
+        <gameObjects>
+          <objects.GameObject>
+            <xPosition>250.0</xPosition>
+            <yPosition>200.0</yPosition>
+            <width>75.0</width>
+            <height>50.0</height>
+            <imageFileName>bird3.png</imageFileName>
+            <properties>
+              <entry>
+                <string>gravity</string>
+                <string>0.8</string>
+              </entry>
+              <entry>
+                <string>health</string>
+                <string>30</string>
+              </entry>
+              <entry>
+                <string>movespeed</string>
+                <string>0</string>
+              </entry>
+              <entry>
+                <string>jump</string>
+                <string>400</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+          <objects.GameObject>
+            <xPosition>0.0</xPosition>
+            <yPosition>600.0</yPosition>
+            <width>1000000.0</width>
+            <height>200.0</height>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>30</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+        </gameObjects>
+        <winConditions>
+          <entry>
+            <string>score</string>
+            <string>10</string>
+          </entry>
+        </winConditions>
+        <loseConditions>
+          <entry>
+            <string>time</string>
+            <string>30</string>
+          </entry>
+        </loseConditions>
+          <gameConditions>
+              <entry>
+                  <string>scrollspeed</string>
+                  <double>10</double>
+              </entry>
+          </gameConditions>
+        <controls>
+          <entry>
+            <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
+            <string>jump</string>
+          </entry>
+        </controls>
+        <randomGenerations>
+          <objects.RandomGeneration>
+            <objectProperties>
+              <entry>
+                <string>damage</string>
+                <string>30</string>
+              </entry>
+              <entry>
+                <string>points</string>
+                <string>1</string>
+              </entry>
+            </objectProperties>
+            <numObjects class="int">5</numObjects>
+            <minX class="int">140</minX>
+            <maxX class="int">700</maxX>
+            <minY class="int">135</minY>
+            <maxY class="int">405</maxY>
+            <minSpacing class="int">250</minSpacing>
+            <maxSpacing class="int">500</maxSpacing>
+          </objects.RandomGeneration>
+        </randomGenerations>
+        <mainCharacter reference="../gameObjects/objects.GameObject"/>
+        <scrollType>
+          <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+          <myScrollDirectionList>
+            <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
+          </myScrollDirectionList>
+        </scrollType>
+        <viewSettings>
+          <musicFilePath>FlappyBirdThemeSong.mp3</musicFilePath>
+          <backgroundFilePath>Background/bg.png</backgroundFilePath>
+          <scrollWidth>0.0</scrollWidth>
+        </viewSettings>
+      </objects.Level>
+    </entry>
+  </levels>
+  <currentLevel reference="../levels/entry/objects.Level"/>
+</objects.Game>
