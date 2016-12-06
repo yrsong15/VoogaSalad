@@ -1,5 +1,6 @@
 package gameengine.model.rules.movementrules;
 
+import gameengine.model.boundary.ScreenBoundary;
 import objects.GameObject;
 
 /**
@@ -7,8 +8,8 @@ import objects.GameObject;
  */
 public class ApplyHorizontalMovementRule implements MovementRule{
     @Override
-    public void applyRule(GameObject obj) {
+    public void applyRule(GameObject obj, ScreenBoundary gameBoundaries) {
         int moveSpeed = Integer.parseInt(obj.getProperty("horizontalmovement"));
-        obj.setXPosition(obj.getXPosition() + moveSpeed);
+        gameBoundaries.moveToXPos(obj, obj.getXPosition() + moveSpeed);
     }
 }

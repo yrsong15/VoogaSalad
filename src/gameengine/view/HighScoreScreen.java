@@ -4,6 +4,7 @@
 package gameengine.view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import frontend.util.ButtonTemplate;
 import gameengine.controller.GameEngineController;
@@ -32,12 +33,12 @@ public class HighScoreScreen {
 	private NodeFactory myFactory = new NodeFactory();
 	private Scene myScene;
 	private Level myLevel;
-	private ArrayList<Integer> myHighScores;
+	private List<Integer> highScores;
 	private BorderPane root;
 	private GameEngineController myEngine;
 	
-	public HighScoreScreen(Level level, ArrayList<Integer> highScores, GameEngineController engine) {
-		myHighScores = highScores;
+	public HighScoreScreen(Level level, List<Integer> highScores, GameEngineController engine) {
+		this.highScores = highScores;
 		myLevel = level;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		myEngine = engine;
@@ -60,7 +61,7 @@ public class HighScoreScreen {
 		highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
 		root.getChildren().addAll(background, backdrop, score, highScoreText);
 		int index = 0;
-		for (Integer highScore : myHighScores) {
+		for (Integer highScore : highScores) {
 			Text text = new Text (50, 120 + index * 20, " " + (index + 1) + ".\t" + Integer.toString(highScore));
 			text.setFont(Font.font("Arial", FontWeight.BOLD, 15));
 			root.getChildren().add(text);

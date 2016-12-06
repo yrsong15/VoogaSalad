@@ -10,8 +10,9 @@ import javafx.beans.Observable;
  * @author pratikshasharma, Chalena Scholl
  */
 public class ScrollType {
-    public String myScrollTypeName; 
+    private String myScrollTypeName; 
     private List<Direction> myScrollDirectionList = new ArrayList<Direction>();
+    private double scrollSpeed;
 
     public ScrollType(String scrollType){
         this.myScrollTypeName = scrollType;
@@ -23,11 +24,19 @@ public class ScrollType {
         }
     }
 
-    public String getScrollType(){
+    public String getScrollTypeName(){
         return this.myScrollTypeName;
     }
     
     public List<Direction> getDirections(){
     	return myScrollDirectionList;
-    }     
+    }
+
+    public double getScrollSpeed(){
+        return scrollSpeed;
+    }
+
+    public void setScrollSpeed(int scrollSpeed){
+        this.scrollSpeed = scrollSpeed;
+    }
 }

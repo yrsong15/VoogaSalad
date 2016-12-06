@@ -2,6 +2,7 @@ package gameengine.model.interfaces;
 
 import java.util.List;
 
+import exception.ScrollDirectionNotFoundException;
 import objects.GameObject;
 import objects.Level;
 
@@ -21,8 +22,9 @@ public interface Scrolling {
 	
 	/**
 	 * Completes the scrolling of the screen based on the speed
+	 * @throws ScrollDirectionNotFoundException 
 	 */
-	void scrollScreen(List<GameObject> gameObjects, GameObject mainChar);
+	void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException;
 
 
 
