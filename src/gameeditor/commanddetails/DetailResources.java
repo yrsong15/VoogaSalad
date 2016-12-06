@@ -9,15 +9,19 @@ import javafx.scene.paint.Color;
 
 public enum DetailResources {
                 //PROPERTIES(new String[]{"Destructible","Damage","Points","Time","Health","Gravity","Speed","Random","Movable"}),
-		PROPERTIES_TEXT_INPUT(new String [] { "Damage", "Points", "Time", "Health","Gravity","Speed","Jump"}),
+		SPRITE_PROPERTIES_TEXT_INPUT_LABEL(new String [] { "Damage", "Points", "Health","Gravity","Horizontal Speed","Jump"}),
+		
 		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
 		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
-		RANDOM_GEN_COMBO_LABEL("randomgeneration"),
+		RANDOM_GEN_KEY("randomgeneration"),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
-		
-
+		MAIN_CHARACTER_PROPERTIES(new String[]{"Health","Gravity","Movement Speed","Jump"}),
 		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
 		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
+		
+		X_POSITION_KEY("xPosition"),
+                Y_POSITION_KEY("yPosition"),
+                
 		
 		// Limit Width
 		LIMIT_DIMENSION_LABEL("Limit Dimension"),
@@ -45,7 +49,8 @@ public enum DetailResources {
 		RANDOM_PROPERTY_KEY ( "randomgeneration"),
 		DETAIL_CONTENT_PADDING(10),
 		RANDOM_GENERATION_PARAMETERS(new String[]{"Objects per Frame", "Minimum X ","Maximum X","Minimum Y ","Maximum Y","Minimum Spacing","Maximum Spacing"}),
-//		RANDOM_GENERATION_KEYS(new String[]{"numObjects","minX","minY",)
+
+		//		RANDOM_GENERATION_KEYS(new String[]{"numObjects","minX","minY",)
 		
 		
 		TYPE_IMAGE_ZONE_WIDTH(50),

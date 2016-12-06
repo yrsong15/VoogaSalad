@@ -1,5 +1,9 @@
 package general;
-import com.sun.javafx.scene.traversal.Direction;
+import java.io.File;
+import java.io.IOException;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
 import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
@@ -32,6 +36,7 @@ public class MainController {
         stage.setScene(scene);
         stage.setTitle(GAME_TITLE);
         stage.show();
+
         initializeGallery();
         gameEngineController = new GameEngineController();
         gameEditorController = new GameEditorController();
@@ -40,10 +45,10 @@ public class MainController {
 
     public void presentGallery() {
         //System.out.println("present");
-//        myGalleryView = new GalleryView(myGallery, this);
-//        myGalleryStage.setScene(myGalleryView.getScene());
-//        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
-//        myGalleryStage.show();
+        //        myGalleryView = new GalleryView(myGallery, this);
+        //        myGalleryStage.setScene(myGalleryView.getScene());
+        //        myGalleryStage.setTitle(GALLERY_STAGE_TITLE);
+        //        myGalleryStage.show();
     }
 
     private void initializeGallery() throws IOException {
@@ -58,21 +63,25 @@ public class MainController {
     }
 
     public void editorSplash(){
-//        myEditorSplash = new EditorSplash(this);
-//        myEditorSplashStage = new Stage();
-//        Scene scene = new Scene(myEditorSplash.setUpWindow());
-//        scene.getStylesheets().add(STYLESHEET);
-//        myEditorSplashStage.setScene(scene);
-//        myEditorSplashStage.show();
+        //        myEditorSplash = new EditorSplash(this);
+        //        myEditorSplashStage = new Stage();
+        //        Scene scene = new Scene(myEditorSplash.setUpWindow());
+        //        scene.getStylesheets().add(STYLESHEET);
+        //        myEditorSplashStage.setScene(scene);
+        //        myEditorSplashStage.show();
     }
 
-    public void presentEditor() {
+
+  //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
+    public void presentEditor(Game game ) {
         gameEditorStage = new Stage();
-        Scene scene = new Scene(gameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
-        gameEditorStage.setScene(scene);
-        scene.getStylesheets().add("gameEditorSplash.css");
-        gameEditorStage.show();
-        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        gameEditorController = new GameEditorController();
+        // Scene scene = new Scene(myGameEditorController.startEditor(), SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT);
+        //myGameEditorStage.setScene(scene);
+        //scene.getStylesheets().add("gameEditorSplash.css");
+        // myGameEditorStage.show();
+        gameEditorController.startEditor(game);
+        gameEditorController.setOnLoadGame(e -> sendDataToEngine());   
     }
 
 
@@ -112,5 +121,13 @@ public class MainController {
         String gameFile = gameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
         launchEngine(gameFile);
+    }
+
+    public void editGame(){
+        FileOpener chooser= new FileOpener();
+        File file = chooser.chooseFile("XML", "data");
+        XStream mySerializer = new XStream(new DomDriver());
+        Game myGame =  (Game) mySerializer.fromXML(file); 
+        presentEditor(myGame);  
     }
 }

@@ -34,15 +34,7 @@ public interface IEditorToolbar {
     public static final double LOAD_GAME_IMAGE_XOFFSET = ViewResources.LOAD_GAME_IMAGE_XOFFSET.getDoubleResource();
     public Pane getPane();
 
-//    public static final String SCROLL_TYPE_LABEL = ViewResources.SCROLL_TYPE_OPTIONS_LABEL.getResource();
-//    public static final String FREE_SCROLL_TYPE_LABEL = ViewResources.FREE_SCROLLING_TYPE_LABEL.getResource();
-//    public static final String LIMITED_SCROLL_TYPE_LABEL = ViewResources.LIMITED_SCROLLING_TYPE_LABEL.getResource();
-//    public static final String FORCED_SCROLL_TYPE_LABEL = ViewResources.FORCED_SCROLLING_TYPE_LABEL.getResource();
 
 
-    public Menu getLimitedScrollingMenu();
 
-    public Menu getForcedScrollMenu();
-
-    public MenuItem getFreeScrollTypeMenuItem();
 }
