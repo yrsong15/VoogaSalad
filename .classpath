@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="exception/|frontend/|frontend/util/|gameeditor/|gameeditor/commanddetails/|gameeditor/controller/|gameeditor/controller/interfaces/|gameeditor/interfaces/|gameeditor/objects/|gameeditor/view/|gameeditor/view/interfaces/|gameeditor/xml/|gameengine/|gameengine/controller/|gameengine/controller/interfaces/|gameengine/model/|gameengine/model/boundary/|gameengine/model/interfaces/|gameengine/model/rules/|gameengine/model/rules/collisionrules/|gameengine/model/rules/movementrules/|gameengine/model/settings/|gameengine/scrolling/|gameengine/view/|gameengine/view/interfaces/|general/|general/interfaces/|main/|main/resources/|main/resources/spark/|main/resources/spark/template/|main/resources/spark/template/freemarker/|objects/|objects/interfaces/|usecases/|usecases/mockObjects/|utils/" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
