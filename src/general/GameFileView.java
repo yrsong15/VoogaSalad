@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.event.EventType;
+import javafx.geometry.Pos;
 
 public class GameFileView implements IGameFileView
 {
@@ -90,8 +91,9 @@ public class GameFileView implements IGameFileView
 	{
 		Pane view = new Pane();
 		Label name = new Label(gameFile.getGameName());
+		name.setAlignment(Pos.CENTER);
 		name.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-		double rectWidth = name.getText().length() * name.getFont().getSize();
+		double rectWidth = name.getText().length() * (.8 * name.getFont().getSize());
 		Rectangle rect = new Rectangle(rectWidth, 85);
 		int randVal = (int)(Math.random() * 3);
 		if(randVal == 0)
