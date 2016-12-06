@@ -97,6 +97,10 @@
             <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
           </myScrollDirectionList>
             <scrollSpeed class="double">10</scrollSpeed>
+          <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
+	        <screenWidth>700.0</screenWidth>
+	        <screenHeight>675.0</screenHeight>
+	      </gameBoundaries>
         </scrollType>
       </objects.Level>
     </entry>
