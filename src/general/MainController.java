@@ -1,6 +1,8 @@
 package general;
 import java.io.File;
 import java.io.IOException;
+
+import com.sun.javafx.scene.traversal.Direction;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
@@ -38,9 +40,6 @@ public class MainController {
         stage.show();
 
         initializeGallery();
-        gameEngineController = new GameEngineController();
-        gameEditorController = new GameEditorController();
-
     }
 
     public void presentGallery() {
@@ -86,7 +85,8 @@ public class MainController {
 
 
     public void launchEngine(String XMLData){
-       // XMLData = testGameEngine();
+        gameEngineController = new GameEngineController();
+        // XMLData = testGameEngine();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
         };
@@ -113,7 +113,6 @@ public class MainController {
         gameEngineStage = new Stage();
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
-        gameEngineStage.setOnCloseRequest(event -> gameEngineController.reset());
     }
 
     private void sendDataToEngine() {
