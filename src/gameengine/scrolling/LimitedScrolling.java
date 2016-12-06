@@ -7,12 +7,15 @@ import java.util.List;
 
 import com.sun.javafx.scene.traversal.Direction;
 
+import exception.MovementRuleNotFoundException;
+import exception.ScrollDirectionNotFoundException;
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
 
 public class LimitedScrolling implements Scrolling{
+	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
 	private double scrollingSpeed;
 	private double screenWidth;
@@ -63,17 +66,27 @@ public class LimitedScrolling implements Scrolling{
 	}
 	
 	
-	
-	// only scroll screen if maincharacter is at 50%
 	@Override
-	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) {
+	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
+		
 		if(!needToMoveScreen(mainChar)) return;
-		String className = "gameengine.scrolling.GeneralScroll";
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		if (mainChar.getProperties().containsKey("gravity") && Double.parseDouble(mainChar.getProperty("gravity")) != 0.0){
 			scrollObjects.remove(mainChar);
 		}
+		
+ 		Object[] parameters = new Object[]{scrollObjects, Double.parseDouble(mainChar.getProperty("movespeed"))};
+ 		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
+         try {
+				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
+			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
+					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw (new ScrollDirectionNotFoundException());
+			}
+		
+		
+		/**
 		Method method = null;
 		try {
 			method = ReflectionUtil.getMethodFromClass(className, methodName,  new Class[]{List.class, double.class});
@@ -86,7 +99,7 @@ public class LimitedScrolling implements Scrolling{
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}**/
 		
 	}
 

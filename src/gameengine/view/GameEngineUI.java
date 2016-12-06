@@ -77,7 +77,9 @@ public class GameEngineUI {
         if(level.getBackgroundFilePath() != null){
             setBackgroundImage(level.getBackgroundFilePath());
         }
+        gameScreen.reset();
         gameScreen.init(level);
+        myHUD.resetTimer();
 	}
 
 	public ScrollerController getScrollerController() {
@@ -89,7 +91,7 @@ public class GameEngineUI {
 	}
 	
 	public double getScreenHeight() {
-		return gameScreen.screenHeight;
+		return gameScreen.getScreenHeight();
 	}
 	
 	public double getScreenWidth() {		
@@ -139,6 +141,7 @@ public class GameEngineUI {
 
 	public void resetGameScreen(){
         gameScreen.reset();
+        myHUD.resetTimer();
     }
 
     public void removeObject(GameObject object){
@@ -227,7 +230,7 @@ public class GameEngineUI {
 	}
 
 	private void setUpKeystrokeListeners() {
-		this.scene.setOnKeyReleased(event -> {
+		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
 					keyMappings.get(event.getCode()).invoke(movementInterface);

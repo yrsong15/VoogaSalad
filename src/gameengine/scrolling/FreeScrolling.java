@@ -6,11 +6,13 @@ import java.util.List;
 
 import com.sun.javafx.scene.traversal.Direction;
 
+import exception.ScrollDirectionNotFoundException;
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
 public class FreeScrolling implements Scrolling{
+	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
 	private double scrollingSpeed;
 	private double screenWidth;
@@ -29,25 +31,37 @@ public class FreeScrolling implements Scrolling{
 		this.scrollingSpeed = speed;
 		
 	}
-
-	@Override
-	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) {
-		String className = "gameengine.scrolling.GeneralScroll";
-		String methodName = "scroll" + direction.toString();
-		Method method = null;
-		try {
-			method = ReflectionUtil.getMethodFromClass(className, methodName,  new Class[]{List.class, GameObject.class, double.class});
-		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+	
+	private Direction findScreenDirection(GameObject mainChar){
+		if (mainChar.getXPosition() <= screenWidth*0.2){
+			return Direction.LEFT;
 		}
-		try {
-			method.invoke(new GeneralScroll(), gameObjects, mainChar, scrollingSpeed);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else if (mainChar.getXPosition() >= screenWidth*0.6){
+			return Direction.RIGHT;
+		}
+		else if (mainChar.getYPosition() <= screenWidth*0.2){
+			return Direction.UP;
 		}
 		
+		else if(mainChar.getYPosition() >= screenWidth*0.6){
+			return Direction.DOWN;
+		}
+		return null;
+	}
+
+	@Override
+	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
+		direction = findScreenDirection(mainChar);
+		if(direction==null)return;
+		String methodName = "scroll" + direction.toString();
+		Object[] parameters = new Object[]{gameObjects, scrollingSpeed};
+ 		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
+         try {
+				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
+			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
+					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw (new ScrollDirectionNotFoundException());
+			}
 	}
 }
 

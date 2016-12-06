@@ -5,12 +5,17 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
+import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import objects.Game;
+import objects.GameObject;
+import objects.Level;
+import objects.ScrollType;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MainController {
 
@@ -81,17 +86,34 @@ public class MainController {
 
 
     public void launchEngine(String XMLData){
+       // XMLData = testGameEngine();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
         };
     }
 
+    private String testGameEngine(){
+        //FOR TESTING PURPOSES ONLY
+        Game game = new Game("Test Game");
+        Level level = new Level(1);
+        ScrollType scrollType = new ScrollType("ForcedScrolling");
+        scrollType.addScrollDirection(Direction.RIGHT);
+        scrollType.setScrollSpeed(30);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("bg.png");
+        game.setCurrentLevel(level);
+        GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
+        level.setMainCharacter(mainChar);
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        return xml;
+    }
+
     private void setUpGameEngineStage(){
         gameEngineStage = new Stage();
-        gameEngineStage.setOnCloseRequest(event -> gameEngineStage.close());
-        gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
+        gameEngineStage.setOnCloseRequest(event -> gameEngineController.reset());
     }
 
     private void sendDataToEngine() {

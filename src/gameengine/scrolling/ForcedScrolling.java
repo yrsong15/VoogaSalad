@@ -7,11 +7,13 @@ import java.util.List;
 
 import com.sun.javafx.scene.traversal.Direction;
 
+import exception.ScrollDirectionNotFoundException;
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
 public class ForcedScrolling implements Scrolling{
+	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
 	private double scrollingSpeed;
 	private double screenWidth;
@@ -32,25 +34,18 @@ public class ForcedScrolling implements Scrolling{
 	}
 
 	@Override
-	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) {
-		String className = "gameengine.scrolling.GeneralScroll";
+	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		scrollObjects.remove(mainChar);
-		Method method = null;
-		try {
-			method = ReflectionUtil.getMethodFromClass(className, methodName,  new Class[]{List.class, double.class});
-		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		Object[] parameters = new Object[]{scrollObjects, scrollingSpeed};
+ 		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
+         try {
+				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
+			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
+					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw (new ScrollDirectionNotFoundException());
+			}
 		}
-		try {
-			method.invoke(new GeneralScroll(), scrollObjects, scrollingSpeed);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 }
 
