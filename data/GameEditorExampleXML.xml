@@ -5,13 +5,14 @@
       <int>1</int>
       <objects.Level>
         <level>1</level>
+        <backgroundFilePath>Background/bg.png</backgroundFilePath>
         <gameObjects>
           <objects.GameObject>
             <xPosition>250.0</xPosition>
             <yPosition>200.0</yPosition>
             <width>75.0</width>
             <height>50.0</height>
-            <imageFileName>bird3.png</imageFileName>
+            <imageFileName>doodler.png</imageFileName>
             <properties>
               <entry>
                 <string>gravity</string>
@@ -47,7 +48,7 @@
         <winConditions>
           <entry>
             <string>score</string>
-            <string>10</string>
+            <string>100</string>
           </entry>
         </winConditions>
         <loseConditions>
@@ -58,8 +59,8 @@
         </loseConditions>
           <gameConditions>
               <entry>
-                  <string>scrollspeed</string>
-                  <double>10</double>
+                  <string>score</string>
+                  <double>0.0</double>
               </entry>
           </gameConditions>
         <controls>
@@ -95,12 +96,8 @@
           <myScrollDirectionList>
             <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
           </myScrollDirectionList>
+            <scrollSpeed class="double">10</scrollSpeed>
         </scrollType>
-        <viewSettings>
-          <musicFilePath>FlappyBirdThemeSong.mp3</musicFilePath>
-          <backgroundFilePath>Background/bg.png</backgroundFilePath>
-          <scrollWidth>0.0</scrollWidth>
-        </viewSettings>
       </objects.Level>
     </entry>
   </levels>
