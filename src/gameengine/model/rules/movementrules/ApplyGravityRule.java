@@ -5,7 +5,7 @@ import gameengine.model.boundary.ScreenBoundary;
 import objects.GameObject;
 
 /**
- * Created by Soravit on 11/22/2016. Modified by Eric Song
+ * Created by Soravit on 11/22/2016. Modified by Eric Song, Chalena Scholl
  */
 public class ApplyGravityRule implements MovementRule {
 	@Override
