@@ -92,22 +92,22 @@ public class MainController {
         };
     }
 
-    private String testGameEngine(){
-        //FOR TESTING PURPOSES ONLY
-        Game game = new Game("Test Game");
-        Level level = new Level(1);
-        ScrollType scrollType = new ScrollType("ForcedScrolling");
-        scrollType.addScrollDirection(Direction.RIGHT);
-        scrollType.setScrollSpeed(30);
-        level.setScrollType(scrollType);
-        level.setBackgroundImage("bg.png");
-        game.setCurrentLevel(level);
-        GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
-        level.setMainCharacter(mainChar);
-        XMLSerializer testSerializer = new XMLSerializer();
-        String xml = testSerializer.serializeGame(game);
-        return xml;
-    }
+//    private String testGameEngine(){
+//        //FOR TESTING PURPOSES ONLY
+//        Game game = new Game("Test Game");
+//        Level level = new Level(1);
+//        ScrollType scrollType = new ScrollType("ForcedScrolling");
+//        scrollType.addScrollDirection(Direction.RIGHT);
+//        scrollType.setScrollSpeed(30);
+//        level.setScrollType(scrollType);
+//        level.setBackgroundImage("bg.png");
+//        game.setCurrentLevel(level);
+//        GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
+//        level.setMainCharacter(mainChar);
+//        XMLSerializer testSerializer = new XMLSerializer();
+//        String xml = testSerializer.serializeGame(game);
+//        return xml;
+//    }
 
     private void setUpGameEngineStage(){
         gameEngineStage = new Stage();

@@ -22,7 +22,8 @@ public class CommandPane implements ICommandButtonOut {
 	public CommandPane(ICommandDetailDisplay commandDetailDisplay) {
 		myPane = new Pane();
 		myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
-		myPane.setBackground(new Background(new BackgroundFill(ViewResources.COMMAND_PANE_BG.getColorResource(), CornerRadii.EMPTY, Insets.EMPTY)));
+		myPane.setBackground(new Background(new BackgroundFill(ViewResources.COMMAND_PANE_BG.getColorResource(),
+				CornerRadii.EMPTY, Insets.EMPTY)));
 		String [] buttonLocations = ViewResources.BUTTON_FILE_LOCATIONS.getArrayResource();
 		for (String location : buttonLocations){
 			ICommandButton button = new CommandButton(location, numButtons++, myPaneWidth, this, commandDetailDisplay);
