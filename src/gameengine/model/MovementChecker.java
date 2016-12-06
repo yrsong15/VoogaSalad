@@ -9,7 +9,7 @@ import java.util.List;
 import exception.MovementRuleNotFoundException;
 
 /**
- * Created by Soravit on 11/22/2016.
+ * Created by Soravit on 11/22/2016. Modified by Chalena Scholl.
  */
 public class MovementChecker {
     private MovementRulebook movementRulebook;

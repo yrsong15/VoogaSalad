@@ -3,6 +3,8 @@ import com.sun.javafx.scene.traversal.Direction;
 import gameeditor.controller.GameEditorController;
 import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
+import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import objects.Game;
@@ -77,7 +79,7 @@ public class MainController {
 
 
     public void launchEngine(String XMLData){
-       // XMLData = testGameEngine();
+        //XMLData = testGameEngine();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
         };
@@ -87,7 +89,8 @@ public class MainController {
         //FOR TESTING PURPOSES ONLY
         Game game = new Game("Test Game");
         Level level = new Level(1);
-        ScrollType scrollType = new ScrollType("ForcedScrolling");
+        ScreenBoundary gameBoundaries = new ToroidalBoundary(700, 675);
+        ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.RIGHT);
         scrollType.setScrollSpeed(30);
         level.setScrollType(scrollType);
@@ -97,6 +100,7 @@ public class MainController {
         level.setMainCharacter(mainChar);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
 
