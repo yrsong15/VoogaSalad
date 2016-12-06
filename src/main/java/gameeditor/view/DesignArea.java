@@ -1,9 +1,9 @@
 package gameeditor.view;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import gameeditor.commanddetails.ISelectDetail;
+import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObject;
 import gameeditor.view.interfaces.IDesignArea;
@@ -11,7 +11,6 @@ import gameeditor.view.interfaces.IGameEditorView;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
@@ -21,7 +20,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -40,6 +38,7 @@ public class DesignArea implements IDesignArea {
 
     private boolean clickEnabled = false;
     private ISelectDetail mySelectDetail;
+    private GameObject myAvatar;
 
     private GameObject mySelectedSprite;
  
@@ -167,6 +166,15 @@ public class DesignArea implements IDesignArea {
 			}
 		}
 		return selectedSprite;
+	}
+    
+    @Override
+	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds) {
+    	if (myAvatar != null){
+        	myPane.getChildren().remove(myAvatar.getImageView());
+        	mySprites.remove(myAvatar);
+    	}
+    	myAvatar = new GameObject(filePath, x, y, width, height, "Main Character", this, ds);
 	}
 
 	@Override
