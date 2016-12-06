@@ -24,7 +24,11 @@ public class SpriteTypeButton {
     private static final double DEFAULT_Y = 0;
     private static final double DEFAULT_WIDTH = 50;
     private static final double DEFAULT_HEIGHT = 50;
-
+    
+    private static final double X_LIMIT = ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.TOOLBAR_WIDTH.getDoubleResource();
+    private static final double INNER_X_LIMIT = ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.TOOLBAR_WIDTH.getDoubleResource()-ViewResources.DETAIL_ZONE_PADDING.getDoubleResource();
+    private static final double Y_LIMIT = ViewResources.TOOLBAR_HEIGHT.getDoubleResource();
+    
     private double myX = 0;
     private double myY = 0;
     private double myWidth = 50;
@@ -40,7 +44,8 @@ public class SpriteTypeButton {
     private IDesignArea myDesignArea;
     private IGameEditorData myDataStore;
     private IDetailPane myDetailPane;
-    private boolean dragExited;
+    private boolean dragExited = false;
+    private boolean dragEntering = false;
 
     public SpriteTypeButton(double width, double height, String filePath, String type, IDesignArea da, IGameEditorData dataStore, IDetailPane idp) {
         myDetailPane = idp;
@@ -91,19 +96,28 @@ public class SpriteTypeButton {
     }
 
     private void handlePaneDrag(double x, double y, double sceneX, double sceneY){
-        if (!dragExited && myTempImageView != null && sceneX > ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.TOOLBAR_WIDTH.getDoubleResource() 
-                && sceneY > ViewResources.TOOLBAR_HEIGHT.getDoubleResource()){
+        if (!dragEntering && dragExited && (myTempImageView != null && sceneX < X_LIMIT 
+        		|| sceneY < Y_LIMIT)){
+        	handleReentryLvl1();
+        } else if (dragEntering) {
+        	handleReentryLvl2();
+        	myTempImageView.setLayoutX(x);
+            myTempImageView.setLayoutY(y);
+        } else if (!dragEntering && !dragExited && myTempImageView != null && sceneX > X_LIMIT 
+                && sceneY > Y_LIMIT){
             myDesignArea.addDragIn(myTempImageView);
-            myTempImageView.setLayoutX(sceneX - (ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.TOOLBAR_WIDTH.getDoubleResource()));
-            myTempImageView.setLayoutY(sceneY - ViewResources.TOOLBAR_HEIGHT.getDoubleResource());
-            dragExited = true;
-        } else if (myTempImageView != null && sceneX > ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.TOOLBAR_WIDTH.getDoubleResource() 
-                && sceneY > ViewResources.TOOLBAR_HEIGHT.getDoubleResource()){
-            myX = sceneX - (ViewResources.SCENE_WIDTH.getDoubleResource() - ViewResources.TOOLBAR_WIDTH.getDoubleResource());
-            myY = sceneY - ViewResources.TOOLBAR_HEIGHT.getDoubleResource();
+            myX = sceneX - (X_LIMIT);
+            myY = sceneY - Y_LIMIT;
             myTempImageView.setLayoutX(myX);
             myTempImageView.setLayoutY(myY);
-        } else if (myTempImageView != null){
+            dragExited = true;
+        } else if (!dragEntering && myTempImageView != null && sceneX > X_LIMIT 
+                && sceneY > Y_LIMIT){
+            myX = sceneX - (X_LIMIT);
+            myY = sceneY - Y_LIMIT;
+            myTempImageView.setLayoutX(myX);
+            myTempImageView.setLayoutY(myY);
+        } else if (!dragEntering && myTempImageView != null && sceneX < INNER_X_LIMIT){
             myTempImageView.setLayoutX(x);
             myTempImageView.setLayoutY(y);
         }
@@ -124,18 +138,32 @@ public class SpriteTypeButton {
         myTempImageView.setFitHeight(fitHeight);
         myPane.getChildren().add(myTempImageView);
     }
+    
+    private void handleReentryLvl1(){
+    	myDesignArea.removeDragIn(myTempImageView);
+    	dragExited = false;
+    	dragEntering = true;
+    }
+    
+    private void handleReentryLvl2(){
+    	myPane.getChildren().add(myTempImageView);
+    	dragEntering = false;
+    }
 
     private void handleRelease(){
-        myDesignArea.removeDragIn(myTempImageView);
-        GameObject go = new GameObject(myFilePath, myX, myY, myWidth, myHeight, myType, myDesignArea, myDataStore);
-        Map<String, String> typeMap = myDataStore.getType(myType);
+    	if (!dragExited){
+    		
+    	} else {
+    		myDesignArea.removeDragIn(myTempImageView);
+	        GameObject go = new GameObject(myFilePath, myX, myY, myWidth, myHeight, myType, myDesignArea, myDataStore);
+	        Map<String, String> typeMap = myDataStore.getType(myType);
 
-        // Add the properties to the Map now
-        typeMap.put(X_POSITION_KEY, String.valueOf(myX));
-        typeMap.put(Y_POSITION_KEY, String.valueOf(myY));       
-        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(myWidth));
-        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(myHeight));
-
+	        // Add the properties to the Map now
+	        typeMap.put(X_POSITION_KEY, String.valueOf(myX));
+	        typeMap.put(Y_POSITION_KEY, String.valueOf(myY));       
+	        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(myWidth));
+	        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(myHeight));
+    	}
         myX = DEFAULT_X;
         myY = DEFAULT_Y;
         myWidth = DEFAULT_WIDTH;
