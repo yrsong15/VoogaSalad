@@ -50,15 +50,12 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	private MovementController movementController;
 	private Scrolling gameScrolling;
 	private Stage endGameStage;
-	private ScreenBoundary screenBoundary;
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
 		movementController = new MovementController(this);
 		gameEngineView = new GameEngineUI(movementController, event -> reset());
-        screenBoundary = new NoBoundary(gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight());
-		movementChecker = new MovementChecker(screenBoundary);
 		RGFrames = new ArrayList<>();
         highScores = new ArrayList<>();
     }
@@ -77,7 +74,8 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             alert.showAndWait();
             return false;
         }
-		movementController.setGame(currentGame, screenBoundary);
+		movementChecker = new MovementChecker(currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
+		movementController.setGame(currentGame, currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
         gameEngineView.initLevel(currentGame.getCurrentLevel());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
         addRGFrames();
