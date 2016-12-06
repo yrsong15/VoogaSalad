@@ -9,10 +9,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -31,9 +29,7 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
     private TextArea myYTextArea = new TextArea();
     private TextArea myWidthTextArea = new TextArea();
     private TextArea myHeightTextArea = new TextArea();
-    private ImageView myIV;
     private GameObject myGO;
-    private Pane myImagePane;
 
     private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
     String[] myRandomGenerationParameters = DetailResources.RANDOM_GENERATION_PARAMETERS.getArrayResource();

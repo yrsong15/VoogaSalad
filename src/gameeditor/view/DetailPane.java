@@ -10,20 +10,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import objects.interfaces.ILevel;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import gameeditor.commanddetails.*;
-import gameeditor.controller.GameEditorData;
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameeditor.view.interfaces.ICommandDetailDisplay;
-import gameeditor.view.interfaces.IDetailPane;
-
 
 
 public class DetailPane implements IDetailPane, ICommandDetailDisplay {
@@ -38,7 +30,6 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private ScrollPane myDetailPane;
     private IGameEditorData myDataStore;
     private IDesignArea myDesignArea;
-    private ImageView myTempImageView;
     
     private boolean mainCharPropActive = false;
     private Button myCharPropertiesButton;
@@ -99,6 +90,9 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         myAvatarView.setFitHeight(fitHeight);
         myAvatarView.setLayoutX(myAvatarZone.getX() + myAvatarZone.getWidth()/2 - endWidth/2);
         myAvatarView.setLayoutY(myAvatarZone.getY() + buttonPadding + (myAvatarZone.getHeight() - buttonPadding)/2 - endHeight/2);
+        // TODO: Remove Hard Coding
+        myDesignArea.addAvatar(filePath, 100, 200, 75, 75, myDataStore);
+
         myPane.getChildren().add(myAvatarView);
     }
     
