@@ -58,7 +58,7 @@ public interface ILevel {
 	public void setBackgroundImage(String filePath);
 	
 	public void setBackgroundMusic(String musicFilePath);
-	
+
 	public void addScrollWidth(double scrollWidth);
 
     public void addRandomGeneration (RandomGeneration randomGeneration);

@@ -12,6 +12,7 @@ import exception.MovementRuleNotFoundException;
  * Created by Soravit on 11/22/2016. Modified by Chalena Scholl.
  */
 public class MovementChecker {
+
     private MovementRulebook movementRulebook;
 
     public MovementChecker(ScreenBoundary gameBoundaries){

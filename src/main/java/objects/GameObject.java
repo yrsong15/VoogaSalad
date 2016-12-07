@@ -8,8 +8,12 @@ import java.util.Set;
  * @author Ray Song, Soravit
  *
  */
-public class GameObject extends AbstractGameObject{
-	
+public class GameObject {
+
+	private double xPosition;
+	private double yPosition;
+	private double width;
+	private double height;
 	private String imageFileName;
 	private Map<String, String> properties;
 
@@ -20,21 +24,15 @@ public class GameObject extends AbstractGameObject{
 	}
 
 	public GameObject(double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
-		super(xPosition, yPosition, width, height);
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.width = width;
+        this.height = height;
 		this.properties = properties;
-	}
-
-	public GameObject(GameObject gameObject){
-		super(gameObject.getXPosition(), gameObject.getXPosition(), gameObject.getWidth(), gameObject.getHeight());
-		this.properties = gameObject.getProperties();
 	}
 
 	public String getProperty(String propertyName) {
 		String val = properties.get(propertyName);
-		if(propertyName.equals("fallspeed")&&val==null){
-			val = "0.0";
-			setProperty("fallspeed",val);
-		}
 		return val;
 	}
 
@@ -61,5 +59,29 @@ public class GameObject extends AbstractGameObject{
 	public void killSpeed(){
 		setProperty("fallspeed", "0.0");
 	}
-	
+
+    public double getXPosition() {
+        return xPosition;
+    }
+    public void setXPosition(double xPosition) {
+        this.xPosition = xPosition;
+    }
+    public double getYPosition() {
+        return yPosition;
+    }
+    public void setYPosition(double yPosition) {
+        this.yPosition = yPosition;
+    }
+    public double getWidth() {
+        return width;
+    }
+    public void setWidth(double width) {
+        this.width = width;
+    }
+    public double getHeight() {
+        return height;
+    }
+    public void setHeight(double height) {
+        this.height = height;
+    }
 }
