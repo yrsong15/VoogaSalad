@@ -10,6 +10,6 @@ import objects.GameObject;
 public interface CollisionRule {
 
 	//doesnt actually enforce implementation, but all implementing classes should implement this method
-	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj);
+	public static void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj){}
 
 }
