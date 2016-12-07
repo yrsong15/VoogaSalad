@@ -1,7 +1,9 @@
 package gameengine.controller;
 
+import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.MovementInterface;
+import gameengine.model.MovementChecker;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.view.GameEngineUI;
 import objects.Level;
@@ -19,13 +21,18 @@ public class MovementManager implements MovementInterface{
 	private String scrollName;
 	private ControlManager controlManager;
 	private Scrolling gameScrolling;
+	private MovementChecker movementChecker;
+	private Direction scrollDir;
 	
 	
 	public MovementManager(Level currLevel, double screenWidth, double screenHeight){
 		this.currLevel = currLevel;
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
+		scrollName = currLevel.getScrollType().getScrollTypeName();
+		scrollDir = currLevel.getScrollType().getDirections().get(0);
 		initManager();
+		
 		
 	}
 	
@@ -33,51 +40,84 @@ public class MovementManager implements MovementInterface{
 		try {
 			setScrolling();
 		} catch (ScrollTypeNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		movementChecker = new MovementChecker(currLevel.getScrollType().getScreenBoundary());
 		controlManager = new ControlManager(currLevel, currLevel.getScrollType().getScreenBoundary());
 		
 	}
 	
-	public runActions(){
-		
+	public MovementInterface getMovementInterface(){
+		return (MovementInterface) this;
+	}
+	
+	public void runActions(){
+		if(scrollName.equals("ForcedScrolling")){
+			try {
+				gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getMainCharacter());
+			} catch (ScrollDirectionNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		movementChecker.updateMovement(currLevel.getGameObjects());		
 	}
 
 	@Override
 	public void moveUp() {
-		// TODO Auto-generated method stub
+		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.UP)){
+			gameScrolling.setDirection(Direction.UP);
+			runGameScrolling();
+		}
+		else{
+			controlManager.moveUp();
+		}
 		
 	}
 
+
 	@Override
 	public void moveDown() {
-		// TODO Auto-generated method stub
+		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.DOWN)){
+			gameScrolling.setDirection(Direction.DOWN);
+			runGameScrolling();
+		}
+		else{
+			controlManager.moveDown();
+		}
 		
 	}
 
 	@Override
 	public void moveRight() {
-		// TODO Auto-generated method stub
-		
+		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.RIGHT)){
+			gameScrolling.setDirection(Direction.RIGHT);
+			runGameScrolling();
+		}
+		else{
+			controlManager.moveRight();
+		}		
 	}
 
 	@Override
 	public void moveLeft() {
-		// TODO Auto-generated method stub
-		
+		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.LEFT)){
+			gameScrolling.setDirection(Direction.LEFT);
+			runGameScrolling();
+		}
+		else{
+			controlManager.moveLeft();
+		}
 	}
 
 	@Override
 	public void jump() {
-		// TODO Auto-generated method stub
-		
+		controlManager.jump();
 	}
 
 	@Override
 	public void shootProjectile() {
-		// TODO Auto-generated method stub
-		
+		controlManager.shootProjectile();
 	}
 	
 	
@@ -94,6 +134,15 @@ public class MovementManager implements MovementInterface{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	}
+	
+	private void runGameScrolling() {
+		try {
+			gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getMainCharacter());
+		} catch (ScrollDirectionNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

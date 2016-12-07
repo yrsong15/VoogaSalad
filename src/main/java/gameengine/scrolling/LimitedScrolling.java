@@ -78,9 +78,7 @@ public class LimitedScrolling implements Scrolling{
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
-	//	if (mainChar.getProperties().containsKey("gravity") && Double.parseDouble(mainChar.getProperty("gravity")) != 0.0){
-			scrollObjects.remove(mainChar);
-	//	}
+		scrollObjects.remove(mainChar);
 		
  		Object[] parameters = new Object[]{scrollObjects, Double.parseDouble(mainChar.getProperty("movespeed"))};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};

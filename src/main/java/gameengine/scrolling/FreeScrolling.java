@@ -58,28 +58,13 @@ public class FreeScrolling implements Scrolling{
 		}
 		return null;
 	}
-/***
-	@Override
-	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
-		direction = findScreenDirection(mainChar);
-		if(direction==null)return;
-		String methodName = "scroll" + direction.toString();
-		Object[] parameters = new Object[]{gameObjects, scrollingSpeed};
- 		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
-         try {
-				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
-			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
-					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				throw (new ScrollDirectionNotFoundException());
-			}
-	}***/
 	
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		scrollObjects.remove(mainChar);
-		Object[] parameters = new Object[]{gameObjects, Double.parseDouble(mainChar.getProperty("movespeed"))};
+		Object[] parameters = new Object[]{scrollObjects, Double.parseDouble(mainChar.getProperty("movespeed"))};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {
 				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
