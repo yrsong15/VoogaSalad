@@ -77,12 +77,6 @@ public class SplashScreen implements ISplashScreen {
 //        mainController.presentEditor();
     }
 
-    @Override
-    public void launchGallery() throws IOException {
-        mainController.presentGallery();
-
-    }
-
     public void launchGameEngine() {
         mainController.launchEngine("");
     }
@@ -91,13 +85,6 @@ public class SplashScreen implements ISplashScreen {
         // TODO: Change this hash map into reflection where the method of launch + the buttonName is called
         HashMap<String, EventHandler<MouseEvent>> eventHandlerForButton = new HashMap<String, EventHandler<MouseEvent>>();
         eventHandlerForButton.put("GameEditor", e -> launchEditor());
-        eventHandlerForButton.put("GameGallery", e -> {
-            try {
-                launchGallery();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
         String[] buttonNames = {"GameEditor", "GameGallery"};
 
         double initialX = 900;

@@ -12,7 +12,4 @@ public interface ISplashScreen {
     Parent setUpWindow();
 
     void launchEditor();
-
-    void launchGallery() throws IOException;
-
 }

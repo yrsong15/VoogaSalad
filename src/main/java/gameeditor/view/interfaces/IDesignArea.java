@@ -1,6 +1,7 @@
 package gameeditor.view.interfaces;
 
 import gameeditor.commanddetails.ISelectDetail;
+import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObject;
 import gameeditor.view.ViewResources;
@@ -42,6 +43,8 @@ public interface IDesignArea {
     
     public void addDragIn(ImageView tempIV);
 
-	void removeDragIn(ImageView tempIV);
+	public void removeDragIn(ImageView tempIV);
+	
+	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds);
 
 }

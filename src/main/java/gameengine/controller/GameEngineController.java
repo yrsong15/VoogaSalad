@@ -149,8 +149,8 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
     @Override
     public void endGame() {
-        addHighScore(currentGame.getCurrentLevel().getScore());
         animation.stop();
+        addHighScore(currentGame.getCurrentLevel().getScore());
         HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(),
                 highScores, this);
         if (endGameStage == null) {
