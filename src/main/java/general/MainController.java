@@ -14,10 +14,7 @@ import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import objects.Game;
-import objects.GameObject;
-import objects.Level;
-import objects.ScrollType;
+import objects.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -63,6 +60,7 @@ public class MainController {
 
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY
+        ProjectileProperties properties = new ProjectileProperties("duvall.png", 30, 30, Direction.RIGHT, 500, 30, 20);
         Game game = new Game("Test Game");
         Level level = new Level(1);
         ScreenBoundary gameBoundaries = new ToroidalBoundary(700, 675);
@@ -75,13 +73,18 @@ public class MainController {
         GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
         level.setMainCharacter(mainChar);
         level.getGameObjects().add(mainChar);
-        mainChar.setProperty("horizontalmovement", "10");
+        //mainChar.setProperty("horizontalmovement", "10");
         level.setControl(KeyCode.W, "jump");
-        mainChar.setProperty("gravity", "0.8");
+        level.setControl(KeyCode.D, "right");
+        level.setControl(KeyCode.SPACE, "shoot");
+        //mainChar.setProperty("gravity", "0.8");
         mainChar.setProperty("jump", "400");
         mainChar.setProperty("health", "10");
+        mainChar.setProperty("movespeed", "30");
+        mainChar.setProjectileProperties(properties);
         GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
-        ground.setProperty("damage","30");
+        ground.setProperty("damage","0");
+        ground.setProperty("nonintersectable", "true");
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);

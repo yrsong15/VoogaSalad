@@ -16,20 +16,23 @@ public class GameObject {
 	private double height;
 	private String imageFileName;
 	private Map<String, String> properties;
+    private ProjectileProperties projectileProperties;
+    private double xDistanceMoved;
+    private double yDistanceMoved;
 
-	public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
-			Map<String, String> properties) {
-		this(xPosition, yPosition, width, height, properties);
-		this.imageFileName = imageFileName;
-	}
+    public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
+                      Map<String, String> properties) {
+        this(xPosition, yPosition, width, height, properties);
+        this.imageFileName = imageFileName;
+    }
 
-	public GameObject(double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
+    public GameObject(double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-		this.properties = properties;
-	}
+        this.properties = properties;
+    }
 
 	public String getProperty(String propertyName) {
 		String val = properties.get(propertyName);
@@ -83,5 +86,26 @@ public class GameObject {
     }
     public void setHeight(double height) {
         this.height = height;
+    }
+    public void setProjectileProperties(ProjectileProperties projectileProperties){
+        this.projectileProperties = projectileProperties;
+    }
+    public ProjectileProperties getProjectileProperties(){
+        return projectileProperties;
+    }
+
+    public double getXDistanceMoved(){
+        return xDistanceMoved;
+    }
+    public double getYDistanceMoved(){
+        return yDistanceMoved;
+    }
+
+    public void setXDistanceMoved(double xDistanceMoved){
+        this.xDistanceMoved = xDistanceMoved;
+    }
+
+    public void setYDistanceMoved(double yDistanceMoved){
+        this.yDistanceMoved = yDistanceMoved;
     }
 }

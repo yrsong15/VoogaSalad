@@ -1,17 +1,11 @@
 package gameengine.controller;
 
-
 import com.sun.javafx.scene.traversal.Direction;
-import gameengine.controller.interfaces.CommandInterface;
-import gameengine.controller.interfaces.MovementHandler;
 import gameengine.controller.interfaces.MovementInterface;
 import gameengine.model.boundary.ScreenBoundary;
-import javafx.scene.Scene;
-import objects.Game;
 import objects.GameObject;
 import objects.Level;
 import objects.ProjectileProperties;
-
 import java.util.HashMap;
 
 
@@ -64,8 +58,8 @@ public class ControlManager implements MovementInterface{
 
     @Override
     public void shootProjectile() {
-        if(level.getProjectileProperties() != null){
-            ProjectileProperties properties = level.getProjectileProperties();
+        if(level.getMainCharacter().getProjectileProperties() != null){
+            ProjectileProperties properties = level.getMainCharacter().getProjectileProperties();
             GameObject projectile = new GameObject(level.getMainCharacter().getXPosition(), level.getMainCharacter().getYPosition(),
                     properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
             if(properties.getDirection().equals(Direction.LEFT)){
@@ -77,6 +71,8 @@ public class ControlManager implements MovementInterface{
             }else if(properties.getDirection().equals(Direction.UP)){
                 projectile.setProperty("gravity", String.valueOf(properties.getSpeed() * -1));
             }
+            projectile.setProperty("damage", String.valueOf(properties.getDamage()));
+            level.getProjectiles().add(projectile);
         }
     }
 }

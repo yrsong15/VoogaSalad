@@ -2,7 +2,6 @@ package gameengine.controller;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
-
 import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.CommandInterface;
@@ -32,7 +31,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 
-	private List<RandomGenFrame> RGFrames;
+	private List<RandomGenFrame> randomlyGeneratedFrames;
     private List<Integer> highScores;
     private String xmlData;
 	private GameParser parser;
@@ -51,7 +50,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		collisionChecker = new CollisionChecker(this);
 		controlManager = new ControlManager();
 		gameEngineView = new GameEngineUI(controlManager, event -> reset());
-		RGFrames = new ArrayList<>();
+		randomlyGeneratedFrames = new ArrayList<>();
         highScores = new ArrayList<>();
     }
 
@@ -102,7 +101,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		GameObject mainChar = currLevel.getMainCharacter();
 		mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 		try {
-			gameScrolling.scrollScreen(currLevel.getGameObjects(), mainChar);
+			gameScrolling.scrollScreen(currLevel.getAllGameObjects(), mainChar);
 		} catch (ScrollDirectionNotFoundException e1) {
 			e1.printStackTrace();
 		}
@@ -110,8 +109,8 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             removeOffscreenElements();
         }
 		gameEngineView.update(currLevel);
-		movementChecker.updateMovement(currLevel.getGameObjects());
-		for(RandomGenFrame elem: RGFrames){
+		movementChecker.updateMovement(currLevel);
+		for(RandomGenFrame elem: randomlyGeneratedFrames){
             for(RandomGeneration randomGeneration : currLevel.getRandomGenRules()) {
                 try {
 					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
@@ -123,7 +122,9 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             }
 		}
          collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
-		 LossChecker.checkLossConditions(this,
+         collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());
+        checkProjectileDistance();
+        LossChecker.checkLossConditions(this,
 				 		currLevel.getLoseConditions(), currLevel.getGameConditions());
 		 WinChecker.checkWinConditions(this,
 				 		currLevel.getWinConditions(), currLevel.getGameConditions());
@@ -131,7 +132,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
     public void setNewBenchmark() {
         List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
-        for(RandomGenFrame elem: RGFrames){
+        for(RandomGenFrame elem: randomlyGeneratedFrames){
             elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
         }
     }
@@ -139,6 +140,21 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     @Override
     public void removeObject(GameObject obj) {
         currentGame.getCurrentLevel().removeGameObject(obj);
+        gameEngineView.removeObject(obj);
+    }
+
+    @Override
+    public void winGame(){
+        //SPLASH SCREEN
+
+    }
+
+    public void goNextLevel(){
+        if(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
+            currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
+        }else{
+            winGame();
+        }
     }
 
     @Override
@@ -163,6 +179,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
     @Override
     public void reset() {
+        gameEngineView.stopMusic();
         animation.stop();
         gameEngineView.resetGameScreen();
         startGame(xmlData);
@@ -194,12 +211,12 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     private void addRGFrames(){
         List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
         for (RandomGeneration randomGeneration : randomGenerations) {
-            RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
+            randomlyGeneratedFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
         }
     }
 
 	private void removeOffscreenElements() {
-		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
+		List<GameObject> objects = currentGame.getCurrentLevel().getAllGameObjects();
 		if(objects.size() == 0 || objects == null) return;
 		for(int i= objects.size()-1; i >= 0; i--){
 			if(objects.get(i).getXPosition()> -(2*GameEngineUI.myAppWidth) || objects.get(i) == null) continue;//CHANGE THIS TO PIPE WIDTH
@@ -228,4 +245,19 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 			throw (new ScrollTypeNotFoundException());
 		}
 	}
+
+	private void checkProjectileDistance(){
+        ProjectileProperties properties = currentGame.getCurrentLevel().getMainCharacter().getProjectileProperties();
+        for(GameObject projectile:currentGame.getCurrentLevel().getProjectiles()){
+            if(properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)){
+                if(projectile.getXDistanceMoved() >= properties.getRange()){
+                    removeObject(projectile);
+                }
+            }else{
+                if(projectile.getYDistanceMoved() >= properties.getRange()){
+                    removeObject(projectile);
+                }
+            }
+        }
+    }
 }

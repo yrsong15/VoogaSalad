@@ -16,34 +16,27 @@ public class CollisionChecker {
 		this.rulebook = new CollisionRulebook(handler);
 	}
 
-	/**
-	 * Passes the mainCharacter and any object colliding with it to the rulebook
-	 * 
-	 * @param mainChar
-	 * @param gameObjects
-	 */
-	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects) {
-		for (Iterator<GameObject> itr = gameObjects.iterator(); itr.hasNext();) {
-			try {
-				GameObject gameObject = itr.next();
-				if (mainChar != gameObject && collision(mainChar, gameObject)) {
-					try {
-						rulebook.applyRules(mainChar, gameObject);
-					} catch (CollisionRuleNotFoundException e) {
-						
-					}
-				}
-			} catch (ConcurrentModificationException e) {
-				checkCollisions(mainChar, gameObjects);
-				break;
-			}
+	public void checkCollisions(List<GameObject> firstObjects, List<GameObject> secondObjects){
+        for (int i = 0; i < firstObjects.size(); i++) {
+            for (int j = 0; j < secondObjects.size(); j++) {
+                try {
+                    GameObject firstObject = firstObjects.get(i);
+                    GameObject secondObject = secondObjects.get(j);
+                    if (firstObject != secondObject && collision(firstObject, secondObject)) {
+                        try {
+                            rulebook.applyRules(firstObject, secondObject);
+                        } catch (CollisionRuleNotFoundException e) {
 
-		}
+                        }
+                    }
+                } catch (ConcurrentModificationException e) {
+                    checkCollisions(firstObjects, secondObjects);
+                    break;
+                }
+            }
+        }
+    }
 
-	}
-
-	// TO-DO: better way to check for collisions, not sure this encompasses
-	// everything
 	public boolean collision(GameObject character, GameObject other) {
 		double charX = character.getXPosition();
 		double charY = character.getYPosition();

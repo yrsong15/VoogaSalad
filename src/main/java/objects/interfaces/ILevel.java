@@ -17,13 +17,18 @@ public interface ILevel {
 
     public void setLevel(int level) ;
 
-    public void addGameObject(GameObject go);
+    public void addProjectile(GameObject go);
 
-    public void removeGameObject(GameObject go);
+    public void removeProjectile(GameObject go);
+
+	public void addGameObject(GameObject go);
+
+	public void removeGameObject(GameObject go);
 
     public void addWinCondition(String type, String action);
 
 	public void removeWinCondition(String type, String action);
+
 	public Map<String, String> getWinConditions();
 	
 	
@@ -46,9 +51,11 @@ public interface ILevel {
 	public double getTime();
 	
 	public void setTime(double time);
-	
-	public List<GameObject> getGameObjects();
-	
+
+    public List<GameObject> getProjectiles();
+
+    public List<GameObject> getGameObjects();
+
 	public void setControl(KeyCode key, String action);
 	
 	public void removeControl(KeyCode key);
