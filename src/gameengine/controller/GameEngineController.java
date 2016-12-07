@@ -50,6 +50,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	private MovementController movementController;
 	private Scrolling gameScrolling;
 	private Stage endGameStage;
+	private Position mainCharImprint;
 
 	public GameEngineController() {
 		parser = new GameParser();
@@ -66,6 +67,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
 	public boolean startGame(String xmlData) {
         this.xmlData = xmlData;
+        this.mainCharImprint = new Position();
 		currentGame = parser.convertXMLtoGame(xmlData);
         if(currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getMainCharacter() == null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -104,6 +106,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	public void updateGame(){
 		Level currLevel = currentGame.getCurrentLevel();
 		GameObject mainChar = currLevel.getMainCharacter();
+		mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 		try {
 			gameScrolling.scrollScreen(currLevel.getGameObjects(), mainChar);
 		} catch (ScrollDirectionNotFoundException e1) {
@@ -157,6 +160,11 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         endGameStage.getScene().getStylesheets().add(EDITOR_SPLASH_STYLE);
         endGameStage.setTitle("GAME OVER");
         endGameStage.show();
+    }
+    
+    public void resetObjectPosition(GameObject mainChar){
+    	mainChar.setXPosition(mainCharImprint.getX());
+    	mainChar.setYPosition(mainCharImprint.getY());
     }
 
     @Override

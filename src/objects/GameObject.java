@@ -57,4 +57,9 @@ public class GameObject extends AbstractGameObject{
 	public void setPropertiesList(Map<String, String> properties) {
 		this.properties = properties;
 	}
+	
+	public void killSpeed(){
+		setProperty("fallspeed", "0.0");
+	}
+	
 }

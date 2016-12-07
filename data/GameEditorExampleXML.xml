@@ -16,7 +16,7 @@
             <properties>
               <entry>
                 <string>gravity</string>
-                <string>0.8</string>
+                <string>0.5</string>
               </entry>
               <entry>
                 <string>health</string>
@@ -24,7 +24,7 @@
               </entry>
               <entry>
                 <string>movespeed</string>
-                <string>0</string>
+                <string>10</string>
               </entry>
               <entry>
                 <string>jump</string>
@@ -34,6 +34,19 @@
           </objects.GameObject>
           <objects.GameObject>
             <xPosition>0.0</xPosition>
+            <yPosition>0.0</yPosition>
+            <width>200</width>
+            <height>200.0</height>
+            <imageFileName>pipes.png</imageFileName>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>00</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+           <objects.GameObject>
+            <xPosition>0.0</xPosition>
             <yPosition>600.0</yPosition>
             <width>1000000.0</width>
             <height>200.0</height>
@@ -41,6 +54,57 @@
               <entry>
                 <string>damage</string>
                 <string>30</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+           <objects.GameObject>
+            <xPosition>500.0</xPosition>
+            <yPosition>200.0</yPosition>
+            <width>200</width>
+            <height>25.0</height>
+            <imageFileName>platform.png</imageFileName>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>0</string>
+              </entry>
+               <entry>
+                <string>nonintersectable</string>
+                <string>true</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+           <objects.GameObject>
+            <xPosition>100.0</xPosition>
+            <yPosition>200.0</yPosition>
+            <width>200</width>
+            <height>25.0</height>
+            <imageFileName>platform.png</imageFileName>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>0</string>
+              </entry>
+               <entry>
+                <string>onewaynonintersectable</string>
+                <string>true</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+          <objects.GameObject>
+            <xPosition>500.0</xPosition>
+            <yPosition>150.0</yPosition>
+            <width>50</width>
+            <height>50</height>
+            <imageFileName>duvall.png</imageFileName>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>0</string>
+              </entry>
+               <entry>
+                <string>enemy</string>
+                <string>true</string>
               </entry>
             </properties>
           </objects.GameObject>
@@ -68,6 +132,18 @@
             <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
             <string>jump</string>
           </entry>
+          <entry><javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+            <string>right</string>
+          </entry>
+                    <entry><javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+            <string>left</string>
+          </entry>
+                    <entry><javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+            <string>up</string>
+          </entry>
+                    <entry><javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+            <string>down</string>
+          </entry>
         </controls>
         <randomGenerations>
           <objects.RandomGeneration>
@@ -92,12 +168,12 @@
         </randomGenerations>
         <mainCharacter reference="../gameObjects/objects.GameObject"/>
         <scrollType>
-          <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+          <myScrollTypeName>FreeScrolling</myScrollTypeName>
           <myScrollDirectionList>
             <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
           </myScrollDirectionList>
             <scrollSpeed class="double">10</scrollSpeed>
-          <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
+           <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
 	        <screenWidth>700.0</screenWidth>
 	        <screenHeight>675.0</screenHeight>
 	      </gameBoundaries>
