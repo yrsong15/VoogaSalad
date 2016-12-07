@@ -8,6 +8,4 @@ public interface MovementInterface {
 	public void moveLeft();
 	public void jump();
     public void shootProjectile();
-    public void reset();
-
 }

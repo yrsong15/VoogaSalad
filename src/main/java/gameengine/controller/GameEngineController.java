@@ -1,5 +1,4 @@
 package gameengine.controller;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
@@ -10,11 +9,6 @@ import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.*;
-import gameengine.model.boundary.ScreenBoundary;
-import gameengine.model.boundary.StopAtEdgeBoundary;
-import gameengine.model.boundary.ToroidalBoundary;
-import gameengine.model.boundary.BasicBoundary;
-import gameengine.model.boundary.NoBoundary;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.view.GameEngineUI;
 import gameengine.view.HighScoreScreen;
@@ -47,15 +41,15 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	private Game currentGame;
 	private GameEngineUI gameEngineView;
 	private Timeline animation;
-	private MovementController movementController;
+	private ControlManager controlManager;
 	private Scrolling gameScrolling;
 	private Stage endGameStage;
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
-		movementController = new MovementController(this);
-		gameEngineView = new GameEngineUI(movementController, event -> reset());
+		controlManager = new ControlManager();
+		gameEngineView = new GameEngineUI(controlManager, event -> reset());
 		RGFrames = new ArrayList<>();
         highScores = new ArrayList<>();
     }
@@ -75,7 +69,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             return false;
         }
 		movementChecker = new MovementChecker(currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
-		movementController.setGame(currentGame, currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
+		controlManager.setMainChar(currentGame.getCurrentLevel(), currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
         gameEngineView.initLevel(currentGame.getCurrentLevel());
 		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
         addRGFrames();

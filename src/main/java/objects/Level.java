@@ -28,6 +28,8 @@ public class Level implements ILevel{
 
 	private ScrollType scrollType;
 
+    private ProjectileProperties projectileProperties;
+
 	public Level(int level) {
         this.level = level;
         gameObjects = new ArrayList<>();
@@ -169,5 +171,9 @@ public class Level implements ILevel{
 
     public String getBackgroundFilePath(){
         return backgroundFilePath;
+    }
+
+    public ProjectileProperties getProjectileProperties(){
+        return  projectileProperties;
     }
 }
