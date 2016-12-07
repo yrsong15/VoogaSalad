@@ -62,7 +62,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         this.xmlData = xmlData;
         this.mainCharImprint = new Position();
 		currentGame = parser.convertXMLtoGame(xmlData);
-        if(currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getMainCharacter() == null){
+        if(currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Cannot start game.");
             alert.setContentText("You must create a level with a main character to start a game.");
@@ -70,9 +70,11 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             return false;
         }
 		movementChecker = new MovementChecker(currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
-		controlManager.setMainChar(currentGame.getCurrentLevel(), currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
+		controlManager.setLevel(currentGame.getCurrentLevel(), currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
         gameEngineView.initLevel(currentGame.getCurrentLevel());
-		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
+		for(Player player : currentGame.getPlayers()){
+            gameEngineView.mapKeys(player, player.getControls());
+        }
         addRGFrames();
         try {
 			setScrolling();
@@ -98,7 +100,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	 */
 	public void updateGame(){
 		Level currLevel = currentGame.getCurrentLevel();
-		GameObject mainChar = currLevel.getMainCharacter();
+		GameObject mainChar = currLevel.getPlayers().get(0);
 		mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 		try {
 			gameScrolling.scrollScreen(currLevel.getAllGameObjects(), mainChar);
@@ -121,9 +123,9 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 				}
             }
 		}
-         collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
+         //collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
          collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());
-        checkProjectileDistance();
+        //checkProjectileDistance();
         LossChecker.checkLossConditions(this,
 				 		currLevel.getLoseConditions(), currLevel.getGameConditions());
 		 WinChecker.checkWinConditions(this,
@@ -246,18 +248,18 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		}
 	}
 
-	private void checkProjectileDistance(){
-        ProjectileProperties properties = currentGame.getCurrentLevel().getMainCharacter().getProjectileProperties();
-        for(GameObject projectile:currentGame.getCurrentLevel().getProjectiles()){
-            if(properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)){
-                if(projectile.getXDistanceMoved() >= properties.getRange()){
-                    removeObject(projectile);
-                }
-            }else{
-                if(projectile.getYDistanceMoved() >= properties.getRange()){
-                    removeObject(projectile);
-                }
-            }
-        }
-    }
+//	private void checkProjectileDistance(){
+//        ProjectileProperties properties = currentGame.getCurrentLevel().getMainCharacter().getProjectileProperties();
+//        for(GameObject projectile:currentGame.getCurrentLevel().getProjectiles()){
+//            if(properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)){
+//                if(projectile.getXDistanceMoved() >= properties.getRange()){
+//                    removeObject(projectile);
+//                }
+//            }else{
+//                if(projectile.getYDistanceMoved() >= properties.getRange()){
+//                    removeObject(projectile);
+//                }
+//            }
+//        }
+//    }
 }

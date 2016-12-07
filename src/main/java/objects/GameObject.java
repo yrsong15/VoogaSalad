@@ -16,7 +16,6 @@ public class GameObject {
 	private double height;
 	private String imageFileName;
 	private Map<String, String> properties;
-    private ProjectileProperties projectileProperties;
     private double xDistanceMoved;
     private double yDistanceMoved;
 
@@ -86,12 +85,6 @@ public class GameObject {
     }
     public void setHeight(double height) {
         this.height = height;
-    }
-    public void setProjectileProperties(ProjectileProperties projectileProperties){
-        this.projectileProperties = projectileProperties;
-    }
-    public ProjectileProperties getProjectileProperties(){
-        return projectileProperties;
     }
 
     public double getXDistanceMoved(){

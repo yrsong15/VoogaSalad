@@ -2,7 +2,6 @@ package objects;
 
 import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.input.KeyCode;
-import objects.interfaces.ILevel;
 import java.security.Key;
 import java.util.*;
 import gameengine.view.GameEngineUI;
@@ -11,7 +10,7 @@ import gameengine.view.GameEngineUI;
  * Created by Soravit on 11/18/2016.
  * @author : Soravit, Pratiksha
  */
-public class Level implements ILevel{
+public class Level {
 
 	private int level;
 	private List<GameObject> projectiles;
@@ -20,7 +19,6 @@ public class Level implements ILevel{
     private Map<String, String> winConditions;
 	private Map<String, String> loseConditions;
 	private Map<String, Double> gameConditions;
-	private Map<KeyCode, String> controls;
     private List<RandomGeneration> randomGenerations;
     private String musicFilePath;
 	private String backgroundFilePath;
@@ -37,7 +35,6 @@ public class Level implements ILevel{
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
-		controls = new HashMap<>();
 	}
 
 	public void setScrollType(ScrollType scrollType) {
@@ -109,11 +106,11 @@ public class Level implements ILevel{
 	}
 
     public void addPlayer(GameObject player){
-        gameObjects.add(player);
+        players.add(player);
     }
 
     public void removePlayer(GameObject player){
-        gameObjects.remove(player);
+        players.remove(player);
     }
 
     public List<GameObject> getPlayers(){
@@ -154,31 +151,12 @@ public class Level implements ILevel{
         return obstacles;
     }
 
-    public void setControl(KeyCode key, String action) {
-		controls.put(key, action);
-	}
-
-	public void removeControl(KeyCode key) {
-		controls.remove(key);
-	}
-
-	public Map<KeyCode, String> getControls() {
-		return controls;
-	}
-
-    @Override
     public void setBackgroundImage(String filePath) {
         this.backgroundFilePath = filePath;
     }
 
-    @Override
     public void setBackgroundMusic(String musicFilePath) {
         this.musicFilePath = musicFilePath;
-    }
-
-    @Override
-    public void addScrollWidth(double scrollWidth) {
-
     }
 
     public List<GameObject> getAllGameObjects(){
@@ -197,13 +175,5 @@ public class Level implements ILevel{
         return backgroundFilePath;
     }
 
-//    @Override
-//    public GameObject getMainCharacter() {
-//        return  null;
-//    }
-//
-//    @Override
-//    public void setMainCharacter(GameObject mainCharacter) {
-//
-//    }
+
 }

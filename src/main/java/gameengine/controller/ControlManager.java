@@ -1,66 +1,59 @@
 package gameengine.controller;
 
 import com.sun.javafx.scene.traversal.Direction;
-import gameengine.controller.interfaces.MovementInterface;
+import gameengine.controller.interfaces.ControlInterface;
 import gameengine.model.boundary.ScreenBoundary;
 import objects.GameObject;
 import objects.Level;
+import objects.Player;
 import objects.ProjectileProperties;
 import java.util.HashMap;
 
 
-public class ControlManager implements MovementInterface{
+public class ControlManager implements ControlInterface {
 
     private Level level;
     private ScreenBoundary currBoundary;
 
-    public void setMainChar(Level level, ScreenBoundary currBoundary){
+    public void setLevel(Level level, ScreenBoundary currBoundary){
         this.level = level;
         this.currBoundary = currBoundary;
     }
 
-    @Override
-    public void moveUp(){
-        GameObject mainChar = level.getMainCharacter();
+    public void moveUp(Player player){
+        GameObject mainChar = player.getMainChar();
         double newPos = mainChar.getYPosition() - Double.parseDouble(mainChar.getProperty("movespeed"));
         currBoundary.moveToYPos(mainChar, newPos);
     }
     
-
-    @Override
-    public void moveDown(){
-        GameObject mainChar = level.getMainCharacter();
+    public void moveDown(Player player){
+        GameObject mainChar = player.getMainChar();
         double newPos = mainChar.getYPosition() + Double.parseDouble(mainChar.getProperty("movespeed"));
         currBoundary.moveToYPos(mainChar, newPos);    }
 
-    @Override
-    public void moveRight(){
-        GameObject mainChar = level.getMainCharacter();
+    public void moveRight(Player player){
+        GameObject mainChar = player.getMainChar();
         double newPos = mainChar.getXPosition() + Math.abs(Double.parseDouble(mainChar.getProperty("movespeed")));
         currBoundary.moveToXPos(mainChar, newPos);
     }
 
-    @Override
-    public void moveLeft(){
-        GameObject mainChar = level.getMainCharacter();
+    public void moveLeft(Player player){
+        GameObject mainChar = player.getMainChar();
         double newPos = mainChar.getXPosition() - Math.abs(Double.parseDouble(mainChar.getProperty("movespeed")));
         currBoundary.moveToXPos(mainChar, newPos);
     }
 
-    @Override
-    public void jump() {
-        GameObject mainChar = level.getMainCharacter();
-        String jumpVelocity = mainChar.getProperty("jump");
+    public void jump(Player player) {
+        String jumpVelocity = player.getMainChar().getProperty("jump");
     	if(jumpVelocity!=null){
-    		mainChar.setProperty("fallspeed", "-" + jumpVelocity);
+    		player.getMainChar().setProperty("fallspeed", "-" + jumpVelocity);
     	}
     }
 
-    @Override
-    public void shootProjectile() {
-        if(level.getMainCharacter().getProjectileProperties() != null){
-            ProjectileProperties properties = level.getMainCharacter().getProjectileProperties();
-            GameObject projectile = new GameObject(level.getMainCharacter().getXPosition(), level.getMainCharacter().getYPosition(),
+    public void shootProjectile(Player player) {
+        if(player.getProjectileProperties() != null){
+            ProjectileProperties properties = player.getProjectileProperties();
+            GameObject projectile = new GameObject(player.getMainChar().getXPosition(), player.getMainChar().getYPosition(),
                     properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
             if(properties.getDirection().equals(Direction.LEFT)){
                 projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed()*-1));
