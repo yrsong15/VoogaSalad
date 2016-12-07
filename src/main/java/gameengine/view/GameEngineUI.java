@@ -153,7 +153,8 @@ public class GameEngineUI {
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
 			Iterator<String> keys = resources.getKeys();
-			while(keys.hasNext()){
+			
+			while(keys.hasNext()){ 
 				String key = keys.next();
 				methodMappings.put(key, movementInterface.getClass().getDeclaredMethod(resources.getResource(key)));
 			}

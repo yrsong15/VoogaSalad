@@ -2,12 +2,8 @@ package gameengine.controller;
 
 
 import com.sun.javafx.scene.traversal.Direction;
-import gameengine.controller.interfaces.CommandInterface;
-import gameengine.controller.interfaces.MovementHandler;
 import gameengine.controller.interfaces.MovementInterface;
 import gameengine.model.boundary.ScreenBoundary;
-import javafx.scene.Scene;
-import objects.Game;
 import objects.GameObject;
 import objects.Level;
 import objects.ProjectileProperties;
@@ -15,12 +11,16 @@ import objects.ProjectileProperties;
 import java.util.HashMap;
 
 
+/**
+ * @author Soravit, Chalena
+ */
+
 public class ControlManager implements MovementInterface{
 
     private Level level;
     private ScreenBoundary currBoundary;
-
-    public void setMainChar(Level level, ScreenBoundary currBoundary){
+    
+    public ControlManager(Level level, ScreenBoundary currBoundary){
         this.level = level;
         this.currBoundary = currBoundary;
     }

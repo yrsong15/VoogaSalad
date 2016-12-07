@@ -92,9 +92,9 @@
         </randomGenerations>
         <mainCharacter reference="../gameObjects/objects.GameObject"/>
         <scrollType>
-          <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+          <myScrollTypeName>LimitedScrolling</myScrollTypeName>
           <myScrollDirectionList>
-            <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
+            <com.sun.javafx.scene.traversal.Direction>UP</com.sun.javafx.scene.traversal.Direction>
           </myScrollDirectionList>
             <scrollSpeed class="double">10</scrollSpeed>
           <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
