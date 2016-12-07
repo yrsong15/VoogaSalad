@@ -54,7 +54,7 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-        XMLData = testGameEngine();
+        //XMLData = testGameEngine();
         gameEngineController = new GameEngineController();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
