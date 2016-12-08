@@ -24,7 +24,7 @@ public class Gallery implements IGallery {
 	}
 
 	private void addDefaultGame() throws IOException {
-		GameFile defaultGame = new GameFile("Example Game", readFile("data/DoodleJump.xml")); //
+		GameFile defaultGame = new GameFile("Example Game", readFile("data/GameEditorExampleXML.xml")); //
 		addToGallery(defaultGame);
 	}
 
