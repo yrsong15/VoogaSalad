@@ -26,7 +26,7 @@ import utils.ReflectionUtil;
  */
 
 public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface {
-    public static final double FRAMES_PER_SECOND = 30;
+    public static final double FRAMES_PER_SECOND = 60;
     public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
@@ -124,7 +124,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 				}
             }
 		}*/
-         //collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
+         collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
          collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());
         //checkProjectileDistance();
         LossChecker.checkLossConditions(this,
@@ -176,9 +176,15 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         endGameStage.show();
     }
     
-    public void resetObjectPosition(GameObject mainChar){
+    public void resetObjectPosition(GameObject mainChar,GameObject obj){
+    	double newPosition;
+    	if(mainCharImprint.getY() < obj.getYPosition())
+    		newPosition = obj.getYPosition() - mainChar.getHeight();
+    	else 
+    		newPosition = obj.getYPosition() + obj.getHeight();
+    	
+    	mainChar.setYPosition(newPosition);
     	mainChar.setXPosition(mainCharImprint.getX());
-    	mainChar.setYPosition(mainCharImprint.getY());
     }
 
     @Override
