@@ -10,10 +10,9 @@ public class ApplyOneSideNonIntersectableRule extends ApplyNonIntersectableRule{
 	
 	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
 
-		if((mainChar.getYPosition() + mainChar.getHeight() <= obj.getYPosition()) && !(mainChar.getYPosition() < obj.getYPosition() && (mainChar.getYPosition() + mainChar.getHeight()) > obj.getYPosition()))
+		if(mainChar.getYPosition() <= obj.getYPosition())
 		{
-			mainChar.killSpeed();
-			handler.resetObjectPosition(mainChar);
+			applyPlatformCollision(handler,mainChar,obj);
 		}
 	}
 	

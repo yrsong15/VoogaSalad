@@ -59,6 +59,7 @@ public class GameScreen {
 
     public void removeObject(GameObject object){
         myScreen.getChildren().remove(object);
+        myScreen.getChildren().remove(gameObjectImageViewMap.get(object));  
         gameObjectImageViewMap.remove(object);
     }
 

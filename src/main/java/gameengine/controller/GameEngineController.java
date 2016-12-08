@@ -111,7 +111,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         }
 		gameEngineView.update(currLevel);
 		movementChecker.updateMovement(currLevel.getGameObjects());
-		for(RandomGenFrame elem: RGFrames){
+		/*for(RandomGenFrame elem: RGFrames){
             for(RandomGeneration randomGeneration : currLevel.getRandomGenRules()) {
                 try {
 					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
@@ -121,7 +121,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 					e.printStackTrace();
 				}
             }
-		}
+		}*/
          collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
 		 LossChecker.checkLossConditions(this,
 				 		currLevel.getLoseConditions(), currLevel.getGameConditions());
@@ -139,6 +139,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     @Override
     public void removeObject(GameObject obj) {
         currentGame.getCurrentLevel().removeGameObject(obj);
+        gameEngineView.removeObject(obj);
     }
 
     @Override
@@ -227,5 +228,10 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw (new ScrollTypeNotFoundException());
 		}
+	}
+
+	@Override
+	public void removeFromCollidedList(GameObject obj) {
+		collisionChecker.manuallyRemoveFromConcurrentCollisionList(obj);
 	}
 }
