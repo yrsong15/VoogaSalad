@@ -12,9 +12,9 @@ import gameengine.view.GameScreen;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import objects.GameObject;
+import objects.Level;
 import objects.RandomGeneration;
 import objects.ScrollType;
-import objects.interfaces.ILevel;
 
 /**
  * @author pratikshasharma, John Martin
@@ -23,7 +23,7 @@ import objects.interfaces.ILevel;
 public class GameEditorData implements IGameEditorData{
     private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
 
-    private ILevel myLevel;
+    private Level myLevel;
 
     // public static final double SPRITE_WIDTH = 100;
     // public static final double SPRITE_HEIGHT = 150;
@@ -31,7 +31,7 @@ public class GameEditorData implements IGameEditorData{
     public static final double MAIN_CHAR_HEIGHT = 50;
     private String mainCharacterImageFilePath;
 
-    public GameEditorData(ILevel level){
+    public GameEditorData(Level level){
         myLevel = level;
     }
 
@@ -134,7 +134,7 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void addControl(KeyCode key, String action){
-        myLevel.setControl(key, action);
+//        myLevel.setControl(key, action);
     }
 
 
@@ -145,6 +145,11 @@ public class GameEditorData implements IGameEditorData{
 
     public void addWinCondition(String type, String action){
         myLevel.addWinCondition(type, action);
+    }
+
+    @Override
+    public void addScrollWidth(String width) {
+
     }
 
     public void addLoseCondition(String type, String action){
@@ -160,10 +165,6 @@ public class GameEditorData implements IGameEditorData{
         this.mainCharacterImageFilePath = imageFilePath;
     }
 
-    public void addScrollWidth(String width){
-        myLevel.addScrollWidth(Double.parseDouble(width));
-    }
-
     @Override
     public void addScrollSpeed(String speed) {
 
@@ -172,7 +173,6 @@ public class GameEditorData implements IGameEditorData{
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
         GameObject mainCharacter = new GameObject(xpos,ypos,MAIN_CHAR_WIDTH,MAIN_CHAR_HEIGHT,this.mainCharacterImageFilePath,properties);
         myLevel.addGameObject(mainCharacter);
-        myLevel.setMainCharacter(mainCharacter);
     }
 
     public void addGameObjectsToLevel(){

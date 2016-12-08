@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 import objects.Game;
 import objects.Level;
 import objects.interfaces.IGame;
-import objects.interfaces.ILevel;
 /**
  * @author pratikshasharma, Ray Song
  *
@@ -120,11 +119,9 @@ public class GameEditorController implements IGameEditorController{
             }else {
                 level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             }
-            ILevel levelInterface = (ILevel) level;
-
             myLevelManager.createLevel(level);   
 
-            myGameEditorView = new GameEditorView(levelInterface);          
+            myGameEditorView = new GameEditorView(level);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);
