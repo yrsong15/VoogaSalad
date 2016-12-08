@@ -1,17 +1,20 @@
 <objects.Game>
-  <name>Doodle Jump</name>
+  <name>Test Game</name>
   <levels/>
   <currentLevel>
     <level>1</level>
     <projectiles/>
     <gameObjects>
       <objects.GameObject>
-        <xPosition>250.0</xPosition>
-        <yPosition>200.0</yPosition>
-        <width>75.0</width>
-        <height>50.0</height>
-        <imageFileName>platform.png</imageFileName>
+        <xPosition>0.0</xPosition>
+        <yPosition>600.0</yPosition>
+        <width>1000000.0</width>
+        <height>200.0</height>
         <properties>
+          <entry>
+            <string>damage</string>
+            <string>0</string>
+          </entry>
           <entry>
             <string>nonintersectable</string>
             <string>true</string>
@@ -26,14 +29,14 @@
     <loseConditions/>
     <gameConditions/>
     <randomGenerations/>
-    <backgroundFilePath>Background/graphPaper.png</backgroundFilePath>
+    <backgroundFilePath>Background/bg.png</backgroundFilePath>
     <players>
       <objects.GameObject>
-        <xPosition>250.0</xPosition>
-        <yPosition>250.0</yPosition>
-        <width>75.0</width>
-        <height>50.0</height>
-        <imageFileName>doodler.png</imageFileName>
+        <xPosition>100.0</xPosition>
+        <yPosition>100.0</yPosition>
+        <width>100.0</width>
+        <height>100.0</height>
+        <imageFileName>bird3.png</imageFileName>
         <properties>
           <entry>
             <string>movespeed</string>
@@ -42,6 +45,10 @@
           <entry>
             <string>gravity</string>
             <string>0.8</string>
+          </entry>
+          <entry>
+            <string>horizontalmovement</string>
+            <string>10</string>
           </entry>
           <entry>
             <string>health</string>
@@ -57,12 +64,12 @@
       </objects.GameObject>
     </players>
     <scrollType>
-      <myScrollTypeName>FreeScrolling</myScrollTypeName>
+      <myScrollTypeName>ForcedScrolling</myScrollTypeName>
       <myScrollDirectionList>
         <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>
       <scrollSpeed>30.0</scrollSpeed>
-      <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
+      <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
         <screenWidth>700.0</screenWidth>
         <screenHeight>675.0</screenHeight>
       </gameBoundaries>
@@ -71,30 +78,27 @@
   <players>
     <objects.Player>
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
+      <projectileProperties>
+        <imageFileName>duvall.png</imageFileName>
+        <width>30</width>
+        <height>30</height>
+        <direction>RIGHT</direction>
+        <range>500.0</range>
+        <speed>30.0</speed>
+        <damage>20.0</damage>
+      </projectileProperties>
       <controls>
-        <entry>
-          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-          <string>left</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-          <string>shoot</string>
-        </entry>
         <entry>
           <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
           <string>jump</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-          <string>up</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+          <javafx.scene.input.KeyCode>D</javafx.scene.input.KeyCode>
           <string>right</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-          <string>down</string>
+          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+          <string>shoot</string>
         </entry>
       </controls>
     </objects.Player>

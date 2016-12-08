@@ -5,6 +5,7 @@ import com.sun.javafx.scene.traversal.Direction;
 import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.CommandInterface;
+import gameengine.controller.interfaces.GameHandler;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.*;
@@ -25,8 +26,9 @@ import utils.ReflectionUtil;
  *         Moon
  */
 
-public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface {
-    public static final double FRAMES_PER_SECOND = 30;
+
+public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface, GameHandler {
+    public static final double FRAMES_PER_SECOND = 60;
     public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
@@ -102,7 +104,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         }
 		gameEngineView.update(currLevel);
 		/*for(RandomGenFrame elem: randomlyGeneratedFrames){
->>>>>>> gameengine
             for(RandomGeneration randomGeneration : currLevel.getRandomGenRules()) {
                 try {
 					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
@@ -113,7 +114,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 				}
             }
 		}*/
-         //collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
+         collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
          collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());
         //checkProjectileDistance();
         LossChecker.checkLossConditions(this,
@@ -165,9 +166,15 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         endGameStage.show();
     }
     
-    public void resetObjectPosition(GameObject mainChar){
+    public void resetObjectPosition(GameObject mainChar,GameObject obj){
+    	double newPosition;
+    	if(mainCharImprint.getY() < obj.getYPosition())
+    		newPosition = obj.getYPosition() - mainChar.getHeight();
+    	else 
+    		newPosition = obj.getYPosition() + obj.getHeight();
+    	
+    	mainChar.setYPosition(newPosition);
     	mainChar.setXPosition(mainCharImprint.getX());
-    	mainChar.setYPosition(mainCharImprint.getY());
     }
 
     @Override
@@ -225,11 +232,16 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		currentGame.getCurrentLevel().setScore(currScore);
 	}
 
-
 	@Override
 	public void removeFromCollidedList(GameObject obj) {
 		collisionChecker.manuallyRemoveFromConcurrentCollisionList(obj);
 	}
+
+	@Override
+	public Game getGame() {
+		return currentGame;
+	}
+	
 //	private void checkProjectileDistance(){
 //        ProjectileProperties properties = currentGame.getCurrentLevel().getMainCharacter().getProjectileProperties();
 //        for(GameObject projectile:currentGame.getCurrentLevel().getProjectiles()){

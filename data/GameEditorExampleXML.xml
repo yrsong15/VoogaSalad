@@ -5,24 +5,69 @@
     <level>1</level>
     <projectiles/>
     <gameObjects>
-      <objects.GameObject>
-        <xPosition>0.0</xPosition>
-        <yPosition>600.0</yPosition>
-        <width>1000000.0</width>
-        <height>200.0</height>
-        <properties>
-          <entry>
-            <string>damage</string>
-            <string>0</string>
-          </entry>
-          <entry>
-            <string>nonintersectable</string>
-            <string>true</string>
-          </entry>
-        </properties>
-        <xDistanceMoved>0.0</xDistanceMoved>
-        <yDistanceMoved>0.0</yDistanceMoved>
-      </objects.GameObject>
+       <objects.GameObject>
+            <xPosition>0.0</xPosition>
+            <yPosition>600.0</yPosition>
+            <width>1000000.0</width>
+            <height>200.0</height>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>30</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+           <objects.GameObject>
+            <xPosition>500.0</xPosition>
+            <yPosition>200.0</yPosition>
+            <width>200</width>
+            <height>25.0</height>
+            <imageFileName>platform.png</imageFileName>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>0</string>
+              </entry>
+               <entry>
+                <string>nonintersectable</string>
+                <string>true</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+           <objects.GameObject>
+            <xPosition>100.0</xPosition>
+            <yPosition>200.0</yPosition>
+            <width>200</width>
+            <height>25.0</height>
+            <imageFileName>platform.png</imageFileName>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>0</string>
+              </entry>
+               <entry>
+                <string>onewaynonintersectable</string>
+                <string>true</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
+          <objects.GameObject>
+            <xPosition>500.0</xPosition>
+            <yPosition>150.0</yPosition>
+            <width>50</width>
+            <height>50</height>
+            <imageFileName>duvall.png</imageFileName>
+            <properties>
+              <entry>
+                <string>damage</string>
+                <string>0</string>
+              </entry>
+               <entry>
+                <string>enemy</string>
+                <string>true</string>
+              </entry>
+            </properties>
+          </objects.GameObject>
     </gameObjects>
     <obstacles/>
     <winConditions/>
@@ -47,10 +92,6 @@
             <string>0.8</string>
           </entry>
           <entry>
-            <string>horizontalmovement</string>
-            <string>10</string>
-          </entry>
-          <entry>
             <string>health</string>
             <string>10</string>
           </entry>
@@ -64,7 +105,7 @@
       </objects.GameObject>
     </players>
     <scrollType>
-      <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+      <myScrollTypeName>FreeScrolling</myScrollTypeName>
       <myScrollDirectionList>
         <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>
@@ -89,6 +130,10 @@
       </projectileProperties>
       <controls>
         <entry>
+          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+          <string>shoot</string>
+        </entry>
+        <entry>
           <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
           <string>jump</string>
         </entry>
@@ -97,8 +142,8 @@
           <string>right</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-          <string>shoot</string>
+          <javafx.scene.input.KeyCode>A</javafx.scene.input.KeyCode>
+          <string>left</string>
         </entry>
       </controls>
     </objects.Player>
