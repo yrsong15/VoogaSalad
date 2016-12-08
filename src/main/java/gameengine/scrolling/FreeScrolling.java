@@ -61,10 +61,16 @@ public class FreeScrolling implements Scrolling{
 	
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
+		scrollScreen(gameObjects, mainChar, Double.parseDouble(mainChar.getProperty("movespeed")));
+	}
+
+	@Override
+	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed)
+			throws ScrollDirectionNotFoundException {
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		scrollObjects.remove(mainChar);
-		Object[] parameters = new Object[]{scrollObjects, Double.parseDouble(mainChar.getProperty("movespeed"))};
+		Object[] parameters = new Object[]{scrollObjects, speed};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {
 				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
@@ -72,6 +78,7 @@ public class FreeScrolling implements Scrolling{
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				throw (new ScrollDirectionNotFoundException());
 			}
+		
 	}
 }
 

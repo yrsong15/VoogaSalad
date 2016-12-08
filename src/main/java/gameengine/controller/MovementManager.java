@@ -57,12 +57,7 @@ public class MovementManager implements ControlInterface{
 	
 	public void runActions(){
 		if(scrollName.equals("ForcedScrolling")){
-			try {
-				gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getPlayers().get(0));
-			} catch (ScrollDirectionNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			runGameScrolling();
 		}
 		movementChecker.updateMovement(currLevel);		
 	}
@@ -71,7 +66,7 @@ public class MovementManager implements ControlInterface{
 	public void moveUp(GameObject player, double speed) {
 		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.UP)){
 			gameScrolling.setDirection(Direction.UP);
-			runGameScrolling();
+			runGameScrolling(speed);
 		}
 		else{
 			controlManager.moveUp(player, speed);
@@ -84,7 +79,7 @@ public class MovementManager implements ControlInterface{
 	public void moveDown(GameObject player, double speed) {
 		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.DOWN)){
 			gameScrolling.setDirection(Direction.DOWN);
-			runGameScrolling();
+			runGameScrolling(speed);
 		}
 		else{
 			controlManager.moveDown(player, speed);
@@ -96,7 +91,7 @@ public class MovementManager implements ControlInterface{
 	public void moveRight(GameObject player, double speed) {
 		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.RIGHT)){
 			gameScrolling.setDirection(Direction.RIGHT);
-			runGameScrolling();
+			runGameScrolling(speed);
 		}
 		else{
 			controlManager.moveRight(player, speed);
@@ -107,7 +102,7 @@ public class MovementManager implements ControlInterface{
 	public void moveLeft(GameObject player, double speed) {
 		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.LEFT)){
 			gameScrolling.setDirection(Direction.LEFT);
-			runGameScrolling();
+			runGameScrolling(speed);
 		}
 		else{
 			controlManager.moveLeft(player, speed);
@@ -116,7 +111,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void jump(GameObject player, double speed) {
-		controlManager.jump(player, speed);
+		controlManager.jump(player, Double.parseDouble(player.getProperty("jump")));
 	}
 
 	@Override
@@ -143,6 +138,14 @@ public class MovementManager implements ControlInterface{
 	private void runGameScrolling() {
 		try {
 			gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getPlayers().get(0));
+		} catch (ScrollDirectionNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void runGameScrolling(double speed) {
+		try {
+			gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getPlayers().get(0), speed);
 		} catch (ScrollDirectionNotFoundException e) {
 			e.printStackTrace();
 		}
