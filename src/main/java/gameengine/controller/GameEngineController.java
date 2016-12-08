@@ -6,6 +6,7 @@ import com.sun.javafx.scene.traversal.Direction;
 import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.CommandInterface;
+import gameengine.controller.interfaces.GameHandler;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.*;
@@ -26,7 +27,7 @@ import utils.ReflectionUtil;
  *         Moon
  */
 
-public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface {
+public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface, GameHandler {
     public static final double FRAMES_PER_SECOND = 30;
     public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
@@ -227,5 +228,10 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw (new ScrollTypeNotFoundException());
 		}
+	}
+
+	@Override
+	public Game getGame() {
+		return currentGame;
 	}
 }
