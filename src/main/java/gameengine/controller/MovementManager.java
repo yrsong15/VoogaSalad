@@ -36,6 +36,8 @@ public class MovementManager implements MovementInterface{
 		
 	}
 	
+	//TO-DO: define scroll-width, pass movement interface through to movement rulebook through movement checker
+	
 	private void initManager(){
 		try {
 			setScrolling();
