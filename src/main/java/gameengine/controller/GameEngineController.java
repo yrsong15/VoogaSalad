@@ -26,8 +26,9 @@ import utils.ReflectionUtil;
  *         Moon
  */
 
+
 public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface, GameHandler {
-    public static final double FRAMES_PER_SECOND = 400;
+    public static final double FRAMES_PER_SECOND = 60;
     public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
@@ -103,7 +104,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         }
 		gameEngineView.update(currLevel);
 		/*for(RandomGenFrame elem: randomlyGeneratedFrames){
->>>>>>> gameengine
             for(RandomGeneration randomGeneration : currLevel.getRandomGenRules()) {
                 try {
 					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
@@ -166,9 +166,15 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         endGameStage.show();
     }
     
-    public void resetObjectPosition(GameObject mainChar){
+    public void resetObjectPosition(GameObject mainChar,GameObject obj){
+    	double newPosition;
+    	if(mainCharImprint.getY() < obj.getYPosition())
+    		newPosition = obj.getYPosition() - mainChar.getHeight();
+    	else 
+    		newPosition = obj.getYPosition() + obj.getHeight();
+    	
+    	mainChar.setYPosition(newPosition);
     	mainChar.setXPosition(mainCharImprint.getX());
-    	mainChar.setYPosition(mainCharImprint.getY());
     }
 
     @Override
