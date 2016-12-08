@@ -2,7 +2,6 @@ package gameengine.controller;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
-
 import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.CommandInterface;
@@ -28,32 +27,31 @@ import utils.ReflectionUtil;
  */
 
 public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface, GameHandler {
-    public static final double FRAMES_PER_SECOND = 30;
+    public static final double FRAMES_PER_SECOND = 400;
     public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 
-	private List<RandomGenFrame> RGFrames;
+	private List<RandomGenFrame> randomlyGeneratedFrames;
     private List<Integer> highScores;
     private String xmlData;
 	private GameParser parser;
 	private CollisionChecker collisionChecker;
-	private MovementChecker movementChecker;
 	private Game currentGame;
 	private GameEngineUI gameEngineView;
 	private Timeline animation;
-	private ControlManager controlManager;
-	private Scrolling gameScrolling;
+	private MovementManager gameMovement;
 	private Stage endGameStage;
 	private Position mainCharImprint;
+
+	
+	
 
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
-		controlManager = new ControlManager();
-		gameEngineView = new GameEngineUI(controlManager, event -> reset());
-		RGFrames = new ArrayList<>();
-        highScores = new ArrayList<>();
+		randomlyGeneratedFrames = new ArrayList<>();
+	    highScores = new ArrayList<>();
     }
 
     public Scene getScene() {
@@ -64,23 +62,20 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         this.xmlData = xmlData;
         this.mainCharImprint = new Position();
 		currentGame = parser.convertXMLtoGame(xmlData);
-        if(currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getMainCharacter() == null){
+        if(currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Cannot start game.");
             alert.setContentText("You must create a level with a main character to start a game.");
             alert.showAndWait();
             return false;
         }
-		movementChecker = new MovementChecker(currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
-		controlManager.setMainChar(currentGame.getCurrentLevel(), currentGame.getCurrentLevel().getScrollType().getScreenBoundary());
+        gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth, GameEngineUI.myAppHeight);
+		gameEngineView = new GameEngineUI(gameMovement.getControlInterface(), event -> reset());
         gameEngineView.initLevel(currentGame.getCurrentLevel());
-		gameEngineView.mapKeys(currentGame.getCurrentLevel().getControls());
+		for(Player player : currentGame.getPlayers()){
+            gameEngineView.mapKeys(player, player.getControls());
+        }
         addRGFrames();
-        try {
-			setScrolling();
-		} catch (ScrollTypeNotFoundException e1) {
-			System.out.println("The scroll type could not be found/instantiated through reflection.");
-		}
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
 			try {
 				updateGame();
@@ -100,19 +95,15 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	 */
 	public void updateGame(){
 		Level currLevel = currentGame.getCurrentLevel();
-		GameObject mainChar = currLevel.getMainCharacter();
+		GameObject mainChar = currLevel.getPlayers().get(0);
 		mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
-		try {
-			gameScrolling.scrollScreen(currLevel.getGameObjects(), mainChar);
-		} catch (ScrollDirectionNotFoundException e1) {
-			e1.printStackTrace();
-		}
+		gameMovement.runActions();
         if(currLevel.getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
             removeOffscreenElements();
         }
 		gameEngineView.update(currLevel);
-		movementChecker.updateMovement(currLevel.getGameObjects());
-		for(RandomGenFrame elem: RGFrames){
+		/*for(RandomGenFrame elem: randomlyGeneratedFrames){
+>>>>>>> gameengine
             for(RandomGeneration randomGeneration : currLevel.getRandomGenRules()) {
                 try {
 					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
@@ -122,9 +113,11 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 					e.printStackTrace();
 				}
             }
-		}
+		}*/
          collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
-		 LossChecker.checkLossConditions(this,
+         collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());
+        //checkProjectileDistance();
+        LossChecker.checkLossConditions(this,
 				 		currLevel.getLoseConditions(), currLevel.getGameConditions());
 		 WinChecker.checkWinConditions(this,
 				 		currLevel.getWinConditions(), currLevel.getGameConditions());
@@ -132,7 +125,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
     public void setNewBenchmark() {
         List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
-        for(RandomGenFrame elem: RGFrames){
+        for(RandomGenFrame elem: randomlyGeneratedFrames){
             elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
         }
     }
@@ -140,6 +133,22 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     @Override
     public void removeObject(GameObject obj) {
         currentGame.getCurrentLevel().removeGameObject(obj);
+        gameEngineView.removeObject(obj);
+
+    }
+
+    @Override
+    public void winGame(){
+        //SPLASH SCREEN
+
+    }
+
+    public void goNextLevel(){
+        if(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
+            currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
+        }else{
+            winGame();
+        }
     }
 
     @Override
@@ -164,6 +173,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
     @Override
     public void reset() {
+        gameEngineView.stopMusic();
         animation.stop();
         gameEngineView.resetGameScreen();
         startGame(xmlData);
@@ -195,12 +205,12 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     private void addRGFrames(){
         List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
         for (RandomGeneration randomGeneration : randomGenerations) {
-            RGFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
+            randomlyGeneratedFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
         }
     }
 
 	private void removeOffscreenElements() {
-		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
+		List<GameObject> objects = currentGame.getCurrentLevel().getAllGameObjects();
 		if(objects.size() == 0 || objects == null) return;
 		for(int i= objects.size()-1; i >= 0; i--){
 			if(objects.get(i).getXPosition()> -(2*GameEngineUI.myAppWidth) || objects.get(i) == null) continue;//CHANGE THIS TO PIPE WIDTH
@@ -215,23 +225,29 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		int currScore = prevScore+score;
 		currentGame.getCurrentLevel().setScore(currScore);
 	}
-	
-	private void setScrolling() throws ScrollTypeNotFoundException{
-		ScrollType gameScroll = currentGame.getCurrentLevel().getScrollType();
-		String classPath = "gameengine.scrolling." + gameScroll.getScrollTypeName();
-		Object[] parameters = new Object[]{gameScroll.getDirections().get(0), gameScroll.getScrollSpeed(), 
-											gameEngineView.getScreenWidth(), gameEngineView.getScreenHeight()};
-		Class<?>[] parameterTypes = new Class<?>[]{Direction.class, double.class, double.class, double.class};
-		try {
-			gameScrolling = (Scrolling) ReflectionUtil.getInstance(classPath, parameters, parameterTypes);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
-				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			throw (new ScrollTypeNotFoundException());
-		}
+
+	@Override
+	public void removeFromCollidedList(GameObject obj) {
+		collisionChecker.manuallyRemoveFromConcurrentCollisionList(obj);
 	}
 
 	@Override
 	public Game getGame() {
 		return currentGame;
 	}
+	
+//	private void checkProjectileDistance(){
+//        ProjectileProperties properties = currentGame.getCurrentLevel().getMainCharacter().getProjectileProperties();
+//        for(GameObject projectile:currentGame.getCurrentLevel().getProjectiles()){
+//            if(properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)){
+//                if(projectile.getXDistanceMoved() >= properties.getRange()){
+//                    removeObject(projectile);
+//                }
+//            }else{
+//                if(projectile.getYDistanceMoved() >= properties.getRange()){
+//                    removeObject(projectile);
+//                }
+//            }
+//        }
+//    }
 }

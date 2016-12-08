@@ -2,6 +2,7 @@ package gameengine.scrolling;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sun.javafx.scene.traversal.Direction;
@@ -11,6 +12,10 @@ import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
+
+/**
+ * @author Chalena Scholl
+ */
 public class FreeScrolling implements Scrolling{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
@@ -32,6 +37,11 @@ public class FreeScrolling implements Scrolling{
 		
 	}
 	
+	@Override
+	public void setDirection(Direction scrollDirection){
+		this.direction = scrollDirection;
+	}
+	
 	private Direction findScreenDirection(GameObject mainChar){
 		if (mainChar.getXPosition() <= screenWidth*0.2){
 			return Direction.LEFT;
@@ -48,13 +58,13 @@ public class FreeScrolling implements Scrolling{
 		}
 		return null;
 	}
-
+	
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
-		direction = findScreenDirection(mainChar);
-		if(direction==null)return;
 		String methodName = "scroll" + direction.toString();
-		Object[] parameters = new Object[]{gameObjects, scrollingSpeed};
+		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
+		scrollObjects.remove(mainChar);
+		Object[] parameters = new Object[]{scrollObjects, Double.parseDouble(mainChar.getProperty("movespeed"))};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {
 				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);

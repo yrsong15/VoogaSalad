@@ -13,14 +13,16 @@ public class ProjectileProperties {
     private Direction direction;
     private double range;
     private double speed;
+    private double damage;
 
-    public ProjectileProperties(String imageFileName, int width, int height, Direction direction, double range, double speed){
+    public ProjectileProperties(String imageFileName, int width, int height, Direction direction, double range, double speed, double damage){
         this.imageFileName = imageFileName;
         this.width = width;
         this.height = height;
         this.direction = direction;
         this.range = range;
         this.speed = speed;
+        this.damage = damage;
     }
 
 
@@ -45,6 +47,10 @@ public class ProjectileProperties {
     }
 
     public double getSpeed() {
+        return speed;
+    }
+
+    public double getDamage() {
         return speed;
     }
 

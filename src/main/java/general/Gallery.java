@@ -26,6 +26,8 @@ public class Gallery implements IGallery {
 	private void addDefaultGame() throws IOException {
 		GameFile defaultGame = new GameFile("Example Game", readFile("data/GameEditorExampleXML.xml")); //
 		addToGallery(defaultGame);
+		GameFile spicyGame = new GameFile("A Spicy Game", readFile("data/GameEditorExampleXML.xml")); //
+		addToGallery(spicyGame);
 	}
 
 	@Override
