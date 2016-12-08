@@ -34,6 +34,7 @@ public class CollisionChecker {
 				if (mainChar != gameObject && collision(mainChar, gameObject)) {
 					try {
 						if(!checkIfAlreadyCollided(gameObject)){
+							//System.out.println("Collided!");
 							rulebook.applyRules(mainChar, gameObject);
 							//System.out.println("Adding object");
 						}
@@ -77,6 +78,7 @@ public class CollisionChecker {
             }
         }
     }	
+	
 	
 	//Used in both platform apply rules for collision rules
 	public void manuallyRemoveFromConcurrentCollisionList(GameObject obj) {

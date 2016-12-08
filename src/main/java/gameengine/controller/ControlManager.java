@@ -24,38 +24,35 @@ public class ControlManager implements ControlInterface{
         this.currBoundary = currBoundary;
     }
 
-    public void moveUp(Player player){
-        GameObject mainChar = player.getMainChar();
-        double newPos = mainChar.getYPosition() - Double.parseDouble(mainChar.getProperty("movespeed"));
+    public void moveUp(GameObject mainChar, double speed){
+        double newPos = mainChar.getYPosition() - speed;
         currBoundary.moveToYPos(mainChar, newPos);
     }
     
-    public void moveDown(Player player){
-        GameObject mainChar = player.getMainChar();
-        double newPos = mainChar.getYPosition() + Double.parseDouble(mainChar.getProperty("movespeed"));
-        currBoundary.moveToYPos(mainChar, newPos);    }
+    public void moveDown(GameObject mainChar, double speed){
+        double newPos = mainChar.getYPosition() + speed;
+        currBoundary.moveToYPos(mainChar, newPos);    
+    }
 
-    public void moveRight(Player player){
-        GameObject mainChar = player.getMainChar();
-        double newPos = mainChar.getXPosition() + Math.abs(Double.parseDouble(mainChar.getProperty("movespeed")));
+    public void moveRight(GameObject mainChar, double speed){
+        double newPos = mainChar.getXPosition() + Math.abs(speed);
         currBoundary.moveToXPos(mainChar, newPos);
     }
 
-    public void moveLeft(Player player){
-        GameObject mainChar = player.getMainChar();
-        double newPos = mainChar.getXPosition() - Math.abs(Double.parseDouble(mainChar.getProperty("movespeed")));
+    public void moveLeft(GameObject mainChar, double speed){
+        double newPos = mainChar.getXPosition() - Math.abs(speed);
         currBoundary.moveToXPos(mainChar, newPos);
     }
 
-    public void jump(Player player) {
-        String jumpVelocity = player.getMainChar().getProperty("jump");
+    public void jump(GameObject mainChar, double speed) {
+        String jumpVelocity = mainChar.getProperty("jump");
     	if(jumpVelocity!=null){
-    		player.getMainChar().setProperty("fallspeed", "-" + jumpVelocity);
+    		mainChar.setProperty("fallspeed", "-" + jumpVelocity);
     	}
     }
 
-    public void shootProjectile(Player player) {
-        if(player.getProjectileProperties() != null){
+    public void shootProjectile(GameObject player, double speed) {
+        /**if(player.getProjectileProperties() != null){
             ProjectileProperties properties = player.getProjectileProperties();
             GameObject projectile = new GameObject(player.getMainChar().getXPosition(), player.getMainChar().getYPosition(),
                     properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
@@ -70,6 +67,6 @@ public class ControlManager implements ControlInterface{
             }
             projectile.setProperty("damage", String.valueOf(properties.getDamage()));
             level.getProjectiles().add(projectile);
-        }
+        }**/
     }
 }
