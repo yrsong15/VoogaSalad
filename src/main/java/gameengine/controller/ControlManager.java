@@ -10,12 +10,16 @@ import objects.ProjectileProperties;
 import java.util.HashMap;
 
 
-public class ControlManager implements ControlInterface {
+/**
+ * @author Soravit, Chalena
+ */
+
+public class ControlManager implements ControlInterface{
 
     private Level level;
     private ScreenBoundary currBoundary;
-
-    public void setLevel(Level level, ScreenBoundary currBoundary){
+    
+    public ControlManager(Level level, ScreenBoundary currBoundary){
         this.level = level;
         this.currBoundary = currBoundary;
     }

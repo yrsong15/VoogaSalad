@@ -3,6 +3,7 @@ package gameeditor.xml;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import gameengine.client.ServerMessage;
 import objects.Game;
 
 
@@ -23,6 +24,16 @@ public class XMLSerializer{
     public Game getGameFromString(String s)
     {
         return (Game)mySerializer.fromXML(s);
+    }
+    
+    public String serializeServerMessage(ServerMessage msg)
+    {
+        return mySerializer.toXML(msg);
+    }
+
+    public ServerMessage getServerMessageFromString(String s)
+    {
+        return (ServerMessage)mySerializer.fromXML(s);
     }
 
 }
