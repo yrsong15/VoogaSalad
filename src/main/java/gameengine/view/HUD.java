@@ -45,8 +45,8 @@ public class HUD {
 			Text scoreText = new Text("Score: " + Integer.toString(level.getScore()));
 			myHUD.getChildren().add(scoreText);
 		}
-		if(level.getMainCharacter() != null) {
-			Text healthText = new Text("  |  Health: " + level.getMainCharacter().getProperty("health"));
+		if(level.getPlayers() != null) {
+			Text healthText = new Text("  |  Health: " + level.getPlayers().get(0).getProperty("health"));
             myHUD.getChildren().add(healthText);
         }
 		Text timeText = new Text("  |  Time: " + Integer.toString(timeCount));

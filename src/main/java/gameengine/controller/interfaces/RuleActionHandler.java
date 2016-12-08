@@ -12,4 +12,6 @@ public interface RuleActionHandler {
 	public void endGame();
 	public void modifyScore(int score);
 	public void resetObjectPosition(GameObject mainChar);
+	public void removeFromCollidedList(GameObject obj);
+	public void winGame();
 }

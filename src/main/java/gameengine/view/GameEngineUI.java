@@ -14,8 +14,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import gameengine.controller.ScrollerController;
-import gameengine.view.interfaces.IToolbar;
-import gameengine.controller.interfaces.MovementInterface;
+import gameengine.controller.interfaces.ControlInterface;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -29,6 +28,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import objects.GameObject;
 import objects.Level;
+import objects.Player;
 import utils.ResourceReader;
 
 /**
@@ -46,7 +46,7 @@ public class GameEngineUI {
 	private Level level;
 	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
-	private MovementInterface movementInterface;
+	private ControlInterface controlInterface;
 	private String myLevelFileLocation;
 	private Toolbar toolbar;
 	private HUD myHUD;
@@ -59,18 +59,17 @@ public class GameEngineUI {
 	private EventHandler<ActionEvent> resetEvent;
 
 
-	public GameEngineUI(MovementInterface movementInterface, EventHandler<ActionEvent> resetEvent) {
+	public GameEngineUI(ControlInterface controlInterface, EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
-		this.movementInterface = movementInterface;
+		this.controlInterface = controlInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		setUpMethodMappings();
 	}
 
 	public void initLevel(Level level) {
 		this.level = level;
-		setUpKeystrokeListeners();
         if(level.getMusicFilePath() != null){
             playMusic(level.getMusicFilePath());
         }
@@ -128,9 +127,9 @@ public class GameEngineUI {
 		
 	}
 
-	public void mapKeys(Map<KeyCode, String> mappings) {
+	public void mapKeys(Player player, Map<KeyCode, String> mappings) {
 		mapKeysToMethods(mappings);
-		setUpKeystrokeListeners();
+		setUpKeystrokeListeners(player);
 	}
 	
 	public void stopMusic() {
@@ -156,7 +155,7 @@ public class GameEngineUI {
 			
 			while(keys.hasNext()){ 
 				String key = keys.next();
-				methodMappings.put(key, movementInterface.getClass().getDeclaredMethod(resources.getResource(key)));
+				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key), Player.class));
 			}
 		} catch (
 
@@ -215,7 +214,6 @@ public class GameEngineUI {
 		levelChooser.setTitle("Open Level File");
 		File levelFile = levelChooser.showOpenDialog(new Stage());
 		myLevelFileLocation = levelFile.getAbsolutePath();
-		//System.out.println(myLevelFileLocation);
 	}
 
 	private void pause() {
@@ -230,12 +228,11 @@ public class GameEngineUI {
 		}
 	}
 
-	private void setUpKeystrokeListeners() {
+	private void setUpKeystrokeListeners(Player player) {
 		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
-					keyMappings.get(event.getCode()).invoke(movementInterface);
-					gameScreen.update(level);
+					keyMappings.get(event.getCode()).invoke(controlInterface, player);
 				}
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
