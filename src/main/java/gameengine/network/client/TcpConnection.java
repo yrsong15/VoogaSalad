@@ -1,4 +1,4 @@
-package gameengine.client;
+package gameengine.network.client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -7,6 +7,9 @@ import java.net.Socket;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
+
+import gameeditor.xml.XMLSerializer;
+import gameengine.network.ServerMessage;
 
 class TcpConnection {
 
@@ -21,6 +24,7 @@ class TcpConnection {
 
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
+	private XMLSerializer serializer;
 	
 	private Socket socket;
 
@@ -28,6 +32,7 @@ class TcpConnection {
 		
 		SERVER_PORT_TCP = port;
 		SERVER_IP = ip;
+		serializer = new XMLSerializer();
 		try {
 			socket = new Socket(SERVER_IP, SERVER_PORT_TCP);
 			oos = new ObjectOutputStream(socket.getOutputStream());
@@ -42,11 +47,11 @@ class TcpConnection {
 		
 		try {
 			ServerMessage sm = new ServerMessage(GET_ID);
-			String data = Helper.marshall(sm);
+			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			
 			return ois.readLong();
-		} catch (IOException | JAXBException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return -1;
@@ -57,10 +62,10 @@ class TcpConnection {
 		try {
 			ServerMessage sm = new ServerMessage(SEND_COMMAND);
 			sm.setCommand(command);
-			String data = Helper.marshall(sm);
+			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			oos.reset();
-		} catch (IOException | JAXBException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -71,9 +76,9 @@ class TcpConnection {
 		try {
 			ServerMessage sm = new ServerMessage(GET_ID_IP_PORT);
 			sm.setPort(port);
-			String data = Helper.marshall(sm);
+			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
-		} catch (IOException | JAXBException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -84,10 +89,10 @@ class TcpConnection {
 		try {
 			ServerMessage sm = new ServerMessage(REMOVE_CHARACTER);
 			sm.setId(id);
-			String data = Helper.marshall(sm);
+			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			//oos.reset();
-		} catch (IOException | JAXBException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

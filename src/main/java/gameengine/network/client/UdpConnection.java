@@ -1,4 +1,4 @@
-package gameengine.client;
+package gameengine.network.client;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

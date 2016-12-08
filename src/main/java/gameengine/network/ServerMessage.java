@@ -1,4 +1,4 @@
-package gameengine.client;
+package gameengine.network;
 
 public class ServerMessage{
 	public int messageType;

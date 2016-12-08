@@ -1,4 +1,4 @@
-package gameengine.server;
+package gameengine.network.server;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

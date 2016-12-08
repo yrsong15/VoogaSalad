@@ -1,4 +1,4 @@
-package gameengine.client;
+package gameengine.network.client;
 
 
 import java.util.ArrayList;

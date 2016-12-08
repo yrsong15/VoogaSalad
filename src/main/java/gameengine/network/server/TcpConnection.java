@@ -1,4 +1,4 @@
-package gameengine.server;
+package gameengine.network.server;
 
 
 import java.io.IOException;
@@ -9,7 +9,8 @@ import java.net.Socket;
 
 import javax.xml.bind.JAXBException;
 
-import gameengine.client.ServerMessage;
+import gameeditor.xml.XMLSerializer;
+import gameengine.network.ServerMessage;
 
 /**
  * This class establishes TCP connection and listens to client side
@@ -24,10 +25,12 @@ class TcpConnection implements Runnable{
 
 	private ServerMain main;
 	private Socket socket;
+	private XMLSerializer serializer;
 	
 	TcpConnection(ServerMain main, Socket socket) {
 		this.main = main;
 		this.socket = socket;
+		serializer = new XMLSerializer();
 	}
 	
 	@Override
@@ -41,8 +44,8 @@ class TcpConnection implements Runnable{
 				if(msg!=null) System.out.println(msg);
 				ServerMessage sm;
 				try {
-					sm = Helper.unmarshall(msg);
-				} catch (JAXBException e) {
+					sm = serializer.getServerMessageFromString(msg);
+				} catch (Exception e) {
 					e.printStackTrace();
 					continue;
 				}
