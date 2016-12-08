@@ -14,13 +14,13 @@ public class ApplyGravityRule implements MovementRule {
 		double gravity = Double.parseDouble(obj.getProperty("gravity"));
 		double speed = modifySpeed(obj, gravity);
 		double newYPos = obj.getYPosition() + GameEngineController.SECOND_DELAY * speed;
-		if(newYPos > obj.getYPosition()){
+		/**if(newYPos > obj.getYPosition()){
 			gameMovement.moveDown(obj, GameEngineController.SECOND_DELAY * speed);
 		}
 		else{
 			gameMovement.moveUp(obj, GameEngineController.SECOND_DELAY * speed);
-		}
-		//gameBoundaries.moveToYPos(obj, obj.getYPosition() + GameEngineController.SECOND_DELAY * speed);
+		}**/
+		gameBoundaries.moveToYPos(obj, obj.getYPosition() + GameEngineController.SECOND_DELAY * speed);
         obj.setYDistanceMoved(obj.getYDistanceMoved() + GameEngineController.SECOND_DELAY * speed);
     }
 

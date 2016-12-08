@@ -46,7 +46,7 @@ public class MovementManager implements ControlInterface{
 		} catch (ScrollTypeNotFoundException e) {
 			e.printStackTrace();
 		}
-		movementChecker = new MovementChecker((ControlInterface) this);
+		movementChecker = new MovementChecker((ControlInterface) this, currLevel.getScrollType().getScreenBoundary());
 		controlManager = new ControlManager(currLevel, currLevel.getScrollType().getScreenBoundary());
 		
 	}

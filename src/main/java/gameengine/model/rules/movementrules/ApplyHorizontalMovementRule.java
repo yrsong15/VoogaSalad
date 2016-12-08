@@ -14,7 +14,7 @@ public class ApplyHorizontalMovementRule implements MovementRule{
 	public void applyRule(GameObject obj, ControlInterface gameMovement, ScreenBoundary gameBoundaries) {
         double moveSpeed = Double.parseDouble(obj.getProperty("horizontalmovement"));
         
-        //gameBoundaries.moveToXPos(obj, obj.getXPosition() + moveSpeed);
+        gameBoundaries.moveToXPos(obj, obj.getXPosition() + moveSpeed);
         obj.setXDistanceMoved(obj.getXDistanceMoved() + GameEngineController.SECOND_DELAY * moveSpeed);
 		
 	}
