@@ -46,8 +46,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	private Position mainCharImprint;
 
 	
-	
-
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
@@ -183,6 +181,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         animation.stop();
         gameEngineView.resetGameScreen();
         startGame(xmlData);
+        System.out.println("aaa " + xmlData);
     }
 
     public void stop(){
