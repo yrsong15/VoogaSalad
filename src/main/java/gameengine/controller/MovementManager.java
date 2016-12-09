@@ -145,7 +145,5 @@ public class MovementManager implements ControlInterface{
 		} catch (ScrollDirectionNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 }
