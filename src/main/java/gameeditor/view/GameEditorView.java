@@ -72,12 +72,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                 double width = object.getWidth();
                 String fileName = object.getImageFileName();
                 Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
-                ImageView spriteimageView = new ImageView(image);
-                
-                
+                ImageView spriteimageView = new ImageView(image);      
             }
-        }
-        
+        }    
     }
     
     private HBox createLeftAlt(){

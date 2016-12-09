@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
 /**
@@ -53,8 +54,8 @@ public class ButtonTemplate implements IButtonLayout {
     
     
     @Override
-    public void setOnButtonAction (EventHandler<ActionEvent> handler) {
-       myButton.setOnAction(handler);
+    public void setOnButtonAction (EventHandler<MouseEvent> handler) {
+       myButton.setOnMouseClicked(handler);
     }
 }
 
