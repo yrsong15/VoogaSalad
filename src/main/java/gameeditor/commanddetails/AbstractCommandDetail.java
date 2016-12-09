@@ -31,7 +31,7 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
     protected VBox myVBox;
 
     public AbstractCommandDetail() {
-        myVBox = new VBox();
+      
         myContainerPane = new ScrollPane();
         myContainerPane.setHbarPolicy(ScrollBarPolicy.NEVER);
         myContainerPane.setVbarPolicy(ScrollBarPolicy.NEVER);
@@ -67,6 +67,7 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
     }
 
     protected void addVBoxSettings(){
+        myVBox = new VBox();
         myVBox.setSpacing(MY_DETAIL_PADDING);
         myVBox.setAlignment(Pos.CENTER);
         myContainerPane.setContent(myVBox);    

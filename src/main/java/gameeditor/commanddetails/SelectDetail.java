@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameeditor.objects.GameObject;
+import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,7 +29,7 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
     private TextArea myYTextArea = new TextArea();
     private TextArea myWidthTextArea = new TextArea();
     private TextArea myHeightTextArea = new TextArea();
-    private GameObject myGO;
+    private GameObjectView myGO;
 
     private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
     String[] myRandomGenerationParameters = DetailResources.RANDOM_GENERATION_PARAMETERS.getArrayResource();
@@ -43,16 +43,12 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 
     @Override
     public void init() {
-//        myVBox = new VBox();
-//        myVBox.setSpacing(MY_DETAIL_PADDING);
-//        myVBox.setAlignment(Pos.CENTER);
-//        myContainerPane.setContent(myVBox);
         addVBoxSettings();
         myDesignArea.enableClick(this);
         addSelectLabel();
     }
 
-    public void initLevel2(GameObject sprite){
+    public void initLevel2(GameObjectView sprite){
         init();
         myGO = sprite;
         mySelectLabel.setTextFill(Color.LIGHTGREY);
@@ -131,7 +127,6 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
     private void addSelectLabel(){
         BorderPane bp = new BorderPane();
         mySelectLabel = createPropertyLbl(DetailResources.SELECT_LABEL_TEXT.getResource());
-        
         bp.setCenter(mySelectLabel);
         bp.setMinWidth(PADDED_PANE_WIDTH);
         bp.setMaxWidth(PADDED_PANE_WIDTH);
@@ -144,13 +139,8 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
     }
 
     private void createInfoBP(TextArea ta1, String label1, double value1, TextArea ta2, String label2, double value2){
-        //BorderPane bp = new BorderPane();
-        //bp.setMinWidth(PADDED_PANE_WIDTH);
-        //bp.setMaxWidth(PADDED_PANE_WIDTH);
         ta1 = createTextArea(label1, value1, ta1);
         ta2 = createTextArea(label2, value2, ta2);
-        //bp.setLeft(ta1);
-        //bp.setRight(ta2);
         BorderPane bp = createBorderpane(ta2,ta1);
         myVBox.getChildren().add(bp);
     }
@@ -173,39 +163,14 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 
     private void createProperties(){
         for (String label : myRandomGenerationParameters){           
-            //BorderPane bp = new BorderPane();
-            //bp.setMinWidth(PADDED_PANE_WIDTH);
-            //bp.setMaxWidth(PADDED_PANE_WIDTH);
             Label labl = createPropertyLbl(label);
             TextArea input= createInputField("0");
             myRandomGenerationList.add(input);
             BorderPane bp = createBorderpane(input,labl);
-           // bp.setLeft(labl);
-            //bp.setRight(input);
             BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
             myVBox.getChildren().add(bp);
         }
     }
-
-//    private Label createPropertyLbl(String property){
-//        Label labl = new Label (property);
-//        return labl;
-//    }
-
-//    private TextArea createInputField(String initialText){
-//        TextArea inputField = new TextArea();
-//        inputField.setMinWidth(PADDED_DETAIL_WIDTH);
-//        inputField.setMaxWidth(PADDED_DETAIL_WIDTH);
-//        inputField.setText(initialText);
-//        inputField.setMinHeight(CB_HEIGHT);
-//        inputField.setMaxHeight(CB_HEIGHT);
-//        inputField.setOnMouseClicked(e -> handleClick(inputField));
-//        return inputField;
-//    }	
-
-//    private void handleClick(TextArea field){
-//        field.setText("");
-//    }
 
     private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
         //		if (kc == KeyCode.BACK_SPACE){
@@ -223,7 +188,5 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
             field.positionCaret(field.getText().length());
         }
 
-    }
-    
-    
+    }   
 }

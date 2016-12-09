@@ -3,12 +3,12 @@ package gameeditor.commanddetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import gameeditor.objects.GameObject;
+import gameeditor.objects.GameObjectView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 
 public class CreateObjectDetail extends AbstractCommandDetail {
-    private GameObject myGO;
+    private GameObjectView myGO;
 
     private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
     String[] myRandomGenerationParameters = DetailResources.RANDOM_GENERATION_PARAMETERS.getArrayResource();
