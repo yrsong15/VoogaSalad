@@ -1,40 +1,39 @@
 package gameengine.network.client;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
+import gameengine.controller.interfaces.ControlInterface;
 import objects.Game;
 import objects.GameObject;
+import objects.Player;
 
 /**
  * 
  * @author Titas Skrebe
  *
- * This is the main class of a client side for an online multiplayer game.
+ *         This is the main class of a client side for an online multiplayer
+ *         game.
  * 
- * Go to www.tskrebe.me for more info 
+ *         Go to www.tskrebe.me for more info
  * 
  */
-public class ClientMain {
+public class ClientMain implements ControlInterface {
 
 	static long ID = -1; // we get ID from the server side
 
 	private TcpConnection connections; // establishing TCP connection
 
-
-
-	
 	private String server_ip;
 	private int server_port_tcp;
 	private int client_port_udp;
-	
-	public ClientMain(String ip, int portTcp, int portUdp){
+
+	public ClientMain(String ip, int portTcp, int portUdp) {
 		server_ip = ip;
-//		server_port_tcp = portTcp;
+		// server_port_tcp = portTcp;
 		server_port_tcp = 9090;
 		client_port_udp = portUdp;
-		
+
 		connections = new TcpConnection(this, server_ip, server_port_tcp);
 
 		if ((ID = connections.getIdFromServer()) == -1) {
@@ -50,19 +49,48 @@ public class ClientMain {
 	}
 
 	/** Closing game */
-	public void closingOperations(){
+	public void closingOperations() {
 		connections.removeCharacter(ID);
 	}
 
 	/**
 	 * Getting info about game play
 	 * 
-	 * @param objects Object can be either bullet or player
+	 * @param objects
+	 *            Object can be either bullet or player
 	 */
 	public Game updateGame(Game game) {
 		return game;
 	}
-	
 
-	
+	@Override
+	public void moveUp(Player player) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());
+	}
+
+	@Override
+	public void moveDown(Player player) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());		
+	}
+
+	@Override
+	public void moveRight(Player player) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());		
+	}
+
+	@Override
+	public void moveLeft(Player player) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());		
+	}
+
+	@Override
+	public void jump(Player player) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());		
+	}
+
+	@Override
+	public void shootProjectile(Player player) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());
+	}
+
 }
