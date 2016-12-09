@@ -96,6 +96,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		Level currLevel = currentGame.getCurrentLevel();
 		GameObject mainChar = currLevel.getPlayers().get(0);
 		mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
+		System.out.println("qwerqwerqwer: " + mainChar.getXPosition() + " " + mainChar.getYPosition());
 		mainChar.checkPlatformStatus();
 		gameMovement.runActions();
         if(currLevel.getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
@@ -138,7 +139,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
     @Override
     public void winGame(){
-        //SPLASH SCREEN
+        //TODO: SPLASH SCREEN
 
     }
 
@@ -184,7 +185,9 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         animation.stop();
         gameEngineView.resetGameScreen();
         startGame(xmlData);
-        System.out.println("aaa " + xmlData);
+        if(startGame(xmlData)){
+            
+        }
     }
 
     public void stop(){
