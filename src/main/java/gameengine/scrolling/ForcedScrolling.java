@@ -30,7 +30,11 @@ public class ForcedScrolling implements Scrolling{
 	@Override
 	public void setSpeed(double speed) {
 		this.scrollingSpeed = speed;
-		
+	}
+	
+	@Override
+	public void setDirection(Direction scrollDirection) {
+		this.direction = scrollDirection;		
 	}
 
 	@Override

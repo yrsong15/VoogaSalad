@@ -14,6 +14,9 @@ public class StopAtEdgeBoundary extends BasicBoundary{
 		if(newXPos <= getScreenWidth()-toMove.getWidth() && newXPos >= 0){
 			toMove.setXPosition(newXPos);
 		}
+		else{
+			toMove.killSpeed();
+		}
 		
 	}
 
@@ -23,6 +26,9 @@ public class StopAtEdgeBoundary extends BasicBoundary{
 		if (newYPos <= getScreenHeight()-toMove.getHeight()*1.8 && newYPos >= 0){
 			toMove.setYPosition(newYPos);
 		}		
+		else{
+			toMove.killSpeed();
+		}
 	}
 
 }

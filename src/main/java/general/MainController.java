@@ -10,6 +10,7 @@ import gameeditor.controller.GameEditorController;
 import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
 import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -89,6 +90,36 @@ public class MainController {
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+
+//Fixing this merge conflict, not sure if I should delete or not
+    	 /***Game game = new Game("Doodle Jump");
+         GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
+         Player player = new Player(mainChar);
+         game.addPlayer(player);
+         mainChar.setProperty("gravity", "0.8");
+         mainChar.setProperty("jump", "400");
+         mainChar.setProperty("health", "10");
+         mainChar.setProperty("movespeed", "30");
+         Level level = new Level(1);
+         ScreenBoundary gameBoundaries = new StopAtEdgeBoundary(700, 675);
+         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
+         scrollType.addScrollDirection(Direction.RIGHT);
+         scrollType.setScrollSpeed(30);
+         level.setScrollType(scrollType);
+         level.setBackgroundImage("Background/graphPaper.png");
+         game.setCurrentLevel(level);
+         player.setControl(KeyCode.W, "jump");
+         player.setControl(KeyCode.LEFT, "left");
+         player.setControl(KeyCode.RIGHT, "right");
+         player.setControl(KeyCode.UP, "up");
+         player.setControl(KeyCode.DOWN, "down");
+         player.setControl(KeyCode.SPACE, "shoot");
+         level.addPlayer(mainChar);
+         GameObject ground = new GameObject(250,200,75,50, "platform.png", new HashMap<>());
+         ground.setProperty("nonintersectable", "true");
+         level.addGameObject(ground);
+         XMLSerializer testSerializer = new XMLSerializer();
+         String xml = testSerializer.serializeGame(game);***/
         System.out.println(xml);
         return xml;
     }
