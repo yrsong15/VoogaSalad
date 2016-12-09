@@ -13,7 +13,14 @@ public class ApplyVerticalMovementRule implements MovementRule {
 	@Override
 	public void applyRule(GameObject obj, ControlInterface gameMovement, ScreenBoundary gameBoundaries) {
 		double movespeed = Double.parseDouble(obj.getProperty("verticalmovement"));
-		gameBoundaries.moveToYPos(obj, obj.getYPosition() + GameEngineController.SECOND_DELAY * movespeed);
+		double newYPos = obj.getYPosition() + GameEngineController.SECOND_DELAY * movespeed;
+		if(newYPos > obj.getYPosition()){
+			gameMovement.moveDown(obj, GameEngineController.SECOND_DELAY * movespeed);
+		}
+		else if (newYPos < obj.getYPosition()){
+			gameMovement.moveUp(obj, GameEngineController.SECOND_DELAY * movespeed*-1);
+		}
+		//gameBoundaries.moveToYPos(obj, obj.getYPosition() + GameEngineController.SECOND_DELAY * movespeed);
 		obj.setYDistanceMoved(obj.getYDistanceMoved() + GameEngineController.SECOND_DELAY * movespeed);		
 	}
 

@@ -66,7 +66,7 @@ public class MainController {
         Player player = new Player(mainChar);
         game.addPlayer(player);
         ProjectileProperties properties = new ProjectileProperties("duvall.png", 30, 30, Direction.RIGHT, 500, 30, 20);
-        player.setProjectileProperties(properties);
+        player.getMainChar().setProjectileProperties(properties);
         mainChar.setProperty("horizontalmovement", "10");
         mainChar.setProperty("gravity", "0.8");
         mainChar.setProperty("jump", "400");
@@ -91,8 +91,9 @@ public class MainController {
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
 
-//Fixing this merge conflict, not sure if I should delete or not
-    	 /***Game game = new Game("Doodle Jump");
+    	//doodle jump configuration
+    	/**
+    	 Game game = new Game("Doodle Jump");
          GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
          Player player = new Player(mainChar);
          game.addPlayer(player);
@@ -117,9 +118,7 @@ public class MainController {
          level.addPlayer(mainChar);
          GameObject ground = new GameObject(250,200,75,50, "platform.png", new HashMap<>());
          ground.setProperty("nonintersectable", "true");
-         level.addGameObject(ground);
-         XMLSerializer testSerializer = new XMLSerializer();
-         String xml = testSerializer.serializeGame(game);***/
+         level.addGameObject(ground);**/
         System.out.println(xml);
         return xml;
     }

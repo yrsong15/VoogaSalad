@@ -52,9 +52,9 @@ public class ControlManager implements ControlInterface{
     }
 
     public void shootProjectile(GameObject player, double speed) {
-        /**if(player.getProjectileProperties() != null){
+        if(player.getProjectileProperties() != null){
             ProjectileProperties properties = player.getProjectileProperties();
-            GameObject projectile = new GameObject(player.getMainChar().getXPosition(), player.getMainChar().getYPosition(),
+            GameObject projectile = new GameObject(player.getXPosition(), player.getYPosition(),
                     properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
             if(properties.getDirection().equals(Direction.LEFT)){
                 projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed()*-1));
@@ -67,6 +67,6 @@ public class ControlManager implements ControlInterface{
             }
             projectile.setProperty("damage", String.valueOf(properties.getDamage()));
             level.getProjectiles().add(projectile);
-        }**/
+        }
     }
 }

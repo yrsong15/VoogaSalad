@@ -232,7 +232,7 @@ public class GameEngineUI {
 		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
-					keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
+						keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 				}
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
