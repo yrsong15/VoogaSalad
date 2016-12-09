@@ -142,8 +142,6 @@ public class MovementManager implements ControlInterface{
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
-=======
 	
 	private void runGameScrolling(double speed) {
 		try {
@@ -152,5 +150,4 @@ public class MovementManager implements ControlInterface{
 			e.printStackTrace();
 		}
 	}
->>>>>>> 7fde46d3eb2f087cac0cfe82ca45cbb9ffab9367
 }

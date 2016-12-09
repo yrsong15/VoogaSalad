@@ -59,10 +59,6 @@ public class GameObject {
 	}
 	
 	public void checkPlatformStatus(){
-<<<<<<< HEAD
-		//System.out.println(this.onPlatform);
-=======
->>>>>>> 7fde46d3eb2f087cac0cfe82ca45cbb9ffab9367
 		if(platformCharacterIsOn == null){
 			this.onPlatform = false;
 			return;
