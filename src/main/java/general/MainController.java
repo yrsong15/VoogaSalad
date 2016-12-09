@@ -90,6 +90,8 @@ public class MainController {
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+
+//Fixing this merge conflict, not sure if I should delete or not
     	 /***Game game = new Game("Doodle Jump");
          GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
          Player player = new Player(mainChar);

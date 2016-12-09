@@ -79,7 +79,6 @@ public class CollisionChecker {
         }
     }	
 	
-	
 	//Used in both platform apply rules for collision rules
 	public void manuallyRemoveFromConcurrentCollisionList(GameObject obj) {
 		removeGameObjectFromSet(obj);

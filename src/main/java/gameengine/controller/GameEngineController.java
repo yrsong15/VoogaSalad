@@ -46,8 +46,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	private Position mainCharImprint;
 
 	
-	
-
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
@@ -98,6 +96,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		Level currLevel = currentGame.getCurrentLevel();
 		GameObject mainChar = currLevel.getPlayers().get(0);
 		mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
+		mainChar.checkPlatformStatus();
 		gameMovement.runActions();
         if(currLevel.getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
             removeOffscreenElements();
@@ -168,8 +167,10 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     
     public void resetObjectPosition(GameObject mainChar,GameObject obj){
     	double newPosition;
-    	if(mainCharImprint.getY() < obj.getYPosition())
+    	if(mainCharImprint.getY() < obj.getYPosition()){
     		newPosition = obj.getYPosition() - mainChar.getHeight();
+    		mainChar.setPlatformCharacterIsOn(obj);
+    	}
     	else 
     		newPosition = obj.getYPosition() + obj.getHeight();
     	
@@ -183,6 +184,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         animation.stop();
         gameEngineView.resetGameScreen();
         startGame(xmlData);
+        System.out.println("aaa " + xmlData);
     }
 
     public void stop(){
