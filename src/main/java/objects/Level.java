@@ -2,7 +2,6 @@ package objects;
 
 import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.input.KeyCode;
-import objects.interfaces.ILevel;
 import java.security.Key;
 import java.util.*;
 import gameengine.view.GameEngineUI;
@@ -11,31 +10,31 @@ import gameengine.view.GameEngineUI;
  * Created by Soravit on 11/18/2016.
  * @author : Soravit, Pratiksha
  */
-public class Level implements ILevel{
+public class Level {
 
 	private int level;
-	private List<GameObject> gameObjects;
-	private Map<String, String> winConditions;
+	private List<GameObject> projectiles;
+    private List<GameObject> gameObjects;
+    private List<GameObject> obstacles;
+    private Map<String, String> winConditions;
 	private Map<String, String> loseConditions;
 	private Map<String, Double> gameConditions;
-	private Map<KeyCode, String> controls;
-	private String musicFilePath;
+    private List<RandomGeneration> randomGenerations;
+    private String musicFilePath;
 	private String backgroundFilePath;
-
-	private List<RandomGeneration> randomGenerations;
-
-	private GameObject mainCharacter;
-
+	private List<GameObject> players;
 	private ScrollType scrollType;
 
 	public Level(int level) {
         this.level = level;
-        gameObjects = new ArrayList<>();
-		randomGenerations = new ArrayList<>();
+        projectiles = new ArrayList<GameObject>();
+        gameObjects = new ArrayList<GameObject>();
+        obstacles = new ArrayList<GameObject>();
+        randomGenerations = new ArrayList<>();
+        players = new ArrayList<>();
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
-		controls = new HashMap<>();
 	}
 
 	public void setScrollType(ScrollType scrollType) {
@@ -62,17 +61,21 @@ public class Level implements ILevel{
 		this.level = level;
 	}
 
-	public void addGameObject(GameObject go) {
-		gameObjects.add(go);
+	public void addProjectile(GameObject go) {
+        projectiles.add(go);
 	}
 
-	public void removeGameObject(GameObject go) {
-		gameObjects.remove(go);
+	public void removeProjectile(GameObject go) {
+        projectiles.remove(go);
 	}
 
-	public void removeGameObject(int index) {
-		gameObjects.remove(index);
-	}
+    public void addGameObject(GameObject go) {
+        gameObjects.add(go);
+    }
+
+    public void removeGameObject(GameObject go) {
+        gameObjects.remove(go);
+    }
 
 	public void addWinCondition(String type, String action) {
 		winConditions.put(type, action);
@@ -102,13 +105,17 @@ public class Level implements ILevel{
 		return gameConditions;
 	}
 
-	public GameObject getMainCharacter() {
-		return mainCharacter;
-	}
+    public void addPlayer(GameObject player){
+        players.add(player);
+    }
 
-	public void setMainCharacter(GameObject mainCharacter) {
-		this.mainCharacter = mainCharacter;
-	}
+    public void removePlayer(GameObject player){
+        players.remove(player);
+    }
+
+    public List<GameObject> getPlayers(){
+        return players;
+    }
 
 	public int getScore() {
         if(gameConditions.get("score") == null){
@@ -132,35 +139,32 @@ public class Level implements ILevel{
 		gameConditions.put("time", time);
 	}
 
-	public List<GameObject> getGameObjects() {
-		return gameObjects;
-	}
+	public List<GameObject> getProjectiles(){
+        return projectiles;
+    }
 
-	public void setControl(KeyCode key, String action) {
-		controls.put(key, action);
-	}
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
+    }
 
-	public void removeControl(KeyCode key) {
-		controls.remove(key);
-	}
+    public List<GameObject> getObstacles() {
+        return obstacles;
+    }
 
-	public Map<KeyCode, String> getControls() {
-		return controls;
-	}
-
-    @Override
     public void setBackgroundImage(String filePath) {
         this.backgroundFilePath = filePath;
     }
 
-    @Override
     public void setBackgroundMusic(String musicFilePath) {
         this.musicFilePath = musicFilePath;
     }
 
-    @Override
-    public void addScrollWidth(double scrollWidth) {
-
+    public List<GameObject> getAllGameObjects(){
+        List<GameObject> allObjects = new ArrayList<>();
+        allObjects.addAll(players);
+        allObjects.addAll(gameObjects);
+        allObjects.addAll(projectiles);
+        return allObjects;
     }
 
     public String getMusicFilePath(){
@@ -170,4 +174,6 @@ public class Level implements ILevel{
     public String getBackgroundFilePath(){
         return backgroundFilePath;
     }
+
+
 }

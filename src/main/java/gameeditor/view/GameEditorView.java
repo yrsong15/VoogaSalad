@@ -22,7 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import objects.GameObject;
 
-import objects.interfaces.ILevel;
+import objects.Level;
 
 
 /**
@@ -38,13 +38,13 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDesignArea myDesignArea;
     private IGameEditorData myDataStoreInterface;
     private IDetailPane myDetailPane;
-    private ILevel myLevelSettings;
+    private Level myLevelSettings;
     private BooleanProperty closeLevelWindow;
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     public static final String SCORE_PROPERTY="score";
 
 
-    public GameEditorView(ILevel levelSettings){
+    public GameEditorView(Level levelSettings){
         this.myLevelSettings = levelSettings;
         myRoot = new BorderPane();  
         closeLevelWindow = new SimpleBooleanProperty(false);
@@ -66,7 +66,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     
     private void addSprites(){
-        if(myLevelSettings.getGameObjects().size()>0){
+        if(myLevelSettings.getAllGameObjects().size()>0){
             for(GameObject object: myLevelSettings.getGameObjects()){
                 double height = object.getHeight();
                 double width = object.getWidth();
@@ -109,13 +109,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     private void addAvatar(){
-        System.out.println(myLevelSettings.getMainCharacter());
-        if(myLevelSettings.getMainCharacter()!=null){
-            if(myLevelSettings.getMainCharacter().getImageFileName()!=null){
-                String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+myLevelSettings.getMainCharacter().getImageFileName();
-                myDetailPane.setAvatar(filePath);
-            }
-        }
+
     }
 
     public void setBackground(){
@@ -172,9 +166,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     @Override
     public void saveLevelData () {
         myDataStoreInterface.addGameObjectsToLevel();
-        if(myLevelSettings.getMainCharacter()==null){
-            myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
-        }
+
         addGround();
         closeLevelWindow.set(true);
     }
