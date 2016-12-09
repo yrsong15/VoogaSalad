@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.sun.javafx.scene.traversal.Direction;
 
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;

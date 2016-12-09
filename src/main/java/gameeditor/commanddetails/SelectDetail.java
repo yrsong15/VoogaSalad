@@ -21,7 +21,7 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
     private static final String WIDTH_LABEL = "W: ";
     private static final String HEIGHT_LABEL = "H: ";
 
-    private VBox myVBox = new VBox();
+   // private VBox myVBox = new VBox();
 
     private Label mySelectLabel;
 
@@ -43,10 +43,11 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 
     @Override
     public void init() {
-        myVBox = new VBox();
-        myVBox.setSpacing(myDetailPadding);
-        myVBox.setAlignment(Pos.CENTER);
-        myContainerPane.setContent(myVBox);	
+//        myVBox = new VBox();
+//        myVBox.setSpacing(MY_DETAIL_PADDING);
+//        myVBox.setAlignment(Pos.CENTER);
+//        myContainerPane.setContent(myVBox);
+        addVBoxSettings();
         myDesignArea.enableClick(this);
         addSelectLabel();
     }
@@ -94,9 +95,9 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
     private void createUpdate(){
         Button update = new Button();
         update.setText(DetailResources.UPDATE_BUTTON_TEXT.getResource());
-        update.setMinWidth((paddedPaneWidth - hboxSpacing)/2);
-        update.setMaxWidth((paddedPaneWidth - hboxSpacing)/2);
-        update.setMinHeight(cbHeight);
+        update.setMinWidth((PADDED_PANE_WIDTH - HBOX_SPACING)/2);
+        update.setMaxWidth((PADDED_PANE_WIDTH - HBOX_SPACING)/2);
+        update.setMinHeight(CB_HEIGHT);
         update.setOnAction((e) -> {handleUpdate();});
         myVBox.getChildren().add(update);
     }
@@ -129,10 +130,11 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 
     private void addSelectLabel(){
         BorderPane bp = new BorderPane();
-        mySelectLabel = new Label(DetailResources.SELECT_LABEL_TEXT.getResource());
+        mySelectLabel = createPropertyLbl(DetailResources.SELECT_LABEL_TEXT.getResource());
+        
         bp.setCenter(mySelectLabel);
-        bp.setMinWidth(paddedPaneWidth);
-        bp.setMaxWidth(paddedPaneWidth);
+        bp.setMinWidth(PADDED_PANE_WIDTH);
+        bp.setMaxWidth(PADDED_PANE_WIDTH);
         myVBox.getChildren().add(bp);
     }	
 
@@ -142,13 +144,14 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
     }
 
     private void createInfoBP(TextArea ta1, String label1, double value1, TextArea ta2, String label2, double value2){
-        BorderPane bp = new BorderPane();
-        bp.setMinWidth(paddedPaneWidth);
-        bp.setMaxWidth(paddedPaneWidth);
+        //BorderPane bp = new BorderPane();
+        //bp.setMinWidth(PADDED_PANE_WIDTH);
+        //bp.setMaxWidth(PADDED_PANE_WIDTH);
         ta1 = createTextArea(label1, value1, ta1);
         ta2 = createTextArea(label2, value2, ta2);
-        bp.setLeft(ta1);
-        bp.setRight(ta2);
+        //bp.setLeft(ta1);
+        //bp.setRight(ta2);
+        BorderPane bp = createBorderpane(ta2,ta1);
         myVBox.getChildren().add(bp);
     }
 
@@ -156,8 +159,8 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
         String valueString = Double.toString(value);
         valueString = valueString.substring(0, valueString.indexOf(".")+2);
         ta.setText(label + valueString);
-        ta.setMinWidth(cbWidth); ta.setMaxWidth(cbWidth);
-        ta.setMinHeight(cbHeight); ta.setMaxHeight(cbHeight);
+        ta.setMinWidth(CB_WIDTH); ta.setMaxWidth(CB_WIDTH);
+        ta.setMinHeight(CB_HEIGHT); ta.setMaxHeight(CB_HEIGHT);
         ta.setOnKeyReleased((e) -> handleKeyRelease(e.getCode(), e.getCharacter(), ta, label));
         //		ta.setOnMouseClicked((e) -> handleClick(ta));
         return ta;
@@ -170,39 +173,39 @@ public class SelectDetail extends AbstractCommandDetail implements ISelectDetail
 
     private void createProperties(){
         for (String label : myRandomGenerationParameters){           
-            BorderPane bp = new BorderPane();
-            bp.setMinWidth(paddedPaneWidth);
-            bp.setMaxWidth(paddedPaneWidth);
+            //BorderPane bp = new BorderPane();
+            //bp.setMinWidth(PADDED_PANE_WIDTH);
+            //bp.setMaxWidth(PADDED_PANE_WIDTH);
             Label labl = createPropertyLbl(label);
             TextArea input= createInputField("0");
             myRandomGenerationList.add(input);
-
-            bp.setLeft(labl);
-            bp.setRight(input);
+            BorderPane bp = createBorderpane(input,labl);
+           // bp.setLeft(labl);
+            //bp.setRight(input);
             BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
             myVBox.getChildren().add(bp);
         }
     }
 
-    private Label createPropertyLbl(String property){
-        Label labl = new Label (property);
-        return labl;
-    }
+//    private Label createPropertyLbl(String property){
+//        Label labl = new Label (property);
+//        return labl;
+//    }
 
-    private TextArea createInputField(String initialText){
-        TextArea inputField = new TextArea();
-        inputField.setMinWidth(paddedDetailWidth);
-        inputField.setMaxWidth(paddedDetailWidth);
-        inputField.setText(initialText);
-        inputField.setMinHeight(cbHeight);
-        inputField.setMaxHeight(cbHeight);
-        inputField.setOnMouseClicked(e -> handleClick(inputField));
-        return inputField;
-    }	
+//    private TextArea createInputField(String initialText){
+//        TextArea inputField = new TextArea();
+//        inputField.setMinWidth(PADDED_DETAIL_WIDTH);
+//        inputField.setMaxWidth(PADDED_DETAIL_WIDTH);
+//        inputField.setText(initialText);
+//        inputField.setMinHeight(CB_HEIGHT);
+//        inputField.setMaxHeight(CB_HEIGHT);
+//        inputField.setOnMouseClicked(e -> handleClick(inputField));
+//        return inputField;
+//    }	
 
-    private void handleClick(TextArea field){
-        field.setText("");
-    }
+//    private void handleClick(TextArea field){
+//        field.setText("");
+//    }
 
     private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
         //		if (kc == KeyCode.BACK_SPACE){
