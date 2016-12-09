@@ -73,11 +73,11 @@ public class HighScoreScreen {
 		ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
 		Button exit = exitTemplate.getButton();
 		exit.setOnMouseClicked(e -> {
-			myEngine.stop();
+			commandInterface.stop();
 			//stage.close();
 		});
 		Button replay = replayTemplate.getButton();
-		replay.setOnMouseClicked(e -> myEngine.reset());
+		replay.setOnMouseClicked(e -> commandInterface.reset());
 		root.getChildren().addAll(exit, replay);
 		return root;
 	}

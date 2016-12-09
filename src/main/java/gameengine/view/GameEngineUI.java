@@ -162,11 +162,13 @@ public class GameEngineUI {
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-	
-	public void endGame(){
+
+	public void endGame() {
 		animation.stop();
-//		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), highScores, this);
-		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), new ArrayList<Integer>(), commandInterface);
+		// HighScoreScreen splash = new
+		// HighScoreScreen(currentGame.getCurrentLevel(), highScores, this);
+		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), new ArrayList<Integer>(),
+				commandInterface);
 		if (endGameStage == null) {
 			endGameStage = new Stage();
 		}
@@ -204,8 +206,8 @@ public class GameEngineUI {
 
 			while (keys.hasNext()) {
 				String key = keys.next();
-				methodMappings.put(key,
-						controlInterface.getClass().getDeclaredMethod(resources.getResource(key), Player.class));
+				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key),
+						GameObject.class, double.class));
 			}
 		} catch (
 
@@ -282,7 +284,8 @@ public class GameEngineUI {
 		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
-					keyMappings.get(event.getCode()).invoke(controlInterface, player);
+					keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(),
+							Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 				}
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();

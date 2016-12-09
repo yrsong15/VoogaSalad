@@ -64,33 +64,32 @@ public class ClientMain implements ControlInterface {
 	}
 
 	@Override
-	public void moveUp(Player player) {
-		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());
+	public void moveUp(GameObject player, double speed) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName() + " = " + Double.toString(speed));
 	}
 
 	@Override
-	public void moveDown(Player player) {
-		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());		
+	public void moveDown(GameObject player, double speed) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName() + " = " + Double.toString(speed));
 	}
 
 	@Override
-	public void moveRight(Player player) {
-		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());		
+	public void moveRight(GameObject player, double speed) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName() + " = " + Double.toString(speed));
 	}
 
 	@Override
-	public void moveLeft(Player player) {
-		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());		
+	public void moveLeft(GameObject player, double speed) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName() + " = " + Double.toString(speed));
 	}
 
 	@Override
-	public void jump(Player player) {
-		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());		
+	public void jump(GameObject player, double speed) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName() + " = " + Double.toString(speed));
 	}
 
 	@Override
-	public void shootProjectile(Player player) {
-		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());
+	public void shootProjectile(GameObject player, double speed) {
+		sendCharacterCommand(this.getClass().getEnclosingMethod().getName() + " = " + Double.toString(speed));
 	}
-
 }

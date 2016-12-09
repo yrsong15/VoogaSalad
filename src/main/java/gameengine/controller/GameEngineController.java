@@ -39,7 +39,6 @@ public class GameEngineController implements CommandInterface {
 	private GameEngineUI gameEngineView;
 	private GameEngineBackend backend;
 
-
 	private boolean multiplayer;
 	private boolean isServer;
 
@@ -69,31 +68,35 @@ public class GameEngineController implements CommandInterface {
 		return true;
 	}
 
-
 	public void startServerGame(Game currentGame) {
-
+		backend = new GameEngineBackend();
+		backend.startGame(currentGame);
 	}
 
 	public void startClientGame(Game currentGame) {
-
 		gameEngineView = new GameEngineUI(this, event -> reset());
 		gameEngineView.initLevel(currentGame.getCurrentLevel());
 		gameEngineView.mapKeys();
 		gameEngineView.setupKeyFrameAndTimeline(MILLISECOND_DELAY);
 	}
-	
-    @Override
-    public void reset() {
-        stop();
-        gameEngineView.resetGameScreen();
-        startGame(xmlData);
-    }
-    
-    @Override
-    public void stop(){
-    	gameEngineView.stop();
-    }
-    
+
+	public Scene getScene() {
+		return gameEngineView.getScene();
+	}
+
+	@Override
+	public void reset() {
+		stop();
+		gameEngineView.resetGameScreen();
+		startGame(xmlData);
+		System.out.println("aaa " + xmlData);
+	}
+
+	@Override
+	public void stop() {
+		gameEngineView.stop();
+	}
+
 	@Override
 	public void endGame() {
 		gameEngineView.endGame();

@@ -11,6 +11,7 @@ import gameengine.model.CollisionChecker;
 import gameengine.model.LossChecker;
 import gameengine.model.RandomGenFrame;
 import gameengine.model.WinChecker;
+import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 import javafx.scene.control.Alert;
 import objects.Game;
@@ -27,6 +28,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private Game currentGame;
 	private Position mainCharImprint;
 	private MovementManager gameMovement;
+	private ServerMain serverMain;
 	
 	public GameEngineBackend() {
 		collisionChecker = new CollisionChecker(this);
@@ -34,7 +36,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	    highScores = new ArrayList<>();
 	}
 	
-	public void startGame(String xmlData){
+	public void startGame(Game currentGame){
+		this.currentGame = currentGame;
+		serverMain = new ServerMain(this, 9090);
         this.mainCharImprint = new Position();
         gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth, GameEngineUI.myAppHeight);
         addRGFrames();
@@ -55,6 +59,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		Level currLevel = currentGame.getCurrentLevel();
 		GameObject mainChar = currLevel.getPlayers().get(0);
 		mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
+		mainChar.checkPlatformStatus();
 		gameMovement.runActions();
         if(currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
             removeOffscreenElements();
@@ -118,8 +123,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
     
     public void resetObjectPosition(GameObject mainChar,GameObject obj){
     	double newPosition;
-    	if(mainCharImprint.getY() < obj.getYPosition())
+    	if(mainCharImprint.getY() < obj.getYPosition()){
     		newPosition = obj.getYPosition() - mainChar.getHeight();
+    		mainChar.setPlatformCharacterIsOn(obj);
+    	}
     	else 
     		newPosition = obj.getYPosition() + obj.getHeight();
     	
