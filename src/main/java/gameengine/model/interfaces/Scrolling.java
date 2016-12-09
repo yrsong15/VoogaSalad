@@ -28,10 +28,16 @@ public interface Scrolling {
 	
 	
 	/**
-	 * Completes the scrolling of the screen based on the speed
+	 * Completes the scrolling of the screen based on speed in class
 	 * @throws ScrollDirectionNotFoundException 
 	 */
 	void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException;
+	
+	/**
+	 * Completes the scrolling of the screen based on the speed given as parameter
+	 * @throws ScrollDirectionNotFoundException 
+	 */
+	void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed) throws ScrollDirectionNotFoundException;
 
 
 

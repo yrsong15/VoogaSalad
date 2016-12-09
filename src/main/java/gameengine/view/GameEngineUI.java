@@ -155,7 +155,7 @@ public class GameEngineUI {
 			
 			while(keys.hasNext()){ 
 				String key = keys.next();
-				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key), Player.class));
+				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key), GameObject.class, double.class));
 			}
 		} catch (
 
@@ -232,7 +232,7 @@ public class GameEngineUI {
 		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
-					keyMappings.get(event.getCode()).invoke(controlInterface, player);
+						keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 				}
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
