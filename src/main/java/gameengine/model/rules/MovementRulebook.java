@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
-import com.sun.javafx.scene.traversal.Direction;
 
 import exception.MovementRuleNotFoundException;
 
