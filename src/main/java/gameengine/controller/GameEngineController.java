@@ -119,7 +119,6 @@ public class GameEngineController implements CommandInterface {
 		stop();
 		gameEngineView.resetGameScreen();
 		startGame(xmlData);
-		System.out.println("aaa " + xmlData);
 	}
 
 	@Override
@@ -131,22 +130,4 @@ public class GameEngineController implements CommandInterface {
 	public void endGame() {
 		gameEngineView.endGame();
 	}
-
-	// private void checkProjectileDistance(){
-	// ProjectileProperties properties =
-	// currentGame.getCurrentLevel().getMainCharacter().getProjectileProperties();
-	// for(GameObject
-	// projectile:currentGame.getCurrentLevel().getProjectiles()){
-	// if(properties.getDirection().equals(Direction.RIGHT) ||
-	// properties.getDirection().equals(Direction.LEFT)){
-	// if(projectile.getXDistanceMoved() >= properties.getRange()){
-	// removeObject(projectile);
-	// }
-	// }else{
-	// if(projectile.getYDistanceMoved() >= properties.getRange()){
-	// removeObject(projectile);
-	// }
-	// }
-	// }
-	// }
 }

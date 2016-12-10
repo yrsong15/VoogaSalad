@@ -16,7 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * @author Noel Moon (nm142)
+ * @author Noel Moon (nm142), Ray Song
  *
  */
 public class Toolbar implements IToolbar {
@@ -26,6 +26,7 @@ public class Toolbar implements IToolbar {
 	private EventHandler<ActionEvent> myPauseEvent;
 	private EventHandler<ActionEvent> myResetEvent;
 	private EventHandler<ActionEvent> myMuteEvent;
+	private EventHandler<ActionEvent> mySaveEvent;
 	private Button myPauseButton;
 	private Button myMuteButton;
 	
@@ -40,17 +41,14 @@ public class Toolbar implements IToolbar {
 		addButtons();
 	}
 
-	@Override
 	public HBox getToolbar() {
 		return myToolbar;
 	}
 	
-	@Override
 	public void resume() {
 		myPauseButton.setText(myResources.getString("PauseButton"));
 	}
 
-	@Override
 	public void pause() {
 		myPauseButton.setText(myResources.getString("ResumeButton"));
 	}
@@ -63,11 +61,18 @@ public class Toolbar implements IToolbar {
 		myMuteButton.setText(myResources.getString("MuteButton"));
 	}
 	
+	public void saveGame(){
+		
+	}
+	
 	private void addButtons() {
 		Button resetButton = makeButton("ResetButton", myResetEvent);
 		myMuteButton = makeButton("MuteButton", myMuteEvent);
+		myPauseButton = makeButton("PauseButton", myPauseEvent);
 		resetButton.setPrefWidth(75);
+		myPauseButton.setPrefWidth(75);
 		myMuteButton.setPrefWidth(75);
+		myToolbar.getChildren().add(myPauseButton);
 		myToolbar.getChildren().add(resetButton);
 		myToolbar.getChildren().add(myMuteButton);
 	}

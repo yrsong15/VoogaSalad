@@ -14,7 +14,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import gameengine.controller.GameEngineController;
 import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
 import gameengine.controller.interfaces.CommandInterface;
@@ -43,7 +42,7 @@ import objects.Player;
 import utils.ResourceReader;
 
 /**
- * @author Noel Moon (nm142), Soravit, Eric Song (ess42)
+ * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
  *
  */
 public class GameEngineUI implements UDPHandler{
@@ -61,8 +60,6 @@ public class GameEngineUI implements UDPHandler{
 	private Toolbar toolbar;
 	private HUD myHUD;
 	private GameScreen gameScreen;
-	private boolean isPaused;
-	private boolean isMuted;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
@@ -73,6 +70,9 @@ public class GameEngineUI implements UDPHandler{
 	private Stage endGameStage;
 	private ClientGame currentGame;
 	private Player mainPlayer;
+	
+	private boolean isPaused;
+	private boolean isMuted;
 
 	public GameEngineUI(CommandInterface commandInterface, EventHandler<ActionEvent> resetEvent, Player player) {
 		mainPlayer = player;
@@ -97,10 +97,6 @@ public class GameEngineUI implements UDPHandler{
 		gameScreen.reset();
 		gameScreen.init(currentGame);
 		myHUD.resetTimer();
-	}
-
-	public ScrollerController getScrollerController() {
-		return scrollerController;
 	}
 
 	public Scene getScene() {
@@ -131,7 +127,7 @@ public class GameEngineUI implements UDPHandler{
 				mediaPlayer.play();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(myResources.getString("MusicFileError"));
 		}
 	}
 
@@ -155,7 +151,7 @@ public class GameEngineUI implements UDPHandler{
 			try {
 				update();
 			} catch (Exception exception) {
-				exception.printStackTrace();
+				myErrorMessage.showError(myResources.getString("AnimationError"));
 			}
 		});
 
@@ -176,6 +172,10 @@ public class GameEngineUI implements UDPHandler{
 //		endGameStage.getScene().getStylesheets().add(EDITOR_SPLASH_STYLE);
 //		endGameStage.setTitle("GAME OVER");
 //		endGameStage.show();
+	}
+	
+	public void saveGame(){
+		
 	}
 
 	public void stop() {
@@ -199,7 +199,6 @@ public class GameEngineUI implements UDPHandler{
 	}
 
 	private void setUpMethodMappings() {
-
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
 			Iterator<String> keys = resources.getKeys();
@@ -270,14 +269,14 @@ public class GameEngineUI implements UDPHandler{
 
 	private void pause() {
 		if (isPaused) {
-			isPaused = false;
 			toolbar.resume();
-			mediaPlayer.play();
+			animation.play();
 		} else {
-			isPaused = true;
 			toolbar.pause();
-			mediaPlayer.pause();
+			animation.stop();
 		}
+		stopMusic();
+		isPaused = !isPaused;
 	}
 
 	private void setUpKeystrokeListeners(Player player) {
@@ -295,11 +294,9 @@ public class GameEngineUI implements UDPHandler{
 		});
 	}
 
-
 	@Override
 	public void updateGame(ClientGame game) {
 		currentGame = game;
-		System.out.println("updated game");
 	}
 	
 	public boolean gameLoadedFromServer(){
