@@ -23,6 +23,7 @@ public interface IBehaviorDetail {
     public static final String FORCED_SCROLL_TYPE=DetailResources.FORCED_SCROLLING_TYPE.getResource();
     public static final String LIMITED_SCROLL_TYPE = DetailResources.LIMITED_SCROLLING_TYPE.getResource();
     public static final String FREE_SCROLL_TYPE = DetailResources.FREE_SCROLLING_TYPE.getResource();
+    public static final String[] GAME_BOUNDARY_OPTIONS = DetailResources.GAMEBOUNDARY_OPTIONS.getArrayResource();
     
     
     

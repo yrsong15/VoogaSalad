@@ -4,6 +4,7 @@ import com.sun.javafx.scene.traversal.Direction;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -36,9 +37,10 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
 
     private void addLevelOptions(){
         addScrollTypeOptions();
-        addWidthOptions();
         createWinConditions();
         addScrollSpeed();
+        addGameBoundary();
+        addWidthOptions();
         createSave();
     }
 
@@ -47,7 +49,19 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         myVBox.getChildren().add(save);
     }
 
+    private void addGameBoundary(){
+       Label label = createPropertyLbl("Game Boundary");
+       ComboBox<String> gameBoundary = createComboBox(GAME_BOUNDARY_OPTIONS);
+     gameBoundary.setOnMouseClicked(e-> saveGameBoundary());
+       BorderPane bp = createBorderpane(gameBoundary,label);
+       myVBox.getChildren().add(bp);
+        
+    }
 
+    private void saveGameBoundary(){
+        System.out.println(" Comes Here " );
+    }
+    
     private void addScrollSpeed(){
         scrollSpeedTextBox = createInputField(DEFAULT_SCROLL_SPEED);
         BorderPane scrollSpeed = createBorderpane(scrollSpeedTextBox,createPropertyLbl(SCROLL_SPEED_LABEL));
@@ -99,7 +113,6 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
             }
         }
     }
-
 
     private void handleSave(){
         myDataStore.addWinCondition(POINTS_PROPERTY, myPointsWin.getText());
