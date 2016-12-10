@@ -1,11 +1,13 @@
 package gameengine.network.server;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
+import java.io.StringReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -24,18 +26,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.xml.bind.JAXBException;
 
 import gameeditor.xml.XMLSerializer;
+import gameeditor.xml.XMLTrimmer;
 import gameengine.controller.interfaces.GameHandler;
 import objects.Game;
 
 public class ServerMain {
 
 	// refreshing game state and sending data to clients every x ms
-	private static final long RESHRESH_GAP = 30;
+//	private static final long RESHRESH_GAP = 30;
+	private static final long RESHRESH_GAP = 50;
+
 
 	private static int SERVER_PORT_TCP;
 
 	private static long IDs = 0L;
-	
+
 	private XMLSerializer serializer;
 
 	// thread safe array because while one thread is reading another
@@ -43,7 +48,7 @@ public class ServerMain {
 	private CopyOnWriteArrayList<IpPort> activeClients;
 
 	private UdpConnectionsSend udpSend;
-	
+
 	private GameHandler gameHandler;
 
 	public ServerMain(GameHandler gameHandler, int tcpPort) {
@@ -57,7 +62,10 @@ public class ServerMain {
 
 	private void start() {
 
-		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("25.16.229.50"))) {
+		gameStateRefresher();
+
+//		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("25.16.229.50"))) {
+		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("localhost"))) {
 
 			Socket clientSocket;
 			while ((clientSocket = serverSocket.accept()) != null) {
@@ -79,9 +87,9 @@ public class ServerMain {
 
 			@Override
 			public void run() {
+				gameHandler.updateGame();
 				udpSend.sendGamePlay(gameHandler.getGame());
 			}
-
 
 		}, 0, RESHRESH_GAP);
 	}
@@ -93,14 +101,14 @@ public class ServerMain {
 	void removeCharacter(long id) {
 
 	}
-	
-	void readCommand(long id, String command){
-		//TODO:
+
+	void readCommand(long id, String command) {
+		gameHandler.runControl(command);
 	}
 
 	void addressBook(InetAddress address, int port) {
 		activeClients.add(new IpPort(address, port));
-		
+		gameHandler.addClientCharacter();
 	}
 
 	private static class IpPort {
@@ -117,6 +125,7 @@ public class ServerMain {
 	private class UdpConnectionsSend {
 
 		DatagramSocket gamePlaySocket;
+		boolean a;
 
 		public UdpConnectionsSend() {
 
@@ -133,7 +142,7 @@ public class ServerMain {
 
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);
-				oos.writeObject(serializer.serializeGame(game));
+				oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
 				byte[] bytes = baos.toByteArray();
 				DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
 
@@ -149,5 +158,6 @@ public class ServerMain {
 
 			}
 		}
+		
 	}
 }

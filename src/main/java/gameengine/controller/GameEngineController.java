@@ -61,11 +61,11 @@ public class GameEngineController implements CommandInterface {
 		}
 		if (!multiplayer) {
 			startServerGame(currentGame);
-			startClientGame(currentGame);
+			startClientGame();
 		} else if (isServer) {
 			startServerGame(currentGame);
 		} else {
-			startClientGame(currentGame);
+			startClientGame();
 		}
 		return true;
 	}
@@ -75,11 +75,19 @@ public class GameEngineController implements CommandInterface {
 		backend.startGame(currentGame);
 	}
 
-	public void startClientGame(Game currentGame) {
+	public void startClientGame() {
 		gameEngineView = new GameEngineUI(this, event -> reset());
-		gameEngineView.initLevel(currentGame.getCurrentLevel());
+		while(!gameEngineView.gameLoadedFromServer()){
+			System.out.println("waiting");
+		}
+		System.out.print("done");
+		beginUI();
+	}
+
+	public void beginUI() {
+		gameEngineView.initLevel();
 		gameEngineView.mapKeys();
-		gameEngineView.setupKeyFrameAndTimeline(MILLISECOND_DELAY);
+		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
 	}
 
 
@@ -104,6 +112,7 @@ public class GameEngineController implements CommandInterface {
 	public void endGame() {
 		gameEngineView.endGame();
 	}
+
 
 	// private void checkProjectileDistance(){
 	// ProjectileProperties properties =

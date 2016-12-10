@@ -14,11 +14,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import gameengine.controller.GameEngineController;
 import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.ControlInterface;
 import gameengine.network.client.ClientMain;
+import gameengine.network.server.UDPHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -43,7 +45,7 @@ import utils.ResourceReader;
  * @author Noel Moon (nm142), Soravit, Eric Song (ess42)
  *
  */
-public class GameEngineUI {
+public class GameEngineUI implements UDPHandler{
 
 	public static final double myAppWidth = 700;
 	public static final double myAppHeight = 775;
@@ -77,14 +79,15 @@ public class GameEngineUI {
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-		controlInterface = new ClientMain("25.16.229.50", 9090, 1234);
+//		controlInterface = new ClientMain("25.16.229.50", 9090, -1, this);
+		controlInterface = new ClientMain("localhost", 9090, -1, this);
 		this.commandInterface = commandInterface;
 		setUpMethodMappings();
 	}
 	
 
-	public void initLevel(Level level) {
-		this.level = level;
+	public void initLevel() {
+		this.level = currentGame.getCurrentLevel();
 		if (level.getMusicFilePath() != null) {
 			playMusic(level.getMusicFilePath());
 		}
@@ -294,5 +297,16 @@ public class GameEngineUI {
 				e.printStackTrace();
 			}
 		});
+	}
+
+
+	@Override
+	public void updateGame(Game game) {
+		currentGame = game;
+		System.out.println("updated game");
+	}
+	
+	public boolean gameLoadedFromServer(){
+		return currentGame!=null;
 	}
 }
