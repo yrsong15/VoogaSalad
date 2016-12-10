@@ -24,7 +24,9 @@ public class CreateObjectDetail extends AbstractCommandDetail {
     }
 
     private void createTypeImages(){
+
         ArrayList<String> types = myDataStore.getTypes();
+        
         ArrayList<SpriteTypeButton> sprites = new ArrayList<SpriteTypeButton>();
         //              String value = cb.getValue();
         //              Map<String, String> myType = myDataStore.getType(value);
