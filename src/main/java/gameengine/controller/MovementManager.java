@@ -20,7 +20,7 @@ public class MovementManager implements ControlInterface{
 	private double screenWidth;
 	private double screenHeight;
 	private String scrollName;
-	private ControlManager controlManager;
+	private GeneralMovement genMovement;
 	private Scrolling gameScrolling;
 	private MovementChecker movementChecker;
 	private Direction scrollDir;
@@ -44,7 +44,7 @@ public class MovementManager implements ControlInterface{
 			e.printStackTrace();
 		}
 		movementChecker = new MovementChecker((ControlInterface) this, currLevel.getScrollType().getScreenBoundary());
-		controlManager = new ControlManager(currLevel, currLevel.getScrollType().getScreenBoundary());
+		genMovement = new GeneralMovement(currLevel, currLevel.getScrollType().getScreenBoundary());
 	}
 	
 	public ControlInterface getControlInterface(){
@@ -59,48 +59,48 @@ public class MovementManager implements ControlInterface{
 	}
 
 	@Override
-	public void moveUp(GameObject player, double speed) {
-		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.UP, player)){
+	public void moveUp(GameObject obj, double speed) {
+		if (obj.isPlayer() && (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.UP, obj))){
 			gameScrolling.setDirection(Direction.UP);
 			runGameScrolling(speed);
 		}
 		else{
-			controlManager.moveUp(player, speed);
+			genMovement.moveUp(obj, speed);
 		}
 	}
 
 
 	@Override
-	public void moveDown(GameObject player, double speed) {
-		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.DOWN, player)){
+	public void moveDown(GameObject obj, double speed) {
+		if (obj.isPlayer() && (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.DOWN, obj))){
 			gameScrolling.setDirection(Direction.DOWN);
 			runGameScrolling(speed);
 		}
 		else{
-			controlManager.moveDown(player, speed);
+			genMovement.moveDown(obj, speed);
 		}
 		
 	}
 	
 	@Override
-	public void moveRight(GameObject player, double speed) {
-		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.RIGHT, player)){
+	public void moveRight(GameObject obj, double speed) {
+		if (obj.isPlayer() && (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.RIGHT, obj))){
 			gameScrolling.setDirection(Direction.RIGHT);
 			runGameScrolling(speed);
 		}
 		else{
-			controlManager.moveRight(player, speed);
+			genMovement.moveRight(obj, speed);
 		}		
 	}
 
 	@Override
-	public void moveLeft(GameObject player, double speed) {
-		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.LEFT, player)){
+	public void moveLeft(GameObject obj, double speed) {
+		if (obj.isPlayer() && (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.LEFT, obj))){
 			gameScrolling.setDirection(Direction.LEFT);
 			runGameScrolling(speed);
 		}
 		else{
-			controlManager.moveLeft(player, speed);
+			genMovement.moveLeft(obj, speed);
 		}
 	}
 	
@@ -113,18 +113,18 @@ public class MovementManager implements ControlInterface{
 	}
 
 	@Override
-	public void jump(GameObject player, double speed) {
-        String jumpVelocity = player.getProperty("jump");
+	public void jump(GameObject obj, double speed) {
+        String jumpVelocity = obj.getProperty("jump");
     	if(jumpVelocity!=null){
-    		player.setProperty("fallspeed", "-" + jumpVelocity);
+    		obj.setProperty("fallspeed", "-" + jumpVelocity);
     	}
 	}
 
 	@Override
-	public void shootProjectile(GameObject player, double speed) {
-        if(player.getProjectileProperties() != null){
-            ProjectileProperties properties = player.getProjectileProperties();
-            GameObject projectile = new GameObject(player.getXPosition(), player.getYPosition(),
+	public void shootProjectile(GameObject obj, double speed) {
+        if(obj.getProjectileProperties() != null){
+            ProjectileProperties properties = obj.getProjectileProperties();
+            GameObject projectile = new GameObject(obj.getXPosition(), obj.getYPosition(),
                     properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
             if(properties.getDirection().equals(Direction.LEFT)){
                 projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed()*-1));

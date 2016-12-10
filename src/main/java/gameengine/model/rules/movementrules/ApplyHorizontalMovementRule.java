@@ -22,7 +22,7 @@ public class ApplyHorizontalMovementRule implements MovementRule{
 			gameMovement.moveLeft(obj, moveSpeed);
 		}
         //gameBoundaries.moveToXPos(obj, obj.getXPosition() + moveSpeed);
-        obj.setXDistanceMoved(obj.getXDistanceMoved() + GameEngineController.SECOND_DELAY * moveSpeed);
+      //  obj.setXDistanceMoved(obj.getXDistanceMoved() + GameEngineController.SECOND_DELAY * moveSpeed);
 		
 	}
 }
