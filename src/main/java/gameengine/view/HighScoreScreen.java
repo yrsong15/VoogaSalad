@@ -8,6 +8,8 @@ import java.util.List;
 
 import frontend.util.ButtonTemplate;
 import gameengine.controller.GameEngineController;
+import gameengine.controller.interfaces.CommandInterface;
+import gameengine.controller.interfaces.ControlInterface;
 import general.NodeFactory;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -35,13 +37,13 @@ public class HighScoreScreen {
 	private Level myLevel;
 	private List<Integer> highScores;
 	private BorderPane root;
-	private GameEngineController myEngine;
+	private CommandInterface commandInterface;
 	
-	public HighScoreScreen(Level level, List<Integer> highScores, GameEngineController engine) {
+	public HighScoreScreen(Level level, List<Integer> highScores, CommandInterface commandInterface) {
 		this.highScores = highScores;
 		myLevel = level;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-		myEngine = engine;
+		this.commandInterface = commandInterface;
 	}
 	
 	public Scene getScene() {
@@ -74,11 +76,11 @@ public class HighScoreScreen {
 		ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
 		Button exit = exitTemplate.getButton();
 		exit.setOnMouseClicked(e -> {
-			myEngine.stop();
+			commandInterface.stop();
 			//stage.close();
 		});
 		Button replay = replayTemplate.getButton();
-		replay.setOnMouseClicked(e -> myEngine.reset());
+		replay.setOnMouseClicked(e -> commandInterface.reset());
 		root.getChildren().addAll(exit, replay);
 		return root;
 	}

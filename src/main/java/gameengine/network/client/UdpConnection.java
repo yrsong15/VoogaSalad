@@ -1,6 +1,7 @@
 package gameengine.network.client;
 
 import java.io.ByteArrayInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
@@ -11,6 +12,7 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import gameeditor.xml.XMLSerializer;
+import gameengine.network.server.UDPHandler;
 import objects.Game;
 import objects.GameObject;
 
@@ -34,9 +36,10 @@ class UdpConnection implements Runnable {
 		//private final int UDP_PORT;
 
 		private final int UDP_PORT;
+		private UDPHandler udpHandler;
 
-		UdpConnection(ClientMain main, TcpConnection tcpConnection, int client_port_udp) {
-			
+		UdpConnection(ClientMain main, TcpConnection tcpConnection, int client_port_udp, UDPHandler handler) {
+			udpHandler = handler;
 			this.main = main;
 			this.tcpConnection = tcpConnection;
 			UDP_PORT = client_port_udp;
@@ -67,6 +70,7 @@ class UdpConnection implements Runnable {
 						ByteArrayInputStream bais = new ByteArrayInputStream(packet.getData());
 						ObjectInputStream ois = new ObjectInputStream(bais);
 						data = (String) ois.readObject();
+//						System.out.println(data);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 						continue;
@@ -77,7 +81,7 @@ class UdpConnection implements Runnable {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					main.updateGame(game);
+					udpHandler.updateGame(game);
 					packet.setData(buffer);
 					packet.setLength(buffer.length);
 				}

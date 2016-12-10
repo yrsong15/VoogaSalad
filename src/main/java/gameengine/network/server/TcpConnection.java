@@ -41,7 +41,7 @@ class TcpConnection implements Runnable{
 			
 			while(true){
 				String msg = (String)ois.readObject();
-				if(msg!=null) System.out.println(msg);
+				if(msg!=null) System.out.println("Server received: \n"+msg+"\n");
 				ServerMessage sm;
 				try {
 					sm = serializer.getServerMessageFromString(msg);
