@@ -55,15 +55,10 @@ public class ClientMain implements ControlInterface {
 		connections.removeCharacter(ID);
 	}
 
-	/**
-	 * Getting info about game play
-	 * 
-	 * @param objects
-	 *            Object can be either bullet or player
-	 */
-	public Game updateGame(Game game) {
-		return game;
-	}
+
+//	public Game updateGame(Game game) {
+//		return game;
+//	}
 
 	@Override
 	public void moveUp(GameObject player, double speed) {

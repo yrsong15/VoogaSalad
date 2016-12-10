@@ -82,9 +82,24 @@ public class GameEngineController implements CommandInterface {
 
 	public void startClientGame() {
 		gameEngineView = new GameEngineUI(this, event -> reset());
+//		Timer timer = new Timer();
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//
+//			@Override
+//			public void run() {
+//				if(gameEngineView.gameLoadedFromServer()){
+//					timer.cancel();
+//					timer.purge();
+//					beginUI();
+//				}
+//			}
+//
+//		}, 0, 30);
 		while (!gameEngineView.gameLoadedFromServer()) {
+			//staller
+			System.out.print("");
 		}
-		System.out.print("done");
+		System.out.println("done");
 		beginUI();
 	}
 

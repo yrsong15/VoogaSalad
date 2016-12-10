@@ -1,8 +1,11 @@
 package gameengine.network.client;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -68,9 +71,15 @@ class UdpConnection implements Runnable {
 					try {
 						datagramSocket.receive(packet);
 						ByteArrayInputStream bais = new ByteArrayInputStream(packet.getData());
-						ObjectInputStream ois = new ObjectInputStream(bais);
-						data = (String) ois.readObject();
-//						System.out.println(data);
+//						ObjectInputStream ois = new ObjectInputStream(bais);
+//						data = (String) ois.readObject();
+						BufferedReader bfReader = new BufferedReader(new InputStreamReader(bais));
+						data = bfReader.readLine();
+						System.out.println(data);
+						String endTag = "</objects.Game>";
+						int end = data.indexOf(endTag);
+						data = data.substring(0, end+endTag.length());
+						System.out.println(data.length());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 						continue;
@@ -86,7 +95,7 @@ class UdpConnection implements Runnable {
 					packet.setLength(buffer.length);
 				}
 
-			} catch ( ClassNotFoundException | SocketException e) {
+			} catch ( SocketException e) {
 				e.printStackTrace();
 			}
 

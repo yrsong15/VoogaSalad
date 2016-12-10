@@ -141,11 +141,12 @@ public class ServerMain {
 
 			try {
 
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				ObjectOutputStream oos = new ObjectOutputStream(baos);
-				System.out.println(XMLTrimmer.trim(serializer.serializeGame(game)));
-				oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
-				byte[] bytes = baos.toByteArray();
+//				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//				ObjectOutputStream oos = new ObjectOutputStream(baos);
+//				System.out.println(XMLTrimmer.trim(serializer.serializeGame(game)));
+//				oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
+//				byte[] bytes = baos.toByteArray();
+				byte[] bytes = XMLTrimmer.trim(serializer.serializeGame(game)).getBytes();
 				DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
 
 				for (IpPort dest : activeClients) {
