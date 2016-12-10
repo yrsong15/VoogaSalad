@@ -38,7 +38,7 @@ public class DesignArea implements IDesignArea {
 
     private boolean clickEnabled = false;
     private ISelectDetail mySelectDetail;
-    private GameObject myAvatar;
+    private ArrayList<GameObject> myAvatars = new ArrayList<GameObject>();
 
     private GameObject mySelectedSprite;
  
@@ -170,12 +170,10 @@ public class DesignArea implements IDesignArea {
     
     @Override
 	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds) {
-    	if (myAvatar != null){
-        	myPane.getChildren().remove(myAvatar.getImageView());
-        	mySprites.remove(myAvatar);
-    	}
-    	myAvatar = new GameObject(filePath, x, y, width, height, "Main Character", this, ds);
-	}
+    	GameObject newAvatar = new GameObject(filePath, x, y, width, height, "Main Character", this, ds);
+    	myAvatars.add(newAvatar);
+    	mySprites.add(newAvatar);
+    }
 
 	@Override
 	public void addDragIn(ImageView tempIV) {

@@ -108,44 +108,44 @@ public class MainCharacterDetail extends AbstractCommandDetail {
         return bp;
     }
 
-public Label createPropertyLbl(String property){
-    Label labl = new Label (property);
-    return labl;
-}
+	public Label createPropertyLbl(String property){
+	    Label labl = new Label (property);
+	    return labl;
+	}
+	
+	public ComboBox<String> createPropertyCB(String property){
+	    DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
+	    String [] optionsArray = resourceChoice.getArrayResource();
+	    ComboBox<String> cb = createComboBox(optionsArray);
+	    return cb;
+	}
+	
+	public TextArea createInputField(){
+	    TextArea inputField = new TextArea();
+	    inputField.setMinWidth(paddedDetailWidth);
+	    inputField.setMaxWidth(paddedDetailWidth);
+	    inputField.setMinHeight(cbHeight);
+	    inputField.setMaxHeight(cbHeight);
+	    inputField.setOnMouseClicked(e -> handleClick(inputField));
+	    return inputField;
+	}
 
-public ComboBox<String> createPropertyCB(String property){
-    DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
-    String [] optionsArray = resourceChoice.getArrayResource();
-    ComboBox<String> cb = createComboBox(optionsArray);
-    return cb;
-}
-
-public TextArea createInputField(){
-    TextArea inputField = new TextArea();
-    inputField.setMinWidth(paddedDetailWidth);
-    inputField.setMaxWidth(paddedDetailWidth);
-    inputField.setMinHeight(cbHeight);
-    inputField.setMaxHeight(cbHeight);
-    inputField.setOnMouseClicked(e -> handleClick(inputField));
-    return inputField;
-}
-
-public ComboBox<String> createComboBox(String [] boxOptions){
-    ComboBox<String> cb = new ComboBox<String>();
-    cb.getItems().addAll(boxOptions);
-    cb.setMinWidth(cbWidth);
-    cb.setMaxWidth(cbWidth);
-    cb.setMinHeight(cbHeight);
-    cb.setMaxHeight(cbHeight);
-    return cb;
-}
-
-public void handleClick(TextArea field){
-    field.setText("");
-}
-
-public void createTextField(){
-
-}
+	public ComboBox<String> createComboBox(String [] boxOptions){
+	    ComboBox<String> cb = new ComboBox<String>();
+	    cb.getItems().addAll(boxOptions);
+	    cb.setMinWidth(cbWidth);
+	    cb.setMaxWidth(cbWidth);
+	    cb.setMinHeight(cbHeight);
+	    cb.setMaxHeight(cbHeight);
+	    return cb;
+	}
+	
+	public void handleClick(TextArea field){
+	    field.setText("");
+	}
+	
+	public void createTextField(){
+	
+	}
 
 }
