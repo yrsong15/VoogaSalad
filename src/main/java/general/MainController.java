@@ -65,41 +65,41 @@ public class MainController {
         }
     }
 
-    //DON'T DELETE, NEEDED FOR TESTING
-//    private String testGameEngine(){
-//        //FOR TESTING PURPOSES ONLY
-//        Game game = new Game("Test Game");
-//        GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
-//        Player player = new Player(mainChar);
-//        game.addPlayer(player);
-//        ProjectileProperties properties = new ProjectileProperties("duvall.png", 30, 30, Direction.RIGHT, 500, 30, 20);
-//        player.setProjectileProperties(properties);
-//        mainChar.setProperty("horizontalmovement", "10");
-//        mainChar.setProperty("gravity", "0.8");
-//        mainChar.setProperty("jump", "400");
-//        mainChar.setProperty("health", "10");
-//        mainChar.setProperty("movespeed", "30");
-//        Level level = new Level(1);
-//        ScreenBoundary gameBoundaries = new ToroidalBoundary(700, 675);
-//        ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
-//        scrollType.addScrollDirection(Direction.RIGHT);
-//        scrollType.setScrollSpeed(30);
-//        level.setScrollType(scrollType);
-//        level.setBackgroundImage("Background/bg.png");
-//        game.setCurrentLevel(level);
-//        player.setControl(KeyCode.W, "jump");
-//        player.setControl(KeyCode.D, "right");
-//        player.setControl(KeyCode.SPACE, "shoot");
-//        level.addPlayer(mainChar);
-//        GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
-//        ground.setProperty("damage","0");
-//        ground.setProperty("nonintersectable", "true");
-//        level.addGameObject(ground);
-//        XMLSerializer testSerializer = new XMLSerializer();
-//        String xml = testSerializer.serializeGame(game);
+    private String testGameEngine(){
+        //FOR TESTING PURPOSES ONLY
+        Game game = new Game("Test Game");
+        GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
+        Player player = new Player(mainChar);
+        game.addPlayer(player);
+        ProjectileProperties properties = new ProjectileProperties("duvall.png", 30, 30, Direction.RIGHT, 500, 30, 20);
+        player.getMainChar().setProjectileProperties(properties);
+        mainChar.setProperty("horizontalmovement", "10");
+        mainChar.setProperty("gravity", "0.8");
+        mainChar.setProperty("jump", "400");
+        mainChar.setProperty("health", "10");
+        mainChar.setProperty("movespeed", "30");
+        Level level = new Level(1);
+        ScreenBoundary gameBoundaries = new ToroidalBoundary(700, 675);
+        ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
+        scrollType.addScrollDirection(Direction.RIGHT);
+        scrollType.setScrollSpeed(30);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("Background/bg.png");
+        game.setCurrentLevel(level);
+        player.setControl(KeyCode.W, "jump");
+        player.setControl(KeyCode.D, "right");
+        player.setControl(KeyCode.SPACE, "shoot");
+        level.addPlayer(mainChar);
+        GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
+        ground.setProperty("damage","0");
+        ground.setProperty("nonintersectable", "true");
+        level.addGameObject(ground);
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
 
-//Fixing this merge conflict, not sure if I should delete or not
-    	 /***Game game = new Game("Doodle Jump");
+    	//doodle jump configuration
+    	/**
+    	 Game game = new Game("Doodle Jump");
          GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
          Player player = new Player(mainChar);
          game.addPlayer(player);
@@ -124,13 +124,14 @@ public class MainController {
          level.addPlayer(mainChar);
          GameObject ground = new GameObject(250,200,75,50, "platform.png", new HashMap<>());
          ground.setProperty("nonintersectable", "true");
+<<<<<<< HEAD
          level.addGameObject(ground);
          XMLSerializer testSerializer = new XMLSerializer();
          String xml = testSerializer.serializeGame(game);***/
-//        System.out.println(xml);
-//        return xml;
-//    }
-//>>>>>>> 66b7502df20c0a1c365aab12495474c76ae5c048
+         level.addGameObject(ground);
+        System.out.println(xml);
+        return xml;
+    }
 
     private void setUpGameEngineStage(){
         gameEngineStage = new Stage();
