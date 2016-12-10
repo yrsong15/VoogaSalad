@@ -1,5 +1,4 @@
 package gameeditor.commanddetails;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,13 +6,19 @@ import java.util.Locale;
 import java.util.Map;
 import frontend.util.FileOpener;
 import gameeditor.view.ViewResources;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -26,6 +31,9 @@ public class CreateDetail extends AbstractCommandDetail {
     private String[] myPropertiesTextBox = DetailResources.SPRITE_PROPERTIES_TEXT_INPUT_LABEL.getArrayResource();
     private String[] myPropertiesComboLabels = DetailResources.PROPERTIES_COMBO_LABELS.getArrayResource();
     private ArrayList<TextArea> myTextFields = new ArrayList<TextArea>();
+    private TabPane myTabPane;
+    private Tab mySpriteTab;
+    private Tab myPlatformTab;
 
 
     public CreateDetail() {
@@ -34,24 +42,68 @@ public class CreateDetail extends AbstractCommandDetail {
 
     @Override
     public void init() {
-        addVBoxSettings();
-        createTypeName();
-        createProperties();
-        createImageChoose();
-        createSave();
+        myTabPane = new TabPane();
+        createSpriteTab();
+        createPlatformTab();
+        myTabPane.getTabs().addAll(mySpriteTab, myPlatformTab);
+        myContainerPane.setContent(myTabPane);
     }
 
-    private void createSave(){
-        Button save = createButton("SaveCommand",e -> handleSave());
+    private void createSpriteTab(){
+        mySpriteTab = new Tab("Sprite"); 
+        mySpriteTab.setOnSelectionChanged(e-> setSpriteTab());
+    }
+
+    private void createPlatformTab(){
+        myPlatformTab = new Tab(PLATFORM_LABEL);
+        myPlatformTab.setOnSelectionChanged(e -> setPlatformTab());  
+    }
+
+    private void setSpriteTab(){
+        if(mySpriteTab.isSelected()){  
+            myVBox = new VBox();
+            myVBox.setSpacing(MY_DETAIL_PADDING);
+            myVBox.setAlignment(Pos.CENTER);
+            
+            createTypeName();
+            createProperties();
+            createImageChoose();
+            createSave(e-> handleSaveSprite()); 
+            mySpriteTab.setContent(myVBox);
+        }
+    }
+    
+    private void setPlatformTab(){
+        if(myPlatformTab.isSelected()){
+            myVBox = new VBox();
+            myVBox.setSpacing(MY_DETAIL_PADDING);
+            myVBox.setAlignment(Pos.TOP_RIGHT);
+            createTypeName();
+            createImageChoose(); 
+            createSave(e->handleSavePlatform());
+            myPlatformTab.setContent(myVBox);
+        }
+    }
+
+    private void createSave(EventHandler<MouseEvent> handler){
+        Button save = createButton("SaveCommand",handler);
         myVBox.getChildren().add(save);
     }
 
-    private void handleSave(){
+    private void handleSavePlatform(){
+        if(myDataStore.getType(myTypeTextArea.getText())==null){
+            Map<String,String> propertiesMap = new HashMap<String,String>();
+            propertiesMap.put(DetailResources.TYPE_NAME.getResource(),myTypeTextArea.getText() );
+            propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
+            myDataStore.storeType(propertiesMap);
+        }
+    }
+
+    private void handleSaveSprite(){
         if (verifySave()){
             Map<String, String> propertiesMap = new HashMap<String, String>();
             getPropertiesFromCombo(propertiesMap);
             getPropertiesFromTextArea(propertiesMap);
-            
             propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
 
@@ -60,6 +112,7 @@ public class CreateDetail extends AbstractCommandDetail {
                 myDataStore.storeType(propertiesMap);
             }
             // myDataStore.addGameObjectToLevel(propertiesMap);
+
         }   else {
         }
     }
@@ -73,7 +126,7 @@ public class CreateDetail extends AbstractCommandDetail {
             counter++;
         }
     }
-    
+
     private void getPropertiesFromTextArea(Map<String,String> propertiesMap){
         int i=0;
         for(String labl: myPropertiesTextBox){
@@ -126,11 +179,10 @@ public class CreateDetail extends AbstractCommandDetail {
         iv.setLayoutY(imageZoneHeight/2 - endHeight/2);
         iv.setLayoutX(imageZonePadding/2); iv.setLayoutY(imageZonePadding/2);
         myImagePane.getChildren().add(iv);
-        //System.out.println(myImagePane.getChildren());
     }
 
     private Button createImageButton(){
-       return createButton("ChooseImageCommand", e-> createImageView());
+        return createButton("ChooseImageCommand", e-> createImageView());
     }
 
     private String getFilePath(String fileType, String fileLocation){
@@ -176,5 +228,5 @@ public class CreateDetail extends AbstractCommandDetail {
         return cb;
     }
 
- 
+
 }

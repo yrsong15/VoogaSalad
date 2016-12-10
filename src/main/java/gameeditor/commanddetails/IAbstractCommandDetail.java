@@ -16,6 +16,7 @@ public interface IAbstractCommandDetail {
     public static  final double DETAIL_PADDING = ViewResources.COMMAND_DETAIL_PADDING.getDoubleResource();
     public static  final double MY_PANE_WIDTH = DETAIL_ZONE_WIDTH;
     public static  final double MY_PANE_HEIGHT = DETAIL_ZONE_HEIGHT;
+    
 
 
     public static  final double CB_WIDTH = 7*ViewResources.DETAIL_ZONE_WIDTH.getDoubleResource()/15 - MY_DETAIL_PADDING;
@@ -23,6 +24,9 @@ public interface IAbstractCommandDetail {
     public static  final double HBOX_SPACING = DetailResources.DETAIL_CONTENT_PADDING.getDoubleResource();
     public static  final double PADDED_PANE_WIDTH = MY_PANE_WIDTH-2*MY_DETAIL_PADDING;
     public static  final double PADDED_DETAIL_WIDTH = PADDED_PANE_WIDTH-CB_WIDTH-HBOX_SPACING;
+    
+    public static final String PLATFORM_KEY= DetailResources.PLATFORM_KEY.getResource();
+    public static final String PLATFORM_LABEL=DetailResources.PLATFORM_LABEL.getResource();
     
     public ScrollPane getPane();
     
