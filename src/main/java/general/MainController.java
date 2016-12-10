@@ -1,4 +1,5 @@
 package general;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class MainController {
 
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
-    private Stage gameEngineStage;
+    private Stage gameEditorStage, gameEngineStage;
     private Gallery gallery;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
@@ -45,25 +46,19 @@ public class MainController {
         this.gallery = new Gallery();
     }
 
-    private void addNewGameFile(String title, String gameData)
-    {
-        GameFile newGame = new GameFile(title,gameData);
-        gallery.addToGallery(newGame);
-    }
 
-    public void presentEditor(Game game ) {
-        gameEditorController = new GameEditorController();
-        gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendDataToEngine());   
-    }
+	private void addNewGameFile(String title, String gameData) {
+		GameFile newGame = new GameFile(title, gameData);
+		gallery.addToGallery(newGame);
+	}
 
-    public void launchEngine(String XMLData){
-        //XMLData = testGameEngine();
-        gameEngineController = new GameEngineController();
-        if(gameEngineController.startGame(XMLData) == true){
-            setUpGameEngineStage();
-        }
-    }
+	// TODO: Remove hardcoded values in this method and the ones after it! Let's
+	// make another properties file or something for these strings
+	public void presentEditor(Game game) {
+		gameEditorController = new GameEditorController();
+		gameEditorController.startEditor(game);
+		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+	}
 
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY
@@ -124,7 +119,6 @@ public class MainController {
          level.addPlayer(mainChar);
          GameObject ground = new GameObject(250,200,75,50, "platform.png", new HashMap<>());
          ground.setProperty("nonintersectable", "true");
-<<<<<<< HEAD
          level.addGameObject(ground);
          XMLSerializer testSerializer = new XMLSerializer();
          String xml = testSerializer.serializeGame(game);***/
@@ -133,25 +127,37 @@ public class MainController {
         return xml;
     }
 
-    private void setUpGameEngineStage(){
-        gameEngineStage = new Stage();
-        gameEngineStage.setScene(gameEngineController.getScene());
-        gameEngineStage.show();
-        gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
-    }
+	private void sendDataToEngine() {
+		String title = gameEditorController.getGameTitle();
+		String gameFile = gameEditorController.getGameFile();
+		addNewGameFile(title, gameFile);
+		launchEngine(gameFile);
+	}
 
-    private void sendDataToEngine() {
-        String title = gameEditorController.getGameTitle();
-        String gameFile = gameEditorController.getGameFile();
-        addNewGameFile(title,gameFile);
-        launchEngine(gameFile);
-    }
+	public void launchEngine(String XMLData) {
+		// XMLData = testGameEngine();
+		boolean multiplayer = true;
+		boolean isServer = false;
+		// if (gameEngineController.startGame(XMLData) == true && (!multiplayer
+		// || (multiplayer && !isServer))) {
+		if (gameEngineController.startGame(XMLData) == true) {
+			setUpGameEngineStage();
+		}
+	}
 
-    public void editGame(){
-        FileOpener chooser= new FileOpener();
-        File file = chooser.chooseFile("XML", "data");
-        XStream mySerializer = new XStream(new DomDriver());
-        Game myGame =  (Game) mySerializer.fromXML(file); 
-        presentEditor(myGame);  
-    }
+	private void setUpGameEngineStage() {
+		gameEngineStage = new Stage();
+		gameEngineStage.setScene(gameEngineController.getScene());
+		gameEngineStage.show();
+		gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+
+	}
+
+	public void editGame() {
+		FileOpener chooser = new FileOpener();
+		File file = chooser.chooseFile("XML", "data");
+		XStream mySerializer = new XStream(new DomDriver());
+		Game myGame = (Game) mySerializer.fromXML(file);
+		presentEditor(myGame);
+	}
 }

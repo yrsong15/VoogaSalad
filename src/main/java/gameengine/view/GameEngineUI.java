@@ -7,14 +7,22 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import gameengine.controller.GameEngineController;
+import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
+import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.ControlInterface;
+import gameengine.network.client.ClientMain;
+import gameengine.network.server.UDPHandler;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -26,27 +34,29 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import objects.Game;
 import objects.GameObject;
 import objects.Level;
 import objects.Player;
 import utils.ResourceReader;
 
 /**
- * @author Noel Moon (nm142), Soravit
+ * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
  *
  */
-public class GameEngineUI {
+public class GameEngineUI implements UDPHandler{
 
 	public static final double myAppWidth = 700;
 	public static final double myAppHeight = 775;
 	public static final String RESOURCE_FILENAME = "GameEngineUI";
+	private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 
 	private ResourceBundle myResources;
 	private Scene scene;
 	private Level level;
 	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
-	private ControlInterface controlInterface;
 	private String myLevelFileLocation;
 	private Toolbar toolbar;
 	private HUD myHUD;
@@ -57,28 +67,36 @@ public class GameEngineUI {
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
 	private EventHandler<ActionEvent> resetEvent;
+	private Timeline animation;
+	private ControlInterface controlInterface;
+	private CommandInterface commandInterface;
+	private Stage endGameStage;
+	private Game currentGame;
+	private Player mainPlayer;
 
-
-	public GameEngineUI(ControlInterface controlInterface, EventHandler<ActionEvent> resetEvent) {
+	public GameEngineUI(CommandInterface commandInterface, EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
-		this.controlInterface = controlInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+//		controlInterface = new ClientMain("25.16.229.50", 9090, -1, this);
+		controlInterface = new ClientMain("localhost", 9090, -1, this);
+		this.commandInterface = commandInterface;
 		setUpMethodMappings();
 	}
+	
 
-	public void initLevel(Level level) {
-		this.level = level;
-        if(level.getMusicFilePath() != null){
-            playMusic(level.getMusicFilePath());
-        }
-        if(level.getBackgroundFilePath() != null){
-            setBackgroundImage(level.getBackgroundFilePath());
-        }
-        gameScreen.reset();
-        gameScreen.init(level);
-        myHUD.resetTimer();
+	public void initLevel() {
+		this.level = currentGame.getCurrentLevel();
+		if (level.getMusicFilePath() != null) {
+			playMusic(level.getMusicFilePath());
+		}
+		if (level.getBackgroundFilePath() != null) {
+			setBackgroundImage(level.getBackgroundFilePath());
+		}
+		gameScreen.reset();
+		gameScreen.init(level);
+		myHUD.resetTimer();
 	}
 
 	public ScrollerController getScrollerController() {
@@ -88,13 +106,13 @@ public class GameEngineUI {
 	public Scene getScene() {
 		return scene;
 	}
-	
+
 	public double getScreenHeight() {
 		return gameScreen.getScreenHeight();
 	}
-	
-	public double getScreenWidth() {		
-		return gameScreen.screenWidth;	
+
+	public double getScreenWidth() {
+		return gameScreen.screenWidth;
 	}
 
 	public void update(Level level) {
@@ -114,7 +132,7 @@ public class GameEngineUI {
 				mediaPlayer.play();
 			}
 		} catch (Exception e) {
-            e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
@@ -124,38 +142,76 @@ public class GameEngineUI {
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
 		}
-		
+
 	}
 
-	public void mapKeys(Player player, Map<KeyCode, String> mappings) {
-		mapKeysToMethods(mappings);
-		setUpKeystrokeListeners(player);
+	public void mapKeys() {
+		mainPlayer = currentGame.getPlayers().get(0);
+		mapKeysToMethods(mainPlayer.getControls());
+		setUpKeystrokeListeners(mainPlayer);
+
 	}
-	
+
+	public void setupKeyFrameAndTimeline(double delay) {
+		KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> {
+			try {
+				update(currentGame.getCurrentLevel());
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		});
+
+		animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+	}
+
+	public void endGame() {
+		animation.stop();
+		// HighScoreScreen splash = new
+		// HighScoreScreen(currentGame.getCurrentLevel(), highScores, this);
+		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), new ArrayList<Integer>(),
+				commandInterface);
+		if (endGameStage == null) {
+			endGameStage = new Stage();
+		}
+		endGameStage.setScene(splash.getScene());
+		endGameStage.getScene().getStylesheets().add(EDITOR_SPLASH_STYLE);
+		endGameStage.setTitle("GAME OVER");
+		endGameStage.show();
+	}
+
+	public void stop() {
+		stopMusic();
+		animation.stop();
+	}
+
 	public void stopMusic() {
-		if(level.getMusicFilePath() != null) {
-            mediaPlayer.stop();
-        }
+		if (level.getMusicFilePath() != null) {
+			mediaPlayer.stop();
+		}
 	}
 
-	public void resetGameScreen(){
-        gameScreen.reset();
-        myHUD.resetTimer();
-    }
+	public void resetGameScreen() {
+		gameScreen.reset();
+		myHUD.resetTimer();
+	}
 
-    public void removeObject(GameObject object){
-        gameScreen.removeObject(object);
-    }
+	public void removeObject(GameObject object) {
+		gameScreen.removeObject(object);
+	}
 
 	private void setUpMethodMappings() {
 
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
 			Iterator<String> keys = resources.getKeys();
-			
-			while(keys.hasNext()){ 
+
+			while (keys.hasNext()) {
 				String key = keys.next();
-				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key), GameObject.class, double.class));
+				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key),
+						GameObject.class, double.class));
 			}
 		} catch (
 
@@ -185,7 +241,7 @@ public class GameEngineUI {
 		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, event -> mute());
 		return toolbar.getToolbar();
 	}
-	
+
 	private Node makeHUD() {
 		myHUD = new HUD();
 		return myHUD.getHUD();
@@ -218,21 +274,23 @@ public class GameEngineUI {
 
 	private void pause() {
 		if (isPaused) {
-			isPaused = false;
 			toolbar.resume();
-			mediaPlayer.play();
+//			mediaPlayer.play();
+			animation.play();
 		} else {
-			isPaused = true;
 			toolbar.pause();
-			mediaPlayer.pause();
+//			mediaPlayer.pause();
+			animation.stop();
 		}
+		isPaused = !isPaused;
 	}
 
 	private void setUpKeystrokeListeners(Player player) {
 		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
-						keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
+					keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(),
+							Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 				}
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
@@ -240,5 +298,16 @@ public class GameEngineUI {
 				e.printStackTrace();
 			}
 		});
+	}
+
+
+	@Override
+	public void updateGame(Game game) {
+		currentGame = game;
+//		System.out.println("updated game");
+	}
+	
+	public boolean gameLoadedFromServer(){
+		return currentGame!=null;
 	}
 }

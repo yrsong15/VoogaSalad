@@ -48,10 +48,6 @@
             <string>0.8</string>
           </entry>
           <entry>
-            <string>horizontalmovement</string>
-            <string>10</string>
-          </entry>
-          <entry>
             <string>health</string>
             <string>10</string>
           </entry>
@@ -75,7 +71,7 @@
       </objects.GameObject>
     </players>
     <scrollType>
-      <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+      <myScrollTypeName>LimitedScrolling</myScrollTypeName>
       <myScrollDirectionList>
         <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>

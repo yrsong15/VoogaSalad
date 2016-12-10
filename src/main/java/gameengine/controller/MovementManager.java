@@ -64,7 +64,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveUp(GameObject player, double speed) {
-		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.UP)){
+		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.UP, player)){
 			gameScrolling.setDirection(Direction.UP);
 			runGameScrolling(speed);
 		}
@@ -77,7 +77,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveDown(GameObject player, double speed) {
-		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.DOWN)){
+		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.DOWN, player)){
 			gameScrolling.setDirection(Direction.DOWN);
 			runGameScrolling(speed);
 		}
@@ -86,10 +86,10 @@ public class MovementManager implements ControlInterface{
 		}
 		
 	}
-
+	
 	@Override
 	public void moveRight(GameObject player, double speed) {
-		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.RIGHT)){
+		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.RIGHT, player)){
 			gameScrolling.setDirection(Direction.RIGHT);
 			runGameScrolling(speed);
 		}
@@ -100,13 +100,21 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveLeft(GameObject player, double speed) {
-		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.LEFT)){
+		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.LEFT, player)){
 			gameScrolling.setDirection(Direction.LEFT);
 			runGameScrolling(speed);
 		}
 		else{
 			controlManager.moveLeft(player, speed);
 		}
+	}
+	
+	private boolean scrollForLimited(Direction requestedDir, GameObject player){
+		return (scrollName.equals("LimitedScrolling")&& scrollDir == requestedDir)  
+			    && (requestedDir == Direction.LEFT && player.getXPosition()<= screenWidth*0.3
+				||  requestedDir == Direction.RIGHT && player.getXPosition()>= screenWidth*0.7
+				||  requestedDir == Direction.UP && player.getYPosition() <= screenWidth*0.3
+				||  requestedDir == Direction.DOWN && player.getYPosition() >= screenWidth*0.7);
 	}
 
 	@Override
