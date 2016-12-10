@@ -11,7 +11,7 @@ import java.util.Map;
 public class Player {
 
     private GameObject mainChar;
-    private ProjectileProperties projectileProperties;
+    
     private Map<KeyCode, String> controls;
 
 
@@ -20,13 +20,6 @@ public class Player {
         this.mainChar = mainChar;
     }
 
-    public void setProjectileProperties(ProjectileProperties projectileProperties){
-        this.projectileProperties = projectileProperties;
-    }
-
-    public ProjectileProperties getProjectileProperties(){
-        return projectileProperties;
-    }
 
     public void setControl(KeyCode key, String action) {
         controls.put(key, action);

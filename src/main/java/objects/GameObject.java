@@ -24,6 +24,7 @@ public class GameObject {
     private double yDistanceMoved;
     private boolean onPlatform = false;
     private GameObject platformCharacterIsOn;
+    private ProjectileProperties projectileProperties;
 
     public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
@@ -61,7 +62,6 @@ public class GameObject {
 	}
 	
 	public void checkPlatformStatus(){
-		//System.out.println(this.onPlatform);
 		if(platformCharacterIsOn == null){
 			this.onPlatform = false;
 			return;
@@ -133,5 +133,13 @@ public class GameObject {
 
     public void setYDistanceMoved(double yDistanceMoved){
         this.yDistanceMoved = yDistanceMoved;
+    }
+    
+    public void setProjectileProperties(ProjectileProperties projectileProperties){
+        this.projectileProperties = projectileProperties;
+    }
+
+    public ProjectileProperties getProjectileProperties(){
+        return projectileProperties;
     }
 }

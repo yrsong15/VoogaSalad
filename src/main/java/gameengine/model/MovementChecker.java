@@ -1,11 +1,9 @@
 package gameengine.model;
 
+import gameengine.controller.interfaces.ControlInterface;
 import gameengine.model.boundary.ScreenBoundary;
 import gameengine.model.rules.MovementRulebook;
 import objects.GameObject;
-
-import java.util.List;
-
 import exception.MovementRuleNotFoundException;
 import objects.Level;
 
@@ -16,8 +14,8 @@ public class MovementChecker {
 
     private MovementRulebook movementRulebook;
 
-    public MovementChecker(ScreenBoundary gameBoundaries){
-        movementRulebook = new MovementRulebook(gameBoundaries);
+    public MovementChecker(ControlInterface gameMovement, ScreenBoundary gameBoundaries){
+        movementRulebook = new MovementRulebook(gameMovement, gameBoundaries);
     }
 
     public void updateMovement(Level level){

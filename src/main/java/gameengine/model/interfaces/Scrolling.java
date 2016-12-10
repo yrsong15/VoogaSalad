@@ -1,10 +1,10 @@
 package gameengine.model.interfaces;
 
 import java.util.List;
-
 import exception.ScrollDirectionNotFoundException;
 import objects.GameObject;
 import objects.Level;
+import com.sun.javafx.scene.traversal.Direction;
 
 /**
  * This interface should be implemented when adding a type of scrolling
@@ -21,10 +21,23 @@ public interface Scrolling {
 	
 	
 	/**
-	 * Completes the scrolling of the screen based on the speed
+	 * Sets in which direction the screen will be scrolled
+	 * @param scrollDirection
+	 */
+	void setDirection(Direction scrollDirection);
+	
+	
+	/**
+	 * Completes the scrolling of the screen based on speed in class
 	 * @throws ScrollDirectionNotFoundException 
 	 */
 	void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException;
+	
+	/**
+	 * Completes the scrolling of the screen based on the speed given as parameter
+	 * @throws ScrollDirectionNotFoundException 
+	 */
+	void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed) throws ScrollDirectionNotFoundException;
 
 
 

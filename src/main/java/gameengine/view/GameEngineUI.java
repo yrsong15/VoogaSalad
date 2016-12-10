@@ -59,14 +59,19 @@ public class GameEngineUI {
 	private EventHandler<ActionEvent> resetEvent;
 
 
-	public GameEngineUI(ControlInterface controlInterface, EventHandler<ActionEvent> resetEvent) {
+	public GameEngineUI(EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
-		this.controlInterface = controlInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		
+	}
+	
+	public void setControlInterface(ControlInterface controlInterface){
+		this.controlInterface = controlInterface;
 		setUpMethodMappings();
 	}
+	
 
 	public void initLevel(Level level) {
 		this.level = level;
@@ -152,9 +157,10 @@ public class GameEngineUI {
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
 			Iterator<String> keys = resources.getKeys();
-			while(keys.hasNext()){
+			
+			while(keys.hasNext()){ 
 				String key = keys.next();
-				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key), Player.class));
+				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key), GameObject.class, double.class));
 			}
 		} catch (
 
@@ -231,7 +237,7 @@ public class GameEngineUI {
 		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
-					keyMappings.get(event.getCode()).invoke(controlInterface, player);
+						keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 				}
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
