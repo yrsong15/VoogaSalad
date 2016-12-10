@@ -131,22 +131,4 @@ public class GameEngineController implements CommandInterface {
 	public void endGame() {
 		gameEngineView.endGame();
 	}
-
-	// private void checkProjectileDistance(){
-	// ProjectileProperties properties =
-	// currentGame.getCurrentLevel().getMainCharacter().getProjectileProperties();
-	// for(GameObject
-	// projectile:currentGame.getCurrentLevel().getProjectiles()){
-	// if(properties.getDirection().equals(Direction.RIGHT) ||
-	// properties.getDirection().equals(Direction.LEFT)){
-	// if(projectile.getXDistanceMoved() >= properties.getRange()){
-	// removeObject(projectile);
-	// }
-	// }else{
-	// if(projectile.getYDistanceMoved() >= properties.getRange()){
-	// removeObject(projectile);
-	// }
-	// }
-	// }
-	// }
 }

@@ -16,7 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * @author Noel Moon (nm142)
+ * @author Noel Moon (nm142), Ray Song
  *
  */
 public class Toolbar implements IToolbar {
@@ -66,8 +66,11 @@ public class Toolbar implements IToolbar {
 	private void addButtons() {
 		Button resetButton = makeButton("ResetButton", myResetEvent);
 		myMuteButton = makeButton("MuteButton", myMuteEvent);
+		myPauseButton = makeButton("PauseButton", myPauseEvent);
 		resetButton.setPrefWidth(75);
+		myPauseButton.setPrefWidth(75);
 		myMuteButton.setPrefWidth(75);
+		myToolbar.getChildren().add(myPauseButton);
 		myToolbar.getChildren().add(resetButton);
 		myToolbar.getChildren().add(myMuteButton);
 	}

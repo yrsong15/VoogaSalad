@@ -42,7 +42,7 @@ import objects.Player;
 import utils.ResourceReader;
 
 /**
- * @author Noel Moon (nm142), Soravit, Eric Song (ess42)
+ * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
  *
  */
 public class GameEngineUI implements UDPHandler{
