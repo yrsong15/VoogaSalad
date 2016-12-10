@@ -39,6 +39,12 @@ public class ForcedScrolling implements Scrolling{
 
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
+			scrollScreen(gameObjects, mainChar, scrollingSpeed);
+		}
+
+	@Override
+	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed)
+			throws ScrollDirectionNotFoundException {
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		scrollObjects.remove(mainChar);
@@ -50,6 +56,7 @@ public class ForcedScrolling implements Scrolling{
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				throw (new ScrollDirectionNotFoundException());
 			}
-		}
+		
+	}
 }
 

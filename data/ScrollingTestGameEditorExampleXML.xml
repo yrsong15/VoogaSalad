@@ -22,6 +22,7 @@
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
       </objects.GameObject>
     </gameObjects>
     <obstacles/>
@@ -47,10 +48,6 @@
             <string>0.8</string>
           </entry>
           <entry>
-            <string>horizontalmovement</string>
-            <string>10</string>
-          </entry>
-          <entry>
             <string>health</string>
             <string>10</string>
           </entry>
@@ -61,10 +58,20 @@
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <projectileProperties>
+          <imageFileName>duvall.png</imageFileName>
+          <width>30</width>
+          <height>30</height>
+          <direction>RIGHT</direction>
+          <range>500.0</range>
+          <speed>30.0</speed>
+          <damage>20.0</damage>
+        </projectileProperties>
       </objects.GameObject>
     </players>
     <scrollType>
-      <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+      <myScrollTypeName>LimitedScrolling</myScrollTypeName>
       <myScrollDirectionList>
         <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>
@@ -78,27 +85,18 @@
   <players>
     <objects.Player>
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
-      <projectileProperties>
-        <imageFileName>duvall.png</imageFileName>
-        <width>30</width>
-        <height>30</height>
-        <direction>RIGHT</direction>
-        <range>500.0</range>
-        <speed>30.0</speed>
-        <damage>20.0</damage>
-      </projectileProperties>
       <controls>
         <entry>
           <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
           <string>jump</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>D</javafx.scene.input.KeyCode>
-          <string>right</string>
-        </entry>
-        <entry>
           <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
           <string>shoot</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>D</javafx.scene.input.KeyCode>
+          <string>right</string>
         </entry>
       </controls>
     </objects.Player>

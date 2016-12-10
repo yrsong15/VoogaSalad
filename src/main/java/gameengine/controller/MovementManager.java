@@ -6,6 +6,7 @@ import gameengine.controller.interfaces.ControlInterface;
 import gameengine.model.MovementChecker;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.view.GameEngineUI;
+import objects.GameObject;
 import objects.Level;
 import objects.Player;
 import objects.ScrollType;
@@ -45,7 +46,7 @@ public class MovementManager implements ControlInterface{
 		} catch (ScrollTypeNotFoundException e) {
 			e.printStackTrace();
 		}
-		movementChecker = new MovementChecker(currLevel.getScrollType().getScreenBoundary());
+		movementChecker = new MovementChecker((ControlInterface) this, currLevel.getScrollType().getScreenBoundary());
 		controlManager = new ControlManager(currLevel, currLevel.getScrollType().getScreenBoundary());
 		
 	}
@@ -56,71 +57,74 @@ public class MovementManager implements ControlInterface{
 	
 	public void runActions(){
 		if(scrollName.equals("ForcedScrolling")){
-			try {
-				gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getPlayers().get(0));
-			} catch (ScrollDirectionNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			runGameScrolling();
 		}
 		movementChecker.updateMovement(currLevel);		
 	}
 
 	@Override
-	public void moveUp(Player player) {
-		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.UP)){
+	public void moveUp(GameObject player, double speed) {
+		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.UP, player)){
 			gameScrolling.setDirection(Direction.UP);
-			runGameScrolling();
+			runGameScrolling(speed);
 		}
 		else{
-			controlManager.moveUp(player);
+			controlManager.moveUp(player, speed);
 		}
 		
 	}
 
 
 	@Override
-	public void moveDown(Player player) {
-		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.DOWN)){
+	public void moveDown(GameObject player, double speed) {
+		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.DOWN, player)){
 			gameScrolling.setDirection(Direction.DOWN);
-			runGameScrolling();
+			runGameScrolling(speed);
 		}
 		else{
-			controlManager.moveDown(player);
+			controlManager.moveDown(player, speed);
 		}
 		
 	}
-
+	
 	@Override
-	public void moveRight(Player player) {
-		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.RIGHT)){
+	public void moveRight(GameObject player, double speed) {
+		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.RIGHT, player)){
 			gameScrolling.setDirection(Direction.RIGHT);
-			runGameScrolling();
+			runGameScrolling(speed);
 		}
 		else{
-			controlManager.moveRight(player);
+			controlManager.moveRight(player, speed);
 		}		
 	}
 
 	@Override
-	public void moveLeft(Player player) {
-		if (scrollName.equals("FreeScrolling") || (scrollName.equals("LimitedScrolling")&& scrollDir == Direction.LEFT)){
+	public void moveLeft(GameObject player, double speed) {
+		if (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.LEFT, player)){
 			gameScrolling.setDirection(Direction.LEFT);
-			runGameScrolling();
+			runGameScrolling(speed);
 		}
 		else{
-			controlManager.moveLeft(player);
+			controlManager.moveLeft(player, speed);
 		}
 	}
-
-	@Override
-	public void jump(Player player) {
-		controlManager.jump(player);
+	
+	private boolean scrollForLimited(Direction requestedDir, GameObject player){
+		return (scrollName.equals("LimitedScrolling")&& scrollDir == requestedDir)  
+			    && (requestedDir == Direction.LEFT && player.getXPosition()<= screenWidth*0.3
+				||  requestedDir == Direction.RIGHT && player.getXPosition()>= screenWidth*0.7
+				||  requestedDir == Direction.UP && player.getYPosition() <= screenWidth*0.3
+				||  requestedDir == Direction.DOWN && player.getYPosition() >= screenWidth*0.7);
 	}
 
 	@Override
-	public void shootProjectile(Player player) {
-		controlManager.shootProjectile(player);
+	public void jump(GameObject player, double speed) {
+		controlManager.jump(player, Double.parseDouble(player.getProperty("jump")));
+	}
+
+	@Override
+	public void shootProjectile(GameObject player, double speed) {
+		controlManager.shootProjectile(player, speed);
 	}
 	
 	
@@ -145,7 +149,13 @@ public class MovementManager implements ControlInterface{
 		} catch (ScrollDirectionNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 	}
-
+	
+	private void runGameScrolling(double speed) {
+		try {
+			gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getPlayers().get(0), speed);
+		} catch (ScrollDirectionNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 }

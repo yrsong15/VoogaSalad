@@ -44,43 +44,20 @@ public class LimitedScrolling implements Scrolling{
 		this.direction = scrollDirection;
 	}
 	
-	private boolean needToMoveScreen(GameObject mainChar){
-		if (direction==Direction.LEFT){
-			return mainChar.getXPosition() <= screenWidth*0.3;
-		}
-		else if (direction == Direction.RIGHT){
-			return mainChar.getXPosition() >= screenWidth*0.7;
-		}
-		else if (direction == Direction.UP){
-			return mainChar.getYPosition() <= screenWidth*0.3;
-		}
-		
-		else if(direction == Direction.DOWN){
-			return mainChar.getYPosition() <= screenWidth*0.7;
-		}
-		return false;
-	}
-
-	
-	private boolean needToMoveScreen2(GameObject mainChar){
-		if (direction==Direction.LEFT || direction == Direction.RIGHT){
-			return mainChar.getXPosition() != lastXPosition;
-		}
-		else if (direction==Direction.UP || direction == Direction.DOWN){
-			return mainChar.getYPosition() != lastYPosition;
-		}
-		
-		return false;
-	}
-	
 	
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
+		scrollScreen(gameObjects, mainChar, Double.parseDouble(mainChar.getProperty("movespeed")));
+	}
+
+	@Override
+	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed)
+			throws ScrollDirectionNotFoundException {
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		scrollObjects.remove(mainChar);
 		
- 		Object[] parameters = new Object[]{scrollObjects, Double.parseDouble(mainChar.getProperty("movespeed"))};
+ 		Object[] parameters = new Object[]{scrollObjects, speed};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {
 				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
@@ -88,6 +65,7 @@ public class LimitedScrolling implements Scrolling{
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				throw (new ScrollDirectionNotFoundException());
 			}
+		
 	}
 }
 

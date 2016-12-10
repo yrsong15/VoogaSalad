@@ -19,6 +19,7 @@
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
       </objects.GameObject>
     </gameObjects>
     <obstacles/>
@@ -37,7 +38,7 @@
         <properties>
           <entry>
             <string>movespeed</string>
-            <string>30</string>
+            <string>10</string>
           </entry>
           <entry>
             <string>gravity</string>
@@ -54,14 +55,15 @@
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
       </objects.GameObject>
     </players>
     <scrollType>
-      <myScrollTypeName>FreeScrolling</myScrollTypeName>
+      <myScrollTypeName>LimitedScrolling</myScrollTypeName>
       <myScrollDirectionList>
-        <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
+        <com.sun.javafx.scene.traversal.Direction>LEFT</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>
-      <scrollSpeed>30.0</scrollSpeed>
+      <scrollSpeed>10.0</scrollSpeed>
       <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
         <screenWidth>700.0</screenWidth>
         <screenHeight>675.0</screenHeight>
@@ -73,14 +75,6 @@
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
       <controls>
         <entry>
-          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-          <string>left</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-          <string>shoot</string>
-        </entry>
-        <entry>
           <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
           <string>jump</string>
         </entry>
@@ -89,12 +83,20 @@
           <string>up</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-          <string>right</string>
+          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+          <string>shoot</string>
         </entry>
         <entry>
           <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
           <string>down</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+          <string>left</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+          <string>right</string>
         </entry>
       </controls>
     </objects.Player>

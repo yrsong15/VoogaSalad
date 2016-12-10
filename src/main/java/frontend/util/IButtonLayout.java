@@ -1,8 +1,7 @@
 package frontend.util;
-
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  * 
@@ -17,5 +16,5 @@ public interface IButtonLayout {
 
     public void changeButtonSettings(double x, double y);
 
-    public void setOnButtonAction( EventHandler<ActionEvent>  handler);
+    public void setOnButtonAction( EventHandler<MouseEvent>  handler);
 }

@@ -51,6 +51,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
 	    highScores = new ArrayList<>();
+	    gameEngineView = new GameEngineUI(event -> reset());
     }
 
     public Scene getScene() {
@@ -69,7 +70,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             return false;
         }
         gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth, GameEngineUI.myAppHeight);
-		gameEngineView = new GameEngineUI(gameMovement.getControlInterface(), event -> reset());
+		gameEngineView.setControlInterface(gameMovement.getControlInterface());
         gameEngineView.initLevel(currentGame.getCurrentLevel());
 		for(Player player : currentGame.getPlayers()){
             gameEngineView.mapKeys(player, player.getControls());
@@ -185,9 +186,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         animation.stop();
         gameEngineView.resetGameScreen();
         startGame(xmlData);
-        if(startGame(xmlData)){
-            
-        }
     }
 
     public void stop(){

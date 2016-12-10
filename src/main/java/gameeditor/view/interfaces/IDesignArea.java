@@ -3,7 +3,7 @@ package gameeditor.view.interfaces;
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
-import gameeditor.objects.GameObject;
+import gameeditor.objects.GameObjectView;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -23,9 +23,9 @@ public interface IDesignArea {
     
     public void updateAvatar(Image newAvatar);
     
-    public void addSprite(GameObject gameObject);
+    public void addSprite(GameObjectView gameObject);
     
-    public void removeSprite(GameObject gameObject);
+    public void removeSprite(GameObjectView gameObject);
     
     public void setBackground(ImageView bg);
     
@@ -33,9 +33,9 @@ public interface IDesignArea {
     
     public void disableClick();
     
-    public void updateSpriteDetails(GameObject sprite, double x, double y, double width, double height);
+    public void updateSpriteDetails(GameObjectView sprite, double x, double y, double width, double height);
         
-    public void initSelectDetail2(GameObject sprite);
+    public void initSelectDetail2(GameObjectView sprite);
     
     public void addBoundingBox(BoundingBox bb);
     

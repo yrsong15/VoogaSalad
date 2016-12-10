@@ -24,7 +24,7 @@ public class MainController {
 
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
-    private Stage gameEditorStage, gameEngineStage;
+    private Stage gameEngineStage;
     private Gallery gallery;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
@@ -36,6 +36,13 @@ public class MainController {
         stage.setScene(scene);
         stage.setTitle(GAME_TITLE);
         stage.show();
+        initializeGallery();
+        gameEngineController = new GameEngineController();
+        gameEditorController = new GameEditorController();
+    }
+
+    private void initializeGallery() throws IOException {
+        this.gallery = new Gallery();
     }
 
     private void addNewGameFile(String title, String gameData)
@@ -44,7 +51,6 @@ public class MainController {
         gallery.addToGallery(newGame);
     }
 
-  //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
     public void presentEditor(Game game ) {
         gameEditorController = new GameEditorController();
         gameEditorController.startEditor(game);
@@ -66,7 +72,7 @@ public class MainController {
         Player player = new Player(mainChar);
         game.addPlayer(player);
         ProjectileProperties properties = new ProjectileProperties("duvall.png", 30, 30, Direction.RIGHT, 500, 30, 20);
-        player.setProjectileProperties(properties);
+        player.getMainChar().setProjectileProperties(properties);
         mainChar.setProperty("horizontalmovement", "10");
         mainChar.setProperty("gravity", "0.8");
         mainChar.setProperty("jump", "400");
@@ -91,8 +97,9 @@ public class MainController {
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
 
-//Fixing this merge conflict, not sure if I should delete or not
-    	 /***Game game = new Game("Doodle Jump");
+    	//doodle jump configuration
+    	/**
+    	 Game game = new Game("Doodle Jump");
          GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
          Player player = new Player(mainChar);
          game.addPlayer(player);
@@ -117,9 +124,11 @@ public class MainController {
          level.addPlayer(mainChar);
          GameObject ground = new GameObject(250,200,75,50, "platform.png", new HashMap<>());
          ground.setProperty("nonintersectable", "true");
+<<<<<<< HEAD
          level.addGameObject(ground);
          XMLSerializer testSerializer = new XMLSerializer();
          String xml = testSerializer.serializeGame(game);***/
+         level.addGameObject(ground);
         System.out.println(xml);
         return xml;
     }
