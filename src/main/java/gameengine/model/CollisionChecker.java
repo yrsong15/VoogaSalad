@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import exception.CollisionRuleNotFoundException;
+import gameengine.controller.SingletonBoundaryChecker;
+import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.rules.CollisionRulebook;
 import objects.GameObject;
@@ -78,7 +80,7 @@ public class CollisionChecker {
             }
         }
     }	
-	
+
 	//Used in both platform apply rules for collision rules
 	public void manuallyRemoveFromConcurrentCollisionList(GameObject obj) {
 		removeGameObjectFromSet(obj);
@@ -95,21 +97,11 @@ public class CollisionChecker {
 	private void removeGameObjectFromSet(GameObject gameObject){
 		if(currentlyCollidingObjectsWithCharacter.contains(gameObject)){
 			currentlyCollidingObjectsWithCharacter.remove(gameObject);
-			//System.out.println("Removing");
 		}
 	}
 
-	// TO-DO: better way to check for collisions, not sure this encompasses
-	// everything
 	public boolean collision(GameObject character, GameObject other) {
-		double charX = character.getXPosition();
-		double charY = character.getYPosition();
-		double otherX = other.getXPosition();
-		double otherY = other.getYPosition();
-
-		return charX < otherX + other.getWidth() && charX + character.getWidth() > otherX
-				&& charY < otherY + other.getHeight() && charY + character.getHeight() > otherY;
-
+		return SingletonBoundaryChecker.getInstance().checkIfAnyCollision(character, other);
 	}
 
 

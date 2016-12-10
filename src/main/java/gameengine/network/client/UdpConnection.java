@@ -1,7 +1,11 @@
 package gameengine.network.client;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -11,6 +15,7 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import gameeditor.xml.XMLSerializer;
+import gameengine.network.server.UDPHandler;
 import objects.Game;
 import objects.GameObject;
 
@@ -34,9 +39,10 @@ class UdpConnection implements Runnable {
 		//private final int UDP_PORT;
 
 		private final int UDP_PORT;
+		private UDPHandler udpHandler;
 
-		UdpConnection(ClientMain main, TcpConnection tcpConnection, int client_port_udp) {
-			
+		UdpConnection(ClientMain main, TcpConnection tcpConnection, int client_port_udp, UDPHandler handler) {
+			udpHandler = handler;
 			this.main = main;
 			this.tcpConnection = tcpConnection;
 			UDP_PORT = client_port_udp;
@@ -65,8 +71,15 @@ class UdpConnection implements Runnable {
 					try {
 						datagramSocket.receive(packet);
 						ByteArrayInputStream bais = new ByteArrayInputStream(packet.getData());
-						ObjectInputStream ois = new ObjectInputStream(bais);
-						data = (String) ois.readObject();
+//						ObjectInputStream ois = new ObjectInputStream(bais);
+//						data = (String) ois.readObject();
+						BufferedReader bfReader = new BufferedReader(new InputStreamReader(bais));
+						data = bfReader.readLine();
+						System.out.println(data);
+						String endTag = "</objects.Game>";
+						int end = data.indexOf(endTag);
+						data = data.substring(0, end+endTag.length());
+						System.out.println(data.length());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 						continue;
@@ -77,12 +90,12 @@ class UdpConnection implements Runnable {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					main.updateGame(game);
+					udpHandler.updateGame(game);
 					packet.setData(buffer);
 					packet.setLength(buffer.length);
 				}
 
-			} catch ( ClassNotFoundException | SocketException e) {
+			} catch ( SocketException e) {
 				e.printStackTrace();
 			}
 
