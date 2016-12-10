@@ -62,7 +62,7 @@ public class MainController {
 	public void launchEngine(String XMLData) {
 		// XMLData = testGameEngine();
 		boolean multiplayer = true;
-		boolean isServer = true;
+		boolean isServer = false;
 		gameEngineController = new GameEngineController(multiplayer, isServer);
 		// if (gameEngineController.startGame(XMLData) == true && (!multiplayer
 		// || (multiplayer && !isServer))) {

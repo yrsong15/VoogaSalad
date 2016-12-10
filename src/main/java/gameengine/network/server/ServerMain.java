@@ -100,6 +100,7 @@ public class ServerMain {
 
 	void addressBook(InetAddress address, int port) {
 		activeClients.add(new IpPort(address, port));
+		
 	}
 
 	private static class IpPort {

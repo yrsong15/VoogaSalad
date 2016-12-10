@@ -43,8 +43,10 @@ public class GameEngineController implements CommandInterface {
 	private boolean isServer;
 
 	public GameEngineController(boolean multiplayer, boolean isServer) {
-		this.multiplayer = multiplayer;
-		this.isServer = isServer;
+//		this.multiplayer = multiplayer;
+//		this.isServer = isServer;
+		this.multiplayer = true;
+		this.isServer = false;
 		serializer = new XMLSerializer();
 	}
 

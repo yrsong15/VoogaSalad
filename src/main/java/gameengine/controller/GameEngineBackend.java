@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import objects.Game;
 import objects.GameObject;
 import objects.Level;
+import objects.Player;
 import objects.Position;
 import objects.RandomGeneration;
 
@@ -30,6 +31,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private MovementManager gameMovement;
 	private ServerMain serverMain;
 	
+	//delete this later
+	private Player tempPlayer;
+	
 	public GameEngineBackend() {
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
@@ -37,6 +41,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 	
 	public void startGame(Game currentGame){
+		tempPlayer = currentGame.getPlayers().get(0);
+		currentGame.removePlayer(tempPlayer);
 		this.currentGame = currentGame;
 		serverMain = new ServerMain(this, 9090);
         this.mainCharImprint = new Position();

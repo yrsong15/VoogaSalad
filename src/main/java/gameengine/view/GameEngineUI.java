@@ -40,7 +40,7 @@ import objects.Player;
 import utils.ResourceReader;
 
 /**
- * @author Noel Moon (nm142), Soravit
+ * @author Noel Moon (nm142), Soravit, Eric Song (ess42)
  *
  */
 public class GameEngineUI {
