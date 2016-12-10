@@ -138,7 +138,6 @@ public class MainController {
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
-
     }
 
     private void sendDataToEngine() {
