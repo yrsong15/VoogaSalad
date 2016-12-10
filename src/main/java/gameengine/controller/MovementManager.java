@@ -34,8 +34,6 @@ public class MovementManager implements ControlInterface{
 		scrollName = currLevel.getScrollType().getScrollTypeName();
 		scrollDir = currLevel.getScrollType().getDirections().get(0);
 		initManager();
-		
-		
 	}
 	
 	//TO-DO: define scroll-width, pass movement interface through to movement rulebook through movement checker

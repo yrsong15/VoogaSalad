@@ -184,7 +184,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         animation.stop();
         gameEngineView.resetGameScreen();
         startGame(xmlData);
-        System.out.println("aaa " + xmlData);
     }
 
     public void stop(){
@@ -244,18 +243,19 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		return currentGame;
 	}
 	
-//	private void checkProjectileDistance(){
-//        ProjectileProperties properties = currentGame.getCurrentLevel().getMainCharacter().getProjectileProperties();
-//        for(GameObject projectile:currentGame.getCurrentLevel().getProjectiles()){
-//            if(properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)){
-//                if(projectile.getXDistanceMoved() >= properties.getRange()){
-//                    removeObject(projectile);
-//                }
-//            }else{
-//                if(projectile.getYDistanceMoved() >= properties.getRange()){
-//                    removeObject(projectile);
-//                }
-//            }
-//        }
-//    }
+	private void checkProjectileDistance(){
+        for(GameObject projectile:currentGame.getCurrentLevel().getProjectiles()){
+            ProjectileProperties properties = projectile.getProjectileProperties();
+            if(properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)){
+                if(projectile.getXDistanceMoved() >= properties.getRange()){
+                    currentGame.getCurrentLevel().getProjectiles().remove(projectile);
+                    removeObject(projectile);                }
+            }else{
+                if(projectile.getYDistanceMoved() >= properties.getRange()){
+                    currentGame.getCurrentLevel().getProjectiles().remove(projectile);
+                    removeObject(projectile);
+                }
+            }
+        }
+    }
 }
