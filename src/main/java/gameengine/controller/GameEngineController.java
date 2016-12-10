@@ -119,7 +119,6 @@ public class GameEngineController implements CommandInterface {
 		stop();
 		gameEngineView.resetGameScreen();
 		startGame(xmlData);
-		System.out.println("aaa " + xmlData);
 	}
 
 	@Override
