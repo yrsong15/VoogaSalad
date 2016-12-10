@@ -1,4 +1,5 @@
 package gameeditor.objects;
+
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.image.Image;

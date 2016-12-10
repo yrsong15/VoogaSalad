@@ -106,7 +106,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     private void addAvatar(){
-        System.out.println(myLevelSettings.getMainCharacter());
         if(myLevelSettings.getMainCharacter()!=null){
             if(myLevelSettings.getMainCharacter().getImageFileName()!=null){
                 String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+myLevelSettings.getMainCharacter().getImageFileName();

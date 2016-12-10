@@ -62,7 +62,6 @@ public class DesignArea implements IDesignArea {
     
     private void handleKeyPress(KeyCode code){
     	myKeyCode = code;
-    	System.out.println(code);
     }
     
     private void handleKeyRelease(KeyCode code){
