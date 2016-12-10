@@ -18,6 +18,7 @@ public class Player {
     public Player(GameObject mainChar){
         controls = new HashMap<>();
         this.mainChar = mainChar;
+        this.mainChar.setIsPlayer(true);
     }
 
 

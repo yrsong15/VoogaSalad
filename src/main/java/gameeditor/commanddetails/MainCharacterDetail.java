@@ -19,7 +19,7 @@ import objects.GameObject;
 // TODO: Refactor this class - duplicated code with CreateDetail
 public class MainCharacterDetail extends AbstractCommandDetail {
 
-    private VBox myVBox;
+    //private VBox myVBox;
     //private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
     private String [] myPropertiesArray = DetailResources.MAIN_CHARACTER_PROPERTIES.getArrayResource();
     private List<TextArea> myTextInputs = new ArrayList<TextArea>();
@@ -35,10 +35,11 @@ public class MainCharacterDetail extends AbstractCommandDetail {
 
     @Override
     public void init() {
-        myVBox = new VBox();
-        myVBox.setSpacing(myDetailPadding);
-        myVBox.setAlignment(Pos.CENTER);
-        myContainerPane.setContent(myVBox);	
+//        myVBox = new VBox();
+//        myVBox.setSpacing(MY_DETAIL_PADDING);
+//        myVBox.setAlignment(Pos.CENTER);
+//        myContainerPane.setContent(myVBox);	
+        addVBoxSettings();
         createProperties();
         createSave();
     }
@@ -46,9 +47,8 @@ public class MainCharacterDetail extends AbstractCommandDetail {
     public void createSave(){
         Button save = new Button();
         save.setText("Save New Type");
-        save.setMinWidth(cbWidth);
-        save.setMinHeight(cbHeight);
-
+        save.setMinWidth(CB_WIDTH);
+        save.setMinHeight(CB_HEIGHT);
         save.setOnMouseClicked((e) -> {handleSave();});
         myVBox.getChildren().add(save);
     }
@@ -97,8 +97,8 @@ public class MainCharacterDetail extends AbstractCommandDetail {
 
     private BorderPane addOptions(String label){
         BorderPane bp = new BorderPane();
-        bp.setMinWidth(paddedPaneWidth);
-        bp.setMaxWidth(paddedPaneWidth);
+        bp.setMinWidth(PADDED_PANE_WIDTH);
+        bp.setMaxWidth(PADDED_PANE_WIDTH);
         Label labl = createPropertyLbl(label);
         TextArea text = createInputField();
         myTextInputs.add(text);
@@ -122,10 +122,10 @@ public ComboBox<String> createPropertyCB(String property){
 
 public TextArea createInputField(){
     TextArea inputField = new TextArea();
-    inputField.setMinWidth(paddedDetailWidth);
-    inputField.setMaxWidth(paddedDetailWidth);
-    inputField.setMinHeight(cbHeight);
-    inputField.setMaxHeight(cbHeight);
+    inputField.setMinWidth(PADDED_DETAIL_WIDTH);
+    inputField.setMaxWidth(PADDED_DETAIL_WIDTH);
+    inputField.setMinHeight(CB_HEIGHT);
+    inputField.setMaxHeight(CB_HEIGHT);
     inputField.setOnMouseClicked(e -> handleClick(inputField));
     return inputField;
 }
@@ -133,10 +133,10 @@ public TextArea createInputField(){
 public ComboBox<String> createComboBox(String [] boxOptions){
     ComboBox<String> cb = new ComboBox<String>();
     cb.getItems().addAll(boxOptions);
-    cb.setMinWidth(cbWidth);
-    cb.setMaxWidth(cbWidth);
-    cb.setMinHeight(cbHeight);
-    cb.setMaxHeight(cbHeight);
+    cb.setMinWidth(CB_WIDTH);
+    cb.setMaxWidth(CB_WIDTH);
+    cb.setMinHeight(CB_HEIGHT);
+    cb.setMaxHeight(CB_HEIGHT);
     return cb;
 }
 

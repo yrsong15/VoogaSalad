@@ -68,6 +68,7 @@ public class GameEditorController implements IGameEditorController{
 
     private void displayInitialStage(){  
         myLevelStage = new Stage();
+        myLevelStage.setTitle("Game Editor");
         myLevelScene = new Scene(myRoot, EDITOR_LEVELS_SPLASH_WIDTH, EDITOR_LEVELS_SPLASH_HEIGHT);
 
         //myLevelScene = new Scene(myRoot, GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);

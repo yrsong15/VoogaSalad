@@ -10,13 +10,15 @@ public class NoBoundary extends BasicBoundary{
 	
 	
 	@Override
-	public void moveToXPos(GameObject toMove, double newXPos) {
+	public boolean moveToXPos(GameObject toMove, double newXPos) {
 		toMove.setXPosition(newXPos);	
+		return true;
 	}
 
 	@Override
-	public void moveToYPos(GameObject toMove, double newYPos) {
-		toMove.setYPosition(newYPos);		
+	public boolean moveToYPos(GameObject toMove, double newYPos) {
+		toMove.setYPosition(newYPos);	
+		return true;
 	}
 	
 	

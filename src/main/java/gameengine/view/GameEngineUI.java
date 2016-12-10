@@ -59,14 +59,19 @@ public class GameEngineUI {
 	private EventHandler<ActionEvent> resetEvent;
 
 
-	public GameEngineUI(ControlInterface controlInterface, EventHandler<ActionEvent> resetEvent) {
+	public GameEngineUI(EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
-		this.controlInterface = controlInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		
+	}
+	
+	public void setControlInterface(ControlInterface controlInterface){
+		this.controlInterface = controlInterface;
 		setUpMethodMappings();
 	}
+	
 
 	public void initLevel(Level level) {
 		this.level = level;

@@ -20,6 +20,7 @@
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
         <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
       </objects.GameObject>
     </gameObjects>
     <obstacles/>
@@ -56,6 +57,7 @@
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
         <onPlatform>false</onPlatform>
+        <isPlayer>true</isPlayer>
       </objects.GameObject>
     </players>
     <scrollType>
@@ -75,8 +77,20 @@
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
       <controls>
         <entry>
+          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+          <string>left</string>
+        </entry>
+        <entry>
           <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
           <string>jump</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+          <string>right</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+          <string>down</string>
         </entry>
         <entry>
           <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
@@ -85,18 +99,6 @@
         <entry>
           <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
           <string>shoot</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-          <string>down</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-          <string>left</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-          <string>right</string>
         </entry>
       </controls>
     </objects.Player>

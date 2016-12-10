@@ -20,15 +20,14 @@ public abstract class BasicBoundary implements ScreenBoundary{
 		return screenWidth;
 	}
 
-	public void moveGameObject(GameObject toMove, double newXPos, double newYPos) {
-		moveToXPos(toMove, newXPos);
-		moveToYPos(toMove, newYPos);
+	public boolean moveGameObject(GameObject toMove, double newXPos, double newYPos) {
+		return moveToXPos(toMove, newXPos) && moveToYPos(toMove, newYPos);
 	}
 
 	@Override
-	public abstract void moveToXPos(GameObject toMove, double newXPos);
+	public abstract boolean moveToXPos(GameObject toMove, double newXPos);
 
 	@Override
-	public abstract void moveToYPos(GameObject toMove, double newYPos);
+	public abstract boolean moveToYPos(GameObject toMove, double newYPos);
 
 }

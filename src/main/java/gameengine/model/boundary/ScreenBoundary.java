@@ -9,9 +9,9 @@ public interface ScreenBoundary {
 	 * position, it decides whether the object can move there or not.
 	 */
 	
-	public void moveGameObject(GameObject toMove, double newXPos, double newYPos);
+	public boolean moveGameObject(GameObject toMove, double newXPos, double newYPos);
 	
-	public void moveToXPos(GameObject toMove, double newXPos);
+	public boolean moveToXPos(GameObject toMove, double newXPos);
 	
-	public void moveToYPos(GameObject toMove, double newYPos);
+	public boolean moveToYPos(GameObject toMove, double newYPos);
 }

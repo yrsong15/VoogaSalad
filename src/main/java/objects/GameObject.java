@@ -22,6 +22,7 @@ public class GameObject {
     private boolean onPlatform = false;
     private GameObject platformCharacterIsOn;
     private ProjectileProperties projectileProperties;
+    private boolean isPlayer;
 
     public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
@@ -138,5 +139,13 @@ public class GameObject {
 
     public ProjectileProperties getProjectileProperties(){
         return projectileProperties;
+    }
+    
+    public boolean isPlayer(){
+    	return isPlayer;
+    }
+    
+    public void setIsPlayer(boolean value){
+    	isPlayer = value;
     }
 }

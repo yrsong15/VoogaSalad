@@ -19,7 +19,7 @@ public class Gallery implements IGallery {
 
 
 	public Gallery() throws IOException {
-		this.gallery = new ArrayList<GameFile>();
+		this.gallery = new ArrayList<>();
 		addDefaultGame();
 	}
 
@@ -30,6 +30,8 @@ public class Gallery implements IGallery {
 		addToGallery(spicyGame);
 		GameFile scrollingGame = new GameFile("Scrolling Tester", readFile("data/DoodleJump.xml")); //
 		addToGallery(scrollingGame);
+		GameFile exampleGame = new GameFile("Example Flappy Bird", readFile("data/FlappyExample.xml"));
+		addToGallery(exampleGame);
 	}
 
 	@Override
