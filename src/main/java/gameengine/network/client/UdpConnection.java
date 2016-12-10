@@ -57,14 +57,12 @@ class UdpConnection implements Runnable {
 			try {
 				if (UDP_PORT < 0 || UDP_PORT > 65535){
 					datagramSocket = new DatagramSocket();
-					System.err.append(UDP_PORT + "port is not possible. Random port assigned");
 				}
 				else{
 					datagramSocket = new DatagramSocket(UDP_PORT);
 				}
 				// send info about UDP to server
 				tcpConnection.sendIpIdPort(datagramSocket.getLocalPort());
-				System.err.println(datagramSocket.getLocalPort());
 				DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 				while (true) {
 

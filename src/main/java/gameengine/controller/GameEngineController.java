@@ -100,7 +100,6 @@ public class GameEngineController implements CommandInterface {
 			//staller
 			System.out.print("");
 		}
-		System.out.println("done");
 		beginUI();
 	}
 

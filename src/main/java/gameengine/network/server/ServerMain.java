@@ -147,7 +147,7 @@ public class ServerMain {
 //				System.out.println(XMLTrimmer.trim(serializer.serializeGame(game)));
 //				oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
 //				byte[] bytes = baos.toByteArray();
-				System.out.println(XMLTrimmer.trim(serializer.serializeClientGame(game)));
+//				System.out.println(XMLTrimmer.trim(serializer.serializeClientGame(game)));
 				byte[] bytes = XMLTrimmer.trim(serializer.serializeClientGame(game)).getBytes();
 				DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
 
