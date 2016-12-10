@@ -35,6 +35,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import objects.ClientGame;
 import objects.Game;
 import objects.GameObject;
 import objects.Level;
@@ -54,7 +55,6 @@ public class GameEngineUI implements UDPHandler{
 
 	private ResourceBundle myResources;
 	private Scene scene;
-	private Level level;
 	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
 	private String myLevelFileLocation;
@@ -71,10 +71,11 @@ public class GameEngineUI implements UDPHandler{
 	private ControlInterface controlInterface;
 	private CommandInterface commandInterface;
 	private Stage endGameStage;
-	private Game currentGame;
+	private ClientGame currentGame;
 	private Player mainPlayer;
 
-	public GameEngineUI(CommandInterface commandInterface, EventHandler<ActionEvent> resetEvent) {
+	public GameEngineUI(CommandInterface commandInterface, EventHandler<ActionEvent> resetEvent, Player player) {
+		mainPlayer = player;
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
@@ -87,15 +88,14 @@ public class GameEngineUI implements UDPHandler{
 	
 
 	public void initLevel() {
-		this.level = currentGame.getCurrentLevel();
-		if (level.getMusicFilePath() != null) {
-			playMusic(level.getMusicFilePath());
+		if (currentGame.getMusicFilePath() != null) {
+			playMusic(currentGame.getMusicFilePath());
 		}
-		if (level.getBackgroundFilePath() != null) {
-			setBackgroundImage(level.getBackgroundFilePath());
+		if (currentGame.getBackgroundFilePath() != null) {
+			setBackgroundImage(currentGame.getBackgroundFilePath());
 		}
 		gameScreen.reset();
-		gameScreen.init(level);
+		gameScreen.init(currentGame);
 		myHUD.resetTimer();
 	}
 
@@ -115,10 +115,9 @@ public class GameEngineUI implements UDPHandler{
 		return gameScreen.screenWidth;
 	}
 
-	public void update(Level level) {
-		this.level = level;
-		gameScreen.update(level);
-		myHUD.update(level);
+	public void update() {
+		gameScreen.update(currentGame);
+//		myHUD.update(currentGame);
 	}
 
 	public void playMusic(String musicFileName) {
@@ -146,7 +145,6 @@ public class GameEngineUI implements UDPHandler{
 	}
 
 	public void mapKeys() {
-		mainPlayer = currentGame.getPlayers().get(0);
 		mapKeysToMethods(mainPlayer.getControls());
 		setUpKeystrokeListeners(mainPlayer);
 
@@ -155,7 +153,7 @@ public class GameEngineUI implements UDPHandler{
 	public void setupKeyFrameAndTimeline(double delay) {
 		KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> {
 			try {
-				update(currentGame.getCurrentLevel());
+				update();
 			} catch (Exception exception) {
 				exception.printStackTrace();
 			}
@@ -169,17 +167,15 @@ public class GameEngineUI implements UDPHandler{
 
 	public void endGame() {
 		animation.stop();
-		// HighScoreScreen splash = new
-		// HighScoreScreen(currentGame.getCurrentLevel(), highScores, this);
-		HighScoreScreen splash = new HighScoreScreen(currentGame.getCurrentLevel(), new ArrayList<Integer>(),
-				commandInterface);
-		if (endGameStage == null) {
-			endGameStage = new Stage();
-		}
-		endGameStage.setScene(splash.getScene());
-		endGameStage.getScene().getStylesheets().add(EDITOR_SPLASH_STYLE);
-		endGameStage.setTitle("GAME OVER");
-		endGameStage.show();
+//		HighScoreScreen splash = new HighScoreScreen(currentGame, new ArrayList<Integer>(),
+//				commandInterface);
+//		if (endGameStage == null) {
+//			endGameStage = new Stage();
+//		}
+//		endGameStage.setScene(splash.getScene());
+//		endGameStage.getScene().getStylesheets().add(EDITOR_SPLASH_STYLE);
+//		endGameStage.setTitle("GAME OVER");
+//		endGameStage.show();
 	}
 
 	public void stop() {
@@ -188,7 +184,7 @@ public class GameEngineUI implements UDPHandler{
 	}
 
 	public void stopMusic() {
-		if (level.getMusicFilePath() != null) {
+		if (currentGame.getMusicFilePath() != null) {
 			mediaPlayer.stop();
 		}
 	}
@@ -301,7 +297,7 @@ public class GameEngineUI implements UDPHandler{
 
 
 	@Override
-	public void updateGame(Game game) {
+	public void updateGame(ClientGame game) {
 		currentGame = game;
 		System.out.println("updated game");
 	}

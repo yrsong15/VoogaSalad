@@ -8,7 +8,6 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
-import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
 import gameengine.model.boundary.ScreenBoundary;
 import gameengine.model.boundary.StopAtEdgeBoundary;
@@ -17,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import objects.*;
+import xml.XMLSerializer;
 
 import java.io.IOException;
 import java.util.HashMap;

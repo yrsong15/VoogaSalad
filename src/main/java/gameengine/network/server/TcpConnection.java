@@ -9,8 +9,8 @@ import java.net.Socket;
 
 import javax.xml.bind.JAXBException;
 
-import gameeditor.xml.XMLSerializer;
 import gameengine.network.ServerMessage;
+import xml.XMLSerializer;
 
 /**
  * This class establishes TCP connection and listens to client side

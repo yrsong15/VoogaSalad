@@ -25,10 +25,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.xml.bind.JAXBException;
 
-import gameeditor.xml.XMLSerializer;
-import gameeditor.xml.XMLTrimmer;
 import gameengine.controller.interfaces.GameHandler;
+import objects.ClientGame;
 import objects.Game;
+import xml.XMLSerializer;
+import xml.XMLTrimmer;
 
 public class ServerMain {
 
@@ -89,7 +90,7 @@ public class ServerMain {
 			@Override
 			public void run() {
 				gameHandler.updateGame();
-				udpSend.sendGamePlay(gameHandler.getGame());
+				udpSend.sendGamePlay(gameHandler.getClientGame());
 			}
 
 		}, 0, RESHRESH_GAP);
@@ -137,7 +138,7 @@ public class ServerMain {
 			}
 		}
 
-		public void sendGamePlay(Game game) {
+		public void sendGamePlay(ClientGame game) {
 
 			try {
 
@@ -146,7 +147,8 @@ public class ServerMain {
 //				System.out.println(XMLTrimmer.trim(serializer.serializeGame(game)));
 //				oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
 //				byte[] bytes = baos.toByteArray();
-				byte[] bytes = XMLTrimmer.trim(serializer.serializeGame(game)).getBytes();
+				System.out.println(XMLTrimmer.trim(serializer.serializeClientGame(game)));
+				byte[] bytes = XMLTrimmer.trim(serializer.serializeClientGame(game)).getBytes();
 				DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
 
 				for (IpPort dest : activeClients) {

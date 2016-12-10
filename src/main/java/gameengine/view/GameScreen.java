@@ -11,6 +11,8 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import objects.ClientGame;
+import objects.ClientGameObject;
 import objects.GameObject;
 import objects.Level;
 
@@ -54,9 +56,10 @@ public class GameScreen {
 
 	}
 
-	public void init(Level level) {
-		for (GameObject gameObject : level.getAllGameObjects()) {
-			addGameObject(gameObject);
+	//lol eric did this for testing, lmk if you need me to change it back caus ethis is sllo as shit
+	public void init(ClientGame game) {
+		for (ClientGameObject object : game.getAllGameObjects()) {
+			addGameObject(object);
 		}
 	}
 
@@ -77,12 +80,9 @@ public class GameScreen {
 	// }
 	// }
 
-	//lol eric did this for testing, lmk if you need me to change it back caus ethis is sllo as shit
-	public void update(Level level) {
+	public void update(ClientGame game) {
 		myScreen.getChildren().clear();
-		for (GameObject object : level.getAllGameObjects()) {
-			addGameObject(object);
-		}
+		init(game);
 	}
 
 	public void reset() {
@@ -90,16 +90,16 @@ public class GameScreen {
 		myScreen.getChildren().clear();
 	}
 
-	private void addGameObject(GameObject object) {
+	private void addGameObject(ClientGameObject object) {
 		if (object.getImageFileName() == null)
 			return;
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
 		ImageView iv = new ImageView(image);
 		iv.setFitHeight(object.getHeight());
 		iv.setFitWidth(object.getWidth());
-		iv.setX(object.getXPosition());
-		iv.setY(object.getYPosition());
+		iv.setX(object.getxPosition());
+		iv.setY(object.getyPosition());
 		myScreen.getChildren().add(iv);
-		gameObjectImageViewMap.put(object, iv);
+//		gameObjectImageViewMap.put(object, iv);
 	}
 }
