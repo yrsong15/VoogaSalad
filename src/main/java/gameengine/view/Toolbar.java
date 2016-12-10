@@ -26,6 +26,7 @@ public class Toolbar implements IToolbar {
 	private EventHandler<ActionEvent> myPauseEvent;
 	private EventHandler<ActionEvent> myResetEvent;
 	private EventHandler<ActionEvent> myMuteEvent;
+	private EventHandler<ActionEvent> mySaveEvent;
 	private Button myPauseButton;
 	private Button myMuteButton;
 	
@@ -40,17 +41,14 @@ public class Toolbar implements IToolbar {
 		addButtons();
 	}
 
-	@Override
 	public HBox getToolbar() {
 		return myToolbar;
 	}
 	
-	@Override
 	public void resume() {
 		myPauseButton.setText(myResources.getString("PauseButton"));
 	}
 
-	@Override
 	public void pause() {
 		myPauseButton.setText(myResources.getString("ResumeButton"));
 	}
@@ -61,6 +59,10 @@ public class Toolbar implements IToolbar {
 	
 	public void unmute() {
 		myMuteButton.setText(myResources.getString("MuteButton"));
+	}
+	
+	public void saveGame(){
+		
 	}
 	
 	private void addButtons() {

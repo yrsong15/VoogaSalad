@@ -14,7 +14,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import gameengine.controller.GameEngineController;
 import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
 import gameengine.controller.interfaces.CommandInterface;
@@ -61,8 +60,6 @@ public class GameEngineUI implements UDPHandler{
 	private Toolbar toolbar;
 	private HUD myHUD;
 	private GameScreen gameScreen;
-	private boolean isPaused;
-	private boolean isMuted;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
@@ -73,6 +70,9 @@ public class GameEngineUI implements UDPHandler{
 	private Stage endGameStage;
 	private Game currentGame;
 	private Player mainPlayer;
+	
+	private boolean isPaused;
+	private boolean isMuted;
 
 	public GameEngineUI(CommandInterface commandInterface, EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
@@ -99,20 +99,8 @@ public class GameEngineUI implements UDPHandler{
 		myHUD.resetTimer();
 	}
 
-	public ScrollerController getScrollerController() {
-		return scrollerController;
-	}
-
 	public Scene getScene() {
 		return scene;
-	}
-
-	public double getScreenHeight() {
-		return gameScreen.getScreenHeight();
-	}
-
-	public double getScreenWidth() {
-		return gameScreen.screenWidth;
 	}
 
 	public void update(Level level) {
@@ -132,7 +120,7 @@ public class GameEngineUI implements UDPHandler{
 				mediaPlayer.play();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(myResources.getString("MusicFileError"));
 		}
 	}
 
@@ -157,7 +145,7 @@ public class GameEngineUI implements UDPHandler{
 			try {
 				update(currentGame.getCurrentLevel());
 			} catch (Exception exception) {
-				exception.printStackTrace();
+				myErrorMessage.showError(myResources.getString("AnimationError"));
 			}
 		});
 
@@ -181,6 +169,10 @@ public class GameEngineUI implements UDPHandler{
 		endGameStage.setTitle("GAME OVER");
 		endGameStage.show();
 	}
+	
+	public void saveGame(){
+		
+	}
 
 	public void stop() {
 		stopMusic();
@@ -203,7 +195,6 @@ public class GameEngineUI implements UDPHandler{
 	}
 
 	private void setUpMethodMappings() {
-
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
 			Iterator<String> keys = resources.getKeys();
@@ -275,13 +266,12 @@ public class GameEngineUI implements UDPHandler{
 	private void pause() {
 		if (isPaused) {
 			toolbar.resume();
-//			mediaPlayer.play();
 			animation.play();
 		} else {
 			toolbar.pause();
-//			mediaPlayer.pause();
 			animation.stop();
 		}
+		stopMusic();
 		isPaused = !isPaused;
 	}
 
@@ -300,11 +290,9 @@ public class GameEngineUI implements UDPHandler{
 		});
 	}
 
-
 	@Override
 	public void updateGame(Game game) {
 		currentGame = game;
-//		System.out.println("updated game");
 	}
 	
 	public boolean gameLoadedFromServer(){
