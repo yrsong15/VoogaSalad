@@ -102,6 +102,7 @@
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
+        <isPlayer>true</isPlayer>
         <projectileProperties>
 	        <imageFileName>duvall.png</imageFileName>
 	        <width>30</width>

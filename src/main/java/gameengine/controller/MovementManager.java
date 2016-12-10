@@ -5,6 +5,7 @@ import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.ControlInterface;
 import gameengine.model.MovementChecker;
 import gameengine.model.interfaces.Scrolling;
+import gameengine.scrolling.LimitedScrolling;
 import objects.GameObject;
 import objects.Level;
 import objects.ProjectileProperties;
@@ -105,11 +106,11 @@ public class MovementManager implements ControlInterface{
 	}
 	
 	private boolean scrollForLimited(Direction requestedDir, GameObject player){
-		return (scrollName.equals("LimitedScrolling")&& scrollDir == requestedDir)  
-			    && (requestedDir == Direction.LEFT && player.getXPosition()<= screenWidth*0.3
-				||  requestedDir == Direction.RIGHT && player.getXPosition()>= screenWidth*0.7
-				||  requestedDir == Direction.UP && player.getYPosition() <= screenWidth*0.3
-				||  requestedDir == Direction.DOWN && player.getYPosition() >= screenWidth*0.7);
+		if (scrollName.equals("LimitedScrolling")){
+			LimitedScrolling limScroll = (LimitedScrolling) gameScrolling;
+			return limScroll.needToScroll(requestedDir, player);
+		}
+		return false;
 	}
 
 	@Override

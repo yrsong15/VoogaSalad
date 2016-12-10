@@ -59,6 +59,7 @@
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
         <onPlatform>false</onPlatform>
+        <isPlayer>true</isPlayer>
         <projectileProperties>
           <imageFileName>duvall.png</imageFileName>
           <width>30</width>

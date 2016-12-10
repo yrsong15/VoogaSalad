@@ -1,13 +1,8 @@
 package gameengine.controller;
 
-import com.sun.javafx.scene.traversal.Direction;
-import gameengine.controller.interfaces.ControlInterface;
 import gameengine.model.boundary.ScreenBoundary;
 import objects.GameObject;
 import objects.Level;
-import objects.Player;
-import objects.ProjectileProperties;
-import java.util.HashMap;
 
 
 /**
@@ -26,30 +21,34 @@ public class GeneralMovement{
 
     public void moveUp(GameObject obj, double speed){
         double newPos = obj.getYPosition() - speed;
-        if (currBoundary.moveToYPos(obj, newPos)){
-            obj.setYDistanceMoved(obj.getYDistanceMoved() + speed);
-        }
+        moveY(obj, newPos, speed);
     }
     
     public void moveDown(GameObject obj, double speed){
         double newPos = obj.getYPosition() + speed;
-        if (currBoundary.moveToYPos(obj, newPos)){
-            obj.setYDistanceMoved(obj.getYDistanceMoved() + speed);
-        }
+        moveY(obj, newPos, speed);
+
     }
 
     public void moveRight(GameObject obj, double speed){
         double newPos = obj.getXPosition() + Math.abs(speed);
-        if (currBoundary.moveToXPos(obj, newPos)){
-        	if (obj.isPlayer()) System.out.println(obj.getXDistanceMoved());
-            obj.setXDistanceMoved(obj.getXDistanceMoved() + speed);
-        }
+        moveX(obj, newPos, speed);
     }
 
     public void moveLeft(GameObject obj, double speed){
         double newPos = obj.getXPosition() - Math.abs(speed);
-        if (currBoundary.moveToXPos(obj, newPos)){
+        moveX(obj, newPos, speed);
+    }
+    
+    private void moveX(GameObject obj, double newXPos, double speed){
+        if (currBoundary.moveToXPos(obj, newXPos)){
             obj.setXDistanceMoved(obj.getXDistanceMoved() + speed);
+        }
+    }
+    
+    private void moveY(GameObject obj, double newYPos, double speed){
+        if (currBoundary.moveToYPos(obj, newYPos)){
+            obj.setYDistanceMoved(obj.getYDistanceMoved() + speed);
         }
     }
 }

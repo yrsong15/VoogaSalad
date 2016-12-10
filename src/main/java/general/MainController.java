@@ -66,7 +66,8 @@ public class MainController {
     }
 
     private String testGameEngine(){
-        //FOR TESTING PURPOSES ONLY
+        //FOR TESTING PURPOSES ONLY/
+    	/**
         Game game = new Game("Test Game");
         GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
         Player player = new Player(mainChar);
@@ -95,10 +96,10 @@ public class MainController {
         ground.setProperty("nonintersectable", "true");
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
-        String xml = testSerializer.serializeGame(game);
+        String xml = testSerializer.serializeGame(game);**/
 
     	//doodle jump configuration
-    	/**
+    	
     	 Game game = new Game("Doodle Jump");
          GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
          Player player = new Player(mainChar);
@@ -124,10 +125,9 @@ public class MainController {
          level.addPlayer(mainChar);
          GameObject ground = new GameObject(250,200,75,50, "platform.png", new HashMap<>());
          ground.setProperty("nonintersectable", "true");
-<<<<<<< HEAD
          level.addGameObject(ground);
          XMLSerializer testSerializer = new XMLSerializer();
-         String xml = testSerializer.serializeGame(game);***/
+         String xml = testSerializer.serializeGame(game);
          level.addGameObject(ground);
         System.out.println(xml);
         return xml;

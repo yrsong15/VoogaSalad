@@ -45,6 +45,15 @@ public class LimitedScrolling implements Scrolling{
 	}
 	
 	
+	public boolean needToScroll(Direction requestedDir, GameObject player){
+		return (direction == requestedDir)  
+			    && (requestedDir == Direction.LEFT && player.getXPosition()<= screenWidth*0.3
+				||  requestedDir == Direction.RIGHT && player.getXPosition()>= screenWidth*0.7
+				||  requestedDir == Direction.UP && player.getYPosition() <= screenWidth*0.3
+				||  requestedDir == Direction.DOWN && player.getYPosition() >= screenWidth*0.7);
+	}
+	
+	
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
 		scrollScreen(gameObjects, mainChar, Double.parseDouble(mainChar.getProperty("movespeed")));
