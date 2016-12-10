@@ -274,14 +274,15 @@ public class GameEngineUI implements UDPHandler{
 
 	private void pause() {
 		if (isPaused) {
-			isPaused = false;
 			toolbar.resume();
-			mediaPlayer.play();
+//			mediaPlayer.play();
+			animation.play();
 		} else {
-			isPaused = true;
 			toolbar.pause();
-			mediaPlayer.pause();
+//			mediaPlayer.pause();
+			animation.stop();
 		}
+		isPaused = !isPaused;
 	}
 
 	private void setUpKeystrokeListeners(Player player) {
@@ -303,7 +304,7 @@ public class GameEngineUI implements UDPHandler{
 	@Override
 	public void updateGame(Game game) {
 		currentGame = game;
-		System.out.println("updated game");
+//		System.out.println("updated game");
 	}
 	
 	public boolean gameLoadedFromServer(){
