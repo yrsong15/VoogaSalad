@@ -5,6 +5,7 @@ import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
 import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
+import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 import gameeditor.xml.XMLSerializer;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.GameHandler;
