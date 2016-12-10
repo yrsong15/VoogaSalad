@@ -110,7 +110,7 @@
 	        <range>500.0</range>
 	        <speed>30.0</speed>
 	        <damage>20.0</damage>
-      	</projectileProperties>
+          </projectileProperties>
       </objects.GameObject>
     </players>
     <scrollType>
@@ -128,15 +128,6 @@
   <players>
     <objects.Player>
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
-      <projectileProperties>
-        <imageFileName>duvall.png</imageFileName>
-        <width>30</width>
-        <height>30</height>
-        <direction>RIGHT</direction>
-        <range>500.0</range>
-        <speed>30.0</speed>
-        <damage>20.0</damage>
-      </projectileProperties>
       <controls>
         <entry>
           <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>

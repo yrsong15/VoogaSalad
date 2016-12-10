@@ -85,7 +85,7 @@ public class HighScoreScreen {
 		return root;
 	}
 
-	public BorderPane getRoot(){
-		return root;
-	}
+//	public BorderPane getRoot(){
+//		return root;
+//	}
 }

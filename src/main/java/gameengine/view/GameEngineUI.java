@@ -304,7 +304,6 @@ public class GameEngineUI implements UDPHandler{
 	@Override
 	public void updateGame(Game game) {
 		currentGame = game;
-//		System.out.println("updated game");
 	}
 	
 	public boolean gameLoadedFromServer(){
