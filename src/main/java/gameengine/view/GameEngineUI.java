@@ -81,6 +81,7 @@ public class GameEngineUI {
 		this.commandInterface = commandInterface;
 		setUpMethodMappings();
 	}
+	
 
 	public void initLevel(Level level) {
 		this.level = level;

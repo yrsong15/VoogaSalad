@@ -23,21 +23,29 @@ import java.util.HashMap;
 
 public class MainController {
 
-	public static final String STYLESHEET = "default.css";
-	private static final String GAME_TITLE = "VoogaSalad";
-	private Stage gameEditorStage, gameEngineStage;
-	private Gallery gallery;
-	private GameEditorController gameEditorController;
-	private GameEngineController gameEngineController;
+    public static final String STYLESHEET = "default.css";
+    private static final String GAME_TITLE = "VoogaSalad";
+    private Stage gameEditorStage, gameEngineStage;
+    private Gallery gallery;
+    private GameEditorController gameEditorController;
+    private GameEngineController gameEngineController;
 
-	public MainController(Stage stage) throws IOException {
-		this.gallery = new Gallery();
-		Scene scene = new Scene(new SplashScreen(gallery, this).setUpWindow());
-		scene.getStylesheets().add(STYLESHEET);
-		stage.setScene(scene);
-		stage.setTitle(GAME_TITLE);
-		stage.show();
-	}
+    public MainController(Stage stage) throws IOException {
+        this.gallery = new Gallery();
+        Scene scene = new Scene(new SplashScreen(gallery, this).setUpWindow());
+        scene.getStylesheets().add(STYLESHEET);
+        stage.setScene(scene);
+        stage.setTitle(GAME_TITLE);
+        stage.show();
+        initializeGallery();
+        gameEngineController = new GameEngineController();
+        gameEditorController = new GameEditorController();
+    }
+
+    private void initializeGallery() throws IOException {
+        this.gallery = new Gallery();
+    }
+
 
 	private void addNewGameFile(String title, String gameData) {
 		GameFile newGame = new GameFile(title, gameData);
@@ -63,13 +71,11 @@ public class MainController {
 		// XMLData = testGameEngine();
 		boolean multiplayer = true;
 		boolean isServer = false;
-		gameEngineController = new GameEngineController(multiplayer, isServer);
 		// if (gameEngineController.startGame(XMLData) == true && (!multiplayer
 		// || (multiplayer && !isServer))) {
 		if (gameEngineController.startGame(XMLData) == true) {
 			setUpGameEngineStage();
 		}
-		;
 	}
 
 	private void setUpGameEngineStage() {

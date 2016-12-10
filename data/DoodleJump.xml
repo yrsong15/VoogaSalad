@@ -38,7 +38,7 @@
         <properties>
           <entry>
             <string>movespeed</string>
-            <string>30</string>
+            <string>10</string>
           </entry>
           <entry>
             <string>gravity</string>
@@ -59,11 +59,11 @@
       </objects.GameObject>
     </players>
     <scrollType>
-      <myScrollTypeName>FreeScrolling</myScrollTypeName>
+      <myScrollTypeName>LimitedScrolling</myScrollTypeName>
       <myScrollDirectionList>
-        <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
+        <com.sun.javafx.scene.traversal.Direction>LEFT</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>
-      <scrollSpeed>30.0</scrollSpeed>
+      <scrollSpeed>10.0</scrollSpeed>
       <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
         <screenWidth>700.0</screenWidth>
         <screenHeight>675.0</screenHeight>

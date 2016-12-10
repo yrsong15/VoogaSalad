@@ -42,7 +42,7 @@ public class GameEngineController implements CommandInterface {
 	private boolean multiplayer;
 	private boolean isServer;
 
-	public GameEngineController(boolean multiplayer, boolean isServer) {
+	public GameEngineController() {
 //		this.multiplayer = multiplayer;
 //		this.isServer = isServer;
 		this.multiplayer = true;
@@ -81,6 +81,7 @@ public class GameEngineController implements CommandInterface {
 		gameEngineView.mapKeys();
 		gameEngineView.setupKeyFrameAndTimeline(MILLISECOND_DELAY);
 	}
+
 
 	public Scene getScene() {
 		return gameEngineView.getScene();
