@@ -18,7 +18,4 @@ public class NoBoundary extends BasicBoundary{
 	public void moveToYPos(GameObject toMove, double newYPos) {
 		toMove.setYPosition(newYPos);		
 	}
-	
-	
-
 }

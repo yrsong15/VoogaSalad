@@ -16,10 +16,8 @@ public class StopAtEdgeBoundary extends BasicBoundary{
 		}
 		else{
 			toMove.killSpeed();
-		}
-		
+		}		
 	}
-
 
 	@Override
 	public void moveToYPos(GameObject toMove, double newYPos) {
