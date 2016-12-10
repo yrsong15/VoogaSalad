@@ -62,7 +62,7 @@ public class ServerMain {
 
 	private void start() {
 
-		gameStateRefresher();
+		
 
 //		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("25.16.229.50"))) {
 		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("localhost"))) {
@@ -70,6 +70,7 @@ public class ServerMain {
 			Socket clientSocket;
 			while ((clientSocket = serverSocket.accept()) != null) {
 				new Thread(new TcpConnection(this, clientSocket)).start();
+				gameStateRefresher();
 			}
 
 		} catch (FileNotFoundException e) {
@@ -142,6 +143,7 @@ public class ServerMain {
 
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);
+				System.out.println(XMLTrimmer.trim(serializer.serializeGame(game)));
 				oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
 				byte[] bytes = baos.toByteArray();
 				DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
