@@ -3,7 +3,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
-
 import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.CommandInterface;

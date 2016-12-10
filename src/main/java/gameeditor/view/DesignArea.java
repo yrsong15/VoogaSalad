@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
-import gameeditor.objects.GameObject;
+import gameeditor.objects.GameObjectView;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IGameEditorView;
 import javafx.collections.ObservableList;
@@ -16,7 +16,6 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -34,15 +33,15 @@ public class DesignArea implements IDesignArea {
 
     private Pane myPane;
     private ScrollPane myScrollPane;
-    private ArrayList<GameObject> mySprites = new ArrayList<GameObject>();
+    private ArrayList<GameObjectView> mySprites = new ArrayList<GameObjectView>();
 
     private boolean clickEnabled = false;
     private ISelectDetail mySelectDetail;
-    private ArrayList<GameObject> myAvatars = new ArrayList<GameObject>();
+    private ArrayList<GameObjectView> myAvatars = new ArrayList<GameObjectView>();
 
-    private GameObject mySelectedSprite;
+    private GameObjectView mySelectedSprite;
     private KeyCode myKeyCode;
- 
+    private GameObjectView myAvatar;
 
     public DesignArea() {
         myScrollPane = new ScrollPane();
@@ -101,14 +100,14 @@ public class DesignArea implements IDesignArea {
     }
 
     @Override
-    public void addSprite(GameObject sprite) {
+    public void addSprite(GameObjectView sprite) {
         mySprites.add(sprite);
         //		TODO: Remove the hardcoding of the image size proportions
         myPane.getChildren().add(sprite.getImageView());
     }
 
     @Override
-    public void removeSprite(GameObject sprite) {
+    public void removeSprite(GameObjectView sprite) {
         mySprites.remove(sprite);
         myPane.getChildren().remove(sprite.getImageView());
     }
@@ -125,7 +124,7 @@ public class DesignArea implements IDesignArea {
     }
 
     private void handlePress(double x, double y){
-        GameObject sprite = checkForSprite(x, y);
+        GameObjectView sprite = checkForSprite(x, y);
         if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
             mySelectedSprite.removeBound();
             mySelectedSprite.setOff();
@@ -140,20 +139,20 @@ public class DesignArea implements IDesignArea {
         if (myKeyCode == KeyCode.ALT && mySelectedSprite != null){
         	mySelectedSprite.removeBound();
             mySelectedSprite.setOff();
-            GameObject newSprite = new GameObject(mySelectedSprite);
+            GameObjectView newSprite = new GameObjectView(mySelectedSprite);
             newSprite.initBound();
             newSprite.setOn(x, y);
             mySelectedSprite = newSprite;
         } 
     }
 
-    public void initSelectDetail2(GameObject sprite){
+    public void initSelectDetail2(GameObjectView sprite){
         if (clickEnabled){
             mySelectDetail.initLevel2(sprite);
         }
     }
 
-    public void updateSpriteDetails(GameObject sprite, double x, double y, double width, double height){
+    public void updateSpriteDetails(GameObjectView sprite, double x, double y, double width, double height){
         mySelectDetail.updateSpritePosition(x, y);
         mySelectDetail.updateSpriteDimensions(width, height);
     }
@@ -170,10 +169,10 @@ public class DesignArea implements IDesignArea {
         }
     }
 
-    private GameObject checkForSprite(double x, double y){
+    private GameObjectView checkForSprite(double x, double y){
 		Rectangle test = new Rectangle(x, y, 1, 1);
-		GameObject selectedSprite = null;
-		for (GameObject sprite : mySprites){
+		GameObjectView selectedSprite = null;
+		for (GameObjectView sprite : mySprites){
 			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent())
 					&& clickEnabled && mySelectedSprite == sprite){
 				return sprite;
@@ -186,10 +185,15 @@ public class DesignArea implements IDesignArea {
     
     @Override
 	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds) {
-    	GameObject newAvatar = new GameObject(filePath, x, y, width, height, "Main Character", this, ds);
+    	GameObjectView newAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", this, ds);
     	myAvatars.add(newAvatar);
     	mySprites.add(newAvatar);
-    }
+    	if (myAvatar != null){
+        	myPane.getChildren().remove(myAvatar.getImageView());
+        	mySprites.remove(myAvatar);
+    	}
+    	myAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", this, ds);
+	}
 
 	@Override
 	public void addDragIn(ImageView tempIV) {
