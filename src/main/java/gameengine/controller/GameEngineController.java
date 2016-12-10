@@ -97,7 +97,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		Level currLevel = currentGame.getCurrentLevel();
 		GameObject mainChar = currLevel.getPlayers().get(0);
 		mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
-		System.out.println("qwerqwerqwer: " + mainChar.getXPosition() + " " + mainChar.getYPosition());
 		mainChar.checkPlatformStatus();
 		gameMovement.runActions();
         if(currLevel.getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
