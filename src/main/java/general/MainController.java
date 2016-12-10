@@ -9,6 +9,7 @@ import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
 import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
+import gameengine.model.boundary.NoBoundary;
 import gameengine.model.boundary.ScreenBoundary;
 import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
@@ -58,7 +59,7 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-        //XMLData = testGameEngine();
+        XMLData = testGameEngine();
         gameEngineController = new GameEngineController();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
@@ -67,72 +68,55 @@ public class MainController {
 
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY/
-    	/**
-        Game game = new Game("Test Game");
-        GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
-        Player player = new Player(mainChar);
-        game.addPlayer(player);
-        ProjectileProperties properties = new ProjectileProperties("duvall.png", 30, 30, Direction.RIGHT, 500, 30, 20);
-        player.getMainChar().setProjectileProperties(properties);
-        mainChar.setProperty("horizontalmovement", "10");
-        mainChar.setProperty("gravity", "0.8");
-        mainChar.setProperty("jump", "400");
-        mainChar.setProperty("health", "10");
-        mainChar.setProperty("movespeed", "30");
+        Game game = new Game("Dance Dance Revolution");
+        GameObject firstShyGuy = new GameObject(100, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject secondShyGuy = new GameObject(250, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject thirdShyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject fourthShyGuy = new GameObject(550, 500, 100, 100, "shyguy.png", new HashMap<>());
+
+        Player player1 = new Player(firstShyGuy);
+        Player player2 = new Player(secondShyGuy);
+        Player player3 = new Player(thirdShyGuy);
+        Player player4 = new Player(fourthShyGuy);
+
+        game.addPlayer(player1);
+        game.addPlayer(player2);
+        game.addPlayer(player3);
+        game.addPlayer(player4);
+
+        firstShyGuy.setProperty("jump", "400");
+        secondShyGuy.setProperty("jump", "400");
+        thirdShyGuy.setProperty("jump", "400");
+        fourthShyGuy.setProperty("jump", "400");
+        firstShyGuy.setProperty("gravity", "0.8");
+        secondShyGuy.setProperty("gravity", "0.8");
+        thirdShyGuy.setProperty("gravity", "0.8");
+        fourthShyGuy.setProperty("gravity", "0.8");
+        firstShyGuy.setProperty("movespeed", "0");
+        secondShyGuy.setProperty("movespeed", "0");
+        thirdShyGuy.setProperty("movespeed", "0");
+        fourthShyGuy.setProperty("movespeed", "0");
+
         Level level = new Level(1);
-        ScreenBoundary gameBoundaries = new ToroidalBoundary(700, 675);
-        ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
+        ScreenBoundary gameBoundaries = new NoBoundary(700, 675);
+        ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.RIGHT);
-        scrollType.setScrollSpeed(30);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
         game.setCurrentLevel(level);
-        player.setControl(KeyCode.W, "jump");
-        player.setControl(KeyCode.D, "right");
-        player.setControl(KeyCode.SPACE, "shoot");
-        level.addPlayer(mainChar);
-        GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
-        ground.setProperty("damage","0");
+        player1.setControl(KeyCode.A, "jump");
+        player2.setControl(KeyCode.S, "jump");
+        player3.setControl(KeyCode.D, "jump");
+        player4.setControl(KeyCode.F, "jump");
+        level.addPlayer(firstShyGuy);
+        level.addPlayer(secondShyGuy);
+        level.addPlayer(thirdShyGuy);
+        level.addPlayer(fourthShyGuy);
+        GameObject ground = new GameObject(0, 570,700,50,"ground.png", new HashMap<>());
         ground.setProperty("nonintersectable", "true");
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
-<<<<<<< HEAD
         String xml = testSerializer.serializeGame(game);
-=======
-        String xml = testSerializer.serializeGame(game);**/
-
-    	//doodle jump configuration
-    	
-    	 Game game = new Game("Doodle Jump");
-         GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
-         Player player = new Player(mainChar);
-         game.addPlayer(player);
-         mainChar.setProperty("gravity", "0.8");
-         mainChar.setProperty("jump", "400");
-         mainChar.setProperty("health", "10");
-         mainChar.setProperty("movespeed", "30");
-         Level level = new Level(1);
-         ScreenBoundary gameBoundaries = new StopAtEdgeBoundary(700, 675);
-         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
-         scrollType.addScrollDirection(Direction.RIGHT);
-         scrollType.setScrollSpeed(30);
-         level.setScrollType(scrollType);
-         level.setBackgroundImage("Background/graphPaper.png");
-         game.setCurrentLevel(level);
-         player.setControl(KeyCode.W, "jump");
-         player.setControl(KeyCode.LEFT, "left");
-         player.setControl(KeyCode.RIGHT, "right");
-         player.setControl(KeyCode.UP, "up");
-         player.setControl(KeyCode.DOWN, "down");
-         player.setControl(KeyCode.SPACE, "shoot");
-         level.addPlayer(mainChar);
-         GameObject ground = new GameObject(250,200,75,50, "platform.png", new HashMap<>());
-         ground.setProperty("nonintersectable", "true");
-         level.addGameObject(ground);
-         XMLSerializer testSerializer = new XMLSerializer();
-         String xml = testSerializer.serializeGame(game);
-         level.addGameObject(ground);
-        System.out.println(xml);
         return xml;
     }
 

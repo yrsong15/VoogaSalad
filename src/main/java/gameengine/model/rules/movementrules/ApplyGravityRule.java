@@ -20,8 +20,6 @@ public class ApplyGravityRule implements MovementRule {
 		else if (newYPos < obj.getYPosition()){
 			gameMovement.moveUp(obj, GameEngineController.SECOND_DELAY * speed*-1);
 		}
-		//gameBoundaries.moveToYPos(obj, obj.getYPosition() + GameEngineController.SECOND_DELAY * speed);
-        //obj.setYDistanceMoved(obj.getYDistanceMoved() + GameEngineController.SECOND_DELAY * speed);
     }
 
 	private double modifySpeed(GameObject obj, double gravity) {

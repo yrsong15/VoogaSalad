@@ -21,8 +21,5 @@ public class ApplyHorizontalMovementRule implements MovementRule{
 		else if (newXPos < obj.getXPosition()){
 			gameMovement.moveLeft(obj, moveSpeed);
 		}
-        //gameBoundaries.moveToXPos(obj, obj.getXPosition() + moveSpeed);
-      //  obj.setXDistanceMoved(obj.getXDistanceMoved() + GameEngineController.SECOND_DELAY * moveSpeed);
-		
 	}
 }

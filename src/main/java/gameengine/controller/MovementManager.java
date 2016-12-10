@@ -115,6 +115,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void jump(GameObject obj, double speed) {
+	    System.out.println("jump");
         String jumpVelocity = obj.getProperty("jump");
     	if(jumpVelocity!=null){
     		obj.setProperty("fallspeed", "-" + jumpVelocity);
@@ -132,11 +133,12 @@ public class MovementManager implements ControlInterface{
             }else if(properties.getDirection().equals(Direction.RIGHT)){
                 projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed()));
             }else if(properties.getDirection().equals(Direction.DOWN)){
-                projectile.setProperty("gravity", String.valueOf(properties.getSpeed()));
+                projectile.setProperty("verticalmovement", String.valueOf(properties.getSpeed()));
             }else if(properties.getDirection().equals(Direction.UP)){
-                projectile.setProperty("gravity", String.valueOf(properties.getSpeed() * -1));
+                projectile.setProperty("verticalmovement", String.valueOf(properties.getSpeed() * -1));
             }
             projectile.setProperty("damage", String.valueOf(properties.getDamage()));
+            projectile.setProjectileProperties(properties);
             currLevel.getProjectiles().add(projectile);
         }
 	}

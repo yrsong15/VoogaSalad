@@ -7,6 +7,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.security.Key;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -44,7 +45,6 @@ public class GameEngineUI {
 	private ResourceBundle myResources;
 	private Scene scene;
 	private Level level;
-	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
 	private ControlInterface controlInterface;
 	private String myLevelFileLocation;
@@ -54,6 +54,7 @@ public class GameEngineUI {
 	private boolean isPaused;
 	private boolean isMuted;
 	private MediaPlayer mediaPlayer;
+	private Map<KeyCode, Player> playerMappings = new HashMap<>();
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
 	private EventHandler<ActionEvent> resetEvent;
@@ -84,10 +85,6 @@ public class GameEngineUI {
         gameScreen.reset();
         gameScreen.init(level);
         myHUD.resetTimer();
-	}
-
-	public ScrollerController getScrollerController() {
-		return scrollerController;
 	}
 
 	public Scene getScene() {
@@ -133,8 +130,11 @@ public class GameEngineUI {
 	}
 
 	public void mapKeys(Player player, Map<KeyCode, String> mappings) {
+	    for(KeyCode key : mappings.keySet()){
+	        playerMappings.put(key, player);
+        }
 		mapKeysToMethods(mappings);
-		setUpKeystrokeListeners(player);
+		setUpKeystrokeListeners();
 	}
 	
 	public void stopMusic() {
@@ -233,10 +233,11 @@ public class GameEngineUI {
 		}
 	}
 
-	private void setUpKeystrokeListeners(Player player) {
+	private void setUpKeystrokeListeners() {
 		this.scene.setOnKeyPressed(event -> {
 			try {
 				if (keyMappings.containsKey(event.getCode())) {
+				        Player player = playerMappings.get(event.getCode());
 						keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 				}
 			} catch (IllegalAccessException e) {

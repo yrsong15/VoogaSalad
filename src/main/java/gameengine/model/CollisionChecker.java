@@ -20,37 +20,6 @@ public class CollisionChecker {
 		this.currentlyCollidingObjectsWithCharacter = new HashSet<>();
 	}
 
-	/**
-	 * Passes the mainCharacter and any object colliding with it to the rulebook
-	 * 
-	 * @param mainChar
-	 * @param gameObjects
-	 */
-	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects) {
-		//System.out.println(currentlyCollidingObjectsWithCharacter.size());
-		for (Iterator<GameObject> itr = gameObjects.iterator(); itr.hasNext();) {
-			try {
-				GameObject gameObject = itr.next();
-				if (mainChar != gameObject && collision(mainChar, gameObject)) {
-					try {
-						if(!checkIfAlreadyCollided(gameObject)){
-							//System.out.println("Collided!");
-							rulebook.applyRules(mainChar, gameObject);
-							//System.out.println("Adding object");
-						}
-						
-					} catch (CollisionRuleNotFoundException e) {
-						
-					}
-				}
-				else removeGameObjectFromSet(gameObject);
-			} catch (ConcurrentModificationException e) {
-				checkCollisions(mainChar, gameObjects);
-				break;
-			}
-		}
-	}
-
 	
 	/**
 	 * Passes the projectile list and any object colliding with it to the rulebook
