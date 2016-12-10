@@ -1,5 +1,4 @@
 package gameeditor.objects;
-import java.util.Map;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.image.Image;
@@ -158,21 +157,18 @@ public class GameObjectView {
     }
 
     public void updateDetails(){
-
         myDesignArea.updateSpriteDetails(this, getX(), getY(), getWidth(), getHeight());
         //TODO: Update sprite object details too...
-        Map<String, String> typeMap = myDataStore.getType(myType);
-
-        typeMap.put(X_POSITION_KEY, String.valueOf(getX()));
-        typeMap.put(Y_POSITION_KEY, String.valueOf(getY()));
-
-        // Create Random Generation here
-
-        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(getWidth()));
-        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(getHeight()));
+//        Map<String, String> typeMap = myDataStore.getType(myType);
+//
+//        typeMap.put(X_POSITION_KEY, String.valueOf(getX()));
+//        typeMap.put(Y_POSITION_KEY, String.valueOf(getY()));
+//
+//        // Create Random Generation here
+//
+//        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(getWidth()));
+//        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(getHeight()));
 
         //myDataStore.addGameObjectToLevel(typeMap, myRandomGenerationList);
     }
-
-
 }

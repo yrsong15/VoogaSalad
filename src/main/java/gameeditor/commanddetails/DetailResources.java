@@ -21,7 +21,8 @@ public enum DetailResources {
 		
 		X_POSITION_KEY("xPosition"),
                 Y_POSITION_KEY("yPosition"),
-                
+                PLATFORM_LABEL("Platform"),
+                PLATFORM_KEY("platform"),
 		
 		// Limit Width
 		LIMIT_DIMENSION_LABEL("Limit Dimension"),
