@@ -72,12 +72,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                 double width = object.getWidth();
                 String fileName = object.getImageFileName();
                 Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
-                ImageView spriteimageView = new ImageView(image);
-                
-                
+                ImageView spriteimageView = new ImageView(image);      
             }
-        }
-        
+        }    
     }
     
     private HBox createLeftAlt(){
@@ -140,9 +137,14 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     public void setMusic(){
-        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-        String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
-        myLevelSettings.setBackgroundMusic(file);
+        try {
+            String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
+            String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
+            myLevelSettings.setBackgroundMusic(file);
+
+        }catch (NullPointerException e){
+            System.out.println("Music was not added");
+        }
     }
 
     private String getFilePath(String fileType, String fileLocation){

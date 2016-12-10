@@ -10,7 +10,7 @@ public class BoundingBox {
 	
 	private ArrayList<Rectangle> myCorners = new ArrayList<Rectangle>();
 	private ArrayList<Rectangle> myShapes = new ArrayList<Rectangle>();
-	private GameObject mySprite;
+	private GameObjectView mySprite;
 	private IDesignArea myDesignArea;
 	
 	private Rectangle myBounds;
@@ -27,7 +27,7 @@ public class BoundingBox {
 	private double yDistanceFromCorner = 0;
 
 
-	public BoundingBox(GameObject sprite, IDesignArea da) {
+	public BoundingBox(GameObjectView sprite, IDesignArea da) {
 		mySprite = sprite;
 		myDesignArea = da;
 		previousX = sprite.getX();

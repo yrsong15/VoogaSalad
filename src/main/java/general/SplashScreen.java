@@ -32,12 +32,11 @@ public class SplashScreen implements ISplashScreen {
     public static final int SPLASH_WIDTH = 1030;
     public static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
-//    private Rectangle backdrop;
     private MainController mainController;
     private NodeFactory myFactory;
     private Gallery galleryItem;
     private GalleryView myGallery;
-    EditorSplash editorSplash;
+    private EditorSplash editorSplash;
 
     private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
             CycleMethod.NO_CYCLE,
@@ -62,55 +61,17 @@ public class SplashScreen implements ISplashScreen {
         ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
-//        backdrop = myFactory.makeBackdrop(65, 65, 590, 400, Color.MIDNIGHTBLUE);
         startWindow.getChildren().add(backgroundImageMainScreen);
         addTitle();
-//        addButtons();
         this.editorSplash = new EditorSplash(mainController, startWindow);
         this.myGallery = new GalleryView(galleryItem, mainController, startWindow);
         return startWindow;
-    }
-
-    @Override
-    public void launchEditor() {
-       // mainController.editorSplash();
-//        mainController.presentEditor();
-    }
-
-    public void launchGameEngine() {
-        mainController.launchEngine("");
-    }
-
-    private void addButtons() {
-        // TODO: Change this hash map into reflection where the method of launch + the buttonName is called
-        HashMap<String, EventHandler<MouseEvent>> eventHandlerForButton = new HashMap<String, EventHandler<MouseEvent>>();
-        eventHandlerForButton.put("GameEditor", e -> launchEditor());
-        String[] buttonNames = {"GameEditor", "GameGallery"};
-
-        double initialX = 900;
-        double initialY = 280;
-        double xSpacing = 300;
-        double ySpacing = 100;
-        int buttonsPerCol = 2; // Also rows
-
-        for (int i = 0; i < buttonNames.length; i++) {
-            ButtonTemplate buttonTemplate = new ButtonTemplate(buttonNames[i],
-                    initialX + (i % buttonsPerCol) * xSpacing,
-                    initialY + (i / buttonsPerCol) * ySpacing);
-            Button button = buttonTemplate.getButton();
-            button.setOnMouseClicked(eventHandlerForButton.get(buttonNames[i]));
-//            button.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-            button.setFont(Font.font(50));
-
-            startWindow.getChildren().add(button);
-        }
     }
 
     private void addTitle() {
         BigNameText title = new BigNameText("Welcome to VoogaSalad");
         title.setTranslateX(55);
         title.setTranslateY(35);
-//        title.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         startWindow.getChildren().add(title);
     }
 
