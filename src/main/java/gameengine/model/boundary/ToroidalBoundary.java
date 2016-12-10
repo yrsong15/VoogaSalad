@@ -9,7 +9,7 @@ public class ToroidalBoundary extends BasicBoundary{
 	}
 	
 	@Override
-	public void moveToXPos(GameObject toMove, double newXPos) {
+	public boolean moveToXPos(GameObject toMove, double newXPos) {
 		if (getScreenWidth() <= newXPos){
 			toMove.setXPosition(0);
 		}
@@ -19,10 +19,11 @@ public class ToroidalBoundary extends BasicBoundary{
 		else{
 			toMove.setXPosition(newXPos);
 		}
+		return true;
 	}
 
 	@Override
-	public void moveToYPos(GameObject toMove, double newYPos) {
+	public boolean moveToYPos(GameObject toMove, double newYPos) {
 		if (getScreenHeight() <= newYPos){
 			toMove.setYPosition(0);
 		}
@@ -32,6 +33,7 @@ public class ToroidalBoundary extends BasicBoundary{
 		else{
 			toMove.setYPosition(newYPos);
 		}	
+		return true;
 	}
 
 

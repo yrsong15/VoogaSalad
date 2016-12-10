@@ -5,16 +5,15 @@ import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.ControlInterface;
 import gameengine.model.MovementChecker;
 import gameengine.model.interfaces.Scrolling;
-import gameengine.view.GameEngineUI;
 import objects.GameObject;
 import objects.Level;
-import objects.Player;
+import objects.ProjectileProperties;
 import objects.ScrollType;
 import utils.ReflectionUtil;
-
 import java.lang.reflect.InvocationTargetException;
-
+import java.util.HashMap;
 import com.sun.javafx.scene.traversal.Direction;
+
 
 public class MovementManager implements ControlInterface{
 	private Level currLevel;
@@ -34,8 +33,6 @@ public class MovementManager implements ControlInterface{
 		scrollName = currLevel.getScrollType().getScrollTypeName();
 		scrollDir = currLevel.getScrollType().getDirections().get(0);
 		initManager();
-		
-		
 	}
 	
 	//TO-DO: define scroll-width, pass movement interface through to movement rulebook through movement checker
@@ -48,7 +45,6 @@ public class MovementManager implements ControlInterface{
 		}
 		movementChecker = new MovementChecker((ControlInterface) this, currLevel.getScrollType().getScreenBoundary());
 		controlManager = new ControlManager(currLevel, currLevel.getScrollType().getScreenBoundary());
-		
 	}
 	
 	public ControlInterface getControlInterface(){
@@ -71,7 +67,6 @@ public class MovementManager implements ControlInterface{
 		else{
 			controlManager.moveUp(player, speed);
 		}
-		
 	}
 
 
@@ -119,12 +114,30 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void jump(GameObject player, double speed) {
-		controlManager.jump(player, Double.parseDouble(player.getProperty("jump")));
+        String jumpVelocity = player.getProperty("jump");
+    	if(jumpVelocity!=null){
+    		player.setProperty("fallspeed", "-" + jumpVelocity);
+    	}
 	}
 
 	@Override
 	public void shootProjectile(GameObject player, double speed) {
-		controlManager.shootProjectile(player, speed);
+        if(player.getProjectileProperties() != null){
+            ProjectileProperties properties = player.getProjectileProperties();
+            GameObject projectile = new GameObject(player.getXPosition(), player.getYPosition(),
+                    properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
+            if(properties.getDirection().equals(Direction.LEFT)){
+                projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed()*-1));
+            }else if(properties.getDirection().equals(Direction.RIGHT)){
+                projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed()));
+            }else if(properties.getDirection().equals(Direction.DOWN)){
+                projectile.setProperty("gravity", String.valueOf(properties.getSpeed()));
+            }else if(properties.getDirection().equals(Direction.UP)){
+                projectile.setProperty("gravity", String.valueOf(properties.getSpeed() * -1));
+            }
+            projectile.setProperty("damage", String.valueOf(properties.getDamage()));
+            currLevel.getProjectiles().add(projectile);
+        }
 	}
 	
 	
