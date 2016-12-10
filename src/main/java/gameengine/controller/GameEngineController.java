@@ -82,7 +82,7 @@ public class GameEngineController implements CommandInterface {
 	}
 
 	public void startClientGame() {
-		gameEngineView = new GameEngineUI(this, event -> reset());
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset());
 //		Timer timer = new Timer();
 //		timer.scheduleAtFixedRate(new TimerTask() {
 //

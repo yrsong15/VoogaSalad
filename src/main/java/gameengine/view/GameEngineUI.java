@@ -14,6 +14,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import frontend.util.FileOpener;
+import gameeditor.xml.XMLSerializer;
 import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
 import gameengine.controller.interfaces.CommandInterface;
@@ -70,11 +72,11 @@ public class GameEngineUI implements UDPHandler{
 	private Stage endGameStage;
 	private Game currentGame;
 	private Player mainPlayer;
+	private XMLSerializer mySerializer;
 	
-	private boolean isPaused;
-	private boolean isMuted;
+	private boolean isPaused,isMuted;
 
-	public GameEngineUI(CommandInterface commandInterface, EventHandler<ActionEvent> resetEvent) {
+	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
@@ -82,6 +84,8 @@ public class GameEngineUI implements UDPHandler{
 //		controlInterface = new ClientMain("25.16.229.50", 9090, -1, this);
 		controlInterface = new ClientMain("localhost", 9090, -1, this);
 		this.commandInterface = commandInterface;
+		this.mySerializer = mySerializer;
+		
 		setUpMethodMappings();
 	}
 	
@@ -171,7 +175,9 @@ public class GameEngineUI implements UDPHandler{
 	}
 	
 	public void saveGame(){
-		
+		FileOpener chooser = new FileOpener();
+		chooser.saveFile(myResources.getString("XML"), myResources.getString("data"), 
+				mySerializer.serializeGame(currentGame), myResources.getString("DefaultGameTitle"));
 	}
 
 	public void stop() {
