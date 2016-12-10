@@ -66,6 +66,10 @@ public class GameObject {
 		myDesignArea.addSprite(this);
 	}
 	
+	public GameObject(GameObject sprite) {
+		this(sprite.getFilePath(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), sprite.getType(), sprite.getDesignArea(), sprite.getDataStore());
+	}
+
 	public void setOn(double x, double y){
 		myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
 		myImageView.setOnMouseDragged((e) -> handleDrag(e.getX(), e.getY()));
@@ -132,26 +136,6 @@ public class GameObject {
 		updateDetails();
 	}
 	
-	public double getWidth(){
-		return myImageWidth;
-	}
-	
-	public double getHeight(){
-		return myImageHeight;
-	}
-	
-	public double getX(){
-		return myImageView.getLayoutX();
-	}
-	
-	public double getY(){
-		return myImageView.getLayoutY();
-	}
-	
-	public String getType(){
-		return myType;
-	}
-	
 	public void update(double x, double y, double width, double height){
 		setLayout(x, y);
 		setDimensions(width, height);
@@ -173,6 +157,38 @@ public class GameObject {
 //      typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(getHeight()));
 //         
 ////    myDataStore.addGameObjectToLevel(typeMap, myRandomGenerationList);
+	}
+	
+	public String getFilePath(){
+		return myImageFilePath;
+	}
+	
+	public double getWidth(){
+		return myImageWidth;
+	}
+	
+	public double getHeight(){
+		return myImageHeight;
+	}
+	
+	public double getX(){
+		return myImageView.getLayoutX();
+	}
+	
+	public double getY(){
+		return myImageView.getLayoutY();
+	}
+	
+	public String getType(){
+		return myType;
+	}
+	
+	public IDesignArea getDesignArea(){
+		return myDesignArea;
+	}
+	
+	public IGameEditorData getDataStore(){
+		return myDataStore;
 	}
 
 

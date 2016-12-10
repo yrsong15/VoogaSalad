@@ -1,7 +1,6 @@
 package gameeditor.commanddetails;
-import java.util.Map;
+
 import com.sun.javafx.scene.traversal.Direction;
-import frontend.util.ButtonTemplate;
 import gameeditor.view.ViewResources;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

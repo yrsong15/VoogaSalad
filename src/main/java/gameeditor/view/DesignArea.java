@@ -26,7 +26,7 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * 
- * @author pratikshasharma, John
+ * @author pratikshasharma, John Martin
  *
  */
 
@@ -41,6 +41,7 @@ public class DesignArea implements IDesignArea {
     private ArrayList<GameObject> myAvatars = new ArrayList<GameObject>();
 
     private GameObject mySelectedSprite;
+    private KeyCode myKeyCode;
  
 
     public DesignArea() {
@@ -53,19 +54,26 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
         myScrollPane.setVmax(0);
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
+        myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myPane = new Pane();
-        myPane.addEventFilter(KeyEvent.KEY_TYPED, (e) -> handleKeyType(e.getCode()));
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
-    }    
-
-    //TODO: get keytyped working
-    private void handleKeyType(KeyCode code) {
-        System.out.println("key typed");
-        if (code == KeyCode.BACK_SPACE){
+    }   
+    
+    private void handleKeyPress(KeyCode code){
+    	myKeyCode = code;
+    	System.out.println(code);
+    }
+    
+    private void handleKeyRelease(KeyCode code){
+    	if (code == KeyCode.BACK_SPACE && mySelectedSprite != null){
             // TODO: Remove from backend
+    		mySelectedSprite.removeBound();
+            mySelectedSprite.setOff();
             removeSprite(mySelectedSprite);
         }
+    	myKeyCode = null;
     }
 
     public ScrollPane getScrollPane(){
@@ -129,6 +137,14 @@ public class DesignArea implements IDesignArea {
             sprite.setOn(x, y);
             mySelectedSprite = sprite;
         }
+        if (myKeyCode == KeyCode.ALT && mySelectedSprite != null){
+        	mySelectedSprite.removeBound();
+            mySelectedSprite.setOff();
+            GameObject newSprite = new GameObject(mySelectedSprite);
+            newSprite.initBound();
+            newSprite.setOn(x, y);
+            mySelectedSprite = newSprite;
+        } 
     }
 
     public void initSelectDetail2(GameObject sprite){
