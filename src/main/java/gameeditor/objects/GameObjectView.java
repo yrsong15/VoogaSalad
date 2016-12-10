@@ -27,25 +27,27 @@ public class GameObjectView {
     private IDesignArea myDesignArea;
     private String myType;
     private IGameEditorData myDataStore;
+    private boolean myIsMainChar;
 
     private double xDistanceFromCorner = 0;
     private double yDistanceFromCorner = 0;
 
     private BoundingBox myBoundingBox;
 
-    public GameObjectView(String imageFilePath, String type, IDesignArea da, IGameEditorData dataStore) {
-        this(imageFilePath, DEFAULT_X, DEFAULT_Y, type, da, dataStore);
+    public GameObjectView(String imageFilePath, String type, boolean isMainChar, IDesignArea da, IGameEditorData dataStore) {
+        this(imageFilePath, DEFAULT_X, DEFAULT_Y, type, isMainChar, da, dataStore);
     }
 
-    public GameObjectView(String imageFilePath, double x, double y, String type, IDesignArea da, IGameEditorData dataStore) {
-        this(imageFilePath, x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, type, da, dataStore);
+    public GameObjectView(String imageFilePath, double x, double y, String type, boolean isMainChar, IDesignArea da, IGameEditorData dataStore) {
+        this(imageFilePath, x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, type, isMainChar, da, dataStore);
     }
 
-    public GameObjectView(String imageFilePath, double x, double y, double fitWidth, double fitHeight, String type, IDesignArea da, IGameEditorData dataStore) {
+    public GameObjectView(String imageFilePath, double x, double y, double fitWidth, double fitHeight, String type, boolean isMainChar, IDesignArea da, IGameEditorData dataStore) {
         myDataStore = dataStore;
         myDesignArea = da;
         myType = type;
         myImageFilePath = imageFilePath;
+        myIsMainChar = isMainChar;
         myImage = new Image(myImageFilePath); 
         myImageView = new ImageView(myImage);
         myImageView.setPreserveRatio(true);
@@ -64,8 +66,8 @@ public class GameObjectView {
     }
 
     public GameObjectView (GameObjectView sprite) {
-        this(sprite.getFilePath(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), sprite.getType(), sprite.getDesignArea(), sprite.getDataStore());
-    }
+		this(sprite.getFilePath(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), sprite.getType(), sprite.getIsMainChar(), sprite.getDesignArea(), sprite.getDataStore());
+	}
 
     public void setOn(double x, double y){
         myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
@@ -181,13 +183,17 @@ public class GameObjectView {
     public String getType(){
         return myType;
     }
-
-    public IDesignArea getDesignArea(){
-        return myDesignArea;
-    }
-
-    public IGameEditorData getDataStore(){
-        return myDataStore;
-    }
+    
+	public IDesignArea getDesignArea(){
+		return myDesignArea;
+	}
+	
+	public IGameEditorData getDataStore(){
+		return myDataStore;
+	}
+	
+	public boolean getIsMainChar(){
+		return myIsMainChar;
+	}
 
 }
