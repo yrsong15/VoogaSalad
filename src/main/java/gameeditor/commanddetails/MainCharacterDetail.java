@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import gameeditor.objects.GameObject;
+import gameeditor.objects.GameObjectView;
 
 // TODO: Refactor this class - duplicated code with CreateDetail
 public class MainCharacterDetail extends AbstractCommandDetail {
