@@ -3,12 +3,16 @@ package objects;
 import java.util.Map;
 import java.util.Set;
 
+import gameengine.controller.SingletonBoundaryChecker;
+import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
+
 /**
  * 
  * @author Ray Song, Soravit
  *
  */
 public class GameObject {
+	private static final int marginForPlatformRecognition = 20;
 
 	private double xPosition;
 	private double yPosition;
@@ -18,6 +22,8 @@ public class GameObject {
 	private Map<String, String> properties;
     private double xDistanceMoved;
     private double yDistanceMoved;
+    private boolean onPlatform = false;
+    private GameObject platformCharacterIsOn;
 
     public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
@@ -36,6 +42,33 @@ public class GameObject {
 	public String getProperty(String propertyName) {
 		String val = properties.get(propertyName);
 		return val;
+	}
+	
+	public void setPlatformCharacterIsOn(GameObject platform){
+		platformCharacterIsOn = platform;
+	}
+	
+	public GameObject getPlatformCharacterIsOn(){
+		return platformCharacterIsOn;
+	}
+	
+	public void setPlatformStatus(boolean status){
+		this.onPlatform = status;
+	}
+	
+	public boolean isOnPlatform(){
+		return onPlatform;
+	}
+	
+	public void checkPlatformStatus(){
+		//System.out.println(this.onPlatform);
+		if(platformCharacterIsOn == null){
+			this.onPlatform = false;
+			return;
+		}
+		boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
+		boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <= (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >= (platformCharacterIsOn.getYPosition() - 20)));
+		this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
 	}
 
 	public void setProperty(String propertyName, String propertyValue) {

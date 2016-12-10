@@ -51,7 +51,7 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-        XMLData = testGameEngine();
+        //XMLData = testGameEngine();
         gameEngineController = new GameEngineController();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
@@ -89,6 +89,7 @@ public class MainController {
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
 
