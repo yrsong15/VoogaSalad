@@ -15,4 +15,6 @@ public interface ISelectDetail {
 	
 	public void clearSelect();
 	
+	public void switchSelectStyle(GameObjectView sprite);
+	
 }

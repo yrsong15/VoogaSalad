@@ -148,6 +148,7 @@ public class DesignArea implements IDesignArea {
 
     public void initSelectDetail2(GameObjectView sprite){
         if (clickEnabled){
+        	mySelectDetail.switchSelectStyle(sprite);
             mySelectDetail.initLevel2(sprite);
         }
     }
@@ -186,14 +187,14 @@ public class DesignArea implements IDesignArea {
     
     @Override
 	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds) {
-    	GameObjectView newAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", this, ds);
+    	GameObjectView newAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", true, this, ds);
     	myAvatars.add(newAvatar);
     	mySprites.add(newAvatar);
     	if (myAvatar != null){
         	myPane.getChildren().remove(myAvatar.getImageView());
         	mySprites.remove(myAvatar);
     	}
-    	myAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", this, ds);
+    	myAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", true, this, ds);
 	}
 
 	@Override
