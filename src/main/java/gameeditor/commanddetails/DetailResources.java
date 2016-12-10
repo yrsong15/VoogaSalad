@@ -19,6 +19,8 @@ public enum DetailResources {
 		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
 		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
 		
+		GAMEBOUNDARY_OPTIONS(new String[] {"Toroidal","Stop At Edge"}),
+		
 		X_POSITION_KEY("xPosition"),
                 Y_POSITION_KEY("yPosition"),
                 PLATFORM_LABEL("Platform"),

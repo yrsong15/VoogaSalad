@@ -156,6 +156,7 @@ public class DesignArea implements IDesignArea {
     public void updateSpriteDetails(GameObjectView sprite, double x, double y, double width, double height){
         mySelectDetail.updateSpritePosition(x, y);
         mySelectDetail.updateSpriteDimensions(width, height);
+          
     }
 
     public void addBoundingBox(BoundingBox bb){

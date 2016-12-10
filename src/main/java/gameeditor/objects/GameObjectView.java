@@ -144,6 +144,7 @@ public class GameObjectView {
 
     public void updateDetails(){
         myDesignArea.updateSpriteDetails(this, getX(), getY(), getWidth(), getHeight());
+        System.out.println(" Comes Here GOV" );
         //TODO: Update sprite object details too...
         //        Map<String, String> typeMap = myDataStore.getType(myType);
         //

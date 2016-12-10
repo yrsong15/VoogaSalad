@@ -13,8 +13,7 @@ public class StopAtEdgeBoundary extends BasicBoundary{
 	public void moveToXPos(GameObject toMove, double newXPos) {
 		if(newXPos <= getScreenWidth()-toMove.getWidth() && newXPos >= 0){
 			toMove.setXPosition(newXPos);
-		}
-		
+		}	
 	}
 
 

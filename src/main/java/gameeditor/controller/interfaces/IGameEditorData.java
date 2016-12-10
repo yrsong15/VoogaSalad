@@ -3,6 +3,7 @@ package gameeditor.controller.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import gameengine.model.boundary.BasicBoundary;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import objects.ScrollType;
@@ -45,4 +46,6 @@ public interface IGameEditorData {
     
     public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters);
     
+
+   public  void addGameBoundary (BasicBoundary gameBoundary);
 }

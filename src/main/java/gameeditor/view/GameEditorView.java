@@ -123,11 +123,11 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private void displayBackgroundOnScreen(String filePath){
         if(filePath!=null){
             ImageView backgroundImage = new ImageView(new Image(filePath));
-            backgroundImage.setFitHeight(0.85*SCENE_HEIGHT);
-            backgroundImage.setFitWidth(0.75*SCENE_WIDTH);
+            backgroundImage.setFitHeight(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource());
+            backgroundImage.setFitWidth(ViewResources.SCROLL_PANE_WIDTH.getDoubleResource());
             backgroundImage.setId(BACKGROUND_IMAGE_ID);
 
-            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, 0.85*SCENE_HEIGHT); 
+            myScrollPane.setPrefSize(ViewResources.SCROLL_PANE_WIDTH.getDoubleResource(), ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource()); 
             myDesignArea.setBackground(backgroundImage); 
             
             String file = filePath.substring(filePath.lastIndexOf("/") +1);
