@@ -63,6 +63,10 @@ public class GameObjectView {
         myDesignArea.addSprite(this);
     }
 
+    public GameObjectView (GameObjectView sprite) {
+        this(sprite.getFilePath(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), sprite.getType(), sprite.getDesignArea(), sprite.getDataStore());
+    }
+
     public void setOn(double x, double y){
         myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
         myImageView.setOnMouseDragged((e) -> handleDrag(e.getX(), e.getY()));
@@ -129,6 +133,35 @@ public class GameObjectView {
         updateDetails();
     }
 
+    public void update(double x, double y, double width, double height){
+        setLayout(x, y);
+        setDimensions(width, height);
+        myDesignArea.removeSprite(this);
+        myDesignArea.addSprite(this);
+    }
+
+    public void updateDetails(){
+        myDesignArea.updateSpriteDetails(this, getX(), getY(), getWidth(), getHeight());
+        //TODO: Update sprite object details too...
+        //        Map<String, String> typeMap = myDataStore.getType(myType);
+        //
+        //        typeMap.put(X_POSITION_KEY, String.valueOf(getX()));
+        //        typeMap.put(Y_POSITION_KEY, String.valueOf(getY()));
+        //
+        //        // Create Random Generation here
+        //
+        //        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(getWidth()));
+        //        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(getHeight()));
+
+        //myDataStore.addGameObjectToLevel(typeMap, myRandomGenerationList);
+    }
+
+
+
+    public String getFilePath(){
+        return myImageFilePath;
+    }
+
     public double getWidth(){
         return myImageWidth;
     }
@@ -149,26 +182,12 @@ public class GameObjectView {
         return myType;
     }
 
-    public void update(double x, double y, double width, double height){
-        setLayout(x, y);
-        setDimensions(width, height);
-        myDesignArea.removeSprite(this);
-        myDesignArea.addSprite(this);
+    public IDesignArea getDesignArea(){
+        return myDesignArea;
     }
 
-    public void updateDetails(){
-        myDesignArea.updateSpriteDetails(this, getX(), getY(), getWidth(), getHeight());
-        //TODO: Update sprite object details too...
-//        Map<String, String> typeMap = myDataStore.getType(myType);
-//
-//        typeMap.put(X_POSITION_KEY, String.valueOf(getX()));
-//        typeMap.put(Y_POSITION_KEY, String.valueOf(getY()));
-//
-//        // Create Random Generation here
-//
-//        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(getWidth()));
-//        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(getHeight()));
-
-        //myDataStore.addGameObjectToLevel(typeMap, myRandomGenerationList);
+    public IGameEditorData getDataStore(){
+        return myDataStore;
     }
+
 }

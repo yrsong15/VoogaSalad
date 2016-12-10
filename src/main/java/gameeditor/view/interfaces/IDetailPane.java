@@ -9,4 +9,8 @@ public interface IDetailPane {
 	public void setAvatar(String  filePath);
 	
 	public Pane getPane();
+
+	public void removeDetail();
+
+	public void setDetail(String string);
 }
