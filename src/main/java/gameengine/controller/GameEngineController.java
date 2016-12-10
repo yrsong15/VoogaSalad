@@ -94,7 +94,8 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	/**
 	 * Applies gravity and scrolls, checks for collisions
 	 */
-	public void updateGame(){
+	public void updateGame() throws InvocationTargetException, IllegalAccessException {
+	    gameEngineView.checkKeyPressed();
 		Level currLevel = currentGame.getCurrentLevel();
 		for(GameObject mainChar : currLevel.getPlayers()) {
             Position position = new Position();

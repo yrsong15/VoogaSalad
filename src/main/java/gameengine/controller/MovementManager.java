@@ -35,9 +35,7 @@ public class MovementManager implements ControlInterface{
 		scrollDir = currLevel.getScrollType().getDirections().get(0);
 		initManager();
 	}
-	
-	//TO-DO: define scroll-width, pass movement interface through to movement rulebook through movement checker
-	
+
 	private void initManager(){
 		try {
 			setScrolling();
@@ -115,7 +113,6 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void jump(GameObject obj, double speed) {
-	    System.out.println("jump");
         String jumpVelocity = obj.getProperty("jump");
     	if(jumpVelocity!=null){
     		obj.setProperty("fallspeed", "-" + jumpVelocity);

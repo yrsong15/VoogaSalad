@@ -92,7 +92,7 @@ public class MainController {
         secondShyGuy.setProperty("gravity", "0.8");
         thirdShyGuy.setProperty("gravity", "0.8");
         fourthShyGuy.setProperty("gravity", "0.8");
-        firstShyGuy.setProperty("movespeed", "0");
+        firstShyGuy.setProperty("movespeed", "5");
         secondShyGuy.setProperty("movespeed", "0");
         thirdShyGuy.setProperty("movespeed", "0");
         fourthShyGuy.setProperty("movespeed", "0");
@@ -105,6 +105,7 @@ public class MainController {
         level.setBackgroundImage("Background/bg.png");
         game.setCurrentLevel(level);
         player1.setControl(KeyCode.A, "jump");
+        player1.setControl(KeyCode.SPACE, "right");
         player2.setControl(KeyCode.S, "jump");
         player3.setControl(KeyCode.D, "jump");
         player4.setControl(KeyCode.F, "jump");
