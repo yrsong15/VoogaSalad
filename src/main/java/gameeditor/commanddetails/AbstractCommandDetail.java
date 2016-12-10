@@ -93,9 +93,10 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
         return bp; 
     }
     
-    protected ComboBox<String> createComboBox(String [] boxOptions){
+    protected ComboBox<String> createComboBox(String [] boxOptions, String defaultValue){
         ComboBox<String> cb = new ComboBox<String>();
         cb.getItems().addAll(boxOptions);
+        cb.setValue(defaultValue);
         cb.setMinWidth(CB_WIDTH);
         cb.setMaxWidth(CB_WIDTH);
         cb.setMinHeight(CB_HEIGHT);

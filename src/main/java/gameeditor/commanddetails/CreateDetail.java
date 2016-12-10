@@ -224,7 +224,7 @@ public class CreateDetail extends AbstractCommandDetail {
     private ComboBox<String> createPropertyCB(String property){
         DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
         String [] optionsArray = resourceChoice.getArrayResource();
-        ComboBox<String> cb = createComboBox(optionsArray);
+        ComboBox<String> cb = createComboBox(optionsArray,null);
         return cb;
     }
 

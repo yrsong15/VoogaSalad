@@ -13,6 +13,8 @@ public interface IBehaviorDetail {
     public static final String POINTS_PROPERTY="points";
     public static final String LIMIT_SCROLL_WIDTH_LABEL="Limit Width";
     public static final String SAVE_BUTTON_LABEL=DetailResources.SAVE_BUTTON_TEXT.getResource();
+    public static final String SCROLL_HEIGHT_LABEL = "Scroll Height";
+    public static final String SCROLL_HEIGHT_KEY="height";
     
     public static final String SCROLL_SPEED_LABEL =DetailResources.SCROLL_SPEED_LABEL.getResource();
     public static final String SCROLL_SPEED_PROPERTY=DetailResources.SCROLL_SPEED_PROPERTY.getResource();
@@ -24,6 +26,7 @@ public interface IBehaviorDetail {
     public static final String LIMITED_SCROLL_TYPE = DetailResources.LIMITED_SCROLLING_TYPE.getResource();
     public static final String FREE_SCROLL_TYPE = DetailResources.FREE_SCROLLING_TYPE.getResource();
     public static final String[] GAME_BOUNDARY_OPTIONS = DetailResources.GAMEBOUNDARY_OPTIONS.getArrayResource();
+    public static final String [] LIMIT_DIMENSION_OPTIONS=DetailResources.LIMIT_DIMENSION_OPTIONS.getArrayResource();
     
     
     

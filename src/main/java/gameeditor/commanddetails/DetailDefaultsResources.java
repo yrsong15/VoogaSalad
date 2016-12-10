@@ -1,5 +1,6 @@
 package gameeditor.commanddetails;
 
+import gameeditor.view.ViewResources;
 import javafx.scene.paint.Color;
 
 /**
@@ -36,6 +37,16 @@ public enum DetailDefaultsResources {
 	MAXIMUM_Y("0"),
 	MINIMUM_SPACING("0"),
 	MAXIMUM_SPACING("0"),
+	
+	// Level Properties Defaults
+	LIMIT_WIDTH("False"),
+	GAME_BOUNDARY("Stop At Edge"),
+	SCROLL_HEIGHT(String.valueOf(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource())),
+	SCROLL_WIDTH(String.valueOf(ViewResources.SCROLL_PANE_WIDTH.getDoubleResource())),
+	DEFAULT_TIME_VALUE (400),
+	DEFAULT_POINTS_VALUE(20),
+	DEFAULT_SCROLL_SPEED(10),
+
 	
 	
 	// Destructible, Random, Movable, Damage, Points, Health, Gravity, Horizontal Speed, Jump
