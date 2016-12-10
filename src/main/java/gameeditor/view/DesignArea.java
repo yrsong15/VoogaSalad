@@ -16,7 +16,6 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -26,7 +25,7 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * 
- * @author pratikshasharma, John
+ * @author pratikshasharma, John Martin
  *
  */
 
@@ -38,10 +37,11 @@ public class DesignArea implements IDesignArea {
 
     private boolean clickEnabled = false;
     private ISelectDetail mySelectDetail;
-    private GameObjectView myAvatar;
+    private ArrayList<GameObjectView> myAvatars = new ArrayList<GameObjectView>();
 
     private GameObjectView mySelectedSprite;
- 
+    private KeyCode myKeyCode;
+    private GameObjectView myAvatar;
 
     public DesignArea() {
         myScrollPane = new ScrollPane();
@@ -53,19 +53,26 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
         myScrollPane.setVmax(0);
         myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
+        myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myPane = new Pane();
-        myPane.addEventFilter(KeyEvent.KEY_TYPED, (e) -> handleKeyType(e.getCode()));
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
-    }    
-
-    //TODO: get keytyped working
-    private void handleKeyType(KeyCode code) {
-        System.out.println("key typed");
-        if (code == KeyCode.BACK_SPACE){
+    }   
+    
+    private void handleKeyPress(KeyCode code){
+    	myKeyCode = code;
+    	System.out.println(code);
+    }
+    
+    private void handleKeyRelease(KeyCode code){
+    	if (code == KeyCode.BACK_SPACE && mySelectedSprite != null){
             // TODO: Remove from backend
+    		mySelectedSprite.removeBound();
+            mySelectedSprite.setOff();
             removeSprite(mySelectedSprite);
         }
+    	myKeyCode = null;
     }
 
     public ScrollPane getScrollPane(){
@@ -129,10 +136,19 @@ public class DesignArea implements IDesignArea {
             sprite.setOn(x, y);
             mySelectedSprite = sprite;
         }
+        if (myKeyCode == KeyCode.ALT && mySelectedSprite != null){
+        	mySelectedSprite.removeBound();
+            mySelectedSprite.setOff();
+            GameObjectView newSprite = new GameObjectView(mySelectedSprite);
+            newSprite.initBound();
+            newSprite.setOn(x, y);
+            mySelectedSprite = newSprite;
+        } 
     }
 
     public void initSelectDetail2(GameObjectView sprite){
         if (clickEnabled){
+        	mySelectDetail.switchSelectStyle(sprite);
             mySelectDetail.initLevel2(sprite);
         }
     }
@@ -170,11 +186,14 @@ public class DesignArea implements IDesignArea {
     
     @Override
 	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds) {
+    	GameObjectView newAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", true, this, ds);
+    	myAvatars.add(newAvatar);
+    	mySprites.add(newAvatar);
     	if (myAvatar != null){
         	myPane.getChildren().remove(myAvatar.getImageView());
         	mySprites.remove(myAvatar);
     	}
-    	myAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", this, ds);
+    	myAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", true, this, ds);
 	}
 
 	@Override

@@ -1,4 +1,5 @@
 package gameeditor.commanddetails;
+
 import com.sun.javafx.scene.traversal.Direction;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.Button;
