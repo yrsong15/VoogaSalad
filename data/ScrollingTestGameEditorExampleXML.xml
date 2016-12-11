@@ -7,9 +7,9 @@
     <gameObjects>
       <objects.GameObject>
         <xPosition>0.0</xPosition>
-        <yPosition>600.0</yPosition>
-        <width>1.0E7</width>
-        <height>200.0</height>
+        <yPosition>570.0</yPosition>
+        <width>700.0</width>
+        <height>50.0</height>
         <imageFileName>ground.png</imageFileName>
         <properties>
           <entry>
@@ -21,7 +21,7 @@
         <yDistanceMoved>0.0</yDistanceMoved>
         <onPlatform>false</onPlatform>
         <isPlayer>false</isPlayer>
-        <id>1</id>
+        <id>0</id>
       </objects.GameObject>
     </gameObjects>
     <obstacles/>

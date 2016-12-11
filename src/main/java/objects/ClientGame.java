@@ -22,7 +22,8 @@ public class ClientGame {
 	public void addAll(List<GameObject> allGameObjects) {
 		for (GameObject o : allGameObjects) {
 			if(o.getID() == 0) {
-				o.setID(ServerMain.idCounter++);
+			    ServerMain.idCounter++;
+				o.setID(ServerMain.idCounter);
 			}
 			gameObjectMap.put(o.getID(), new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
 					o.getDirection(), o.getImageFileName()));
