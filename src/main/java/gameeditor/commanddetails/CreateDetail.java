@@ -29,7 +29,7 @@ public class CreateDetail extends AbstractCommandDetail {
     private Tab myPlatformTab;
 
     private ImageDetail myImageDetail;
-    private PlatformDetail myPlatformDetail;
+   
 
 
     public CreateDetail() {
@@ -38,7 +38,7 @@ public class CreateDetail extends AbstractCommandDetail {
 
     @Override
     public void init() {
-        myPlatformDetail = new PlatformDetail();
+        
         myTabPane = new TabPane();
         myImageDetail = new ImageDetail();
         createSpriteTab();
