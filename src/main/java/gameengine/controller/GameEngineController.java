@@ -176,7 +176,8 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     	double newPosition;
     	if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) == IntersectionAmount.COMPLETELY_INSIDE_X){
     		if(mainCharImprints.get(mainChar).getY() < obj.getYPosition()){
-        		newPosition = obj.getYPosition() - mainChar.getHeight();
+    			//System.out.println("Resetting");
+        		newPosition = obj.getYPosition() - mainChar.getHeight()+5;
         		mainChar.setPlatformCharacterIsOn(obj);
         	}
         	else 
