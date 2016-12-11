@@ -84,12 +84,14 @@ public class GameScreen {
         iv.setX(object.getxPosition());
         iv.setY(object.getyPosition());
         iv.setRotationAxis(Rotate.Y_AXIS);
+        if(object.getDirection() == null){
+            object.setDirection(Direction.RIGHT);
+        }
         if(object.getDirection().equals(Direction.LEFT)){
             iv.setRotate(180);
         }else{
             iv.setRotate(0);
         }
         myScreen.getChildren().add(iv);
-//		gameObjectImageViewMap.put(object, iv);
     }
 }

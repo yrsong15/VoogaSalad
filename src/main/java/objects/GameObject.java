@@ -36,7 +36,6 @@ public class GameObject {
         this.width = width;
         this.height = height;
         this.properties = properties;
-        this.direction = Direction.RIGHT;
     }
 
     public void setDirection(Direction direction){
