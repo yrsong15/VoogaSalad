@@ -30,7 +30,7 @@ public class ControlsDetail extends AbstractCommandDetail {
     
 
     private void createSave(){
-        Button save = createButton("SaveCommand",e -> handleSave());
+        Button save = myDetailFrontEndUtil.createButton("SaveCommand",e -> handleSave());
         myVBox.getChildren().add(save);
     }
 
@@ -60,7 +60,7 @@ public class ControlsDetail extends AbstractCommandDetail {
         HBox innerContainer = new HBox();
         innerContainer.setSpacing(HBOX_SPACING);
         innerContainer.setAlignment(Pos.CENTER);
-        ComboBox<String> cb = createComboBox(optionsArray,null);
+        ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,null);
         TextArea inputField = createControlsInput(label);
         myInputFields.add(inputField);
         myComboBoxes.add(cb);

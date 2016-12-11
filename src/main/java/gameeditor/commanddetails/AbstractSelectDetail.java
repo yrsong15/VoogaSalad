@@ -120,7 +120,7 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
     private void createInfoBP(TextArea ta1, String label1, double value1, TextArea ta2, String label2, double value2){
         ta1 = createTextArea(label1, value1, ta1);
         ta2 = createTextArea(label2, value2, ta2);
-        BorderPane bp = createBorderpane(ta2,ta1);
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(ta2,ta1);
         myVBox.getChildren().add(bp);
     }
 
@@ -145,13 +145,15 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
             Label labl = createPropertyLbl(label);
             TextArea input= createInputField("0");
             myRandomGenerationList.add(input);
-            BorderPane bp = createBorderpane(input,labl);
+            BorderPane bp = myDetailFrontEndUtil.createBorderpane(input,labl);
             BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
             myVBox.getChildren().add(bp);
         }
     }
 
     private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
+        
+        System.out.println("Comes Here " );
         //		if (kc == KeyCode.BACK_SPACE){
         if (field.getText().length() < label.length() && kc.isDigitKey()){
             field.setText(label + character);
