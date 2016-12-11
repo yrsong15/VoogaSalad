@@ -1,7 +1,6 @@
 package general;
 import java.io.File;
 import java.io.IOException;
-
 import com.sun.javafx.scene.traversal.Direction;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -18,19 +17,15 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import objects.*;
-
 import java.io.IOException;
 import java.util.HashMap;
-
 public class MainController {
-
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
     private Stage gameEngineStage;
     private Gallery gallery;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
-
     public MainController(Stage stage) throws IOException {
         this.gallery = new Gallery();
         Scene scene = new Scene(new SplashScreen(gallery, this).setUpWindow());
@@ -42,24 +37,19 @@ public class MainController {
         gameEngineController = new GameEngineController();
         gameEditorController = new GameEditorController();
     }
-
     private void initializeGallery() throws IOException {
         this.gallery = new Gallery();
     }
-
     private void addNewGameFile(String title, String gameData)
     {
         GameFile newGame = new GameFile(title,gameData);
         gallery.addToGallery(newGame);
     }
-
-
     public void presentEditor(Game game ) {
         gameEditorController = new GameEditorController();
         gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendDataToEngine());   
+        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
-
     public void launchEngine(String XMLData){
         XMLData = testGameEngine();
         gameEngineController = new GameEngineController();
@@ -67,7 +57,6 @@ public class MainController {
             setUpGameEngineStage();
         }
     }
-
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY/
         Game game = new Game("Dance Dance Revolution");
@@ -75,17 +64,14 @@ public class MainController {
         GameObject secondShyGuy = new GameObject(250, 500, 100, 100, "shyguy.png", new HashMap<>());
         GameObject thirdShyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
         GameObject fourthShyGuy = new GameObject(550, 500, 100, 100, "shyguy.png", new HashMap<>());
-
         Player player1 = new Player(firstShyGuy);
         Player player2 = new Player(secondShyGuy);
         Player player3 = new Player(thirdShyGuy);
         Player player4 = new Player(fourthShyGuy);
-
         game.addPlayer(player1);
         game.addPlayer(player2);
         game.addPlayer(player3);
         game.addPlayer(player4);
-
         firstShyGuy.setProperty("jump", "400");
         secondShyGuy.setProperty("jump", "400");
         thirdShyGuy.setProperty("jump", "400");
@@ -98,7 +84,8 @@ public class MainController {
         secondShyGuy.setProperty("movespeed", "0");
         thirdShyGuy.setProperty("movespeed", "0");
         fourthShyGuy.setProperty("movespeed", "0");
-
+        ProjectileProperties projectileProperties = new ProjectileProperties("duvall.png", 50, 50, Direction.RIGHT, 400, 30, 20);
+        firstShyGuy.setProjectileProperties(projectileProperties);
         Level level = new Level(1);
         ScreenBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
@@ -106,8 +93,10 @@ public class MainController {
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
         game.setCurrentLevel(level);
-        player1.setControl(KeyCode.A, "jump");
-        player1.setControl(KeyCode.SPACE, "right");
+        player1.setControl(KeyCode.UP, "jump");
+        player1.setControl(KeyCode.SPACE, "shoot");
+        player1.setControl(KeyCode.RIGHT, "right");
+        player1.setControl(KeyCode.LEFT, "left");
         player2.setControl(KeyCode.S, "jump");
         player3.setControl(KeyCode.D, "jump");
         player4.setControl(KeyCode.F, "jump");
@@ -115,34 +104,30 @@ public class MainController {
         level.addPlayer(secondShyGuy);
         level.addPlayer(thirdShyGuy);
         level.addPlayer(fourthShyGuy);
-        GameObject ground = new GameObject(0, 570,700,50,"platform.png", new HashMap<>());
+        GameObject ground = new GameObject(0, 570,700,50,"ground.png", new HashMap<>());
         ground.setProperty("nonintersectable", "true");
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
         return xml;
     }
-
     private void setUpGameEngineStage(){
         gameEngineStage = new Stage();
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
-
     }
-
     private void sendDataToEngine() {
         String title = gameEditorController.getGameTitle();
         String gameFile = gameEditorController.getGameFile();
         addNewGameFile(title,gameFile);
         launchEngine(gameFile);
     }
-
     public void editGame(){
         FileOpener chooser= new FileOpener();
         File file = chooser.chooseFile("XML", "data");
         XStream mySerializer = new XStream(new DomDriver());
-        Game myGame =  (Game) mySerializer.fromXML(file); 
-        presentEditor(myGame);  
+        Game myGame =  (Game) mySerializer.fromXML(file);
+        presentEditor(myGame);
     }
 }
