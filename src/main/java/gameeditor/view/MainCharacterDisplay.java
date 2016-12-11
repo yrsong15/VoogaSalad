@@ -222,9 +222,9 @@ public class MainCharacterDisplay {
         avView.setLayoutX(avZone.getX() + avZone.getWidth()/2 - endWidth/2);
         avView.setLayoutY(avZone.getY() + avZone.getHeight()/2 - endHeight/2);
         // TODO: Remove Hard Coding
-
-        double playerX = DEFAULT_PLAYER_X + myTotalChars*5+DEFAULT_PLAYER_WIDTH;
-        myDesignArea.addAvatar(filePath, playerX, DEFAULT_PLAYER_Y, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, myDataStore);
+        double playerX = DEFAULT_PLAYER_X + myTotalChars*(10+DEFAULT_PLAYER_WIDTH);
+        double playerY = DEFAULT_PLAYER_Y - endHeight/2;
+        myDesignArea.addAvatar(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, myDataStore);
         return avView;
     }
 	

@@ -43,6 +43,9 @@ public class BoundingBox {
 	
 	private void handleCenterPress(double x, double y){
 		mySprite.setDistanceFromCorner(x, y);
+		mySprite.handleDrag(x, y);
+		updateLayout();
+		System.out.println(x);
 	}
 	
 	private void handleCenterDrag(double x, double y){
