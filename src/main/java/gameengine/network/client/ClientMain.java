@@ -40,7 +40,7 @@ public class ClientMain implements ControlInterface {
 		if ((ID = connections.getIdFromServer()) == -1) {
 			System.err.println("cant get id for char");
 		}
-		System.out.print(ID);
+		System.out.println("Client ID: "+ID);
 
 		new Thread(new UdpConnection(this, connections, client_port_udp, handler)).start();
 	}
