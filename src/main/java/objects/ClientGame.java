@@ -1,5 +1,7 @@
 package objects;
 
+import gameengine.network.server.ServerMain;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class ClientGame {
 
 	public void addAll(List<GameObject> allGameObjects) {
 		for (GameObject o : allGameObjects) {
-			list.add(new ClientGameObject(o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
+			list.add(new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
 					o.getDirection(), o.getImageFileName()));
 		}
 	}

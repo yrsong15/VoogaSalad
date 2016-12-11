@@ -9,10 +9,12 @@ public class ClientGameObject {
 	private double width;
 	private double height;
 	private Direction direction;
+	private int id;
 	private String imageFileName;
 
 
-	public ClientGameObject(double xPosition, double yPosition, double width, double height, Direction direction, String imageFileName) {
+	public ClientGameObject(int id, double xPosition, double yPosition, double width, double height, Direction direction, String imageFileName) {
+		this.id = id;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 		this.width = width;
@@ -21,6 +23,13 @@ public class ClientGameObject {
 		this.direction = direction;
 	}
 
+	public int getID(){
+		return id;
+	}
+
+	public void setID(int id){
+		this.id = id;
+	}
 	public void setDirection(Direction direction){
 		this.direction = direction;
 	}

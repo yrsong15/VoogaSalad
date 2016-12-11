@@ -31,6 +31,13 @@ public class GameObject {
         this(id, xPosition, yPosition, width, height, properties);
         this.imageFileName = imageFileName;
     }
+
+    public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
+                      Map<String, String> properties) {
+        this(0, xPosition, yPosition, width, height, properties);
+        this.imageFileName = imageFileName;
+    }
+
     public GameObject(int id, double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
         this.id = id;
         this.xPosition = xPosition;
