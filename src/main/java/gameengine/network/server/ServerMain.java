@@ -105,7 +105,7 @@ public class ServerMain {
 	}
 
 	void readCommand(long id, String command) {
-		gameHandler.runControl(command);
+		gameHandler.runControl(command,0);
 	}
 
 	void addressBook(InetAddress address, int port) {

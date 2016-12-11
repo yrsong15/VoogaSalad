@@ -36,6 +36,10 @@ public class Level {
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
 	}
+	
+	public void removeAllPlayers(){
+		players = new ArrayList<>();
+	}
 
 	public void setScrollType(ScrollType scrollType) {
 		this.scrollType = scrollType;

@@ -33,9 +33,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private MovementManager gameMovement;
 	private ServerMain serverMain;
 
-	// delete this later
-	private Player tempPlayer;
-
+	
 	public GameEngineBackend() {
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
@@ -43,8 +41,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void startGame(Game currentGame) {
-		tempPlayer = currentGame.getPlayers().get(0);
-		currentGame.removePlayer(tempPlayer);
+		currentGame.getCurrentLevel().removeAllPlayers();
 		this.currentGame = currentGame;
 		this.mainCharImprint = new Position();
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
@@ -134,7 +131,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void addClientCharacter() {
-		currentGame.addPlayer(tempPlayer);
+//		currentGame.addPlayer(tempPlayer);
 	}
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj) {
@@ -190,10 +187,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	@Override
-	public void runControl(String controlName) {
+	public void runControl(String controlName, int ID) {
 		try {
 			Method method = gameMovement.getClass().getDeclaredMethod(controlName, GameObject.class, double.class);
-			method.invoke(gameMovement, tempPlayer.getMainChar(), 500);
+			method.invoke(gameMovement, currentGame.getPlayers().get(ID).getMainChar(), 500);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
