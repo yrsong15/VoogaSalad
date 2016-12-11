@@ -172,6 +172,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         }
         // add Game Objects to level
         myDataStoreInterface.addGameObjectsToLevel();
+        myDataStoreInterface.storeMainCharToXML();
         addGround();
         closeLevelWindow.set(true);
     }
