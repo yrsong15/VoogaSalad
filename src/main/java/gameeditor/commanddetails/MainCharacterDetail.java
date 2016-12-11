@@ -155,8 +155,7 @@ public class MainCharacterDetail extends AbstractSelectDetail {
 	public void createTextField(){
 	
 	}
-
-
+	
 	@Override
 	public void switchSelectStyle(GameObjectView sprite) {
     	if (!sprite.getIsMainChar()){

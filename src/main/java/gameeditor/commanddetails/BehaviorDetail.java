@@ -48,14 +48,14 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void createSave(){
-        Button save = createButton("SaveCommand",e -> handleSave());
+        Button save = myDetailFrontEndUtil.createButton("SaveCommand",e -> handleSave());
         myVBox.getChildren().add(save);
     }
 
     private void addGameBoundary(){
         Label label = createPropertyLbl("Game Boundary");
-        gameBoundaryOptions = createComboBox(GAME_BOUNDARY_OPTIONS, DetailDefaultsResources.GAME_BOUNDARY.getResource());
-        BorderPane bp = createBorderpane(gameBoundaryOptions,label);
+        gameBoundaryOptions = myDetailFrontEndUtil.createComboBox(GAME_BOUNDARY_OPTIONS, DetailDefaultsResources.GAME_BOUNDARY.getResource());
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(gameBoundaryOptions,label);
         myVBox.getChildren().add(bp);
 
     }
@@ -63,15 +63,15 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
 
     private void addScrollSpeed(){
         scrollSpeedTextBox = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_SCROLL_SPEED.getDoubleResource()));
-        BorderPane scrollSpeed = createBorderpane(scrollSpeedTextBox,createPropertyLbl(SCROLL_SPEED_LABEL));
+        BorderPane scrollSpeed = myDetailFrontEndUtil.createBorderpane(scrollSpeedTextBox,createPropertyLbl(SCROLL_SPEED_LABEL));
         myVBox.getChildren().add(scrollSpeed);
     }
 
     private void createWinConditions(){
         myTimeWin = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_TIME_VALUE.getDoubleResource()));
-        myVBox.getChildren().add(createBorderpane(myTimeWin,createPropertyLbl(TIME_PROPERTY_LABEL)));
+        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myTimeWin,createPropertyLbl(TIME_PROPERTY_LABEL)));
         myPointsWin = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_POINTS_VALUE.getDoubleResource())); 
-        myVBox.getChildren().add(createBorderpane(myPointsWin,createPropertyLbl(POINTS_PROPERTY_LABEL)));
+        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myPointsWin,createPropertyLbl(POINTS_PROPERTY_LABEL)));
     }
 
     private void addScrollTypeOptions(){
@@ -92,8 +92,8 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void addWidthOptions(){
-        ComboBox<String>limitDimension = createComboBox(LIMIT_DIMENSION_OPTIONS,DetailDefaultsResources.LIMIT_WIDTH.getResource() );
-        myLimitWidthOption = createBorderpane(limitDimension,createPropertyLbl(LIMIT_SCROLL_WIDTH_LABEL));
+        ComboBox<String>limitDimension =myDetailFrontEndUtil. createComboBox(LIMIT_DIMENSION_OPTIONS,DetailDefaultsResources.LIMIT_WIDTH.getResource() );
+        myLimitWidthOption = myDetailFrontEndUtil.createBorderpane(limitDimension,createPropertyLbl(LIMIT_SCROLL_WIDTH_LABEL));
         myVBox.getChildren().add(myLimitWidthOption);
         limitDimension.setOnAction(e-> cbOnAction(limitDimension));
     }
@@ -101,7 +101,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private void cbOnAction(ComboBox<String> cb){
         if (cb.getValue().equals(TRUE)){
             scrollWidthTextBox = createInputField(Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()));
-            myScrollWidthBP = createBorderpane(scrollWidthTextBox,createPropertyLbl(SCROLL_WIDTH_LABEL));
+            myScrollWidthBP = myDetailFrontEndUtil.createBorderpane(scrollWidthTextBox,createPropertyLbl(SCROLL_WIDTH_LABEL));
             int index = myVBox.getChildren().indexOf(myLimitWidthOption);
             myVBox.getChildren().add(index+1, myScrollWidthBP);
 
@@ -114,7 +114,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
 
     private void addHeight(){
         myScreenHeight = createInputField(String.valueOf(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource()));
-        BorderPane scrollheight = createBorderpane(myScreenHeight,createPropertyLbl(SCROLL_HEIGHT_LABEL));
+        BorderPane scrollheight = myDetailFrontEndUtil.createBorderpane(myScreenHeight,createPropertyLbl(SCROLL_HEIGHT_LABEL));
         myVBox.getChildren().add(scrollheight);
     }
     private void handleSave(){

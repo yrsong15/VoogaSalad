@@ -4,7 +4,13 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 
 public interface IAbstractCommandDetail {
 
@@ -35,6 +41,9 @@ public interface IAbstractCommandDetail {
     public void setDataStore(IGameEditorData ged);
     public void setDesignArea(IDesignArea da);
     public void setDetailPane(IDetailPane idp);
+    
+    
+    
     
  
 }

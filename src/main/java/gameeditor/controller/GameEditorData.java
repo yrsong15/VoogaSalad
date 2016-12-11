@@ -205,8 +205,6 @@ public class GameEditorData implements IGameEditorData{
     @Override
     public void addGameBoundary (BasicBoundary gameBoundary) {
         //TODO: ADD GAME BOUNDARY -- Where? 
-
-
     }    
 }
 

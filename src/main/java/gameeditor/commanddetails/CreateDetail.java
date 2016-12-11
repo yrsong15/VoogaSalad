@@ -1,11 +1,8 @@
 package gameeditor.commanddetails;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import frontend.util.FileOpener;
-import gameeditor.view.ViewResources;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,14 +10,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class CreateDetail extends AbstractCommandDetail {
     private String myFilePath = "";
@@ -35,6 +28,9 @@ public class CreateDetail extends AbstractCommandDetail {
     private Tab mySpriteTab;
     private Tab myPlatformTab;
 
+    private ImageDetail myImageDetail;
+    private PlatformDetail myPlatformDetail;
+
 
     public CreateDetail() {
         super();
@@ -42,7 +38,9 @@ public class CreateDetail extends AbstractCommandDetail {
 
     @Override
     public void init() {
+        myPlatformDetail = new PlatformDetail();
         myTabPane = new TabPane();
+        myImageDetail = new ImageDetail();
         createSpriteTab();
         createPlatformTab();
         myTabPane.getTabs().addAll(mySpriteTab, myPlatformTab);
@@ -64,36 +62,41 @@ public class CreateDetail extends AbstractCommandDetail {
             myVBox = new VBox();
             myVBox.setSpacing(MY_DETAIL_PADDING);
             myVBox.setAlignment(Pos.CENTER);
-            
             createTypeName();
             createProperties();
-            createImageChoose();
+            myVBox.getChildren().add(myImageDetail.createImageChoose());
             createSave(e-> handleSaveSprite()); 
             mySpriteTab.setContent(myVBox);
         }
     }
-    
+
     private void setPlatformTab(){
         if(myPlatformTab.isSelected()){
             myVBox = new VBox();
             myVBox.setSpacing(MY_DETAIL_PADDING);
             myVBox.setAlignment(Pos.TOP_RIGHT);
             createTypeName();
-            createImageChoose(); 
+            createPlatformProperties();
+            myVBox.getChildren().add(myImageDetail.createImageChoose());
             createSave(e->handleSavePlatform());
             myPlatformTab.setContent(myVBox);
         }
     }
+    
+    private void createPlatformProperties(){
+        
+    }
 
     private void createSave(EventHandler<MouseEvent> handler){
-        Button save = createButton("SaveCommand",handler);
+        Button save = myDetailFrontEndUtil.createButton("SaveCommand",handler);
         myVBox.getChildren().add(save);
     }
 
     private void handleSavePlatform(){
         if(myDataStore.getType(myTypeTextArea.getText())==null){
             Map<String,String> propertiesMap = new HashMap<String,String>();
-            propertiesMap.put(DetailResources.TYPE_NAME.getResource(),myTypeTextArea.getText() );
+            propertiesMap.put(DetailResources.TYPE_NAME.getResource(),myTypeTextArea.getText());
+            myFilePath = myImageDetail.getFilePath();
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
             myDataStore.storeType(propertiesMap);
         }
@@ -105,6 +108,7 @@ public class CreateDetail extends AbstractCommandDetail {
             getPropertiesFromCombo(propertiesMap);
             getPropertiesFromTextArea(propertiesMap);
             propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
+            myFilePath = myImageDetail.getFilePath();
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
 
             // Store only if the Type does not exist
@@ -146,54 +150,6 @@ public class CreateDetail extends AbstractCommandDetail {
         return true;
     }
 
-    private void createImageChoose(){
-        myImagePane = new Pane();
-        myImagePane.setMinWidth(60);
-        myImagePane.setMaxWidth(60);
-        Button choose = createImageButton();
-        Rectangle imageZone = new Rectangle(DetailResources.TYPE_IMAGE_ZONE_WIDTH.getDoubleResource(), DetailResources.TYPE_IMAGE_ZONE_HEIGHT.getDoubleResource(), Color.GHOSTWHITE);
-        myImagePane.getChildren().add(imageZone);
-        imageZone.setArcHeight(DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource()); imageZone.setArcWidth(DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource());
-        BorderPane bp = createBorderpane(myImagePane,choose);
-        myVBox.getChildren().add(bp);
-    }
-
-    private void createImageView(){
-        myFilePath = getFilePath(ViewResources.IMAGE_FILE_TYPE.getResource(), ViewResources.SPRITE_IMAGE_LOCATION.getResource());       
-        Image i = new Image(myFilePath);
-        double imageZonePadding = DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource();
-        double imageZoneWidth = DetailResources.TYPE_IMAGE_ZONE_WIDTH.getDoubleResource();
-        double imageZoneHeight = DetailResources.TYPE_IMAGE_ZONE_HEIGHT.getDoubleResource();
-        double fitWidth = imageZoneWidth-imageZonePadding;
-        double fitHeight = imageZoneHeight-imageZonePadding;
-        double widthRatio = fitWidth/i.getWidth();
-        double heightRatio = fitHeight/i.getHeight();
-        double ratio = Math.min(widthRatio, heightRatio);
-        double endWidth = i.getWidth()*ratio;
-        double endHeight = i.getHeight()*ratio;
-        ImageView iv = new ImageView(i);
-        iv.setFitWidth(fitWidth);
-        iv.setFitHeight(fitHeight);
-        iv.setPreserveRatio(true);
-        iv.setLayoutX(imageZoneWidth/2 - endWidth/2);
-        iv.setLayoutY(imageZoneHeight/2 - endHeight/2);
-        iv.setLayoutX(imageZonePadding/2); iv.setLayoutY(imageZonePadding/2);
-        myImagePane.getChildren().add(iv);
-    }
-
-    private Button createImageButton(){
-        return createButton("ChooseImageCommand", e-> createImageView());
-    }
-
-    private String getFilePath(String fileType, String fileLocation){
-        FileOpener myFileOpener = new FileOpener();
-        File file =(myFileOpener.chooseFile(fileType, fileLocation));
-        if(file !=null){
-            return file.toURI().toString();
-        }
-        return null;
-    }
-
     private void createTypeName(){
         myTypeTextArea = new TextArea();
         myTypeTextArea = new TextArea(DetailResources.TYPE_NAME.getResource());
@@ -209,14 +165,14 @@ public class CreateDetail extends AbstractCommandDetail {
         for (String label : myPropertiesComBoArray){
             ComboBox<String> cb = createPropertyCB(label);
             myComboBoxes.add(cb);
-            BorderPane bp = createBorderpane(cb,createPropertyLbl(label));
+            BorderPane bp = myDetailFrontEndUtil.createBorderpane(cb,createPropertyLbl(label));
             myVBox.getChildren().add(bp);
         }
 
         for (String label : myPropertiesTextBox){           
             TextArea text = createInputField("0.0");
             myTextFields.add(text);
-            BorderPane bp = createBorderpane(text,createPropertyLbl(label));
+            BorderPane bp = myDetailFrontEndUtil.createBorderpane(text,createPropertyLbl(label));
             myVBox.getChildren().add(bp);
         }
     }
@@ -224,7 +180,7 @@ public class CreateDetail extends AbstractCommandDetail {
     private ComboBox<String> createPropertyCB(String property){
         DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
         String [] optionsArray = resourceChoice.getArrayResource();
-        ComboBox<String> cb = createComboBox(optionsArray,null);
+        ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,null);
         return cb;
     }
 

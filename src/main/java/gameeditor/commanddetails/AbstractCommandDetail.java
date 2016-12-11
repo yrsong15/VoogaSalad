@@ -1,25 +1,17 @@
 package gameeditor.commanddetails;
-
-
 import frontend.util.ButtonTemplate;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 
@@ -29,10 +21,11 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
     protected IGameEditorData myDataStore;
     protected IDesignArea myDesignArea;
     protected VBox myVBox;
+    protected DetailFrontEndUtil myDetailFrontEndUtil;
 
     public AbstractCommandDetail() {
-      
         myContainerPane = new ScrollPane();
+        myDetailFrontEndUtil = new DetailFrontEndUtil();
         myContainerPane.setHbarPolicy(ScrollBarPolicy.NEVER);
         myContainerPane.setVbarPolicy(ScrollBarPolicy.NEVER);
         myContainerPane.setMinWidth(MY_PANE_WIDTH);
@@ -84,34 +77,7 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
         return inputField;
     }
 
-    protected BorderPane createBorderpane(Node right, Node left){
-        BorderPane bp = new BorderPane();
-        bp.setMinWidth(PADDED_PANE_WIDTH);
-        bp.setMaxWidth(PADDED_PANE_WIDTH);
-        bp.setLeft(left);
-        bp.setRight(right);
-        return bp; 
-    }
-    
-    protected ComboBox<String> createComboBox(String [] boxOptions, String defaultValue){
-        ComboBox<String> cb = new ComboBox<String>();
-        cb.getItems().addAll(boxOptions);
-        cb.setValue(defaultValue);
-        cb.setMinWidth(CB_WIDTH);
-        cb.setMaxWidth(CB_WIDTH);
-        cb.setMinHeight(CB_HEIGHT);
-        cb.setMaxHeight(CB_HEIGHT);
-        return cb;
-    } 
-
-    protected Button createButton(String property, EventHandler<MouseEvent> handler){
-        ButtonTemplate button = new ButtonTemplate(property);
-        button.getButton().setMinHeight(CB_HEIGHT);
-        button.getButton().setMinWidth(CB_WIDTH);
-        button.setOnButtonAction(handler);
-        return button.getButton();
-    }
-
+   
     protected void handleClick(TextArea field){
         field.setText("");
     }
