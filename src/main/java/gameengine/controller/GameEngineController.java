@@ -35,7 +35,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 
-	private List<RandomGenFrame> randomlyGeneratedFrames;
     private List<Integer> highScores;
     private String xmlData;
 	private GameParser parser;
@@ -51,7 +50,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
-		randomlyGeneratedFrames = new ArrayList<>();
 	    highScores = new ArrayList<>();
 	    gameEngineView = new GameEngineUI(event -> reset());
 	    mainCharImprints = new HashMap<>();
@@ -63,7 +61,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
 	public boolean startGame(String xmlData) {
         this.xmlData = xmlData;
-        this.mainCharImprint = new Position();
 		currentGame = parser.convertXMLtoGame(xmlData);
         if(currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -78,7 +75,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		for(Player player : currentGame.getPlayers()){
             gameEngineView.mapKeys(player, player.getControls());
         }
-        addRGFrames();
+	
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
 			try {
 				updateGame();
@@ -110,17 +107,14 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             removeOffscreenElements();
         }
 		gameEngineView.update(currLevel);
-		/*for(RandomGenFrame elem: randomlyGeneratedFrames){
-            for(RandomGeneration randomGeneration : currLevel.getRandomGenRules()) {
+            for(RandomGeneration<Integer> randomGeneration : currLevel.getRandomGenRules()) {
                 try {
-					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
-				} catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException
-						| NoSuchMethodException | SecurityException e) {
+                	currLevel.getRandomGenerationFrame().possiblyGenerateNewFrame(randomGeneration);
+				} catch (IllegalArgumentException | SecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
-		}*/
         collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
         collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());
         checkProjectileDistance();
@@ -129,13 +123,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         WinChecker.checkWinConditions(this,
 				 		currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
-
-    public void setNewBenchmark() {
-        List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
-        for(RandomGenFrame elem: randomlyGeneratedFrames){
-            elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
-        }
-    }
+    
 
     @Override
     public void removeObject(GameObject obj) {
@@ -173,25 +161,23 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         endGameStage.show();
     }
     
-<<<<<<< HEAD
     public void resetObjectPosition(GameObject mainChar,GameObject obj){
     	double newPosition;
     	if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) == IntersectionAmount.COMPLETELY_INSIDE_X){
-    		if(mainCharImprint.getY() < obj.getYPosition()){
-        		newPosition = obj.getYPosition() - mainChar.getHeight();
+    		if(mainCharImprints.get(mainChar).getY() < obj.getYPosition()){
+    			//System.out.println("Resetting");
+        		newPosition = obj.getYPosition() - mainChar.getHeight()+5;
         		mainChar.setPlatformCharacterIsOn(obj);
         	}
         	else 
         		newPosition = obj.getYPosition() + obj.getHeight();
     	}
     	else{
-    		newPosition = mainCharImprint.getY();
+    		newPosition = mainCharImprints.get(mainChar).getY();
     	}
     	
-    	
-    	
     	mainChar.setYPosition(newPosition);
-    	mainChar.setXPosition(mainCharImprint.getX());
+    	mainChar.setXPosition(mainCharImprints.get(mainChar).getX());
     }
 
     @Override
@@ -225,12 +211,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         }
     }
 
-    private void addRGFrames(){
-        List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
-        for (RandomGeneration randomGeneration : randomGenerations) {
-            randomlyGeneratedFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
-        }
-    }
 
 	private void removeOffscreenElements() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getAllGameObjects();
@@ -254,10 +234,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		collisionChecker.manuallyRemoveFromConcurrentCollisionList(obj);
 	}
 
-	@Override
-	public void removeFromCollidedList(GameObject obj) {
-		collisionChecker.manuallyRemoveFromConcurrentCollisionList(obj);
-	}
 
 	@Override
 	public Game getGame() {
