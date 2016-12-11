@@ -12,7 +12,7 @@ import javafx.scene.transform.Rotate;
 import objects.ClientGame;
 import objects.ClientGameObject;
 import objects.GameObject;
-import objects.Level;
+
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -81,8 +81,8 @@ public class GameScreen {
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());
         iv.setFitWidth(object.getWidth());
-        iv.setX(object.getxPosition());
-        iv.setY(object.getyPosition());
+        iv.setX(object.getXPosition());
+        iv.setY(object.getYPosition());
         iv.setRotationAxis(Rotate.Y_AXIS);
         if(object.getDirection() == null){
             object.setDirection(Direction.RIGHT);
