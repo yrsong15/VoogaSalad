@@ -25,11 +25,11 @@ public class GameScreen {
     public static final double screenWidth = GameEngineUI.myAppWidth;
     public static final double screenHeight = GameEngineUI.myAppHeight - 100;
     private Pane myScreen;
-    private Map<GameObject, ImageView> gameObjectImageViewMap;
+    private Map<Integer, ImageView> gameObjectImageViewMap;
     public GameScreen() {
         myScreen = new Pane();
         myScreen.setMaxSize(screenWidth, screenHeight);
-        gameObjectImageViewMap = new HashMap<GameObject, ImageView>();
+        gameObjectImageViewMap = new HashMap<Integer, ImageView>();
     }
     public Pane getScreen() {
         return myScreen;
@@ -45,15 +45,18 @@ public class GameScreen {
                 BackgroundSize.DEFAULT);
         myScreen.setBackground(new Background(bi));
     }
-    //lol eric did this for testing, lmk if you need me to change it back caus ethis is sllo as shit
+    
+    
     public void init(ClientGame game) {
         for (ClientGameObject object : game.getAllGameObjects()) {
             addGameObject(object);
         }
     }
+    
+    
     public void removeObject(GameObject object) {
         myScreen.getChildren().remove(object);
-        myScreen.getChildren().remove(gameObjectImageViewMap.get(object));
+        myScreen.getChildren().remove(gameObjectImageViewMap.get(object.getID()));
         gameObjectImageViewMap.remove(object);
     }
     // public void update(Level level) {
@@ -66,10 +69,23 @@ public class GameScreen {
     // }
     // }
     // }
+    
+    public void update(ClientGame game){
+        for (ClientGameObject object : game.getAllGameObjects()) {
+             if (gameObjectImageViewMap.containsKey(object.getID())) {
+	             gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
+	             object.getYPosition());
+             } 
+             else {
+            	 addGameObject(object);
+             }
+        }
+    }
+    /**
     public void update(ClientGame game) {
         myScreen.getChildren().clear();
         init(game);
-    }
+    }**/
     public void reset() {
         gameObjectImageViewMap.clear();
         myScreen.getChildren().clear();
@@ -92,6 +108,7 @@ public class GameScreen {
         }else{
             iv.setRotate(0);
         }
+        gameObjectImageViewMap.put(object.getID(), iv);
         myScreen.getChildren().add(iv);
     }
 }
