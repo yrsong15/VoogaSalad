@@ -171,7 +171,8 @@ public class GalleryView implements IGalleryView{
 //        label.setFill(Color.LIGHTBLUE);
 //        label.setTranslateX(110);
 //        label.setTranslateY(115);
-        Text label = myFactory.makeLabel("To edit or load an existing game, select from the gallery", GALLERY_CORNER_X + 10, GALLERY_CORNER_Y + 15, 20);
+        Text label = myFactory.makeLabel("To edit or load an existing game, select from the gallery",
+                GALLERY_CORNER_X + 10, GALLERY_CORNER_Y + 15, 20);
         label.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         galleryWindow.getChildren().addAll(backdrop, label);
     }

@@ -28,7 +28,6 @@ import utils.ReflectionUtil;
  *         Moon
  */
 
-
 public class GameEngineController implements RuleActionHandler, RGInterface, CommandInterface, GameHandler {
     public static final double FRAMES_PER_SECOND = 60;
     public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -149,7 +148,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
     }
 
-    public void goNextLevel(){
+    public void goNextLevel() {
         if(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
             currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
         }else{
@@ -172,9 +171,10 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         endGameStage.show();
     }
     
-    public void resetObjectPosition(GameObject mainChar,GameObject obj){
+    public void resetObjectPosition(GameObject mainChar,GameObject obj) {
     	double newPosition;
-    	if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) == IntersectionAmount.COMPLETELY_INSIDE_X){
+    	if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj)
+                == IntersectionAmount.COMPLETELY_INSIDE_X){
     		if(mainCharImprints.get(mainChar).getY() < obj.getYPosition()){
         		newPosition = obj.getYPosition() - mainChar.getHeight();
         		mainChar.setPlatformCharacterIsOn(obj);
@@ -231,8 +231,9 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	private void removeOffscreenElements() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getAllGameObjects();
 		if(objects.size() == 0 || objects == null) return;
-		for(int i= objects.size()-1; i >= 0; i--){
-			if(objects.get(i).getXPosition()> -(2*GameEngineUI.myAppWidth) || objects.get(i) == null) continue;//CHANGE THIS TO PIPE WIDTH
+		for(int i = objects.size() - 1; i >= 0; i--){
+			if(objects.get(i).getXPosition()> - (2 * GameEngineUI.myAppWidth) || objects.get(i) == null)
+			    continue;//CHANGE THIS TO PIPE WIDTH
             gameEngineView.removeObject(objects.get(i));
             objects.remove(i);
 		}
@@ -265,7 +266,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
                     removeObject(projectile);
                     itr.remove();
                 }
-            }else{
+            }else {
                 if(projectile.getYDistanceMoved() >= properties.getRange()){
                     removeObject(projectile);
                     itr.remove();

@@ -19,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
+
 import javafx.event.EventHandler;
 /**
  * Created by Delia on 11/15/2016.
@@ -50,7 +52,8 @@ public class SplashScreen implements ISplashScreen {
     public Parent setUpWindow() {
         startWindow = new Pane();
         startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
-        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
+        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("Animated");
+//        backgroundImageMainScreen.
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
         startWindow.getChildren().add(backgroundImageMainScreen);
