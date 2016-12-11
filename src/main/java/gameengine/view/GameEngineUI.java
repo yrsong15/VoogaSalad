@@ -96,15 +96,8 @@ public class GameEngineUI implements UDPHandler{
 	public Scene getScene() {
 		return scene;
 	}
-	public double getScreenHeight() {
-		return gameScreen.getScreenHeight();
-	}
-	public double getScreenWidth() {
-		return gameScreen.screenWidth;
-	}
 	public void update() {
 		gameScreen.update(currentGame);
-//		myHUD.update(currentGame);
 	}
 	public void playMusic(String musicFileName) {
 		try {
@@ -148,7 +141,7 @@ public class GameEngineUI implements UDPHandler{
 			try {
 				update();
 			} catch (Exception exception) {
-				myErrorMessage.showError(myResources.getString("AnimationError"));
+                exception.printStackTrace();
 			}
 		});
 		animation = new Timeline();
@@ -187,9 +180,7 @@ public class GameEngineUI implements UDPHandler{
 		gameScreen.reset();
 		myHUD.resetTimer();
 	}
-	public void removeObject(GameObject object) {
-		gameScreen.removeObject(object);
-	}
+
 	private void setUpMethodMappings() {
 		try {
 			ResourceReader resources = new ResourceReader("Controls");

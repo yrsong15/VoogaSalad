@@ -169,7 +169,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     //TODO: Change hardcoded value for ground values
     private void addGround(){
-        GameObject ground = new GameObject(ServerMain.idCounter++,0,600,1000000,200, new HashMap<>());
+        GameObject ground = new GameObject(0, 0,600,1000000,200, new HashMap<>());
         ground.setProperty("damage","30");
         myLevelSettings.addGameObject(ground);
     }

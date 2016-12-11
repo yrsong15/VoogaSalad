@@ -113,7 +113,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void removeObject(GameObject obj) {
-		currentGame.getCurrentLevel().removeGameObject(obj);
+        currentGame.getCurrentLevel().removeGameObject(obj);
 	}
 
 	@Override

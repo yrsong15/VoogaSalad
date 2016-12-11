@@ -172,7 +172,7 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
-        GameObject mainCharacter = new GameObject(ServerMain.idCounter++, xpos,ypos,MAIN_CHAR_WIDTH,MAIN_CHAR_HEIGHT,this.mainCharacterImageFilePath,properties);
+        GameObject mainCharacter = new GameObject(xpos,ypos,MAIN_CHAR_WIDTH,MAIN_CHAR_HEIGHT,this.mainCharacterImageFilePath,properties);
         myLevel.addGameObject(mainCharacter);
     }
 
@@ -187,7 +187,7 @@ public class GameEditorData implements IGameEditorData{
 
             Map<String,String> properties = getPropertiesMap(type);
             
-          GameObject myObject = new GameObject(ServerMain.idCounter++, xPosition,yPosition,width,height,imagePath,properties);
+          GameObject myObject = new GameObject(xPosition,yPosition,width,height,imagePath,properties);
           myLevel.addGameObject(myObject);   
         }
     }

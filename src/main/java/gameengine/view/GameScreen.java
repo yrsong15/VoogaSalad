@@ -1,5 +1,6 @@
 package gameengine.view;
 import com.sun.javafx.scene.traversal.Direction;
+import gameengine.network.server.ServerMain;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -11,9 +12,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 import objects.ClientGame;
 import objects.ClientGameObject;
-import objects.GameObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 /**
  * @author Noel Moon (nm142)
@@ -29,7 +30,7 @@ public class GameScreen {
     public GameScreen() {
         myScreen = new Pane();
         myScreen.setMaxSize(screenWidth, screenHeight);
-        gameObjectImageViewMap = new HashMap<Integer, ImageView>();
+        gameObjectImageViewMap = new HashMap<>();
     }
     public Pane getScreen() {
         return myScreen;
@@ -45,39 +46,42 @@ public class GameScreen {
                 BackgroundSize.DEFAULT);
         myScreen.setBackground(new Background(bi));
     }
-    
-    
+
+
     public void init(ClientGame game) {
-        for (ClientGameObject object : game.getAllGameObjects()) {
-            addGameObject(object);
+        Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
+        for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
+            addGameObject(entry.getValue());
         }
     }
-    
-    
-    public void removeObject(GameObject object) {
-        myScreen.getChildren().remove(object);
-        myScreen.getChildren().remove(gameObjectImageViewMap.get(object.getID()));
-        gameObjectImageViewMap.remove(object);
-    }
-    
+
     public void update(ClientGame game){
-        for (ClientGameObject object : game.getAllGameObjects()) {
-             if (gameObjectImageViewMap.containsKey(object.getID())) {
-	             gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
-	             object.getYPosition());
-             } 
-             else {
-            	 addGameObject(object);
-             }
+        Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
+        for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
+            ClientGameObject object = entry.getValue();
+            if (gameObjectImageViewMap.containsKey(object.getID())) {
+                gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
+                        object.getYPosition());
+            }
+            else {
+                addGameObject(object);
+            }
+        }
+        for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
+            int ID = it.next();
+            if(!allGameObjects.containsKey(ID)){
+                myScreen.getChildren().remove(gameObjectImageViewMap.get(ID));
+                it.remove();
+            }
         }
     }
-    
+
     public void reset() {
         gameObjectImageViewMap.clear();
         myScreen.getChildren().clear();
     }
-    
-    
+
+
     private void addGameObject(ClientGameObject object) {
         if (object.getImageFileName() == null)
             return;

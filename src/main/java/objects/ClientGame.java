@@ -3,29 +3,34 @@ package objects;
 import gameengine.network.server.ServerMain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClientGame {
 
-	List<ClientGameObject> list;
+	Map<Integer, ClientGameObject> gameObjectMap;
     private String musicFilePath;
 	private String backgroundFilePath;
 
 	public ClientGame(String musicFilePath, String backgroundFilePath) {
-		list = new ArrayList<ClientGameObject>();
+		gameObjectMap = new HashMap<>();
 		this.musicFilePath = musicFilePath;
 		this.backgroundFilePath = backgroundFilePath;
 	}
 
 	public void addAll(List<GameObject> allGameObjects) {
 		for (GameObject o : allGameObjects) {
-			list.add(new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
+			if(o.getID() == 0) {
+				o.setID(ServerMain.idCounter++);
+			}
+			gameObjectMap.put(o.getID(), new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
 					o.getDirection(), o.getImageFileName()));
 		}
 	}
 	
-	public List<ClientGameObject> getAllGameObjects(){
-		return list;
+	public Map<Integer, ClientGameObject> getAllGameObjects(){
+		return gameObjectMap;
 	}
 
 	public String getMusicFilePath() {
