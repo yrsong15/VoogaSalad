@@ -33,7 +33,7 @@ public class GameEngineController implements CommandInterface {
             alert.showAndWait();
             return false;
         }
-        if (!multiplayer) {
+        if (!multiplayer || (multiplayer && isServer)) {
             Thread serverThread = new Thread() {
                 public void run() {
                     startServerGame(currentGame);

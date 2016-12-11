@@ -24,18 +24,28 @@ public class GameObject {
     private ProjectileProperties projectileProperties;
     private boolean isPlayer;
     private Direction direction;
+    private int id;
 
-    public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
+    public GameObject(int id, double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
-        this(xPosition, yPosition, width, height, properties);
+        this(id, xPosition, yPosition, width, height, properties);
         this.imageFileName = imageFileName;
     }
-    public GameObject(double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
+    public GameObject(int id, double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
+        this.id = id;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
         this.properties = properties;
+    }
+
+    public int getID(){
+        return id;
+    }
+
+    public void setID(int id){
+        this.id = id;
     }
 
     public void setDirection(Direction direction){
