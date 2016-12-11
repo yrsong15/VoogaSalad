@@ -19,9 +19,9 @@ public class Game implements IGame{
 	private Map<Integer, Level> levels;
 	private Level currentLevel;
 	private List<Player> players;
-	private Map<Integer, List<Player>> clientMappings;
+	private Map<Long, List<Player>> clientMappings;
 
-	public Map<Integer, List<Player>> getClientMappings(){
+	public Map<Long, List<Player>> getClientMappings(){
 	    return clientMappings;
     }
 
@@ -45,7 +45,7 @@ public class Game implements IGame{
 		this.name = name;
 	}
 
-	public void addPlayerToClient(int ID, Player player){
+	public void addPlayerToClient(long ID, Player player){
 		if(!clientMappings.containsKey(ID)){
 			List<Player> players = new ArrayList<>();
 			players.add(player);
