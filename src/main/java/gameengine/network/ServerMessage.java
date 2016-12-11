@@ -6,6 +6,7 @@ public class ServerMessage{
 	public String command;
 	public long id;
 	public int port;
+	public int charIdx;
 	
 	public ServerMessage(){}
 	
@@ -23,6 +24,10 @@ public class ServerMessage{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public void setCharIdx(int idx){
+		charIdx = idx;
 	}
 	
 }

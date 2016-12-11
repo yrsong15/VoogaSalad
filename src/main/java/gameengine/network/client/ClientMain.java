@@ -19,7 +19,7 @@ import objects.Player;
  *         Go to www.tskrebe.me for more info
  * 
  */
-public class ClientMain implements ControlInterface {
+public class ClientMain{
 
 	public static long ID = -1; // we get ID from the server side
 
@@ -28,9 +28,11 @@ public class ClientMain implements ControlInterface {
 	private String server_ip;
 	private int server_port_tcp;
 	private int client_port_udp;
+	private UDPHandler handler;
 
 	public ClientMain(String ip, int portTcp, int portUdp, UDPHandler handler) {
 		server_ip = ip;
+		this.handler = handler;
 		// server_port_tcp = portTcp;
 		server_port_tcp = 9090;
 		client_port_udp = portUdp;
@@ -46,13 +48,17 @@ public class ClientMain implements ControlInterface {
 	}
 
 	/** Function to send main characters data to server */
-	public void sendCharacterCommand(String command) {
-		connections.sendCommand(command);
+	public void sendCharacterCommand(String command, int charIdx) {
+		connections.sendCommand(command, charIdx);
 	}
 
 	/** Closing game */
 	public void closingOperations() {
 		connections.removeCharacter(ID);
+	}
+	
+	public long getID(){
+		return ID;
 	}
 
 
@@ -60,46 +66,42 @@ public class ClientMain implements ControlInterface {
 //		return game;
 //	}
 
-	@Override
+
 	public void moveUp(GameObject player, double speed) {
 		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
 		// " = " + Double.toString(speed));
-		sendCharacterCommand("moveUp");
+		
+		sendCharacterCommand("moveUp", handler.getCharIdx(player));
 	}
 
-	@Override
 	public void moveDown(GameObject player, double speed) {
 		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
 		// " = " + Double.toString(speed));
-		sendCharacterCommand("moveDown");
+		sendCharacterCommand("moveDown", handler.getCharIdx(player));
 	}
 
-	@Override
 	public void moveRight(GameObject player, double speed) {
 		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
 		// " = " + Double.toString(speed));
-		sendCharacterCommand("moveRight");
+		sendCharacterCommand("moveRight", handler.getCharIdx(player));
 	}
 
-	@Override
 	public void moveLeft(GameObject player, double speed) {
 		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
 		// " = " + Double.toString(speed));
-		sendCharacterCommand("moveLeft");
+		sendCharacterCommand("moveLeft", handler.getCharIdx(player));
 	}
 
-	@Override
 	public void jump(GameObject player, double speed) {
 		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
 		// " = " + Double.toString(speed));
-		sendCharacterCommand("jump");
+		sendCharacterCommand("jump", handler.getCharIdx(player));
 	}
 
-	@Override
 	public void shootProjectile(GameObject player, double speed) {
 		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
 		// " = " + Double.toString(speed));
 //		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());
-		sendCharacterCommand("shootProjectile");
+		sendCharacterCommand("shootProjectile", handler.getCharIdx(player));
 	}
 }

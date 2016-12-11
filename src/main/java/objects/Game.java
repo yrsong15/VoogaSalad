@@ -60,9 +60,13 @@ public class Game implements IGame{
 		players.remove(player);
 	}
 
-	public List<Player> getPlayers(){
-        return players;
-    }
+//	public List<Player> getPlayers(){
+//        return players;
+//    }
+	
+	public void addPlayer(Player player){
+		players.add(player);
+	}
 
 	public void addLevel(Level level) {
 		levels.put(level.getLevel(),level);

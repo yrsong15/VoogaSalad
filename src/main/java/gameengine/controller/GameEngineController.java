@@ -8,6 +8,7 @@ import objects.*;
 import xml.XMLSerializer;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
@@ -46,7 +47,7 @@ public class GameEngineController implements CommandInterface {
 			};
 			serverThread.start();
 		}
-		startClientGame(currentGame.getPlayers());
+		startClientGame(currentGame.getClientMappings());
 		return true;
 	}
 
@@ -55,22 +56,19 @@ public class GameEngineController implements CommandInterface {
 		backend.startGame(currentGame);
 	}
 
-	public void startClientGame(List<Player> players) {
+	public void startClientGame(Map<Long, List<Player>> playerMapping) {
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
-		beginUI(players);
-	}
-
-	public void beginUI(List<Player> players) {
-		gameEngineView.initLevel();
-		for(Player player : players) {
-            gameEngineView.mapKeys(player, player.getControls());
-        }
+		gameEngineView.initLevel(playerMapping);
+		
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
 	}
+
+		
+
 
 	public Scene getScene() {
 		return gameEngineView.getScene();

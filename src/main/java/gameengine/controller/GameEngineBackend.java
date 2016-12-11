@@ -45,15 +45,17 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		serverMain = new ServerMain(this, 9090, serverName);
 
 	}
-	
-	public void addPlayersToClient(int ID){
-	    for(Map.Entry<Long, List<Player>> entry : currentGame.getClientMappings().entrySet()) {
-            if(entry.getKey() == ID){
-            	for(Player p: entry.getValue()){
-                currentGame.getCurrentLevel().addGameObject(p.getMainChar());
-            	}
-            }
-        }
+
+	public void addPlayersToClient(int ID) {
+		for (Map.Entry<Long, List<Player>> entry : currentGame.getClientMappings().entrySet()) {
+			if (entry.getKey() == ID) {
+				for (Player p : entry.getValue()) {
+					System.out.print("dsf");
+					currentGame.addPlayer(p);
+					currentGame.getCurrentLevel().addGameObject(p.getMainChar());
+				}
+			}
+		}
 	}
 
 	private void addRGFrames() {
@@ -90,12 +92,12 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		for (GameObject mainChar : mainChars) {
 			Position position = new Position();
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
-			mainCharImprints.put( mainChar, position);
+			mainCharImprints.put(mainChar, position);
 			mainChar.checkPlatformStatus();
 		}
-        checkProjectileDistance();
-        collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
-        collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());		// checkProjectileDistance();
+		checkProjectileDistance();
+		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
+		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
 		LossChecker.checkLossConditions(this, currLevel.getLoseConditions(), currLevel.getGameConditions());
 		WinChecker.checkWinConditions(this, currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
@@ -120,7 +122,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void removeObject(GameObject obj) {
-        currentGame.getCurrentLevel().removeGameObject(obj);
+		currentGame.getCurrentLevel().removeGameObject(obj);
 	}
 
 	@Override
@@ -138,26 +140,25 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void addClientCharacter() {
-//		currentGame.addPlayer(tempPlayer);
+		// currentGame.addPlayer(tempPlayer);
 	}
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj) {
-        double newPosition;
-        if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) == IntersectionAmount.COMPLETELY_INSIDE_X){
-            if(mainCharImprints.get(mainChar).getY() < obj.getYPosition()){
-                //System.out.println("Resetting");
-                newPosition = obj.getYPosition() - mainChar.getHeight()+5;
-                mainChar.setPlatformCharacterIsOn(obj);
-            }
-            else
-                newPosition = obj.getYPosition() + obj.getHeight();
-        }
-        else{
-            newPosition = mainCharImprints.get(mainChar).getY();
-        }
+		double newPosition;
+		if (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
+				obj) == IntersectionAmount.COMPLETELY_INSIDE_X) {
+			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
+				// System.out.println("Resetting");
+				newPosition = obj.getYPosition() - mainChar.getHeight() + 5;
+				mainChar.setPlatformCharacterIsOn(obj);
+			} else
+				newPosition = obj.getYPosition() + obj.getHeight();
+		} else {
+			newPosition = mainCharImprints.get(mainChar).getY();
+		}
 
-        mainChar.setYPosition(newPosition);
-        mainChar.setXPosition(mainCharImprints.get(mainChar).getX());
+		mainChar.setYPosition(newPosition);
+		mainChar.setXPosition(mainCharImprints.get(mainChar).getX());
 	}
 
 	private void addHighScore(int score) {
@@ -201,10 +202,16 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	@Override
-	public void runControl(String controlName, int ID) {
+	public void runControl(String controlName, int ID, int charIdx) {
 		try {
 			Method method = gameMovement.getClass().getDeclaredMethod(controlName, GameObject.class, double.class);
-			method.invoke(gameMovement, currentGame.getPlayers().get(ID).getMainChar(), 10);
+			Map<Long, List<Player>> a = currentGame.getClientMappings();
+			List<Player> b = a.get(ID);
+			System.out.println("charIdx: "+charIdx+"      ID: " + ID);
+			Player c = b.get(charIdx);
+			GameObject d = c.getMainChar();
+			
+//			method.invoke(gameMovement, .get(ID).get(charIdx).getMainChar(), 10);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -216,30 +223,29 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		return generateClientGame(getGame());
 	}
 
-
-    private ClientGame generateClientGame(Game game) {
+	private ClientGame generateClientGame(Game game) {
 		Level currLevel = game.getCurrentLevel();
 		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath());
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
 		return clientGame;
 	}
 
-    private void checkProjectileDistance(){
-        for(Iterator<GameObject> itr = currentGame.getCurrentLevel().getProjectiles().iterator(); itr.hasNext();){
-            GameObject projectile = itr.next();
-            ProjectileProperties properties = projectile.getProjectileProperties();
-            if(properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)){
-                if(projectile.getXDistanceMoved() >= properties.getRange()){
-                    removeObject(projectile);
-                    itr.remove();
-                }
-            }else{
-                if(projectile.getYDistanceMoved() >= properties.getRange()){
-                    removeObject(projectile);
-                    itr.remove();
-                }
-            }
-        }
-    }
+	private void checkProjectileDistance() {
+		for (Iterator<GameObject> itr = currentGame.getCurrentLevel().getProjectiles().iterator(); itr.hasNext();) {
+			GameObject projectile = itr.next();
+			ProjectileProperties properties = projectile.getProjectileProperties();
+			if (properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)) {
+				if (projectile.getXDistanceMoved() >= properties.getRange()) {
+					removeObject(projectile);
+					itr.remove();
+				}
+			} else {
+				if (projectile.getYDistanceMoved() >= properties.getRange()) {
+					removeObject(projectile);
+					itr.remove();
+				}
+			}
+		}
+	}
 
 }

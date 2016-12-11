@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -61,11 +62,12 @@ public class GameEngineUI implements UDPHandler{
 	private Map<KeyCode, Boolean> keyPressed = new HashMap<>();
 	private EventHandler<ActionEvent> resetEvent;
 	private Timeline animation;
-	private ControlInterface controlInterface;
+	private ClientMain clientMain;
 	private CommandInterface commandInterface;
 	private Stage endGameStage;
 	private ClientGame currentGame;
 	private XMLSerializer mySerializer;
+	private List<Player> clientPlayerList;
 
 	private boolean isPaused,isMuted;
 	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, String serverName) {
@@ -73,14 +75,14 @@ public class GameEngineUI implements UDPHandler{
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-		controlInterface = new ClientMain(serverName, 9090, -1, this);
+		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
 
 		setUpMethodMappings();
 	}
 
-	public void initLevel() {
+	public void initLevel(Map<Long, List<Player>> playerMapping) {
 		if (currentGame.getMusicFilePath() != null) {
 			playMusic(currentGame.getMusicFilePath());
 		}
@@ -90,6 +92,10 @@ public class GameEngineUI implements UDPHandler{
 		gameScreen.reset();
 		gameScreen.init(currentGame);
 		myHUD.resetTimer();
+		clientPlayerList = playerMapping.get(clientMain.getID());
+		for(Player player : clientPlayerList) {
+            mapKeys(player, player.getControls());
+        }
 	}
 	public Scene getScene() {
 		return scene;
@@ -122,7 +128,8 @@ public class GameEngineUI implements UDPHandler{
 		for(KeyCode key : keyPressed.keySet()){
 			if(keyPressed.get(key).equals(true)){
 				Player player = playerMappings.get(key);
-				keyMappings.get(key).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
+				
+				keyMappings.get(key).invoke(clientMain, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 			}
 		}
 	}
@@ -185,7 +192,7 @@ public class GameEngineUI implements UDPHandler{
 			Iterator<String> keys = resources.getKeys();
 			while (keys.hasNext()) {
 				String key = keys.next();
-				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key),
+				methodMappings.put(key, clientMain.getClass().getDeclaredMethod(resources.getResource(key),
 						GameObject.class, double.class));
 			}
 		} catch (
@@ -277,5 +284,13 @@ public class GameEngineUI implements UDPHandler{
 
 	public boolean gameLoadedFromServer(){
 		return currentGame!=null;
+	}
+
+	@Override
+	public int getCharIdx(GameObject player) {
+		for(int i=0;i<clientPlayerList.size();i++){
+			if(clientPlayerList.get(i).getMainChar()==player) return i;
+		}
+		return -1;
 	}
 }

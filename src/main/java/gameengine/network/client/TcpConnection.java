@@ -58,10 +58,11 @@ class TcpConnection {
 	}
 	
 	/** Sends data about the main character to server. Velocity, etc. */
-	void sendCommand(String command) {
+	void sendCommand(String command, int charIdx) {
 		try {
 			ServerMessage sm = new ServerMessage(SEND_COMMAND);
 			sm.setCommand(command);
+			sm.setCharIdx(charIdx);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			oos.reset();
