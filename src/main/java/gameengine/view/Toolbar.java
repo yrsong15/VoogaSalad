@@ -39,7 +39,6 @@ public class Toolbar implements IToolbar {
 	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause, 
 			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute, EventHandler<ActionEvent> save) {
 		myResources = resources;
-		myPauseEvent = pause;
 		myResetEvent = reset;
 		myMuteEvent = mute;
 		mySaveEvent = save;

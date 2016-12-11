@@ -52,7 +52,7 @@ public class GameEngineUI implements UDPHandler{
 	private ErrorMessage myErrorMessage;
 	private String myLevelFileLocation;
 	private Toolbar toolbar;
-	private HUD myHUD;
+	private HUD hud;
 	private GameScreen gameScreen;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Player> playerMappings = new HashMap<>();
@@ -117,7 +117,7 @@ public class GameEngineUI implements UDPHandler{
 		try {
 			gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
-			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
+			errorMessage.showError(resources.getString("BackgroundImageFileError"));
 		}
 	}
 	private void checkKeyPressed() throws InvocationTargetException, IllegalAccessException {
@@ -216,8 +216,8 @@ public class GameEngineUI implements UDPHandler{
 		return toolbar.getToolbar();
 	}
 	private Node makeHUD() {
-		myHUD = new HUD();
-		return myHUD.getHUD();
+		hud = new HUD();
+		return hud.getHUD();
 	}
 	private Node makeGameScreen() {
 		gameScreen = new GameScreen();
@@ -239,7 +239,7 @@ public class GameEngineUI implements UDPHandler{
 		FileChooser levelChooser = new FileChooser();
 		levelChooser.setTitle("Open Level File");
 		File levelFile = levelChooser.showOpenDialog(new Stage());
-		myLevelFileLocation = levelFile.getAbsolutePath();
+		//myLevelFileLocation = levelFile.getAbsolutePath();
 	}
 	private void pause() {
 		if (isPaused) {
@@ -252,7 +252,26 @@ public class GameEngineUI implements UDPHandler{
 		stopMusic();
 		isPaused = !isPaused;
 	}
-	private void setUpKeystrokeListeners() {
+	
+	private void pref() {
+		if (prefStage == null){
+			prefStage = new Stage();
+		}
+		prefStage.setScene(multiplayerPrefScreen.getScene());
+		prefStage.show();
+	}
+	
+	public void onlineMulti() {
+		multiplayerPrefScreen.onlineMulti();
+		pref();
+		multiplayerPrefScreen.reset();
+	}
+	
+	public void localMulti() {
+		
+	}
+
+	private void setUpKeystrokeListeners(Player player) {
 		this.scene.setOnKeyPressed(event -> {
 			if (keyMappings.containsKey(event.getCode())) {
 				keyPressed.put(event.getCode(), true);
