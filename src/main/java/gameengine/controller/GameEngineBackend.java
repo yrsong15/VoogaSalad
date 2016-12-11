@@ -15,6 +15,7 @@ import gameengine.model.WinChecker;
 import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 import javafx.scene.control.Alert;
+import objects.ClientGame;
 import objects.Game;
 import objects.GameObject;
 import objects.Level;
@@ -194,10 +195,21 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			Method method = gameMovement.getClass().getDeclaredMethod(controlName, GameObject.class, double.class);
 			method.invoke(gameMovement, tempPlayer.getMainChar(), 500);
 
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	@Override
+	public ClientGame getClientGame() {
+		return generateClientGame(getGame());
+	}
+
+	private ClientGame generateClientGame(Game game) {
+		Level currLevel = game.getCurrentLevel();
+		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath());
+		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
+		return clientGame;
 	}
 
 }

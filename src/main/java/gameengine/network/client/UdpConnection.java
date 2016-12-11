@@ -14,10 +14,11 @@ import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
-import gameeditor.xml.XMLSerializer;
 import gameengine.network.server.UDPHandler;
+import objects.ClientGame;
 import objects.Game;
 import objects.GameObject;
+import xml.XMLSerializer;
 
 /**
 * This class establishes UDP connection with server and receives data about
@@ -27,7 +28,7 @@ class UdpConnection implements Runnable {
 	
 		private ClientMain main;
 		
-		private byte[] buffer = new byte[1024 * 3];
+		private byte[] buffer = new byte[1024 * 10];
 		
 		private DatagramSocket datagramSocket;
 		
@@ -56,14 +57,12 @@ class UdpConnection implements Runnable {
 			try {
 				if (UDP_PORT < 0 || UDP_PORT > 65535){
 					datagramSocket = new DatagramSocket();
-					System.err.append(UDP_PORT + "port is not possible. Random port assigned");
 				}
 				else{
 					datagramSocket = new DatagramSocket(UDP_PORT);
 				}
 				// send info about UDP to server
 				tcpConnection.sendIpIdPort(datagramSocket.getLocalPort());
-				System.err.println(datagramSocket.getLocalPort());
 				DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 				while (true) {
 
@@ -75,8 +74,7 @@ class UdpConnection implements Runnable {
 //						data = (String) ois.readObject();
 						BufferedReader bfReader = new BufferedReader(new InputStreamReader(bais));
 						data = bfReader.readLine();
-//						System.out.println(data);
-						String endTag = "</objects.Game>";
+						String endTag = "</objects.ClientGame>";
 						int end = data.indexOf(endTag);
 						data = data.substring(0, end+endTag.length());
 //						System.out.println(data.length());
@@ -84,9 +82,9 @@ class UdpConnection implements Runnable {
 						e1.printStackTrace();
 						continue;
 					}
-					Game game = null;
+					ClientGame game = null;
 					try {
-						game = serializer.getGameFromString(data);
+						game = serializer.getClientGameFromString(data);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

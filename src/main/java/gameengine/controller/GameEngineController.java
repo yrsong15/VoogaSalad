@@ -6,7 +6,6 @@ import com.sun.javafx.scene.traversal.Direction;
 import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
-import gameeditor.xml.XMLSerializer;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.GameHandler;
 import gameengine.controller.interfaces.RGInterface;
@@ -23,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.*;
 import utils.ReflectionUtil;
+import xml.XMLSerializer;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
@@ -67,11 +67,11 @@ public class GameEngineController implements CommandInterface {
 				}
 			};
 			serverThread.start();
-			startClientGame();
+			startClientGame(currentGame.getPlayers().get(0));
 		} else if (isServer) {
 			startServerGame(currentGame);
 		} else {
-			startClientGame();
+			startClientGame(currentGame.getPlayers().get(0));
 		}
 		return true;
 	}
@@ -81,8 +81,9 @@ public class GameEngineController implements CommandInterface {
 		backend.startGame(currentGame);
 	}
 
-	public void startClientGame() {
-		gameEngineView = new GameEngineUI(this, serializer, event -> reset());
+
+	public void startClientGame(Player player) {
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player);
 //		Timer timer = new Timer();
 //		timer.scheduleAtFixedRate(new TimerTask() {
 //
@@ -100,7 +101,6 @@ public class GameEngineController implements CommandInterface {
 			//staller
 			System.out.print("");
 		}
-		System.out.println("done");
 		beginUI();
 	}
 
