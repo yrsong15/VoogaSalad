@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 public enum DetailResources {
                 //PROPERTIES(new String[]{"Destructible","Damage","Points","Time","Health","Gravity","Speed","Random","Movable"}),
 		SPRITE_PROPERTIES_TEXT_INPUT_LABEL(new String [] { "Damage", "Points", "Health","Gravity","Horizontal Speed","Jump"}),
-		CONTROL_OPTIONS( new String[] {"Up", "Down", "Right", "Left", "Jump", "Shoot"}),
+		
 		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
 		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
 		RANDOM_GEN_KEY("randomgeneration"),
@@ -19,12 +19,9 @@ public enum DetailResources {
 		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
 		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
 		
-		GAMEBOUNDARY_OPTIONS(new String[] {"Toroidal","Stop At Edge"}),
-		
 		X_POSITION_KEY("xPosition"),
                 Y_POSITION_KEY("yPosition"),
-                PLATFORM_LABEL("Platform"),
-                PLATFORM_KEY("platform"),
+                
 		
 		// Limit Width
 		LIMIT_DIMENSION_LABEL("Limit Dimension"),

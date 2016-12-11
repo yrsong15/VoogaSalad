@@ -8,14 +8,13 @@ import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameengine.model.boundary.BasicBoundary;
 import gameengine.view.GameScreen;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import objects.GameObject;
+import objects.Level;
 import objects.RandomGeneration;
 import objects.ScrollType;
-import objects.interfaces.ILevel;
 
 /**
  * @author pratikshasharma, John Martin
@@ -24,7 +23,7 @@ import objects.interfaces.ILevel;
 public class GameEditorData implements IGameEditorData{
     private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
 
-    private ILevel myLevel;
+    private Level myLevel;
 
     // public static final double SPRITE_WIDTH = 100;
     // public static final double SPRITE_HEIGHT = 150;
@@ -32,7 +31,7 @@ public class GameEditorData implements IGameEditorData{
     public static final double MAIN_CHAR_HEIGHT = 50;
     private String mainCharacterImageFilePath;
 
-    public GameEditorData(ILevel level){
+    public GameEditorData(Level level){
         myLevel = level;
     }
 
@@ -63,18 +62,18 @@ public class GameEditorData implements IGameEditorData{
 
     // Adds Game Object TO level
     public void addGameObjectToLevel(Map<String,String> myGameObjMap){ 
-        ////        for(String key: myGameObjMap.keySet()){
-        ////            System.out.println(" Key: " + key + " Value: " +myGameObjMap.get(key) );
-        ////        }
-        //   
-        //        double xPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.X_POSITION_KEY));
-        //        double yPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.Y_POSITION_KEY));
-        //        double width = Double.valueOf(myGameObjMap.get(WIDTH_KEY));
-        //        double height = Double.valueOf(myGameObjMap.get(HEIGHT_KEY));
-        //        String imagePath = myGameObjMap.get(IMAGE_PATH_KEY);
-        //        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
-        //        
-        //        Map<String,String> properties = getPropertiesMap(myGameObjMap);
+////        for(String key: myGameObjMap.keySet()){
+////            System.out.println(" Key: " + key + " Value: " +myGameObjMap.get(key) );
+////        }
+//   
+//        double xPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.X_POSITION_KEY));
+//        double yPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.Y_POSITION_KEY));
+//        double width = Double.valueOf(myGameObjMap.get(WIDTH_KEY));
+//        double height = Double.valueOf(myGameObjMap.get(HEIGHT_KEY));
+//        String imagePath = myGameObjMap.get(IMAGE_PATH_KEY);
+//        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
+//        
+//        Map<String,String> properties = getPropertiesMap(myGameObjMap);
 
 
         //GameObject myObject = new GameObject(xpos,ypos,width,height,file,properties);
@@ -110,15 +109,15 @@ public class GameEditorData implements IGameEditorData{
         if(minSpacing==0){minSpacing=250;}
         Integer maxSpacing = Integer.parseInt(myRandomGenParameters.get(6).getText());
         if(maxSpacing==0){maxSpacing=500;}
-        //
-        //        System.out.println(" num: " + num);
-        //        System.out.println(" xmin: " + xMin);
-        //        System.out.println(" yMin: " + yMin);
-        //        System.out.println(" yMax: " + yMax);
-        //        System.out.println(" minSpacing: " + minSpacing);
-        //        System.out.println(" maxSpacing: " + maxSpacing);
-
-
+//
+//        System.out.println(" num: " + num);
+//        System.out.println(" xmin: " + xMin);
+//        System.out.println(" yMin: " + yMin);
+//        System.out.println(" yMax: " + yMax);
+//        System.out.println(" minSpacing: " + minSpacing);
+//        System.out.println(" maxSpacing: " + maxSpacing);
+   
+        
         RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
 
         myLevel.addRandomGeneration(randomGeneration);
@@ -135,7 +134,7 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void addControl(KeyCode key, String action){
-        myLevel.setControl(key, action);
+//        myLevel.setControl(key, action);
     }
 
 
@@ -146,6 +145,11 @@ public class GameEditorData implements IGameEditorData{
 
     public void addWinCondition(String type, String action){
         myLevel.addWinCondition(type, action);
+    }
+
+    @Override
+    public void addScrollWidth(String width) {
+
     }
 
     public void addLoseCondition(String type, String action){
@@ -161,10 +165,6 @@ public class GameEditorData implements IGameEditorData{
         this.mainCharacterImageFilePath = imageFilePath;
     }
 
-    public void addScrollWidth(String width){
-        myLevel.addScrollWidth(Double.parseDouble(width));
-    }
-
     @Override
     public void addScrollSpeed(String speed) {
 
@@ -173,7 +173,6 @@ public class GameEditorData implements IGameEditorData{
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
         GameObject mainCharacter = new GameObject(xpos,ypos,MAIN_CHAR_WIDTH,MAIN_CHAR_HEIGHT,this.mainCharacterImageFilePath,properties);
         myLevel.addGameObject(mainCharacter);
-        myLevel.setMainCharacter(mainCharacter);
     }
 
     public void addGameObjectsToLevel(){
@@ -186,9 +185,9 @@ public class GameEditorData implements IGameEditorData{
             //String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
 
             Map<String,String> properties = getPropertiesMap(type);
-
-            GameObject myObject = new GameObject(xPosition,yPosition,width,height,imagePath,properties);
-            myLevel.addGameObject(myObject);   
+            
+          GameObject myObject = new GameObject(xPosition,yPosition,width,height,imagePath,properties);
+          myLevel.addGameObject(myObject);   
         }
     }
 
@@ -200,12 +199,6 @@ public class GameEditorData implements IGameEditorData{
         typeMap.remove(ISelectDetail.Y_POSITION_KEY);
         typeMap.remove(DetailResources.TYPE_NAME.getResource());  
     }
-
-
-    @Override
-    public void addGameBoundary (BasicBoundary gameBoundary) {
-        //TODO: ADD GAME BOUNDARY -- Where? 
-    }    
 }
 
 

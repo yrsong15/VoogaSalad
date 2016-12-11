@@ -1,24 +1,25 @@
 package gameeditor.commanddetails;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import gameeditor.objects.GameObjectView;
+import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.VBox;
+import objects.GameObject;
 
 // TODO: Refactor this class - duplicated code with CreateDetail
-public class MainCharacterDetail extends AbstractSelectDetail {
+public class MainCharacterDetail extends AbstractCommandDetail {
 
-    //private VBox myVBox;
+    private VBox myVBox;
     //private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
     private String [] myPropertiesArray = DetailResources.MAIN_CHARACTER_PROPERTIES.getArrayResource();
     private List<TextArea> myTextInputs = new ArrayList<TextArea>();
@@ -34,29 +35,20 @@ public class MainCharacterDetail extends AbstractSelectDetail {
 
     @Override
     public void init() {
-        addVBoxSettings();
+        myVBox = new VBox();
+        myVBox.setSpacing(myDetailPadding);
+        myVBox.setAlignment(Pos.CENTER);
+        myContainerPane.setContent(myVBox);	
         createProperties();
         createSave();
-        myDesignArea.enableClick(this);
-    }
-    
-    @Override
-    public void initLevel2(GameObjectView sprite){
-        myGO = sprite;
-    	addVBoxSettings();
-    	createPos();
-        createProperties();
-        //TODO: switch to character in detail pane
-        createSave();
-        String typeName = myGO.getType();
-        Map<String, String> typeMap = myDataStore.getType(typeName);
     }
 
     public void createSave(){
         Button save = new Button();
         save.setText("Save New Type");
-        save.setMinWidth(CB_WIDTH);
-        save.setMinHeight(CB_HEIGHT);
+        save.setMinWidth(cbWidth);
+        save.setMinHeight(cbHeight);
+
         save.setOnMouseClicked((e) -> {handleSave();});
         myVBox.getChildren().add(save);
     }
@@ -105,8 +97,8 @@ public class MainCharacterDetail extends AbstractSelectDetail {
 
     private BorderPane addOptions(String label){
         BorderPane bp = new BorderPane();
-        bp.setMinWidth(PADDED_PANE_WIDTH);
-        bp.setMaxWidth(PADDED_PANE_WIDTH);
+        bp.setMinWidth(paddedPaneWidth);
+        bp.setMaxWidth(paddedPaneWidth);
         Label labl = createPropertyLbl(label);
         TextArea text = createInputField();
         myTextInputs.add(text);
@@ -115,52 +107,45 @@ public class MainCharacterDetail extends AbstractSelectDetail {
         BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
         return bp;
     }
-    
-	public Label createPropertyLbl(String property){
-	    Label labl = new Label (property);
-	    return labl;
-	}
-	
-	public ComboBox<String> createPropertyCB(String property){
-	    DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
-	    String [] optionsArray = resourceChoice.getArrayResource();
-	    ComboBox<String> cb = createComboBox(optionsArray);
-	    return cb;
-	}
-	
-	public TextArea createInputField(){
-	    TextArea inputField = new TextArea();
-	    inputField.setMinWidth(PADDED_DETAIL_WIDTH);
-	    inputField.setMaxWidth(PADDED_DETAIL_WIDTH);
-	    inputField.setMinHeight(CB_HEIGHT);
-	    inputField.setMaxHeight(CB_HEIGHT);
-	    inputField.setOnMouseClicked(e -> handleClick(inputField));
-	    return inputField;
-	}
-	
-	public ComboBox<String> createComboBox(String [] boxOptions){
-	    ComboBox<String> cb = new ComboBox<String>();
-	    cb.getItems().addAll(boxOptions);
-	    cb.setMinWidth(CB_WIDTH);
-	    cb.setMaxWidth(CB_WIDTH);
-	    cb.setMinHeight(CB_HEIGHT);
-	    cb.setMaxHeight(CB_HEIGHT);
-	    return cb;
-	}
-	
-	public void handleClick(TextArea field){
-	    field.setText("");
-	}
-	
-	public void createTextField(){
-	
-	}
-	
-	@Override
-	public void switchSelectStyle(GameObjectView sprite) {
-    	if (!sprite.getIsMainChar()){
-    		myDetailPane.setDetail("Select");
-    	}
-	}
+
+public Label createPropertyLbl(String property){
+    Label labl = new Label (property);
+    return labl;
+}
+
+public ComboBox<String> createPropertyCB(String property){
+    DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
+    String [] optionsArray = resourceChoice.getArrayResource();
+    ComboBox<String> cb = createComboBox(optionsArray);
+    return cb;
+}
+
+public TextArea createInputField(){
+    TextArea inputField = new TextArea();
+    inputField.setMinWidth(paddedDetailWidth);
+    inputField.setMaxWidth(paddedDetailWidth);
+    inputField.setMinHeight(cbHeight);
+    inputField.setMaxHeight(cbHeight);
+    inputField.setOnMouseClicked(e -> handleClick(inputField));
+    return inputField;
+}
+
+public ComboBox<String> createComboBox(String [] boxOptions){
+    ComboBox<String> cb = new ComboBox<String>();
+    cb.getItems().addAll(boxOptions);
+    cb.setMinWidth(cbWidth);
+    cb.setMaxWidth(cbWidth);
+    cb.setMinHeight(cbHeight);
+    cb.setMaxHeight(cbHeight);
+    return cb;
+}
+
+public void handleClick(TextArea field){
+    field.setText("");
+}
+
+public void createTextField(){
+
+}
 
 }

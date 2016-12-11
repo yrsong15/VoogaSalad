@@ -10,7 +10,7 @@ public class BoundingBox {
 	
 	private ArrayList<Rectangle> myCorners = new ArrayList<Rectangle>();
 	private ArrayList<Rectangle> myShapes = new ArrayList<Rectangle>();
-	private GameObjectView mySprite;
+	private GameObject mySprite;
 	private IDesignArea myDesignArea;
 	
 	private Rectangle myBounds;
@@ -27,7 +27,7 @@ public class BoundingBox {
 	private double yDistanceFromCorner = 0;
 
 
-	public BoundingBox(GameObjectView sprite, IDesignArea da) {
+	public BoundingBox(GameObject sprite, IDesignArea da) {
 		mySprite = sprite;
 		myDesignArea = da;
 		previousX = sprite.getX();
@@ -106,9 +106,6 @@ public class BoundingBox {
 	}
 	
 	public void updateDimensions(){
-	    
-	    System.out.println(" Update Dimensions" );
-	    
 		double spriteWidth = mySprite.getWidth();
 		double spriteHeight = mySprite.getHeight();
 		myBounds.setWidth(spriteWidth);

@@ -1,9 +1,10 @@
 package gameeditor.commanddetails;
-
+import java.util.Map;
 import com.sun.javafx.scene.traversal.Direction;
+import frontend.util.ButtonTemplate;
 import gameeditor.view.ViewResources;
-import gameengine.model.boundary.StopAtEdgeBoundary;
-import gameengine.model.boundary.ToroidalBoundary;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -12,20 +13,21 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import objects.ScrollType;
 
-public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail{
-    //private VBox myVBox;
+public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail {
+    private VBox myVBox;
     private Menu scrollTypeMenu;
     private TextArea scrollWidthTextBox ;
     private TextArea myTimeWin;
-    private TextArea myScreenHeight;
     private TextArea myPointsWin;
     private TextArea scrollSpeedTextBox;
     private BorderPane myLimitWidthOption;
-    private ComboBox<String> gameBoundaryOptions;
     private BorderPane myScrollWidthBP;
-
+    public static final String DEFAULT_TIME_VALUE = "400";
+    public static final String DEFAULT_POINTS_VALUE = "20";
+    public static final String DEFAULT_SCROLL_SPEED = "10";
 
 
     public BehaviorDetail() {
@@ -33,46 +35,44 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     public void init() {
-        addVBoxSettings();
+        myVBox = new VBox();
+        myVBox.setSpacing(myDetailPadding);
+        myVBox.setAlignment(Pos.CENTER);
+        myContainerPane.setContent(myVBox); 
         addLevelOptions();
     }
 
     private void addLevelOptions(){
         addScrollTypeOptions();
+        addWidthOptions();
         createWinConditions();
         addScrollSpeed();
-        addGameBoundary();
-        addWidthOptions();
-        addHeight();
         createSave();
     }
 
     private void createSave(){
-        Button save = myDetailFrontEndUtil.createButton("SaveCommand",e -> handleSave());
+        Button save = new Button(SAVE_BUTTON_LABEL);
+        save.setMinHeight(cbHeight);
+        save.setMinWidth(cbWidth);
+        save.setOnMouseClicked((e) -> {handleSave();});
         myVBox.getChildren().add(save);
-    }
-
-    private void addGameBoundary(){
-        Label label = createPropertyLbl("Game Boundary");
-        gameBoundaryOptions = myDetailFrontEndUtil.createComboBox(GAME_BOUNDARY_OPTIONS, DetailDefaultsResources.GAME_BOUNDARY.getResource());
-        BorderPane bp = myDetailFrontEndUtil.createBorderpane(gameBoundaryOptions,label);
-        myVBox.getChildren().add(bp);
 
     }
-
 
     private void addScrollSpeed(){
-        scrollSpeedTextBox = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_SCROLL_SPEED.getDoubleResource()));
-        BorderPane scrollSpeed = myDetailFrontEndUtil.createBorderpane(scrollSpeedTextBox,createPropertyLbl(SCROLL_SPEED_LABEL));
+        scrollSpeedTextBox = createInputField(DEFAULT_SCROLL_SPEED);
+        BorderPane scrollSpeed = createBorderpane(scrollSpeedTextBox,createLabel(SCROLL_SPEED_LABEL));
         myVBox.getChildren().add(scrollSpeed);
+
     }
 
     private void createWinConditions(){
-        myTimeWin = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_TIME_VALUE.getDoubleResource()));
-        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myTimeWin,createPropertyLbl(TIME_PROPERTY_LABEL)));
-        myPointsWin = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_POINTS_VALUE.getDoubleResource())); 
-        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myPointsWin,createPropertyLbl(POINTS_PROPERTY_LABEL)));
+        myTimeWin = createInputField(DEFAULT_TIME_VALUE);
+        myVBox.getChildren().add(createBorderpane(myTimeWin,createLabel(TIME_PROPERTY_LABEL)));
+        myPointsWin = createInputField(DEFAULT_POINTS_VALUE); 
+        myVBox.getChildren().add(createBorderpane(myPointsWin,createLabel(POINTS_PROPERTY_LABEL)));
     }
+
 
     private void addScrollTypeOptions(){
         MenuBar menuBar = new MenuBar();
@@ -92,61 +92,72 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void addWidthOptions(){
-        ComboBox<String>limitDimension =myDetailFrontEndUtil. createComboBox(LIMIT_DIMENSION_OPTIONS,DetailDefaultsResources.LIMIT_WIDTH.getResource() );
-        myLimitWidthOption = myDetailFrontEndUtil.createBorderpane(limitDimension,createPropertyLbl(LIMIT_SCROLL_WIDTH_LABEL));
+        ComboBox<String>limitDimension = createComboBox(DetailResources.LIMIT_DIMENSION_OPTIONS.getArrayResource());
+        myLimitWidthOption = createBorderpane(limitDimension,createLabel(LIMIT_SCROLL_WIDTH_LABEL));
         myVBox.getChildren().add(myLimitWidthOption);
         limitDimension.setOnAction(e-> cbOnAction(limitDimension));
     }
 
-    private void cbOnAction(ComboBox<String> cb){
+    public void cbOnAction(ComboBox<String> cb){
         if (cb.getValue().equals(TRUE)){
             scrollWidthTextBox = createInputField(Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()));
-            myScrollWidthBP = myDetailFrontEndUtil.createBorderpane(scrollWidthTextBox,createPropertyLbl(SCROLL_WIDTH_LABEL));
+            myScrollWidthBP = createBorderpane(scrollWidthTextBox,createLabel(SCROLL_WIDTH_LABEL));
             int index = myVBox.getChildren().indexOf(myLimitWidthOption);
             myVBox.getChildren().add(index+1, myScrollWidthBP);
 
         } else if((cb.getValue().equals("False"))){
             if(myVBox.getChildren().contains(myScrollWidthBP)){
-                myVBox.getChildren().remove(myVBox.getChildren().indexOf(myLimitWidthOption)+1);
+            myVBox.getChildren().remove(myVBox.getChildren().indexOf(myLimitWidthOption)+1);
             }
         }
     }
 
-    private void addHeight(){
-        myScreenHeight = createInputField(String.valueOf(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource()));
-        BorderPane scrollheight = myDetailFrontEndUtil.createBorderpane(myScreenHeight,createPropertyLbl(SCROLL_HEIGHT_LABEL));
-        myVBox.getChildren().add(scrollheight);
+    private BorderPane createBorderpane(Node right, Node left){
+        BorderPane bp = new BorderPane();
+        bp.setMinWidth(paddedPaneWidth);
+        bp.setMaxWidth(paddedPaneWidth);
+        bp.setLeft(left);
+        bp.setRight(right);
+        return bp; 
     }
-    private void handleSave(){
+    private ComboBox<String> createComboBox(String [] boxOptions){
+        ComboBox<String> cb = new ComboBox<String>();
+        cb.getItems().addAll(boxOptions);
+        cb.setMinWidth(cbWidth);
+        cb.setMaxWidth(cbWidth);
+        cb.setMinHeight(cbHeight);
+        cb.setMaxHeight(cbHeight);
+        return cb;
+    }
+
+    private TextArea createInputField(String initValue){
+        TextArea inputField = new TextArea();
+        inputField.setMinWidth(paddedDetailWidth);
+        inputField.setMaxWidth(paddedDetailWidth);
+        inputField.setMinHeight(cbHeight);
+        inputField.setMaxHeight(cbHeight);
+        inputField.setText(initValue);
+        inputField.setOnMouseClicked(e -> handleClick(inputField));
+        return inputField;
+    }
+
+    private void handleClick(TextArea field){
+        field.setText("");
+    }
+
+    public void handleSave(){
         myDataStore.addWinCondition(POINTS_PROPERTY, myPointsWin.getText());
         myDataStore.addLoseCondition(TIME_PROPERTY, myTimeWin.getText());
-        Double width=0.0;
-        if(scrollWidthTextBox==null){
-            width = Double.MAX_VALUE;
-        }else{
-            width = Double.valueOf(scrollWidthTextBox.getText());
-        }
-
-        Double height = Double.valueOf(myScreenHeight.getText());
-        addGameBoundary(width,height);
+        myDataStore.addScrollWidth(scrollWidthTextBox.getText());
+        myDataStore.addScrollSpeed(DEFAULT_SCROLL_SPEED);
+        
     }
 
-
-    private void addGameBoundary(double width, double height){
-        if(gameBoundaryOptions.getValue().equals(GAME_BOUNDARY_OPTIONS[0])){
-            // Toroidal
-            ToroidalBoundary boundary = new ToroidalBoundary(width,height);
-            myDataStore.addGameBoundary(boundary);
-        } else {
-            StopAtEdgeBoundary boundary = new StopAtEdgeBoundary(width,height);
-            myDataStore.addGameBoundary(boundary);
-
-        }
-
+    private Label createLabel(String property){
+        return new Label(property);
     }
 
-
-    private boolean verifySave(){
+    public boolean verifySave(){
         // TODO: Verify if right values entered
         return true;
     }

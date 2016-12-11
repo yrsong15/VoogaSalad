@@ -10,9 +10,6 @@ import java.io.IOException;
 public interface ISplashScreen {
 
     Parent setUpWindow();
-//
-//    void launchEditor();
-//
-//    void launchGallery() throws IOException;
 
+    void launchEditor();
 }

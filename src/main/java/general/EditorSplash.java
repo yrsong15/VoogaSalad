@@ -89,26 +89,26 @@ public class EditorSplash {
         splashWindow.getChildren().addAll(forced, limited, free);
     }
 
-//    private void addThumbnails(){
-//        ImageView flappy = myFactory.makeThumbnailImage("Flappy", EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 210, 150, 50);
-//        flappy.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-//        ImageView mario = myFactory.makeThumbnailImage("Mario", EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 210, 150, 50);
-//        mario.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-//        ImageView doodle = myFactory.makeThumbnailImage("Doodle", EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 210, 98, 130);
-//        doodle.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-//        splashWindow.getChildren().addAll(flappy, mario, doodle);
-//    }
-//
-//    private void addThumbnailLabels(){
-//        Text flappyLabel = myFactory.makeLabel("e.g. Flappy Bird", EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 200);
-//        flappyLabel.setFont(Font.font("Century Gothic", 15));
-//        flappyLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-//        Text marioLabel = myFactory.makeLabel("e.g. Super Mario", EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 200);
-//        marioLabel.setFont(Font.font("Century Gothic", 15));
-//        marioLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-//        Text doodleLabel = myFactory.makeLabel("e.g. Doodle Jump", EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 200);
-//        doodleLabel.setFont(Font.font("Century Gothic", 15));
-//        doodleLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-//        splashWindow.getChildren().addAll(flappyLabel, marioLabel, doodleLabel);
-//    }
+    private void addThumbnails(){
+        ImageView flappy = myFactory.makeThumbnailImage("Flappy", EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 210, 150, 50);
+        flappy.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+        ImageView mario = myFactory.makeThumbnailImage("Mario", EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 210, 150, 50);
+        mario.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+        ImageView doodle = myFactory.makeThumbnailImage("Doodle", EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 210, 98, 130);
+        doodle.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+        splashWindow.getChildren().addAll(flappy, mario, doodle);
+    }
+
+    private void addThumbnailLabels(){
+        Text flappyLabel = myFactory.makeLabel("e.g. Flappy Bird", EDITOR_CORNER_X + 60, EDITOR_CORNER_Y + 200);
+        flappyLabel.setFont(Font.font("Century Gothic", 15));
+        flappyLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+        Text marioLabel = myFactory.makeLabel("e.g. Super Mario", EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 200);
+        marioLabel.setFont(Font.font("Century Gothic", 15));
+        marioLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+        Text doodleLabel = myFactory.makeLabel("e.g. Doodle Jump", EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 200);
+        doodleLabel.setFont(Font.font("Century Gothic", 15));
+        doodleLabel.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
+        splashWindow.getChildren().addAll(flappyLabel, marioLabel, doodleLabel);
+    }
 }

@@ -30,7 +30,6 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private ScrollPane myDetailPane;
     private IGameEditorData myDataStore;
     private IDesignArea myDesignArea;
-    private MainCharacterDisplay myAvatarDisplay;
     
     private boolean mainCharPropActive = false;
     private Button myCharPropertiesButton;
@@ -39,12 +38,25 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
     public DetailPane(IDesignArea da, IGameEditorData dataStore) {
     	myDesignArea = da;
-    	myDataStore = dataStore;
-    	myAvatarDisplay = new MainCharacterDisplay(dataStore, da, this);
+    	myDataStore =dataStore;
+ 
         myPane = new Pane();
         myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
         myPane.setBackground(new Background(new BackgroundFill(ViewResources.DETAIL_PANE_BG.getColorResource(), CornerRadii.EMPTY, Insets.EMPTY)));
-        myPane.getChildren().add(myAvatarDisplay.getPane());
+        createAvatarZone();
+        myPane.getChildren().add(myAvatarZone);
+    }
+
+    private void createAvatarZone(){
+        double padding = ViewResources.AVATAR_ZONE_PADDING.getDoubleResource();
+        double zoneWidth = ViewResources.AVATAR_ZONE_WIDTH.getDoubleResource();
+        double zoneHeight = ViewResources.AVATAR_ZONE_HEIGHT.getDoubleResource();;
+        double cornerRadius = padding;
+        double avZoneY = GameEditorView.SCENE_HEIGHT-padding-zoneHeight;
+        myAvatarZone = new Rectangle(padding, avZoneY, zoneWidth, zoneHeight);
+        myAvatarZone.setFill(Color.GHOSTWHITE);
+        myAvatarZone.setArcWidth(cornerRadius);
+        myAvatarZone.setArcHeight(cornerRadius);
     }
 
     public Pane getPane(){
@@ -52,7 +64,59 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     }
 
     public void setAvatar(String filePath ){
-        myAvatarDisplay.createNewAvatar(filePath);
+        Image newAvatar = new Image(filePath);
+        
+        // Set the ImageFile Path in the gameEditorDataStore
+        String file = filePath.substring(filePath.lastIndexOf("/") +1);
+       
+        myDataStore.addMainCharacterImage(file);
+       
+        myPane.getChildren().remove(myAvatarView);
+        
+        double padding = 20;
+        double buttonPadding = 50;
+        padding += buttonPadding;
+        createAvatarButton(buttonPadding);
+        double fitWidth = myAvatarZone.getWidth() - padding;
+        double fitHeight = myAvatarZone.getHeight() - padding;
+        double widthRatio = fitWidth/newAvatar.getWidth();
+        double heightRatio = fitHeight/newAvatar.getHeight();
+        double ratio = Math.min(widthRatio, heightRatio);
+        double endWidth = newAvatar.getWidth()*ratio;
+        double endHeight = newAvatar.getHeight()*ratio;
+        myAvatarView = new ImageView(newAvatar);
+        myAvatarView.setPreserveRatio(true);
+        myAvatarView.setFitWidth(fitWidth);
+        myAvatarView.setFitHeight(fitHeight);
+        myAvatarView.setLayoutX(myAvatarZone.getX() + myAvatarZone.getWidth()/2 - endWidth/2);
+        myAvatarView.setLayoutY(myAvatarZone.getY() + buttonPadding + (myAvatarZone.getHeight() - buttonPadding)/2 - endHeight/2);
+        // TODO: Remove Hard Coding
+        myDesignArea.addAvatar(filePath, 100, 200, 75, 75, myDataStore);
+
+        myPane.getChildren().add(myAvatarView);
+    }
+    
+    public void createAvatarButton(double padding){
+    	myCharPropertiesButton = new Button();
+    	double buttonWidth = 150;
+    	double buttonHeight = 30;
+    	myCharPropertiesButton.setText("Main Character Properties");
+    	myCharPropertiesButton.setMinWidth(buttonWidth);
+    	myCharPropertiesButton.setMinHeight(buttonHeight);
+    	myCharPropertiesButton.setOnAction((e) -> {handleAvatar();});
+    	myCharPropertiesButton.setLayoutX(myAvatarZone.getX()/2 + myAvatarZone.getWidth()/2 - buttonWidth/2);
+    	myCharPropertiesButton.setLayoutY(myAvatarZone.getY() + padding/2 - buttonHeight/2);
+    	myPane.getChildren().add(myCharPropertiesButton);
+    }
+    
+
+    public void handleAvatar(){
+    	if (mainCharPropActive){
+    		removeDetail();
+    	} else {
+    		setDetail("MainCharacter");
+    	}
+    	mainCharPropActive = !mainCharPropActive;
     }
 
     @Override
@@ -64,8 +128,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
         myPane.getChildren().add(myDetailPane);
     }
     
-    @Override
-    public void removeDetail(){
+    private void removeDetail(){
     	myPane.getChildren().remove(myDetailPane);
     }
 }

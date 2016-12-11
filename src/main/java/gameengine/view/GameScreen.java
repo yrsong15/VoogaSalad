@@ -52,18 +52,19 @@ public class GameScreen {
 	}
 
 	public void init(Level level){
-        for(GameObject gameObject : level.getGameObjects()){
+        for(GameObject gameObject : level.getAllGameObjects()){
             addGameObject(gameObject);
         }
     }
 
     public void removeObject(GameObject object){
         myScreen.getChildren().remove(object);
+        myScreen.getChildren().remove(gameObjectImageViewMap.get(object));  
         gameObjectImageViewMap.remove(object);
     }
 
 	public void update(Level level) {
-			for (GameObject object : level.getGameObjects()) {
+			for (GameObject object : level.getAllGameObjects()) {
                 if(gameObjectImageViewMap.containsKey(object)){
                     gameObjectImageViewMap.get(object).relocate(object.getXPosition(), object.getYPosition());
                 }else{

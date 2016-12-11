@@ -22,7 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import objects.GameObject;
 
-import objects.interfaces.ILevel;
+import objects.Level;
 
 
 /**
@@ -38,13 +38,13 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IDesignArea myDesignArea;
     private IGameEditorData myDataStoreInterface;
     private IDetailPane myDetailPane;
-    private ILevel myLevelSettings;
+    private Level myLevelSettings;
     private BooleanProperty closeLevelWindow;
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     public static final String SCORE_PROPERTY="score";
 
 
-    public GameEditorView(ILevel levelSettings){
+    public GameEditorView(Level levelSettings){
         this.myLevelSettings = levelSettings;
         myRoot = new BorderPane();  
         closeLevelWindow = new SimpleBooleanProperty(false);
@@ -66,15 +66,18 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     
     private void addSprites(){
-        if(myLevelSettings.getGameObjects().size()>0){
+        if(myLevelSettings.getAllGameObjects().size()>0){
             for(GameObject object: myLevelSettings.getGameObjects()){
                 double height = object.getHeight();
                 double width = object.getWidth();
                 String fileName = object.getImageFileName();
                 Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
-                ImageView spriteimageView = new ImageView(image);      
+                ImageView spriteimageView = new ImageView(image);
+                
+                
             }
-        }    
+        }
+        
     }
     
     private HBox createLeftAlt(){
@@ -106,13 +109,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     private void addAvatar(){
-        System.out.println(myLevelSettings.getMainCharacter());
-        if(myLevelSettings.getMainCharacter()!=null){
-            if(myLevelSettings.getMainCharacter().getImageFileName()!=null){
-                String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+myLevelSettings.getMainCharacter().getImageFileName();
-                myDetailPane.setAvatar(filePath);
-            }
-        }
+
     }
 
     public void setBackground(){
@@ -123,11 +120,11 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private void displayBackgroundOnScreen(String filePath){
         if(filePath!=null){
             ImageView backgroundImage = new ImageView(new Image(filePath));
-            backgroundImage.setFitHeight(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource());
-            backgroundImage.setFitWidth(ViewResources.SCROLL_PANE_WIDTH.getDoubleResource());
+            backgroundImage.setFitHeight(0.85*SCENE_HEIGHT);
+            backgroundImage.setFitWidth(0.75*SCENE_WIDTH);
             backgroundImage.setId(BACKGROUND_IMAGE_ID);
 
-            myScrollPane.setPrefSize(ViewResources.SCROLL_PANE_WIDTH.getDoubleResource(), ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource()); 
+            myScrollPane.setPrefSize(0.75*SCENE_WIDTH, 0.85*SCENE_HEIGHT); 
             myDesignArea.setBackground(backgroundImage); 
             
             String file = filePath.substring(filePath.lastIndexOf("/") +1);
@@ -143,14 +140,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     public void setMusic(){
-        try {
-            String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-            String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
-            myLevelSettings.setBackgroundMusic(file);
-
-        }catch (NullPointerException e){
-            System.out.println("Music was not added");
-        }
+        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
+        String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
+        myLevelSettings.setBackgroundMusic(file);
     }
 
     private String getFilePath(String fileType, String fileLocation){
@@ -169,9 +161,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     @Override
     public void saveLevelData () {
         myDataStoreInterface.addGameObjectsToLevel();
-        if(myLevelSettings.getMainCharacter()==null){
-            myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
-        }
+
         addGround();
         closeLevelWindow.set(true);
     }

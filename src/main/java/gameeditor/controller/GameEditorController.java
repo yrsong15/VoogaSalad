@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 import objects.Game;
 import objects.Level;
 import objects.interfaces.IGame;
-import objects.interfaces.ILevel;
 /**
  * @author pratikshasharma, Ray Song
  *
@@ -69,7 +68,6 @@ public class GameEditorController implements IGameEditorController{
 
     private void displayInitialStage(){  
         myLevelStage = new Stage();
-        myLevelStage.setTitle("Game Editor");
         myLevelScene = new Scene(myRoot, EDITOR_LEVELS_SPLASH_WIDTH, EDITOR_LEVELS_SPLASH_HEIGHT);
 
         //myLevelScene = new Scene(myRoot, GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
@@ -121,11 +119,9 @@ public class GameEditorController implements IGameEditorController{
             }else {
                 level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             }
-            ILevel levelInterface = (ILevel) level;
-
             myLevelManager.createLevel(level);   
 
-            myGameEditorView = new GameEditorView(levelInterface);          
+            myGameEditorView = new GameEditorView(level);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);
