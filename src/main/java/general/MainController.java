@@ -66,10 +66,10 @@ public class MainController {
         Player player2 = new Player(secondShyGuy);
         Player player3 = new Player(thirdShyGuy);
         Player player4 = new Player(fourthShyGuy);
-        game.addPlayer(player1);
-        game.addPlayer(player2);
-        game.addPlayer(player3);
-        game.addPlayer(player4);
+        game.addPlayerToClient(0, player1);
+        game.addPlayerToClient(1, player2);
+//        game.addPlayer(player3);
+//        game.addPlayer(player4);
         firstShyGuy.setProperty("jump", "400");
         secondShyGuy.setProperty("jump", "400");
         thirdShyGuy.setProperty("jump", "400");
@@ -170,7 +170,7 @@ public class MainController {
 
 
 	public void launchEngine(String XMLData) {
-//		XMLData = testGameEngine();
+		//XMLData = testGameEngine();
 		boolean multiplayer = false;
 		boolean isServer = false;
 		if (gameEngineController.startGame(XMLData) == true) {

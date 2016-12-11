@@ -19,15 +19,41 @@ public class Game implements IGame{
 	private Map<Integer, Level> levels;
 	private Level currentLevel;
 	private List<Player> players;
+	private Map<Integer, List<Player>> clientMappings;
+
+	public Map<Integer, List<Player>> getClientMappings(){
+	    return clientMappings;
+    }
+
+    public int getMinNumPlayers() {
+        if(minNumPlayers == 0){
+            minNumPlayers = 1;
+        }
+        return minNumPlayers;
+    }
+
+    public void setMinNumPlayers(int minNumPlayers) {
+        this.minNumPlayers = minNumPlayers;
+    }
+
+    private int minNumPlayers = 1;
 
 	public Game(String name) {
 		levels = new HashMap<Integer,Level>();
 		players = new ArrayList<>();
+		clientMappings = new HashMap<>();
 		this.name = name;
 	}
 
-	public void addPlayer(Player player){
-		players.add(player);
+	public void addPlayerToClient(int ID, Player player){
+		if(!clientMappings.containsKey(ID)){
+			List<Player> players = new ArrayList<>();
+			players.add(player);
+			clientMappings.put(ID, players);
+		}else{
+			List<Player> players = clientMappings.get(ID);
+			players.add(player);
+		}
 	}
 
 	public void removePlayer(Player player){

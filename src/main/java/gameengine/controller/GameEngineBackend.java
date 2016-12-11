@@ -12,6 +12,7 @@ import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 import gameengine.model.LossChecker;
 import gameengine.model.RandomGenFrame;
 import gameengine.model.WinChecker;
+import gameengine.network.client.ClientMain;
 import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 import objects.*;
@@ -45,8 +46,12 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	}
 	
-	public void addMainCharacter(int ID){
-		currentGame.getCurrentLevel().addPlayer(currentGame.getPlayers().get(ID).getMainChar());
+	public void addPlayersToClient(int ID){
+	    for(Map.Entry<Integer, List<Player>> entry : currentGame.getClientMappings().entrySet()) {
+	        if(entry.getKey() == ClientMain.ID){
+                currentGame.getPlayers().addAll(entry.getValue());
+            }
+        }
 	}
 
 	private void addRGFrames() {
@@ -209,7 +214,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		return generateClientGame(getGame());
 	}
 
-	private ClientGame generateClientGame(Game game) {
+
+    private ClientGame generateClientGame(Game game) {
 		Level currLevel = game.getCurrentLevel();
 		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath());
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());

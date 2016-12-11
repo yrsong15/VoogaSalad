@@ -21,7 +21,7 @@ import objects.Player;
  */
 public class ClientMain implements ControlInterface {
 
-	static long ID = -1; // we get ID from the server side
+	public static long ID = -1; // we get ID from the server side
 
 	private TcpConnection connections; // establishing TCP connection
 

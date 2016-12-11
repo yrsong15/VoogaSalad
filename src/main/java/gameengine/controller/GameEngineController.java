@@ -7,6 +7,8 @@ import javafx.scene.control.Alert;
 import objects.*;
 import xml.XMLSerializer;
 
+import java.util.List;
+
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
  *         Moon
@@ -44,7 +46,7 @@ public class GameEngineController implements CommandInterface {
 			};
 			serverThread.start();
 		}
-		startClientGame(currentGame.getPlayers().get(0));
+		startClientGame(currentGame.getPlayers());
 		return true;
 	}
 
@@ -53,20 +55,20 @@ public class GameEngineController implements CommandInterface {
 		backend.startGame(currentGame);
 	}
 
-	public void startClientGame(Player player) {
-		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player, serverName);
+	public void startClientGame(List<Player> players) {
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
-		beginUI(player);
+		beginUI(players);
 	}
 
-	public void beginUI(Player player) {
+	public void beginUI(List<Player> players) {
 		gameEngineView.initLevel();
-		gameEngineView.mapKeys(player, player.getControls());// NEED TO MAP FOR
-																// MULTIPLE
-																// PLAYERS
+		for(Player player : players) {
+            gameEngineView.mapKeys(player, player.getControls());
+        }
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
 	}
 

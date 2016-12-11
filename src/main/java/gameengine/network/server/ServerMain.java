@@ -93,7 +93,7 @@ public class ServerMain {
 	}
 
 	synchronized long getId() {
-		gameHandler.addMainCharacter(IDs);
+		gameHandler.addPlayersToClient(IDs);
 		return IDs++;
 	}
 
