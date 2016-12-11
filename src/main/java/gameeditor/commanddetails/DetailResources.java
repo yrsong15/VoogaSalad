@@ -82,7 +82,9 @@ public enum DetailResources {
 		SAVE_BUTTON_TEXT("Save"),
 		
 		SELECT_LABEL_TEXT("Select An Object"),
-		UPDATE_BUTTON_TEXT("Update"),
+		UPDATE_BUTTON_TEXT("Update"), 
+		IMAGEVIEW_KEY("imageview"), 
+		MAIN_CHARACTER_TYPE("Main Character"),
 		;
 
     private double resourceDouble;

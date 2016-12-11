@@ -159,10 +159,10 @@ public class SpriteTypeButton {
 	        Map<String, String> typeMap = myDataStore.getType(myType);
 
 	        // Add the properties to the Map now
-	        typeMap.put(X_POSITION_KEY, String.valueOf(myX));
-	        typeMap.put(Y_POSITION_KEY, String.valueOf(myY));       
-	        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(myWidth));
-	        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(myHeight));
+//	        typeMap.put(X_POSITION_KEY, String.valueOf(myX));
+//	        typeMap.put(Y_POSITION_KEY, String.valueOf(myY));       
+//	        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(myWidth));
+//	        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(myHeight));
     	}
         myX = DEFAULT_X;
         myY = DEFAULT_Y;

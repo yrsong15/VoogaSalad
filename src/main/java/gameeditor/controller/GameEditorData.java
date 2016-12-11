@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import frontend.util.GameEditorException;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
@@ -22,14 +23,11 @@ import objects.interfaces.ILevel;
  */
 
 public class GameEditorData implements IGameEditorData{
-    private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
+    private ArrayList<Map<String, String>> mySpriteTypes = new ArrayList<Map<String, String>>();
+    private ArrayList<Map<String,String>> myImageViewObjectMap = new ArrayList<Map<String,String>>();
+    private ArrayList<Map<String,String>> myMainCharImageViewMap= new ArrayList<Map<String,String>>();
 
     private ILevel myLevel;
-
-    // public static final double SPRITE_WIDTH = 100;
-    // public static final double SPRITE_HEIGHT = 150;
-    public static final double MAIN_CHAR_WIDTH=50;
-    public static final double MAIN_CHAR_HEIGHT = 50;
     private String mainCharacterImageFilePath;
 
     public GameEditorData(ILevel level){
@@ -38,11 +36,22 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void storeType(Map<String, String> typeMap){
-        myTypes.add(typeMap);
+        //        String typeName = typeMap.get(DetailResources.TYPE_NAME.getResource());
+        //        String mainChar = typeName.replaceAll("[0-9]","");
+        //        if(mainChar.equals(DetailResources.MAIN_CHARACTER_TYPE.getResource())){
+        //            myMainCharImageViewMap
+        //        }
+        mySpriteTypes.add(typeMap);
+    }
+
+    @Override
+    public void storeMainCharater (Map<String, String> myMainCharMap) {
+        // TODO Auto-generated method stub
+        myMainCharImageViewMap.add(myMainCharMap);
     }
 
     public Map<String, String> getType(String inputTypeName){
-        for (Map<String, String> type : myTypes){
+        for (Map<String, String> type : mySpriteTypes){
             String testTypeName = type.get(DetailResources.TYPE_NAME.getResource());
             if (inputTypeName.equals(testTypeName)){
                 return type;
@@ -53,30 +62,56 @@ public class GameEditorData implements IGameEditorData{
 
     public ArrayList<String> getTypes(){
         ArrayList<String> types = new ArrayList<String>();
-        for (Map<String, String> type : myTypes){
+        for (Map<String, String> type : mySpriteTypes){
             String typeName = type.get(DetailResources.TYPE_NAME.getResource());
             types.add(typeName);
         }
         return types;
     }
 
+    public ArrayList<String> getImageViews(){
+        ArrayList<String> views = new ArrayList<String>();
+        for(Map<String,String> map: myImageViewObjectMap){
+            String imageview = map.get(DetailResources.IMAGEVIEW_KEY.getResource());
+            views.add(imageview);
+        }
+        return views;
+    }
 
-    // Adds Game Object TO level
+
+    @Override
+    public Map<String, String> getViewMap (String viewName) {
+        return getDesiredMap(DetailResources.IMAGEVIEW_KEY.getResource(),myImageViewObjectMap,viewName);
+    } 
+
+    private Map<String,String> getDesiredMap(String key, ArrayList<Map<String,String>> mapList, String value){
+        for(Map<String,String> map: mapList){
+            String valueFromMap = map.get(key);
+            if (value.equals(valueFromMap)){
+                return map;
+            }
+        }
+        return null;
+    }
+
+    public Map<String,String> getMainCharMap(String imageViewName){
+        return getDesiredMap(DetailResources.IMAGEVIEW_KEY.getResource(),myMainCharImageViewMap,imageViewName);
+    }
+
+    @Override
+    public Map<String,String> createViewMap (String typeName, String imageViewString) {
+        Map<String,String> type = getType(typeName);
+        Map<String,String> viewMap = new HashMap<String,String>(type);
+        viewMap.put(DetailResources.IMAGEVIEW_KEY.getResource(), imageViewString);
+        return viewMap;
+    }
+
+    public void storeImageViewMap(Map<String,String> viewMap){
+        myImageViewObjectMap.add(viewMap);
+    }
+
+
     public void addGameObjectToLevel(Map<String,String> myGameObjMap){ 
-        ////        for(String key: myGameObjMap.keySet()){
-        ////            System.out.println(" Key: " + key + " Value: " +myGameObjMap.get(key) );
-        ////        }
-        //   
-        //        double xPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.X_POSITION_KEY));
-        //        double yPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.Y_POSITION_KEY));
-        //        double width = Double.valueOf(myGameObjMap.get(WIDTH_KEY));
-        //        double height = Double.valueOf(myGameObjMap.get(HEIGHT_KEY));
-        //        String imagePath = myGameObjMap.get(IMAGE_PATH_KEY);
-        //        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
-        //        
-        //        Map<String,String> properties = getPropertiesMap(myGameObjMap);
-
-
         //GameObject myObject = new GameObject(xpos,ypos,width,height,file,properties);
         // Add random Generation
         //        if(myRandomGenerationParameters.size()>0){
@@ -92,7 +127,7 @@ public class GameEditorData implements IGameEditorData{
         Map<String,String> propertiesMap = getPropertiesMap(properties);
         addRandomGeneration(propertiesMap, myRandomGenerationParameters);
         // Remove map from list
-        myTypes.remove(properties);
+        mySpriteTypes.remove(properties);
     }
 
     private void addRandomGeneration(Map<String,String> properties, List<TextArea>myRandomGenParameters){
@@ -110,14 +145,6 @@ public class GameEditorData implements IGameEditorData{
         if(minSpacing==0){minSpacing=250;}
         Integer maxSpacing = Integer.parseInt(myRandomGenParameters.get(6).getText());
         if(maxSpacing==0){maxSpacing=500;}
-        //
-        //        System.out.println(" num: " + num);
-        //        System.out.println(" xmin: " + xMin);
-        //        System.out.println(" yMin: " + yMin);
-        //        System.out.println(" yMax: " + yMax);
-        //        System.out.println(" minSpacing: " + minSpacing);
-        //        System.out.println(" maxSpacing: " + maxSpacing);
-
 
         RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
 
@@ -128,7 +155,9 @@ public class GameEditorData implements IGameEditorData{
         removeValuesExceptProperties(myItemMap);
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
-            properties.put(k, v);
+            if(v!="0.0"){
+                properties.put(k, v);
+            }
         });
         return properties;
     }
@@ -141,7 +170,7 @@ public class GameEditorData implements IGameEditorData{
 
     @Override
     public ArrayList<Map<String, String>> getTypeMaps() {
-        return myTypes;
+        return mySpriteTypes;
     }
 
     public void addWinCondition(String type, String action){
@@ -176,36 +205,50 @@ public class GameEditorData implements IGameEditorData{
         myLevel.setMainCharacter(mainCharacter);
     }
 
-    public void addGameObjectsToLevel(){
-        for (Map<String, String> type : myTypes){
-            String imagePath = type.get(IMAGE_PATH_KEY).substring(type.get(IMAGE_PATH_KEY).lastIndexOf("/")+1);
-            double xPosition = Double.valueOf(type.get(ISelectDetail.X_POSITION_KEY));
-            double yPosition = Double.valueOf(type.get(ISelectDetail.Y_POSITION_KEY));
-            double width = Double.valueOf(type.get(WIDTH_KEY));
-            double height = Double.valueOf(type.get(HEIGHT_KEY));
-            //String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
 
-            Map<String,String> properties = getPropertiesMap(type);
+    public void addGameObjectsToLevel(){    
+        for (Map<String, String> type : myImageViewObjectMap){
+        double xPosition = Double.valueOf(type.get(ISelectDetail.X_POSITION_KEY));
+        double yPosition = Double.valueOf(type.get(ISelectDetail.Y_POSITION_KEY));
+        double width = Double.valueOf(type.get(WIDTH_KEY));
+        double height = Double.valueOf(type.get(HEIGHT_KEY));
 
-            GameObject myObject = new GameObject(xPosition,yPosition,width,height,imagePath,properties);
-            myLevel.addGameObject(myObject);   
-        }
+        String imagePath = type.get(IMAGE_PATH_KEY);
+        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
+        Map<String,String> properties = getPropertiesMap(type);
+        GameObject myObject = new GameObject(xPosition,yPosition,width,height,file,properties);
+        myLevel.addGameObject(myObject);   
     }
+}
 
-    private void removeValuesExceptProperties(Map<String,String> typeMap){
-        typeMap.remove(IMAGE_PATH_KEY);
-        typeMap.remove(HEIGHT_KEY);
-        typeMap.remove(WIDTH_KEY);
-        typeMap.remove(ISelectDetail.X_POSITION_KEY);
-        typeMap.remove(ISelectDetail.Y_POSITION_KEY);
-        typeMap.remove(DetailResources.TYPE_NAME.getResource());  
-    }
+private void removeValuesExceptProperties(Map<String,String> typeMap){
+    typeMap.remove(IMAGE_PATH_KEY);
+    typeMap.remove(HEIGHT_KEY);
+    typeMap.remove(WIDTH_KEY);
+    typeMap.remove(ISelectDetail.X_POSITION_KEY);
+    typeMap.remove(ISelectDetail.Y_POSITION_KEY);
+    typeMap.remove(DetailResources.TYPE_NAME.getResource()); 
+    typeMap.remove(DetailResources.IMAGEVIEW_KEY.getResource());
+}
 
 
-    @Override
-    public void addGameBoundary (BasicBoundary gameBoundary) {
-        //TODO: ADD GAME BOUNDARY -- Where? 
-    }    
+@Override
+public void addGameBoundary (BasicBoundary gameBoundary) {
+    //TODO: ADD GAME BOUNDARY -- Where? 
+}
+
+
+@Override
+public void storeMainCharToXML () {
+    // TODO Auto-generated method stub
+//    for(Map<String,String> map: myMainCharImageViewMap){
+//        
+//        for(String key: map.keySet()){
+//            System.out.println(" Main Char Key: " + key + " Value: " + map.get(key));
+//        }
+//    }
+
+}
 }
 
 
