@@ -40,7 +40,7 @@ public class ServerMain {
 
 	private static int SERVER_PORT_TCP;
 
-	private static long IDs = 0L;
+	private static int IDs = 0;
 
 	private XMLSerializer serializer;
 
@@ -97,6 +97,7 @@ public class ServerMain {
 	}
 
 	synchronized long getId() {
+		gameHandler.addMainCharacter(IDs);
 		return IDs++;
 	}
 

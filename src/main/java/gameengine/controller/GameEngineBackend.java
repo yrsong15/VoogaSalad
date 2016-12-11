@@ -50,6 +50,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		serverMain = new ServerMain(this, 9090);
 
 	}
+	
+	public void addMainCharacter(int ID){
+		currentGame.getCurrentLevel().addPlayer(currentGame.getPlayers().get(ID).getMainChar());
+	}
 
 	private void addRGFrames() {
 		List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();

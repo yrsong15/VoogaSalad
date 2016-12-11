@@ -10,4 +10,5 @@ public interface GameHandler {
 	public void updateGame();
 	public void runControl(String controlName, int ID);
 	public ClientGame getClientGame();
+	public void addMainCharacter(int ID);
 }
