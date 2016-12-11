@@ -178,16 +178,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         // add Game Objects to level
         myDataStoreInterface.addGameObjectsToLevel();
         myDataStoreInterface.storeMainCharToXML();
-        addGround();
         closeLevelWindow.set(true);
     }
 
-    //TODO: Change hardcoded value for ground values
-    private void addGround(){
-        GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
-        ground.setProperty("damage","30");
-        myLevelSettings.addGameObject(ground);
-    }
 
     public BooleanProperty getSaveLevelProperty(){
         return this.closeLevelWindow;

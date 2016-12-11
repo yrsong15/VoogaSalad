@@ -8,6 +8,8 @@ import java.util.List;
 
 import frontend.util.ButtonTemplate;
 import gameengine.controller.GameEngineController;
+import gameengine.controller.interfaces.CommandInterface;
+import gameengine.controller.interfaces.ControlInterface;
 import general.NodeFactory;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -35,13 +37,13 @@ public class HighScoreScreen {
 	private Level myLevel;
 	private List<Integer> highScores;
 	private BorderPane root;
-	private GameEngineController myEngine;
+	private CommandInterface commandInterface;
 	
-	public HighScoreScreen(Level level, List<Integer> highScores, GameEngineController engine) {
+	public HighScoreScreen(Level level, List<Integer> highScores, CommandInterface commandInterface) {
 		this.highScores = highScores;
 		myLevel = level;
 		myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-		myEngine = engine;
+		this.commandInterface = commandInterface;
 	}
 	
 	public Scene getScene() {
@@ -55,10 +57,8 @@ public class HighScoreScreen {
 		Rectangle backdrop = myFactory.makeBackdrop(20, 20, 350, 300, Color.WHITE);
 		root = new BorderPane();
 		Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
-		score.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 		score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
 		Text highScoreText = new Text (50, 100, "High Scores");
-		highScoreText.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 		highScoreText.setFill(Color.RED);
 		highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
 		root.getChildren().addAll(background, backdrop, score, highScoreText);
@@ -66,7 +66,6 @@ public class HighScoreScreen {
 		for (Integer highScore : highScores) {
 			Text text = new Text (50, 120 + index * 20, " " + (index + 1) + ".\t" + Integer.toString(highScore));
 			text.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-			text.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 			root.getChildren().add(text);
 			index++;
 		}
@@ -74,11 +73,11 @@ public class HighScoreScreen {
 		ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
 		Button exit = exitTemplate.getButton();
 		exit.setOnMouseClicked(e -> {
-			myEngine.stop();
+			commandInterface.stop();
 			//stage.close();
 		});
 		Button replay = replayTemplate.getButton();
-		replay.setOnMouseClicked(e -> myEngine.reset());
+		replay.setOnMouseClicked(e -> commandInterface.reset());
 		root.getChildren().addAll(exit, replay);
 		return root;
 	}
