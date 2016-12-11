@@ -98,7 +98,8 @@ public class MainController {
         secondShyGuy.setProperty("movespeed", "0");
         thirdShyGuy.setProperty("movespeed", "0");
         fourthShyGuy.setProperty("movespeed", "0");
-
+        ProjectileProperties projectileProperties = new ProjectileProperties("duvall.png", 50, 50, Direction.RIGHT, 400, 30, 20);
+        firstShyGuy.setProjectileProperties(projectileProperties);
         Level level = new Level(1);
         ScreenBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
@@ -106,8 +107,11 @@ public class MainController {
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
         game.setCurrentLevel(level);
-        player1.setControl(KeyCode.A, "jump");
-        player1.setControl(KeyCode.SPACE, "right");
+        player1.setControl(KeyCode.UP, "jump");
+        player1.setControl(KeyCode.SPACE, "shoot");
+        player1.setControl(KeyCode.RIGHT, "right");
+        player1.setControl(KeyCode.LEFT, "left");
+
         player2.setControl(KeyCode.S, "jump");
         player3.setControl(KeyCode.D, "jump");
         player4.setControl(KeyCode.F, "jump");

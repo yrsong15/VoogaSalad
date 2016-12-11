@@ -2,6 +2,7 @@
  * 
  */
 package gameengine.view;
+import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -10,6 +11,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Rotate;
 import objects.GameObject;
 import objects.Level;
 
@@ -64,9 +66,16 @@ public class GameScreen {
     }
 
 	public void update(Level level) {
+
 			for (GameObject object : level.getAllGameObjects()) {
                 if(gameObjectImageViewMap.containsKey(object)){
-                    gameObjectImageViewMap.get(object).relocate(object.getXPosition(), object.getYPosition());
+                    ImageView view = gameObjectImageViewMap.get(object);
+                    view.relocate(object.getXPosition(), object.getYPosition());
+                    if(object.getDirection().equals(Direction.LEFT)){
+                        view.setRotate(180);
+                    }else{
+                        view.setRotate(0);
+                    }
                 }else{
                     addGameObject(object);
                 }
@@ -82,7 +91,8 @@ public class GameScreen {
 		if(object.getImageFileName()==null) return;
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
 		ImageView iv = new ImageView(image);
-		iv.setFitHeight(object.getHeight());
+        iv.setRotationAxis(Rotate.Y_AXIS);
+        iv.setFitHeight(object.getHeight());
 		iv.setFitWidth(object.getWidth());
 		iv.setX(object.getXPosition());
 		iv.setY(object.getYPosition());

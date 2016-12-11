@@ -3,6 +3,7 @@ package objects;
 import java.util.Map;
 import java.util.Set;
 
+import com.sun.javafx.scene.traversal.Direction;
 import gameengine.controller.SingletonBoundaryChecker;
 import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 
@@ -26,6 +27,7 @@ public class GameObject {
     private GameObject platformCharacterIsOn;
     private ProjectileProperties projectileProperties;
     private boolean isPlayer;
+    private Direction direction;
 
     public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
@@ -39,12 +41,22 @@ public class GameObject {
         this.width = width;
         this.height = height;
         this.properties = properties;
+        this.direction = Direction.RIGHT;
     }
 
 	public String getProperty(String propertyName) {
 		String val = properties.get(propertyName);
 		return val;
 	}
+
+	public void setDirection(Direction direction){
+        this.direction = direction;
+    }
+
+	public Direction getDirection(){
+        return direction;
+    }
+
 	
 	public void setPlatformCharacterIsOn(GameObject platform){
 		platformCharacterIsOn = platform;
