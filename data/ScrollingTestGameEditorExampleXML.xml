@@ -78,8 +78,8 @@
             </myScrollDirectionList>
             <scrollSpeed>30.0</scrollSpeed>
             <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
-                <screenWidth>700.0</screenWidth>
-                <screenHeight>675.0</screenHeight>
+                <viewWidth>700.0</viewWidth>
+                <viewHeight>675.0</viewHeight>
                 <worldWidth>700.0</worldWidth>
                 <worldHeight>675.0</worldHeight>
             </gameBoundaries>
