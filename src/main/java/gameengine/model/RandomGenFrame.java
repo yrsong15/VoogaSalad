@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import gameengine.network.server.ServerMain;
 import objects.GameObject;
 import objects.Level;
 import objects.RandomGeneration;
@@ -70,14 +72,14 @@ public class RandomGenFrame<T> {
         Map<String, String> topPipeMap = new HashMap<String, String>();
         topPipeMap.put("damage", objectProperties.get("damage"));
         GameObject topPipe =
-                new GameObject(xPosition, 0, width, yPosition - gapHeight / 2, "PipeOpposite.png",
+                new GameObject(ServerMain.idCounter++, xPosition, 0, width, yPosition - gapHeight / 2, "PipeOpposite.png",
                                topPipeMap);
         level.getGameObjects().add(topPipe);
 
         
         Map<String, String> bottomPipeMap = new HashMap<String, String>();
         bottomPipeMap.put("damage", objectProperties.get("damage"));
-        GameObject bottomPipe = new GameObject(xPosition, yPosition + gapHeight / 2, width,
+        GameObject bottomPipe = new GameObject(ServerMain.idCounter++, xPosition, yPosition + gapHeight / 2, width,
                                                GameScreen.screenHeight - (yPosition +
                                                                           gapHeight / 2),
                                                "Pipes.png", bottomPipeMap);
@@ -87,7 +89,7 @@ public class RandomGenFrame<T> {
         scoreMap.put("points", objectProperties.get("points"));
         scoreMap.put("removeobject", "");
         GameObject scoreObject =
-                new GameObject(xPosition + width, -100, 1, GameScreen.screenHeight + 100, scoreMap);
+                new GameObject(ServerMain.idCounter++, xPosition + width, -100, 1, GameScreen.screenHeight + 100, scoreMap);
         level.getGameObjects().add(scoreObject);
 
     }

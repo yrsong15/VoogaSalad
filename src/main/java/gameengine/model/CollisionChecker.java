@@ -22,11 +22,10 @@ public class CollisionChecker {
 		this.currentlyCollidingObjectsWithCharacter = new HashSet<>();
 	}
 
+	
 	/**
-	 * Passes the mainCharacter and any object colliding with it to the rulebook
-	 * 
-	 * @param mainChar
-	 * @param gameObjects
+	 * Passes the projectile list and any object colliding with it to the rulebook
+	 *
 	 */
 	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects) {
 		//System.out.println(currentlyCollidingObjectsWithCharacter.size());
@@ -52,7 +51,6 @@ public class CollisionChecker {
 			}
 		}
 	}
-
 	
 	/**
 	 * Passes the projectile list and any object colliding with it to the rulebook
@@ -79,7 +77,7 @@ public class CollisionChecker {
                 }
             }
         }
-    }	
+    }
 
 	//Used in both platform apply rules for collision rules
 	public void manuallyRemoveFromConcurrentCollisionList(GameObject obj) {
@@ -103,7 +101,4 @@ public class CollisionChecker {
 	public boolean collision(GameObject character, GameObject other) {
 		return SingletonBoundaryChecker.getInstance().checkIfAnyCollision(character, other);
 	}
-
-
-
 }

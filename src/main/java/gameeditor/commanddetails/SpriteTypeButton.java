@@ -3,7 +3,7 @@ package gameeditor.commanddetails;
 import java.util.Map;
 
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameeditor.objects.GameObjectView;
+import gameeditor.objects.GameObject;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
@@ -155,7 +155,7 @@ public class SpriteTypeButton {
     		
     	} else {
     		myDesignArea.removeDragIn(myTempImageView);
-	        GameObjectView go = new GameObjectView(myFilePath, myX, myY, myWidth, myHeight, myType, myDesignArea, myDataStore);
+	        GameObject go = new GameObject(myFilePath, myX, myY, myWidth, myHeight, myType, myDesignArea, myDataStore);
 	        Map<String, String> typeMap = myDataStore.getType(myType);
 
 	        // Add the properties to the Map now

@@ -57,10 +57,8 @@ public class HighScoreScreen {
 		Rectangle backdrop = myFactory.makeBackdrop(20, 20, 350, 300, Color.WHITE);
 		root = new BorderPane();
 		Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
-		score.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 		score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
 		Text highScoreText = new Text (50, 100, "High Scores");
-		highScoreText.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 		highScoreText.setFill(Color.RED);
 		highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
 		root.getChildren().addAll(background, backdrop, score, highScoreText);
@@ -68,7 +66,6 @@ public class HighScoreScreen {
 		for (Integer highScore : highScores) {
 			Text text = new Text (50, 120 + index * 20, " " + (index + 1) + ".\t" + Integer.toString(highScore));
 			text.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-			text.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
 			root.getChildren().add(text);
 			index++;
 		}

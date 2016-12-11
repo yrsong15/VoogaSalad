@@ -32,6 +32,9 @@ public class Gallery implements IGallery {
 		addToGallery(scrollingGame);
 		GameFile exampleGame = new GameFile("Example Flappy Bird", readFile("data/FlappyExample.xml"));
 		addToGallery(exampleGame);
+		GameFile ddr = new GameFile("Dance Dance Revolution", readFile("data/DanceDanceRevolution.xml"));
+		addToGallery(ddr);
+
 
 	}
 

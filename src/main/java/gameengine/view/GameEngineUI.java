@@ -1,8 +1,4 @@
-/**
- *
- */
 package gameengine.view;
-
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,7 +9,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import frontend.util.FileOpener;
 import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
@@ -42,18 +37,15 @@ import objects.Level;
 import objects.Player;
 import utils.ResourceReader;
 import xml.XMLSerializer;
-
 /**
  * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
  *
  */
 public class GameEngineUI implements UDPHandler{
-
 	public static final double myAppWidth = 700;
 	public static final double myAppHeight = 775;
 	public static final String RESOURCE_FILENAME = "GameEngineUI";
 	private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
-
 	private ResourceBundle myResources;
 	private Scene scene;
 	private ScrollerController scrollerController;
@@ -63,8 +55,10 @@ public class GameEngineUI implements UDPHandler{
 	private HUD myHUD;
 	private GameScreen gameScreen;
 	private MediaPlayer mediaPlayer;
+	private Map<KeyCode, Player> playerMappings = new HashMap<>();
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
+	private Map<KeyCode, Boolean> keyPressed = new HashMap<>();
 	private EventHandler<ActionEvent> resetEvent;
 	private Timeline animation;
 	private ControlInterface controlInterface;
@@ -73,23 +67,20 @@ public class GameEngineUI implements UDPHandler{
 	private ClientGame currentGame;
 	private Player mainPlayer;
 	private XMLSerializer mySerializer;
-	
-	private boolean isPaused,isMuted;
 
-	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, Player player) {
+	private boolean isPaused,isMuted;
+	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, Player player, String serverName) {
 		mainPlayer = player;
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-//		controlInterface = new ClientMain("25.16.229.50", 9090, -1, this);
-		controlInterface = new ClientMain("localhost", 9090, -1, this);
+		controlInterface = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
-		
+
 		setUpMethodMappings();
 	}
-	
 
 	public void initLevel() {
 		if (currentGame.getMusicFilePath() != null) {
@@ -102,24 +93,19 @@ public class GameEngineUI implements UDPHandler{
 		gameScreen.init(currentGame);
 		myHUD.resetTimer();
 	}
-
 	public Scene getScene() {
 		return scene;
 	}
-
 	public double getScreenHeight() {
 		return gameScreen.getScreenHeight();
 	}
-
 	public double getScreenWidth() {
 		return gameScreen.screenWidth;
 	}
-
 	public void update() {
 		gameScreen.update(currentGame);
 //		myHUD.update(currentGame);
 	}
-
 	public void playMusic(String musicFileName) {
 		try {
 			if (mediaPlayer != null) {
@@ -134,20 +120,27 @@ public class GameEngineUI implements UDPHandler{
 			System.out.println(myResources.getString("MusicFileError"));
 		}
 	}
-
 	public void setBackgroundImage(String imageFile) {
 		try {
 			gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
 		}
-
 	}
-
-	public void mapKeys() {
-		mapKeysToMethods(mainPlayer.getControls());
-		setUpKeystrokeListeners(mainPlayer);
-
+	private void checkKeyPressed() throws InvocationTargetException, IllegalAccessException {
+		for(KeyCode key : keyPressed.keySet()){
+			if(keyPressed.get(key).equals(true)){
+				Player player = playerMappings.get(key);
+				keyMappings.get(key).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
+			}
+		}
+	}
+	public void mapKeys(Player player, Map<KeyCode, String> mappings) {
+		for(KeyCode key : mappings.keySet()){
+			playerMappings.put(key, player);
+		}
+		mapKeysToMethods(mappings);
+		setUpKeystrokeListeners();
 	}
 
 	public void setupKeyFrameAndTimeline(double delay) {
@@ -158,13 +151,11 @@ public class GameEngineUI implements UDPHandler{
 				myErrorMessage.showError(myResources.getString("AnimationError"));
 			}
 		});
-
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-
 	public void endGame() {
 		animation.stop();
 //		HighScoreScreen splash = new HighScoreScreen(currentGame, new ArrayList<Integer>(),
@@ -177,50 +168,42 @@ public class GameEngineUI implements UDPHandler{
 //		endGameStage.setTitle("GAME OVER");
 //		endGameStage.show();
 	}
-	
+
 	public void saveGame(){
 		FileOpener chooser = new FileOpener();
-		chooser.saveFile(myResources.getString("XML"), myResources.getString("data"), 
+		chooser.saveFile(myResources.getString("XML"), myResources.getString("data"),
 				mySerializer.serializeClientGame(currentGame), myResources.getString("DefaultGameTitle"));
 	}
-
 	public void stop() {
 		stopMusic();
 		animation.stop();
 	}
-
 	public void stopMusic() {
 		if (currentGame.getMusicFilePath() != null) {
 			mediaPlayer.stop();
 		}
 	}
-
 	public void resetGameScreen() {
 		gameScreen.reset();
 		myHUD.resetTimer();
 	}
-
 	public void removeObject(GameObject object) {
 		gameScreen.removeObject(object);
 	}
-
 	private void setUpMethodMappings() {
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
 			Iterator<String> keys = resources.getKeys();
-
 			while (keys.hasNext()) {
 				String key = keys.next();
 				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key),
 						GameObject.class, double.class));
 			}
 		} catch (
-
-		NoSuchMethodException e) {
+				NoSuchMethodException e) {
 			e.printStackTrace();
 		}
 	}
-
 	private void mapKeysToMethods(Map<KeyCode, String> mappings) {
 		for (Map.Entry<KeyCode, String> m : mappings.entrySet()) {
 			if (methodMappings.containsKey(m.getValue())) {
@@ -228,7 +211,6 @@ public class GameEngineUI implements UDPHandler{
 			}
 		}
 	}
-
 	private BorderPane makeRoot() {
 		BorderPane root = new BorderPane();
 		VBox vb = new VBox();
@@ -237,23 +219,19 @@ public class GameEngineUI implements UDPHandler{
 		root.setCenter(makeGameScreen());
 		return root;
 	}
-
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, 
+		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent,
 				event -> mute(), event -> saveGame());
 		return toolbar.getToolbar();
 	}
-
 	private Node makeHUD() {
 		myHUD = new HUD();
 		return myHUD.getHUD();
 	}
-
 	private Node makeGameScreen() {
 		gameScreen = new GameScreen();
 		return gameScreen.getScreen();
 	}
-
 	private void mute() {
 		if (isMuted) {
 			isMuted = false;
@@ -266,14 +244,12 @@ public class GameEngineUI implements UDPHandler{
 			mediaPlayer.setMute(true);
 		}
 	}
-
 	private void loadLevel() {
 		FileChooser levelChooser = new FileChooser();
 		levelChooser.setTitle("Open Level File");
 		File levelFile = levelChooser.showOpenDialog(new Stage());
 		myLevelFileLocation = levelFile.getAbsolutePath();
 	}
-
 	private void pause() {
 		if (isPaused) {
 			toolbar.resume();
@@ -285,18 +261,22 @@ public class GameEngineUI implements UDPHandler{
 		stopMusic();
 		isPaused = !isPaused;
 	}
-
-	private void setUpKeystrokeListeners(Player player) {
+	private void setUpKeystrokeListeners() {
 		this.scene.setOnKeyPressed(event -> {
+			if (keyMappings.containsKey(event.getCode())) {
+				keyPressed.put(event.getCode(), true);
+			}
 			try {
-				if (keyMappings.containsKey(event.getCode())) {
-					keyMappings.get(event.getCode()).invoke(controlInterface, player.getMainChar(),
-							Double.parseDouble(player.getMainChar().getProperty("movespeed")));
-				}
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
+				checkKeyPressed();
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		});
+		this.scene.setOnKeyReleased(event -> {
+			if (keyMappings.containsKey(event.getCode())) {
+				keyPressed.put(event.getCode(), false);
 			}
 		});
 	}
@@ -305,7 +285,7 @@ public class GameEngineUI implements UDPHandler{
 	public void updateGame(ClientGame game) {
 		currentGame = game;
 	}
-	
+
 	public boolean gameLoadedFromServer(){
 		return currentGame!=null;
 	}

@@ -1,5 +1,4 @@
 package general;
-
 import frontend.util.ButtonTemplate;
 import general.interfaces.ISplashScreen;
 import javafx.scene.Parent;
@@ -18,17 +17,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.HashMap;
-
 import javafx.event.EventHandler;
-
 /**
  * Created by Delia on 11/15/2016.
  */
 public class SplashScreen implements ISplashScreen {
-
     public static final int SPLASH_WIDTH = 1030;
     public static final int SPLASH_HEIGHT = 600;
     private Pane startWindow;
@@ -37,7 +32,6 @@ public class SplashScreen implements ISplashScreen {
     private Gallery galleryItem;
     private GalleryView myGallery;
     private EditorSplash editorSplash;
-
     private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
             CycleMethod.NO_CYCLE,
             new Stop(0, Color.WHITE),
@@ -47,13 +41,11 @@ public class SplashScreen implements ISplashScreen {
             new Stop(0.6, Color.LIGHTBLUE),
             new Stop(0.75, Color.HONEYDEW),
             new Stop(1, Color.WHITE));
-
     public SplashScreen(Gallery galleryItem, MainController mainController) {
         this.myFactory = new NodeFactory();
         this.galleryItem = galleryItem;
         this.mainController = mainController;
     }
-
     @Override
     public Parent setUpWindow() {
         startWindow = new Pane();
@@ -67,14 +59,12 @@ public class SplashScreen implements ISplashScreen {
         this.myGallery = new GalleryView(galleryItem, mainController, startWindow);
         return startWindow;
     }
-
     private void addTitle() {
         BigNameText title = new BigNameText("Welcome to VoogaSalad");
         title.setTranslateX(55);
         title.setTranslateY(35);
         startWindow.getChildren().add(title);
     }
-
     private static class BigNameText extends StackPane {
         /**
          * @param Name

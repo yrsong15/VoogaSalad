@@ -11,6 +11,7 @@ import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IToolbarParent;
+import gameengine.network.server.ServerMain;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Parent;
@@ -72,9 +73,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                 double width = object.getWidth();
                 String fileName = object.getImageFileName();
                 Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
-                ImageView spriteimageView = new ImageView(image);      
+                ImageView spriteimageView = new ImageView(image);
+                
+                
             }
-        }    
+        }
+        
     }
     
     private HBox createLeftAlt(){
@@ -137,14 +141,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     public void setMusic(){
-        try {
-            String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
-            String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
-            myLevelSettings.setBackgroundMusic(file);
-
-        }catch (NullPointerException e){
-            System.out.println("Music was not added");
-        }
+        String musicFilePath = getFilePath(MUSIC_FILE_TYPE,MUSIC_FILE_LOCATION);
+        String file = musicFilePath.substring(musicFilePath.lastIndexOf("/") +1);
+        myLevelSettings.setBackgroundMusic(file);
     }
 
     private String getFilePath(String fileType, String fileLocation){
@@ -170,7 +169,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     //TODO: Change hardcoded value for ground values
     private void addGround(){
-        GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
+        GameObject ground = new GameObject(ServerMain.idCounter++,0,600,1000000,200, new HashMap<>());
         ground.setProperty("damage","30");
         myLevelSettings.addGameObject(ground);
     }

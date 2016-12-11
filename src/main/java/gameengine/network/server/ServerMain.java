@@ -34,9 +34,9 @@ import xml.XMLTrimmer;
 public class ServerMain {
 
 	// refreshing game state and sending data to clients every x ms
-//	private static final long RESHRESH_GAP = 30;
-	private static final long RESHRESH_GAP = 50;
+	public static int idCounter = 0;
 
+	private static final long RESHRESH_GAP = 30;
 
 	private static int SERVER_PORT_TCP;
 
@@ -52,21 +52,17 @@ public class ServerMain {
 
 	private GameHandler gameHandler;
 
-	public ServerMain(GameHandler gameHandler, int tcpPort) {
+	public ServerMain(GameHandler gameHandler, int tcpPort, String serverName) {
 		this.gameHandler = gameHandler;
 		SERVER_PORT_TCP = tcpPort;
 		activeClients = new CopyOnWriteArrayList<IpPort>();
 		udpSend = new UdpConnectionsSend();
 		serializer = new XMLSerializer();
-		start();
+		start(serverName);
 	}
 
-	private void start() {
-
-		
-
-//		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("25.16.229.50"))) {
-		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("localhost"))) {
+	private void start(String serverName) {
+		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName(serverName))) {
 
 			Socket clientSocket;
 			while ((clientSocket = serverSocket.accept()) != null) {
@@ -106,7 +102,7 @@ public class ServerMain {
 	}
 
 	void readCommand(long id, String command) {
-		gameHandler.runControl(command,0);
+		gameHandler.runControl(command, 0);
 	}
 
 	void addressBook(InetAddress address, int port) {
@@ -143,12 +139,12 @@ public class ServerMain {
 
 			try {
 
-//				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//				ObjectOutputStream oos = new ObjectOutputStream(baos);
-//				System.out.println(XMLTrimmer.trim(serializer.serializeGame(game)));
-//				oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
-//				byte[] bytes = baos.toByteArray();
-//				System.out.println(XMLTrimmer.trim(serializer.serializeClientGame(game)));
+				// ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				// ObjectOutputStream oos = new ObjectOutputStream(baos);
+				// System.out.println(XMLTrimmer.trim(serializer.serializeGame(game)));
+				// oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
+				// byte[] bytes = baos.toByteArray();
+				// System.out.println(XMLTrimmer.trim(serializer.serializeClientGame(game)));
 				byte[] bytes = XMLTrimmer.trim(serializer.serializeClientGame(game)).getBytes();
 				DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
 
@@ -164,6 +160,6 @@ public class ServerMain {
 
 			}
 		}
-		
+
 	}
 }

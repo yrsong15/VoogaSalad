@@ -20,9 +20,5 @@ public class ApplyVerticalMovementRule implements MovementRule {
 		else if (newYPos < obj.getYPosition()){
 			gameMovement.moveUp(obj, GameEngineController.SECOND_DELAY * movespeed*-1);
 		}
-		//gameBoundaries.moveToYPos(obj, obj.getYPosition() + GameEngineController.SECOND_DELAY * movespeed);
-		obj.setYDistanceMoved(obj.getYDistanceMoved() + GameEngineController.SECOND_DELAY * movespeed);		
 	}
-
-
 }

@@ -1,27 +1,20 @@
 package gameengine.controller;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
+import com.sun.javafx.scene.traversal.Direction;
 import gameengine.controller.interfaces.GameHandler;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
+import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 import gameengine.model.LossChecker;
 import gameengine.model.RandomGenFrame;
 import gameengine.model.WinChecker;
 import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
-import javafx.scene.control.Alert;
-import objects.ClientGame;
-import objects.Game;
-import objects.GameObject;
-import objects.Level;
-import objects.Player;
-import objects.Position;
-import objects.RandomGeneration;
+import objects.*;
 
 public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHandler {
 
@@ -29,25 +22,26 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private List<Integer> highScores;
 	private CollisionChecker collisionChecker;
 	private Game currentGame;
-	private Position mainCharImprint;
 	private MovementManager gameMovement;
 	private ServerMain serverMain;
+	private Map<GameObject, Position> mainCharImprints;
+	private String serverName;
 
-	
-	public GameEngineBackend() {
+	public GameEngineBackend(String serverName) {
+		this.serverName = serverName;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
 		highScores = new ArrayList<>();
+		mainCharImprints = new HashMap<>();
 	}
 
 	public void startGame(Game currentGame) {
 		currentGame.getCurrentLevel().removeAllPlayers();
 		this.currentGame = currentGame;
-		this.mainCharImprint = new Position();
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		addRGFrames();
-		serverMain = new ServerMain(this, 9090);
+		serverMain = new ServerMain(this, 9090, serverName);
 
 	}
 	
@@ -87,12 +81,14 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
-			mainCharImprint.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
+			Position position = new Position();
+			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
+			mainCharImprints.put( mainChar, position);
 			mainChar.checkPlatformStatus();
-			collisionChecker.checkCollisions(mainChar, currLevel.getGameObjects());
 		}
-		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());
-		// checkProjectileDistance();
+        checkProjectileDistance();
+        collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
+        collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());		// checkProjectileDistance();
 		LossChecker.checkLossConditions(this, currLevel.getLoseConditions(), currLevel.getGameConditions());
 		WinChecker.checkWinConditions(this, currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
@@ -139,15 +135,22 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj) {
-		double newPosition;
-		if (mainCharImprint.getY() < obj.getYPosition()) {
-			newPosition = obj.getYPosition() - mainChar.getHeight();
-			mainChar.setPlatformCharacterIsOn(obj);
-		} else
-			newPosition = obj.getYPosition() + obj.getHeight();
+        double newPosition;
+        if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) == IntersectionAmount.COMPLETELY_INSIDE_X){
+            if(mainCharImprints.get(mainChar).getY() < obj.getYPosition()){
+                //System.out.println("Resetting");
+                newPosition = obj.getYPosition() - mainChar.getHeight()+5;
+                mainChar.setPlatformCharacterIsOn(obj);
+            }
+            else
+                newPosition = obj.getYPosition() + obj.getHeight();
+        }
+        else{
+            newPosition = mainCharImprints.get(mainChar).getY();
+        }
 
-		mainChar.setYPosition(newPosition);
-		mainChar.setXPosition(mainCharImprint.getX());
+        mainChar.setYPosition(newPosition);
+        mainChar.setXPosition(mainCharImprints.get(mainChar).getX());
 	}
 
 	private void addHighScore(int score) {
@@ -212,5 +215,23 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
 		return clientGame;
 	}
+
+    private void checkProjectileDistance(){
+        for(Iterator<GameObject> itr = currentGame.getCurrentLevel().getProjectiles().iterator(); itr.hasNext();){
+            GameObject projectile = itr.next();
+            ProjectileProperties properties = projectile.getProjectileProperties();
+            if(properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)){
+                if(projectile.getXDistanceMoved() >= properties.getRange()){
+                    removeObject(projectile);
+                    itr.remove();
+                }
+            }else{
+                if(projectile.getYDistanceMoved() >= properties.getRange()){
+                    removeObject(projectile);
+                    itr.remove();
+                }
+            }
+        }
+    }
 
 }
