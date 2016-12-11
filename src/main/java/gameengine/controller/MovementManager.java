@@ -134,9 +134,7 @@ public class MovementManager implements ControlInterface{
 	}
 	
 	public void checkYToroidalChange(GameObject obj, double newYPos){
-		System.out.println("ypos : " + obj.getYPosition());
 		GameBoundary gameBoundary = currLevel.getScrollType().getGameBoundary();
-		System.out.println(obj.getYPosition() + "  " + newYPos);
 		if (currLevel.getScrollType().getGameBoundary().getClass() == ToroidalBoundary.class
 			&& obj.getYPosition() != newYPos){
 				if (obj.getYPosition()==0){
