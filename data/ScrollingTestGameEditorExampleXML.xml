@@ -21,7 +21,7 @@
         <yDistanceMoved>0.0</yDistanceMoved>
         <onPlatform>false</onPlatform>
         <isPlayer>false</isPlayer>
-        <id>1</id>
+        <id>0</id>
       </objects.GameObject>
     </gameObjects>
     <obstacles/>
@@ -68,7 +68,7 @@
           <damage>20.0</damage>
         </projectileProperties>
         <isPlayer>true</isPlayer>
-        <id>0</id>
+        <id>1</id>
       </objects.GameObject>
     </players>
     <scrollType>

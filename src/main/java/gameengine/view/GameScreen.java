@@ -38,23 +38,12 @@ public class GameScreen {
         return screenHeight;
     }
     public void setBackgroundImage(String imageFile) {
-        /**BackgroundImage bi = new BackgroundImage(
+        BackgroundImage bi = new BackgroundImage(
                 new Image(getClass().getClassLoader().getResourceAsStream(imageFile), screenWidth, screenHeight, false,
                         true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-        myScreen.setBackground(new Background(bi));**/
-        
-        Image backImg = new Image(getClass().getClassLoader().getResourceAsStream(imageFile), screenWidth, screenHeight, false,
-                true);
-        ImageView backgroundImageView = new ImageView(backImg);
-        Pane backgroundLayer = new Pane();
-        myScreen.getChildren().add(backgroundLayer);
-        // reposition the map. it is scrolling from bottom of the background to top of the background
-        backgroundImageView.relocate(0, -backgroundImageView.getImage().getHeight() + getScreenHeight());
-        backgroundLayer.getChildren().add(backgroundImageView);
-        
-        
+        myScreen.setBackground(new Background(bi));     
     }
     
     
