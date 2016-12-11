@@ -4,6 +4,7 @@ import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
+import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -46,5 +47,10 @@ public interface IDesignArea {
 	public void removeDragIn(ImageView tempIV);
 	
 	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds);
+
+	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox);
+
+	public void removeMultiBoundingBox();
+
 
 }

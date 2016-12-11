@@ -162,7 +162,7 @@ public class GameObjectView {
                 myDataStore.storeMainCharater(mainCharMap);
             }
             addCommonValuesToMap(mainCharMap); 
-        }else{
+        } else{
             Map<String, String> typeMap = myDataStore.getViewMap(myImageView.toString());
             if(typeMap==null){
                 typeMap = myDataStore.createViewMap(myType, myImageView.toString());
