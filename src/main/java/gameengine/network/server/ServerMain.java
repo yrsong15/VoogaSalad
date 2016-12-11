@@ -34,9 +34,9 @@ import xml.XMLTrimmer;
 public class ServerMain {
 
 	// refreshing game state and sending data to clients every x ms
-//	private static final long RESHRESH_GAP = 30;
-	private static final long RESHRESH_GAP = 30;
+	public static int idCounter = 0;
 
+	private static final long RESHRESH_GAP = 30;
 
 	private static int SERVER_PORT_TCP;
 

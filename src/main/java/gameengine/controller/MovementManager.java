@@ -7,6 +7,7 @@ import gameengine.model.MovementChecker;
 import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import gameengine.model.interfaces.Scrolling;
+import gameengine.network.server.ServerMain;
 import objects.GameObject;
 import objects.Level;
 import objects.ProjectileProperties;
@@ -168,7 +169,7 @@ public class MovementManager implements ControlInterface{
             projectileStatus.put(obj, System.currentTimeMillis());
 	        if (obj.getProjectileProperties() != null) {
                 ProjectileProperties properties = obj.getProjectileProperties();
-                GameObject projectile = new GameObject(obj.getXPosition(), obj.getYPosition(),
+                GameObject projectile = new GameObject(ServerMain.idCounter++, obj.getXPosition(), obj.getYPosition(),
                         properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
                 if (properties.getDirection().equals(Direction.LEFT)) {
                     projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed() * -1));
