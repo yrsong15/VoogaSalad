@@ -86,7 +86,6 @@ public class FreeScrolling implements Scrolling{
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed)
 			throws ScrollDirectionNotFoundException {
-		System.out.println("scrolling");
 		trackDistanceScrolling(speed, mainChar);
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
