@@ -82,7 +82,6 @@ public class MovementManager implements ControlInterface{
 		else{
 			genMovement.moveDown(obj, speed);
 		}
-		
 	}
 	
 	@Override
@@ -92,8 +91,9 @@ public class MovementManager implements ControlInterface{
 			runGameScrolling(speed);
 		}
 		else{
+			double newXPos = obj.getXPosition() + Math.abs(speed);
 			genMovement.moveRight(obj, speed);
-			checkXToroidalChange(obj, obj.getXPosition() + Math.abs(speed));
+			checkXToroidalChange(obj, newXPos);
 		}		
 	}
 	
@@ -105,25 +105,28 @@ public class MovementManager implements ControlInterface{
 			runGameScrolling(speed);
 		}
 		else{
+			double newXPos = obj.getXPosition() - Math.abs(speed);
 			genMovement.moveLeft(obj, speed);
-			checkXToroidalChange(obj, obj.getXPosition() - Math.abs(speed));
+			checkXToroidalChange(obj, newXPos);
 		}
 	}
 
 	public void checkXToroidalChange(GameObject obj, double newXPos){
-		System.out.println(obj.getXPosition());
-		if (currLevel.getScrollType().getGameBoundary().getClass() == ToroidalBoundary.class
+		GameBoundary gameBoundary = currLevel.getScrollType().getGameBoundary();
+		if (gameBoundary.getClass() == ToroidalBoundary.class
 			&& obj.getXPosition() != newXPos){
 				if (obj.getXPosition()==0){
 					gameScrolling.setDirection(Direction.LEFT);
-					runGameScrolling(Math.abs(gameScrolling.getXDistanceScrolled()));
-
+					System.out.println(gameBoundary.getWorldWidth()-gameBoundary.getViewWidth());
+					runGameScrolling(gameBoundary.getWorldWidth()-gameBoundary.getViewWidth());
+					obj.setXDistanceMoved(0);
 				}
-				else if (obj.getXPosition()>=currLevel.getScrollType().getGameBoundary().getWorldWidth()-obj.getWidth()){
+				else{
+					System.out.println(gameBoundary.getWorldWidth()-gameBoundary.getViewWidth());
 					gameScrolling.setDirection(Direction.RIGHT);
-					runGameScrolling(currLevel.getScrollType().getGameBoundary().getWorldWidth()-obj.getWidth());
+					runGameScrolling(gameBoundary.getWorldWidth()-gameBoundary.getViewWidth());
+					obj.setXDistanceMoved(gameBoundary.getWorldWidth()-obj.getWidth());
 				}
-				
 		}
 	}
 	

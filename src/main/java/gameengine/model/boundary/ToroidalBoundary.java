@@ -16,11 +16,11 @@ public class ToroidalBoundary extends BasicBoundary{
 	
 	@Override
 	public boolean moveToXPos(GameObject toMove, double newXPos) {
-		if (getWorldWidth()-toMove.getWidth() <= newXPos){
+		if (getViewWidth()-toMove.getWidth() <= newXPos){
 			toMove.setXPosition(0);
 		}
 		else if (newXPos <= 0-toMove.getWidth()){
-			toMove.setXPosition(getWorldWidth()-toMove.getWidth());
+			toMove.setXPosition(getViewWidth()-toMove.getWidth());
 		}
 		else{
 			toMove.setXPosition(newXPos);

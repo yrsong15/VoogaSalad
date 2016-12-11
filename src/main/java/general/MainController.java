@@ -109,7 +109,7 @@ public class MainController {
          mainChar.setProperty("health", "10");
          mainChar.setProperty("movespeed", "30");
          Level level = new Level(1);
-         GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 900, 800);
+         GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 1200, 1000);
          ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
          scrollType.addScrollDirection(Direction.UP);
          scrollType.setScrollSpeed(30);
@@ -123,12 +123,21 @@ public class MainController {
          player.setControl(KeyCode.DOWN, "down");
          player.setControl(KeyCode.SPACE, "shoot");
          level.addPlayer(mainChar);
-         GameObject ground = new GameObject(250,200,75,50, "platform.png", new HashMap<>());
-         ground.setProperty("nonintersectable", "true");
-         level.addGameObject(ground);
+         
+         GameObject left = new GameObject(0,250,10,800, "pipes.png", new HashMap<>());
+         level.addGameObject(left);
+         
+         GameObject right = new GameObject(1200,250,10,800, "pipes.png", new HashMap<>());
+         level.addGameObject(right);
+         
+         GameObject top = new GameObject(250,1000,1200,10, "platform.png", new HashMap<>());
+         level.addGameObject(top);
+         
+         GameObject bottom = new GameObject(250,0,1200,10, "platform.png", new HashMap<>());
+         level.addGameObject(bottom);
+         
          XMLSerializer testSerializer = new XMLSerializer();
          String xml = testSerializer.serializeGame(game);
-         level.addGameObject(ground);
         System.out.println(xml);
         return xml;
     }

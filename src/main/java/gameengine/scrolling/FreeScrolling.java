@@ -55,22 +55,26 @@ public class FreeScrolling implements Scrolling{
 	
 	public boolean allowedToScroll(Direction requestedDir, GameObject player){
 		if(requestedDir == Direction.RIGHT){
-			return (xDistanceScrolled + player.getXPosition() < gameBoundaries.getWorldWidth()*0.8
-					&& player.getXPosition() > gameBoundaries.getViewWidth()*0.5);
+			System.out.println(gameBoundaries.getWorldWidth() - gameBoundaries.getViewWidth());
+			System.out.println("distance moved " + player.getXDistanceMoved());
+			return (player.getXDistanceMoved() - player.getXPosition() < gameBoundaries.getWorldWidth() - gameBoundaries.getViewWidth()
+					&& player.getXPosition() > gameBoundaries.getViewWidth()*0.45
+					&& player.getXPosition() < gameBoundaries.getViewWidth()*0.55);
 		}
 		else if(requestedDir == Direction.LEFT){
-			return (player.getXPosition() + xDistanceScrolled >  gameBoundaries.getWorldWidth()*0.2
-					&& player.getXPosition() < gameBoundaries.getViewWidth()*0.5);
+			return (player.getXDistanceMoved() - player.getXPosition()>= 0
+					&& player.getXPosition() > gameBoundaries.getViewWidth()*0.45
+					&& player.getXPosition() < gameBoundaries.getViewWidth()*0.55);
 		}
 		else if(requestedDir == Direction.UP){
-			System.out.println(yDistanceScrolled + player.getYPosition());
-			return (yDistanceScrolled + player.getYPosition() > gameBoundaries.getWorldHeight()*0.2)
-					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.5;
+			return (player.getYDistanceMoved() - player.getYPosition()>= 0
+					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.45
+					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.55);
 		}
 		else if(requestedDir == Direction.DOWN){
-			System.out.println(yDistanceScrolled + player.getYPosition());
-			return (yDistanceScrolled + player.getYPosition() < gameBoundaries.getWorldHeight()*0.8)
-					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.5;
+			return (player.getYDistanceMoved() < gameBoundaries.getWorldHeight() - gameBoundaries.getViewHeight()
+					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.45
+					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.55);
 
 		}
 		return false;			
@@ -85,11 +89,10 @@ public class FreeScrolling implements Scrolling{
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed)
 			throws ScrollDirectionNotFoundException {
-		trackDistanceScrolling(speed);
+		trackDistanceScrolling(speed, mainChar);
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		scrollObjects.remove(mainChar);
-		//System.out.println(xDistanceScrolled + ", y:  " + yDistanceScrolled);
 		Object[] parameters = new Object[]{scrollObjects, speed};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {
@@ -100,21 +103,20 @@ public class FreeScrolling implements Scrolling{
 			}
 	}
 
-	private void trackDistanceScrolling(double speed) {
+	private void trackDistanceScrolling(double speed, GameObject mainChar) {
 		if (direction == Direction.RIGHT){
-			xDistanceScrolled+= speed;
+			mainChar.setXDistanceMoved(mainChar.getXDistanceMoved() + speed);
 		}
 		else if(direction == Direction.LEFT){
-			xDistanceScrolled-= speed;
-
+			mainChar.setXDistanceMoved(mainChar.getXDistanceMoved() - speed);
 		}
 		else if(direction == Direction.UP){
-			yDistanceScrolled-= speed;
+			mainChar.setYDistanceMoved(mainChar.getYDistanceMoved() - speed);
 		}
 		else{
-			yDistanceScrolled+= speed;
+			mainChar.setYDistanceMoved(mainChar.getYDistanceMoved() + speed);
+
 		}
-		//System.out.println(xDistanceScrolled + "  " + yDistanceScrolled);
 	}
 }
 
