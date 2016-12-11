@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.ScrollPane;
 import gameeditor.commanddetails.*;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.objects.GameObjectView;
 
 
 public class DetailPane implements IDetailPane, ICommandDetailDisplay {
@@ -55,5 +56,10 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     @Override
     public void removeDetail(){
     	myPane.getChildren().remove(myDetailPane);
+    }
+    
+    @Override
+    public GameObjectView getCurrentAvatar(){
+    	return myAvatarDisplay.getCurrentMain();
     }
 }
