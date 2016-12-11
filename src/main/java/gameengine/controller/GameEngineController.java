@@ -63,7 +63,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 
 	public boolean startGame(String xmlData) {
         this.xmlData = xmlData;
-        this.mainCharImprint = new Position();
 		currentGame = parser.convertXMLtoGame(xmlData);
         if(currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -173,11 +172,10 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         endGameStage.show();
     }
     
-<<<<<<< HEAD
     public void resetObjectPosition(GameObject mainChar,GameObject obj){
     	double newPosition;
     	if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) == IntersectionAmount.COMPLETELY_INSIDE_X){
-    		if(mainCharImprint.getY() < obj.getYPosition()){
+    		if(mainCharImprints.get(mainChar).getY() < obj.getYPosition()){
         		newPosition = obj.getYPosition() - mainChar.getHeight();
         		mainChar.setPlatformCharacterIsOn(obj);
         	}
@@ -185,13 +183,11 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         		newPosition = obj.getYPosition() + obj.getHeight();
     	}
     	else{
-    		newPosition = mainCharImprint.getY();
+    		newPosition = mainCharImprints.get(mainChar).getY();
     	}
     	
-    	
-    	
     	mainChar.setYPosition(newPosition);
-    	mainChar.setXPosition(mainCharImprint.getX());
+    	mainChar.setXPosition(mainCharImprints.get(mainChar).getX());
     }
 
     @Override
@@ -254,10 +250,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		collisionChecker.manuallyRemoveFromConcurrentCollisionList(obj);
 	}
 
-	@Override
-	public void removeFromCollidedList(GameObject obj) {
-		collisionChecker.manuallyRemoveFromConcurrentCollisionList(obj);
-	}
 
 	@Override
 	public Game getGame() {
