@@ -46,6 +46,11 @@ public enum DetailDefaultsResources {
 	DEFAULT_TIME_VALUE (400),
 	DEFAULT_POINTS_VALUE(20),
 	DEFAULT_SCROLL_SPEED(10),
+	
+	// Platform Default Properties
+	PLATFORM_NON_INTERSECTABLE("True"),
+	PLATFORM_INTERSECTABLE("Bottom"),
+	
 
 	
 	

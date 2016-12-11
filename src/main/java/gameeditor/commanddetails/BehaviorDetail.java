@@ -25,9 +25,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private BorderPane myLimitWidthOption;
     private ComboBox<String> gameBoundaryOptions;
     private BorderPane myScrollWidthBP;
-
-
-
+    
     public BehaviorDetail() {
         super();
     }
@@ -57,9 +55,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         gameBoundaryOptions = myDetailFrontEndUtil.createComboBox(GAME_BOUNDARY_OPTIONS, DetailDefaultsResources.GAME_BOUNDARY.getResource());
         BorderPane bp = myDetailFrontEndUtil.createBorderpane(gameBoundaryOptions,label);
         myVBox.getChildren().add(bp);
-
     }
-
 
     private void addScrollSpeed(){
         scrollSpeedTextBox = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_SCROLL_SPEED.getDoubleResource()));

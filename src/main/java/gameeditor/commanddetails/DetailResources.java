@@ -19,12 +19,21 @@ public enum DetailResources {
 		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
 		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
 		
-		GAMEBOUNDARY_OPTIONS(new String[] {"Toroidal","Stop At Edge"}),
+		// Platform Properties
+		PLATFORM_INTERSECTABLE_OPTIONS(new String[] {"True","False"}),
+		PLATFORM_NON_INTERSECTABLE_OPTIONS(new String[]{"Top","Bottom","Both"}),
+		PLATFORM_NON_INTERSECTIBLE_LABEL("Intersectable"),
+		NON_INTERSECTABLE_SIDES_LABEL("Select Side"),
+		NON_INTERSECTABLE_KEY("nonintersectable"),
+		ONE_SIDE_NON_INTERSECTABLEKEY("onewaynonintersectable"),
 		
+		
+		GAMEBOUNDARY_OPTIONS(new String[] {"Toroidal","Stop At Edge"}),
 		X_POSITION_KEY("xPosition"),
                 Y_POSITION_KEY("yPosition"),
                 PLATFORM_LABEL("Platform"),
                 PLATFORM_KEY("platform"),
+                ENEMY_KEY("enemy"),
 		
 		// Limit Width
 		LIMIT_DIMENSION_LABEL("Limit Dimension"),
