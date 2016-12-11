@@ -48,10 +48,14 @@
                <entry>
                 <string>onewaynonintersectable</string>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <string>bottom</string>
 =======
                 <string>true</string>
 >>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
+=======
+                <string>bottom</string>
+>>>>>>> 78cd51827d6098f7f2594f7d1d7a0713df68164a
               </entry>
             </properties>
           </objects.GameObject>
@@ -134,6 +138,8 @@
       <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
         <screenWidth>700.0</screenWidth>
         <screenHeight>675.0</screenHeight>
+        <worldWidth>700.0</worldWidth>
+        <worldHeight>675.0</worldHeight>
       </gameBoundaries>
     </scrollType>
   </currentLevel>
@@ -141,6 +147,9 @@
     <objects.Player>
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 78cd51827d6098f7f2594f7d1d7a0713df68164a
       <projectileProperties>
         <imageFileName>duvall.png</imageFileName>
         <width>30</width>
@@ -150,8 +159,11 @@
         <speed>30.0</speed>
         <damage>20.0</damage>
       </projectileProperties>
+<<<<<<< HEAD
 =======
 >>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
+=======
+>>>>>>> 78cd51827d6098f7f2594f7d1d7a0713df68164a
       <controls>
         <entry>
           <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
@@ -173,7 +185,12 @@
     </objects.Player>
   </players>
 <<<<<<< HEAD
+<<<<<<< HEAD
 </objects.Game>
 =======
 </objects.Game>
 >>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
+=======
+</objects.Game>
+
+>>>>>>> 78cd51827d6098f7f2594f7d1d7a0713df68164a

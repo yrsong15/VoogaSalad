@@ -38,15 +38,17 @@ public class GameObject {
         this.properties = properties;
         this.direction = Direction.RIGHT;
     }
-    public String getProperty(String propertyName) {
-        String val = properties.get(propertyName);
-        return val;
-    }
+
     public void setDirection(Direction direction){
         this.direction = direction;
     }
     public Direction getDirection(){
         return direction;
+    }
+
+    public String getProperty(String propertyName) {
+        String val = properties.get(propertyName);
+        return val;
     }
 
     public void setPlatformCharacterIsOn(GameObject platform){
@@ -73,6 +75,7 @@ public class GameObject {
         boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
         boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <= (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >= (platformCharacterIsOn.getYPosition())));        this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
     }
+
     public void setProperty(String propertyName, String propertyValue) {
         properties.put(propertyName, propertyValue);
     }

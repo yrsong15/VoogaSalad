@@ -56,11 +56,36 @@
     <projectiles/>
     <gameObjects>
       <objects.GameObject>
+        <xPosition>0.0</xPosition>
+        <yPosition>250.0</yPosition>
+        <width>10.0</width>
+        <height>800.0</height>
+        <imageFileName>pipes.png</imageFileName>
+        <properties/>
+        <xDistanceMoved>0.0</xDistanceMoved>
+        <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
+      </objects.GameObject>
+      <objects.GameObject>
+        <xPosition>1200.0</xPosition>
+        <yPosition>250.0</yPosition>
+        <width>10.0</width>
+        <height>800.0</height>
+        <imageFileName>pipes.png</imageFileName>
+        <properties/>
+        <xDistanceMoved>0.0</xDistanceMoved>
+        <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
+      </objects.GameObject>
+      <objects.GameObject>
         <xPosition>250.0</xPosition>
-        <yPosition>200.0</yPosition>
-        <width>75.0</width>
-        <height>50.0</height>
+        <yPosition>1000.0</yPosition>
+        <width>1200.0</width>
+        <height>10.0</height>
         <imageFileName>platform.png</imageFileName>
+<<<<<<< HEAD
         <properties>
 >>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
           <entry>
@@ -68,6 +93,21 @@
             <string>true</string>
           </entry>
         </properties>
+=======
+        <properties/>
+        <xDistanceMoved>0.0</xDistanceMoved>
+        <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
+      </objects.GameObject>
+      <objects.GameObject>
+        <xPosition>250.0</xPosition>
+        <yPosition>0.0</yPosition>
+        <width>1200.0</width>
+        <height>10.0</height>
+        <imageFileName>platform.png</imageFileName>
+        <properties/>
+>>>>>>> 78cd51827d6098f7f2594f7d1d7a0713df68164a
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
         <onPlatform>false</onPlatform>
@@ -79,7 +119,7 @@
     <loseConditions/>
     <gameConditions/>
     <randomGenerations/>
-    <backgroundFilePath>Background/graphPaper.png</backgroundFilePath>
+    <backgroundFilePath>Background/bg.png</backgroundFilePath>
     <players>
       <objects.GameObject>
         <xPosition>250.0</xPosition>
@@ -90,16 +130,17 @@
         <properties>
           <entry>
             <string>movespeed</string>
-            <string>30</string>
+            <string>10</string>
           </entry>
           <entry>
             <string>gravity</string>
-            <string>0.8</string>
+            <string>0</string>
           </entry>
           <entry>
             <string>health</string>
             <string>10</string>
           </entry>
+<<<<<<< HEAD
           <entry>
             <string>jump</string>
             <string>400</string>
@@ -126,9 +167,11 @@
   <currentLevel reference="../levels/entry/objects.Level"/>
 </objects.Game>
 =======
+=======
+>>>>>>> 78cd51827d6098f7f2594f7d1d7a0713df68164a
         </properties>
-        <xDistanceMoved>0.0</xDistanceMoved>
-        <yDistanceMoved>0.0</yDistanceMoved>
+        <xDistanceMoved>250.0</xDistanceMoved>
+        <yDistanceMoved>250.0</yDistanceMoved>
         <onPlatform>false</onPlatform>
         <isPlayer>true</isPlayer>
       </objects.GameObject>
@@ -136,12 +179,15 @@
     <scrollType>
       <myScrollTypeName>FreeScrolling</myScrollTypeName>
       <myScrollDirectionList>
-        <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
+        <com.sun.javafx.scene.traversal.Direction>UP</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>
       <scrollSpeed>30.0</scrollSpeed>
-      <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
-        <screenWidth>700.0</screenWidth>
-        <screenHeight>675.0</screenHeight>
+      <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
+        <viewWidth>700.0</viewWidth>
+        <viewHeight>675.0</viewHeight>
+        <worldWidth>1200.0</worldWidth>
+        <worldHeight>1000.0</worldHeight>
+        <movedToroidally>false</movedToroidally>
       </gameBoundaries>
     </scrollType>
   </currentLevel>
@@ -150,28 +196,28 @@
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
       <controls>
         <entry>
-          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-          <string>left</string>
-        </entry>
-        <entry>
           <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
           <string>jump</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-          <string>right</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-          <string>down</string>
         </entry>
         <entry>
           <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
           <string>up</string>
         </entry>
         <entry>
+          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+          <string>left</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+          <string>right</string>
+        </entry>
+        <entry>
           <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
           <string>shoot</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+          <string>down</string>
         </entry>
       </controls>
     </objects.Player>

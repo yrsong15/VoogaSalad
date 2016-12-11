@@ -2,7 +2,7 @@ package gameengine.model.rules;
 
 import gameengine.controller.interfaces.ControlInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
-import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
 import utils.ReflectionUtil;
 import utils.ResourceReader;
@@ -28,9 +28,9 @@ public class MovementRulebook {
     
     private ResourceReader resources;
     private ControlInterface gameMovement;
-    private ScreenBoundary gameBoundaries;
+    private GameBoundary gameBoundaries;
 
-    public MovementRulebook(ControlInterface gameMovement, ScreenBoundary gameBoundaries) {
+    public MovementRulebook(ControlInterface gameMovement, GameBoundary gameBoundaries) {
         this.resources = new ResourceReader(resourcesPath);
         this.gameMovement = gameMovement;
         this.gameBoundaries = gameBoundaries;
@@ -43,7 +43,7 @@ public class MovementRulebook {
             if(resources.containsResource(property)) {
                 String ruleName = rulesPath + resources.getResource(property);
         		Object[] parameters = new Object[]{obj, gameMovement, gameBoundaries};
-        		Class<?>[] parameterTypes = new Class<?>[]{GameObject.class, ControlInterface.class, ScreenBoundary.class};
+        		Class<?>[] parameterTypes = new Class<?>[]{GameObject.class, ControlInterface.class, GameBoundary.class};
                 try {
 					ReflectionUtil.runMethod(ruleName, "applyRule", parameters, parameterTypes);
 				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException

@@ -9,6 +9,8 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
+import objects.ClientGame;
+import objects.ClientGameObject;
 import objects.GameObject;
 import objects.Level;
 import java.util.HashMap;
@@ -29,62 +31,65 @@ public class GameScreen {
         myScreen.setMaxSize(screenWidth, screenHeight);
         gameObjectImageViewMap = new HashMap<GameObject, ImageView>();
     }
-
     public Pane getScreen() {
         return myScreen;
     }
-
     public double getScreenHeight() {
         return screenHeight;
     }
-
     public void setBackgroundImage(String imageFile) {
-        BackgroundImage bi = new BackgroundImage(new Image(getClass().getClassLoader().getResourceAsStream(imageFile),
-                screenWidth, screenHeight, false, true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundImage bi = new BackgroundImage(
+                new Image(getClass().getClassLoader().getResourceAsStream(imageFile), screenWidth, screenHeight, false,
+                        true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         myScreen.setBackground(new Background(bi));
-
     }
-    public void init(Level level){
-        for(GameObject gameObject : level.getAllGameObjects()){
-            addGameObject(gameObject);
+    //lol eric did this for testing, lmk if you need me to change it back caus ethis is sllo as shit
+    public void init(ClientGame game) {
+        for (ClientGameObject object : game.getAllGameObjects()) {
+            addGameObject(object);
         }
     }
-    public void removeObject(GameObject object){
+    public void removeObject(GameObject object) {
         myScreen.getChildren().remove(object);
         myScreen.getChildren().remove(gameObjectImageViewMap.get(object));
         gameObjectImageViewMap.remove(object);
     }
-    public void update(Level level) {
-        for (GameObject object : level.getAllGameObjects()) {
-            if(gameObjectImageViewMap.containsKey(object)){
-                ImageView view = gameObjectImageViewMap.get(object);
-                view.relocate(object.getXPosition(), object.getYPosition());
-                if(object.getDirection().equals(Direction.LEFT)){
-                    view.setRotate(180);
-                }else{
-                    view.setRotate(0);
-                }
-            }else{
-                addGameObject(object);
-            }
-        }
+    // public void update(Level level) {
+    // for (GameObject object : level.getAllGameObjects()) {
+    // if (gameObjectImageViewMap.containsKey(object)) {
+    // gameObjectImageViewMap.get(object).relocate(object.getXPosition(),
+    // object.getYPosition());
+    // } else {
+    // addGameObject(object);
+    // }
+    // }
+    // }
+    public void update(ClientGame game) {
+        myScreen.getChildren().clear();
+        init(game);
     }
-    public void reset(){
+    public void reset() {
         gameObjectImageViewMap.clear();
         myScreen.getChildren().clear();
     }
-
-    private void addGameObject(GameObject object) {
-        if(object.getImageFileName()==null) return;
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
+    private void addGameObject(ClientGameObject object) {
+        if (object.getImageFileName() == null)
+            return;
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
         ImageView iv = new ImageView(image);
-        iv.setRotationAxis(Rotate.Y_AXIS);
         iv.setFitHeight(object.getHeight());
         iv.setFitWidth(object.getWidth());
-        iv.setX(object.getXPosition());
-        iv.setY(object.getYPosition());
+        iv.setX(object.getxPosition());
+        iv.setY(object.getyPosition());
+        iv.setRotationAxis(Rotate.Y_AXIS);
+        if(object.getDirection().equals(Direction.LEFT)){
+            iv.setRotate(180);
+        }else{
+            iv.setRotate(0);
+        }
         myScreen.getChildren().add(iv);
-        gameObjectImageViewMap.put(object, iv);
+//		gameObjectImageViewMap.put(object, iv);
     }
 }
