@@ -68,7 +68,10 @@ public class MovementManager implements ControlInterface{
 			runGameScrolling(speed);
 		}
 		else{
+			double newYPos = obj.getYPosition() - Math.abs(speed);
+			System.out.println("newY " + newYPos);
 			genMovement.moveUp(obj, speed);
+			checkYToroidalChange(obj, newYPos);
 		}
 	}
 
@@ -80,7 +83,9 @@ public class MovementManager implements ControlInterface{
 			runGameScrolling(speed);
 		}
 		else{
+			double newYPos = obj.getYPosition() + Math.abs(speed);
 			genMovement.moveDown(obj, speed);
+			checkYToroidalChange(obj, newYPos);
 		}
 	}
 	
@@ -117,12 +122,10 @@ public class MovementManager implements ControlInterface{
 			&& obj.getXPosition() != newXPos){
 				if (obj.getXPosition()==0){
 					gameScrolling.setDirection(Direction.LEFT);
-					System.out.println(gameBoundary.getWorldWidth()-gameBoundary.getViewWidth());
 					runGameScrolling(gameBoundary.getWorldWidth()-gameBoundary.getViewWidth());
 					obj.setXDistanceMoved(0);
 				}
 				else{
-					System.out.println(gameBoundary.getWorldWidth()-gameBoundary.getViewWidth());
 					gameScrolling.setDirection(Direction.RIGHT);
 					runGameScrolling(gameBoundary.getWorldWidth()-gameBoundary.getViewWidth());
 					obj.setXDistanceMoved(gameBoundary.getWorldWidth()-obj.getWidth());
@@ -130,18 +133,26 @@ public class MovementManager implements ControlInterface{
 		}
 	}
 	
-	public void checkYToroidalChange(GameObject obj, double newXPos){
+	public void checkYToroidalChange(GameObject obj, double newYPos){
+		System.out.println("ypos : " + obj.getYPosition());
+		GameBoundary gameBoundary = currLevel.getScrollType().getGameBoundary();
+		System.out.println(obj.getYPosition() + "  " + newYPos);
 		if (currLevel.getScrollType().getGameBoundary().getClass() == ToroidalBoundary.class
-			&& obj.getYPosition() != newXPos){
+			&& obj.getYPosition() != newYPos){
 				if (obj.getYPosition()==0){
 					gameScrolling.setDirection(Direction.UP);
+					runGameScrolling(gameBoundary.getWorldHeight()-gameBoundary.getViewHeight());
+					obj.setYDistanceMoved(obj.getHeight());
 				}
 				else{
 					gameScrolling.setDirection(Direction.DOWN);
+					runGameScrolling(gameBoundary.getWorldHeight()-gameBoundary.getViewHeight());
+					obj.setYDistanceMoved(gameBoundary.getWorldHeight()-obj.getHeight());
 				}
-				runGameScrolling(gameScrolling.getYDistanceScrolled());
 		}
 	}
+	
+	
 	@Override
 	public void jump(GameObject obj, double speed) {
         String jumpVelocity = obj.getProperty("jump");

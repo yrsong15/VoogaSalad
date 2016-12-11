@@ -107,7 +107,7 @@ public class MainController {
          mainChar.setProperty("gravity", "0");
          mainChar.setProperty("jump", "400");
          mainChar.setProperty("health", "10");
-         mainChar.setProperty("movespeed", "30");
+         mainChar.setProperty("movespeed", "10");
          Level level = new Level(1);
          GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 1200, 1000);
          ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
@@ -135,6 +135,11 @@ public class MainController {
          
          GameObject bottom = new GameObject(250,0,1200,10, "platform.png", new HashMap<>());
          level.addGameObject(bottom);
+         /**
+         GameObject ground = new GameObject(250,250,100,50, "platform.png",new HashMap<>());
+         ground.setProperty("damage","0");
+         ground.setProperty("nonintersectable", "true");
+         level.addGameObject(ground);**/
          
          XMLSerializer testSerializer = new XMLSerializer();
          String xml = testSerializer.serializeGame(game);

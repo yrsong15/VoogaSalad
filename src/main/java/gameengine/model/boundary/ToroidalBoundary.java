@@ -30,11 +30,11 @@ public class ToroidalBoundary extends BasicBoundary{
 
 	@Override
 	public boolean moveToYPos(GameObject toMove, double newYPos) {
-		if (getViewHeight() <= newYPos){
+		if (getViewHeight()-toMove.getHeight() <= newYPos){
 			toMove.setYPosition(0);
 		}
 		else if (newYPos <= 0){
-			toMove.setYPosition(getWorldHeight()-toMove.getHeight());
+			toMove.setYPosition(getViewHeight()-toMove.getHeight());
 		}
 		else{
 			toMove.setYPosition(newYPos);

@@ -55,8 +55,6 @@ public class FreeScrolling implements Scrolling{
 	
 	public boolean allowedToScroll(Direction requestedDir, GameObject player){
 		if(requestedDir == Direction.RIGHT){
-			System.out.println(gameBoundaries.getWorldWidth() - gameBoundaries.getViewWidth());
-			System.out.println("distance moved " + player.getXDistanceMoved());
 			return (player.getXDistanceMoved() - player.getXPosition() < gameBoundaries.getWorldWidth() - gameBoundaries.getViewWidth()
 					&& player.getXPosition() > gameBoundaries.getViewWidth()*0.45
 					&& player.getXPosition() < gameBoundaries.getViewWidth()*0.55);
@@ -72,7 +70,7 @@ public class FreeScrolling implements Scrolling{
 					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.55);
 		}
 		else if(requestedDir == Direction.DOWN){
-			return (player.getYDistanceMoved() < gameBoundaries.getWorldHeight() - gameBoundaries.getViewHeight()
+			return (player.getYDistanceMoved() - player.getYPosition() < gameBoundaries.getWorldHeight() - gameBoundaries.getViewHeight()
 					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.45
 					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.55);
 
