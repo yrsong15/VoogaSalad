@@ -121,11 +121,12 @@ public class GameEngineUI implements UDPHandler{
 		}
 	}
 	public void setBackgroundImage(String imageFile) {
-		try {
+		gameScreen.setBackgroundImage(imageFile);
+		/**try {
 			gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
-		}
+		}**/
 	}
 	private void checkKeyPressed() throws InvocationTargetException, IllegalAccessException {
 		for(KeyCode key : keyPressed.keySet()){

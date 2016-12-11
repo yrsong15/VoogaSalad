@@ -165,6 +165,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void shootProjectile(GameObject obj, double speed) {
+		System.out.println("going");
 	    if(!projectileStatus.containsKey(obj) || (projectileStatus.containsKey(obj) && (System.currentTimeMillis() - projectileStatus.get(obj) > 1000))) {
             projectileStatus.put(obj, System.currentTimeMillis());
 	        if (obj.getProjectileProperties() != null) {
