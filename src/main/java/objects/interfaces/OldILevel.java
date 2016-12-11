@@ -3,9 +3,10 @@ import javafx.scene.input.KeyCode;
 import objects.GameObject;
 import objects.RandomGeneration;
 import objects.ScrollType;
-import objects.interfaces.ILevel;
+import objects.interfaces.OldILevel;
+import java.security.Key;
 import java.util.*;
-public interface ILevel {
+public interface OldILevel {
     public void setScrollType(ScrollType scrollType);
 
     public int getLevel();
@@ -25,20 +26,30 @@ public interface ILevel {
 
     public Map<String, Double> getGameConditions();
 
+    //public GameObject getMainCharacter() ;
+
+    public void setMainCharacter(GameObject mainCharacter) ;
+
+    public int getScore();
+
+    public void setScore(double score);
+
     public double getTime();
 
     public void setTime(double time);
 
     public List<GameObject> getGameObjects();
 
-   // public void setControl(KeyCode key, String action);
+    public void setControl(KeyCode key, String action);
 
-   // public Map<KeyCode, String> getControls();
-    
+    public void removeControl(KeyCode key);
+
+    public Map<KeyCode, String> getControls();
     public void setBackgroundImage(String filePath);
 
     public void setBackgroundMusic(String musicFilePath);
-    
+
+    public void addScrollWidth(double scrollWidth);
     public void addRandomGeneration (RandomGeneration randomGeneration);
     public String getMusicFilePath();
     public String getBackgroundFilePath();

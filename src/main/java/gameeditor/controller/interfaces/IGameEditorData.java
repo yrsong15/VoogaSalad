@@ -38,7 +38,7 @@ public interface IGameEditorData {
     public void addScrollType(ScrollType scrollType);
     public void addLoseCondition(String type, String action);
     public void addWinCondition(String type, String action);
-    public void addScrollWidth(String width);
+   
 
     public void addScrollSpeed(String speed);
 

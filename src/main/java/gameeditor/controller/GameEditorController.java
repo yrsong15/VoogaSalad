@@ -121,9 +121,10 @@ public class GameEditorController implements IGameEditorController{
             }else {
                 level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             }
+            
             ILevel levelInterface = (ILevel) level;
 
-            myLevelManager.createLevel(level);   
+            myLevelManager.createLevel(level);  
 
             myGameEditorView = new GameEditorView(levelInterface);          
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             

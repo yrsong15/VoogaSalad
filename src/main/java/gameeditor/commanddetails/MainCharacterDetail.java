@@ -1,6 +1,7 @@
 package gameeditor.commanddetails;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -12,21 +13,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
 // TODO: Refactor this class - duplicated code with CreateDetail
 public class MainCharacterDetail extends AbstractSelectDetail {
 
-	
+
     //private VBox myVBox;
     //private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
-    private String [] myPropertiesArray = DetailResources.MAIN_CHARACTER_PROPERTIES.getArrayResource();
+    private List<String> myPropertiesArray = Arrays.asList(DetailResources.MAIN_CHARACTER_PROPERTIES.getArrayResource());
     private List<TextArea> myTextInputs = new ArrayList<TextArea>();
     public static final double MAIN_CHARACTER_INITIAL_X_POSITION = 20;
     public static final double MAIN_CHARACTER_INITIAL_Y_POSITION = 20;
     public static final double MAIN_CHARACTER_HEIGHT = 100;
     public static final double MAIN_CHARACTER_WIDTH = 100;
+
+    private  String imageViewString;
+    private Map<String,String> myMainCharMap;
 
     private DetailFrontEndUtil myDetailFrontEndUtil;
 
@@ -42,14 +47,14 @@ public class MainCharacterDetail extends AbstractSelectDetail {
         createProperties();
         createSave();
         myDesignArea.enableClick(this);
-     
+
     }
 
     @Override
     public void initLevel2(GameObjectView sprite){
-
-        
         myGO = sprite;
+        imageViewString = myGO.getImageView().toString();
+        myMainCharMap = myDataStore.getMainCharMap(imageViewString);
         addVBoxSettings();
         createPos();
         createProperties();
@@ -68,24 +73,15 @@ public class MainCharacterDetail extends AbstractSelectDetail {
 
     private void handleSave(){
         if (verifySave()){
-            // TODO: Create this for saving maincharacter
-            // TODO: Input file path when creating pane
-            //ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
-            //Enumeration<String> enumKeys = geprops.getKeys();
-            //String [] propertiesList = DetailResources.PROPERTIES_TEXT_INPUT.getArrayResource();
-            Map<String, String> propertiesMap = new HashMap<String, String>();
-
             int i=0;
             for(String label: myPropertiesArray){
-                if(!myTextInputs.get(i).getText().isEmpty()){
-                    propertiesMap.put(label.toLowerCase(), myTextInputs.get(i).getText()); 
+                boolean containsDefault= myTextInputs.get(i).getText().equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource());
+                if(!(myTextInputs.get(i).getText().isEmpty()) &&(!containsDefault )){
+                    myMainCharMap.put(label.toLowerCase(), myTextInputs.get(i).getText()); 
                 }
                 i++;
-            }  
-
-            // Add main character in the back end here 
-           // myDataStore.addMainCharacter(MAIN_CHARACTER_INITIAL_X_POSITION, MAIN_CHARACTER_INITIAL_Y_POSITION, 
-                                        // MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT, propertiesMap);
+            } 
+            
         } else {
 
         }
@@ -101,17 +97,21 @@ public class MainCharacterDetail extends AbstractSelectDetail {
     }
 
     public void createProperties(){
-        for (String label : myPropertiesArray){  
-            myVBox.getChildren().add(addOptions(label));
-        }
+        myPropertiesArray.forEach(label -> {
+            if(myMainCharMap.containsKey(label.toLowerCase())){
+                myVBox.getChildren().add(addOptions(label,myMainCharMap.get(label.toLowerCase())));
+            }else{
+                myVBox.getChildren().add(addOptions(label,DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource()));
+            }
+        });            
     }
 
-    private BorderPane addOptions(String label){
+    private BorderPane addOptions(String label, String value){
         BorderPane bp = new BorderPane();
         bp.setMinWidth(PADDED_PANE_WIDTH);
         bp.setMaxWidth(PADDED_PANE_WIDTH);
         Label labl = createPropertyLbl(label);
-        TextArea text = createInputField("0.0");
+        TextArea text = createInputField(value);
         myTextInputs.add(text);
         bp.setLeft(labl);
         bp.setRight(text);

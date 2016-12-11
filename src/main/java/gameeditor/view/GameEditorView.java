@@ -111,12 +111,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     private void addAvatar(){
-        if(myLevelSettings.getMainCharacter()!=null){
-            if(myLevelSettings.getMainCharacter().getImageFileName()!=null){
-                String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+myLevelSettings.getMainCharacter().getImageFileName();
-                myDetailPane.setAvatar(filePath);
-            }
-        }
+        //if(myLevelSettings.getMainCharacter()!=null){
+            //if(myLevelSettings.getMainCharacter().getImageFileName()!=null){
+                //String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+myLevelSettings.getMainCharacter().getImageFileName();
+               // myDetailPane.setAvatar(filePath);
+           // }
+       // }
     }
 
     public void setBackground(){
@@ -172,9 +172,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     @Override
     public void saveLevelData () {
-        if(myLevelSettings.getMainCharacter()==null){
-            myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
-        }
+        //if(myLevelSettings.getMainCharacter()==null){
+            //myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
+       // }
         // add Game Objects to level
         myDataStoreInterface.addGameObjectsToLevel();
         myDataStoreInterface.storeMainCharToXML();
