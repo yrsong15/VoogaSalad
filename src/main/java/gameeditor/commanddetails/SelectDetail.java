@@ -77,6 +77,7 @@ public class SelectDetail extends AbstractSelectDetail {
     public void switchSelectStyle(GameObjectView sprite){
     	if (sprite.getIsMainChar()){
         	myDetailPane.setDetail("MainCharacter");
+        	
     	}
     }
 }
