@@ -9,6 +9,7 @@ import com.sun.javafx.scene.traversal.Direction;
 
 import exception.MovementRuleNotFoundException;
 import exception.ScrollDirectionNotFoundException;
+import gameengine.model.boundary.GameBoundary;
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
@@ -22,16 +23,14 @@ public class LimitedScrolling implements Scrolling{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
 	private double scrollingSpeed;
-	private double screenWidth;
-	private double screenHeight;
 	private double lastXPosition;
 	private double lastYPosition;
+	private GameBoundary gameBoundaries;
 	
-	public LimitedScrolling(Direction dir, double speed, double width, double height){
+	public LimitedScrolling(Direction dir, double speed, GameBoundary gameBoundaries){
 		this.direction = dir;
 		this.scrollingSpeed = speed;
-		this.screenWidth = width;
-		this.screenHeight = height;
+		this.gameBoundaries = gameBoundaries;
 	}
 
 	@Override
@@ -44,33 +43,15 @@ public class LimitedScrolling implements Scrolling{
 		this.direction = scrollDirection;
 	}
 	
-	private boolean needToMoveScreen(GameObject mainChar){
-		if (direction==Direction.LEFT){
-			return mainChar.getXPosition() <= screenWidth*0.3;
-		}
-		else if (direction == Direction.RIGHT){
-			return mainChar.getXPosition() >= screenWidth*0.7;
-		}
-		else if (direction == Direction.UP){
-			return mainChar.getYPosition() <= screenWidth*0.3;
-		}
-		
-		else if(direction == Direction.DOWN){
-			return mainChar.getYPosition() <= screenWidth*0.7;
-		}
-		return false;
-	}
-
 	
-	private boolean needToMoveScreen2(GameObject mainChar){
-		if (direction==Direction.LEFT || direction == Direction.RIGHT){
-			return mainChar.getXPosition() != lastXPosition;
-		}
-		else if (direction==Direction.UP || direction == Direction.DOWN){
-			return mainChar.getYPosition() != lastYPosition;
-		}
-		
-		return false;
+	public boolean allowedToScroll(Direction requestedDir, GameObject player){
+		double viewWidth = gameBoundaries.getViewWidth();
+		double viewHeight = gameBoundaries.getViewHeight();
+		return (direction == requestedDir)  
+			    && (requestedDir == Direction.LEFT && player.getXPosition()<= viewWidth*0.3
+				||  requestedDir == Direction.RIGHT && player.getXPosition()>= viewWidth*0.7
+				||  requestedDir == Direction.UP && player.getYPosition() <= viewHeight*0.3
+				||  requestedDir == Direction.DOWN && player.getYPosition() >= viewHeight*0.7);
 	}
 	
 	
@@ -96,5 +77,18 @@ public class LimitedScrolling implements Scrolling{
 			}
 		
 	}
+
+	@Override
+	public double getXDistanceScrolled() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getYDistanceScrolled() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }
 

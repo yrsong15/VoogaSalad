@@ -9,8 +9,8 @@ import java.net.Socket;
 
 import javax.xml.bind.JAXBException;
 
-import gameeditor.xml.XMLSerializer;
 import gameengine.network.ServerMessage;
+import xml.XMLSerializer;
 
 /**
  * This class establishes TCP connection and listens to client side
@@ -41,7 +41,6 @@ class TcpConnection implements Runnable{
 			
 			while(true){
 				String msg = (String)ois.readObject();
-				if(msg!=null) System.out.println(msg);
 				ServerMessage sm;
 				try {
 					sm = serializer.getServerMessageFromString(msg);

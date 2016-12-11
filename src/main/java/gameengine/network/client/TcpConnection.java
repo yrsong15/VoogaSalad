@@ -8,8 +8,8 @@ import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
-import gameeditor.xml.XMLSerializer;
 import gameengine.network.ServerMessage;
+import xml.XMLSerializer;
 
 class TcpConnection {
 
