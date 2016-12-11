@@ -49,9 +49,40 @@ public class GameObject {
         return direction;
     }
 
-    public void setPlatformCharacterIsOn(GameObject platform){
-        platformCharacterIsOn = platform;
-    }
+	public String getProperty(String propertyName) {
+		String val = properties.get(propertyName);
+		return val;
+	}
+	
+	public void setPlatformCharacterIsOn(GameObject platform){
+		platformCharacterIsOn = platform;
+	}
+	
+	public GameObject getPlatformCharacterIsOn(){
+		return platformCharacterIsOn;
+	}
+	
+	public void setPlatformStatus(boolean status){
+		this.onPlatform = status;
+	}
+	
+	public boolean isOnPlatform(){
+		return onPlatform;
+	}
+	
+	public void checkPlatformStatus(){
+		if(platformCharacterIsOn == null){
+			this.onPlatform = false;
+			return;
+		}
+		boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
+		boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <= (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >= (platformCharacterIsOn.getYPosition())));
+		this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
+	}
+
+	public void setProperty(String propertyName, String propertyValue) {
+		properties.put(propertyName, propertyValue);
+	}
 
     public GameObject getPlatformCharacterIsOn(){
         return platformCharacterIsOn;

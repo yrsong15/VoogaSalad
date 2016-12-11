@@ -35,7 +35,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
     public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 
-	private List<RandomGenFrame> randomlyGeneratedFrames;
     private List<Integer> highScores;
     private String xmlData;
 	private GameParser parser;
@@ -51,7 +50,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 	public GameEngineController() {
 		parser = new GameParser();
 		collisionChecker = new CollisionChecker(this);
-		randomlyGeneratedFrames = new ArrayList<>();
 	    highScores = new ArrayList<>();
 	    gameEngineView = new GameEngineUI(event -> reset());
 	    mainCharImprints = new HashMap<>();
@@ -77,7 +75,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
 		for(Player player : currentGame.getPlayers()){
             gameEngineView.mapKeys(player, player.getControls());
         }
-        addRGFrames();
+	
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
 			try {
 				updateGame();
@@ -109,17 +107,14 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
             removeOffscreenElements();
         }
 		gameEngineView.update(currLevel);
-		/*for(RandomGenFrame elem: randomlyGeneratedFrames){
-            for(RandomGeneration randomGeneration : currLevel.getRandomGenRules()) {
+            for(RandomGeneration<Integer> randomGeneration : currLevel.getRandomGenRules()) {
                 try {
-					elem.possiblyGenerateNewFrame(100, randomGeneration, this.getClass().getMethod("setNewBenchmark"));
-				} catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException
-						| NoSuchMethodException | SecurityException e) {
+                	currLevel.getRandomGenerationFrame().possiblyGenerateNewFrame(randomGeneration);
+				} catch (IllegalArgumentException | SecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
-		}*/
         collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
         collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects());
         checkProjectileDistance();
@@ -128,13 +123,7 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         WinChecker.checkWinConditions(this,
 				 		currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
-
-    public void setNewBenchmark() {
-        List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
-        for(RandomGenFrame elem: randomlyGeneratedFrames){
-            elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
-        }
-    }
+    
 
     @Override
     public void removeObject(GameObject obj) {
@@ -222,12 +211,6 @@ public class GameEngineController implements RuleActionHandler, RGInterface, Com
         }
     }
 
-    private void addRGFrames(){
-        List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
-        for (RandomGeneration randomGeneration : randomGenerations) {
-            randomlyGeneratedFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
-        }
-    }
 
 	private void removeOffscreenElements() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getAllGameObjects();
