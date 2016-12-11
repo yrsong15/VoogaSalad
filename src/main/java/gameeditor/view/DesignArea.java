@@ -249,10 +249,9 @@ public class DesignArea implements IDesignArea {
     }
     
     @Override
-	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds) {
-    	GameObjectView newAvatar = new GameObjectView(filePath, x, y, width, height, DetailResources.MAIN_CHARACTER_TYPE.getResource(), true, this, ds);
-    	myAvatars.add(newAvatar);
-    	mySprites.add(newAvatar);
+	public void addAvatar(GameObjectView gov) {
+    	myAvatars.add(gov);
+    	mySprites.add(gov);
 	}
 
 	@Override

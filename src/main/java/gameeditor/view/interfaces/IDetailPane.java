@@ -1,7 +1,6 @@
 package gameeditor.view.interfaces;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import gameeditor.objects.GameObjectView;
 import javafx.scene.layout.Pane;
 
 public interface IDetailPane {
@@ -13,4 +12,7 @@ public interface IDetailPane {
 	public void removeDetail();
 
 	public void setDetail(String string);
+	
+	public GameObjectView getCurrentAvatar();
+
 }

@@ -46,7 +46,7 @@ public interface IDesignArea {
 
 	public void removeDragIn(ImageView tempIV);
 	
-	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds);
+	public void addAvatar(GameObjectView avatar);
 
 	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox);
 
