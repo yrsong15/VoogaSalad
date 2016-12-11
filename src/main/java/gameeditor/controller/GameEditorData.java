@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import frontend.util.GameEditorException;
 import gameeditor.commanddetails.CreateObjectDetail;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
@@ -23,14 +24,11 @@ import objects.interfaces.ILevel;
 
 public class GameEditorData implements IGameEditorData{
     private ArrayList<Map<String, String>> myTypes = new ArrayList<Map<String, String>>();
+    private ArrayList<Map<String,String>> myImageViewObjectMap = new ArrayList<Map<String,String>>();
 
     private ILevel myLevel;
-
-    // public static final double SPRITE_WIDTH = 100;
-    // public static final double SPRITE_HEIGHT = 150;
-    public static final double MAIN_CHAR_WIDTH=50;
-    public static final double MAIN_CHAR_HEIGHT = 50;
     private String mainCharacterImageFilePath;
+
 
     public GameEditorData(ILevel level){
         myLevel = level;
@@ -58,25 +56,46 @@ public class GameEditorData implements IGameEditorData{
             types.add(typeName);
         }
         return types;
+
+    }
+
+    public ArrayList<String> getImageViews(){
+        ArrayList<String> views = new ArrayList<String>();
+        for(Map<String,String> map: myImageViewObjectMap){
+            String imageview = map.get(DetailResources.IMAGEVIEW_KEY.getResource());
+            views.add(imageview);
+        }
+        return views;
     }
 
 
-    // Adds Game Object TO level
+    @Override
+    public Map<String, String> getViewMap (String viewName) {
+        // TODO Auto-generated method stub
+        for (Map<String, String> type : myImageViewObjectMap){
+            String testTypeName = type.get(DetailResources.IMAGEVIEW_KEY.getResource());
+            if (viewName.equals(testTypeName)){
+                return type;
+            }
+        }
+        return null;
+    } 
+
+    @Override
+    public Map<String,String> createViewMap (String typeName, String imageViewString) {
+        // TODO Auto-generated method stub
+        Map<String,String> type = getType(typeName);
+        Map<String,String> viewMap = new HashMap<String,String>(type);
+        viewMap.put(DetailResources.IMAGEVIEW_KEY.getResource(), imageViewString);
+        return viewMap;
+    }
+    
+    public void storeImageViewMap(Map<String,String> viewMap){
+        myImageViewObjectMap.add(viewMap);
+    }
+
+ 
     public void addGameObjectToLevel(Map<String,String> myGameObjMap){ 
-        ////        for(String key: myGameObjMap.keySet()){
-        ////            System.out.println(" Key: " + key + " Value: " +myGameObjMap.get(key) );
-        ////        }
-        //   
-        //        double xPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.X_POSITION_KEY));
-        //        double yPosition = Double.valueOf(myGameObjMap.get(ISelectDetail.Y_POSITION_KEY));
-        //        double width = Double.valueOf(myGameObjMap.get(WIDTH_KEY));
-        //        double height = Double.valueOf(myGameObjMap.get(HEIGHT_KEY));
-        //        String imagePath = myGameObjMap.get(IMAGE_PATH_KEY);
-        //        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
-        //        
-        //        Map<String,String> properties = getPropertiesMap(myGameObjMap);
-
-
         //GameObject myObject = new GameObject(xpos,ypos,width,height,file,properties);
         // Add random Generation
         //        if(myRandomGenerationParameters.size()>0){
@@ -110,14 +129,6 @@ public class GameEditorData implements IGameEditorData{
         if(minSpacing==0){minSpacing=250;}
         Integer maxSpacing = Integer.parseInt(myRandomGenParameters.get(6).getText());
         if(maxSpacing==0){maxSpacing=500;}
-        //
-        //        System.out.println(" num: " + num);
-        //        System.out.println(" xmin: " + xMin);
-        //        System.out.println(" yMin: " + yMin);
-        //        System.out.println(" yMax: " + yMax);
-        //        System.out.println(" minSpacing: " + minSpacing);
-        //        System.out.println(" maxSpacing: " + maxSpacing);
-
 
         RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
 
@@ -128,7 +139,9 @@ public class GameEditorData implements IGameEditorData{
         removeValuesExceptProperties(myItemMap);
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
+            if(v!="0.0"){
             properties.put(k, v);
+            }
         });
         return properties;
     }
@@ -175,19 +188,20 @@ public class GameEditorData implements IGameEditorData{
         myLevel.addGameObject(mainCharacter);
         myLevel.setMainCharacter(mainCharacter);
     }
+    
 
-    public void addGameObjectsToLevel(){
-        for (Map<String, String> type : myTypes){
-            String imagePath = type.get(IMAGE_PATH_KEY).substring(type.get(IMAGE_PATH_KEY).lastIndexOf("/")+1);
+    public void addGameObjectsToLevel(){    
+        for (Map<String, String> type : myImageViewObjectMap){
             double xPosition = Double.valueOf(type.get(ISelectDetail.X_POSITION_KEY));
             double yPosition = Double.valueOf(type.get(ISelectDetail.Y_POSITION_KEY));
             double width = Double.valueOf(type.get(WIDTH_KEY));
             double height = Double.valueOf(type.get(HEIGHT_KEY));
-            //String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
 
+            String imagePath = type.get(IMAGE_PATH_KEY);
+            String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
             Map<String,String> properties = getPropertiesMap(type);
-
-            GameObject myObject = new GameObject(xPosition,yPosition,width,height,imagePath,properties);
+            
+            GameObject myObject = new GameObject(xPosition,yPosition,width,height,file,properties);
             myLevel.addGameObject(myObject);   
         }
     }
@@ -198,14 +212,15 @@ public class GameEditorData implements IGameEditorData{
         typeMap.remove(WIDTH_KEY);
         typeMap.remove(ISelectDetail.X_POSITION_KEY);
         typeMap.remove(ISelectDetail.Y_POSITION_KEY);
-        typeMap.remove(DetailResources.TYPE_NAME.getResource());  
+        typeMap.remove(DetailResources.TYPE_NAME.getResource()); 
+        typeMap.remove(DetailResources.IMAGEVIEW_KEY.getResource());
     }
 
 
     @Override
     public void addGameBoundary (BasicBoundary gameBoundary) {
         //TODO: ADD GAME BOUNDARY -- Where? 
-    }    
+    }
 }
 
 

@@ -1,5 +1,7 @@
 package gameeditor.objects;
 
+import java.util.Map;
+import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.image.Image;
@@ -64,10 +66,14 @@ public class GameObjectView {
         myImageView.setFitWidth(myImageWidth);
         myImageView.setFitHeight(myImageHeight);
         myDesignArea.addSprite(this);
+
+        if(!isMainChar){
+            storeDimensionData();
+        }
     }
 
     public GameObjectView (GameObjectView sprite, double x, double y) {
-		this(sprite.getFilePath(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), sprite.getType(), sprite.getIsMainChar(), sprite.getDesignArea(), sprite.getDataStore());
+        this(sprite.getFilePath(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), sprite.getType(), sprite.getIsMainChar(), sprite.getDesignArea(), sprite.getDataStore());
     }
 
     public void setOn(double x, double y){
@@ -145,7 +151,7 @@ public class GameObjectView {
 
     public void updateDetails(){
         myDesignArea.updateSpriteDetails(this, getX(), getY(), getWidth(), getHeight());
-        System.out.println(" Comes Here GOV" );
+        //System.out.println(" Comes Here GOV" );
         //TODO: Update sprite object details too...
         //        Map<String, String> typeMap = myDataStore.getType(myType);
         //
@@ -156,11 +162,32 @@ public class GameObjectView {
         //
         //        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(getWidth()));
         //        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(getHeight()));
-
         //myDataStore.addGameObjectToLevel(typeMap, myRandomGenerationList);
+
+        storeDimensionData();
+
     }
 
 
+    private void storeDimensionData(){  
+        Map<String, String> typeMap = myDataStore.getViewMap(myImageView.toString());
+        if(typeMap==null){
+            typeMap = myDataStore.createViewMap(myType, myImageView.toString());
+            myDataStore.storeImageViewMap(typeMap);
+        }       
+        typeMap.put(X_POSITION_KEY, String.valueOf(getX()));
+        typeMap.put(Y_POSITION_KEY, String.valueOf(getY()));
+        // Create Random Generation here
+        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(getWidth()));
+        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(getHeight()));
+        //System.out.println(myImageView.toString());
+        
+        //typeMap.put(DetailResources.IMAGEVIEW_KEY.getResource(),myImageView.toString());
+       // System.out.println(typeMap.get(DetailResources.IMAGEVIEW_KEY.getResource()));
+        //System.out.println(" ImageView String " + myImageView.toString());
+
+        //myDataStore.storeType(typeMap);
+    }
 
     public String getFilePath(){
         return myImageFilePath;
@@ -185,17 +212,17 @@ public class GameObjectView {
     public String getType(){
         return myType;
     }
-    
-	public IDesignArea getDesignArea(){
-		return myDesignArea;
-	}
-	
-	public IGameEditorData getDataStore(){
-		return myDataStore;
-	}
-	
-	public boolean getIsMainChar(){
-		return myIsMainChar;
-	}
+
+    public IDesignArea getDesignArea(){
+        return myDesignArea;
+    }
+
+    public IGameEditorData getDataStore(){
+        return myDataStore;
+    }
+
+    public boolean getIsMainChar(){
+        return myIsMainChar;
+    }
 
 }

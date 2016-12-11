@@ -167,10 +167,11 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     @Override
     public void saveLevelData () {
-        myDataStoreInterface.addGameObjectsToLevel();
         if(myLevelSettings.getMainCharacter()==null){
             myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
         }
+        // add Game Objects to level
+        myDataStoreInterface.addGameObjectsToLevel();
         addGround();
         closeLevelWindow.set(true);
     }

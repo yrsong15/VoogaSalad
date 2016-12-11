@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import frontend.util.GameEditorException;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -24,9 +25,9 @@ public class CreateDetail extends AbstractCommandDetail {
     private String[] myPropertiesTextBox = DetailResources.SPRITE_PROPERTIES_TEXT_INPUT_LABEL.getArrayResource();
     private String[] myPropertiesComboLabels = DetailResources.PROPERTIES_COMBO_LABELS.getArrayResource();
     private ArrayList<TextArea> myTextFields = new ArrayList<TextArea>();
-   
-    
-    
+
+
+
     private TabPane myTabPane;
     private Tab mySpriteTab;
     private Tab myPlatformTab;
@@ -35,7 +36,7 @@ public class CreateDetail extends AbstractCommandDetail {
     private BorderPane myNonIntersectableOptionBP;
     private BorderPane myIntersectableBP;
     private ComboBox<String> nonInterSectableCombo;
-   
+
     public CreateDetail() {
         super();
     }
@@ -84,16 +85,16 @@ public class CreateDetail extends AbstractCommandDetail {
             createSave(e-> handleSavePlatform()); 
         }
     }
-    
+
     private void createPlatformProperties(){
         String defaultProperty = DetailDefaultsResources.PLATFORM_NON_INTERSECTABLE.getResource();
-       ComboBox<String> intersectable = myDetailFrontEndUtil.createComboBox(PLATFORM_INTERSECTABLE_OPTIONS, defaultProperty);
-    
-       intersectable.setOnAction(e -> handleIntersectibleProperty(intersectable));
-       myIntersectableBP = myDetailFrontEndUtil.createBorderpane(intersectable,(createPropertyLbl(PLATFORM_NON_INTERSECTIBLE_LABEL)));
-       myVBox.getChildren().add(myIntersectableBP);
+        ComboBox<String> intersectable = myDetailFrontEndUtil.createComboBox(PLATFORM_INTERSECTABLE_OPTIONS, defaultProperty);
+
+        intersectable.setOnAction(e -> handleIntersectibleProperty(intersectable));
+        myIntersectableBP = myDetailFrontEndUtil.createBorderpane(intersectable,(createPropertyLbl(PLATFORM_NON_INTERSECTIBLE_LABEL)));
+        myVBox.getChildren().add(myIntersectableBP);
     }
-    
+
     private void handleIntersectibleProperty(ComboBox<String> combo){
         if(combo.getValue()=="False"){
             String defaultVal = DetailDefaultsResources.PLATFORM_NON_INTERSECTABLE.getResource();
@@ -102,12 +103,12 @@ public class CreateDetail extends AbstractCommandDetail {
             myNonIntersectableOptionBP = myDetailFrontEndUtil.createBorderpane( nonInterSectableCombo,createPropertyLbl(label));
             int index = myVBox.getChildren().indexOf(myIntersectableBP);
             myVBox.getChildren().add(index+1, myNonIntersectableOptionBP);
-         
+
         } else if((combo.getValue().equals("True"))){
-                if(myVBox.getChildren().contains(myNonIntersectableOptionBP)){
-                    myVBox.getChildren().remove(myVBox.getChildren().indexOf(myNonIntersectableOptionBP));
-                }
+            if(myVBox.getChildren().contains(myNonIntersectableOptionBP)){
+                myVBox.getChildren().remove(myVBox.getChildren().indexOf(myNonIntersectableOptionBP));
             }
+        }
     }
 
     private void createSave(EventHandler<MouseEvent> handler){
@@ -122,24 +123,20 @@ public class CreateDetail extends AbstractCommandDetail {
             propertiesMap.put(DetailResources.TYPE_NAME.getResource(),myTypeTextArea.getText());
             myFilePath = myImageDetail.getFilePath();
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
-            
-            for(String key: propertiesMap.keySet()){
-                System.out.println(" Key: " + key + " Value: " +propertiesMap.get(key));
-            }
             myDataStore.storeType(propertiesMap);
         }
     }
-    
+
 
     private void getPlatFormProperties(Map<String,String> propertiesMap){
         if(nonInterSectableCombo!=null){
             if(nonInterSectableCombo.getValue().toString().equals("Both")){
                 propertiesMap.put(DetailResources.NON_INTERSECTABLE_KEY.getResource(), "True");
             }else {
-            propertiesMap.put(DetailResources.ONE_SIDE_NON_INTERSECTABLEKEY.getResource(), nonInterSectableCombo.getValue().toString());
+                propertiesMap.put(DetailResources.ONE_SIDE_NON_INTERSECTABLEKEY.getResource(), nonInterSectableCombo.getValue().toString());
+            }
         }
-        }
-        
+
     }
 
     private void handleSaveSprite(){
@@ -153,10 +150,13 @@ public class CreateDetail extends AbstractCommandDetail {
             // Add Enemy Properties for the other sprites
             propertiesMap.put(DetailResources.ENEMY_KEY.getResource(), null);
             // Store only if the Type does not exist
+            
             if(myDataStore.getType(myTypeTextArea.getText())==null){
                 myDataStore.storeType(propertiesMap);
+            }else{
+                GameEditorException e = new GameEditorException();
+                e.showError("Type Name already exists");
             }
-            // myDataStore.addGameObjectToLevel(propertiesMap);
 
         }   else {
         }
@@ -201,7 +201,7 @@ public class CreateDetail extends AbstractCommandDetail {
         myTypeTextArea.setOnMouseClicked(e -> handleClick(myTypeTextArea));
         myVBox.getChildren().add(myTypeTextArea);
     }
-
+   
     private void createProperties(){
         for (String label : myPropertiesComBoArray){
             ComboBox<String> cb = createPropertyCB(label);
