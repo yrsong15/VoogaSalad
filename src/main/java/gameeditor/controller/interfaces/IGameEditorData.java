@@ -13,7 +13,7 @@ import objects.ScrollType;
  *
  */
 public interface IGameEditorData {
-    
+
     public static final String IMAGE_PATH_KEY="Image Path";
     public static final String WIDTH_KEY="width";
     public static final String HEIGHT_KEY="height";
@@ -24,7 +24,7 @@ public interface IGameEditorData {
     public Map<String, String> getType(String inputTypeName);
     public void storeType(Map<String, String> typeMap);
     public ArrayList<String> getTypes();	
-	public ArrayList<Map<String, String>> getTypeMaps();
+    public ArrayList<Map<String, String>> getTypeMaps();
 
     // Controls Methods
     public void addControl(KeyCode key, String value);
@@ -34,18 +34,25 @@ public interface IGameEditorData {
 
     public void addMainCharacterImage(String imageFilePath);
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties);
-    
+
     public void addScrollType(ScrollType scrollType);
     public void addLoseCondition(String type, String action);
     public void addWinCondition(String type, String action);
     public void addScrollWidth(String width);
-    
-    public void addScrollSpeed(String speed);
-    
-    public void addGameObjectsToLevel();
-    
-    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters);
-    
 
-   public  void addGameBoundary (BasicBoundary gameBoundary);
+    public void addScrollSpeed(String speed);
+
+    public void addGameObjectsToLevel();
+
+    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters);
+
+    public  void addGameBoundary (BasicBoundary gameBoundary);
+
+    public ArrayList<String> getImageViews();
+    
+    public Map<String,String> getViewMap(String viewName);
+    
+    public Map<String,String> createViewMap(String typeName, String imageViewString);
+    public void storeImageViewMap(Map<String,String> viewMap);
 }
+
