@@ -27,6 +27,7 @@ class TcpConnection {
 	private XMLSerializer serializer;
 	
 	private Socket socket;
+	private long ID;
 
 	TcpConnection(ClientMain main, String ip, int port) {
 		
@@ -49,8 +50,8 @@ class TcpConnection {
 			ServerMessage sm = new ServerMessage(GET_ID);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
-			
-			return ois.readLong();
+			ID = ois.readLong();
+			return ID;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -63,6 +64,7 @@ class TcpConnection {
 			ServerMessage sm = new ServerMessage(SEND_COMMAND);
 			sm.setCommand(command);
 			sm.setCharIdx(charIdx);
+			sm.setId(ID);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			oos.reset();

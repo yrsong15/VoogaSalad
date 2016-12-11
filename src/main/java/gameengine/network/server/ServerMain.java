@@ -101,8 +101,8 @@ public class ServerMain {
 
 	}
 
-	void readCommand(String command,long id, int charIdx) {
-		gameHandler.runControl(command, 0, charIdx);
+	void readCommand(String command,int id, int charIdx) {
+		gameHandler.runControl(command, id, charIdx);
 	}
 
 	void addressBook(InetAddress address, int port) {

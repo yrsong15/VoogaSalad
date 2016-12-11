@@ -53,7 +53,7 @@ class TcpConnection implements Runnable{
 						oos.writeLong(main.getId());
 						break;
 					case SEND_COMMAND:
-						main.readCommand(sm.command,sm.id,sm.charIdx);
+						main.readCommand(sm.command,(int)sm.id,sm.charIdx);
 						break;
 					case GET_ID_IP_PORT: 
 						String ipString = socket.getInetAddress().getHostName();
