@@ -3,6 +3,9 @@ package objects;
 import java.util.Map;
 import java.util.Set;
 
+import gameengine.controller.SingletonBoundaryChecker;
+import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
+
 /**
  * 
  * @author Ray Song, Soravit
@@ -64,7 +67,7 @@ public class GameObject {
 			this.onPlatform = false;
 			return;
 		}
-		boolean isHorizontallyOnPlatform = ((this.xPosition <= (platformCharacterIsOn.getXPosition() + platformCharacterIsOn.getWidth())) && (this.xPosition >= platformCharacterIsOn.getXPosition()));
+		boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
 		boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <= (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >= (platformCharacterIsOn.getYPosition() - 20)));
 		this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
 	}

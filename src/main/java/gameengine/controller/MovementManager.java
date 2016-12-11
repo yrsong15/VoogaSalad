@@ -7,7 +7,6 @@ import gameengine.model.MovementChecker;
 import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import gameengine.model.interfaces.Scrolling;
-import gameengine.scrolling.LimitedScrolling;
 import objects.GameObject;
 import objects.Level;
 import objects.ProjectileProperties;
@@ -38,7 +37,6 @@ public class MovementManager implements ControlInterface{
 		initManager();
 	}
 	
-	//TO-DO: define scroll-width, pass movement interface through to movement rulebook through movement checker
 	
 	private void initManager(){
 		try {
@@ -69,7 +67,6 @@ public class MovementManager implements ControlInterface{
 		}
 		else{
 			double newYPos = obj.getYPosition() - Math.abs(speed);
-			System.out.println("newY " + newYPos);
 			genMovement.moveUp(obj, speed);
 			checkYToroidalChange(obj, newYPos);
 		}
