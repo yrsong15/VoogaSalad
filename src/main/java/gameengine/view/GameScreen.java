@@ -59,16 +59,6 @@ public class GameScreen {
         myScreen.getChildren().remove(gameObjectImageViewMap.get(object.getID()));
         gameObjectImageViewMap.remove(object);
     }
-    // public void update(Level level) {
-    // for (GameObject object : level.getAllGameObjects()) {
-    // if (gameObjectImageViewMap.containsKey(object)) {
-    // gameObjectImageViewMap.get(object).relocate(object.getXPosition(),
-    // object.getYPosition());
-    // } else {
-    // addGameObject(object);
-    // }
-    // }
-    // }
     
     public void update(ClientGame game){
         for (ClientGameObject object : game.getAllGameObjects()) {
@@ -81,15 +71,13 @@ public class GameScreen {
              }
         }
     }
-    /**
-    public void update(ClientGame game) {
-        myScreen.getChildren().clear();
-        init(game);
-    }**/
+    
     public void reset() {
         gameObjectImageViewMap.clear();
         myScreen.getChildren().clear();
     }
+    
+    
     private void addGameObject(ClientGameObject object) {
         if (object.getImageFileName() == null)
             return;
