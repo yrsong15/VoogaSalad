@@ -47,14 +47,7 @@ public class MainCharacterDetail extends AbstractSelectDetail {
 
     @Override
     public void initLevel2(GameObjectView sprite){
-        //System.out.println(sprite.getIsMainChar());
-       // System.out.println(" Sprite " + sprite);
-//        
-//        System.out.println(" Image View " + sprite.getImageView().toString());
-//        Map<String,String> map = myDataStore.getMainCharMap(sprite.getImageView().toString());
-//        for(String key: map.keySet()){
-//            System.out.println(" Key: " + key + " Value: " + map.get(key));
-//        }
+
         
         myGO = sprite;
         addVBoxSettings();
@@ -62,8 +55,6 @@ public class MainCharacterDetail extends AbstractSelectDetail {
         createProperties();
         //TODO: switch to character in detail pane
         createSave();
-        //String typeName = myGO.getType();
-        //Map<String, String> typeMap = myDataStore.getType(typeName);
     }
 
     private void createSave(){

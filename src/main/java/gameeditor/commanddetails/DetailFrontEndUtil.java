@@ -33,7 +33,7 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
         ButtonTemplate button = new ButtonTemplate(property);
         button.getButton().setMinHeight(IAbstractCommandDetail.CB_HEIGHT);
         button.getButton().setMinWidth(IAbstractCommandDetail.CB_WIDTH);
-//        button.setOnButtonAction(handler);
+       button.setOnButtonAction(handler);
         return button.getButton();
     }
 
