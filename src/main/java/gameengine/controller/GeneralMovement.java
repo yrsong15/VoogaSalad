@@ -1,6 +1,6 @@
 package gameengine.controller;
 
-import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
 import objects.Level;
 
@@ -12,9 +12,9 @@ import objects.Level;
 public class GeneralMovement{
 
     private Level level;
-    private ScreenBoundary currBoundary;
+    private GameBoundary currBoundary;
     
-    public GeneralMovement(Level level, ScreenBoundary currBoundary){
+    public GeneralMovement(Level level, GameBoundary currBoundary){
         this.level = level;
         this.currBoundary = currBoundary;
     }

@@ -2,7 +2,7 @@ package gameengine.model.rules.movementrules;
 
 import gameengine.controller.GameEngineController;
 import gameengine.controller.interfaces.ControlInterface;
-import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
 
 /**
@@ -11,7 +11,7 @@ import objects.GameObject;
 public class ApplyHorizontalMovementRule implements MovementRule{
 
 	@Override
-	public void applyRule(GameObject obj, ControlInterface gameMovement, ScreenBoundary gameBoundaries) {
+	public void applyRule(GameObject obj, ControlInterface gameMovement, GameBoundary gameBoundaries) {
         double moveSpeed = Double.parseDouble(obj.getProperty("horizontalmovement"));
         double newXPos = obj.getXPosition() + moveSpeed;
         

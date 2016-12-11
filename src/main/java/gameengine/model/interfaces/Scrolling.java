@@ -28,10 +28,31 @@ public interface Scrolling {
 	
 	
 	/**
+	 * @return a double of how far the screen has been scrolled right/left
+	 */
+	double getXDistanceScrolled();
+	
+	
+	/**
+	 * @return a double of how far the screen has been scrolled up/down
+	 */
+	double getYDistanceScrolled();
+	
+	
+	/**
+	 * @param requested direction of scrolling requested
+	 * @param player main character of game
+	 * @return whether or not scrolling is currently allowed
+	 */
+	boolean allowedToScroll(Direction requested, GameObject player);
+	
+	
+	/**
 	 * Completes the scrolling of the screen based on speed in class
 	 * @throws ScrollDirectionNotFoundException 
 	 */
 	void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException;
+	
 	
 	/**
 	 * Completes the scrolling of the screen based on the speed given as parameter

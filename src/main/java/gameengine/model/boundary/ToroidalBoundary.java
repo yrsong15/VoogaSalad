@@ -3,18 +3,24 @@ package gameengine.model.boundary;
 import objects.GameObject;
 
 public class ToroidalBoundary extends BasicBoundary{
+	
+	boolean movedToroidally;
 
 	public ToroidalBoundary(double width, double height) {
 		super(width, height);
 	}
 	
+	public ToroidalBoundary(double viewWidth, double viewHeight, double worldWidth, double worldHeight){
+		super(viewWidth, viewHeight, worldWidth, worldHeight);
+	}
+	
 	@Override
 	public boolean moveToXPos(GameObject toMove, double newXPos) {
-		if (getScreenWidth() <= newXPos){
+		if (getWorldWidth()-toMove.getWidth() <= newXPos){
 			toMove.setXPosition(0);
 		}
 		else if (newXPos <= 0-toMove.getWidth()){
-			toMove.setXPosition(getScreenWidth()-toMove.getWidth());
+			toMove.setXPosition(getWorldWidth()-toMove.getWidth());
 		}
 		else{
 			toMove.setXPosition(newXPos);
@@ -24,11 +30,11 @@ public class ToroidalBoundary extends BasicBoundary{
 
 	@Override
 	public boolean moveToYPos(GameObject toMove, double newYPos) {
-		if (getScreenHeight() <= newYPos){
+		if (getViewHeight() <= newYPos){
 			toMove.setYPosition(0);
 		}
 		else if (newYPos <= 0){
-			toMove.setYPosition(getScreenHeight()-toMove.getHeight());
+			toMove.setYPosition(getWorldHeight()-toMove.getHeight());
 		}
 		else{
 			toMove.setYPosition(newYPos);

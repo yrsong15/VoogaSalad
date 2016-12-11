@@ -9,7 +9,7 @@ import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
 import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
-import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.Scene;
@@ -58,7 +58,7 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-        //XMLData = testGameEngine();
+        XMLData = testGameEngine();
         gameEngineController = new GameEngineController();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
@@ -104,17 +104,17 @@ public class MainController {
          GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
          Player player = new Player(mainChar);
          game.addPlayer(player);
-         mainChar.setProperty("gravity", "0.8");
+         mainChar.setProperty("gravity", "0");
          mainChar.setProperty("jump", "400");
          mainChar.setProperty("health", "10");
          mainChar.setProperty("movespeed", "30");
          Level level = new Level(1);
-         ScreenBoundary gameBoundaries = new StopAtEdgeBoundary(700, 675);
+         GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 900, 800);
          ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
-         scrollType.addScrollDirection(Direction.RIGHT);
+         scrollType.addScrollDirection(Direction.UP);
          scrollType.setScrollSpeed(30);
          level.setScrollType(scrollType);
-         level.setBackgroundImage("Background/graphPaper.png");
+         level.setBackgroundImage("Background/bg.png");
          game.setCurrentLevel(level);
          player.setControl(KeyCode.W, "jump");
          player.setControl(KeyCode.LEFT, "left");

@@ -4,6 +4,8 @@ import exception.ScrollDirectionNotFoundException;
 import exception.ScrollTypeNotFoundException;
 import gameengine.controller.interfaces.ControlInterface;
 import gameengine.model.MovementChecker;
+import gameengine.model.boundary.GameBoundary;
+import gameengine.model.boundary.ToroidalBoundary;
 import gameengine.model.interfaces.Scrolling;
 import gameengine.scrolling.LimitedScrolling;
 import objects.GameObject;
@@ -44,8 +46,8 @@ public class MovementManager implements ControlInterface{
 		} catch (ScrollTypeNotFoundException e) {
 			e.printStackTrace();
 		}
-		movementChecker = new MovementChecker((ControlInterface) this, currLevel.getScrollType().getScreenBoundary());
-		genMovement = new GeneralMovement(currLevel, currLevel.getScrollType().getScreenBoundary());
+		movementChecker = new MovementChecker((ControlInterface) this, currLevel.getScrollType().getGameBoundary());
+		genMovement = new GeneralMovement(currLevel, currLevel.getScrollType().getGameBoundary());
 	}
 	
 	public ControlInterface getControlInterface(){
@@ -61,7 +63,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveUp(GameObject obj, double speed) {
-		if (obj.isPlayer() && (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.UP, obj))){
+		if (obj.isPlayer() && gameScrolling.allowedToScroll(Direction.UP, obj)){
 			gameScrolling.setDirection(Direction.UP);
 			runGameScrolling(speed);
 		}
@@ -73,7 +75,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveDown(GameObject obj, double speed) {
-		if (obj.isPlayer() && (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.DOWN, obj))){
+		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(Direction.DOWN, obj)){
 			gameScrolling.setDirection(Direction.DOWN);
 			runGameScrolling(speed);
 		}
@@ -85,34 +87,58 @@ public class MovementManager implements ControlInterface{
 	
 	@Override
 	public void moveRight(GameObject obj, double speed) {
-		if (obj.isPlayer() && (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.RIGHT, obj))){
+		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(Direction.RIGHT, obj)){
 			gameScrolling.setDirection(Direction.RIGHT);
 			runGameScrolling(speed);
 		}
 		else{
 			genMovement.moveRight(obj, speed);
+			checkXToroidalChange(obj, obj.getXPosition() + Math.abs(speed));
 		}		
 	}
+	
 
 	@Override
 	public void moveLeft(GameObject obj, double speed) {
-		if (obj.isPlayer() && (scrollName.equals("FreeScrolling") || scrollForLimited(Direction.LEFT, obj))){
+		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(Direction.LEFT, obj)){
 			gameScrolling.setDirection(Direction.LEFT);
 			runGameScrolling(speed);
 		}
 		else{
 			genMovement.moveLeft(obj, speed);
+			checkXToroidalChange(obj, obj.getXPosition() - Math.abs(speed));
+		}
+	}
+
+	public void checkXToroidalChange(GameObject obj, double newXPos){
+		System.out.println(obj.getXPosition());
+		if (currLevel.getScrollType().getGameBoundary().getClass() == ToroidalBoundary.class
+			&& obj.getXPosition() != newXPos){
+				if (obj.getXPosition()==0){
+					gameScrolling.setDirection(Direction.LEFT);
+					runGameScrolling(Math.abs(gameScrolling.getXDistanceScrolled()));
+
+				}
+				else if (obj.getXPosition()>=currLevel.getScrollType().getGameBoundary().getWorldWidth()-obj.getWidth()){
+					gameScrolling.setDirection(Direction.RIGHT);
+					runGameScrolling(currLevel.getScrollType().getGameBoundary().getWorldWidth()-obj.getWidth());
+				}
+				
 		}
 	}
 	
-	private boolean scrollForLimited(Direction requestedDir, GameObject player){
-		if (scrollName.equals("LimitedScrolling")){
-			LimitedScrolling limScroll = (LimitedScrolling) gameScrolling;
-			return limScroll.needToScroll(requestedDir, player);
+	public void checkYToroidalChange(GameObject obj, double newXPos){
+		if (currLevel.getScrollType().getGameBoundary().getClass() == ToroidalBoundary.class
+			&& obj.getYPosition() != newXPos){
+				if (obj.getYPosition()==0){
+					gameScrolling.setDirection(Direction.UP);
+				}
+				else{
+					gameScrolling.setDirection(Direction.DOWN);
+				}
+				runGameScrolling(gameScrolling.getYDistanceScrolled());
 		}
-		return false;
 	}
-
 	@Override
 	public void jump(GameObject obj, double speed) {
         String jumpVelocity = obj.getProperty("jump");
@@ -146,13 +172,12 @@ public class MovementManager implements ControlInterface{
 		ScrollType gameScroll = currLevel.getScrollType();
 		String classPath = "gameengine.scrolling." + gameScroll.getScrollTypeName();
 		Object[] parameters = new Object[]{gameScroll.getDirections().get(0), gameScroll.getScrollSpeed(), 
-											screenWidth, screenHeight};
-		Class<?>[] parameterTypes = new Class<?>[]{Direction.class, double.class, double.class, double.class};
+											currLevel.getScrollType().getGameBoundary()};
+		Class<?>[] parameterTypes = new Class<?>[]{Direction.class, double.class, GameBoundary.class};
 			try {
 				gameScrolling = (Scrolling) ReflectionUtil.getInstance(classPath, parameters, parameterTypes);
 			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}

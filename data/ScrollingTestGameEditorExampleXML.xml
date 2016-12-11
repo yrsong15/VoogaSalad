@@ -80,6 +80,8 @@
       <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
         <screenWidth>700.0</screenWidth>
         <screenHeight>675.0</screenHeight>
+		<worldWidth>700.0</worldWidth>
+        <worldHeight>675.0</worldHeight>
       </gameBoundaries>
     </scrollType>
   </currentLevel>

@@ -8,6 +8,7 @@ import java.util.List;
 import com.sun.javafx.scene.traversal.Direction;
 
 import exception.ScrollDirectionNotFoundException;
+import gameengine.model.boundary.GameBoundary;
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
@@ -20,15 +21,15 @@ public class FreeScrolling implements Scrolling{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
 	private double scrollingSpeed;
-	private double screenWidth;
-	private double screenHeight;
+	private double xDistanceScrolled;
+	private double yDistanceScrolled;
+	private GameBoundary gameBoundaries;
 	
 	
-	public FreeScrolling(Direction dir, double speed, double width, double height){
+	public FreeScrolling(Direction dir, double speed, GameBoundary gameBoundaries){
 		this.direction = dir;
 		this.scrollingSpeed = speed;
-		this.screenWidth = width;
-		this.screenHeight = height;
+		this.gameBoundaries = gameBoundaries;
 	}
 
 	@Override
@@ -42,22 +43,39 @@ public class FreeScrolling implements Scrolling{
 		this.direction = scrollDirection;
 	}
 	
-	private Direction findScreenDirection(GameObject mainChar){
-		if (mainChar.getXPosition() <= screenWidth*0.2){
-			return Direction.LEFT;
-		}
-		else if (mainChar.getXPosition() >= screenWidth*0.6){
-			return Direction.RIGHT;
-		}
-		else if (mainChar.getYPosition() <= screenWidth*0.2){
-			return Direction.UP;
-		}
-		
-		else if(mainChar.getYPosition() >= screenWidth*0.6){
-			return Direction.DOWN;
-		}
-		return null;
+	@Override
+	public double getXDistanceScrolled() {
+		return xDistanceScrolled;
 	}
+
+	@Override
+	public double getYDistanceScrolled() {
+		return yDistanceScrolled;
+	}
+	
+	public boolean allowedToScroll(Direction requestedDir, GameObject player){
+		if(requestedDir == Direction.RIGHT){
+			return (xDistanceScrolled + player.getXPosition() < gameBoundaries.getWorldWidth()*0.8
+					&& player.getXPosition() > gameBoundaries.getViewWidth()*0.5);
+		}
+		else if(requestedDir == Direction.LEFT){
+			return (player.getXPosition() + xDistanceScrolled >  gameBoundaries.getWorldWidth()*0.2
+					&& player.getXPosition() < gameBoundaries.getViewWidth()*0.5);
+		}
+		else if(requestedDir == Direction.UP){
+			System.out.println(yDistanceScrolled + player.getYPosition());
+			return (yDistanceScrolled + player.getYPosition() > gameBoundaries.getWorldHeight()*0.2)
+					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.5;
+		}
+		else if(requestedDir == Direction.DOWN){
+			System.out.println(yDistanceScrolled + player.getYPosition());
+			return (yDistanceScrolled + player.getYPosition() < gameBoundaries.getWorldHeight()*0.8)
+					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.5;
+
+		}
+		return false;			
+	}
+	
 	
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
@@ -67,9 +85,11 @@ public class FreeScrolling implements Scrolling{
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed)
 			throws ScrollDirectionNotFoundException {
+		trackDistanceScrolling(speed);
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		scrollObjects.remove(mainChar);
+		//System.out.println(xDistanceScrolled + ", y:  " + yDistanceScrolled);
 		Object[] parameters = new Object[]{scrollObjects, speed};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {
@@ -78,7 +98,23 @@ public class FreeScrolling implements Scrolling{
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				throw (new ScrollDirectionNotFoundException());
 			}
-		
+	}
+
+	private void trackDistanceScrolling(double speed) {
+		if (direction == Direction.RIGHT){
+			xDistanceScrolled+= speed;
+		}
+		else if(direction == Direction.LEFT){
+			xDistanceScrolled-= speed;
+
+		}
+		else if(direction == Direction.UP){
+			yDistanceScrolled-= speed;
+		}
+		else{
+			yDistanceScrolled+= speed;
+		}
+		//System.out.println(xDistanceScrolled + "  " + yDistanceScrolled);
 	}
 }
 

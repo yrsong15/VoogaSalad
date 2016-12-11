@@ -1,27 +1,51 @@
 package gameengine.model.boundary;
 
+import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 
-public abstract class BasicBoundary implements ScreenBoundary{
-	private double screenWidth;
-	private double screenHeight;
-	
+public abstract class BasicBoundary implements GameBoundary{
+	private double viewWidth;
+	private double viewHeight;
+	private double worldWidth;
+	private double worldHeight;
+	private Scrolling gameScrolling;
 	
 	public BasicBoundary(double width, double height){
-		screenWidth = width;
-		screenHeight = height;
+		this.viewWidth = width;
+		this.viewHeight = height;
+		this.worldWidth = Double.MAX_VALUE;
+		this.worldHeight = Double.MAX_VALUE;
 	}
 	
-	protected double getScreenHeight(){
-		return screenHeight;
+	public BasicBoundary(double viewWidth, double viewHeight, double worldWidth, double worldHeight){
+		this.viewWidth = viewWidth;
+		this.viewHeight = viewHeight;
+		this.worldWidth = worldWidth;
+		this.worldHeight = worldHeight;
 	}
 	
-	protected double getScreenWidth(){
-		return screenWidth;
+	public double getViewHeight(){
+		return viewHeight;
 	}
-
-	public boolean moveGameObject(GameObject toMove, double newXPos, double newYPos) {
-		return moveToXPos(toMove, newXPos) && moveToYPos(toMove, newYPos);
+	
+	public double getViewWidth(){
+		return viewWidth;
+	}
+	
+	public double getWorldHeight(){
+		return worldHeight;
+	}
+	
+	public double getWorldWidth(){
+		return worldWidth;
+	}
+	
+	public void setScrolling(Scrolling gameScrolling){
+		this.gameScrolling = gameScrolling;
+	}
+	
+	public Scrolling getScrolling(){
+		return gameScrolling;
 	}
 
 	@Override
