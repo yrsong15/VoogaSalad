@@ -54,5 +54,9 @@ public interface IGameEditorData {
     
     public Map<String,String> createViewMap(String typeName, String imageViewString);
     public void storeImageViewMap(Map<String,String> viewMap);
+    
+    public void storeMainCharater(Map<String,String> myMainCharMap);
+    public Map<String,String> getMainCharMap(String imageViewName);
+    public void storeMainCharToXML();
 }
 

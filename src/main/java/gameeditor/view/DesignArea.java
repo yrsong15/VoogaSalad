@@ -1,7 +1,6 @@
 package gameeditor.view;
-
 import java.util.ArrayList;
-
+import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
@@ -186,7 +185,7 @@ public class DesignArea implements IDesignArea {
     
     @Override
 	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds) {
-    	GameObjectView newAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", true, this, ds);
+    	GameObjectView newAvatar = new GameObjectView(filePath, x, y, width, height, DetailResources.MAIN_CHARACTER_TYPE.getResource(), true, this, ds);
     	myAvatars.add(newAvatar);
     	mySprites.add(newAvatar);
 	}
