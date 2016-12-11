@@ -11,4 +11,3 @@ public class ApplyDestructibleRule extends ApplyNonIntersectableRule{
 		handler.removeObject(obj);
 	}
 	
-}
