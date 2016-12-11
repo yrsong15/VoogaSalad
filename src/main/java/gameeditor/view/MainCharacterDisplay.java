@@ -2,7 +2,9 @@ package gameeditor.view;
 
 import java.util.ArrayList;
 
+import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.objects.GameObjectView;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import javafx.geometry.Insets;
@@ -18,7 +20,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -44,6 +45,7 @@ public class MainCharacterDisplay {
     private BorderPane myBP = new BorderPane();
     private ScrollPane myCenterParent = new ScrollPane();
     private Pane myCenterPane = new Pane();
+    private ArrayList<GameObjectView> myAvatarGOVs = new ArrayList<GameObjectView>();
 
     private Button myButton;
     private boolean mainCharPropActive = false;
@@ -54,6 +56,7 @@ public class MainCharacterDisplay {
     private ArrayList <String> myPlayers = new ArrayList<String>();
     private int myTotalChars = 0;
     private int myCurrentChar = 0;
+    private GameObjectView myCurrentAvatar;
     private double myCharSpacing = 10;
     private double myDelta = myCharSpacing + AVATAR_ZONE_WIDTH;
     private double baseX = (TOTAL_ZONE_WIDTH - AVATAR_ZONE_WIDTH)/2;
@@ -112,11 +115,11 @@ public class MainCharacterDisplay {
         myCenterPane.getChildren().remove(myRight);
         createLeft();
         createRight();
+        myCurrentAvatar = myAvatarGOVs.get(myCurrentChar);
     }
 
     private void init(){
         myCurrentChar = 1;
-
     }
 
     private void createLeft(){
@@ -136,12 +139,15 @@ public class MainCharacterDisplay {
     }
 
     private void handleButton(){
-        if (mainCharPropActive){
+        if (mainCharPropActive && myTotalChars > 0){
             myDetailPane.removeDetail();
-        } else {
+            mainCharPropActive = !mainCharPropActive;
+        } else if (myTotalChars > 0) {
             myDetailPane.setDetail("MainCharacter");
+            myDesignArea.initSelectDetail2(myCurrentAvatar);
+            mainCharPropActive = !mainCharPropActive;
         }
-        mainCharPropActive = !mainCharPropActive;
+       
     }
 
     private void scrollLeft(){
@@ -162,14 +168,12 @@ public class MainCharacterDisplay {
                 p.setLayoutX(p.getLayoutX() + direction*myDelta);
             }
             myCurrentChar -= direction;
+            myCurrentAvatar = myAvatarGOVs.get(myCurrentChar);
             currentX = newX;
         }
     }
 
     public void createNewAvatar(String filePath){
-        if (myTotalChars == 0){
-            init();
-        }
         Pane avPane = new Pane();
         Rectangle avZone = createAvatarZone();
         ImageView avView = createAvatarView(filePath, avZone);
@@ -182,6 +186,9 @@ public class MainCharacterDisplay {
         myAvatarPanes.add(avPane);
         myPlayers.add(filePath);
         myCenterPane.getChildren().add(avPane);
+        if (myTotalChars == 0){
+            init();
+        }
         update();
     }
 
@@ -224,12 +231,18 @@ public class MainCharacterDisplay {
         // TODO: Remove Hard Coding
         double playerX = DEFAULT_PLAYER_X + myTotalChars*(10+DEFAULT_PLAYER_WIDTH);
         double playerY = DEFAULT_PLAYER_Y - endHeight/2;
-        myDesignArea.addAvatar(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, myDataStore);
+    	GameObjectView newAvatarGOV = new GameObjectView(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, DetailResources.MAIN_CHARACTER_TYPE.getResource(), true, myDesignArea, myDataStore);
+        myAvatarGOVs.add(newAvatarGOV);
+    	myDesignArea.addAvatar(newAvatarGOV);
         return avView;
     }
 
     public BorderPane getPane(){
         return myBP;
+    }
+    
+    public GameObjectView getCurrentMain(){
+		return myCurrentAvatar;
     }
 
 }
