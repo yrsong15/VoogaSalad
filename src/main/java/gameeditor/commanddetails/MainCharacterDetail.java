@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 // TODO: Refactor this class - duplicated code with CreateDetail
 public class MainCharacterDetail extends AbstractSelectDetail {
 
+	
     //private VBox myVBox;
     //private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
     private String [] myPropertiesArray = DetailResources.MAIN_CHARACTER_PROPERTIES.getArrayResource();

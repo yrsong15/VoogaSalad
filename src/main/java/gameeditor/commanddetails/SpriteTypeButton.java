@@ -136,7 +136,7 @@ public class SpriteTypeButton {
         myTempImageView.setPreserveRatio(true);
         myTempImageView.setFitWidth(fitWidth);
         myTempImageView.setFitHeight(fitHeight);
-        myPane.getChildren().add(myTempImageView);
+        myDetailPane.getPane().getChildren().add(myTempImageView);
     }
     
     private void handleReentryLvl1(){
@@ -146,7 +146,7 @@ public class SpriteTypeButton {
     }
     
     private void handleReentryLvl2(){
-    	myPane.getChildren().add(myTempImageView);
+    	myDetailPane.getPane().getChildren().add(myTempImageView);
     	dragEntering = false;
     }
 
@@ -168,7 +168,7 @@ public class SpriteTypeButton {
         myY = DEFAULT_Y;
         myWidth = DEFAULT_WIDTH;
         myHeight = DEFAULT_HEIGHT;
-        myPane.getChildren().remove(myTempImageView);
+        myDetailPane.getPane().getChildren().remove(myTempImageView);
         dragExited = false;
         myTempImageView = null;
     }

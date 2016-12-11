@@ -25,11 +25,6 @@ public class BoundingBox {
 	
 	private double xDistanceFromCorner = 0;
 	private double yDistanceFromCorner = 0;
-	
-	private double myPressX = 0;
-	private double myPressY = 0;
-	private double myDeltaX = 0;
-	private double myDeltaY = 0;
 
 
 	public BoundingBox(GameObjectView sprite, IDesignArea da) {
@@ -44,25 +39,6 @@ public class BoundingBox {
 		double spriteHeight = sprite.getHeight();
 		createLines(spriteX, spriteY, spriteWidth, spriteHeight, lineWidth);
 		createCorners(spriteX, spriteY, spriteWidth, spriteHeight);
-	}
-	
-	private void handleCenterPress(double x, double y){
-		myPressX = x;
-		myPressY = y;
-		mySprite.setDistanceFromCorner(x, y);
-		mySprite.handleDrag(x, y);
-		updateLayout();
-	}
-	
-	private void handleCenterDrag(double x, double y){
-		if (x >= myPressX + myDeltaX + 20 && y >= myPressY + myDeltaY + 20){
-			x -= 375;
-			y -= 75;
-			myDeltaX = myPressX - x;
-			myDeltaY = myPressY - y;
-		}
-		mySprite.handleDrag(x, y);
-		updateLayout();
 	}
 	
 	private void handleCornerPress(double x, double y){
@@ -85,8 +61,7 @@ public class BoundingBox {
 		myBounds = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
 		myBounds.setFill(Color.TRANSPARENT);
 		myBounds.setStroke(Color.LIGHTGRAY);
-		myBounds.setOnMouseDragged((e) -> handleCenterDrag(e.getX(), e.getY()));
-		myBounds.setOnMousePressed((e) -> handleCenterPress(e.getX(), e.getY()));
+		myBounds.setMouseTransparent(true);
 		myShapes.add(myBounds);
 	}
 	
