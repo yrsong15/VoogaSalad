@@ -37,8 +37,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void startGame(Game currentGame) {
-		currentGame.getCurrentLevel().removeAllPlayers();
 		this.currentGame = currentGame;
+		currentGame.getCurrentLevel().removeAllPlayers();
+		this.
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		addRGFrames();
@@ -47,12 +48,11 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void addPlayersToClient(int ID) {
-		for (Map.Entry<Long, List<Player>> entry : currentGame.getClientMappings().entrySet()) {
-			if (entry.getKey() == ID) {
-				for (Player p : entry.getValue()) {
-					System.out.print("dsf");
-					currentGame.addPlayer(p);
-					currentGame.getCurrentLevel().addGameObject(p.getMainChar());
+		//gfsgdf/
+		for (Long id: currentGame.getClientMappings().keySet()) {
+			if (id.equals(new Long(ID))) {
+				for (Player p : currentGame.getClientMappings().get(id)) {
+					currentGame.getCurrentLevel().addPlayer(p.getMainChar());
 				}
 			}
 		}
@@ -204,14 +204,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	@Override
 	public void runControl(String controlName, int ID, int charIdx) {
 		try {
-			Method method = gameMovement.getClass().getDeclaredMethod(controlName, GameObject.class, double.class);
-			Map<Long, List<Player>> a = currentGame.getClientMappings();
-			List<Player> b = a.get(ID);
-			System.out.println("charIdx: "+charIdx+"      ID: " + ID);
-			Player c = b.get(charIdx);
-			GameObject d = c.getMainChar();
-			
-//			method.invoke(gameMovement, .get(ID).get(charIdx).getMainChar(), 10);
+			Method method = gameMovement.getClass().getDeclaredMethod(controlName, GameObject.class, double.class);	
+			method.invoke(gameMovement, currentGame.getClientMappings().get(new Long(ID)).get(charIdx).getMainChar(), 10);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
