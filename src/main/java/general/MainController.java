@@ -92,7 +92,7 @@ public class MainController {
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);**/
-
+/**
     	//doodle jump configuration
     	
     	 Game game = new Game("Doodle Jump");
@@ -135,6 +135,56 @@ public class MainController {
          ground.setProperty("damage","0");
          ground.setProperty("nonintersectable", "true");
          level.addGameObject(ground);**/
+    	
+    	
+    	 Game game = new Game("Dance Dance Revolution");
+         GameObject firstShyGuy = new GameObject(100, 500, 100, 100, "shyguy.png", new HashMap<>());
+         GameObject secondShyGuy = new GameObject(250, 500, 100, 100, "shyguy.png", new HashMap<>());
+         GameObject thirdShyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
+         GameObject fourthShyGuy = new GameObject(550, 500, 100, 100, "shyguy.png", new HashMap<>());
+         Player player1 = new Player(firstShyGuy);
+         Player player2 = new Player(secondShyGuy);
+         Player player3 = new Player(thirdShyGuy);
+         Player player4 = new Player(fourthShyGuy);
+         game.addPlayer(player1);
+         game.addPlayer(player2);
+         game.addPlayer(player3);
+         game.addPlayer(player4);
+         firstShyGuy.setProperty("jump", "400");
+         secondShyGuy.setProperty("jump", "400");
+         thirdShyGuy.setProperty("jump", "400");
+         fourthShyGuy.setProperty("jump", "400");
+         firstShyGuy.setProperty("gravity", "0.8");
+         secondShyGuy.setProperty("gravity", "0.8");
+         thirdShyGuy.setProperty("gravity", "0.8");
+         fourthShyGuy.setProperty("gravity", "0.8");
+         firstShyGuy.setProperty("movespeed", "5");
+         secondShyGuy.setProperty("movespeed", "0");
+         thirdShyGuy.setProperty("movespeed", "0");
+         fourthShyGuy.setProperty("movespeed", "0");
+         ProjectileProperties projectileProperties = new ProjectileProperties("duvall.png", 50, 50, Direction.RIGHT, 400, 30, 20);
+         firstShyGuy.setProjectileProperties(projectileProperties);
+         Level level = new Level(1);
+         GameBoundary gameBoundaries = new StopAtEdgeBoundary(700, 675);
+         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
+         scrollType.addScrollDirection(Direction.RIGHT);
+         level.setScrollType(scrollType);
+         level.setBackgroundImage("Background/bg.png");
+         game.setCurrentLevel(level);
+         player1.setControl(KeyCode.UP, "jump");
+         player1.setControl(KeyCode.SPACE, "shoot");
+         player1.setControl(KeyCode.RIGHT, "right");
+         player1.setControl(KeyCode.LEFT, "left");
+         player2.setControl(KeyCode.S, "jump");
+         player3.setControl(KeyCode.D, "jump");
+         player4.setControl(KeyCode.F, "jump");
+         level.addPlayer(firstShyGuy);
+         level.addPlayer(secondShyGuy);
+         level.addPlayer(thirdShyGuy);
+         level.addPlayer(fourthShyGuy);
+         GameObject ground = new GameObject(0, 570,700,50,"ground.png", new HashMap<>());
+         ground.setProperty("nonintersectable", "true");
+         level.addGameObject(ground);
          XMLSerializer testSerializer = new XMLSerializer();
          String xml = testSerializer.serializeGame(game);
         System.out.println(xml);
@@ -150,7 +200,7 @@ public class MainController {
 
 
 	public void launchEngine(String XMLData) {
-		// XMLData = testGameEngine();
+		 XMLData = testGameEngine();
 		boolean multiplayer = true;
 		boolean isServer = false;
 		// if (gameEngineController.startGame(XMLData) == true && (!multiplayer
