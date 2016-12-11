@@ -2,6 +2,7 @@ package gameengine.model;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,86 +15,58 @@ import gameengine.view.GameScreen;
 
 
 public class RandomGenFrame<T> {
-
-    private T benchmark;
+	private double benchmarkPoint = -200;
     private Level level;
-    private RGInterface RGinterface;
+    private ArrayList<RandomGeneration<Integer>> randomGenRules;
+    private GameObject referenceFirstObject;
     private static final Random RNG = new Random();
 
-    public RandomGenFrame (RGInterface RGinterface, T newFramePoint, Level level) {
-        this.benchmark = newFramePoint;
-        this.level = level;
-        this.RGinterface = RGinterface;
+    public RandomGenFrame (Level level, ArrayList<RandomGeneration<Integer>> randomGenerationRules) {
+    	this.randomGenRules = randomGenerationRules;
+    	this.level = level;
+    }
+    
+    public ArrayList<RandomGeneration<Integer>> getRandomGenerationRules(){
+    	return this.randomGenRules;
     }
 
-    public <T extends Comparable<T>> void possiblyGenerateNewFrame (T xPosition,
-                                                                    RandomGeneration<Integer> randomGenRules,
-                                                                    Method callback)
-                                                                                     throws IllegalArgumentException,
-                                                                                     InvocationTargetException,
-                                                                                     IllegalAccessException {
-        // System.out.println("benchmark " + benchmark + " Position: " +
-        // xPosition);
-        if (xPosition.compareTo((T) benchmark) >= 0) {
-            generateNewFrame(level, randomGenRules);
-        }
-        callback.invoke(this.RGinterface);
-
-    }
-
-    private void generateNewFrame (Level level, RandomGeneration<Integer> randomGenRules) {
-        int val = 0;
-        int minX = randomGenRules.getMinX() + 400;
-        int minSep = randomGenRules.getMinSpacing();
-        int maxSep = randomGenRules.getMaxSpacing();
-
-        while (val < randomGenRules.getNumObjects()) {
-            val++;
-            int nextSeparationDist = RNG.nextInt(maxSep - minSep) + minSep;
-            minX += nextSeparationDist;
-            int randomYPosition =
-                    RNG.nextInt(randomGenRules.getMaxY() - randomGenRules.getMinY()) +
-                                  randomGenRules.getMinY();
-            // generatePipesAndScoreObjects(minX, randomYPosition, 80, 200,
-            // objectURL, new HashMap<>());
-            generatePipesAndScoreObjects(minX, randomYPosition, 80,
-                                         randomGenRules.getObjectProperties());
+    public void possiblyGenerateNewFrame (RandomGeneration<Integer> randomGenRules) {
+        if (referenceFirstObject == null || referenceFirstObject.getYPosition() >= benchmarkPoint) {
+            generateNewFrameAndSetBenchmark(level);
         }
     }
 
-    private void generatePipesAndScoreObjects (double xPosition,
-                                               double yPosition,
-                                               double width,
-                                               Map<String, String> objectProperties) {
-        double gapHeight = 200; // between the two pipes
-
-        Map<String, String> topPipeMap = new HashMap<String, String>();
-        topPipeMap.put("damage", objectProperties.get("damage"));
-        GameObject topPipe =
-                new GameObject(xPosition, 0, width, yPosition - gapHeight / 2, "PipeOpposite.png",
-                               topPipeMap);
-        level.getGameObjects().add(topPipe);
-
-        
-        Map<String, String> bottomPipeMap = new HashMap<String, String>();
-        bottomPipeMap.put("damage", objectProperties.get("damage"));
-        GameObject bottomPipe = new GameObject(xPosition, yPosition + gapHeight / 2, width,
-                                               GameScreen.screenHeight - (yPosition +
-                                                                          gapHeight / 2),
-                                               "Pipes.png", bottomPipeMap);
-        level.getGameObjects().add(bottomPipe);
-
-        Map<String, String> scoreMap = new HashMap<String, String>();
-        scoreMap.put("points", objectProperties.get("points"));
-        scoreMap.put("removeobject", "");
-        GameObject scoreObject =
-                new GameObject(xPosition + width, -100, 1, GameScreen.screenHeight + 100, scoreMap);
-        level.getGameObjects().add(scoreObject);
+    private void generateNewFrameAndSetBenchmark(Level level) {
+        for(RandomGeneration<Integer> elem:randomGenRules){
+	        int minSep = elem.getMinSpacing();
+	        int maxSep = elem.getMaxSpacing();
+	        int buffer = 0;
+	        for(int i=0; i<elem.getNumObjects();i++){
+	            double nextSeparationDist = RNG.nextInt(maxSep - minSep) + minSep;
+	            buffer += nextSeparationDist;
+	            double YPosition = benchmarkPoint - buffer;
+	            int xMargin = elem.getMaxX() - elem.getMinX();
+	            if(xMargin <= 0) xMargin = 1;
+	            double randomXPosition = RNG.nextInt(xMargin) + elem.getMinX();
+	            double width = elem.getWidth();
+	            double height = elem.getHeight();
+	            generateObject(randomXPosition, YPosition, width, height, elem.getImageURL(),elem.getObjectProperties());
+	        }
+        }
 
     }
 
-    public void setNewBenchmark (T newVal) {
-        this.benchmark = newVal;
+    private void generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
+        GameObject object = new GameObject(xPosition, yPosition, width, height, URL,objectProperties);
+        level.getGameObjects().add(object);
+        setNewFirstBenchmark(object);
     }
-
+    
+    private void setNewFirstBenchmark(GameObject object){
+    	if(referenceFirstObject == null || (object.getYPosition() < referenceFirstObject.getYPosition())) {
+    		referenceFirstObject = object;
+    	}
+    }
+   
+    
 }

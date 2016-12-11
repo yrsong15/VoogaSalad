@@ -1,10 +1,7 @@
 package gameengine.model.rules.movementrules;
 
 import gameengine.controller.GameEngineController;
-<<<<<<< HEAD
-=======
 import gameengine.controller.interfaces.ControlInterface;
->>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
 import gameengine.model.boundary.ScreenBoundary;
 import objects.GameObject;
 
