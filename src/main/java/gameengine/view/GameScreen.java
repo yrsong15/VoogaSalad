@@ -43,12 +43,15 @@ public class GameScreen {
 		return screenHeight;
 	}
 	
+	public double getScreenWidth() {
+		return screenWidth;
+	}
+	
 	public void setBackgroundImage(String imageFile) {
 		BackgroundImage bi = new BackgroundImage(new Image(getClass().getClassLoader().getResourceAsStream(imageFile), 
 				screenWidth, screenHeight, false, true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 		        BackgroundSize.DEFAULT);
 		myScreen.setBackground(new Background(bi));
-		
 	}
 
 	public void init(Level level){

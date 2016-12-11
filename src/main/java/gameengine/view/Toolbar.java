@@ -23,18 +23,15 @@ public class Toolbar implements IToolbar {
 	
 	private ResourceBundle myResources;
 	private HBox myToolbar;
-	private EventHandler<ActionEvent> myPauseEvent;
-	private EventHandler<ActionEvent> myResetEvent;
-	private EventHandler<ActionEvent> myMuteEvent;
-	private Button myPauseButton;
-	private Button myMuteButton;
+	private EventHandler<ActionEvent> myResetEvent, myMuteEvent, myMultiplayerEvent;
+	private Button myPauseButton, myMuteButton, myMultiplayerButton;
 	
 	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause, 
-			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute) {
+			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute, EventHandler<ActionEvent> pref) {
 		myResources = resources;
-		myPauseEvent = pause;
 		myResetEvent = reset;
 		myMuteEvent = mute;
+		myMultiplayerEvent = pref;
 		myToolbar = new HBox();
 		myToolbar.setPrefHeight(40);
 		addButtons();
@@ -66,10 +63,10 @@ public class Toolbar implements IToolbar {
 	private void addButtons() {
 		Button resetButton = makeButton("ResetButton", myResetEvent);
 		myMuteButton = makeButton("MuteButton", myMuteEvent);
+		myMultiplayerButton = makeButton("MultiplayerButton", myMultiplayerEvent);
 		resetButton.setPrefWidth(75);
 		myMuteButton.setPrefWidth(75);
-		myToolbar.getChildren().add(resetButton);
-		myToolbar.getChildren().add(myMuteButton);
+		myToolbar.getChildren().addAll(resetButton, myMuteButton, myMultiplayerButton);
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {

@@ -41,27 +41,27 @@ public class GameEngineUI {
 	public static final double myAppHeight = 775;
 	public static final String RESOURCE_FILENAME = "GameEngineUI";
 
-	private ResourceBundle myResources;
+	private ResourceBundle resources;
 	private Scene scene;
+	private Stage prefStage;
 	private Level level;
 	private ScrollerController scrollerController;
-	private ErrorMessage myErrorMessage;
+	private ErrorMessage errorMessage;
 	private ControlInterface controlInterface;
-	private String myLevelFileLocation;
 	private Toolbar toolbar;
-	private HUD myHUD;
+	private HUD hud;
 	private GameScreen gameScreen;
-	private boolean isPaused;
-	private boolean isMuted;
+	private MultiplayerPrefScreen multiplayerPrefScreen;
+	private boolean isPaused, isMuted;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
 	private EventHandler<ActionEvent> resetEvent;
 
-
 	public GameEngineUI(ControlInterface controlInterface, EventHandler<ActionEvent> resetEvent) {
-		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
-		this.myErrorMessage = new ErrorMessage();
+		this.resources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
+		this.multiplayerPrefScreen = new MultiplayerPrefScreen(resources, event -> onlineMulti(), event -> localMulti());
+		this.errorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.controlInterface = controlInterface;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
@@ -78,7 +78,7 @@ public class GameEngineUI {
         }
         gameScreen.reset();
         gameScreen.init(level);
-        myHUD.resetTimer();
+        hud.resetTimer();
 	}
 
 	public ScrollerController getScrollerController() {
@@ -94,13 +94,13 @@ public class GameEngineUI {
 	}
 	
 	public double getScreenWidth() {		
-		return gameScreen.screenWidth;	
+		return gameScreen.getScreenWidth();
 	}
 
 	public void update(Level level) {
 		this.level = level;
 		gameScreen.update(level);
-		myHUD.update(level);
+		hud.update(level);
 	}
 
 	public void playMusic(String musicFileName) {
@@ -122,7 +122,7 @@ public class GameEngineUI {
 		try {
 			gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
-			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
+			errorMessage.showError(resources.getString("BackgroundImageFileError"));
 		}
 		
 	}
@@ -140,7 +140,7 @@ public class GameEngineUI {
 
 	public void resetGameScreen(){
         gameScreen.reset();
-        myHUD.resetTimer();
+        hud.resetTimer();
     }
 
     public void removeObject(GameObject object){
@@ -182,13 +182,13 @@ public class GameEngineUI {
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, event -> mute());
+		toolbar = new Toolbar(resources, event -> loadLevel(), event -> pause(), resetEvent, event -> mute(), event -> pref());
 		return toolbar.getToolbar();
 	}
 	
 	private Node makeHUD() {
-		myHUD = new HUD();
-		return myHUD.getHUD();
+		hud = new HUD();
+		return hud.getHUD();
 	}
 
 	private Node makeGameScreen() {
@@ -213,7 +213,7 @@ public class GameEngineUI {
 		FileChooser levelChooser = new FileChooser();
 		levelChooser.setTitle("Open Level File");
 		File levelFile = levelChooser.showOpenDialog(new Stage());
-		myLevelFileLocation = levelFile.getAbsolutePath();
+		//myLevelFileLocation = levelFile.getAbsolutePath();
 	}
 
 	private void pause() {
@@ -226,6 +226,24 @@ public class GameEngineUI {
 			toolbar.pause();
 			mediaPlayer.pause();
 		}
+	}
+	
+	private void pref() {
+		if (prefStage == null){
+			prefStage = new Stage();
+		}
+		prefStage.setScene(multiplayerPrefScreen.getScene());
+		prefStage.show();
+	}
+	
+	public void onlineMulti() {
+		multiplayerPrefScreen.onlineMulti();
+		pref();
+		multiplayerPrefScreen.reset();
+	}
+	
+	public void localMulti() {
+		
 	}
 
 	private void setUpKeystrokeListeners(Player player) {
