@@ -46,14 +46,14 @@ public class GameEngineUI implements UDPHandler{
 	public static final double myAppHeight = 775;
 	public static final String RESOURCE_FILENAME = "GameEngineUI";
 	private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
-	private ResourceBundle myResources;
+	private ResourceBundle resources;
 	private Scene scene;
 	private ScrollerController scrollerController;
-	private ErrorMessage myErrorMessage;
-	private String myLevelFileLocation;
+	private ErrorMessage errorMessage;
 	private Toolbar toolbar;
 	private HUD hud;
 	private GameScreen gameScreen;
+	private MultiplayerPrefScreen multiplayerPrefScreen;
 	private MediaPlayer mediaPlayer;
 	private Map<KeyCode, Player> playerMappings = new HashMap<>();
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
@@ -63,7 +63,7 @@ public class GameEngineUI implements UDPHandler{
 	private Timeline animation;
 	private ControlInterface controlInterface;
 	private CommandInterface commandInterface;
-	private Stage endGameStage;
+	private Stage endGameStage, prefStage;
 	private ClientGame currentGame;
 	private Player mainPlayer;
 	private XMLSerializer mySerializer;
@@ -71,11 +71,11 @@ public class GameEngineUI implements UDPHandler{
 	private boolean isPaused,isMuted;
 	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, Player player, String serverName) {
 		mainPlayer = player;
-		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
-		this.myErrorMessage = new ErrorMessage();
+		this.resources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
+		this.errorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-		controlInterface = new ClientMain(serverName, 9090, -1, this);
+		this.controlInterface = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
 
@@ -91,7 +91,7 @@ public class GameEngineUI implements UDPHandler{
 		}
 		gameScreen.reset();
 		gameScreen.init(currentGame);
-		myHUD.resetTimer();
+		hud.resetTimer();
 	}
 	public Scene getScene() {
 		return scene;
@@ -110,7 +110,7 @@ public class GameEngineUI implements UDPHandler{
 				mediaPlayer.play();
 			}
 		} catch (Exception e) {
-			System.out.println(myResources.getString("MusicFileError"));
+			System.out.println(resources.getString("MusicFileError"));
 		}
 	}
 	public void setBackgroundImage(String imageFile) {
@@ -133,7 +133,7 @@ public class GameEngineUI implements UDPHandler{
 			playerMappings.put(key, player);
 		}
 		mapKeysToMethods(mappings);
-		setUpKeystrokeListeners();
+		setUpKeystrokeListeners(player);
 	}
 
 	public void setupKeyFrameAndTimeline(double delay) {
@@ -164,8 +164,8 @@ public class GameEngineUI implements UDPHandler{
 
 	public void saveGame(){
 		FileOpener chooser = new FileOpener();
-		chooser.saveFile(myResources.getString("XML"), myResources.getString("data"),
-				mySerializer.serializeClientGame(currentGame), myResources.getString("DefaultGameTitle"));
+		chooser.saveFile(resources.getString("XML"), resources.getString("data"),
+				mySerializer.serializeClientGame(currentGame), resources.getString("DefaultGameTitle"));
 	}
 	public void stop() {
 		stopMusic();
@@ -178,7 +178,7 @@ public class GameEngineUI implements UDPHandler{
 	}
 	public void resetGameScreen() {
 		gameScreen.reset();
-		myHUD.resetTimer();
+		hud.resetTimer();
 	}
 
 	private void setUpMethodMappings() {
@@ -211,7 +211,7 @@ public class GameEngineUI implements UDPHandler{
 		return root;
 	}
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent,
+		toolbar = new Toolbar(resources, event -> loadLevel(), event -> pause(), resetEvent,
 				event -> mute(), event -> saveGame());
 		return toolbar.getToolbar();
 	}
