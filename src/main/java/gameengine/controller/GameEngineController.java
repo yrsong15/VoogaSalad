@@ -20,10 +20,12 @@ public class GameEngineController implements CommandInterface {
 	private GameEngineBackend backend;
 	private boolean multiplayer;
 	private boolean isServer;
+	private String serverName;
 
 	public GameEngineController() {
-		this.multiplayer = true;
+		this.multiplayer = false;
 		this.isServer = false;
+		serverName = "localhost";
 		serializer = new XMLSerializer();
 	}
 
@@ -49,12 +51,12 @@ public class GameEngineController implements CommandInterface {
 	}
 
 	public void startServerGame(Game currentGame) {
-		backend = new GameEngineBackend();
+		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
 	}
 
 	public void startClientGame(Player player) {
-		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player);
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player, serverName);
 		// Timer timer = new Timer();
 		// timer.scheduleAtFixedRate(new TimerTask() {
 		//

@@ -69,13 +69,13 @@ public class GameEngineUI implements UDPHandler{
 	private XMLSerializer mySerializer;
 
 	private boolean isPaused,isMuted;
-	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, Player player) {
+	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, Player player, String serverName) {
 		mainPlayer = player;
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-		controlInterface = new ClientMain("25.33.137.51", 9090, -1, this);
+		controlInterface = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
 

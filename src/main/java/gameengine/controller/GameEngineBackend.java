@@ -25,8 +25,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private MovementManager gameMovement;
 	private ServerMain serverMain;
 	private Map<GameObject, Position> mainCharImprints;
+	private String serverName;
 
-	public GameEngineBackend() {
+	public GameEngineBackend(String serverName) {
+		this.serverName = serverName;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
 		highScores = new ArrayList<>();
@@ -39,7 +41,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		addRGFrames();
-		serverMain = new ServerMain(this, 9090);
+		serverMain = new ServerMain(this, 9090, serverName);
 
 	}
 	
