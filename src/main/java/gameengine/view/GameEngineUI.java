@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import frontend.util.FileOpener;
 import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
 import gameengine.controller.interfaces.CommandInterface;
@@ -40,6 +41,7 @@ import objects.GameObject;
 import objects.Level;
 import objects.Player;
 import utils.ResourceReader;
+import xml.XMLSerializer;
 
 /**
  * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
@@ -70,11 +72,11 @@ public class GameEngineUI implements UDPHandler{
 	private Stage endGameStage;
 	private ClientGame currentGame;
 	private Player mainPlayer;
+	private XMLSerializer mySerializer;
 	
-	private boolean isPaused;
-	private boolean isMuted;
+	private boolean isPaused,isMuted;
 
-	public GameEngineUI(CommandInterface commandInterface, EventHandler<ActionEvent> resetEvent, Player player) {
+	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, Player player) {
 		mainPlayer = player;
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
@@ -83,6 +85,8 @@ public class GameEngineUI implements UDPHandler{
 //		controlInterface = new ClientMain("25.16.229.50", 9090, -1, this);
 		controlInterface = new ClientMain("localhost", 9090, -1, this);
 		this.commandInterface = commandInterface;
+		this.mySerializer = mySerializer;
+		
 		setUpMethodMappings();
 	}
 	
@@ -175,7 +179,9 @@ public class GameEngineUI implements UDPHandler{
 	}
 	
 	public void saveGame(){
-		
+		FileOpener chooser = new FileOpener();
+		chooser.saveFile(myResources.getString("XML"), myResources.getString("data"), 
+				mySerializer.serializeClientGame(currentGame), myResources.getString("DefaultGameTitle"));
 	}
 
 	public void stop() {
@@ -233,7 +239,8 @@ public class GameEngineUI implements UDPHandler{
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, event -> mute());
+		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, 
+				event -> mute(), event -> saveGame());
 		return toolbar.getToolbar();
 	}
 

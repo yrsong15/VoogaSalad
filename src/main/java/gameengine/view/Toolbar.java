@@ -4,6 +4,8 @@
 package gameengine.view;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -21,21 +23,26 @@ import javafx.stage.Stage;
  */
 public class Toolbar implements IToolbar {
 	
+	private final int DEFAULT_BUTTON_WIDTH = 75;
 	private ResourceBundle myResources;
 	private HBox myToolbar;
+	
 	private EventHandler<ActionEvent> myPauseEvent;
 	private EventHandler<ActionEvent> myResetEvent;
 	private EventHandler<ActionEvent> myMuteEvent;
 	private EventHandler<ActionEvent> mySaveEvent;
 	private Button myPauseButton;
 	private Button myMuteButton;
+	private Button myResetButton;
+	private Button mySaveButton;
 	
 	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause, 
-			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute) {
+			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute, EventHandler<ActionEvent> save) {
 		myResources = resources;
 		myPauseEvent = pause;
 		myResetEvent = reset;
 		myMuteEvent = mute;
+		mySaveEvent = save;
 		myToolbar = new HBox();
 		myToolbar.setPrefHeight(40);
 		addButtons();
@@ -61,28 +68,31 @@ public class Toolbar implements IToolbar {
 		myMuteButton.setText(myResources.getString("MuteButton"));
 	}
 	
-	public void saveGame(){
-		
-	}
 	
 	private void addButtons() {
-		Button resetButton = makeButton("ResetButton", myResetEvent);
-		myMuteButton = makeButton("MuteButton", myMuteEvent);
-		myPauseButton = makeButton("PauseButton", myPauseEvent);
-		resetButton.setPrefWidth(75);
-		myPauseButton.setPrefWidth(75);
-		myMuteButton.setPrefWidth(75);
-		myToolbar.getChildren().add(myPauseButton);
-		myToolbar.getChildren().add(resetButton);
-		myToolbar.getChildren().add(myMuteButton);
+		ArrayList<Button> listOfButtons = new ArrayList<Button>();
+		myResetButton = makeButton("ResetButton", myResetEvent, listOfButtons);
+		myMuteButton = makeButton("MuteButton", myMuteEvent, listOfButtons);
+		myPauseButton = makeButton("PauseButton", myPauseEvent, listOfButtons);
+		mySaveButton = makeButton("SaveButton", mySaveEvent, listOfButtons);
+		
+		addButtonToToolbar(listOfButtons);
+	}
+	
+	private void addButtonToToolbar(List<Button> listOfButtons){
+		for(Button button: listOfButtons){
+			button.setPrefWidth(DEFAULT_BUTTON_WIDTH);
+			myToolbar.getChildren().add(button);	
+		}
 	}
 
-	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
+	private Button makeButton(String property, EventHandler<ActionEvent> handler, List<Button> list) {
         Button result = new Button();
         String label = myResources.getString(property);
         result.setText(label);
         result.setOnAction(handler);
         result.setFocusTraversable(false);
+        list.add(result);
         return result;
     }
 	

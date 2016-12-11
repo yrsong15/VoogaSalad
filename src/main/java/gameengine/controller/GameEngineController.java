@@ -81,8 +81,9 @@ public class GameEngineController implements CommandInterface {
 		backend.startGame(currentGame);
 	}
 
+
 	public void startClientGame(Player player) {
-		gameEngineView = new GameEngineUI(this, event -> reset(), player);
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player);
 //		Timer timer = new Timer();
 //		timer.scheduleAtFixedRate(new TimerTask() {
 //
