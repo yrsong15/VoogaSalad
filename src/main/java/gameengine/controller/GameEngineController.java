@@ -18,13 +18,11 @@ public class GameEngineController implements CommandInterface {
 	private XMLSerializer serializer;
 	private GameEngineUI gameEngineView;
 	private GameEngineBackend backend;
-	private boolean multiplayer;
-	private boolean isServer;
+	private boolean hostGame;
 	private String serverName;
 
 	public GameEngineController() {
-		this.multiplayer = false;
-		this.isServer = false;
+		this.hostGame = true;
 		serverName = "localhost";
 		serializer = new XMLSerializer();
 	}
@@ -38,7 +36,7 @@ public class GameEngineController implements CommandInterface {
 			alert.showAndWait();
 			return false;
 		}
-		if (!multiplayer || (multiplayer && isServer)) {
+		if (hostGame) {
 			Thread serverThread = new Thread() {
 				public void run() {
 					startServerGame(currentGame);
@@ -57,19 +55,6 @@ public class GameEngineController implements CommandInterface {
 
 	public void startClientGame(Player player) {
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player, serverName);
-		// Timer timer = new Timer();
-		// timer.scheduleAtFixedRate(new TimerTask() {
-		//
-		// @Override
-		// public void run() {
-		// if(gameEngineView.gameLoadedFromServer()){
-		// timer.cancel();
-		// timer.purge();
-		// beginUI();
-		// }
-		// }
-		//
-		// }, 0, 30);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
