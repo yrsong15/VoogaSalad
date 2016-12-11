@@ -8,34 +8,22 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import gameeditor.commanddetails.*;
 import gameeditor.controller.interfaces.IGameEditorData;
 
 
 public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
-    // TODO: Remove hardcoding of the following values
-    // Min Width, Max Width, Min Height, AvatarZoneX, AvatarZoneY, AvatarZoneWidth, AvatarZoneHeight
+    // TODO: Remove hardcoding of all values
     // Make Pane backgrounds to be CSS controlled
 
     private Pane myPane;
     private double myPaneWidth = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource();
-    private Rectangle myAvatarZone;
     private ScrollPane myDetailPane;
     private IGameEditorData myDataStore;
     private IDesignArea myDesignArea;
     private MainCharacterDisplay myAvatarDisplay;
-    
-    private boolean mainCharPropActive = false;
-    private Button myCharPropertiesButton;
-
-    private ImageView myAvatarView;
 
     public DetailPane(IDesignArea da, IGameEditorData dataStore) {
     	myDesignArea = da;

@@ -66,9 +66,9 @@ public class GameObjectView {
         myDesignArea.addSprite(this);
     }
 
-    public GameObjectView (GameObjectView sprite) {
+    public GameObjectView (GameObjectView sprite, double x, double y) {
 		this(sprite.getFilePath(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), sprite.getType(), sprite.getIsMainChar(), sprite.getDesignArea(), sprite.getDataStore());
-	}
+    }
 
     public void setOn(double x, double y){
         myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
@@ -81,7 +81,7 @@ public class GameObjectView {
         myImageView.setOnMouseDragged(null);
     }
 
-    private void handlePress(double x, double y){
+    public void handlePress(double x, double y){
         // TODO: Sort this shit out
         xDistanceFromCorner = x - getX();
         yDistanceFromCorner = y - getY();

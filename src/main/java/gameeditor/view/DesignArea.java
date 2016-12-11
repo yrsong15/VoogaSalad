@@ -41,7 +41,7 @@ public class DesignArea implements IDesignArea {
 
     private GameObjectView mySelectedSprite;
     private KeyCode myKeyCode;
-    private GameObjectView myAvatar;
+    private GameObjectView myCurrentAvatar;
 
     public DesignArea() {
         myScrollPane = new ScrollPane();
@@ -124,7 +124,15 @@ public class DesignArea implements IDesignArea {
 
     private void handlePress(double x, double y){
         GameObjectView sprite = checkForSprite(x, y);
-        if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
+        if (myKeyCode == KeyCode.ALT && mySelectedSprite != null){
+        	mySelectedSprite.removeBound();
+            mySelectedSprite.setOff();
+            GameObjectView newSprite = new GameObjectView(sprite, x, y);
+            newSprite.initBound();
+            newSprite.setOn(x, y);
+            newSprite.handlePress(x, y);
+            mySelectedSprite = newSprite;
+        } else if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
             mySelectedSprite.removeBound();
             mySelectedSprite.setOff();
             sprite.initBound();
@@ -134,14 +142,6 @@ public class DesignArea implements IDesignArea {
             sprite.initBound();
             sprite.setOn(x, y);
             mySelectedSprite = sprite;
-        }
-        if (myKeyCode == KeyCode.ALT && mySelectedSprite != null){
-        	mySelectedSprite.removeBound();
-            mySelectedSprite.setOff();
-            GameObjectView newSprite = new GameObjectView(mySelectedSprite);
-            newSprite.initBound();
-            newSprite.setOn(x, y);
-            mySelectedSprite = newSprite;
         } 
     }
 
@@ -188,11 +188,6 @@ public class DesignArea implements IDesignArea {
     	GameObjectView newAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", true, this, ds);
     	myAvatars.add(newAvatar);
     	mySprites.add(newAvatar);
-    	if (myAvatar != null){
-        	myPane.getChildren().remove(myAvatar.getImageView());
-        	mySprites.remove(myAvatar);
-    	}
-    	myAvatar = new GameObjectView(filePath, x, y, width, height, "Main Character", true, this, ds);
 	}
 
 	@Override
@@ -204,4 +199,5 @@ public class DesignArea implements IDesignArea {
 	public void removeDragIn(ImageView tempIV) {
 		myPane.getChildren().remove(tempIV);
 	}
+	
 }

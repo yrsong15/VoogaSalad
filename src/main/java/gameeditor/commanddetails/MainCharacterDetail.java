@@ -52,7 +52,7 @@ public class MainCharacterDetail extends AbstractSelectDetail {
         Map<String, String> typeMap = myDataStore.getType(typeName);
     }
 
-    public void createSave(){
+    private void createSave(){
         Button save = new Button();
         save.setText("Save New Type");
         save.setMinWidth(CB_WIDTH);
@@ -61,7 +61,7 @@ public class MainCharacterDetail extends AbstractSelectDetail {
         myVBox.getChildren().add(save);
     }
 
-    public void handleSave(){
+    private void handleSave(){
         if (verifySave()){
             // TODO: Create this for saving maincharacter
             // TODO: Input file path when creating pane
@@ -82,7 +82,8 @@ public class MainCharacterDetail extends AbstractSelectDetail {
                 i++;
             }  
             
-            myDataStore.addMainCharacter(MAIN_CHARACTER_INITIAL_X_POSITION, MAIN_CHARACTER_INITIAL_Y_POSITION, MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT, propertiesMap);
+            myDataStore.addMainCharacter(MAIN_CHARACTER_INITIAL_X_POSITION, MAIN_CHARACTER_INITIAL_Y_POSITION, 
+            		MAIN_CHARACTER_WIDTH, MAIN_CHARACTER_HEIGHT, propertiesMap);
         } else {
 
         }
