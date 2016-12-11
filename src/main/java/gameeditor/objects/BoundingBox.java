@@ -25,6 +25,11 @@ public class BoundingBox {
 	
 	private double xDistanceFromCorner = 0;
 	private double yDistanceFromCorner = 0;
+	
+	private double myPressX = 0;
+	private double myPressY = 0;
+	private double myDeltaX = 0;
+	private double myDeltaY = 0;
 
 
 	public BoundingBox(GameObjectView sprite, IDesignArea da) {
@@ -42,13 +47,20 @@ public class BoundingBox {
 	}
 	
 	private void handleCenterPress(double x, double y){
+		myPressX = x;
+		myPressY = y;
 		mySprite.setDistanceFromCorner(x, y);
 		mySprite.handleDrag(x, y);
 		updateLayout();
-		System.out.println(x);
 	}
 	
 	private void handleCenterDrag(double x, double y){
+		if (x >= myPressX + myDeltaX + 20 && y >= myPressY + myDeltaY + 20){
+			x -= 375;
+			y -= 75;
+			myDeltaX = myPressX - x;
+			myDeltaY = myPressY - y;
+		}
 		mySprite.handleDrag(x, y);
 		updateLayout();
 	}

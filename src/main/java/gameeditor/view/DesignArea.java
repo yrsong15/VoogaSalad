@@ -125,13 +125,13 @@ public class DesignArea implements IDesignArea {
     private void handlePress(double x, double y){
         GameObjectView sprite = checkForSprite(x, y);
         if (myKeyCode == KeyCode.ALT && mySelectedSprite != null){
-        	mySelectedSprite.removeBound();
-            mySelectedSprite.setOff();
+//        	mySelectedSprite.removeBound();
+//            mySelectedSprite.setOff();
             GameObjectView newSprite = new GameObjectView(sprite, x, y);
-            newSprite.initBound();
-            newSprite.setOn(x, y);
-            newSprite.handlePress(x, y);
-            mySelectedSprite = newSprite;
+//            newSprite.initBound();
+//            newSprite.setOn(x, y);
+//            newSprite.handlePress(x, y);
+//            mySelectedSprite = newSprite;
         } else if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
             mySelectedSprite.removeBound();
             mySelectedSprite.setOff();
