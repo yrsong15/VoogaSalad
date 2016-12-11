@@ -12,33 +12,36 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+//import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class CreateDetail extends AbstractCommandDetail {
     private String myFilePath = "";
-    private Pane myImagePane;
+    //private Pane myImagePane;
     private TextArea myTypeTextArea;
     private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
     private String [] myPropertiesComBoArray = DetailResources.PROPERTIES_COMBO.getArrayResource();
     private String[] myPropertiesTextBox = DetailResources.SPRITE_PROPERTIES_TEXT_INPUT_LABEL.getArrayResource();
     private String[] myPropertiesComboLabels = DetailResources.PROPERTIES_COMBO_LABELS.getArrayResource();
     private ArrayList<TextArea> myTextFields = new ArrayList<TextArea>();
+   
+    
+    
     private TabPane myTabPane;
     private Tab mySpriteTab;
     private Tab myPlatformTab;
 
     private ImageDetail myImageDetail;
+    private BorderPane myNonIntersectableOptionBP;
+    private BorderPane myIntersectableBP;
+    private ComboBox<String> nonInterSectableCombo;
    
-
-
     public CreateDetail() {
         super();
     }
 
     @Override
-    public void init() {
-        
+    public void init() {      
         myTabPane = new TabPane();
         myImageDetail = new ImageDetail();
         createSpriteTab();
@@ -74,17 +77,37 @@ public class CreateDetail extends AbstractCommandDetail {
         if(myPlatformTab.isSelected()){
             myVBox = new VBox();
             myVBox.setSpacing(MY_DETAIL_PADDING);
-            myVBox.setAlignment(Pos.TOP_RIGHT);
             createTypeName();
             createPlatformProperties();
             myVBox.getChildren().add(myImageDetail.createImageChoose());
-            createSave(e->handleSavePlatform());
             myPlatformTab.setContent(myVBox);
+            createSave(e-> handleSavePlatform()); 
         }
     }
     
     private void createPlatformProperties(){
-        
+        String defaultProperty = DetailDefaultsResources.PLATFORM_NON_INTERSECTABLE.getResource();
+       ComboBox<String> intersectable = myDetailFrontEndUtil.createComboBox(PLATFORM_INTERSECTABLE_OPTIONS, defaultProperty);
+    
+       intersectable.setOnAction(e -> handleIntersectibleProperty(intersectable));
+       myIntersectableBP = myDetailFrontEndUtil.createBorderpane(intersectable,(createPropertyLbl(PLATFORM_NON_INTERSECTIBLE_LABEL)));
+       myVBox.getChildren().add(myIntersectableBP);
+    }
+    
+    private void handleIntersectibleProperty(ComboBox<String> combo){
+        if(combo.getValue()=="False"){
+            String defaultVal = DetailDefaultsResources.PLATFORM_NON_INTERSECTABLE.getResource();
+            nonInterSectableCombo = myDetailFrontEndUtil.createComboBox(PLATFORM_NON_INTERSECTABLE_OPTIONS, defaultVal);
+            String label = DetailResources.NON_INTERSECTABLE_SIDES_LABEL.getResource();
+            myNonIntersectableOptionBP = myDetailFrontEndUtil.createBorderpane( nonInterSectableCombo,createPropertyLbl(label));
+            int index = myVBox.getChildren().indexOf(myIntersectableBP);
+            myVBox.getChildren().add(index+1, myNonIntersectableOptionBP);
+         
+        } else if((combo.getValue().equals("True"))){
+                if(myVBox.getChildren().contains(myNonIntersectableOptionBP)){
+                    myVBox.getChildren().remove(myVBox.getChildren().indexOf(myNonIntersectableOptionBP));
+                }
+            }
     }
 
     private void createSave(EventHandler<MouseEvent> handler){
@@ -95,11 +118,28 @@ public class CreateDetail extends AbstractCommandDetail {
     private void handleSavePlatform(){
         if(myDataStore.getType(myTypeTextArea.getText())==null){
             Map<String,String> propertiesMap = new HashMap<String,String>();
+            getPlatFormProperties(propertiesMap);
             propertiesMap.put(DetailResources.TYPE_NAME.getResource(),myTypeTextArea.getText());
             myFilePath = myImageDetail.getFilePath();
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
+            
+            for(String key: propertiesMap.keySet()){
+                System.out.println(" Key: " + key + " Value: " +propertiesMap.get(key));
+            }
             myDataStore.storeType(propertiesMap);
         }
+    }
+    
+
+    private void getPlatFormProperties(Map<String,String> propertiesMap){
+        if(nonInterSectableCombo!=null){
+            if(nonInterSectableCombo.getValue().toString().equals("Both")){
+                propertiesMap.put(DetailResources.NON_INTERSECTABLE_KEY.getResource(), "True");
+            }else {
+            propertiesMap.put(DetailResources.ONE_SIDE_NON_INTERSECTABLEKEY.getResource(), nonInterSectableCombo.getValue().toString());
+        }
+        }
+        
     }
 
     private void handleSaveSprite(){
@@ -110,7 +150,8 @@ public class CreateDetail extends AbstractCommandDetail {
             propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
             myFilePath = myImageDetail.getFilePath();
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
-
+            // Add Enemy Properties for the other sprites
+            propertiesMap.put(DetailResources.ENEMY_KEY.getResource(), null);
             // Store only if the Type does not exist
             if(myDataStore.getType(myTypeTextArea.getText())==null){
                 myDataStore.storeType(propertiesMap);
@@ -183,6 +224,4 @@ public class CreateDetail extends AbstractCommandDetail {
         ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,null);
         return cb;
     }
-
-
 }

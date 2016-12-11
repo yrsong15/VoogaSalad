@@ -4,13 +4,7 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 
 public interface IAbstractCommandDetail {
 
@@ -33,6 +27,10 @@ public interface IAbstractCommandDetail {
     
     public static final String PLATFORM_KEY= DetailResources.PLATFORM_KEY.getResource();
     public static final String PLATFORM_LABEL=DetailResources.PLATFORM_LABEL.getResource();
+    
+    public static final String [] PLATFORM_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_INTERSECTABLE_OPTIONS.getArrayResource();
+    public static final String PLATFORM_NON_INTERSECTIBLE_LABEL = DetailResources.PLATFORM_NON_INTERSECTIBLE_LABEL.getResource();
+   public static final String[] PLATFORM_NON_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_NON_INTERSECTABLE_OPTIONS.getArrayResource();
     
     public ScrollPane getPane();
     

@@ -1,5 +1,4 @@
 package gameeditor.commanddetails;
-import frontend.util.ButtonTemplate;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
