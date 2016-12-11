@@ -57,7 +57,7 @@ public class MainController {
 
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY/
-       /** Game game = new Game("Dance Dance Revolution");
+        Game game = new Game("Dance Dance Revolution");
         GameObject firstShyGuy = new GameObject(ServerMain.idCounter++, 100, 500, 100, 100, "shyguy.png", new HashMap<>());
         GameObject secondShyGuy = new GameObject(ServerMain.idCounter++, 250, 500, 100, 100, "shyguy.png", new HashMap<>());
         GameObject thirdShyGuy = new GameObject(ServerMain.idCounter++, 400, 500, 100, 100, "shyguy.png", new HashMap<>());
@@ -104,39 +104,7 @@ public class MainController {
         level.addPlayer(fourthShyGuy);
         GameObject ground = new GameObject(ServerMain.idCounter++, 0, 570,700,50,"ground.png", new HashMap<>());
         ground.setProperty("nonintersectable", "true");
-        level.addGameObject(ground);**/
-    	
-    	
-    	
-    	
-    	Game game = new Game("Test Game");
-        GameObject bird = new GameObject(ServerMain.idCounter++, 100, 100, 100, 100, "bird3.png", new HashMap<>());
-        Player player1 = new Player(bird);
-        game.addPlayer(player1);
-        bird.setProperty("jump", "400");
-        bird.setProperty("gravity", "0.8");
-        bird.setProperty("movespeed", "30");
-        bird.setProperty("health", "10");
-        ProjectileProperties projectileProperties = new ProjectileProperties("duvall.png", 30, 30, Direction.RIGHT, 500, 30, 20);
-        bird.setProjectileProperties(projectileProperties);
-        Level level = new Level(1);
-        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675);
-        ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
-        scrollType.addScrollDirection(Direction.RIGHT);
-        level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/bg.png");
-        game.setCurrentLevel(level);
-        player1.setControl(KeyCode.W, "jump");
-        player1.setControl(KeyCode.SPACE, "shoot");
-        player1.setControl(KeyCode.RIGHT, "right");
-        player1.setControl(KeyCode.LEFT, "left");
-        level.addPlayer(bird);
-        GameObject ground = new GameObject(ServerMain.idCounter++, 0, 600, 10000000, 200,"ground.png", new HashMap<>());
-        ground.setProperty("nonintersectable", "true");
         level.addGameObject(ground);
-        XMLSerializer testSerializer = new XMLSerializer();
-        String xml = testSerializer.serializeGame(game);
-        System.out.println(xml);
 /**
     	//doodle jump configuration
     	
@@ -180,6 +148,9 @@ public class MainController {
          ground.setProperty("damage","0");
          ground.setProperty("nonintersectable", "true");
          level.addGameObject(ground);**/
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
     private void setUpGameEngineStage(){
@@ -200,7 +171,7 @@ public class MainController {
 
 
 	public void launchEngine(String XMLData) {
-		XMLData = testGameEngine();
+		//XMLData = testGameEngine();
 		boolean multiplayer = false;
 		boolean isServer = false;
 		if (gameEngineController.startGame(XMLData) == true) {

@@ -121,7 +121,7 @@ public class MovementManager implements ControlInterface{
 
 	public void checkXToroidalChange(GameObject obj, double newXPos){
 		GameBoundary gameBoundary = currLevel.getScrollType().getGameBoundary();
-		if (gameBoundary.getClass() == ToroidalBoundary.class
+		if (obj.isPlayer() && gameBoundary.getClass() == ToroidalBoundary.class
 			&& obj.getXPosition() != newXPos){
 				if (obj.getXPosition()==0){
 					gameScrolling.setDirection(Direction.LEFT);
@@ -139,7 +139,7 @@ public class MovementManager implements ControlInterface{
 	
 	public void checkYToroidalChange(GameObject obj, double newYPos){
 		GameBoundary gameBoundary = currLevel.getScrollType().getGameBoundary();
-		if (currLevel.getScrollType().getGameBoundary().getClass() == ToroidalBoundary.class
+		if (obj.isPlayer() && currLevel.getScrollType().getGameBoundary().getClass() == ToroidalBoundary.class
 			&& obj.getYPosition() != newYPos){
 				if (obj.getYPosition()==0){
 					gameScrolling.setDirection(Direction.UP);
