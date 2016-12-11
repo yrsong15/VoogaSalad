@@ -107,6 +107,49 @@ public class MainController {
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+/**
+    	//doodle jump configuration
+    	
+    	 Game game = new Game("Doodle Jump");
+         GameObject mainChar = new GameObject(250, 250, 75, 50, "doodler.png", new HashMap<>());
+         Player player = new Player(mainChar);
+         game.addPlayer(player);
+         mainChar.setProperty("gravity", "0");
+         mainChar.setProperty("jump", "400");
+         mainChar.setProperty("health", "10");
+         mainChar.setProperty("movespeed", "10");
+         Level level = new Level(1);
+         GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 1200, 1000);
+         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
+         scrollType.addScrollDirection(Direction.UP);
+         scrollType.setScrollSpeed(30);
+         level.setScrollType(scrollType);
+         level.setBackgroundImage("Background/bg.png");
+         game.setCurrentLevel(level);
+         player.setControl(KeyCode.W, "jump");
+         player.setControl(KeyCode.LEFT, "left");
+         player.setControl(KeyCode.RIGHT, "right");
+         player.setControl(KeyCode.UP, "up");
+         player.setControl(KeyCode.DOWN, "down");
+         player.setControl(KeyCode.SPACE, "shoot");
+         level.addPlayer(mainChar);
+         
+         GameObject left = new GameObject(0,250,10,800, "pipes.png", new HashMap<>());
+         level.addGameObject(left);
+         
+         GameObject right = new GameObject(1200,250,10,800, "pipes.png", new HashMap<>());
+         level.addGameObject(right);
+         
+         GameObject top = new GameObject(250,1000,1200,10, "platform.png", new HashMap<>());
+         level.addGameObject(top);
+         
+         GameObject bottom = new GameObject(250,0,1200,10, "platform.png", new HashMap<>());
+         level.addGameObject(bottom);
+         /**
+         GameObject ground = new GameObject(250,250,100,50, "platform.png",new HashMap<>());
+         ground.setProperty("damage","0");
+         ground.setProperty("nonintersectable", "true");
+         level.addGameObject(ground);**/
         return xml;
     }
     private void setUpGameEngineStage(){
