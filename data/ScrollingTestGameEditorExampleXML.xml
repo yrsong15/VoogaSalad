@@ -22,6 +22,10 @@
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
+<<<<<<< HEAD
+=======
+        <onPlatform>false</onPlatform>
+>>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
       </objects.GameObject>
     </gameObjects>
     <obstacles/>
@@ -47,10 +51,13 @@
             <string>0.8</string>
           </entry>
           <entry>
+<<<<<<< HEAD
             <string>horizontalmovement</string>
             <string>10</string>
           </entry>
           <entry>
+=======
+>>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
             <string>health</string>
             <string>10</string>
           </entry>
@@ -61,10 +68,28 @@
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
+<<<<<<< HEAD
       </objects.GameObject>
     </players>
     <scrollType>
       <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+=======
+        <onPlatform>false</onPlatform>
+        <isPlayer>true</isPlayer>
+        <projectileProperties>
+          <imageFileName>duvall.png</imageFileName>
+          <width>30</width>
+          <height>30</height>
+          <direction>RIGHT</direction>
+          <range>500.0</range>
+          <speed>30.0</speed>
+          <damage>20.0</damage>
+        </projectileProperties>
+      </objects.GameObject>
+    </players>
+    <scrollType>
+      <myScrollTypeName>LimitedScrolling</myScrollTypeName>
+>>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
       <myScrollDirectionList>
         <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>
@@ -78,6 +103,7 @@
   <players>
     <objects.Player>
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
+<<<<<<< HEAD
       <projectileProperties>
         <imageFileName>duvall.png</imageFileName>
         <width>30</width>
@@ -87,12 +113,15 @@
         <speed>30.0</speed>
         <damage>20.0</damage>
       </projectileProperties>
+=======
+>>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
       <controls>
         <entry>
           <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
           <string>jump</string>
         </entry>
         <entry>
+<<<<<<< HEAD
           <javafx.scene.input.KeyCode>D</javafx.scene.input.KeyCode>
           <string>right</string>
         </entry>
@@ -100,6 +129,15 @@
           <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
           <string>shoot</string>
         </entry>
+=======
+          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+          <string>shoot</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>D</javafx.scene.input.KeyCode>
+          <string>right</string>
+        </entry>
+>>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
       </controls>
     </objects.Player>
   </players>

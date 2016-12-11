@@ -10,6 +10,9 @@ import gameeditor.controller.GameEditorController;
 import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
 import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.NoBoundary;
+import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -23,7 +26,7 @@ public class MainController {
 
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
-    private Stage gameEditorStage, gameEngineStage;
+    private Stage gameEngineStage;
     private Gallery gallery;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
@@ -35,6 +38,13 @@ public class MainController {
         stage.setScene(scene);
         stage.setTitle(GAME_TITLE);
         stage.show();
+        initializeGallery();
+        gameEngineController = new GameEngineController();
+        gameEditorController = new GameEditorController();
+    }
+
+    private void initializeGallery() throws IOException {
+        this.gallery = new Gallery();
     }
 
     private void addNewGameFile(String title, String gameData)
@@ -43,7 +53,7 @@ public class MainController {
         gallery.addToGallery(newGame);
     }
 
-  //TODO: Remove hardcoded values in this method and the ones after it! Let's make another properties file or something for these strings
+
     public void presentEditor(Game game ) {
         gameEditorController = new GameEditorController();
         gameEditorController.startEditor(game);
@@ -51,45 +61,65 @@ public class MainController {
     }
 
     public void launchEngine(String XMLData){
-        //XMLData = testGameEngine();
+        XMLData = testGameEngine();
         gameEngineController = new GameEngineController();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
-        };
+        }
     }
 
     private String testGameEngine(){
-        //FOR TESTING PURPOSES ONLY
-        Game game = new Game("Test Game");
-        GameObject mainChar = new GameObject(100, 100, 100, 100, "bird3.png", new HashMap<>());
-        Player player = new Player(mainChar);
-        game.addPlayer(player);
-        ProjectileProperties properties = new ProjectileProperties("duvall.png", 30, 30, Direction.RIGHT, 500, 30, 20);
-        player.setProjectileProperties(properties);
-        mainChar.setProperty("horizontalmovement", "10");
-        mainChar.setProperty("gravity", "0.8");
-        mainChar.setProperty("jump", "400");
-        mainChar.setProperty("health", "10");
-        mainChar.setProperty("movespeed", "30");
+        //FOR TESTING PURPOSES ONLY/
+        Game game = new Game("Dance Dance Revolution");
+        GameObject firstShyGuy = new GameObject(100, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject secondShyGuy = new GameObject(250, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject thirdShyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject fourthShyGuy = new GameObject(550, 500, 100, 100, "shyguy.png", new HashMap<>());
+
+        Player player1 = new Player(firstShyGuy);
+        Player player2 = new Player(secondShyGuy);
+        Player player3 = new Player(thirdShyGuy);
+        Player player4 = new Player(fourthShyGuy);
+
+        game.addPlayer(player1);
+        game.addPlayer(player2);
+        game.addPlayer(player3);
+        game.addPlayer(player4);
+
+        firstShyGuy.setProperty("jump", "400");
+        secondShyGuy.setProperty("jump", "400");
+        thirdShyGuy.setProperty("jump", "400");
+        fourthShyGuy.setProperty("jump", "400");
+        firstShyGuy.setProperty("gravity", "0.8");
+        secondShyGuy.setProperty("gravity", "0.8");
+        thirdShyGuy.setProperty("gravity", "0.8");
+        fourthShyGuy.setProperty("gravity", "0.8");
+        firstShyGuy.setProperty("movespeed", "5");
+        secondShyGuy.setProperty("movespeed", "0");
+        thirdShyGuy.setProperty("movespeed", "0");
+        fourthShyGuy.setProperty("movespeed", "0");
+
         Level level = new Level(1);
-        ScreenBoundary gameBoundaries = new ToroidalBoundary(700, 675);
-        ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
+        ScreenBoundary gameBoundaries = new NoBoundary(700, 675);
+        ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.RIGHT);
-        scrollType.setScrollSpeed(30);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
         game.setCurrentLevel(level);
-        player.setControl(KeyCode.W, "jump");
-        player.setControl(KeyCode.D, "right");
-        player.setControl(KeyCode.SPACE, "shoot");
-        level.addPlayer(mainChar);
-        GameObject ground = new GameObject(0,600,1000000,200, new HashMap<>());
-        ground.setProperty("damage","0");
+        player1.setControl(KeyCode.A, "jump");
+        player1.setControl(KeyCode.SPACE, "right");
+        player2.setControl(KeyCode.S, "jump");
+        player3.setControl(KeyCode.D, "jump");
+        player4.setControl(KeyCode.F, "jump");
+        level.addPlayer(firstShyGuy);
+        level.addPlayer(secondShyGuy);
+        level.addPlayer(thirdShyGuy);
+        level.addPlayer(fourthShyGuy);
+        GameObject ground = new GameObject(0, 570,700,50,"ground.png", new HashMap<>());
         ground.setProperty("nonintersectable", "true");
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
-        System.out.println(xml);
         return xml;
     }
 

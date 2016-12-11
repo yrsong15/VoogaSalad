@@ -1,11 +1,15 @@
 package gameengine.model.rules.collisionrules;
 
+<<<<<<< HEAD
 import gameengine.controller.SingletonBoundaryChecker;
 import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
+=======
+>>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
 import gameengine.controller.interfaces.RuleActionHandler;
 import objects.GameObject;
 
 public class ApplyOneSideNonIntersectableRule extends ApplyNonIntersectableRule{
+<<<<<<< HEAD
 	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
 		boolean passableTop = obj.getProperty("onewaynonintersectable").equals("top");
 		boolean passableBottom = obj.getProperty("onewaynonintersectable").equals("bottom");
@@ -21,4 +25,21 @@ public class ApplyOneSideNonIntersectableRule extends ApplyNonIntersectableRule{
 
 	}
 	
+=======
+	public enum Directions {TOP,LEFT,DOWN,RIGHT};
+	
+	private Directions direction; // Potentially future extension w/ side accessibility or platforms
+	
+	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
+
+		if(mainChar.getYPosition() <= obj.getYPosition())
+		{
+			applyPlatformCollision(handler,mainChar,obj);
+		}
+	}
+	
+	public void setDirection(Directions direction){
+		this.direction = direction;
+	}
+>>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
 }

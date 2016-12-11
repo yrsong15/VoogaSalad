@@ -22,11 +22,12 @@ public class CollisionChecker {
 		this.currentlyCollidingObjectsWithCharacter = new HashSet<>();
 	}
 
+	
 	/**
-	 * Passes the mainCharacter and any object colliding with it to the rulebook
+	 * Passes the projectile list and any object colliding with it to the rulebook
 	 * 
-	 * @param mainChar
-	 * @param gameObjects
+	 * @param firstObjects
+	 * @param secondObjects
 	 */
 	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects) {
 		//System.out.println(currentlyCollidingObjectsWithCharacter.size());
@@ -102,7 +103,4 @@ public class CollisionChecker {
 	public boolean collision(GameObject character, GameObject other) {
 		return SingletonBoundaryChecker.getInstance().checkIfAnyCollision(character, other);
 	}
-
-
-
 }
