@@ -75,7 +75,7 @@ public class GameEngineUI implements UDPHandler{
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-		controlInterface = new ClientMain("localhost", 9090, -1, this);
+		controlInterface = new ClientMain("25.33.137.51", 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
 

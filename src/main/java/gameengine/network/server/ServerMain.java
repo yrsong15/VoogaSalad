@@ -66,7 +66,7 @@ public class ServerMain {
 		
 
 //		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("25.16.229.50"))) {
-		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("localhost"))) {
+		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName("25.33.137.51"))) {
 
 			Socket clientSocket;
 			while ((clientSocket = serverSocket.accept()) != null) {

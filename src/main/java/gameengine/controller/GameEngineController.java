@@ -20,8 +20,8 @@ public class GameEngineController implements CommandInterface {
     private boolean isServer;
 
     public GameEngineController() {
-        this.multiplayer = false;
-        this.isServer = false;
+        this.multiplayer = true;
+        this.isServer = true;
         serializer = new XMLSerializer();
     }
     public boolean startGame(String xmlData) {
