@@ -19,12 +19,14 @@ import objects.*;
 import xml.XMLSerializer;
 import java.util.HashMap;
 public class MainController {
+
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
     private Stage gameEditorStage, gameEngineStage;
     private Gallery gallery;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
+
     public MainController(Stage stage) throws IOException {
         this.gallery = new Gallery();
         Scene scene = new Scene(new SplashScreen(gallery, this).setUpWindow());
@@ -47,8 +49,6 @@ public class MainController {
     }
 
 
-	// TODO: Remove hardcoded values in this method and the ones after it! Let's
-	// make another properties file or something for these strings
 	public void presentEditor(Game game) {
 		gameEditorController = new GameEditorController();
 		gameEditorController.startEditor(game);
@@ -127,7 +127,7 @@ public class MainController {
 
 
 	public void launchEngine(String XMLData) {
-		XMLData = testGameEngine();
+		//XMLData = testGameEngine();
 		boolean multiplayer = false;
 		boolean isServer = false;
 		if (gameEngineController.startGame(XMLData) == true) {

@@ -22,7 +22,7 @@ public class GameEngineController implements CommandInterface {
 	private boolean isServer;
 
 	public GameEngineController() {
-		this.multiplayer = true;
+		this.multiplayer = false;
 		this.isServer = false;
 		serializer = new XMLSerializer();
 	}
