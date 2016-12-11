@@ -235,7 +235,8 @@ public class GameEngineUI implements UDPHandler{
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, event -> mute());
+		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent, 
+				event -> mute(), event -> saveGame());
 		return toolbar.getToolbar();
 	}
 

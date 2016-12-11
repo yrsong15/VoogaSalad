@@ -31,16 +31,18 @@ public class Toolbar implements IToolbar {
 	private EventHandler<ActionEvent> myResetEvent;
 	private EventHandler<ActionEvent> myMuteEvent;
 	private EventHandler<ActionEvent> mySaveEvent;
-	private Button myResetButton;
 	private Button myPauseButton;
 	private Button myMuteButton;
+	private Button myResetButton;
+	private Button mySaveButton;
 	
 	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause, 
-			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute) {
+			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute, EventHandler<ActionEvent> save) {
 		myResources = resources;
 		myPauseEvent = pause;
 		myResetEvent = reset;
 		myMuteEvent = mute;
+		mySaveEvent = save;
 		myToolbar = new HBox();
 		myToolbar.setPrefHeight(40);
 		addButtons();
@@ -66,15 +68,14 @@ public class Toolbar implements IToolbar {
 		myMuteButton.setText(myResources.getString("MuteButton"));
 	}
 	
-	public void saveGame(){
-		
-	}
 	
 	private void addButtons() {
 		ArrayList<Button> listOfButtons = new ArrayList<Button>();
 		myResetButton = makeButton("ResetButton", myResetEvent, listOfButtons);
 		myMuteButton = makeButton("MuteButton", myMuteEvent, listOfButtons);
 		myPauseButton = makeButton("PauseButton", myPauseEvent, listOfButtons);
+		mySaveButton = makeButton("SaveButton", mySaveEvent, listOfButtons);
+		
 		addButtonToToolbar(listOfButtons);
 	}
 	
