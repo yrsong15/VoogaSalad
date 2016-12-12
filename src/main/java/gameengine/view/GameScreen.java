@@ -9,6 +9,8 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import objects.ClientGame;
 import objects.ClientGameObject;
@@ -59,6 +61,8 @@ public class GameScreen {
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             ClientGameObject object = entry.getValue();
+            Rectangle bar = new Rectangle(object.getXPosition(), object.getYPosition() - 8, object.getWidth(), 10);
+            myScreen.getChildren().add(bar);
             if (gameObjectImageViewMap.containsKey(object.getID())) {
                 gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
                         object.getYPosition());
