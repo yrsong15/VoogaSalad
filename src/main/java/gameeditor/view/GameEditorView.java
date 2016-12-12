@@ -38,7 +38,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IEditorToolbar myToolbar;
     private CommandPane myCommandPane;
     private IDesignArea myDesignArea;
-    private IGridDesignArea myGridDesignArea;
     private IGameEditorData myDataStoreInterface;
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
@@ -97,6 +96,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     private VBox createCenter(){
         myCenterBox = new VBox();
+        System.out.println("Uno");
         if (myGameType.equals("Scrolling")){
             myDesignArea = new DesignArea();
         } else if (myGameType.equals("RPG")){

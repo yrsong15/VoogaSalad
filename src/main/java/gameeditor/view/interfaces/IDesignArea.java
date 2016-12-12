@@ -1,20 +1,13 @@
 package gameeditor.view.interfaces;
 
-import java.util.ArrayList;
-
 import gameeditor.commanddetails.ISelectDetail;
-import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
-import gameeditor.rpg.Cell;
 import gameeditor.view.ViewResources;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 
 public interface IDesignArea {
     public static final String IMAGE_FILE_TYPE = ViewResources.IMAGE_FILE_TYPE.getResource();
@@ -48,7 +41,7 @@ public interface IDesignArea {
 	public void removeDragIn(ImageView tempIV);
 	
 	public void addAvatar(GameObjectView avatar);
-	
+
 	public void addSprite(GameObjectView gameObject);
     
     public void removeSprite(GameObjectView gameObject);
@@ -56,4 +49,5 @@ public interface IDesignArea {
 	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox);
 
 	public void removeMultiBoundingBox();
+	
 }

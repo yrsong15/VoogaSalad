@@ -2,13 +2,12 @@ package gameeditor.rpg;
 
 import java.util.ArrayList;
 
+import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.objects.GameObjectView;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.layout.Pane;
 
 public interface IGridDesignArea extends IDesignArea {
-    
-	public void addSprite(GameObjectView gameObject, Cell cell);
     
     public void removeSpriteFromCell(Cell cell);
 
@@ -17,5 +16,15 @@ public interface IGridDesignArea extends IDesignArea {
 	public Cell getHoverCell();
 	
 	public ArrayList<Cell> getSelectedCells();
+
+	public void removeSprite(GameObjectView gameObjectView);
+
+	public void updateSpriteDetails(GameObjectView gameObjectView, double x, double y, double width, double height);
+
+	public void enableClick(ISelectDetail sd);
+
+	public void addAvatar(GameObjectView gov);
+
+	public void addSprite(GameObjectView sprite, Cell cell);
 	
 }

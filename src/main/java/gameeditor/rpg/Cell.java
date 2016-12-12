@@ -7,6 +7,8 @@ import javafx.scene.shape.Rectangle;
 import java.util.HashMap;
 import java.util.Map;
 
+import gameeditor.objects.GameObjectView;
+
 //This entire file is part of my masterpiece.
 //John Martin
 
@@ -51,6 +53,9 @@ public class Cell {
 	
 	public void addSprite(GameObjectView sprite){
 		mySprite = sprite;
+		mySprite.setLayout(myX, myY);
+		mySprite.setDimensions(mySize, mySize);
+		myDesignArea.getPane().getChildren().add(sprite.getImageView());
 	}
 	
 	public Rectangle getRect(){

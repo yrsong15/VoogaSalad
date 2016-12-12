@@ -3,10 +3,11 @@ package gameeditor.rpg;
 import java.util.ArrayList;import java.util.List;
 
 import gameeditor.commanddetails.DetailResources;
-import gameeditor.rpg.commanddetails.ISelectDetail;
+import gameeditor.commanddetails.ISelectDetail;
 
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
+import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IGameEditorView;
@@ -33,7 +34,7 @@ import javafx.scene.shape.Rectangle;
  *
  */
 
-public class GridDesignArea implements IGridDesignArea {
+public class GridDesignArea implements IDesignArea, IGridDesignArea {
 
     private Pane myPane;
     private ScrollPane myScrollPane;
@@ -50,7 +51,15 @@ public class GridDesignArea implements IGridDesignArea {
 
     private GameObjectView mySelectedSprite;
     private KeyCode myKeyCode;
-
+    
+    private double startX = -1;
+    private double startY = -1;
+    private double endX = 0;
+    private double endY = 0;
+    private boolean dragged = false;
+    private Rectangle mySelectionArea;
+    private MultiBoundingBox myMultiBoundingBox;
+    
     public GridDesignArea() {
         myScrollPane = new ScrollPane();
         myScrollPane.setMinWidth(AREA_WIDTH);
@@ -66,7 +75,7 @@ public class GridDesignArea implements IGridDesignArea {
         myPane = new Pane();
         myPane.setMinWidth(AREA_WIDTH);
         myPane.setMinWidth(AREA_HEIGHT);
-        myCellGrid = new CellGrid(0, 0, 15, 500, 500, false, this);
+        myCellGrid = new CellGrid(0, 0, 40, (int) AREA_WIDTH/40, (int) AREA_HEIGHT/40, false, this);
         myCells = myCellGrid.getCells();
         for (Cell cell : myCells){
         	myPane.getChildren().add(cell.getRect());
@@ -79,27 +88,66 @@ public class GridDesignArea implements IGridDesignArea {
     }   
     
     private void handleHover(double x, double y){
-    	Cell cellOver = findCell(x, y);
-    	if (cellOver != null && myHoverCell != null && cellOver != myHoverCell){
-    		myHoverCell.resetColor();
-    		myHoverCell = cellOver;
-    		myHoverCell.setColor();
-    	} else if (cellOver != null){
-    		myHoverCell = cellOver;
-    		myHoverCell.setColor();
-    	}
+//    	Cell cellOver = findCell(x, y);
+//    	if (cellOver != null && myHoverCell != null && cellOver != myHoverCell){
+//    		myHoverCell.resetColor();
+//    		myHoverCell = cellOver;
+//    		myHoverCell.setColor();
+//    	} else if (cellOver != null){
+//    		myHoverCell = cellOver;
+//    		myHoverCell.setColor();
+//    	}
     }
 
     private void handlePress(double x, double y){
+    	Cell cell = findCell(x, y);
+    	resetCells();
+    	if (clickEnabled && cell != null && mySelectedCells.contains(cell)){
+    		mySelectedCells.remove(cell);
+    		cell.resetColor();
+    	} else if (clickEnabled && cell != null && !mySelectedCells.contains(cell)){
+    		mySelectedCells.add(cell);
+    		cell.setColor();
+    	}
+    	if (clickEnabled){
+            startX = x;
+            startY = y;
+            mySelectionArea = new Rectangle(x, y, 0, 0);
+            mySelectionArea.setFill(Color.AQUAMARINE);
+            mySelectionArea.setOpacity(0.1);
+            myPane.getChildren().add(mySelectionArea);
+        }
     	
     }
 
     private void handleRelease(double x, double y) {
-
+    	// TODO Auto-generated method stub
+        if (dragged){
+        	selectCells(startX, startY, endX, endY);
+            myPane.getChildren().remove(mySelectionArea);
+            mySelectionArea = null;
+        }
+        dragged = false;
+        startX = -1;
+        startY = -1;
+        endX = 0;
+        endY = 0;
     }
 
     private void handleDrag(double x, double y) {
-
+    	if (startX != -1 && startY != -1){
+    		startX = Math.min(startX, x);
+            startY = Math.min(startY, y);
+            endX = Math.max(endX, x);
+	        endY = Math.max(endY, y);
+            mySelectionArea.setX(startX);
+            mySelectionArea.setY(startY);
+            mySelectionArea.setWidth(endX-startX);
+            mySelectionArea.setHeight(endY-startY);
+            if (!dragged){
+                dragged = true;
+            }
+        }
     }
 
     private void handleKeyPress(KeyCode code){
@@ -112,6 +160,12 @@ public class GridDesignArea implements IGridDesignArea {
             mySelectedSprite.removeSelf();
         }
         myKeyCode = null;
+    }
+    
+    private void resetCells(){
+    	for (Cell cell : mySelectedCells){
+    		cell.resetColor();
+    	}
     }
     
     private Cell findCell(double x, double y){
@@ -191,31 +245,20 @@ public class GridDesignArea implements IGridDesignArea {
         mySelectDetail.updateSpriteDimensions(width, height);
     }
 
-    private ArrayList<GameObjectView> findSprites(double minX, double minY, double maxX, double maxY){
+    private void selectCells(double minX, double minY, double maxX, double maxY){
         Rectangle test = new Rectangle(minX, minY, maxX-minX, maxY-minY);
-        ArrayList<GameObjectView> selectedSprites = new ArrayList<GameObjectView>();
-        for (GameObjectView sprite : mySprites){
-            if(test.getBoundsInParent().intersects(sprite.getImageView().getBoundsInParent())){
-                selectedSprites.add(sprite);
+        for (Cell cell : myCells){
+            if(test.getBoundsInParent().intersects(cell.getRect().getBoundsInParent())){
+                mySelectedCells.add(cell);
+                cell.setColor();
             }
         }
-        return selectedSprites;
     }
 
     @Override
     public void addAvatar(GameObjectView gov) {
         myAvatars.add(gov);
         mySprites.add(gov);
-    }
-
-    @Override
-    public void addDragIn(ImageView tempIV) {
-        myPane.getChildren().add(tempIV);
-    }
-
-    @Override
-    public void removeDragIn(ImageView tempIV) {
-        myPane.getChildren().remove(tempIV);
     }
     
     public Pane getPane(){
@@ -232,65 +275,46 @@ public class GridDesignArea implements IGridDesignArea {
 		return mySelectedCells;
 	}
 
-	@Override
-	public void addSprite(gameeditor.objects.GameObjectView gameObject) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void addDragIn(ImageView tempIV) {
+        myPane.getChildren().add(tempIV);
+    }
+
+    @Override
+    public void removeDragIn(ImageView tempIV) {
+        myPane.getChildren().remove(tempIV);
+    }
+
+    @Override
+    public void addMultiBoundingBox(MultiBoundingBox mbb) {
+        myMultiBoundingBox = mbb;
+        myPane.getChildren().add(myMultiBoundingBox.getBound());
+    }
+
+    @Override
+    public void removeMultiBoundingBox() {
+        myPane.getChildren().remove(myMultiBoundingBox.getBound());
+    }
+
+    @Override
+    public void addBoundingBox(BoundingBox bb){
+        for(Rectangle rect : bb.getShapes()){
+            myPane.getChildren().add(rect);
+        }
+    }
+
+    @Override
+    public void removeBoundingBox(BoundingBox bb){
+        for(Rectangle rect : bb.getShapes()){
+            myPane.getChildren().remove(rect);
+        }
+    }
 
 	@Override
-	public void removeSprite(gameeditor.objects.GameObjectView gameObject) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void enableClick(gameeditor.commanddetails.ISelectDetail sd) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateSpriteDetails(gameeditor.objects.GameObjectView sprite, double x, double y, double width,
-			double height) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void initSelectDetail2(gameeditor.objects.GameObjectView sprite) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addBoundingBox(BoundingBox bb) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeBoundingBox(BoundingBox bb) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addAvatar(gameeditor.objects.GameObjectView avatar) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeMultiBoundingBox() {
-		// TODO Auto-generated method stub
-		
+	public void addSprite(GameObjectView gameObject) {
+		for (Cell cell : mySelectedCells){
+			addSprite(new GameObjectView(gameObject, 0, 0), cell);
+		}
 	}
 
 }

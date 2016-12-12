@@ -67,17 +67,14 @@ public class GameObjectView {
         myImageHeight = myOriginalImageHeight*myRatio;
         myImageView.setFitWidth(myImageWidth);
         myImageView.setFitHeight(myImageHeight);
-        myDesignArea.addSprite(this);
-
         storeDimensionData();
-
     }
 
     public GameObjectView (GameObjectView sprite, double x, double y) {
         this(sprite.getFilePath(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), sprite.getType(), sprite.getIsMainChar(), sprite.getDesignArea(), sprite.getDataStore());
     }
 
-    public void setOn(double x, double y){
+	public void setOn(double x, double y){
         myImageView.setOnMousePressed((e) -> handlePress(e.getX(), e.getY()));
         myImageView.setOnMouseDragged((e) -> handleDrag(e.getX(), e.getY()));
         handlePress(x, y);
@@ -157,7 +154,9 @@ public class GameObjectView {
         myImageView.setFitWidth(myImageWidth);
         myImageView.setFitHeight(myImageHeight);
         updateDetails();
-        myBoundingBox.updateDimensions();
+        if (myBoundingBox != null){
+            myBoundingBox.updateDimensions();
+        }
     }
 
     public void update(double x, double y, double width, double height){

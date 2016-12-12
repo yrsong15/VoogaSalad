@@ -129,8 +129,8 @@ public class DesignArea implements IStandardDesignArea {
         if (myMultiBoundingBox == null && startX != -1 && startY != -1){
             startX = Math.min(startX, x);
             startY = Math.min(startY, y);
-            endX = Math.max(startX, x);
-            endY = Math.max(startY, y);
+            endX = Math.max(endX, x);
+	        endY = Math.max(endY, y);
             mySelectionArea.setX(startX);
             mySelectionArea.setY(startY);
             mySelectionArea.setWidth(endX-startX);
@@ -289,7 +289,6 @@ public class DesignArea implements IStandardDesignArea {
         	System.out.println(check);
         	return check;
     	}
-    	
     }
 
 }
