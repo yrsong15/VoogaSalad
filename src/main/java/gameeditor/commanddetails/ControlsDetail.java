@@ -2,6 +2,7 @@ package gameeditor.commanddetails;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
+import gameeditor.view.interfaces.IStandardDesignArea;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

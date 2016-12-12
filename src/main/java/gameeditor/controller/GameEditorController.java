@@ -33,10 +33,18 @@ public class GameEditorController implements IGameEditorController{
     private Stage myLevelStage;
     private Parent myRoot;
     private IGame myGameInterface;
+    private String myGameType;
 
     //TODO: move all hard-coded strings into a resource bundle
     public static final String DEFAULT_GAME_TITLE = "Untitled";
-
+    
+    public GameEditorController(String gameType){
+    	myGameType = gameType;
+    }
+    
+    public GameEditorController(){
+    	this("Scrolling");
+    }
 
     public void startEditor(Game game) {
         myLevelManager = new LevelManager();
@@ -126,9 +134,8 @@ public class GameEditorController implements IGameEditorController{
             
             ILevel levelInterface = (ILevel) level;
 
-            myLevelManager.createLevel(level);  
-
-            myGameEditorView = new GameEditorView(levelInterface,myGameInterface);          
+            myLevelManager.createLevel(level);
+            myGameEditorView = new GameEditorView(levelInterface, myGameInterface, myGameType);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);

@@ -1,16 +1,13 @@
 package gameeditor.view.interfaces;
 
 import gameeditor.commanddetails.ISelectDetail;
-import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.ViewResources;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 
 public interface IDesignArea {
     public static final String IMAGE_FILE_TYPE = ViewResources.IMAGE_FILE_TYPE.getResource();
@@ -20,14 +17,10 @@ public interface IDesignArea {
     public static final double SCENE_HEIGHT = ViewResources.SCENE_HEIGHT.getDoubleResource();
     public static final  double AREA_WIDTH = ViewResources.AREA_WIDTH.getDoubleResource();
     public static final double AREA_HEIGHT = ViewResources.AREA_HEIGHT.getDoubleResource();
-    
+        
     public ScrollPane getScrollPane();
     
     public void updateAvatar(Image newAvatar);
-    
-    public void addSprite(GameObjectView gameObject);
-    
-    public void removeSprite(GameObjectView gameObject);
     
     public void setBackground(ImageView bg);
     
@@ -49,9 +42,12 @@ public interface IDesignArea {
 	
 	public void addAvatar(GameObjectView avatar);
 
+	public void addSprite(GameObjectView gameObject);
+    
+    public void removeSprite(GameObjectView gameObject);
+    
 	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox);
 
 	public void removeMultiBoundingBox();
-
-
+	
 }
