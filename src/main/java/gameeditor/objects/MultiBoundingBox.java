@@ -36,11 +36,15 @@ public class MultiBoundingBox {
 	}
 	
 	private void setMinMax(){
+		if (mySprites.size() > 0){
+			minX = mySprites.get(0).getX();
+			minY = mySprites.get(0).getY();
+		}
 		for (GameObjectView sprite : mySprites){
 			minX = Math.min(minX, sprite.getX());
 			minY = Math.min(minY, sprite.getY());
-			maxX = Math.max(maxX, sprite.getX());
-			maxY = Math.min(maxY, sprite.getY());
+			maxX = Math.max(maxX, sprite.getX()+sprite.getWidth());
+			maxY = Math.max(maxY, sprite.getY()+sprite.getHeight());
 		}
 	}
 	
@@ -49,30 +53,28 @@ public class MultiBoundingBox {
 		myPressY = y;
 		for (GameObjectView sprite : mySprites){
 			sprite.setDistanceFromCorner(x, y);
-			sprite.handleDrag(x, y);
+			sprite.setMultiBoxOrigin();
 			updateLayout();
 		}		
 	}
 	
 	private void handleCenterDrag(double x, double y){
-		if (x >= myPressX + myDeltaX + 20 && y >= myPressY + myDeltaY + 20){
-			x -= 375;
-			y -= 75;
-		}
-		myDeltaX = myPressX - x;
-		myDeltaY = myPressY - y;
+		myDeltaX = x - myPressX;
+		myDeltaY = y - myPressY;
 		for (GameObjectView sprite : mySprites){
-			sprite.handleDrag(x, y);
+			sprite.handleMultiboxDrag(myDeltaX, myDeltaY);
 			updateLayout();
 		}
 	}
 	
 	public void createLines(double spriteX, double spriteY, double spriteWidth, double spriteHeight, double lineWidth){
 		myBounds = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
-		myBounds.setFill(Color.TRANSPARENT);
-		myBounds.setStroke(Color.LIGHTGRAY);
-		myBounds.setOnMouseDragged((e) -> handleCenterDrag(e.getX(), e.getY()));
+		myBounds.setFill(Color.LIGHTGRAY);
+		myBounds.setOpacity(0.3);
+		myBounds.setStroke(Color.BLACK);
+		myBounds.setStrokeWidth(lineWidth);
 		myBounds.setOnMousePressed((e) -> handleCenterPress(e.getX(), e.getY()));
+		myBounds.setOnMouseDragged((e) -> handleCenterDrag(e.getX(), e.getY()));
 	}
 	
 	public void updateLayout(){

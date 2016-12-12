@@ -3,6 +3,7 @@ package gameeditor.commanddetails;
 import java.io.File;
 import frontend.util.FileOpener;
 import gameeditor.view.ViewResources;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,13 +16,15 @@ public class ImageDetail {
     private String myImagePath="";
     private Pane myImagePane;
     private DetailFrontEndUtil myDetailFrontEndUtil;
+    private ImageView myIV;
     
    
     public ImageDetail(){
         myDetailFrontEndUtil = new DetailFrontEndUtil();
     }
   
-    public BorderPane createImageChoose(){
+    @SuppressWarnings("static-access")
+	public BorderPane createImageChoose(){
         myImagePane = new Pane();
         myImagePane.setMinWidth(60);
         myImagePane.setMaxWidth(60);
@@ -30,10 +33,14 @@ public class ImageDetail {
         myImagePane.getChildren().add(imageZone);
         imageZone.setArcHeight(DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource()); imageZone.setArcWidth(DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource());
         BorderPane bp = myDetailFrontEndUtil.createBorderpane(myImagePane,choose);
+        bp.setAlignment(choose, Pos.CENTER);
         return bp;
     }
 
     public void createImageView(){
+    	if (myIV != null){
+    		myImagePane.getChildren().remove(myIV);
+    	}
         myImagePath = getFilePath(ViewResources.IMAGE_FILE_TYPE.getResource(), ViewResources.SPRITE_IMAGE_LOCATION.getResource());       
         Image i = new Image(myImagePath);
         double imageZonePadding = DetailResources.TYPE_IMAGE_ZONE_PADDING.getDoubleResource();
@@ -46,14 +53,13 @@ public class ImageDetail {
         double ratio = Math.min(widthRatio, heightRatio);
         double endWidth = i.getWidth()*ratio;
         double endHeight = i.getHeight()*ratio;
-        ImageView iv = new ImageView(i);
-        iv.setFitWidth(fitWidth);
-        iv.setFitHeight(fitHeight);
-        iv.setPreserveRatio(true);
-        iv.setLayoutX(imageZoneWidth/2 - endWidth/2);
-        iv.setLayoutY(imageZoneHeight/2 - endHeight/2);
-        iv.setLayoutX(imageZonePadding/2); iv.setLayoutY(imageZonePadding/2);
-        myImagePane.getChildren().add(iv);
+        myIV = new ImageView(i);
+        myIV.setFitWidth(fitWidth);
+        myIV.setFitHeight(fitHeight);
+        myIV.setPreserveRatio(true);
+        myIV.setLayoutX(imageZoneWidth/2 - endWidth/2);
+        myIV.setLayoutY(imageZoneHeight/2 - endHeight/2);
+        myImagePane.getChildren().add(myIV);
     }
 
     private Button createImageButton(){
