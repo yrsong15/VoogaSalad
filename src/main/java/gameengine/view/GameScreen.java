@@ -68,15 +68,16 @@ public class GameScreen {
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             ClientGameObject object = entry.getValue();
-            Rectangle bar = new Rectangle(object.getXPosition(), object.getYPosition() - 8, object.getWidth(), 10);
-            //myScreen.getChildren().add(bar);
-            barList.add(bar);
+            
             if (gameObjectImageViewMap.containsKey(object.getID())) {
                 gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
                         object.getYPosition());
             }
             else {
                 addGameObject(object);
+                Rectangle bar = new Rectangle(object.getXPosition(), object.getYPosition() - 8, object.getWidth(), 10);
+                //myScreen.getChildren().add(bar);
+                //barList.add(bar);
             }
         }
         for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
