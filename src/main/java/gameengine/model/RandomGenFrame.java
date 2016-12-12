@@ -1,29 +1,33 @@
 package gameengine.model;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import objects.GameObject;
 import objects.Level;
 import objects.RandomGeneration;
-import gameengine.controller.interfaces.*;
-import gameengine.view.GameScreen;
+
 public abstract class RandomGenFrame<T> {
+
     protected Level level;
     protected ArrayList<RandomGeneration<Integer>> randomGenRules;
     protected GameObject referenceFirstObject;
     protected static final Random RNG = new Random();
+
     public abstract void possiblyGenerateNewFrame (RandomGeneration<Integer> randomGenRules);
+
     public abstract void setNewFirstBenchmark(GameObject object);
+
     public abstract double calculateY(int margin, RandomGeneration<Integer> elem, double buffer);
+
     public abstract int calculateMargin(RandomGeneration<Integer> elem);
+
     public abstract double calculateX(int margin, RandomGeneration<Integer> elem, double buffer);
+
     public ArrayList<RandomGeneration<Integer>> getRandomGenerationRules(){
         return this.randomGenRules;
     }
+
     protected void generateNewFrameAndSetBenchmark(Level level) {
         ArrayList<RandomGeneration<Integer>> randomGenRulesList = randomGenRules;
         for(RandomGeneration<Integer> elem:randomGenRulesList){
@@ -41,6 +45,7 @@ public abstract class RandomGenFrame<T> {
             }
         }
     }
+
     protected void generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
         GameObject object = new GameObject(xPosition, yPosition, width, height, URL,objectProperties);
         level.getGameObjects().add(object);

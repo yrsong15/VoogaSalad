@@ -83,8 +83,6 @@ public class MainController {
         //Left down up right <- order of arrows from left to right
         //UNCOMMENT BELOW FOR DEM SPICY DDR
         /*
-=======
->>>>>>> e52c21951875f5fad8b2120c125ae62d56084812
         HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
         RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,150,150,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
         RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,150,150,"ddrdownarrow.png",2, 190 ,190,1234,1234,500,520);
@@ -94,7 +92,6 @@ public class MainController {
         asdf.add(arrow1);asdf.add(arrow2);asdf.add(arrow3);asdf.add(arrow4);
         RandomGenFrame frame = new RandomGenFrameY(level,asdf);
         level.setRandomGenerationFrame(frame);
-<<<<<<< HEAD
         */
         //UNCOMMENT BELOW FOR DEM SPICY DOODLE JUMPZ
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
@@ -123,7 +120,6 @@ public class MainController {
     }
 
     public void startPlaying(){
-
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
