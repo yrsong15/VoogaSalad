@@ -104,4 +104,8 @@ public class ClientMain{
 //		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());
 		sendCharacterCommand("shootProjectile", handler.getCharIdx(player));
 	}
+	
+	public void pause(){
+		connections.sendPauseCommand();
+	}
 }

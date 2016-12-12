@@ -7,7 +7,6 @@ import objects.*;
 import xml.XMLSerializer;
 import java.util.List;
 import java.util.Map;
-
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
  *         Moon
@@ -22,19 +21,13 @@ public class GameEngineController implements CommandInterface {
 	private GameEngineBackend backend;
 	private boolean hostGame;
 	private String serverName;
-//<<<<<<< HEAD
-//=======
 	private boolean serverStarted;
 
-//>>>>>>> e3d8e69680ea7a079bfdad2029af3cebedd8f45a
 	public GameEngineController() {
-		serverStarted = false;
 		this.hostGame = true;
 		serverName = "localhost";
 		serializer = new XMLSerializer();
-		backend = new GameEngineBackend(serverName);
 	}
-
 	public boolean startGame(String xmlData) {
 		Game currentGame = serializer.getGameFromString(xmlData);
 		if (currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()) {
@@ -52,65 +45,26 @@ public class GameEngineController implements CommandInterface {
 			};
 			serverThread.start();
 		}
-		while(!serverStarted){
-			//staller
-			System.out.print("");
-		}
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			System.out.println("Error in Thread Sleep before Start Client Game method.");
-		}
 		startClientGame(currentGame.getClientMappings());
 		return true;
 	}
-
 	public void startServerGame(Game currentGame) {
-//		System.out.println("start server game");
-		serverStarted = true;
+		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
 	}
-//	public void startClientGame(Player player) {
-//		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player, serverName);
-//=======
-//
-//	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-//		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
-//>>>>>>> 94cb789f97db1b9bae9a299f8e0467438741aa18
-//		while (!gameEngineView.gameLoadedFromServer()) {
-//			// staller
-//			System.out.print("");
-//		}
-//<<<<<<< HEAD
-//		beginUI(player);
-//	}
-//	public void beginUI(Player player) {
-//		gameEngineView.initLevel();
-//		gameEngineView.mapKeys(player, player.getControls());// NEED TO MAP FOR
-//		// MULTIPLE
-//		// PLAYERS
-//		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
-//	}
-//=======
-//		gameEngineView.initLevel(playerMapping);
-//
-//		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
-//	}
 
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-//		System.out.println("start client game");
-		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), backend, serverName);
+
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
 		gameEngineView.initLevel(playerMapping);
-
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
 	}
 
-//>>>>>>> 94cb789f97db1b9bae9a299f8e0467438741aa18
 	public Scene getScene() {
 		return gameEngineView.getScene();
 	}

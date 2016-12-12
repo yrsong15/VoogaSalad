@@ -30,6 +30,7 @@ public class GameCoverSplash {
     private NodeFactory myFactory = new NodeFactory();
 
     public GameCoverSplash(Level level, MainController myMainController){
+        System.out.println(level + " initialized yo");
         this.playahs = (ArrayList) level.getPlayers();
         this.background = level.getBackgroundFilePath();
         this.title = level.getTitle();

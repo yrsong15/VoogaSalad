@@ -9,12 +9,15 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import objects.ClientGame;
 import objects.ClientGameObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 /**
  * @author Noel Moon (nm142)
@@ -27,10 +30,13 @@ public class GameScreen {
     public static final double screenHeight = GameEngineUI.myAppHeight - 100;
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
+    private List<Rectangle> barList;
+    
     public GameScreen() {
         myScreen = new Pane();
         myScreen.setMaxSize(screenWidth, screenHeight);
         gameObjectImageViewMap = new HashMap<>();
+        barList = new ArrayList<Rectangle>();
     }
     public Pane getScreen() {
         return myScreen;
@@ -56,9 +62,15 @@ public class GameScreen {
     }
 
     public void update(ClientGame game){
+    	for (Rectangle bar : barList){
+    		myScreen.getChildren().remove(bar);
+    	}
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             ClientGameObject object = entry.getValue();
+            Rectangle bar = new Rectangle(object.getXPosition(), object.getYPosition() - 8, object.getWidth(), 10);
+            //myScreen.getChildren().add(bar);
+            barList.add(bar);
             if (gameObjectImageViewMap.containsKey(object.getID())) {
                 gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
                         object.getYPosition());

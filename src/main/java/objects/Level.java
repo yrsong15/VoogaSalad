@@ -4,6 +4,8 @@ import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.input.KeyCode;
 import java.security.Key;
 import java.util.*;
+
+import gameengine.model.RandomGenFrame;
 import gameengine.view.GameEngineUI;
 
 /**
@@ -21,6 +23,7 @@ public class Level {
 	private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private String musicFilePath, backgroundFilePath, title;
+    private RandomGenFrame<Integer> randomGenerationFrame;
 	private List<GameObject> players;
 	private ScrollType scrollType;
 
@@ -29,7 +32,6 @@ public class Level {
         projectiles = new ArrayList<GameObject>();
         gameObjects = new ArrayList<GameObject>();
         obstacles = new ArrayList<GameObject>();
-        randomGenerations = new ArrayList<>();
         players = new ArrayList<>();
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
@@ -47,13 +49,16 @@ public class Level {
 	public ScrollType getScrollType() {
 		return this.scrollType;
 	}
-
-	public List<RandomGeneration> getRandomGenRules() {
-		return randomGenerations;
+	
+	public RandomGenFrame getRandomGenerationFrame(){
+		return randomGenerationFrame;
+	}
+	public ArrayList<RandomGeneration<Integer>> getRandomGenRules() {
+		return randomGenerationFrame.getRandomGenerationRules();
 	}
 
-	public void addRandomGeneration(RandomGeneration randomGen) {
-		randomGenerations.add(randomGen);
+	public void setRandomGenerationFrame(RandomGenFrame<Integer> randomGen) {
+		randomGenerationFrame = randomGen;
 	}
 
 	public int getLevel() {

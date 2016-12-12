@@ -29,6 +29,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private String serverName;
 
 	public GameEngineBackend(String serverName) {
+		System.out.println("Engine Backend initialized");
 		this.serverName = serverName;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
@@ -37,14 +38,13 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void startGame(Game currentGame) {
+		System.out.println("Startgame in Engine Backend called");
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
 		this.
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
-		addRGFrames();
 		serverMain = new ServerMain(this, 9090, serverName);
-
 	}
 
 	public void addPlayersToClient(int ID) {
@@ -55,13 +55,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 					currentGame.getCurrentLevel().addPlayer(p.getMainChar());
 				}
 			}
-		}
-	}
-
-	private void addRGFrames() {
-		List<RandomGeneration> randomGenerations = currentGame.getCurrentLevel().getRandomGenRules();
-		for (RandomGeneration randomGeneration : randomGenerations) {
-			randomlyGeneratedFrames.add(new RandomGenFrame(this, 300, currentGame.getCurrentLevel()));
 		}
 	}
 
@@ -96,16 +89,23 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			mainChar.checkPlatformStatus();
 		}
 		checkProjectileDistance();
+		if(currLevel.getRandomGenRules().size() > 0) {
+            randomlyGenerateFrames();
+        }
 		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
 		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
 		LossChecker.checkLossConditions(this, currLevel.getLoseConditions(), currLevel.getGameConditions());
 		WinChecker.checkWinConditions(this, currLevel.getWinConditions(), currLevel.getGameConditions());
 	}
 
-	public void setNewBenchmark() {
-		List<GameObject> objects = currentGame.getCurrentLevel().getGameObjects();
-		for (RandomGenFrame elem : randomlyGeneratedFrames) {
-			elem.setNewBenchmark(new Integer((int) objects.get(objects.size() - 1).getXPosition() / 2));
+	private void randomlyGenerateFrames(){
+		for(RandomGeneration<Integer> randomGeneration : currentGame.getCurrentLevel().getRandomGenRules()) {
+			try {
+				currentGame.getCurrentLevel().getRandomGenerationFrame().possiblyGenerateNewFrame(randomGeneration);
+			} catch (IllegalArgumentException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -241,11 +241,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 				}
 			}
 		}
-	}
-
-	@Override
-	public void pause() {
-		serverMain.pause();
 	}
 
 }
