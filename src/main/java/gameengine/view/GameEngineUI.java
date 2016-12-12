@@ -25,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -62,7 +63,7 @@ public class GameEngineUI implements UDPHandler{
 	private Map<KeyCode, Method> keyMappings = new HashMap<KeyCode, Method>();
 	private Map<String, Method> methodMappings = new HashMap<>();
 	private Map<KeyCode, Boolean> keyPressed = new HashMap<>();
-	private EventHandler<ActionEvent> resetEvent;
+	private EventHandler<? super MouseEvent> resetEvent;
 	private Timeline animation;
 	private ClientMain clientMain;
 	private CommandInterface commandInterface;
@@ -84,7 +85,7 @@ public class GameEngineUI implements UDPHandler{
 //			EventHandler<ActionEvent> resetEvent, GameHandler gamehandler, String serverName) {
 //>>>>>>> e3d8e69680ea7a079bfdad2029af3cebedd8f45a
 //=======
-	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, String serverName) {
+	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<? super MouseEvent> resetEvent, String serverName) {
 //>>>>>>> 0eb0f732f4089683f284f9d245814933e9cafc98
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
@@ -223,17 +224,19 @@ public class GameEngineUI implements UDPHandler{
 		BorderPane root = new BorderPane();
 		VBox vb = new VBox();
 		vb.setFillWidth(true);
-		vb.getChildren().addAll(makeToolbar(), makeHUD());
+		vb.getChildren().addAll(makeHUD());
 		root.setCenter(makeGameScreen());
 		root.setTop(vb);
 		return root;
 	}
+	
+	/*
 	private Node makeToolbar() {
 		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent,
 				event -> mute(), event -> saveGame());
 		toolbarHBox = toolbar.getToolbar();
 		return toolbarHBox;
-	}
+	}*/
 	
 	public Node getToolbar(){
 		return toolbarHBox;
@@ -244,7 +247,7 @@ public class GameEngineUI implements UDPHandler{
 		return myHUD.getHUD();
 	}
 	private Node makeGameScreen() {
-		gameScreen = new GameScreen();
+		gameScreen = new GameScreen(resetEvent, event -> mute(), event -> pause(), event -> saveGame());
 		return gameScreen.getScreen();
 	}
 	private void mute() {

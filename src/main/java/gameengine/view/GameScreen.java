@@ -1,10 +1,14 @@
 package gameengine.view;
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.network.server.ServerMain;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import gameengine.view.onscreenbuttons.MuteButton;
+import gameengine.view.onscreenbuttons.PauseButton;
+import gameengine.view.onscreenbuttons.ResetButton;
+import gameengine.view.onscreenbuttons.SaveButton;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -21,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
  * @author Noel Moon (nm142)
  *
@@ -33,10 +38,20 @@ public class GameScreen {
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
     private List<Rectangle> barList;
+    private ResetButton resetButton;
+    private MuteButton muteButton;
+    private PauseButton pauseButton;
+    private SaveButton saveButton;
     
-    public GameScreen() {
+    public GameScreen(EventHandler<? super MouseEvent> resetEvent,  EventHandler<? super MouseEvent> muteEvent,
+    		EventHandler<? super MouseEvent> pauseEvent, EventHandler<? super MouseEvent> saveEvent) {
         myScreen = new Pane();
         myScreen.setMaxSize(screenWidth, screenHeight);
+        this.resetButton = new ResetButton(resetEvent);
+        this.muteButton = new MuteButton(muteEvent);
+        this.pauseButton = new PauseButton(pauseEvent);
+        this.saveButton = new SaveButton(saveEvent);
+        myScreen.getChildren().add(resetButton.getButton());
         gameObjectImageViewMap = new HashMap<>();
         barList = new ArrayList<Rectangle>();
     }
@@ -105,6 +120,11 @@ public class GameScreen {
     public void reset() {
         gameObjectImageViewMap.clear();
         myScreen.getChildren().clear();
+        myScreen.getChildren().addAll(resetButton.getButton(), muteButton.getButton(), pauseButton.getButton(), saveButton.getButton());
+        resetButton.getButton().toFront();
+        muteButton.getButton().toFront();
+        pauseButton.getButton().toFront();
+        saveButton.getButton().toFront();
     }
 
     private void addGameObject(ClientGameObject object) {
