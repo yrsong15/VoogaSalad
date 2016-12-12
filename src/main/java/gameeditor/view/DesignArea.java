@@ -7,17 +7,10 @@ import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -27,11 +20,7 @@ import javafx.scene.shape.Rectangle;
  *
  */
 
-public class DesignArea implements IStandardDesignArea {
-
-    private Pane myPane;
-    private ScrollPane myScrollPane;
-    private ArrayList<GameObjectView> mySprites = new ArrayList<GameObjectView>();
+public class DesignArea extends AbstractDesignArea implements IStandardDesignArea {
 
     private boolean clickEnabled = false;
     private ISelectDetail mySelectDetail;
@@ -39,32 +28,10 @@ public class DesignArea implements IStandardDesignArea {
 
     private GameObjectView myDuplicateSprite;
 
-    private GameObjectView mySelectedSprite;
-    private double startX = -1;
-    private double startY = -1;
-    private double endX = 0;
-    private double endY = 0;
-    private boolean dragged = false;
-    private KeyCode myKeyCode;
-    private Rectangle mySelectionArea;
-    private MultiBoundingBox myMultiBoundingBox;
-
     public DesignArea() {
-        myScrollPane = new ScrollPane();
-        myScrollPane.setMinWidth(AREA_WIDTH);
-        myScrollPane.setMinHeight(AREA_HEIGHT);
-        myScrollPane.setMaxWidth(AREA_WIDTH);
-        myScrollPane.setMaxHeight(AREA_HEIGHT);
-        myScrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
-        myScrollPane.setVmax(0);
-        myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        super();
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
-        myPane = new Pane();
-        myPane.setLayoutX(0);
-        myPane.setLayoutY(0);
-        myPane.setMinSize(AREA_WIDTH, AREA_HEIGHT);
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
         myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
@@ -155,10 +122,6 @@ public class DesignArea implements IStandardDesignArea {
 
     public ScrollPane getScrollPane(){
         return myScrollPane;
-    }
-
-    public void updateAvatar(Image newAvatar){
-
     }
 
     public void setBackground(ImageView bg){

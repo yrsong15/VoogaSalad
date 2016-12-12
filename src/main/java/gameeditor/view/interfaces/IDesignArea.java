@@ -6,7 +6,6 @@ import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 /**
  * 
@@ -23,9 +22,7 @@ public interface IDesignArea {
     public static final double AREA_HEIGHT = ViewResources.AREA_HEIGHT.getDoubleResource();
         
     public ScrollPane getScrollPane();
-    
-    public void updateAvatar(Image newAvatar);
-    
+        
     public void setBackground(ImageView bg);
     
     public void enableClick(ISelectDetail sd);
