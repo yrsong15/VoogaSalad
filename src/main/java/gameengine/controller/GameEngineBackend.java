@@ -246,11 +246,4 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		}
 	}
 
-	@Override
-	public void pause() {
-		System.out.println("pause in Engine Backend called \n");
-		System.out.println("yyy ServerMain: " + serverMain);
-		serverMain.pause();
-	}
-
 }

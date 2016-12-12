@@ -83,24 +83,27 @@ public class ServerMain {
 	}
 
 	private void gameStateRefresher() {
-
 		timer = new Timer();
 		runTimer();
 	}
 	
 	public void pause(){
-		if(isPaused){
-			try {
-				timer.wait();
-			} catch (InterruptedException ex) {
-				System.out.println("Error in Pausing Timer.");
+		System.out.println("isPaused in ServerMain before: " + isPaused);
+		synchronized(timer){
+			if(!isPaused){
+				try {
+					System.out.println("wait called in Server Main");
+					timer.wait();
+				} catch (InterruptedException ex) {
+					System.out.println("Error in Pausing Timer.");
+				}
 			}
-		}
-		else{
-			runTimer();
-		}
-		isPaused = !isPaused;
-		
+			else{
+				timer.notifyAll();
+			}
+			isPaused = !isPaused;
+		}	
+		System.out.println("isPaused in ServerMain after: " + isPaused);
 	}
 	
 	private void runTimer(){

@@ -70,10 +70,8 @@ public class GameEngineUI implements UDPHandler{
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
 	private boolean isPaused,isMuted;
-	private GameHandler gamehandler;
 	
-	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, 
-			EventHandler<ActionEvent> resetEvent, GameHandler gamehandler, String serverName) {
+	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, String serverName) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
@@ -81,7 +79,6 @@ public class GameEngineUI implements UDPHandler{
 		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
-		this.gamehandler = gamehandler;
 		setUpMethodMappings();
 	}
 	public void initLevel(Map<Long, List<Player>> playerMapping) {
@@ -253,7 +250,7 @@ public class GameEngineUI implements UDPHandler{
 			toolbar.pause();
 			animation.stop();
 		}
-		gamehandler.pause();
+		clientMain.pause();
 		stopMusic();
 		isPaused = !isPaused;
 	}

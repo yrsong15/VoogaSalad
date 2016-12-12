@@ -71,7 +71,7 @@ public class GameEngineController implements CommandInterface {
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
 		System.out.println("start client game");
-		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), backend, serverName);
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");

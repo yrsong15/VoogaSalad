@@ -22,6 +22,7 @@ class TcpConnection implements Runnable{
 	private static final int SEND_COMMAND = 1;
 	private static final int GET_ID_IP_PORT = 2;
 	private static final int REMOVE_CHARACTER = 3;
+	private static final int PAUSE = 4;
 
 	private ServerMain main;
 	private Socket socket;
@@ -35,7 +36,6 @@ class TcpConnection implements Runnable{
 	
 	@Override
 	public void run() {
-		
 		try(ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 				ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream())){
 			
@@ -63,6 +63,10 @@ class TcpConnection implements Runnable{
 						break;
 					case REMOVE_CHARACTER:
 						main.removeCharacter(sm.id);
+						break;
+					case PAUSE:
+						System.out.println("reached PAUSE in server TCP");
+						main.pause();
 						break;
 					default:
 						break;
