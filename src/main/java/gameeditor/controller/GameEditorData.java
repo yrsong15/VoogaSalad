@@ -152,15 +152,18 @@ public class GameEditorData implements IGameEditorData{
         if(minSpacing==0){minSpacing=250;}
         Integer maxSpacing = Integer.parseInt(myRandomGenParameters.get(6).getText());
         if(maxSpacing==0){maxSpacing=500;}
-
-        // Need width and height of the game objects
-        // Image URL (bird.png)
-        // 
-
-        @SuppressWarnings("rawtypes")
-		RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
-
-        myLevel.addRandomGeneration(randomGeneration);
+//
+//        System.out.println(" num: " + num);
+//        System.out.println(" xmin: " + xMin);
+//        System.out.println(" yMin: " + yMin);
+//        System.out.println(" yMax: " + yMax);
+//        System.out.println(" minSpacing: " + minSpacing);
+//        System.out.println(" maxSpacing: " + maxSpacing);
+   
+        
+//        RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
+//
+//        myLevel.addRandomGeneration(randomGeneration);
     }
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
@@ -296,6 +299,5 @@ public class GameEditorData implements IGameEditorData{
         return types;
     }
 }
-
 
 

@@ -15,28 +15,58 @@ import sun.management.counter.perf.PerfLongArrayCounter;
  */
 public class Game implements IGame{
 
-    private String name;
-    private Map<Integer, Level> levels;
-    private Level currentLevel;
-    private List<Player> players;
+	private String name;
+	private Map<Integer, Level> levels;
+	private Level currentLevel;
+	private List<Player> players;
+	private Map<Long, List<Player>> clientMappings;
 
-    public Game(String name) {
-        levels = new HashMap<Integer,Level>();
-        players = new ArrayList<>();
-        this.name = name;
+	public Map<Long, List<Player>> getClientMappings(){
+	    return clientMappings;
     }
 
-    public void addPlayer(Player player){
-        players.add(player);
+    public int getMinNumPlayers() {
+        if(minNumPlayers == 0){
+            minNumPlayers = 1;
+        }
+        return minNumPlayers;
     }
 
-    public void removePlayer(Player player){
-        players.remove(player);
+    public void setMinNumPlayers(int minNumPlayers) {
+        this.minNumPlayers = minNumPlayers;
     }
 
-    public List<Player> getPlayers(){
-        return players;
-    }
+    private int minNumPlayers = 1;
+
+	public Game(String name) {
+		levels = new HashMap<Integer,Level>();
+		players = new ArrayList<>();
+		clientMappings = new HashMap<>();
+		this.name = name;
+	}
+
+	public void addPlayerToClient(long ID, Player player){
+		if(!clientMappings.containsKey(ID)){
+			List<Player> players = new ArrayList<>();
+			players.add(player);
+			clientMappings.put(ID, players);
+		}else{
+			List<Player> players = clientMappings.get(ID);
+			players.add(player);
+		}
+	}
+
+	public void removePlayer(Player player){
+		players.remove(player);
+	}
+
+//	public List<Player> getPlayers(){
+//        return players;
+//    }
+	
+	public void addPlayer(Player player){
+		players.add(player);
+	}
 
     public void addLevel(Level level) {
         levels.put(level.getLevel(),level);

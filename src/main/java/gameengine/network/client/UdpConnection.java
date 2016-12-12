@@ -28,7 +28,7 @@ class UdpConnection implements Runnable {
 	
 		private ClientMain main;
 		
-		private byte[] buffer = new byte[1024 * 10];
+		private byte[] buffer = new byte[1024 * 50];
 		
 		private DatagramSocket datagramSocket;
 		
@@ -77,7 +77,6 @@ class UdpConnection implements Runnable {
 						String endTag = "</objects.ClientGame>";
 						int end = data.indexOf(endTag);
 						data = data.substring(0, end+endTag.length());
-//						System.out.println(data.length());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 						continue;

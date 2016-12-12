@@ -16,14 +16,16 @@ public interface IGameEditorView {
     public static final String BACKGROUND_IMAGE_ID=ViewResources.BACKGROUND_IMAGE_ID.getResource();
     public static final String FILE_PREFIX=ViewResources.FILE_PREFIX.getResource();
     public static final String IMAGES_LOCATION=ViewResources.IMAGES_LOCATION.getResource();
-    
+
     public static final  double SCENE_WIDTH = ViewResources.SCENE_WIDTH.getDoubleResource();
     public static final double SCENE_HEIGHT = ViewResources.SCENE_HEIGHT.getDoubleResource();
+    Parent createRoot();
+    
+    Parent getRoot();
 
-    
-    public Parent createRoot();
-    
-    public Parent getRoot();
-    
+    void setBackground();
+
+    void setAvatar();
+
 
 }

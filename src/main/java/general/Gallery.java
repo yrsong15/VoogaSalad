@@ -17,25 +17,26 @@ public class Gallery implements IGallery {
 
 	private ArrayList<GameFile> gallery;
 
-
 	public Gallery() throws IOException {
 		this.gallery = new ArrayList<>();
 		addDefaultGame();
 	}
 
 	private void addDefaultGame() throws IOException {
-		GameFile defaultGame = new GameFile("Game To Test Projectiles", readFile("data/ScrollingTestGameEditorExampleXML.xml")); //
+		GameFile defaultGame = new GameFile("Game To Test Projectiles",
+				readFile("data/ScrollingTestGameEditorExampleXML.xml")); //
 		addToGallery(defaultGame);
-		GameFile spicyGame = new GameFile("A Spicy Game To Test Platforms", readFile("data/GameEditorExampleXML.xml")); //
+		GameFile spicyGame = new GameFile("A Spicy Game To Test Platforms",
+				readFile("data/GameEditorExampleXML.xml")); //
 		addToGallery(spicyGame);
-		GameFile scrollingGame = new GameFile("Scrolling Tester", readFile("data/DoodleJump.xml")); //
+		GameFile scrollingGame = new GameFile("Scrolling Tester",
+				readFile("data/DoodleJump.xml")); //
 		addToGallery(scrollingGame);
-		GameFile exampleGame = new GameFile("Example Flappy Bird", readFile("data/FlappyExample.xml"));
+		GameFile exampleGame = new GameFile("Example Flappy Bird",
+				readFile("data/FlappyExample.xml"));
 		addToGallery(exampleGame);
 		GameFile ddr = new GameFile("Dance Dance Revolution", readFile("data/DanceDanceRevolution.xml"));
 		addToGallery(ddr);
-
-
 	}
 
 	@Override
