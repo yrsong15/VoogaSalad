@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -21,13 +22,18 @@ public abstract class OnScreenButton {
 	private Text text;
 
 	public OnScreenButton(String name, EventHandler<? super MouseEvent> event) {
-		text = new Text(10, 30, name);
-		text.setFont(Font.font(30));
+		text = new Text(name);
+		text.setFont(Font.font(20));
 		text.setStroke(Color.WHITE);
 		text.setOnMouseClicked(event);
 	}
 	
 	public Text getButton() {
 		return text;
+	}
+	
+	protected void setPos(double x, double y){
+		text.setX(x);
+		text.setY(y);
 	}
 }
