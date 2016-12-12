@@ -7,7 +7,6 @@ import objects.GameObject;
  *
  */
 public interface RuleActionHandler {
-
 	public void removeObject(GameObject obj);
 	public void endGame();
 	public void modifyScore(int score);

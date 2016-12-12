@@ -1,15 +1,12 @@
 package gameengine.controller;
-
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.view.GameEngineUI;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import objects.*;
 import xml.XMLSerializer;
-
 import java.util.List;
 import java.util.Map;
-
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
  *         Moon
@@ -23,16 +20,11 @@ public class GameEngineController implements CommandInterface {
 	private GameEngineBackend backend;
 	private boolean hostGame;
 	private String serverName;
-	private boolean serverStarted;
-
 	public GameEngineController() {
-		serverStarted = false;
 		this.hostGame = true;
 		serverName = "localhost";
 		serializer = new XMLSerializer();
-		backend = new GameEngineBackend(serverName);
 	}
-
 	public boolean startGame(String xmlData) {
 		Game currentGame = serializer.getGameFromString(xmlData);
 		if (currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()) {
@@ -50,55 +42,36 @@ public class GameEngineController implements CommandInterface {
 			};
 			serverThread.start();
 		}
-		while(!serverStarted){
-			//staller
-			System.out.print("");
-		}
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			System.out.println("Error in Thread Sleep before Start Client Game method.");
-		}
 		startClientGame(currentGame.getClientMappings());
 		return true;
 	}
-
 	public void startServerGame(Game currentGame) {
-		System.out.println("start server game");
-		serverStarted = true;
+		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
 	}
-
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-		System.out.println("start client game");
+
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
 		gameEngineView.initLevel(playerMapping);
-		
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
 	}
-
-		
-
 
 	public Scene getScene() {
 		return gameEngineView.getScene();
 	}
-
 	@Override
 	public void reset() {
 		stop();
 		gameEngineView.resetGameScreen();
 	}
-
 	@Override
 	public void stop() {
 		gameEngineView.stop();
 	}
-
 	@Override
 	public void endGame() {
 		gameEngineView.endGame();

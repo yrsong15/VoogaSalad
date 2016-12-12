@@ -119,9 +119,9 @@ public class GameEditorData implements IGameEditorData{
 //        System.out.println(" maxSpacing: " + maxSpacing);
    
         
-        RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
-
-        myLevel.addRandomGeneration(randomGeneration);
+//        RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
+//
+//        myLevel.addRandomGeneration(randomGeneration);
     }
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
