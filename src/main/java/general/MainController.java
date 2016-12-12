@@ -10,6 +10,8 @@ import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
 import gameengine.model.boundary.ScreenBoundary;
 import gameengine.model.RandomGenFrame;
+import gameengine.model.RandomGenFrameY;
+>>>>>>> bc91b68c79b88474c12227dcd52e50698d7c99f1
 import gameengine.model.boundary.NoBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.Scene;
@@ -120,7 +122,7 @@ public class MainController {
         RandomGeneration arrow4 = new RandomGeneration(DDRArrowProperties,150,150,"ddrrightarrow.png",2, 530,530,1234,1234,540,1000);
         ArrayList<RandomGeneration> asdf = new ArrayList<RandomGeneration>();
         asdf.add(arrow1);asdf.add(arrow2);asdf.add(arrow3);asdf.add(arrow4);
-        RandomGenFrame frame = new RandomGenFrame(level,asdf);
+        RandomGenFrame frame = new RandomGenFrameY(level,asdf);
         level.setRandomGenerationFrame(frame);
         */
         
