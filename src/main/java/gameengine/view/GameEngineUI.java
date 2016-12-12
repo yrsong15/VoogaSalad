@@ -54,6 +54,7 @@ public class GameEngineUI implements UDPHandler{
 	private ErrorMessage myErrorMessage;
 	private String myLevelFileLocation;
 	private Toolbar toolbar;
+	private Node toolbarHBox;
 	private HUD myHUD;
 	private GameScreen gameScreen;
 	private MediaPlayer mediaPlayer;
@@ -69,19 +70,31 @@ public class GameEngineUI implements UDPHandler{
 	private ClientGame currentGame;
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
+//<<<<<<< HEAD
+//	private boolean isPaused, isMuted;
+
+//	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer,
+//						EventHandler<ActionEvent> resetEvent, String serverName) {
+////		mainPlayer = player;
+//=======
 	private boolean isPaused,isMuted;
-	private GameHandler gamehandler;
 	
-	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, 
-			EventHandler<ActionEvent> resetEvent, GameHandler gamehandler, String serverName) {
+//<<<<<<< HEAD
+//	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer,
+//			EventHandler<ActionEvent> resetEvent, GameHandler gamehandler, String serverName) {
+//>>>>>>> e3d8e69680ea7a079bfdad2029af3cebedd8f45a
+//=======
+	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, String serverName) {
+//>>>>>>> 0eb0f732f4089683f284f9d245814933e9cafc98
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		scene.getStylesheets().add(EDITOR_SPLASH_STYLE);
+//		controlInterface = new ClientMain(serverName, 9090, -1, this);
 		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
-		this.gamehandler = gamehandler;
 		setUpMethodMappings();
 	}
 	public void initLevel(Map<Long, List<Player>> playerMapping) {
@@ -218,8 +231,14 @@ public class GameEngineUI implements UDPHandler{
 	private Node makeToolbar() {
 		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent,
 				event -> mute(), event -> saveGame());
-		return toolbar.getToolbar();
+		toolbarHBox = toolbar.getToolbar();
+		return toolbarHBox;
 	}
+	
+	public Node getToolbar(){
+		return toolbarHBox;
+	}
+	
 	private Node makeHUD() {
 		myHUD = new HUD();
 		return myHUD.getHUD();
@@ -247,6 +266,7 @@ public class GameEngineUI implements UDPHandler{
 		myLevelFileLocation = levelFile.getAbsolutePath();
 	}
 	private void pause() {
+		System.out.println("pause button pressed in UI");
 		if (isPaused) {
 			toolbar.resume();
 			animation.play();
@@ -254,7 +274,7 @@ public class GameEngineUI implements UDPHandler{
 			toolbar.pause();
 			animation.stop();
 		}
-		gamehandler.pause();
+		clientMain.pause();
 		stopMusic();
 		isPaused = !isPaused;
 	}

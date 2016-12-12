@@ -82,22 +82,11 @@ public class ServerMain {
 	}
 
 	private void gameStateRefresher() {
-
 		timer = new Timer();
 		runTimer();
 	}
 	
 	public void pause(){
-		if(isPaused){
-			try {
-				timer.wait();
-			} catch (InterruptedException ex) {
-				System.out.println("Error in Pausing Timer.");
-			}
-		}
-		else{
-			runTimer();
-		}
 		isPaused = !isPaused;
 		
 	}
@@ -107,8 +96,10 @@ public class ServerMain {
 
 			@Override
 			public void run() {
+				if(!isPaused){
 				gameHandler.updateGame();
 				udpSend.sendGamePlay(gameHandler.getClientGame());
+				}
 			}
 
 		}, 0, REFRESH_GAP);

@@ -16,8 +16,7 @@ import javafx.scene.layout.BorderPane;
  */
 public class ErrorMessage {
 	
-	public static final Dimension DEFAULT_SIZE = new Dimension(1000, 700);
-	
+//	public static final Dimension DEFAULT_SIZE = new Dimension(1000, 700);
 	private Alert myAlert;
 	
 	public ErrorMessage() {
@@ -30,5 +29,4 @@ public class ErrorMessage {
 		myAlert.setContentText(errorMessage);
 		myAlert.showAndWait();
 	}
-
 }
