@@ -10,21 +10,10 @@ import objects.GameObject;
 public class ApplyBouncableRule {
 
     public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
-        boolean passableTop = obj.getProperty("onewaynonintersectable").equals("top");
-        boolean passableBottom = obj.getProperty("onewaynonintersectable").equals("bottom");
-
-        SingletonBoundaryChecker.IntersectionAmount intersectionAmountY = SingletonBoundaryChecker.getInstance().getVerticalIntersectionAmount(mainChar, obj);
-
-        //Difficult to read but basically saying, apply blockage if you're trying to hit from top or bottom depending on status of platform/passability of platform
-        if((((intersectionAmountY == SingletonBoundaryChecker.IntersectionAmount.COMPLETELY_INSIDE_Y) || (intersectionAmountY == SingletonBoundaryChecker.IntersectionAmount.PARTIALLY_ABOVE)) && passableTop)
-                || (((intersectionAmountY == SingletonBoundaryChecker.IntersectionAmount.COMPLETELY_INSIDE_Y) || (intersectionAmountY == SingletonBoundaryChecker.IntersectionAmount.PARTIALLY_BELOW)) && passableBottom))
-        {
             String jumpVelocity = obj.getProperty("bounce");
-            if(jumpVelocity!=null){
+            if(jumpVelocity!=null && Double.parseDouble(mainChar.getProperty("fallspeed")) > 0){
                 mainChar.setProperty("fallspeed", "-" + jumpVelocity);
             }
-        }
-
     }
 
 }

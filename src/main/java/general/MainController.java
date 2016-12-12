@@ -127,7 +127,6 @@ public class MainController {
         
         //UNCOMMENT BELOW FOR DEM SPICY DOODLE JUMPZ
         HashMap<String,String> DoodleJumpProperties = new HashMap<String,String>();
-        DoodleJumpProperties.put("onewaynonintersectable", "top");
         DoodleJumpProperties.put("bounce", "1000");
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
         RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);

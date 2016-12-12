@@ -12,5 +12,5 @@ public class ApplyDestructibleRule extends ApplyNonIntersectableRule {
     }
 }
 	
-}
+
 
