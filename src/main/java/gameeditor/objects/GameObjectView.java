@@ -33,6 +33,9 @@ public class GameObjectView {
 
     private double xDistanceFromCorner = 0;
     private double yDistanceFromCorner = 0;
+    
+    private double multiOriginX = 0;
+    private double multiOriginY = 0;
 
     private BoundingBox myBoundingBox;
 
@@ -100,7 +103,23 @@ public class GameObjectView {
         double newX = getX() + x - xDistanceFromCorner;
         double newY = getY() + y - yDistanceFromCorner;
         setLayout(newX, newY);
-        myBoundingBox.updateLayout();
+        if (myBoundingBox != null){
+            myBoundingBox.updateLayout();
+        }
+    }
+    
+    public void setMultiBoxOrigin(){
+    	multiOriginX = getX();
+    	multiOriginY = getY();
+    }
+    
+    public void handleMultiboxDrag(double deltaX, double deltaY){
+        double newX = multiOriginX + deltaX;
+        double newY = multiOriginY + deltaY;
+        setLayout(newX, newY);
+        if (myBoundingBox != null){
+            myBoundingBox.updateLayout();
+        }
     }
 
     public void initBound(){
