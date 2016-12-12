@@ -157,7 +157,7 @@ public class MovementManager implements ControlInterface{
 	
 	@Override
 	public void jump(GameObject obj, double speed) {
-        String jumpVelocity;
+        String jumpVelocity = null;
         if(obj.getProperty("jumponce") != null && obj.isOnPlatform()){
 			jumpVelocity = obj.getProperty("jumponce");
 			obj.setProperty("fallspeed", "-" + jumpVelocity);
@@ -165,6 +165,9 @@ public class MovementManager implements ControlInterface{
         	jumpVelocity = obj.getProperty("jumpunlimited");
 			obj.setProperty("fallspeed", "-" + jumpVelocity);
 		}
+    	if(jumpVelocity!=null){
+    		obj.setProperty("fallspeed", "-" + jumpVelocity);
+    	}
 	}
 
 	@Override
@@ -190,8 +193,7 @@ public class MovementManager implements ControlInterface{
             }
         }
 	}
-	
-	
+
 	private void setScrolling() throws ScrollTypeNotFoundException{
 		ScrollType gameScroll = currLevel.getScrollType();
 		String classPath = "gameengine.scrolling." + gameScroll.getScrollTypeName();
