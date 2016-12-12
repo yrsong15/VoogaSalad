@@ -43,28 +43,35 @@ public class GameEngineController implements CommandInterface {
 				}
 			};
 			serverThread.start();
+//			try {
+//				serverThread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		startClientGame(currentGame.getClientMappings());
 		return true;
 	}
 	public void startServerGame(Game currentGame) {
+		System.out.println("server");
+		System.out.println(toolbarHBox);
 		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
-		System.out.println("wwwwww");
 		if(toolbarHBox != null){
 			backend.setToolbarHBox(toolbarHBox);
 		}
 	}
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-
+		System.out.println("client");
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
+		toolbarHBox = gameEngineView.getToolbar();
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
 		gameEngineView.initLevel(playerMapping);
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
-		toolbarHBox = gameEngineView.getToolbar();
 	}
 
 	public Scene getScene() {
