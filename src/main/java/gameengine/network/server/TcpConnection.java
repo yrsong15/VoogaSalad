@@ -9,8 +9,8 @@ import java.net.Socket;
 
 import javax.xml.bind.JAXBException;
 
-import gameeditor.xml.XMLSerializer;
 import gameengine.network.ServerMessage;
+import xml.XMLSerializer;
 
 /**
  * This class establishes TCP connection and listens to client side
@@ -22,6 +22,7 @@ class TcpConnection implements Runnable{
 	private static final int SEND_COMMAND = 1;
 	private static final int GET_ID_IP_PORT = 2;
 	private static final int REMOVE_CHARACTER = 3;
+	private static final int PAUSE = 4;
 
 	private ServerMain main;
 	private Socket socket;
@@ -35,13 +36,10 @@ class TcpConnection implements Runnable{
 	
 	@Override
 	public void run() {
-		
 		try(ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 				ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream())){
-			
 			while(true){
 				String msg = (String)ois.readObject();
-				if(msg!=null) System.out.println(msg);
 				ServerMessage sm;
 				try {
 					sm = serializer.getServerMessageFromString(msg);
@@ -54,7 +52,7 @@ class TcpConnection implements Runnable{
 						oos.writeLong(main.getId());
 						break;
 					case SEND_COMMAND:
-						main.readCommand(sm.id,sm.command);
+						main.readCommand(sm.command,(int)sm.id,sm.charIdx);
 						break;
 					case GET_ID_IP_PORT: 
 						String ipString = socket.getInetAddress().getHostName();
@@ -64,6 +62,10 @@ class TcpConnection implements Runnable{
 						break;
 					case REMOVE_CHARACTER:
 						main.removeCharacter(sm.id);
+						break;
+					case PAUSE:
+						System.out.println("reached PAUSE in server TCP");
+						main.pause();
 						break;
 					default:
 						break;

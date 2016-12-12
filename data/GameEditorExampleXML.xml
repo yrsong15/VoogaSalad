@@ -1,85 +1,168 @@
 <objects.Game>
-  <name>Test Game</name>
-  <levels/>
-  <currentLevel>
-    <level>1</level>
-    <projectiles/>
-    <gameObjects>
-       <objects.GameObject>
-            <xPosition>0.0</xPosition>
-            <yPosition>600.0</yPosition>
-            <width>1000000.0</width>
-            <height>200.0</height>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>30</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
-           <objects.GameObject>
-            <xPosition>500.0</xPosition>
-            <yPosition>200.0</yPosition>
-            <width>200</width>
-            <height>25.0</height>
-            <imageFileName>platform.png</imageFileName>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>0</string>
-              </entry>
-               <entry>
-                <string>nonintersectable</string>
-                <string>true</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
-           <objects.GameObject>
-            <xPosition>100.0</xPosition>
-            <yPosition>200.0</yPosition>
-            <width>200</width>
-            <height>25.0</height>
-            <imageFileName>platform.png</imageFileName>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>0</string>
-              </entry>
-               <entry>
-                <string>onewaynonintersectable</string>
-<<<<<<< HEAD
-                <string>bottom</string>
-=======
-                <string>true</string>
->>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
-              </entry>
-            </properties>
-          </objects.GameObject>
-          <objects.GameObject>
-            <xPosition>500.0</xPosition>
-            <yPosition>150.0</yPosition>
-            <width>50</width>
-            <height>50</height>
-            <imageFileName>duvall.png</imageFileName>
-            <properties>
-              <entry>
-                <string>damage</string>
-                <string>0</string>
-              </entry>
-               <entry>
-                <string>enemy</string>
-                <string>true</string>
-              </entry>
-            </properties>
-          </objects.GameObject>
-    </gameObjects>
-    <obstacles/>
-    <winConditions/>
-    <loseConditions/>
-    <gameConditions/>
-    <randomGenerations/>
-    <backgroundFilePath>Background/bg.png</backgroundFilePath>
+    <name>Test Game</name>
+    <levels/>
+    <currentLevel>
+        <level>1</level>
+        <projectiles/>
+        <gameObjects>
+            <objects.GameObject>
+                <xPosition>0.0</xPosition>
+                <yPosition>600.0</yPosition>
+                <width>1000000.0</width>
+                <height>200.0</height>
+                <properties>
+                    <entry>
+                        <string>damage</string>
+                        <string>30</string>
+                    </entry>
+                </properties>
+            </objects.GameObject>
+            <objects.GameObject>
+                <xPosition>500.0</xPosition>
+                <yPosition>200.0</yPosition>
+                <width>200</width>
+                <height>25.0</height>
+                <imageFileName>platform.png</imageFileName>
+                <properties>
+                    <entry>
+                        <string>damage</string>
+                        <string>0</string>
+                    </entry>
+                    <entry>
+                        <string>nonintersectable</string>
+                        <string>true</string>
+                    </entry>
+                </properties>
+            </objects.GameObject>
+            <objects.GameObject>
+                <xPosition>100.0</xPosition>
+                <yPosition>200.0</yPosition>
+                <width>200</width>
+                <height>25.0</height>
+                <imageFileName>platform.png</imageFileName>
+                <properties>
+                    <entry>
+                        <string>damage</string>
+                        <string>0</string>
+                    </entry>
+                    <entry>
+                        <string>onewaynonintersectable</string>
+                        <string>bottom</string>
+                    </entry>
+                </properties>
+            </objects.GameObject>
+            <objects.GameObject>
+                <xPosition>500.0</xPosition>
+                <yPosition>150.0</yPosition>
+                <width>50</width>
+                <height>50</height>
+                <imageFileName>duvall.png</imageFileName>
+                <properties>
+                    <entry>
+                        <string>damage</string>
+                        <string>0</string>
+                    </entry>
+                    <entry>
+                        <string>enemy</string>
+                        <string>true</string>
+                    </entry>
+                </properties>
+            </objects.GameObject>
+        </gameObjects>
+        <obstacles/>
+        <winConditions/>
+        <loseConditions/>
+        <gameConditions/>
+        <randomGenerations/>
+        <backgroundFilePath>Background/bg.png</backgroundFilePath>
+        <players>
+            <objects.GameObject>
+                <xPosition>100.0</xPosition>
+                <yPosition>100.0</yPosition>
+                <width>100.0</width>
+                <height>100.0</height>
+                <imageFileName>bird3.png</imageFileName>
+                <properties>
+                    <entry>
+                        <string>movespeed</string>
+                        <string>30</string>
+                    </entry>
+                    <entry>
+                        <string>gravity</string>
+                        <string>0.8</string>
+                    </entry>
+                    <entry>
+                        <string>health</string>
+                        <string>10</string>
+                    </entry>
+                    <entry>
+                        <string>jump</string>
+                        <string>400</string>
+                    </entry>
+                </properties>
+                <xDistanceMoved>0.0</xDistanceMoved>
+                <yDistanceMoved>0.0</yDistanceMoved>
+                <isPlayer>true</isPlayer>
+                <projectileProperties>
+                    <imageFileName>duvall.png</imageFileName>
+                    <width>30</width>
+                    <height>30</height>
+                    <direction>RIGHT</direction>
+                    <range>500.0</range>
+                    <speed>30.0</speed>
+                    <damage>20.0</damage>
+                </projectileProperties>
+            </objects.GameObject>
+        </players>
+        <scrollType>
+            <myScrollTypeName>FreeScrolling</myScrollTypeName>
+            <myScrollDirectionList>
+                <com.sun.javafx.scene.traversal.Direction>LEFT</com.sun.javafx.scene.traversal.Direction>
+            </myScrollDirectionList>
+            <scrollSpeed>30.0</scrollSpeed>
+            <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
+                <viewWidth>700.0</viewWidth>
+                <viewHeight>675.0</viewHeight>
+                <worldWidth>700.0</worldWidth>
+                <worldHeight>675.0</worldHeight>
+            </gameBoundaries>
+        </scrollType>
+    </currentLevel>
     <players>
+<<<<<<< HEAD
+        <objects.Player>
+            <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
+            <projectileProperties>
+                <imageFileName>duvall.png</imageFileName>
+                <width>30</width>
+                <height>30</height>
+                <direction>RIGHT</direction>
+                <range>500.0</range>
+                <speed>30.0</speed>
+                <damage>20.0</damage>
+            </projectileProperties>
+            <controls>
+                <entry>
+                    <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+                    <string>shoot</string>
+                </entry>
+                <entry>
+                    <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
+                    <string>jump</string>
+                </entry>
+                <entry>
+                    <javafx.scene.input.KeyCode>D</javafx.scene.input.KeyCode>
+                    <string>right</string>
+                </entry>
+                <entry>
+                    <javafx.scene.input.KeyCode>A</javafx.scene.input.KeyCode>
+                    <string>left</string>
+                </entry>
+            </controls>
+        </objects.Player>
+    </players>
+</objects.Game>
+=======
       <objects.GameObject>
         <xPosition>100.0</xPosition>
         <yPosition>100.0</yPosition>
@@ -106,9 +189,6 @@
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
         <yDistanceMoved>0.0</yDistanceMoved>
-<<<<<<< HEAD
-=======
-        <isPlayer>true</isPlayer>
         <projectileProperties>
 	        <imageFileName>duvall.png</imageFileName>
 	        <width>30</width>
@@ -117,18 +197,13 @@
 	        <range>500.0</range>
 	        <speed>30.0</speed>
 	        <damage>20.0</damage>
-      	</projectileProperties>
->>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
+          </projectileProperties>
       </objects.GameObject>
     </players>
     <scrollType>
       <myScrollTypeName>FreeScrolling</myScrollTypeName>
       <myScrollDirectionList>
-<<<<<<< HEAD
-        <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
-=======
         <com.sun.javafx.scene.traversal.Direction>LEFT</com.sun.javafx.scene.traversal.Direction>
->>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
       </myScrollDirectionList>
       <scrollSpeed>30.0</scrollSpeed>
       <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
@@ -140,18 +215,6 @@
   <players>
     <objects.Player>
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
-<<<<<<< HEAD
-      <projectileProperties>
-        <imageFileName>duvall.png</imageFileName>
-        <width>30</width>
-        <height>30</height>
-        <direction>RIGHT</direction>
-        <range>500.0</range>
-        <speed>30.0</speed>
-        <damage>20.0</damage>
-      </projectileProperties>
-=======
->>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
       <controls>
         <entry>
           <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
@@ -172,8 +235,6 @@
       </controls>
     </objects.Player>
   </players>
-<<<<<<< HEAD
 </objects.Game>
-=======
-</objects.Game>
->>>>>>> 375b21238c5648174731f58d886ac3721116ad8b
+
+>>>>>>> bbb5f8a7eeac0e7da002fb44b4496a0a7da27b8e

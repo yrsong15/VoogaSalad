@@ -1,5 +1,4 @@
 package gameengine.model;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ import objects.Level;
 import objects.RandomGeneration;
 import gameengine.controller.interfaces.*;
 import gameengine.view.GameScreen;
-
-
 public abstract class RandomGenFrame<T> {
 
 	private static final double enemySize = 50;
@@ -26,12 +23,11 @@ public abstract class RandomGenFrame<T> {
     
     public abstract void possiblyGenerateNewFrame (RandomGeneration<Integer> randomGenRules);
     public abstract void setNewFirstBenchmark(GameObject object);
-	public abstract double calculateY(int margin, RandomGeneration<Integer> elem, double buffer);
-	public abstract int calculateMargin(RandomGeneration<Integer> elem);
-	public abstract double calculateX(int margin, RandomGeneration<Integer> elem, double buffer);
-
+    public abstract double calculateY(int margin, RandomGeneration<Integer> elem, double buffer);
+    public abstract int calculateMargin(RandomGeneration<Integer> elem);
+    public abstract double calculateX(int margin, RandomGeneration<Integer> elem, double buffer);
     public ArrayList<RandomGeneration<Integer>> getRandomGenerationRules(){
-    	return this.randomGenRules;
+        return this.randomGenRules;
     }
     
 	protected void generateNewFrameAndSetBenchmark(Level level) {
@@ -70,5 +66,4 @@ public abstract class RandomGenFrame<T> {
         setNewFirstBenchmark(object);
         return object;
     }
-  
 }

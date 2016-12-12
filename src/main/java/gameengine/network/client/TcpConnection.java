@@ -8,8 +8,8 @@ import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
-import gameeditor.xml.XMLSerializer;
 import gameengine.network.ServerMessage;
+import xml.XMLSerializer;
 
 class TcpConnection {
 
@@ -17,6 +17,7 @@ class TcpConnection {
 	private static final int SEND_COMMAND = 1;
 	private static final int GET_ID_IP_PORT = 2;
 	private static final int REMOVE_CHARACTER = 3;
+	private static final int PAUSE = 4;
 	
 	private final int SERVER_PORT_TCP;
 	
@@ -27,6 +28,7 @@ class TcpConnection {
 	private XMLSerializer serializer;
 	
 	private Socket socket;
+	private long ID;
 
 	TcpConnection(ClientMain main, String ip, int port) {
 		
@@ -49,8 +51,8 @@ class TcpConnection {
 			ServerMessage sm = new ServerMessage(GET_ID);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
-			
-			return ois.readLong();
+			ID = ois.readLong();
+			return ID;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -58,16 +60,31 @@ class TcpConnection {
 	}
 	
 	/** Sends data about the main character to server. Velocity, etc. */
-	void sendCommand(String command) {
+	void sendCommand(String command, int charIdx) {
 		try {
 			ServerMessage sm = new ServerMessage(SEND_COMMAND);
 			sm.setCommand(command);
+			sm.setCharIdx(charIdx);
+			sm.setId(ID);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			oos.reset();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	void sendPauseCommand(){
+		try {
+			ServerMessage sm = new ServerMessage(PAUSE);
+			String data = serializer.serializeServerMessage(sm);
+			oos.writeObject(data);
+			System.out.println("data written in client TCP");
+			oos.reset();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
 	}
 	
 	/** Sends IP and port of Udp connection **/

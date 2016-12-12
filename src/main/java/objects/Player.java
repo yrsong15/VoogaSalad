@@ -13,6 +13,8 @@ public class Player {
         controls = new HashMap<>();
         this.mainChar = mainChar;
         this.mainChar.setIsPlayer(true);
+        this.mainChar.setXDistanceMoved(this.getMainChar().getXPosition());
+        this.mainChar.setYDistanceMoved(this.getMainChar().getYPosition());
     }
     public void setControl(KeyCode key, String action) {
         controls.put(key, action);

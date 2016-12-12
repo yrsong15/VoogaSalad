@@ -14,8 +14,9 @@ public class ProjectileProperties {
     private double range;
     private double speed;
     private double damage;
+    private double timeBetweenShots;
 
-    public ProjectileProperties(String imageFileName, int width, int height, Direction direction, double range, double speed, double damage){
+    public ProjectileProperties(String imageFileName, int width, int height, Direction direction, double range, double speed, double damage, double timeBetweenShots){
         this.imageFileName = imageFileName;
         this.width = width;
         this.height = height;
@@ -23,8 +24,16 @@ public class ProjectileProperties {
         this.range = range;
         this.speed = speed;
         this.damage = damage;
+        this.timeBetweenShots = timeBetweenShots;
     }
 
+    public double getTimeBetweenShots() {
+        return timeBetweenShots;
+    }
+
+    public void setTimeBetweenShots(double timeBetweenShots) {
+        this.timeBetweenShots = timeBetweenShots;
+    }
 
     public String getImageFileName() {
         return imageFileName;

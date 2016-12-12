@@ -24,18 +24,35 @@ public class GameObject {
     private ProjectileProperties projectileProperties;
     private boolean isPlayer;
     private Direction direction;
-    public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
+    private int id;
+
+    public GameObject(int id, double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
-        this(xPosition, yPosition, width, height, properties);
+        this(id, xPosition, yPosition, width, height, properties);
         this.imageFileName = imageFileName;
     }
-    public GameObject(double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
+
+    public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
+                      Map<String, String> properties) {
+        this(0, xPosition, yPosition, width, height, properties);
+        this.imageFileName = imageFileName;
+    }
+
+    public GameObject(int id, double xPosition, double yPosition, double width, double height, Map<String, String> properties) {
+        this.id = id;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
         this.properties = properties;
-        this.direction = Direction.RIGHT;
+    }
+
+    public int getID(){
+        return id;
+    }
+
+    public void setID(int id){
+        this.id = id;
     }
 
     public void setDirection(Direction direction){
@@ -44,6 +61,7 @@ public class GameObject {
     public Direction getDirection(){
         return direction;
     }
+
     public String getProperty(String propertyName) {
         String val = properties.get(propertyName);
         return val;
@@ -70,6 +88,7 @@ public class GameObject {
         boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
         boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <= (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >= (platformCharacterIsOn.getYPosition())));        this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
     }
+
     public void setProperty(String propertyName, String propertyValue) {
         properties.put(propertyName, propertyValue);
     }
