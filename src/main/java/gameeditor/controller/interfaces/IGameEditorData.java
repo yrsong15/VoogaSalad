@@ -29,8 +29,6 @@ public interface IGameEditorData {
     // Controls Methods
     public void addControl(KeyCode key, String value);
 
-    // Add Game Object to Level
-    public void addGameObjectToLevel(Map<String,String> myGameObjects);
 
     public void addMainCharacterImage(String imageFilePath);
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties);

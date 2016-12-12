@@ -140,7 +140,7 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         mySelectLabel.setText(myType);
     }
 
-    protected void createProperties(){
+    protected void createRandomGenProperties(){
         for (String label : myRandomGenerationParameters){           
             Label labl = createPropertyLbl(label);
             TextArea input= createInputField("0");
@@ -153,7 +153,7 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
 
     private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
         
-        System.out.println("Comes Here " );
+
         //		if (kc == KeyCode.BACK_SPACE){
         if (field.getText().length() < label.length() && kc.isDigitKey()){
             field.setText(label + character);

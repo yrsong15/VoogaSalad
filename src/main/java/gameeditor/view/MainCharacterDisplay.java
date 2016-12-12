@@ -1,7 +1,6 @@
 package gameeditor.view;
 
 import java.util.ArrayList;
-
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
@@ -107,7 +106,7 @@ public class MainCharacterDisplay {
         myButton.setText("Main Character Properties");
         myButton.setMinWidth(BUTTON_WIDTH); myButton.setMaxWidth(BUTTON_WIDTH);
         myButton.setMinHeight(BUTTON_HEIGHT); myButton.setMaxHeight(BUTTON_HEIGHT);
-        myButton.setOnAction((e) -> {handleButton();});
+        myButton.setOnMouseClicked((e) -> {handleButton();});
     }
 
     private void update(){
