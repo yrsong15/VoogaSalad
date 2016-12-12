@@ -1,8 +1,11 @@
 package gameengine.view;
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.network.server.ServerMain;
+import gameengine.view.onscreenbuttons.ResetButton;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -19,6 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
  * @author Noel Moon (nm142)
  *
@@ -31,10 +35,13 @@ public class GameScreen {
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
     private List<Rectangle> barList;
+    private ResetButton resetButton;
     
-    public GameScreen() {
+    public GameScreen(EventHandler<? super MouseEvent> resetEvent) {
         myScreen = new Pane();
         myScreen.setMaxSize(screenWidth, screenHeight);
+        this.resetButton = new ResetButton(resetEvent);
+        myScreen.getChildren().add(resetButton.getButton());
         gameObjectImageViewMap = new HashMap<>();
         barList = new ArrayList<Rectangle>();
     }
@@ -87,11 +94,13 @@ public class GameScreen {
                 it.remove();
             }
         }
+        resetButton.getButton().toFront();
     }
 
     public void reset() {
         gameObjectImageViewMap.clear();
         myScreen.getChildren().clear();
+        myScreen.getChildren().add(resetButton.getButton());
     }
 
     private void addGameObject(ClientGameObject object) {
