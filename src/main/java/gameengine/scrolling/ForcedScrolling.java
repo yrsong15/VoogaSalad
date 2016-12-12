@@ -22,7 +22,7 @@ public class ForcedScrolling implements Scrolling{
 	
 	public ForcedScrolling(Direction dir, double speed, double width, double height){
 		this.direction = dir;
-		this.scrollingSpeed = 2;
+		this.scrollingSpeed = speed;
 		this.screenWidth = width;
 		this.screenHeight = height;
 	}
