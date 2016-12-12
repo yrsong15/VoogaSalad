@@ -6,7 +6,10 @@ import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.objects.GameObjectView;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.layout.Pane;
-
+/**
+ * @author John Martin
+ *
+ */
 public interface IGridDesignArea extends IDesignArea {
     
     public void removeSpriteFromCell(Cell cell);

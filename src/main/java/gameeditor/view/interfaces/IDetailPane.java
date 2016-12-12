@@ -2,7 +2,11 @@ package gameeditor.view.interfaces;
 
 import gameeditor.objects.GameObjectView;
 import javafx.scene.layout.Pane;
-
+/**
+ * 
+ * @author John Martin
+ *
+ */
 public interface IDetailPane {
 	
     public void setAvatar(String  filePath);

@@ -1,7 +1,5 @@
 package gameeditor.controller.interfaces;
 
-import objects.GameObject;
-
 /**
  * 
  * @author Ray Song(ys101)

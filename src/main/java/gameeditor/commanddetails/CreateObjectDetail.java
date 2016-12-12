@@ -6,11 +6,17 @@ import java.util.Map;
 import gameeditor.objects.GameObjectView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-
+/**
+ * @author John Martin
+ *
+ */
 public class CreateObjectDetail extends AbstractCommandDetail {
-    private GameObjectView myGO;
+   
+	@SuppressWarnings("unused")
+	private GameObjectView myGO;
 
-    private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
+    @SuppressWarnings("unused")
+	private List<TextArea>myRandomGenerationList = new ArrayList<TextArea>();
     String[] myRandomGenerationParameters = DetailResources.RANDOM_GENERATION_PARAMETERS.getArrayResource();
 
     public CreateObjectDetail() {

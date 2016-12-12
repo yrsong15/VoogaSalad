@@ -16,13 +16,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import objects.ProjectileProperties;
-
+/**
+ * @author Pratiksha Sharma
+ *
+ */
 public class ProjectileDetail {
     private IGameEditorData myDataStore;
     private VBox myVBox;
     private DetailFrontEndUtil myDetailFrontEndUtil;
     private ImageDetail myImageDetail;
-    private String selectedType;
+    @SuppressWarnings("unused")
+	private String selectedType;
     private ArrayList<TextArea> myTextInputs;
     private ComboBox<String> projectileDirection;
     private ComboBox<String> myTypes;
@@ -59,7 +63,8 @@ public class ProjectileDetail {
         myVBox.getChildren().add(save);
     }
 
-    private void handleSave(){
+    @SuppressWarnings("unused")
+	private void handleSave(){
         Map<String,String> projectilePropertiesMap = new HashMap<String,String>();
         //        if(projectileDirection.getValue()!=null){ 
         //            projectilePropertiesMap.put(DetailResources.DIRECTION_KEY.getResource(),projectileDirection.getValue());

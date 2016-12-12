@@ -1,10 +1,12 @@
 package gameeditor.commanddetails;
-
+/**
+ * @author John Martin, Pratiksha Sharma
+ *
+ */
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
-import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.scene.control.ScrollPane;
 
 public interface IAbstractCommandDetail {

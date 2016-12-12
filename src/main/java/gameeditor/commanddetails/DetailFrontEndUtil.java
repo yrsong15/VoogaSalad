@@ -10,7 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-
+/**
+ * 
+ * @author Pratiksha Sharma
+ *
+ */
 public class DetailFrontEndUtil implements IDetailFrontEndUtil{
 
     public BorderPane createBorderpane(Node right, Node left){

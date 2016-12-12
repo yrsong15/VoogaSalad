@@ -1,11 +1,9 @@
 package gameeditor.rpg;
 
-import java.util.ArrayList;import java.util.List;
+import java.util.ArrayList;
 
-import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
 
-import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
@@ -22,15 +20,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
  * 
- * @author pratikshasharma, John Martin
+ * @author John Martin
  *
  */
 
@@ -104,9 +100,9 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
 
     private void handlePress(double x, double y){
     	Cell cell = findCell(x, y);
-//    	if (myKeyCode != KeyCode.SHIFT){
+    	if (myKeyCode != KeyCode.SHIFT){
 //        	resetCells();
-//    	}
+    	}
     	if (clickEnabled){
     		myClickCell = cell;
     		startX = x;
@@ -176,7 +172,8 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
         myKeyCode = null;
     }
     
-    private void resetCells(){
+    @SuppressWarnings("unused")
+	private void resetCells(){
     	for (Cell cell : mySelectedCells){
     		cell.resetColor();
     	}

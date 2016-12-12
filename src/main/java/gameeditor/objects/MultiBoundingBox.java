@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * @author John Martin
+ *
+ */
 public class MultiBoundingBox {
 	
 	private ArrayList<GameObjectView> mySprites = new ArrayList<GameObjectView>();
@@ -17,9 +20,6 @@ public class MultiBoundingBox {
 	private double minY = 0;
 	private double maxX = 0;
 	private double maxY = 0;
-	
-	private double xDistanceFromCorner = 0;
-	private double yDistanceFromCorner = 0;
 	
 	private double myPressX = 0;
 	private double myPressY = 0;

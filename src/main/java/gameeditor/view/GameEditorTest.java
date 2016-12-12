@@ -5,7 +5,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * 
+ * @author John Martin
  * Test class for GameEditor
+ * Currently deprecated due to progress in Main Controller. 
+ * Under review for reimplementation.
+ * 
  */
 public class GameEditorTest extends Application {
     

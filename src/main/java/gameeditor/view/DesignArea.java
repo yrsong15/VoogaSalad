@@ -1,12 +1,9 @@
 package gameeditor.view;
 import java.util.ArrayList;
-import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
-import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
-import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IGameEditorView;
 import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.collections.ObservableList;
@@ -26,7 +23,7 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * 
- * @author pratikshasharma, John Martin
+ * @author John Martin
  *
  */
 
