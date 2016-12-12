@@ -68,8 +68,6 @@ public class MainController {
         Player player4 = new Player(fourthShyGuy);
         game.addPlayerToClient(0, player1);
         game.addPlayerToClient(1, player2);
-//        game.addPlayer(player3);
-//        game.addPlayer(player4);
         firstShyGuy.setProperty("jumponce", "400");
         secondShyGuy.setProperty("jumponce", "400");
         thirdShyGuy.setProperty("jumponce", "400");
