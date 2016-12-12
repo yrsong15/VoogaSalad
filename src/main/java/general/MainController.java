@@ -120,7 +120,6 @@ public class MainController {
     }
 
     public void startPlaying(){
-
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());

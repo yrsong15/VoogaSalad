@@ -17,7 +17,6 @@ import java.util.List;
  * Created by Soravit on 12/11/2016.
  */
 public class GameExamples{
-
     public String getDoodleJumpXML(){
         Game game = new Game("Doodle Jump");
         GameObject shyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());

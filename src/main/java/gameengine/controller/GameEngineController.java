@@ -22,7 +22,6 @@ public class GameEngineController implements CommandInterface {
 	private GameEngineBackend backend;
 	private boolean hostGame;
 	private String serverName;
-	private boolean serverStarted;
 	private Node toolbarHBox;
 
 	public GameEngineController() {
@@ -51,6 +50,7 @@ public class GameEngineController implements CommandInterface {
 		return true;
 	}
 	public void startServerGame(Game currentGame) {
+		this.currentGame = currentGame;
 		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
 		if(toolbarHBox != null){
