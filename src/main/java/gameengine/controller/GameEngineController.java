@@ -23,11 +23,14 @@ public class GameEngineController implements CommandInterface {
 	private GameEngineBackend backend;
 	private boolean hostGame;
 	private String serverName;
+	private boolean serverStarted;
 
 	public GameEngineController() {
+		serverStarted = false;
 		this.hostGame = true;
 		serverName = "localhost";
 		serializer = new XMLSerializer();
+		backend = new GameEngineBackend(serverName);
 	}
 
 	public boolean startGame(String xmlData) {
@@ -47,17 +50,21 @@ public class GameEngineController implements CommandInterface {
 			};
 			serverThread.start();
 		}
+		while(!serverStarted){
+			//staller
+			System.out.print("");
+		}
 		startClientGame(currentGame.getClientMappings());
 		return true;
 	}
 
 	public void startServerGame(Game currentGame) {
-		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
+		serverStarted = true;
 	}
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), backend, serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
