@@ -60,9 +60,9 @@ public class EditorToolbar implements IEditorToolbar {
             myImageView.setLayoutX(imageXOffset);
             myImageView.setLayoutY(BUTTON_IMAGE_YOFFSET);
             Tooltip.install(myImageView, tooltip);
-            //myImageView.setOnMouseClicked(handler);
-            myImageView.setOnMousePressed(handler);
-            myImageView.setOnMouseReleased(null);
+            myImageView.setOnMouseClicked(handler);
+            //myImageView.setOnMousePressed(handler);
+            //myImageView.setOnMouseReleased(null);
             myPane.getChildren().add(myImageView);
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block

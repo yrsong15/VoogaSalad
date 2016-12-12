@@ -45,7 +45,7 @@ public class ProjectileDetail {
     public VBox getTabContent(){
         myVBox = new VBox();
         myVBox.setSpacing(IAbstractCommandDetail.MY_DETAIL_PADDING);
-        myVBox.setAlignment(Pos.CENTER);
+        myVBox.setAlignment(Pos.BASELINE_CENTER);
         createSpriteTypesCombo();
         addProperties();
         return myVBox;
@@ -88,11 +88,9 @@ public class ProjectileDetail {
             double range = Double.valueOf(getText(myTextInputs.get(2)));
             double speed = Double.valueOf(getText(myTextInputs.get(3)));
             double damage = Double.valueOf(getText(myTextInputs.get(4)));
+            double timeBetweenShots = Double.valueOf(getText(myTextInputs.get(4)));
             String type = myTypes.getValue();
-            System.out.println(type.equals(null));
-            System.out.println(" Type " + type);
-            System.out.println(type.isEmpty());
-            ProjectileProperties property = new ProjectileProperties(myImageFile,width,height,direction,range,speed,damage, 5); //TODO: currently hardcoded last value with 5; should change
+            ProjectileProperties property = new ProjectileProperties(myImageFile,width,height,direction,range,speed,damage,timeBetweenShots);
             myDataStore.addProjectileProperties(type, property);
             
         }catch(RuntimeException e){

@@ -220,7 +220,6 @@ public class MainCharacterDisplay {
     private ImageView createAvatarView(String filePath, Rectangle avZone){
         Image newAvatar = new Image(filePath);
         String file = filePath.substring(filePath.lastIndexOf("/") +1);
-        myDataStore.addMainCharacterImage(file);
         double fitWidth = avZone.getWidth() - PADDING;
         double fitHeight = avZone.getHeight() - PADDING;
         double widthRatio = fitWidth/newAvatar.getWidth();

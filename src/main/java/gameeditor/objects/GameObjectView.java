@@ -136,6 +136,7 @@ public class GameObjectView {
 
     public void removeSelf(){
         myDesignArea.removeSprite(this);
+        myDataStore.removeGameobjectView(this.getImageView().toString());
     }
 
     public ImageView getImageView(){
@@ -188,9 +189,9 @@ public class GameObjectView {
             }
             addCommonValuesToMap(mainCharMap); 
         } else{
-            Map<String, String> typeMap = myDataStore.getViewMap(myImageView.toString());
+            Map<String, String> typeMap = myDataStore.getSpriteViewMapByImageView(myImageView.toString());
             if(typeMap==null){
-                typeMap = myDataStore.createViewMap(myType, myImageView.toString());
+                typeMap = myDataStore.getSpriteViewMapByType(myType, myImageView.toString());
                 myDataStore.storeImageViewMap(typeMap);
             } 
             addCommonValuesToMap(typeMap);

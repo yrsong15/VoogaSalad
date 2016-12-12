@@ -90,7 +90,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 //        }
 //
 //    }
-//=======
 ////    private void addSprites(){
 ////        if(myLevelSettings.getAllGameObjects().size()>0){
 ////            for(GameObject object: myLevelSettings.getGameObjects()){
@@ -102,7 +101,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 ////            }
 ////        }
 ////    }
-//>>>>>>> bbb5f8a7eeac0e7da002fb44b4496a0a7da27b8e
+
     
     private HBox createLeftAlt(){
         myDataStoreInterface = new GameEditorData(myLevelSettings, myGameInterface);
@@ -117,7 +116,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     private VBox createCenter(){
         myCenterBox = new VBox();
-        System.out.println("Uno");
         if (myGameType.equals("Scrolling")){
             myDesignArea = new DesignArea();
         } else if (myGameType.equals("RPG")){
@@ -205,8 +203,9 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             //myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
        // }
         // add Game Objects to level
-        myDataStoreInterface.addGameObjectsToLevel();
         myDataStoreInterface.storeMainCharToXML();
+        myDataStoreInterface.addGameObjectsToLevel();
+        
         closeLevelWindow.set(true);
     }
 

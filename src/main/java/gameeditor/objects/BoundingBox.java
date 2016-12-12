@@ -101,8 +101,6 @@ public class BoundingBox {
 	public void updateDimensions(){
 		double spriteWidth = mySprite.getWidth();
 		double spriteHeight = mySprite.getHeight();
-		System.out.println("Width " + spriteWidth);
-		System.out.println("Height " + spriteHeight);
 		myBounds.setWidth(spriteWidth);
 		myBounds.setHeight(spriteHeight);
 		double boundsX = myBounds.getX();
