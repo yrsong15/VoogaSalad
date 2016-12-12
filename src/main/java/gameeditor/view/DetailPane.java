@@ -25,6 +25,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private IGameEditorData myDataStore;
     private IDesignArea myDesignArea;
     private MainCharacterDisplay myAvatarDisplay;
+    private String myLastPaneType;
 
     public DetailPane(IDesignArea da, IGameEditorData dataStore) {
     	myDesignArea = da;
@@ -47,6 +48,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
     @Override
     public void setDetail(String paneType) {
+        myLastPaneType = paneType;
         String className = "gameeditor.commanddetails." + paneType + "Detail";
         myPane.getChildren().remove(myDetailPane);
         AbstractCommandDetail detailPane = new DetailFactory().create(className, myDataStore, myDesignArea, this);
@@ -63,5 +65,15 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     @Override
     public GameObjectView getCurrentAvatar(){
     	return myAvatarDisplay.getCurrentMain();
+    }
+    
+    @Override
+    public String getLastPaneType(){
+        return myLastPaneType;
+    }
+    
+    @Override
+    public void updateDetail(){
+        setDetail(myLastPaneType);
     }
 }

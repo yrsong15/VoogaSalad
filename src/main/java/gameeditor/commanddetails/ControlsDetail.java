@@ -1,8 +1,8 @@
 package gameeditor.commanddetails;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import gameeditor.view.interfaces.IStandardDesignArea;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -42,8 +42,7 @@ public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
     public void initLevel2 (GameObjectView sprite) {
         myGO = sprite;
         myImageViewString = myGO.getImageView().toString();
-        myMainCharMap = myDataStore.getMainCharMap(myImageViewString);  
-        
+        myMainCharMap = myDataStore.getMainCharMap(myImageViewString);       
     }
 
     private void createSave(){
@@ -53,14 +52,21 @@ public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
 
     private void handleSave(){
         ResourceBundle controlProps =  ResourceBundle.getBundle("Controls");
+        Map<KeyCode,String> controlMap = new HashMap<KeyCode,String>();
         for (int i = 0; i < myComboBoxes.size(); i++){
             String controlKey = myComboBoxes.get(i).getValue();
             String kcString = myInputFields.get(i).getText();
             if ( controlKey != null && kcString != null && kcString !="Input" && !kcString.isEmpty()){
                 KeyCode kc = KeyCode.valueOf(kcString);
-                myDataStore.addControl(kc, controlProps.getString(controlKey.toLowerCase()));
+                controlMap.put(kc, controlProps.getString(controlKey.toLowerCase()));
+               
             }
         }
+        
+        // Store in the DataStore
+       String typeName = myMainCharMap.get(DetailResources.TYPE_NAME.getResource());
+       myDataStore.addControls(typeName, controlMap);
+        
     }
 
     private void createSelectDirectionsControl(String label, String[] optionsArray, String comboDefault){

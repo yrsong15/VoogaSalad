@@ -67,7 +67,9 @@ public class GameObjectView {
         myImageHeight = myOriginalImageHeight*myRatio;
         myImageView.setFitWidth(myImageWidth);
         myImageView.setFitHeight(myImageHeight);
+        
         storeDimensionData();
+
     }
 
     public GameObjectView (GameObjectView sprite, double x, double y) {

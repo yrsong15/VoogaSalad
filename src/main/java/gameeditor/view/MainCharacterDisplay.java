@@ -115,6 +115,10 @@ public class MainCharacterDisplay {
         createLeft();
         createRight();
         myCurrentAvatar = myAvatarGOVs.get(myCurrentChar);
+        myDesignArea.initSelectDetail2(myCurrentAvatar);
+        if (myDetailPane.getLastPaneType() != null && myDetailPane.getLastPaneType().equals("Controls")){
+            myDetailPane.updateDetail();
+        }
     }
 
     private void init(){
@@ -230,6 +234,7 @@ public class MainCharacterDisplay {
         double playerX = DEFAULT_PLAYER_X + myTotalChars*(10+DEFAULT_PLAYER_WIDTH);
         double playerY = DEFAULT_PLAYER_Y - endHeight/2;
         GameObjectView newAvatarGOV = new GameObjectView(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, DetailResources.MAIN_CHARACTER_TYPE.getResource() + myAvatarGOVs.size(), true, myDesignArea, myDataStore);
+        
         myAvatarGOVs.add(newAvatarGOV);
         myDesignArea.addAvatar(newAvatarGOV);
         return avView;

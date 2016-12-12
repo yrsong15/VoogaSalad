@@ -6,6 +6,7 @@ import java.util.Map;
 import gameengine.model.boundary.BasicBoundary;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
+import objects.ProjectileProperties;
 import objects.ScrollType;
 /**
  *  To be used by the front end components to send data to the back end controller
@@ -57,6 +58,8 @@ public interface IGameEditorData {
     public void storeMainCharToXML();
     
     public ArrayList<String> getMainCharacterTypes();
-    public void addProjectileProperties(String typeName, Map<String,String> myMap);
+    public void addProjectileProperties(String typeName, ProjectileProperties properties);
+    
+    public void addControls(String typeName, Map<KeyCode,String> controlMap);
 }
 

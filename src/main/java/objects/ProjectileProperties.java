@@ -6,14 +6,14 @@ import com.sun.javafx.scene.traversal.Direction;
  */
 public class ProjectileProperties {
     String imageFileName;
-    private int width;
-    private int height;
+    private double width;
+    private double height;
     private Direction direction;
     private double range;
     private double speed;
     private double damage;
 
-    public ProjectileProperties(String imageFileName, int width, int height, Direction direction, double range, double speed, double damage){
+    public ProjectileProperties(String imageFileName, double width, double height, Direction direction, double range, double speed, double damage){
         this.imageFileName = imageFileName;
         this.width = width;
         this.height = height;
@@ -27,11 +27,11 @@ public class ProjectileProperties {
         return imageFileName;
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
