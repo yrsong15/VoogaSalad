@@ -65,8 +65,9 @@ public class DesignArea implements IStandardDesignArea {
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myPane = new Pane();
-        myPane.setMinWidth(AREA_WIDTH);
-        myPane.setMinWidth(AREA_HEIGHT);
+        myPane.setLayoutX(0);
+        myPane.setLayoutY(0);
+        myPane.setMinSize(AREA_WIDTH, AREA_HEIGHT);
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
         myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
@@ -77,12 +78,12 @@ public class DesignArea implements IStandardDesignArea {
         GameObjectView sprite = checkForSprite(x, y);
         resetPress(x, y);
         if (checkForMultibox(x, y)){
-        	
         } else if (myKeyCode == KeyCode.ALT && sprite != null){
             sprite.initBound();
             sprite.setOn(x, y);
             mySelectedSprite = sprite;
             myDuplicateSprite = new GameObjectView(sprite, x, y);
+            this.addSprite(myDuplicateSprite);
         } else if (clickEnabled && sprite != null){
             sprite.initBound();
             sprite.setOn(x, y);
@@ -257,6 +258,7 @@ public class DesignArea implements IStandardDesignArea {
     public void addAvatar(GameObjectView gov) {
         myAvatars.add(gov);
         mySprites.add(gov);
+        myPane.getChildren().add(gov.getImageView());
     }
 
     @Override
@@ -286,7 +288,6 @@ public class DesignArea implements IStandardDesignArea {
     	} else {
     		Rectangle test = new Rectangle(x, y, 1, 1);
         	boolean check = test.getBoundsInParent().intersects(myMultiBoundingBox.getBound().getBoundsInParent());
-        	System.out.println(check);
         	return check;
     	}
     }

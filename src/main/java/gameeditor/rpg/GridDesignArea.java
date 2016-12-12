@@ -47,7 +47,9 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
     private CellGrid myCellGrid;
     private ArrayList<Cell> myCells = new ArrayList<Cell>();
     private Cell myHoverCell;
+    private Cell myClickCell;
     private ArrayList<Cell> mySelectedCells = new ArrayList<Cell>();
+    private ArrayList<Cell> myNewSelectedCells = new ArrayList<Cell>();
 
     private GameObjectView mySelectedSprite;
     private KeyCode myKeyCode;
@@ -73,8 +75,9 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myPane = new Pane();
-        myPane.setMinWidth(AREA_WIDTH);
-        myPane.setMinWidth(AREA_HEIGHT);
+        myPane.setLayoutX(0);
+        myPane.setLayoutY(0);
+        myPane.setMinSize(AREA_WIDTH, AREA_HEIGHT);
         myCellGrid = new CellGrid(0, 0, 40, (int) AREA_WIDTH/40, (int) AREA_HEIGHT/40, false, this);
         myCells = myCellGrid.getCells();
         for (Cell cell : myCells){
@@ -101,37 +104,48 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
 
     private void handlePress(double x, double y){
     	Cell cell = findCell(x, y);
-    	resetCells();
-    	if (clickEnabled && cell != null && mySelectedCells.contains(cell)){
-    		mySelectedCells.remove(cell);
-    		cell.resetColor();
-    	} else if (clickEnabled && cell != null && !mySelectedCells.contains(cell)){
-    		mySelectedCells.add(cell);
-    		cell.setColor();
-    	}
+//    	if (myKeyCode != KeyCode.SHIFT){
+//        	resetCells();
+//    	}
     	if (clickEnabled){
-            startX = x;
+    		myClickCell = cell;
+    		startX = x;
             startY = y;
             mySelectionArea = new Rectangle(x, y, 0, 0);
             mySelectionArea.setFill(Color.AQUAMARINE);
             mySelectionArea.setOpacity(0.1);
             myPane.getChildren().add(mySelectionArea);
-        }
-    	
+    	}
+    }
+    
+    private void invertSelection(Cell cell){
+    	if (cell != null && mySelectedCells.contains(cell)){
+    		mySelectedCells.remove(cell);
+    		myNewSelectedCells.add(cell);
+    		cell.resetColor();
+    	} else if (cell != null && !mySelectedCells.contains(cell)){
+    		mySelectedCells.add(cell);
+    		myNewSelectedCells.add(cell);
+    		cell.setColor();
+    	}
     }
 
     private void handleRelease(double x, double y) {
-    	// TODO Auto-generated method stub
+    	Cell myReleaseCell = findCell(x, y);
         if (dragged){
         	selectCells(startX, startY, endX, endY);
             myPane.getChildren().remove(mySelectionArea);
             mySelectionArea = null;
+        }
+        if (myClickCell == myReleaseCell && !myNewSelectedCells.contains(myClickCell)){
+        	invertSelection(myClickCell);
         }
         dragged = false;
         startX = -1;
         startY = -1;
         endX = 0;
         endY = 0;
+        myClickCell = null;
     }
 
     private void handleDrag(double x, double y) {
@@ -166,6 +180,7 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
     	for (Cell cell : mySelectedCells){
     		cell.resetColor();
     	}
+    	mySelectedCells.clear();
     }
     
     private Cell findCell(double x, double y){
@@ -249,8 +264,7 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
         Rectangle test = new Rectangle(minX, minY, maxX-minX, maxY-minY);
         for (Cell cell : myCells){
             if(test.getBoundsInParent().intersects(cell.getRect().getBoundsInParent())){
-                mySelectedCells.add(cell);
-                cell.setColor();
+                invertSelection(cell);
             }
         }
     }
