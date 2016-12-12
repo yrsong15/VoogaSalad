@@ -72,6 +72,9 @@ public class GameScreen {
         }
         else {
             addGameObject(obj);
+            Rectangle bar = new Rectangle(obj.getXPosition(), obj.getYPosition() - 8, obj.getWidth(), 10);
+            //myScreen.getChildren().add(bar);
+            //barList.add(bar);
         }
     }
     
@@ -88,13 +91,6 @@ public class GameScreen {
             Rectangle bar = new Rectangle(object.getXPosition(), object.getYPosition() - 8, object.getWidth(), 10);
             //myScreen.getChildren().add(bar);
             barList.add(bar);
-            if (gameObjectImageViewMap.containsKey(object.getID())) {
-                gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
-                        object.getYPosition());
-            }
-            else {
-                addGameObject(object);
-            }
         }
         for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
             int ID = it.next();
