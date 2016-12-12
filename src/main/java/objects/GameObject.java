@@ -154,6 +154,7 @@ public class GameObject {
         return isPlayer;
     }
     public void setIsPlayer(boolean value){
+        System.out.println(" boolean: " + value);
         isPlayer = value;
     }
     

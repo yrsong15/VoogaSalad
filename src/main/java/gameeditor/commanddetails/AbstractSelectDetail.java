@@ -8,6 +8,7 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -38,6 +39,7 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
 
 
     private String myType;
+    protected ComboBox<String>isEnemyAllowed;
 
     public AbstractSelectDetail() {
         super();
@@ -100,10 +102,10 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         typeMap.put(IGameEditorData.WIDTH_KEY,widthString.substring(WIDTH_LABEL.length()));
         typeMap.put(IGameEditorData.HEIGHT_KEY, heightString.substring(HEIGHT_LABEL.length()));
 
-
         String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
+        
         if(randomGen!=null && randomGen.equals("True")){ 
-            myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList);
+            myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed);
         }
     }
 
@@ -145,6 +147,12 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
     }
 
     protected void createRandomGenProperties(){
+        String [] options = DetailResources.LIMIT_DIMENSION_OPTIONS.getArrayResource();
+        isEnemyAllowed = myDetailFrontEndUtil.createComboBox(options, "True");
+        Label propertyLabel = myDetailFrontEndUtil.createPropertyLbl("Is Enemy Allowed");
+        BorderPane borderpane = myDetailFrontEndUtil.createBorderpane( isEnemyAllowed,propertyLabel);
+        myVBox.getChildren().add(borderpane);
+        
         for (String label : myRandomGenerationParameters){           
             Label labl =myDetailFrontEndUtil. createPropertyLbl(label);
             TextArea input= myDetailFrontEndUtil.createInputField("0");
@@ -156,8 +164,6 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
     }
 
     private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
-
-
         //		if (kc == KeyCode.BACK_SPACE){
         if (field.getText().length() < label.length() && kc.isDigitKey()){
             field.setText(label + character);

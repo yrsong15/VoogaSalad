@@ -14,7 +14,7 @@ public class ProjectileProperties {
     private double damage;
     private double timeBetweenShots;
 
-    public ProjectileProperties(String imageFileName, int width, int height, Direction direction, double range, double speed, double damage, double timeBetweenShots){
+    public ProjectileProperties(String imageFileName, double width, double height, Direction direction, double range, double speed, double damage, double timeBetweenShots){
         this.imageFileName = imageFileName;
         this.width = width;
         this.height = height;

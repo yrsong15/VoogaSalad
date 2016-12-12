@@ -52,18 +52,18 @@ public class MainController {
     }
     
     public void presentEditor(Game game) {
-		gameEditorController = new GameEditorController();
-		gameEditorController.startEditor(game);
-		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-	}
+                gameEditorController = new GameEditorController();
+                gameEditorController.startEditor(game);
+                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        }
 
 
-	public void presentEditor2(Game game, String gameType) {
-		System.out.println("hi");
-		gameEditorController = new GameEditorController(gameType);
-		gameEditorController.startEditor(game);
-		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-	}
+        public void presentEditor2(Game game, String gameType) {
+                System.out.println("hi");
+                gameEditorController = new GameEditorController(gameType);
+                gameEditorController.startEditor(game);
+                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        }
 
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY/
@@ -133,23 +133,23 @@ public class MainController {
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
     }
 
-	private void sendDataToEngine() {
-		String title = gameEditorController.getGameTitle();
-		String gameFile = gameEditorController.getGameFile();
-		addNewGameFile(title, gameFile);
-		launchEngine(gameFile);
-	}
+        private void sendDataToEngine() {
+                String title = gameEditorController.getGameTitle();
+                String gameFile = gameEditorController.getGameFile();
+                addNewGameFile(title, gameFile);
+                launchEngine(gameFile);
+        }
 
-	public void launchEngine(String XMLData) {
-		 XMLData = testGameEngine();
-		boolean multiplayer = true;
-		boolean isServer = false;
-		// if (gameEngineController.startGame(XMLData) == true && (!multiplayer
-		// || (multiplayer && !isServer))) {
-		if (gameEngineController.startGame(XMLData) == true) {
-			setUpGameEngineStage();
-		}
-	}
+        public void launchEngine(String XMLData) {
+                 XMLData = testGameEngine();
+                boolean multiplayer = true;
+                boolean isServer = false;
+                // if (gameEngineController.startGame(XMLData) == true && (!multiplayer
+                // || (multiplayer && !isServer))) {
+                if (gameEngineController.startGame(XMLData) == true) {
+                        setUpGameEngineStage();
+                }
+        }
 
     public void editGame() {
         FileOpener chooser = new FileOpener();

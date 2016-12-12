@@ -42,9 +42,11 @@ public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
 
     @Override
     public void initLevel2 (GameObjectView sprite) {
+        if(sprite!=null){
         myGO = sprite;
         myImageViewString = myGO.getImageView().toString();
-        myMainCharMap = myDataStore.getMainCharMap(myImageViewString);       
+        myMainCharMap = myDataStore.getMainCharMap(myImageViewString);  
+        }
     }
 
     private void createSave(){

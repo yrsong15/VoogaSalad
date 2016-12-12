@@ -200,4 +200,11 @@ public class Level implements ILevel{
     }
 
 	public String getTitle(){ return title; }
+
+
+    @Override
+    public void addRandomGeneration (RandomGeneration randomGeneration) {
+        // TODO Auto-generated method stub
+        
+    }
 }
