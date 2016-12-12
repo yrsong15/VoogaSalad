@@ -11,7 +11,6 @@ import gameengine.controller.GameEngineController;
 import gameengine.model.boundary.ScreenBoundary;
 import gameengine.model.RandomGenFrame;
 import gameengine.model.RandomGenFrameY;
->>>>>>> bc91b68c79b88474c12227dcd52e50698d7c99f1
 import gameengine.model.boundary.NoBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.Scene;
@@ -137,7 +136,7 @@ public class MainController {
         asdf.add(platforms);
         asdf.add(platforms2);
         asdf.add(platforms3);
-        RandomGenFrame frame = new RandomGenFrame(level,asdf);
+        RandomGenFrame frame = new RandomGenFrameY(level,asdf);
         level.setRandomGenerationFrame(frame);
         
         
