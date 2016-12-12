@@ -138,6 +138,7 @@ public class GameObjectView {
         myImageView.setFitWidth(myImageWidth);
         myImageView.setFitHeight(myImageHeight);
         updateDetails();
+        myBoundingBox.updateDimensions();
     }
 
     public void update(double x, double y, double width, double height){

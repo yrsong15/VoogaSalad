@@ -58,7 +58,7 @@ public class SpriteTypeButton {
         myDesignArea = da;
         myDataStore = dataStore;
         myPane.setOnMouseDragged((e) -> handlePaneDrag(e.getX(), e.getY(), e.getSceneX(), e.getSceneY()));
-        myPane.setOnMousePressed((e) -> handlePress());
+        myPane.setOnMousePressed((e) -> handlePress(e.getX(), e.getY(), e.getSceneX(), e.getSceneY()));
         myPane.setOnMouseReleased((e) -> handleRelease());
         setBGRect(width, height, 10);
         setImage(myImage);
@@ -123,7 +123,7 @@ public class SpriteTypeButton {
         }
     }
 
-    private void handlePress(){
+    private void handlePress(double x, double y, double sceneX, double sceneY){
         double padding = 5;
         double fitWidth = myBGRectangle.getWidth() - padding;
         double fitHeight = myBGRectangle.getHeight() - padding;
@@ -136,6 +136,8 @@ public class SpriteTypeButton {
         myTempImageView.setPreserveRatio(true);
         myTempImageView.setFitWidth(fitWidth);
         myTempImageView.setFitHeight(fitHeight);
+        myTempImageView.setLayoutX(sceneX - x - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource());
+        myTempImageView.setLayoutY(sceneY - y);
         myDetailPane.getPane().getChildren().add(myTempImageView);
     }
     
