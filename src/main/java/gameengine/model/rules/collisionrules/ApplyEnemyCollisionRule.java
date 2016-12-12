@@ -13,6 +13,7 @@ public class ApplyEnemyCollisionRule{
 			return;
 		}
 		takeDamage(handler,mainChar,obj);
+		
 	}
 	
 	protected void takeDamage(RuleActionHandler handler, GameObject mainChar, GameObject obj){
