@@ -1,14 +1,19 @@
 package gameeditor.commanddetails;
 
+import java.util.Locale;
 import frontend.util.ButtonTemplate;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 public class DetailFrontEndUtil implements IDetailFrontEndUtil{
+    private TextArea inputField;
+
     public BorderPane createBorderpane(Node right, Node left){
         BorderPane bp = new BorderPane();
         bp.setMinWidth(IAbstractCommandDetail.PADDED_PANE_WIDTH);
@@ -17,7 +22,7 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
         bp.setRight(right);
         return bp; 
     }
-    
+
     public ComboBox<String> createComboBox(String [] boxOptions, String defaultValue){
         ComboBox<String> cb = new ComboBox<String>();
         cb.getItems().addAll(boxOptions);
@@ -33,9 +38,46 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
         ButtonTemplate button = new ButtonTemplate(property);
         button.getButton().setMinHeight(IAbstractCommandDetail.CB_HEIGHT);
         button.getButton().setMinWidth(IAbstractCommandDetail.CB_WIDTH);
-       button.setOnButtonAction(handler);
+        button.setOnButtonAction(handler);
         return button.getButton();
     }
 
+    public TextArea createTypeName(){
+        TextArea myTypeTextArea = new TextArea();
+        myTypeTextArea = new TextArea(DetailResources.TYPE_NAME.getResource());
+        myTypeTextArea.setMinWidth(IAbstractCommandDetail.PADDED_PANE_WIDTH);
+        myTypeTextArea.setMaxWidth(IAbstractCommandDetail.PADDED_PANE_WIDTH);
+        myTypeTextArea.setMinHeight(IAbstractCommandDetail.CB_HEIGHT);
+        myTypeTextArea.setMaxHeight(IAbstractCommandDetail.CB_HEIGHT); 
+        return myTypeTextArea;
+    }
 
+
+
+
+    public ComboBox<String> createPropertyCB(String property, String defaultValue){
+        DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
+        String [] optionsArray = resourceChoice.getArrayResource();
+        ComboBox<String> cb = createComboBox(optionsArray,defaultValue);
+        return cb;
+    }
+
+    public Label createPropertyLbl(String property){
+        return  new Label (property);
+    }
+
+    public TextArea createInputField(String initValue){
+        inputField = new TextArea();
+        inputField.setMinWidth(IAbstractCommandDetail.PADDED_DETAIL_WIDTH);
+        inputField.setMaxWidth(IAbstractCommandDetail.PADDED_DETAIL_WIDTH);
+        inputField.setMinHeight(IAbstractCommandDetail.CB_HEIGHT);
+        inputField.setMaxHeight(IAbstractCommandDetail.CB_HEIGHT);
+        inputField.setText(initValue);
+        inputField.setOnMouseClicked(e -> handleClick(inputField));
+        return inputField;
+    }
+
+    public void handleClick(TextArea field){
+        field.setText("");
+    }
 }

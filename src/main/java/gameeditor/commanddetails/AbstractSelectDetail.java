@@ -15,12 +15,12 @@ import javafx.scene.layout.BorderPane;
 
 abstract public class AbstractSelectDetail extends AbstractCommandDetail implements ISelectDetail {
 
-	protected static final String X_LABEL = "X: ";
+    protected static final String X_LABEL = "X: ";
     protected static final String Y_LABEL = "Y: ";
     protected static final String WIDTH_LABEL = "W: ";
     protected static final String HEIGHT_LABEL = "H: ";
 
-   // private VBox myVBox = new VBox();
+    // private VBox myVBox = new VBox();
 
     protected Label mySelectLabel;
 
@@ -95,17 +95,17 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         typeMap.put(ISelectDetail.Y_POSITION_KEY, yString.substring(Y_LABEL.length()));
         typeMap.put(IGameEditorData.WIDTH_KEY,widthString.substring(WIDTH_LABEL.length()));
         typeMap.put(IGameEditorData.HEIGHT_KEY, heightString.substring(HEIGHT_LABEL.length()));
-        
-        
+
+
         String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
-       if(randomGen!=null && randomGen.equals("True")){ 
-           myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList);
-       }
+        if(randomGen!=null && randomGen.equals("True")){ 
+            myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList);
+        }
     }
 
     protected void addSelectLabel(){
         BorderPane bp = new BorderPane();
-        mySelectLabel = createPropertyLbl(DetailResources.SELECT_LABEL_TEXT.getResource());
+        mySelectLabel = myDetailFrontEndUtil.createPropertyLbl(DetailResources.SELECT_LABEL_TEXT.getResource());
         bp.setCenter(mySelectLabel);
         bp.setMinWidth(PADDED_PANE_WIDTH);
         bp.setMaxWidth(PADDED_PANE_WIDTH);
@@ -142,8 +142,8 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
 
     protected void createRandomGenProperties(){
         for (String label : myRandomGenerationParameters){           
-            Label labl = createPropertyLbl(label);
-            TextArea input= createInputField("0");
+            Label labl =myDetailFrontEndUtil. createPropertyLbl(label);
+            TextArea input= myDetailFrontEndUtil.createInputField("0");
             myRandomGenerationList.add(input);
             BorderPane bp = myDetailFrontEndUtil.createBorderpane(input,labl);
             BorderPane.setAlignment(labl, Pos.CENTER_LEFT);
@@ -152,7 +152,7 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
     }
 
     private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
-        
+
 
         //		if (kc == KeyCode.BACK_SPACE){
         if (field.getText().length() < label.length() && kc.isDigitKey()){

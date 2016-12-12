@@ -28,10 +28,7 @@ public interface IAbstractCommandDetail {
     public static final String PLATFORM_KEY= DetailResources.PLATFORM_KEY.getResource();
     public static final String PLATFORM_LABEL=DetailResources.PLATFORM_LABEL.getResource();
     
-    public static final String [] PLATFORM_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_INTERSECTABLE_OPTIONS.getArrayResource();
-    public static final String PLATFORM_NON_INTERSECTIBLE_LABEL = DetailResources.PLATFORM_NON_INTERSECTIBLE_LABEL.getResource();
-   public static final String[] PLATFORM_NON_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_NON_INTERSECTABLE_OPTIONS.getArrayResource();
-    
+   
     public ScrollPane getPane();
     
     public abstract void init();

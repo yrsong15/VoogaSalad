@@ -74,7 +74,7 @@ public class ControlsDetail extends AbstractCommandDetail {
     }
 
     private TextArea createControlsInput(String label){
-        TextArea inputField = createInputField(label);
+        TextArea inputField = myDetailFrontEndUtil.createInputField(label);
         inputField.setOnKeyPressed(e -> inputField.clear());
         inputField.setOnKeyReleased(e -> handleKey(inputField, e.getCode()));
         return inputField;

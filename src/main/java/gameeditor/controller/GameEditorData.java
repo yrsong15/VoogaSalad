@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import frontend.util.GameEditorException;
-import gameeditor.commanddetails.CreateObjectDetail;
-import gameeditor.commanddetails.DetailDefaultsResources;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
@@ -215,18 +212,13 @@ public class GameEditorData implements IGameEditorData{
 
     @Override
     public void addGameBoundary (BasicBoundary gameBoundary) {
-        //TODO: ADD GAME BOUNDARY -- Where? 
+        //TODO: 
     }
 
 
     @Override
     public void storeMainCharToXML () {
-        //TODO: Save to Game Engine
-        //    for(Map<String,String> map: myMainCharImageViewMap){     
-        //        for(String key: map.keySet()){
-        //            System.out.println(" Main Char Key: " + key + " Value: " + map.get(key));
-        //        }
-        //    }
+// TODO: Add into 
         for(Map<String,String> map: myMainCharImageViewMap){
             map.forEach((k,v)-> {
 
