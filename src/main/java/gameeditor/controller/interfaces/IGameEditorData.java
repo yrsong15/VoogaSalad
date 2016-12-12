@@ -56,5 +56,7 @@ public interface IGameEditorData {
     public void storeMainCharater(Map<String,String> myMainCharMap);
     public Map<String,String> getMainCharMap(String imageViewName);
     public void storeMainCharToXML();
+    
+    public ArrayList<String> getMainCharacterTypes();
 }
 
