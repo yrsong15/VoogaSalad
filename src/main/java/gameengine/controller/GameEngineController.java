@@ -29,25 +29,27 @@ public class GameEngineController implements CommandInterface {
 		serverName = "localhost";
 		serializer = new XMLSerializer();
 	}
-	public boolean startGame(String xmlData) {
-		Game currentGame = serializer.getGameFromString(xmlData);
+	public Level startGame(String xmlData) {
+        Game currentGame = serializer.getGameFromString(xmlData);
 		if (currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Cannot start game.");
 			alert.setContentText("You must create a level with a main character to start a game.");
 			alert.showAndWait();
-			return false;
+			return null;
 		}
-		if (hostGame) {
+        currentGame.getCurrentLevel().setTitle(currentGame.getGameName());
+        if (hostGame) {
 			Thread serverThread = new Thread() {
 				public void run() {
 					startServerGame(currentGame);
 				}
 			};
 			serverThread.start();
+			//TODO: let thread sleep if we want server before client - right here
 		}
 		startClientGame(currentGame.getClientMappings());
-		return true;
+		return currentGame.getCurrentLevel();
 	}
 	public void startServerGame(Game currentGame) {
 		this.currentGame = currentGame;
@@ -60,15 +62,15 @@ public class GameEngineController implements CommandInterface {
 
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-
+		System.out.println("client");
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
+		toolbarHBox = gameEngineView.getToolbar();
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
 		gameEngineView.initLevel(playerMapping);
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
-		toolbarHBox = gameEngineView.getToolbar();
 	}
 
 	public Scene getScene() {

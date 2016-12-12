@@ -75,8 +75,6 @@ public class GameScreen {
         else {
             addGameObject(obj);
             Rectangle bar = new Rectangle(obj.getXPosition(), obj.getYPosition() - 8, obj.getWidth(), 10);
-            //myScreen.getChildren().add(bar);
-            //barList.add(bar);
         }
     }
     
@@ -95,7 +93,9 @@ public class GameScreen {
         }
         for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
             int ID = it.next();
-            if(!allGameObjects.containsKey(ID) && (ID!= game.getBackgroundObject().getID())){
+            if(!allGameObjects.containsKey(ID)
+                    //&& (ID != game.getBackgroundObject().getID())
+                    ){
                 myScreen.getChildren().remove(gameObjectImageViewMap.get(ID));
                 it.remove();
             }

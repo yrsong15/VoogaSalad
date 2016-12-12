@@ -1,0 +1,67 @@
+<objects.Game>
+  <name>Untitled</name>
+  <levels>
+    <entry>
+      <int>1</int>
+      <objects.Level>
+        <level>1</level>
+        <projectiles/>
+        <gameObjects>
+          <objects.GameObject>
+            <xPosition>100.0</xPosition>
+            <yPosition>181.4075630252101</yPosition>
+            <width>75.0</width>
+            <height>37.18487394957983</height>
+            <imageFileName>bird3.png</imageFileName>
+            <properties>
+              <entry>
+                <string>Type Name</string>
+                <string>Main Character0</string>
+              </entry>
+            </properties>
+            <xDistanceMoved>100.0</xDistanceMoved>
+            <yDistanceMoved>181.4075630252101</yDistanceMoved>
+            <onPlatform>false</onPlatform>
+            <isPlayer>true</isPlayer>
+            <id>0</id>
+            <typeName>Main Character0</typeName>
+          </objects.GameObject>
+          <objects.GameObject>
+            <xPosition>185.0</xPosition>
+            <yPosition>170.65217391304347</yPosition>
+            <width>75.0</width>
+            <height>58.69565217391304</height>
+            <imageFileName>bird5.png</imageFileName>
+            <properties>
+              <entry>
+                <string>Type Name</string>
+                <string>Main Character1</string>
+              </entry>
+            </properties>
+            <xDistanceMoved>185.0</xDistanceMoved>
+            <yDistanceMoved>170.65217391304347</yDistanceMoved>
+            <onPlatform>false</onPlatform>
+            <isPlayer>true</isPlayer>
+            <id>0</id>
+            <typeName>Main Character1</typeName>
+          </objects.GameObject>
+        </gameObjects>
+        <obstacles/>
+        <winConditions/>
+        <loseConditions/>
+        <gameConditions/>
+        <randomGenerations/>
+        <players/>
+      </objects.Level>
+    </entry>
+  </levels>
+  <currentLevel reference="../levels/entry/objects.Level"/>
+  <players>
+    <objects.Player>
+      <mainChar reference="../../../levels/entry/objects.Level/gameObjects/objects.GameObject"/>
+    </objects.Player>
+    <objects.Player>
+      <mainChar reference="../../../levels/entry/objects.Level/gameObjects/objects.GameObject[2]"/>
+    </objects.Player>
+  </players>
+</objects.Game>

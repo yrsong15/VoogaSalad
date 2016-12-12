@@ -25,6 +25,7 @@ public class GameObject {
     private boolean isPlayer;
     private Direction direction;
     private int id;
+    private String typeName;
 
     public GameObject(int id, double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
@@ -153,6 +154,15 @@ public class GameObject {
         return isPlayer;
     }
     public void setIsPlayer(boolean value){
+        System.out.println(" boolean: " + value);
         isPlayer = value;
+    }
+    
+    public void setTypeName(String typeName){
+        this.typeName = typeName;
+    }
+    
+    public String getTypeName(){
+        return this.typeName;
     }
 }

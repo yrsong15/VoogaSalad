@@ -13,12 +13,11 @@ public class ApplyEnemyCollisionRule{
 			return;
 		}
 		takeDamage(handler,mainChar,obj);
-		
-	}
+    }
 	
 	protected void takeDamage(RuleActionHandler handler, GameObject mainChar, GameObject obj){
 		int currHealth = Integer.parseInt(mainChar.getProperty("health"));
-		currHealth -= Integer.parseInt(obj.getProperty("damage"));
+		currHealth -= Integer.parseInt(obj.getProperty("enemy"));
 		if (currHealth <= 0) {
 			handler.endGame();
 		}
