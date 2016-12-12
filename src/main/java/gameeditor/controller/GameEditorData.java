@@ -37,11 +37,6 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void storeType(Map<String, String> typeMap){
-        //        String typeName = typeMap.get(DetailResources.TYPE_NAME.getResource());
-        //        String mainChar = typeName.replaceAll("[0-9]","");
-        //        if(mainChar.equals(DetailResources.MAIN_CHARACTER_TYPE.getResource())){
-        //            myMainCharImageViewMap
-        //        }
         mySpriteTypes.add(typeMap);
     }
 
@@ -86,13 +81,9 @@ public class GameEditorData implements IGameEditorData{
     } 
 
     private Map<String,String> getDesiredMap(String key, ArrayList<Map<String,String>> mapList, String value){
-       // System.out.println(" Key Val: " + key);
-       // System.out.println(" ImageView Value: " + value);
         for(Map<String,String> map: mapList){
             String valueFromMap = map.get(key);
-            //System.out.println(" Value from Map: " + valueFromMap);
             if (value.equals(valueFromMap)){
-                //System.out.println(" Found Image View " );
                 return map;
             }
         }
@@ -100,12 +91,6 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public Map<String,String> getMainCharMap(String imageViewName){
-        //System.out.println(" ImageView Name: " + imageViewName);
-            for(Map<String,String> map: myMainCharImageViewMap){     
-                for(String key: map.keySet()){
-                    //System.out.println(" Main Char Key Before : " + key + " Value: " + map.get(key));
-                }
-            }
         return getDesiredMap(DetailResources.IMAGEVIEW_KEY.getResource(),myMainCharImageViewMap,imageViewName);
     }
 
@@ -121,23 +106,10 @@ public class GameEditorData implements IGameEditorData{
         myImageViewObjectMap.add(viewMap);
     }
 
-
-    public void addGameObjectToLevel(Map<String,String> myGameObjMap){ 
-        //GameObject myObject = new GameObject(xpos,ypos,width,height,file,properties);
-        // Add random Generation
-        //        if(myRandomGenerationParameters.size()>0){
-        //            addRandomGeneration(myObject.getProperties(), myRandomGenerationParameters);
-        //        }else {
-        //            myLevel.addGameObject(myObject);
-        //        }
-
-    }
-
     public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters){
         Map<String,String> properties=  getType(type);
         Map<String,String> propertiesMap = getPropertiesMap(properties);
         addRandomGeneration(propertiesMap, myRandomGenerationParameters);
-        // Remove map from list
         mySpriteTypes.remove(properties);
     }
 
@@ -166,9 +138,10 @@ public class GameEditorData implements IGameEditorData{
         removeValuesExceptProperties(myItemMap);
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
-            //if(!v.equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource())){
+            System.out.println(" v " + v);
+            if(!v.equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource())){
                 properties.put(k, v);
-           // }
+            }
         });
         return properties;
     }

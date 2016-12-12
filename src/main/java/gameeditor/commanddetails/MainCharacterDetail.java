@@ -2,9 +2,7 @@ package gameeditor.commanddetails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import gameeditor.objects.GameObjectView;
@@ -17,10 +15,6 @@ import javafx.scene.layout.BorderPane;
 
 // TODO: Refactor this class - duplicated code with CreateDetail
 public class MainCharacterDetail extends AbstractSelectDetail {
-
-
-    //private VBox myVBox;
-    //private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
     private List<String> myPropertiesArray = Arrays.asList(DetailResources.MAIN_CHARACTER_PROPERTIES.getArrayResource());
     private List<TextArea> myTextInputs = new ArrayList<TextArea>();
     public static final double MAIN_CHARACTER_INITIAL_X_POSITION = 20;
@@ -31,8 +25,6 @@ public class MainCharacterDetail extends AbstractSelectDetail {
     private  String imageViewString;
     private Map<String,String> myMainCharMap;
 
-    private DetailFrontEndUtil myDetailFrontEndUtil;
-
     public MainCharacterDetail() {
         super();
         myDetailFrontEndUtil = new DetailFrontEndUtil();
@@ -42,20 +34,18 @@ public class MainCharacterDetail extends AbstractSelectDetail {
     @Override
     public void init() {
         addVBoxSettings();
-        createProperties();
         createSave();
         myDesignArea.enableClick(this);
-
     }
 
     @Override
     public void initLevel2(GameObjectView sprite){
         myGO = sprite;
         imageViewString = myGO.getImageView().toString();
-        myMainCharMap = myDataStore.getMainCharMap(imageViewString);
+        myMainCharMap = myDataStore.getMainCharMap(imageViewString);  
         addVBoxSettings();
         createPos();
-        createProperties();
+        addProperties();
         //TODO: switch to character in detail pane
         createSave();
     }
@@ -94,10 +84,13 @@ public class MainCharacterDetail extends AbstractSelectDetail {
         return true;
     }
 
-    public void createProperties(){
+    private void addProperties(){
         myPropertiesArray.forEach(label -> {
+          if(myMainCharMap!=null && myMainCharMap.containsKey(label.toLowerCase())){
+              myVBox.getChildren().add(addOptions(label,myMainCharMap.get(label.toLowerCase())));
+          }else{
             myVBox.getChildren().add(addOptions(label,DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource()));
-        });            
+        }});            
     }
 
     private BorderPane addOptions(String label, String value){

@@ -31,7 +31,7 @@ public class SelectDetail extends AbstractSelectDetail {
         Map<String, String> typeMap = myDataStore.getType(typeName);
         String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
         if(randomGen != null && randomGen.equals("True")){
-            createProperties();
+            createRandomGenProperties();
             createUpdate() ;
         } else{
             createUpdate();
