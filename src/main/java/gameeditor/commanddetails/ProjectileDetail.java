@@ -92,7 +92,7 @@ public class ProjectileDetail {
             System.out.println(type.equals(null));
             System.out.println(" Type " + type);
             System.out.println(type.isEmpty());
-            ProjectileProperties property = new ProjectileProperties(myImageFile,width,height,direction,range,speed,damage, 5);
+            ProjectileProperties property = new ProjectileProperties(myImageFile,width,height,direction,range,speed,damage, 5); //TODO: currently hardcoded last value with 5; should change
             myDataStore.addProjectileProperties(type, property);
             
         }catch(RuntimeException e){
