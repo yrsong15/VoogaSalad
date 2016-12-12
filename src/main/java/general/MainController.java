@@ -17,9 +17,9 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import objects.*;
 import xml.XMLSerializer;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+
 public class MainController {
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
@@ -60,39 +60,23 @@ public class MainController {
     }
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY/
-        Game game = new Game("Doodle Jump");
+        Game game = new Game("Dance Dance Revolution Jump");
         GameObject thirdShyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
-        Player player3 = new Player(thirdShyGuy);
-        game.addPlayer(player3);
-        game.addPlayerToClient(0, player3);
+        Player player1 = new Player(thirdShyGuy);
+        game.addPlayer(player1);
+        game.addPlayerToClient(0, player1);
         thirdShyGuy.setProperty("jumpunlimited", "800");
         thirdShyGuy.setProperty("gravity", "0.8");
         thirdShyGuy.setProperty("movespeed", "10");
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
-        ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
+        ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
+        scrollType.setScrollSpeed(10);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/bg.png");
+        level.setBackgroundImage("Background/ddrbackground.jpg");
         game.setCurrentLevel(level);
-        // player1.setControl(KeyCode.A, "jump");
-        // player1.setControl(KeyCode.SPACE, "right");
-        // player2.setControl(KeyCode.S, "jump");
-        player3.setControl(KeyCode.UP, "jump");
-        player3.setControl(KeyCode.RIGHT, "right");
-        player3.setControl(KeyCode.LEFT, "left");
-        // player4.setControl(KeyCode.F, "jump");
-        //level.addPlayer(firstShyGuy);
-        //  level.addPlayer(secondShyGuy);
         level.addPlayer(thirdShyGuy);
-        //  level.addPlayer(fourthShyGuy);
-        GameObject ground = new GameObject(0, 570,700,50,"platform.png", new HashMap<>());
-        ground.setProperty("nonintersectable", "bottom");
-
-        //Left down up right <- order of arrows from left to right
-
-        //UNCOMMENT BELOW FOR DEM SPICY DDR
-        /*
         HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
         RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,150,150,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
         RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,150,150,"ddrdownarrow.png",2, 190 ,190,1234,1234,500,520);
@@ -102,21 +86,6 @@ public class MainController {
         asdf.add(arrow1);asdf.add(arrow2);asdf.add(arrow3);asdf.add(arrow4);
         RandomGenFrame frame = new RandomGenFrameY(level,asdf);
         level.setRandomGenerationFrame(frame);
-        */
-
-        //UNCOMMENT BELOW FOR DEM SPICY DOODLE JUMPZ
-        HashMap<String,String> DoodleJumpProperties = new HashMap<>();
-        DoodleJumpProperties.put("bounce", "1000");
-        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
-        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
-        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
-        ArrayList<RandomGeneration> asdf = new ArrayList<>();
-        asdf.add(platforms);
-        asdf.add(platforms2);
-        asdf.add(platforms3);
-        RandomGenFrame frame = new RandomGenFrameY(level,asdf);
-        level.setRandomGenerationFrame(frame);
-        level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
         return xml;
