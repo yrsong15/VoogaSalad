@@ -28,8 +28,8 @@ public class MovementManager implements ControlInterface{
 	private GeneralMovement genMovement;
 	private Scrolling gameScrolling;
 	private MovementChecker movementChecker;
-	private Map<GameObject, Long> projectileStatus;
-
+	private Direction scrollDir;
+	private Map<Integer, Long> projectileStatus;
 
 	public MovementManager(Level currLevel, double screenWidth, double screenHeight){
 		projectileStatus = new HashMap<>();
@@ -169,10 +169,11 @@ public class MovementManager implements ControlInterface{
 	}
 
 	@Override
-	public void shootProjectile(GameObject obj, double speed) {
-	    if(!projectileStatus.containsKey(obj) || (projectileStatus.containsKey(obj) && (System.currentTimeMillis() - projectileStatus.get(obj) > obj.getProjectileProperties().getTimeBetweenShots()*1000))) {
-            projectileStatus.put(obj, System.currentTimeMillis());
-	        if (obj.getProjectileProperties() != null) {
+	public void shootProjectile(GameObject obj, double speed){
+	    if(!projectileStatus.containsKey(obj.getID()) || ((projectileStatus.containsKey(obj.getID()) && (System.currentTimeMillis() - projectileStatus.get(obj.getID()) > obj.getProjectileProperties().getTimeBetweenShots()*1000)))) {
+	        projectileStatus.put(obj.getID(), System.currentTimeMillis());
+
+            if (obj.getProjectileProperties() != null) {
                 ProjectileProperties properties = obj.getProjectileProperties();
                 GameObject projectile = new GameObject(0, obj.getXPosition(), obj.getYPosition(),
                         properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
@@ -190,7 +191,7 @@ public class MovementManager implements ControlInterface{
                 currLevel.getProjectiles().add(projectile);
             }
         }
-	}
+    }
 
 	private void setScrolling() throws ScrollTypeNotFoundException{
 		ScrollType gameScroll = currLevel.getScrollType();

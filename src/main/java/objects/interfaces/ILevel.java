@@ -31,15 +31,11 @@ public interface ILevel {
 
     public List<GameObject> getGameObjects();
 
-   // public void setControl(KeyCode key, String action);
-
-   // public Map<KeyCode, String> getControls();
     
     public void setBackgroundImage(String filePath);
 
     public void setBackgroundMusic(String musicFilePath);
     
-    public void addRandomGeneration (RandomGeneration randomGeneration);
     public String getMusicFilePath();
     public String getBackgroundFilePath();
     

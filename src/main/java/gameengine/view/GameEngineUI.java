@@ -70,22 +70,11 @@ public class GameEngineUI implements UDPHandler{
 	private ClientGame currentGame;
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
-//<<<<<<< HEAD
-//	private boolean isPaused, isMuted;
-
-//	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer,
-//						EventHandler<ActionEvent> resetEvent, String serverName) {
-////		mainPlayer = player;
-//=======
 	private boolean isPaused,isMuted;
-	
-//<<<<<<< HEAD
-//	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer,
-//			EventHandler<ActionEvent> resetEvent, GameHandler gamehandler, String serverName) {
-//>>>>>>> e3d8e69680ea7a079bfdad2029af3cebedd8f45a
-//=======
-	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, String serverName) {
-//>>>>>>> 0eb0f732f4089683f284f9d245814933e9cafc98
+
+	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, 
+			EventHandler<ActionEvent> resetEvent, String serverName) {
+		System.out.println("game engine ui instnatiated");
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
@@ -115,6 +104,7 @@ public class GameEngineUI implements UDPHandler{
 	public Scene getScene() {
 		return scene;
 	}
+
 	public void update() {
 		gameScreen.update(currentGame);
 	}
@@ -143,7 +133,6 @@ public class GameEngineUI implements UDPHandler{
 		for(KeyCode key : keyPressed.keySet()){
 			if(keyPressed.get(key).equals(true)){
 				Player player = playerMappings.get(key);
-
 				keyMappings.get(key).invoke(clientMain, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 			}
 		}
