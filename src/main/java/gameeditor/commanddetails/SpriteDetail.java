@@ -32,8 +32,7 @@ public class SpriteDetail {
     public SpriteDetail(IGameEditorData dataStore){
         this.myDataStore =dataStore;
         myDetailFrontEndUtil= new DetailFrontEndUtil();
-        myImageDetail = new ImageDetail();
-        
+        myImageDetail = new ImageDetail();  
     }
 
     public VBox getTabContent(){
@@ -71,7 +70,6 @@ public class SpriteDetail {
         Button save = myDetailFrontEndUtil.createButton("SaveCommand",handler);
         myVBox.getChildren().add(save);
     }
-
 
     private void handleSaveSprite(){
         if(verifySave()){

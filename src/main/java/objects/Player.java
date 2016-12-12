@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 /**
  * Created by Soravit on 12/7/2016.
+ * @ author Soravit, Pratiksha
  */
 public class Player {
     private GameObject mainChar;
@@ -27,5 +28,9 @@ public class Player {
     }
     public GameObject getMainChar(){
         return mainChar;
+    }
+    public void setControlMap(Map<KeyCode,String> controlsMap){
+        controls.clear();
+        this.controls=controlsMap;
     }
 }

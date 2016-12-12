@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import frontend.util.GameEditorException;
 import gameeditor.commanddetails.DetailDefaultsResources;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
@@ -27,9 +28,10 @@ public class GameEditorData implements IGameEditorData{
     private ArrayList<Map<String, String>> mySpriteTypes = new ArrayList<Map<String, String>>();
     private ArrayList<Map<String,String>> myImageViewObjectMap = new ArrayList<Map<String,String>>();
     private ArrayList<Map<String,String>> myMainCharImageViewMaps= new ArrayList<Map<String,String>>();
-    private List<Map<String,String>>myProjectileProperties = new ArrayList<Map<String,String>>();
-    private Map<String,Map<String,String>> myProjectileObjects = new HashMap<String,Map<String,String>>();
-
+   // private List<Map<String,String>>myProjectileProperties = new ArrayList<Map<String,String>>();
+    private Map<String,ProjectileProperties> myProjectileObjects = new HashMap<String,ProjectileProperties>();
+    private Map<String,Map<KeyCode,String>> myPlayerControlsMap = new HashMap<String,Map<KeyCode,String>>();
+    
     private ILevel myLevel;
     private String mainCharacterImageFilePath;
     private IGame myGame;
@@ -39,7 +41,11 @@ public class GameEditorData implements IGameEditorData{
         myGame = myGameInterface;
     }
 
+    public void addControls(String typeName, Map<KeyCode,String> controlMap){
+        myPlayerControlsMap.put(typeName, controlMap);
 
+    }
+    
     public void storeType(Map<String, String> typeMap){
         mySpriteTypes.add(typeMap);
     }
@@ -47,6 +53,7 @@ public class GameEditorData implements IGameEditorData{
     @Override
     public void storeMainCharater (Map<String, String> myMainCharMap) {
         // TODO Auto-generated method stub
+        //System.out.println("Type: " + myMainCharMap.get(DetailResources.TYPE_NAME.getResource()));
         myMainCharImageViewMaps.add(myMainCharMap);
     }
 
@@ -97,6 +104,11 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public Map<String,String> getMainCharMap(String imageViewName){
+//        for(Map<String,String> map: myMainCharImageViewMaps){
+//            for(String key: map.keySet()){
+//            System.out.println(" Key: " + key + " Value: " + map.get(key));
+//            }
+//        }
         return getDesiredMap(DetailResources.IMAGEVIEW_KEY.getResource(),myMainCharImageViewMaps,imageViewName);
     }
 
@@ -120,8 +132,8 @@ public class GameEditorData implements IGameEditorData{
     }
 
     
-    public void addProjectileProperties(String typeName, Map<String,String> myMap){
-        myProjectileObjects.put(typeName, myMap);
+    public void addProjectileProperties(String typeName, ProjectileProperties properties){
+        myProjectileObjects.put(typeName, properties);
     }
     
     private void addRandomGeneration(Map<String,String> properties, List<TextArea>myRandomGenParameters){
@@ -187,8 +199,6 @@ public class GameEditorData implements IGameEditorData{
         this.mainCharacterImageFilePath = imageFilePath;
     }
 
-
-
     @Override
     public void addScrollSpeed(String speed) {
 
@@ -219,6 +229,7 @@ public class GameEditorData implements IGameEditorData{
     }
     
     private GameObject createGameObject(Map<String,String> map){
+        try{
         double xPosition = Double.valueOf(map.get(ISelectDetail.X_POSITION_KEY));
         double yPosition = Double.valueOf(map.get(ISelectDetail.Y_POSITION_KEY));
         double width = Double.valueOf(map.get(WIDTH_KEY));
@@ -229,12 +240,17 @@ public class GameEditorData implements IGameEditorData{
         Map<String,String> properties = getPropertiesMap(map);
         GameObject myObject = new GameObject(xPosition,yPosition,width,height,file,properties); 
         myObject.setTypeName(map.get(DetailResources.TYPE_NAME.getResource()));
-        if(myProjectileObjects.containsKey(map.get(DetailResources.TYPE_NAME.getResource()))){
-           // ProjectileProperties propMap = new ProjectileProperties()
-            //myObject.setProjectileProperties(myProjectileObjects.get(myObject.getTypeName()));
-        }
         
+        if(myProjectileObjects.containsKey(map.get(DetailResources.TYPE_NAME.getResource()))){
+            ProjectileProperties projectileProp= myProjectileObjects.get(map.get(myObject.getTypeName()));
+            myObject.setProjectileProperties(projectileProp);
+        }
         return myObject;
+        }catch(NullPointerException e){
+            GameEditorException exception = new GameEditorException();
+            exception.showError(e.getMessage());
+        }
+        return null;
     }
 
     private void removeValuesExceptProperties(Map<String,String> typeMap){
@@ -256,6 +272,12 @@ public class GameEditorData implements IGameEditorData{
                 GameObject myObject = createGameObject(map);
                 // Add it to the game
                 Player player = new Player(myObject);
+                if(myPlayerControlsMap.containsKey(myObject.getTypeName())){
+                    player.setControlMap(myPlayerControlsMap.get(myObject.getTypeName()));
+                }else {
+                    GameEditorException exception = new GameEditorException();
+                    exception.showError("Not all Players have Controls Set up");
+                }
                 myGame.addPlayer(player);
                 myLevel.addGameObject(myObject);  
             });
