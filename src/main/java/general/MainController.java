@@ -131,7 +131,9 @@ public class MainController {
         RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
         RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
         ArrayList<RandomGeneration> asdf = new ArrayList<RandomGeneration>();
-        asdf.add(platforms);asdf.add(platforms2);asdf.add(platforms3);
+        asdf.add(platforms);
+        asdf.add(platforms2);
+        asdf.add(platforms3);
         RandomGenFrame frame = new RandomGenFrame(level,asdf);
         level.setRandomGenerationFrame(frame);
         

@@ -24,7 +24,6 @@ public class GameObject {
     private ProjectileProperties projectileProperties;
     private boolean isPlayer;
     private Direction direction;
-
     public GameObject(double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
         this(xPosition, yPosition, width, height, properties);
@@ -38,64 +37,31 @@ public class GameObject {
         this.properties = properties;
         this.direction = Direction.RIGHT;
     }
-    public String getProperty(String propertyName) {
-        String val = properties.get(propertyName);
-        return val;
-    }
+
     public void setDirection(Direction direction){
         this.direction = direction;
     }
     public Direction getDirection(){
         return direction;
     }
+    public String getProperty(String propertyName) {
+        String val = properties.get(propertyName);
+        return val;
+    }
 
-	public String getProperty(String propertyName) {
-		String val = properties.get(propertyName);
-		return val;
-	}
-	
-	public void setPlatformCharacterIsOn(GameObject platform){
-		platformCharacterIsOn = platform;
-	}
-	
-	public GameObject getPlatformCharacterIsOn(){
-		return platformCharacterIsOn;
-	}
-	
-	public void setPlatformStatus(boolean status){
-		this.onPlatform = status;
-	}
-	
-	public boolean isOnPlatform(){
-		return onPlatform;
-	}
-	
-	public void checkPlatformStatus(){
-		if(platformCharacterIsOn == null){
-			this.onPlatform = false;
-			return;
-		}
-		boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
-		boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <= (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >= (platformCharacterIsOn.getYPosition())));
-		this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
-	}
-
-	public void setProperty(String propertyName, String propertyValue) {
-		properties.put(propertyName, propertyValue);
-	}
+    public void setPlatformCharacterIsOn(GameObject platform){
+        platformCharacterIsOn = platform;
+    }
 
     public GameObject getPlatformCharacterIsOn(){
         return platformCharacterIsOn;
     }
-
     public void setPlatformStatus(boolean status){
         this.onPlatform = status;
     }
-
     public boolean isOnPlatform(){
         return onPlatform;
     }
-
     public void checkPlatformStatus(){
         if(platformCharacterIsOn == null){
             this.onPlatform = false;
@@ -119,7 +85,6 @@ public class GameObject {
     public void setPropertiesList(Map<String, String> properties) {
         this.properties = properties;
     }
-
     public void killSpeed(){
         setProperty("fallspeed", "0.0");
     }
@@ -159,18 +124,15 @@ public class GameObject {
     public void setYDistanceMoved(double yDistanceMoved){
         this.yDistanceMoved = yDistanceMoved;
     }
-
     public void setProjectileProperties(ProjectileProperties projectileProperties){
         this.projectileProperties = projectileProperties;
     }
     public ProjectileProperties getProjectileProperties(){
         return projectileProperties;
     }
-
     public boolean isPlayer(){
         return isPlayer;
     }
-
     public void setIsPlayer(boolean value){
         isPlayer = value;
     }

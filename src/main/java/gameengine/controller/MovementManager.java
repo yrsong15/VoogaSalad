@@ -121,7 +121,7 @@ public class MovementManager implements ControlInterface{
 	@Override
 	public void jump(GameObject obj, double speed) {
         String jumpVelocity = obj.getProperty("jump");
-    	if(jumpVelocity!=null && obj.isOnPlatform()){
+    	if(jumpVelocity!=null){
     		obj.setProperty("fallspeed", "-" + jumpVelocity);
     	}
 	}
