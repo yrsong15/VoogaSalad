@@ -5,6 +5,7 @@ import javafx.scene.input.KeyCode;
 import java.security.Key;
 import java.util.*;
 
+import gameengine.model.boundary.GameBoundary;
 import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 
@@ -164,7 +165,8 @@ public class Level {
     }
     
     public void setBackgroundObject(){
-        background = new GameObject(0, 0, 0, 1200, 1000, backgroundFilePath, new HashMap<>());
+    	GameBoundary gameBoundaries = this.getScrollType().getGameBoundary();
+        background = new GameObject(0, 0, 0, gameBoundaries.getWorldWidth(), gameBoundaries.getWorldHeight(), backgroundFilePath, new HashMap<>());
     }
 
     public void setBackgroundImage(String filePath) {
@@ -190,6 +192,4 @@ public class Level {
     public String getBackgroundFilePath(){
         return backgroundFilePath;
     }
-
-
 }
