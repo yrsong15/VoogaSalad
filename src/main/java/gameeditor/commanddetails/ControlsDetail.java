@@ -1,6 +1,8 @@
 package gameeditor.commanddetails;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
+import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -9,10 +11,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 
 
-public class ControlsDetail extends AbstractCommandDetail {
+public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
     private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
     private String[] myControlsOptions = DetailResources.CONTROL_OPTIONS.getArrayResource();
     private ArrayList<TextArea> myInputFields = new ArrayList<TextArea>();
+    private GameObjectView myGO;
+    private String myImageViewString;
+    private Map<String,String> myMainCharMap;
 
     public ControlsDetail() {
         super();
@@ -29,9 +34,16 @@ public class ControlsDetail extends AbstractCommandDetail {
             counter++;
         }
         createSave();
+        initLevel2(myDetailPane.getCurrentAvatar());
     }
 
-    
+    @Override
+    public void initLevel2 (GameObjectView sprite) {
+        myGO = sprite;
+        myImageViewString = myGO.getImageView().toString();
+        myMainCharMap = myDataStore.getMainCharMap(myImageViewString);  
+        
+    }
 
     private void createSave(){
         Button save = myDetailFrontEndUtil.createButton("SaveCommand",e -> handleSave());

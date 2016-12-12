@@ -65,6 +65,10 @@ public enum DetailResources {
 		//		RANDOM_GENERATION_KEYS(new String[]{"numObjects","minX","minY",)
 		
 		
+		// Projectile Properties
+		PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL(new String[] {"Width","Height","Direction","Range","Speed","Damage"}),
+		DIRECTION_LABEL("Direction"),
+		DIRECTION_KEY("direction"),
 		TYPE_IMAGE_ZONE_WIDTH(50),
 		TYPE_IMAGE_ZONE_HEIGHT(50),
 		TYPE_IMAGE_ZONE_PADDING(10),

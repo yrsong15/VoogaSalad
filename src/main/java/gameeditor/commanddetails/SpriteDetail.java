@@ -33,16 +33,17 @@ public class SpriteDetail {
         this.myDataStore =dataStore;
         myDetailFrontEndUtil= new DetailFrontEndUtil();
         myImageDetail = new ImageDetail();
-        myVBox = new VBox();
-
+        
     }
 
     public VBox getTabContent(){
+        myVBox = new VBox();
         myVBox.setSpacing(IAbstractCommandDetail.MY_DETAIL_PADDING);
         myVBox.setAlignment(Pos.CENTER);
         myTypeTextArea=myDetailFrontEndUtil.createTypeName();
+        myVBox.getChildren().add(myTypeTextArea);
         createProperties();
-        myVBox.getChildren().add(myImageDetail.createImageChoose());
+        myVBox.getChildren().addAll(myImageDetail.createImageChoose());
         createSave(e-> handleSaveSprite()); 
         return myVBox;
     }

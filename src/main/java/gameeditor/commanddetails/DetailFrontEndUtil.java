@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 public class DetailFrontEndUtil implements IDetailFrontEndUtil{
-    private TextArea inputField;
 
     public BorderPane createBorderpane(Node right, Node left){
         BorderPane bp = new BorderPane();
@@ -43,15 +42,14 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
     }
 
     public TextArea createTypeName(){
-        TextArea myTypeTextArea = new TextArea();
-        myTypeTextArea = new TextArea(DetailResources.TYPE_NAME.getResource());
+       TextArea  myTypeTextArea = new TextArea(DetailResources.TYPE_NAME.getResource());
         myTypeTextArea.setMinWidth(IAbstractCommandDetail.PADDED_PANE_WIDTH);
         myTypeTextArea.setMaxWidth(IAbstractCommandDetail.PADDED_PANE_WIDTH);
         myTypeTextArea.setMinHeight(IAbstractCommandDetail.CB_HEIGHT);
         myTypeTextArea.setMaxHeight(IAbstractCommandDetail.CB_HEIGHT); 
+        myTypeTextArea.setOnMouseClicked(e-> handleClick(myTypeTextArea));
         return myTypeTextArea;
     }
-
 
 
 
@@ -67,7 +65,7 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
     }
 
     public TextArea createInputField(String initValue){
-        inputField = new TextArea();
+        TextArea inputField = new TextArea();
         inputField.setMinWidth(IAbstractCommandDetail.PADDED_DETAIL_WIDTH);
         inputField.setMaxWidth(IAbstractCommandDetail.PADDED_DETAIL_WIDTH);
         inputField.setMinHeight(IAbstractCommandDetail.CB_HEIGHT);
@@ -79,5 +77,9 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
 
     public void handleClick(TextArea field){
         field.setText("");
+    }
+
+    public Button createSave(EventHandler <MouseEvent> handler){
+        return createButton("SaveCommand",handler);
     }
 }

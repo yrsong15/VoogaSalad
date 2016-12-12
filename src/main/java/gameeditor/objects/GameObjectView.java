@@ -179,6 +179,7 @@ public class GameObjectView {
                 mainCharMap = new HashMap<String,String>();
                 mainCharMap.put(DetailResources.IMAGE_PATH.getResource(), myImageFilePath);
                 mainCharMap.put(DetailResources.IMAGEVIEW_KEY.getResource(),myImageView.toString());
+                mainCharMap.put(DetailResources.TYPE_NAME.getResource(),myType);
                 myDataStore.storeMainCharater(mainCharMap);
             }
             addCommonValuesToMap(mainCharMap); 

@@ -23,7 +23,7 @@ import objects.interfaces.ILevel;
 public class GameEditorData implements IGameEditorData{
     private ArrayList<Map<String, String>> mySpriteTypes = new ArrayList<Map<String, String>>();
     private ArrayList<Map<String,String>> myImageViewObjectMap = new ArrayList<Map<String,String>>();
-    private ArrayList<Map<String,String>> myMainCharImageViewMap= new ArrayList<Map<String,String>>();
+    private ArrayList<Map<String,String>> myMainCharImageViewMaps= new ArrayList<Map<String,String>>();
 
     private ILevel myLevel;
     private String mainCharacterImageFilePath;
@@ -40,7 +40,7 @@ public class GameEditorData implements IGameEditorData{
     @Override
     public void storeMainCharater (Map<String, String> myMainCharMap) {
         // TODO Auto-generated method stub
-        myMainCharImageViewMap.add(myMainCharMap);
+        myMainCharImageViewMaps.add(myMainCharMap);
     }
 
     public Map<String, String> getType(String inputTypeName){
@@ -88,7 +88,7 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public Map<String,String> getMainCharMap(String imageViewName){
-        return getDesiredMap(DetailResources.IMAGEVIEW_KEY.getResource(),myMainCharImageViewMap,imageViewName);
+        return getDesiredMap(DetailResources.IMAGEVIEW_KEY.getResource(),myMainCharImageViewMaps,imageViewName);
     }
 
     @Override
@@ -126,6 +126,10 @@ public class GameEditorData implements IGameEditorData{
         Integer maxSpacing = Integer.parseInt(myRandomGenParameters.get(6).getText());
         if(maxSpacing==0){maxSpacing=500;}
 
+        // Need width and height of the game objects
+        // Image URL (bird.png)
+        // 
+
         RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
 
         myLevel.addRandomGeneration(randomGeneration);
@@ -135,7 +139,7 @@ public class GameEditorData implements IGameEditorData{
         removeValuesExceptProperties(myItemMap);
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
-                properties.put(k, v);
+            properties.put(k, v);
         });
         return properties;
     }
@@ -183,7 +187,6 @@ public class GameEditorData implements IGameEditorData{
 
 
     public void addGameObjectsToLevel(){   
-        System.out.println(" Comes Here: ");
         for (Map<String, String> type : myImageViewObjectMap){
             double xPosition = Double.valueOf(type.get(ISelectDetail.X_POSITION_KEY));
             double yPosition = Double.valueOf(type.get(ISelectDetail.Y_POSITION_KEY));
@@ -218,14 +221,26 @@ public class GameEditorData implements IGameEditorData{
 
     @Override
     public void storeMainCharToXML () {
-// TODO: Add into 
-        for(Map<String,String> map: myMainCharImageViewMap){
+        // TODO: Add into 
+        for(Map<String,String> map: myMainCharImageViewMaps){
             map.forEach((k,v)-> {
 
             });
 
         }
     }
+
+
+    @Override
+    public ArrayList<String> getMainCharacterTypes () {
+        ArrayList<String> types = new ArrayList<String>();
+        for (Map<String, String> type : myMainCharImageViewMaps){
+            String typeName = type.get(DetailResources.TYPE_NAME.getResource());
+            types.add(typeName);
+        }
+        return types;
+    }
 }
+
 
 

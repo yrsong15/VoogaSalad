@@ -29,7 +29,7 @@ public class PlatformDetail {
 
 
     public PlatformDetail(IGameEditorData dataStore){
-        myVBox = new VBox();
+        
         myDataStore = dataStore;
         myImageDetail = new ImageDetail();
         myDetailFrontEndUtil = new DetailFrontEndUtil();
@@ -37,9 +37,10 @@ public class PlatformDetail {
     }
 
     public VBox getTabContent(){
-        
+        myVBox = new VBox();
         myVBox.setSpacing(IAbstractCommandDetail.MY_DETAIL_PADDING);
         myTypeTextArea = myDetailFrontEndUtil.createTypeName();
+        myVBox.getChildren().add(myTypeTextArea);
         createPlatformProperties();
         myVBox.getChildren().add(myImageDetail.createImageChoose());
         createSave(e-> handleSavePlatform()); 
