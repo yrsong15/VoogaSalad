@@ -23,7 +23,7 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * 
- * @author pratikshasharma, John Martin
+ * @author John Martin
  *
  */
 

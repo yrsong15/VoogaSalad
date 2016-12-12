@@ -136,7 +136,8 @@ public class GameEditorData implements IGameEditorData{
         myProjectileObjects.put(typeName, properties);
     }
     
-    private void addRandomGeneration(Map<String,String> properties, List<TextArea>myRandomGenParameters){
+    @SuppressWarnings("unchecked")
+	private void addRandomGeneration(Map<String,String> properties, List<TextArea>myRandomGenParameters){
         Integer num = Integer.parseInt(myRandomGenParameters.get(0).getText());
         if(num==0){num=5;}
         Integer xMin = Integer.parseInt(myRandomGenParameters.get(1).getText());
@@ -156,7 +157,8 @@ public class GameEditorData implements IGameEditorData{
         // Image URL (bird.png)
         // 
 
-        RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
+        @SuppressWarnings("rawtypes")
+		RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
 
         myLevel.addRandomGeneration(randomGeneration);
     }

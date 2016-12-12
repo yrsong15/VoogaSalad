@@ -15,7 +15,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import objects.ScrollType;
-
+/**
+ * @author John Martin
+ *
+ */
 public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail{
     //private VBox myVBox;
     private Menu scrollTypeMenu;
@@ -149,7 +152,8 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         myScrollType.addDirectionList(scrollTypeDirections);
     }
 
-    private boolean verifySave(){
+    @SuppressWarnings("unused")
+	private boolean verifySave(){
         // TODO: Verify if right values entered
         return true;
     }

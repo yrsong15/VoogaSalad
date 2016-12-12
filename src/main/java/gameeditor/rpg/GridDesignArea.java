@@ -26,7 +26,7 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * 
- * @author pratikshasharma, John Martin
+ * @author John Martin
  *
  */
 
@@ -172,7 +172,8 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
         myKeyCode = null;
     }
     
-    private void resetCells(){
+    @SuppressWarnings("unused")
+	private void resetCells(){
     	for (Cell cell : mySelectedCells){
     		cell.resetColor();
     	}

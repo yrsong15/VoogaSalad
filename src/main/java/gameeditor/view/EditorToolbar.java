@@ -16,8 +16,11 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
-
+/**
+ * 
+ * @author John Martin
+ *
+ */
 public class EditorToolbar implements IEditorToolbar {
 
 	// TODO: Remove hardcoding of the following values

@@ -22,8 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import objects.interfaces.IGame;
 import objects.interfaces.ILevel;
-
-
 /**
  * @author pratikshasharma, John
  */

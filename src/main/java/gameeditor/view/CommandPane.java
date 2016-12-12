@@ -10,7 +10,10 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-
+/**
+ * @author John Martin
+ *
+ */
 public class CommandPane implements ICommandButtonOut {
 	
 	private Pane myPane;

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * @author John Martin
+ *
+ */
 public class BoundingBox {
 	
 	private ArrayList<Rectangle> myCorners = new ArrayList<Rectangle>();

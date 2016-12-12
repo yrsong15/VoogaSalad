@@ -8,7 +8,11 @@ import gameeditor.view.ViewResources;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/**
+ * 
+ * @author John Martin
+ *
+ */
 public interface IDesignArea {
     public static final String IMAGE_FILE_TYPE = ViewResources.IMAGE_FILE_TYPE.getResource();
     public static final String MUSIC_FILE_TYPE = ViewResources.MUSIC_FILE_TYPE.getResource();

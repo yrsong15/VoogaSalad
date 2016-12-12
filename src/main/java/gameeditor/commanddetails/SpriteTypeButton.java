@@ -12,13 +12,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * @author John Martin
+ *
+ */
 public class SpriteTypeButton {
 
-    private static final String X_POSITION_KEY =ISelectDetail.X_POSITION_KEY;
-    private static final String Y_POSITION_KEY = ISelectDetail.Y_POSITION_KEY;
-    private static final String SPRITE_WIDTH_KEY =IGameEditorData.WIDTH_KEY;
-    private static final String SPRITE_HEIGHT_KEY =IGameEditorData.HEIGHT_KEY;
+//    private static final String X_POSITION_KEY =ISelectDetail.X_POSITION_KEY;
+//    private static final String Y_POSITION_KEY = ISelectDetail.Y_POSITION_KEY;
+//    private static final String SPRITE_WIDTH_KEY =IGameEditorData.WIDTH_KEY;
+//    private static final String SPRITE_HEIGHT_KEY =IGameEditorData.HEIGHT_KEY;
 
     private static final double DEFAULT_X = 0;
     private static final double DEFAULT_Y = 0;
@@ -127,7 +130,8 @@ public class SpriteTypeButton {
         }
     }
 
-    private void handlePress(double x, double y, double sceneX, double sceneY){
+    @SuppressWarnings("unused")
+	private void handlePress(double x, double y, double sceneX, double sceneY){
         double padding = 5;
         double fitWidth = myBGRectangle.getWidth() - padding;
         double fitHeight = myBGRectangle.getHeight() - padding;
@@ -160,7 +164,8 @@ public class SpriteTypeButton {
     	dragEntering = false;
     }
 
-    private void handleRelease(){
+    @SuppressWarnings("unused")
+	private void handleRelease(){
     	if (!dragExited){
     		
     	} else {

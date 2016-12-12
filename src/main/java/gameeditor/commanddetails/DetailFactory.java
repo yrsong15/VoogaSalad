@@ -3,8 +3,10 @@ package gameeditor.commanddetails;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
-import gameeditor.view.interfaces.IStandardDesignArea;
-
+/**
+ * @author John Martin
+ *
+ */
 public class DetailFactory {
 
 	public AbstractCommandDetail create(String name, IGameEditorData ged, IDesignArea myDesignArea, IDetailPane idp) {

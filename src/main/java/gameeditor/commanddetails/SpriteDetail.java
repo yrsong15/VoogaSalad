@@ -8,12 +8,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-
+/**
+ * @author John Martin
+ *
+ */
 public class SpriteDetail {
     private IGameEditorData myDataStore;
     private VBox myVBox;

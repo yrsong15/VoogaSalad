@@ -2,7 +2,11 @@ package gameeditor.view.interfaces;
 
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
-
+/**
+ * 
+ * @author John Martin
+ *
+ */
 public interface IStandardDesignArea extends IDesignArea {
 	
 	public void addSprite(GameObjectView gameObject);

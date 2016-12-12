@@ -12,7 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-
+/**
+ * @author John Martin
+ *
+ */
 abstract public class AbstractSelectDetail extends AbstractCommandDetail implements ISelectDetail {
 
     protected static final String X_LABEL = "X: ";
@@ -67,7 +70,8 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         myHeightTextArea.setText(HEIGHT_LABEL + heightString);
     }
 
-    private void createUpdate(){
+    @SuppressWarnings("unused")
+	private void createUpdate(){
         Button update = new Button();
         update.setText(DetailResources.UPDATE_BUTTON_TEXT.getResource());
         update.setMinWidth((PADDED_PANE_WIDTH - HBOX_SPACING)/2);

@@ -20,7 +20,8 @@ implements IGameEditorBackEndController, ICreateGame{
     private Game myGame;
     private Level myCurrentLevel;
     private XMLSerializer mySerializer;
-    private IGame myGameInterface;
+    @SuppressWarnings("unused")
+	private IGame myGameInterface;
 
     public GameEditorBackendController(){
     	mySerializer = new XMLSerializer();
