@@ -6,6 +6,8 @@ import java.security.Key;
 import java.util.*;
 
 import gameengine.model.RandomGenFrame;
+import gameengine.model.boundary.GameBoundary;
+import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 
 /**
@@ -26,6 +28,7 @@ public class Level {
     private RandomGenFrame<Integer> randomGenerationFrame;
 	private List<GameObject> players;
 	private ScrollType scrollType;
+	private GameObject background;
 
 	public Level(int level) {
         this.level = level;
@@ -37,6 +40,7 @@ public class Level {
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
 	}
+	
 	
 	public void removeAllPlayers(){
 		players = new ArrayList<>();
@@ -157,6 +161,15 @@ public class Level {
 
     public List<GameObject> getObstacles() {
         return obstacles;
+    }
+    
+    public GameObject getBackground(){
+    	return background;
+    }
+    
+    public void setBackgroundObject(){
+    	GameBoundary gameBoundaries = this.getScrollType().getGameBoundary();
+        background = new GameObject(0, 0, 0, gameBoundaries.getWorldWidth(), gameBoundaries.getWorldHeight(), backgroundFilePath, new HashMap<>());
     }
 
     public void setBackgroundImage(String filePath) {

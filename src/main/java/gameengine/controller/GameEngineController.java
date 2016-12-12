@@ -53,7 +53,6 @@ public class GameEngineController implements CommandInterface {
 		this.currentGame = currentGame;
 		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
-		System.out.println("wwwwww");
 		if(toolbarHBox != null){
 			backend.setToolbarHBox(toolbarHBox);
 		}
