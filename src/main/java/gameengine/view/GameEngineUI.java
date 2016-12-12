@@ -70,13 +70,28 @@ public class GameEngineUI implements UDPHandler{
 	private ClientGame currentGame;
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
+//<<<<<<< HEAD
+//	private boolean isPaused, isMuted;
+
+//	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer,
+//						EventHandler<ActionEvent> resetEvent, String serverName) {
+////		mainPlayer = player;
+//=======
 	private boolean isPaused,isMuted;
 	
+//<<<<<<< HEAD
+//	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer,
+//			EventHandler<ActionEvent> resetEvent, GameHandler gamehandler, String serverName) {
+//>>>>>>> e3d8e69680ea7a079bfdad2029af3cebedd8f45a
+//=======
 	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, String serverName) {
+//>>>>>>> 0eb0f732f4089683f284f9d245814933e9cafc98
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+		scene.getStylesheets().add(EDITOR_SPLASH_STYLE);
+//		controlInterface = new ClientMain(serverName, 9090, -1, this);
 		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;

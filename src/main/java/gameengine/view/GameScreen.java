@@ -93,8 +93,29 @@ public class GameScreen {
         myScreen.getChildren().clear();
     }
 
-
     private void addGameObject(ClientGameObject object) {
+        if (object.getImageFileName() == null)
+            return;
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
+        ImageView iv = new ImageView(image);
+        iv.setFitHeight(object.getHeight());
+        iv.setFitWidth(object.getWidth());
+        iv.setX(object.getXPosition());
+        iv.setY(object.getYPosition());
+        iv.setRotationAxis(Rotate.Y_AXIS);
+        if(object.getDirection() == null){
+            object.setDirection(Direction.RIGHT);
+        }
+        if(object.getDirection().equals(Direction.LEFT)){
+            iv.setRotate(180);
+        }else{
+            iv.setRotate(0);
+        }
+        gameObjectImageViewMap.put(object.getID(), iv);
+        myScreen.getChildren().add(iv);
+    }
+
+    private void addGameObjectHealthBar(ClientGameObject object){
         if (object.getImageFileName() == null)
             return;
         Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));

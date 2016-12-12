@@ -16,7 +16,6 @@ public abstract class RandomGenFrame<T> {
     protected ArrayList<RandomGeneration<Integer>> randomGenRules;
     protected GameObject referenceFirstObject;
     protected static final Random RNG = new Random();
-
     public abstract void possiblyGenerateNewFrame (RandomGeneration<Integer> randomGenRules);
     public abstract void setNewFirstBenchmark(GameObject object);
     public abstract double calculateY(int margin, RandomGeneration<Integer> elem, double buffer);
@@ -25,7 +24,6 @@ public abstract class RandomGenFrame<T> {
     public ArrayList<RandomGeneration<Integer>> getRandomGenerationRules(){
         return this.randomGenRules;
     }
-
     protected void generateNewFrameAndSetBenchmark(Level level) {
         ArrayList<RandomGeneration<Integer>> randomGenRulesList = randomGenRules;
         for(RandomGeneration<Integer> elem:randomGenRulesList){
@@ -43,11 +41,9 @@ public abstract class RandomGenFrame<T> {
             }
         }
     }
-
     protected void generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
         GameObject object = new GameObject(xPosition, yPosition, width, height, URL,objectProperties);
         level.getGameObjects().add(object);
         setNewFirstBenchmark(object);
     }
-
 }

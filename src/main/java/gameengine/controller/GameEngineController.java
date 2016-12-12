@@ -17,11 +17,14 @@ public class GameEngineController implements CommandInterface {
 	public static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
 	private XMLSerializer serializer;
+	private Game currentGame;
 	private GameEngineUI gameEngineView;
 	private GameEngineBackend backend;
 	private boolean hostGame;
 	private String serverName;
+	private boolean serverStarted;
 	private Node toolbarHBox;
+
 	public GameEngineController() {
 		this.hostGame = true;
 		serverName = "localhost";
@@ -55,6 +58,8 @@ public class GameEngineController implements CommandInterface {
 			backend.setToolbarHBox(toolbarHBox);
 		}
 	}
+
+
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
 
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
@@ -84,4 +89,6 @@ public class GameEngineController implements CommandInterface {
 	public void endGame() {
 		gameEngineView.endGame();
 	}
+
+	public Level getLevel() { return currentGame.getCurrentLevel(); }
 }
