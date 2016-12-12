@@ -59,7 +59,7 @@ public class GameScreen {
     public void init(ClientGame game) {
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
         addGameObject(game.getBackgroundObject());
-        for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
+        for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {        	
             addGameObject(entry.getValue());
         }
     }
@@ -113,6 +113,8 @@ public class GameScreen {
         catch (NullPointerException e){
         	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
         }     
+    	System.out.println(object.getID() +  "  " + object.getImageFileName());
+
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());
         iv.setFitWidth(object.getWidth());

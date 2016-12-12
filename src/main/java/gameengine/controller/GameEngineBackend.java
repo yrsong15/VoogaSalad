@@ -48,7 +48,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void addPlayersToClient(int ID) {
-		//gfsgdf/
 		for (Long id: currentGame.getClientMappings().keySet()) {
 			if (id.equals(new Long(ID))) {
 				for (Player p : currentGame.getClientMappings().get(id)) {

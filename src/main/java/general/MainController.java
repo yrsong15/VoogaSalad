@@ -60,22 +60,27 @@ public class MainController {
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY/
         Game game = new Game("Doodle Jump");
-        GameObject thirdShyGuy = new GameObject(0, 250, 10, 800, "doodler.png", new HashMap<>());
+        GameObject thirdShyGuy = new GameObject(0, 250, 75, 50, "doodler.png", new HashMap<>());
         Player player1 = new Player(thirdShyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
         thirdShyGuy.setProperty("movespeed", "10");
+        player1.setControl(KeyCode.UP, "up");
+        player1.setControl(KeyCode.LEFT, "left");
+        player1.setControl(KeyCode.RIGHT, "right");
+        player1.setControl(KeyCode.DOWN, "down");
+
+
         level = new Level(1);
         level.setTitle(game.getGameName());
-        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675);
+        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 1200, 800);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
         scrollType.setScrollSpeed(30);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/ddrbackground.jpg");
+        level.setBackgroundImage("Background/bg.png");
         game.setCurrentLevel(level);
         level.addPlayer(thirdShyGuy);
-        //  level.addPlayer(fourthShyGuy);
         GameObject ground = new GameObject(0, 250,10,800,"pipes.png", new HashMap<>());
         level.addGameObject(ground);
         
@@ -119,6 +124,7 @@ public class MainController {
         level.addGameObject(ground);**/
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
 
@@ -145,7 +151,7 @@ public class MainController {
 	}
 
 	public void launchEngine(String XMLData) {
-		 XMLData = testGameEngine();
+		 //XMLData = testGameEngine();
 		boolean multiplayer = true;
 		boolean isServer = false;
 		// if (gameEngineController.startGame(XMLData) == true && (!multiplayer
