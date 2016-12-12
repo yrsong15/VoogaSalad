@@ -121,7 +121,7 @@ public class GameEngineUI implements UDPHandler{
 	}
 	public void setBackgroundImage(String imageFile) {
 		try {
-			gameScreen.setBackgroundImage(imageFile);
+			//gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
 		}
@@ -209,9 +209,10 @@ public class GameEngineUI implements UDPHandler{
 	private BorderPane makeRoot() {
 		BorderPane root = new BorderPane();
 		VBox vb = new VBox();
+		vb.setFillWidth(true);
 		vb.getChildren().addAll(makeToolbar(), makeHUD());
-		root.setTop(vb);
 		root.setCenter(makeGameScreen());
+		root.setTop(vb);
 		return root;
 	}
 	private Node makeToolbar() {

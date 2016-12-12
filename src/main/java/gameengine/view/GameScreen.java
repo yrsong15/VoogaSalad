@@ -1,6 +1,8 @@
 package gameengine.view;
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.network.server.ServerMain;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -9,6 +11,9 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import objects.ClientGame;
 import objects.ClientGameObject;
@@ -39,37 +44,45 @@ public class GameScreen {
         return screenHeight;
     }
     public void setBackgroundImage(String imageFile) {
-        BackgroundImage bi = new BackgroundImage(
+        /**BackgroundImage bi = new BackgroundImage(
                 new Image(getClass().getClassLoader().getResourceAsStream(imageFile), screenWidth, screenHeight, false,
                         true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-        myScreen.setBackground(new Background(bi));
+        myScreen.setBackground(new Background(bi));   **/  
     }
 
 
     public void init(ClientGame game) {
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
+        addGameObject(game.getBackgroundObject());
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             addGameObject(entry.getValue());
         }
     }
 
+    
+    public void updatePosition(ClientGameObject obj){
+        if (gameObjectImageViewMap.containsKey(obj.getID())) {
+            gameObjectImageViewMap.get(obj.getID()).relocate(obj.getXPosition(),
+                    obj.getYPosition());
+        }
+        else {
+            addGameObject(obj);
+        }
+    }
+    
+    
     public void update(ClientGame game){
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
+        updatePosition(game.getBackgroundObject());
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             ClientGameObject object = entry.getValue();
-            if (gameObjectImageViewMap.containsKey(object.getID())) {
-                gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
-                        object.getYPosition());
-            }
-            else {
-                addGameObject(object);
-            }
+            updatePosition(object);
         }
         for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
             int ID = it.next();
-            if(!allGameObjects.containsKey(ID)){
+            if(!allGameObjects.containsKey(ID) && (ID!= game.getBackgroundObject().getID())){
                 myScreen.getChildren().remove(gameObjectImageViewMap.get(ID));
                 it.remove();
             }
@@ -85,7 +98,18 @@ public class GameScreen {
     private void addGameObject(ClientGameObject object) {
         if (object.getImageFileName() == null)
             return;
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
+        Image image = null;
+        ImagePattern img = null;
+        try{
+        	image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
+        }
+        catch (NullPointerException e){
+        	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));
+        	img = new ImagePattern(image);
+        	
+        }     
+        
+        
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());
         iv.setFitWidth(object.getWidth());

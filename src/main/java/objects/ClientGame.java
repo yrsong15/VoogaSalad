@@ -1,6 +1,7 @@
 package objects;
 
 import gameengine.network.server.ServerMain;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ public class ClientGame {
 	Map<Integer, ClientGameObject> gameObjectMap;
     private String musicFilePath;
 	private String backgroundFilePath;
-
+	private ClientGameObject background;
 	public ClientGame(String musicFilePath, String backgroundFilePath) {
 		gameObjectMap = new HashMap<>();
 		this.musicFilePath = musicFilePath;
@@ -30,8 +31,17 @@ public class ClientGame {
 		}
 	}
 	
+	public void setBackgroundObject(GameObject bg){
+		this.background = new ClientGameObject(bg.getID(), bg.getXPosition(), bg.getYPosition(),
+							bg.getWidth(), bg.getHeight(), bg.getDirection(), bg.getImageFileName());
+	}
+	
 	public Map<Integer, ClientGameObject> getAllGameObjects(){
 		return gameObjectMap;
+	}
+	
+	public ClientGameObject getBackgroundObject(){
+		return background;
 	}
 
 	public String getMusicFilePath() {
