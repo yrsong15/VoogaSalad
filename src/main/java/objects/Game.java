@@ -68,39 +68,39 @@ public class Game implements IGame{
 		players.add(player);
 	}
 
-	public void addLevel(Level level) {
-		levels.put(level.getLevel(),level);
-	}
+    public void addLevel(Level level) {
+        levels.put(level.getLevel(),level);
+    }
 
-	public void removeLevel(int level) {
-		levels.remove(level);
-	}
-	
-	public Level getCurrentLevel(){
-	    return this.currentLevel;
-	}
+    public void removeLevel(int level) {
+        levels.remove(level);
+    }
 
-	public void setCurrentLevel(Level currentLevel){
-		this.currentLevel = currentLevel;
-	}
-	
-	public void setGameName(String name){
-	    this.name = name;
-	}
-	
-	public int getNumberOfLevels(){
-	   return levels.size();
-	}
-	
-	public String getGameName(){
-	    return this.name;
-	}
-	
-	public Level getLevelByIndex(int index){
-	    return levels.get(index);
-	}
+    public Level getCurrentLevel(){
+        return this.currentLevel;
+    }
 
-	public Map<KeyCode, String> getAllControls(){
+    public void setCurrentLevel(Level currentLevel){
+        this.currentLevel = currentLevel;
+    }
+
+    public void setGameName(String name){
+        this.name = name;
+    }
+
+    public int getNumberOfLevels(){
+        return levels.size();
+    }
+
+    public String getGameName(){
+        return this.name;
+    }
+
+    public Level getLevelByIndex(int index){
+        return levels.get(index);
+    }
+
+    public Map<KeyCode, String> getAllControls(){
         Map<KeyCode, String> controls = new HashMap<KeyCode, String>();
         for(Player player : players){
             controls.putAll(player.getControls());

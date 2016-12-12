@@ -1,0 +1,21 @@
+<objects.Game>
+  <name>Untitled</name>
+  <levels>
+    <entry>
+      <int>1</int>
+      <objects.Level>
+        <level>1</level>
+        <projectiles/>
+        <gameObjects/>
+        <obstacles/>
+        <winConditions/>
+        <loseConditions/>
+        <gameConditions/>
+        <randomGenerations/>
+        <players/>
+      </objects.Level>
+    </entry>
+  </levels>
+  <currentLevel reference="../levels/entry/objects.Level"/>
+  <players/>
+</objects.Game>

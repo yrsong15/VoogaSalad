@@ -2,6 +2,7 @@ package objects;
 
 import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.input.KeyCode;
+import objects.interfaces.ILevel;
 import java.security.Key;
 import java.util.*;
 
@@ -14,15 +15,15 @@ import gameengine.view.GameEngineUI;
  * Created by Soravit on 11/18/2016.
  * @author : Soravit, Pratiksha
  */
-public class Level {
+public class Level implements ILevel{
 
-	private int level;
-	private List<GameObject> projectiles;
+    private int level;
+    private List<GameObject> projectiles;
     private List<GameObject> gameObjects;
     private List<GameObject> obstacles;
     private Map<String, String> winConditions;
-	private Map<String, String> loseConditions;
-	private Map<String, Double> gameConditions;
+    private Map<String, String> loseConditions;
+    private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private String musicFilePath, backgroundFilePath, title;
     private RandomGenFrame<Integer> randomGenerationFrame;
@@ -30,7 +31,7 @@ public class Level {
 	private ScrollType scrollType;
 	private GameObject background;
 
-	public Level(int level) {
+    public Level(int level) {
         this.level = level;
         projectiles = new ArrayList<GameObject>();
         gameObjects = new ArrayList<GameObject>();
@@ -75,11 +76,11 @@ public class Level {
 
 	public void addProjectile(GameObject go) {
         projectiles.add(go);
-	}
+    }
 
-	public void removeProjectile(GameObject go) {
+    public void removeProjectile(GameObject go) {
         projectiles.remove(go);
-	}
+    }
 
     public void addGameObject(GameObject go) {
         gameObjects.add(go);
@@ -89,33 +90,33 @@ public class Level {
         gameObjects.remove(go);
     }
 
-	public void addWinCondition(String type, String action) {
-		winConditions.put(type, action);
-	}
+    public void addWinCondition(String type, String action) {
+        winConditions.put(type, action);
+    }
 
-	public void removeWinCondition(String type, String action) {
-		winConditions.remove(type);
-	}
+    public void removeWinCondition(String type, String action) {
+        winConditions.remove(type);
+    }
 
-	public Map<String, String> getWinConditions() {
-		return winConditions;
-	}
+    public Map<String, String> getWinConditions() {
+        return winConditions;
+    }
 
-	public void addLoseCondition(String type, String action) {
-		loseConditions.put(type, action);
-	}
+    public void addLoseCondition(String type, String action) {
+        loseConditions.put(type, action);
+    }
 
-	public void removeLoseCondition(String type, String action) {
-		loseConditions.remove(type);
-	}
+    public void removeLoseCondition(String type, String action) {
+        loseConditions.remove(type);
+    }
 
-	public Map<String, String> getLoseConditions() {
-		return loseConditions;
-	}
+    public Map<String, String> getLoseConditions() {
+        return loseConditions;
+    }
 
-	public Map<String, Double> getGameConditions() {
-		return gameConditions;
-	}
+    public Map<String, Double> getGameConditions() {
+        return gameConditions;
+    }
 
     public void addPlayer(GameObject player){
         players.add(player);
@@ -129,29 +130,29 @@ public class Level {
         return players;
     }
 
-	public int getScore() {
+    public int getScore() {
         if(gameConditions.get("score") == null){
             gameConditions.put("score", 0.0);
         }
-		return gameConditions.get("score").intValue();
-	}
+        return gameConditions.get("score").intValue();
+    }
 
-	public void setScore(double score) {
-		gameConditions.put("score", score);
-	}
+    public void setScore(double score) {
+        gameConditions.put("score", score);
+    }
 
-	public double getTime() {
+    public double getTime() {
         if(gameConditions.get("time") == null){
             gameConditions.put("time", 0.0);
         }
-		return gameConditions.get("time");
-	}
+        return gameConditions.get("time");
+    }
 
-	public void setTime(double time) {
-		gameConditions.put("time", time);
-	}
+    public void setTime(double time) {
+        gameConditions.put("time", time);
+    }
 
-	public List<GameObject> getProjectiles(){
+    public List<GameObject> getProjectiles(){
         return projectiles;
     }
 

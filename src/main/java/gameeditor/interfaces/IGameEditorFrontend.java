@@ -1,5 +1,9 @@
 package gameeditor.interfaces;
-
+/**
+ * 
+ * @author Pratiksha Sharma
+ *
+ */
 public interface IGameEditorFrontend {
 	
 	// Method to set level type: either distinct finite levels or infinite levels
