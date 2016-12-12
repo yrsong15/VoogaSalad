@@ -1,8 +1,14 @@
 package gameengine.view;
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.network.server.ServerMain;
+import gameengine.view.onscreenbuttons.MuteButton;
+import gameengine.view.onscreenbuttons.PauseButton;
+import gameengine.view.onscreenbuttons.ResetButton;
+import gameengine.view.onscreenbuttons.SaveButton;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -19,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
  * @author Noel Moon (nm142)
  *
@@ -31,10 +38,20 @@ public class GameScreen {
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
     private List<Rectangle> barList;
+    private ResetButton resetButton;
+    private MuteButton muteButton;
+    private PauseButton pauseButton;
+    private SaveButton saveButton;
     
-    public GameScreen() {
+    public GameScreen(EventHandler<? super MouseEvent> resetEvent,  EventHandler<? super MouseEvent> muteEvent,
+    		EventHandler<? super MouseEvent> pauseEvent, EventHandler<? super MouseEvent> saveEvent) {
         myScreen = new Pane();
         myScreen.setMaxSize(screenWidth, screenHeight);
+        this.resetButton = new ResetButton(resetEvent);
+        this.muteButton = new MuteButton(muteEvent);
+        this.pauseButton = new PauseButton(pauseEvent);
+        this.saveButton = new SaveButton(saveEvent);
+        myScreen.getChildren().add(resetButton.getButton());
         gameObjectImageViewMap = new HashMap<>();
         barList = new ArrayList<Rectangle>();
     }
@@ -68,15 +85,16 @@ public class GameScreen {
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             ClientGameObject object = entry.getValue();
-            Rectangle bar = new Rectangle(object.getXPosition(), object.getYPosition() - 8, object.getWidth(), 10);
-            //myScreen.getChildren().add(bar);
-            barList.add(bar);
+            
             if (gameObjectImageViewMap.containsKey(object.getID())) {
                 gameObjectImageViewMap.get(object.getID()).relocate(object.getXPosition(),
                         object.getYPosition());
             }
             else {
                 addGameObject(object);
+                Rectangle bar = new Rectangle(object.getXPosition(), object.getYPosition() - 8, object.getWidth(), 10);
+                //myScreen.getChildren().add(bar);
+                //barList.add(bar);
             }
         }
         for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
@@ -91,6 +109,11 @@ public class GameScreen {
     public void reset() {
         gameObjectImageViewMap.clear();
         myScreen.getChildren().clear();
+        myScreen.getChildren().addAll(resetButton.getButton(), muteButton.getButton(), pauseButton.getButton(), saveButton.getButton());
+        resetButton.getButton().toFront();
+        muteButton.getButton().toFront();
+        pauseButton.getButton().toFront();
+        saveButton.getButton().toFront();
     }
 
     private void addGameObject(ClientGameObject object) {

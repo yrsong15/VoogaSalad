@@ -82,10 +82,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		if(currLevel.getRandomGenRules().size() > 0) {
             randomlyGenerateFrames();
         }
-		
-		System.out.println("qqqqqq");
+
 		if(toolbarHBox != null){
-			System.out.println("sadfasdfsadf");
 			toolbarHBox.toFront();
 		}
 		
