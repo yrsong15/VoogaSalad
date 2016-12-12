@@ -83,8 +83,6 @@ public class MainController {
         //Left down up right <- order of arrows from left to right
         //UNCOMMENT BELOW FOR DEM SPICY DDR
         /*
-=======
->>>>>>> e52c21951875f5fad8b2120c125ae62d56084812
         HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
         RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,150,150,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
         RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,150,150,"ddrdownarrow.png",2, 190 ,190,1234,1234,500,520);
@@ -92,21 +90,20 @@ public class MainController {
         RandomGeneration arrow4 = new RandomGeneration(DDRArrowProperties,150,150,"ddrrightarrow.png",2, 530,530,1234,1234,540,1000);
         ArrayList<RandomGeneration> asdf = new ArrayList<RandomGeneration>();
         asdf.add(arrow1);asdf.add(arrow2);asdf.add(arrow3);asdf.add(arrow4);
-        RandomGenFrame frame = new RandomGenFrameY(level,asdf);
+        RandomGenFrame frame = new RandomGenFrameY(level,asdf,false);
         level.setRandomGenerationFrame(frame);
-<<<<<<< HEAD
         */
         //UNCOMMENT BELOW FOR DEM SPICY DOODLE JUMPZ
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "1000");
-        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
-        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
-        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
-        ArrayList<RandomGeneration> asdf = new ArrayList<>();
+        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 3, 0,200,1234,1234,400,500);
+        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 3, 200,500,1234,1234,400,500);
+        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 3, 500,550,1234,1234,400,500);
+        ArrayList<RandomGeneration> asdf = new ArrayList<RandomGeneration>();
         asdf.add(platforms);
         asdf.add(platforms2);
         asdf.add(platforms3);
-        RandomGenFrame frame = new RandomGenFrameY(level, asdf);
+        RandomGenFrame frame = new RandomGenFrameY(level,asdf,true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
