@@ -17,6 +17,7 @@ class TcpConnection {
 	private static final int SEND_COMMAND = 1;
 	private static final int GET_ID_IP_PORT = 2;
 	private static final int REMOVE_CHARACTER = 3;
+	private static final int PAUSE = 4;
 	
 	private final int SERVER_PORT_TCP;
 	
@@ -71,6 +72,19 @@ class TcpConnection {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	void sendPauseCommand(){
+		try {
+			ServerMessage sm = new ServerMessage(PAUSE);
+			String data = serializer.serializeServerMessage(sm);
+			oos.writeObject(data);
+			System.out.println("data written in client TCP");
+			oos.reset();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
 	}
 	
 	/** Sends IP and port of Udp connection **/

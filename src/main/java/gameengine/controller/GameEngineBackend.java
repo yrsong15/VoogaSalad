@@ -29,6 +29,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private String serverName;
 
 	public GameEngineBackend(String serverName) {
+		System.out.println("Engine Backend initialized");
 		this.serverName = serverName;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
@@ -37,13 +38,13 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void startGame(Game currentGame) {
+		System.out.println("Startgame in Engine Backend called");
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
 		this.
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		serverMain = new ServerMain(this, 9090, serverName);
-
 	}
 
 	public void addPlayersToClient(int ID) {
@@ -240,11 +241,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 				}
 			}
 		}
-	}
-
-	@Override
-	public void pause() {
-		serverMain.pause();
 	}
 
 }
