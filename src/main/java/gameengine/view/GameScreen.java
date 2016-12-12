@@ -88,9 +88,6 @@ public class GameScreen {
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             ClientGameObject object = entry.getValue();
             updatePosition(object);
-            Rectangle bar = new Rectangle(object.getXPosition(), object.getYPosition() - 8, object.getWidth(), 10);
-            //myScreen.getChildren().add(bar);
-            barList.add(bar);
         }
         for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
             int ID = it.next();
