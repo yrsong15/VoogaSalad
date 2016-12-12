@@ -55,6 +55,7 @@ public class ServerMain {
 	private GameHandler gameHandler;
 
 	public ServerMain(GameHandler gameHandler, int tcpPort, String serverName) {
+		System.out.println("Server Main initialized");
 		this.gameHandler = gameHandler;
 		SERVER_PORT_TCP = tcpPort;
 		activeClients = new CopyOnWriteArrayList<IpPort>();
