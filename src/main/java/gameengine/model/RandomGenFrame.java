@@ -14,59 +14,45 @@ import gameengine.controller.interfaces.*;
 import gameengine.view.GameScreen;
 
 
-public class RandomGenFrame<T> {
-	private double benchmarkPoint = -200;
-    private Level level;
-    private ArrayList<RandomGeneration<Integer>> randomGenRules;
-    private GameObject referenceFirstObject;
-    private static final Random RNG = new Random();
+public abstract class RandomGenFrame<T> {
 
-    public RandomGenFrame (Level level, ArrayList<RandomGeneration<Integer>> randomGenerationRules) {
-    	this.randomGenRules = randomGenerationRules;
-    	this.level = level;
-    }
+	protected Level level;
+    protected ArrayList<RandomGeneration<Integer>> randomGenRules;
+    protected GameObject referenceFirstObject;
+    protected static final Random RNG = new Random();
     
+    public abstract void possiblyGenerateNewFrame (RandomGeneration<Integer> randomGenRules);
+    public abstract void setNewFirstBenchmark(GameObject object);
+	public abstract double calculateY(int margin, RandomGeneration<Integer> elem, double buffer);
+	public abstract int calculateMargin(RandomGeneration<Integer> elem);
+	public abstract double calculateX(int margin, RandomGeneration<Integer> elem, double buffer);
+
     public ArrayList<RandomGeneration<Integer>> getRandomGenerationRules(){
     	return this.randomGenRules;
     }
-
-    public void possiblyGenerateNewFrame (RandomGeneration<Integer> randomGenRules) {
-        if (referenceFirstObject == null || referenceFirstObject.getYPosition() >= benchmarkPoint) {
-            generateNewFrameAndSetBenchmark(level);
-        }
-    }
-
-    private void generateNewFrameAndSetBenchmark(Level level) {
-        for(RandomGeneration<Integer> elem:randomGenRules){
-	        int minSep = elem.getMinSpacing();
-	        int maxSep = elem.getMaxSpacing();
-	        int buffer = 0;
+    
+	protected void generateNewFrameAndSetBenchmark(Level level) {
+		ArrayList<RandomGeneration<Integer>> randomGenRulesList = randomGenRules;
+        for(RandomGeneration<Integer> elem:randomGenRulesList){
+	        int minSep = elem.getMinSpacing(); double width = elem.getWidth();
+	        int maxSep = elem.getMaxSpacing(); double height = elem.getHeight();
+	        int buffer = 0;         
 	        for(int i=0; i<elem.getNumObjects();i++){
-	            double nextSeparationDist = RNG.nextInt(maxSep - minSep) + minSep;
-	            buffer += nextSeparationDist;
-	            double YPosition = benchmarkPoint - buffer;
-	            int xMargin = elem.getMaxX() - elem.getMinX();
-	            if(xMargin <= 0) xMargin = 1;
-	            double randomXPosition = RNG.nextInt(xMargin) + elem.getMinX();
-	            double width = elem.getWidth();
-	            double height = elem.getHeight();
-	            generateObject(randomXPosition, YPosition, width, height, elem.getImageURL(),elem.getObjectProperties());
+	        	double nextSeparationDist = RNG.nextInt(maxSep - minSep) + minSep;
+	        	buffer += nextSeparationDist;
+	            int margin = calculateMargin(elem);
+	            if(margin <= 0) margin = 1;     
+	            double YPosition = calculateY(margin,elem,buffer);
+	            double XPosition = calculateX(margin,elem,buffer);
+	            generateObject(XPosition, YPosition, width, height, elem.getImageURL(),elem.getObjectProperties());
 	        }
         }
-
     }
-
-    private void generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
+    
+    protected void generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
         GameObject object = new GameObject(xPosition, yPosition, width, height, URL,objectProperties);
         level.getGameObjects().add(object);
         setNewFirstBenchmark(object);
     }
-    
-    private void setNewFirstBenchmark(GameObject object){
-    	if(referenceFirstObject == null || (object.getYPosition() < referenceFirstObject.getYPosition())) {
-    		referenceFirstObject = object;
-    	}
-    }
-   
-    
+  
 }
