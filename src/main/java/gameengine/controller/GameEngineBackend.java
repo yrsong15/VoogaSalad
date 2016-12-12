@@ -41,7 +41,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void startGame(Game currentGame) {
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
-		if (currentGame.getCurrentLevel().getScrollType().equals("FreeScrolling")){
+		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
 			currentGame.getCurrentLevel().setBackgroundObject();
 		}
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
@@ -147,7 +147,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		if (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
 				obj) == IntersectionAmount.COMPLETELY_INSIDE_X) {
 			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
-				// System.out.println("Resetting");
 				newPosition = obj.getYPosition() - mainChar.getHeight() + 5;
 				mainChar.setPlatformCharacterIsOn(obj);
 			} else

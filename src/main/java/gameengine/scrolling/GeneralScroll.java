@@ -21,7 +21,6 @@ public class GeneralScroll {
 
 	    public void scrollDOWN(List<GameObject> gameObjects, double speed){
 	    	for(GameObject obstacle: gameObjects){
-	    		System.out.println(obstacle.getID());
 				double newPos = obstacle.getYPosition() - speed;
 				obstacle.setYPosition(newPos);
 	    	}

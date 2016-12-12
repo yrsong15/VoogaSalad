@@ -49,7 +49,7 @@ public class GameExamples{
         randomGen.add(platforms);
         randomGen.add(platforms2);
         randomGen.add(platforms3);
-        RandomGenFrame frame = new RandomGenFrameY(level, randomGen);
+        RandomGenFrame frame = new RandomGenFrameY(level, randomGen, false);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
