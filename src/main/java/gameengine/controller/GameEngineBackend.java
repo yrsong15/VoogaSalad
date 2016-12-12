@@ -38,6 +38,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void startGame(Game currentGame) {
 		currentGame.getCurrentLevel().removeAllPlayers();
 		this.currentGame = currentGame;
+		currentGame.getCurrentLevel().setBackgroundObject();
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		addRGFrames();
@@ -61,7 +62,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	 */
 	public void updateGame() {
 		Level currLevel = currentGame.getCurrentLevel();
-
 		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
 			removeOffscreenElements();
 		}
@@ -213,6 +213,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		Level currLevel = game.getCurrentLevel();
 		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath());
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
+		clientGame.setBackgroundObject(currLevel.getBackground());
 		return clientGame;
 	}
 

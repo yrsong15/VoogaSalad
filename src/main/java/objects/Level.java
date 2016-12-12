@@ -4,6 +4,8 @@ import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.input.KeyCode;
 import java.security.Key;
 import java.util.*;
+
+import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 
 /**
@@ -24,6 +26,7 @@ public class Level {
 	private String backgroundFilePath;
 	private List<GameObject> players;
 	private ScrollType scrollType;
+	private GameObject background;
 
 	public Level(int level) {
         this.level = level;
@@ -36,6 +39,7 @@ public class Level {
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
 	}
+	
 	
 	public void removeAllPlayers(){
 		players = new ArrayList<>();
@@ -153,6 +157,14 @@ public class Level {
 
     public List<GameObject> getObstacles() {
         return obstacles;
+    }
+    
+    public GameObject getBackground(){
+    	return background;
+    }
+    
+    public void setBackgroundObject(){
+        background = new GameObject(0, 0, 0, 1200, 1000, backgroundFilePath, new HashMap<>());
     }
 
     public void setBackgroundImage(String filePath) {

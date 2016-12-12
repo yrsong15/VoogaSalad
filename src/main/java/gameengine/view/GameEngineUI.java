@@ -115,7 +115,7 @@ public class GameEngineUI implements UDPHandler{
 	}
 	public void setBackgroundImage(String imageFile) {
 		try {
-			gameScreen.setBackgroundImage(imageFile);
+			//gameScreen.setBackgroundImage(imageFile);
 		} catch (Exception e) {
 			myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
 		}
