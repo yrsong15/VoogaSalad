@@ -8,6 +8,7 @@ import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IGameEditorView;
+import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -29,7 +30,7 @@ import javafx.scene.shape.Rectangle;
  *
  */
 
-public class DesignArea implements IDesignArea {
+public class DesignArea implements IStandardDesignArea {
 
     private Pane myPane;
     private ScrollPane myScrollPane;

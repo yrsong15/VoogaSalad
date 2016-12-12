@@ -4,7 +4,7 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.rpg.IGridDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 
-public class DetailFactory {
+public class RPGDetailFactory {
 
 	public AbstractCommandDetail create(String name, IGameEditorData ged, IGridDesignArea da, IDetailPane idp) {
 		try {

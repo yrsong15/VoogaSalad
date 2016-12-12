@@ -6,7 +6,9 @@ import gameeditor.commanddetails.DetailResources;
 import gameeditor.rpg.commanddetails.ISelectDetail;
 
 import gameeditor.controller.interfaces.IGameEditorData;
-
+import gameeditor.objects.BoundingBox;
+import gameeditor.objects.MultiBoundingBox;
+import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IGameEditorView;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -228,6 +230,67 @@ public class GridDesignArea implements IGridDesignArea {
 	@Override
 	public ArrayList<Cell> getSelectedCells() {
 		return mySelectedCells;
+	}
+
+	@Override
+	public void addSprite(gameeditor.objects.GameObjectView gameObject) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeSprite(gameeditor.objects.GameObjectView gameObject) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void enableClick(gameeditor.commanddetails.ISelectDetail sd) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSpriteDetails(gameeditor.objects.GameObjectView sprite, double x, double y, double width,
+			double height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initSelectDetail2(gameeditor.objects.GameObjectView sprite) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addBoundingBox(BoundingBox bb) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeBoundingBox(BoundingBox bb) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addAvatar(gameeditor.objects.GameObjectView avatar) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeMultiBoundingBox() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,6 +1,8 @@
 package gameeditor.commanddetails;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
