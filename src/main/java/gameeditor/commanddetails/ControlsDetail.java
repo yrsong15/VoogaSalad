@@ -61,16 +61,6 @@ public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
                 myDataStore.addControl(kc, controlProps.getString(controlKey.toLowerCase()));
             }
         }
-
-        //		ResourceBundle geprops =  ResourceBundle.getBundle("GameEditorProperties");
-        //		Enumeration<String> enumKeys = geprops.getKeys();
-        //		Map<String, String> propertiesMap = new HashMap<String, String>();
-        //		for (ComboBox<String> cb : myComboBoxes){
-        //			propertiesMap.put(enumKeys.nextElement(), cb.getValue());
-        //		}
-        //		propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
-        //		propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
-        //		myDataStore.storeType(propertiesMap);
     }
 
     private void createSelectDirectionsControl(String label, String[] optionsArray, String comboDefault){

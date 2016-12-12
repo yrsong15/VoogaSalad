@@ -1,6 +1,7 @@
 package gameeditor.commanddetails;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import gameeditor.controller.interfaces.IGameEditorData;
 import javafx.event.EventHandler;
@@ -20,7 +21,10 @@ public class ProjectileDetail {
     private ImageDetail myImageDetail;
     private String selectedType;
     private ArrayList<TextArea> myTextInputs;
-    
+    private ComboBox<String> projectileDirection;
+    private ComboBox<String> myTypes;
+    private String myImageFile;
+
 
 
     //public static String [] 
@@ -46,70 +50,92 @@ public class ProjectileDetail {
         addImagePane();
         createSave(e-> handleSave());
     }
-    
+
     private void createSave(EventHandler<MouseEvent> handler){
         Button save = myDetailFrontEndUtil.createButton("SaveCommand",handler);
         myVBox.getChildren().add(save);
     }
-    
+
     private void handleSave(){
-       // Save the properties
-        
-    }
-    
-    private void addImagePane(){
-       myVBox.getChildren().add(myImageDetail.createImageChoose());
-    }
-    
-    private void addTextAreaProperties(){
-        String [] propertiesList = DetailResources.PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL.getArrayResource();
-        for(String property: propertiesList){
-            Label label = myDetailFrontEndUtil.createPropertyLbl(property);
-            TextArea myTextArea= myDetailFrontEndUtil.createInputField(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource());
-            myDetailFrontEndUtil.handleClick(myTextArea);
-            BorderPane bp = myDetailFrontEndUtil.createBorderpane(myTextArea, label);
-            myVBox.getChildren().add(bp);
-            myTextInputs.add(myTextArea);
+        Map<String,String> projectilePropertiesMap = new HashMap<String,String>();
+        if(projectileDirection.getValue()!=null){ 
+            projectilePropertiesMap.put(DetailResources.DIRECTION_KEY.getResource(),projectileDirection.getValue());
         }
-    }
-    
-    private void createSpriteTypesCombo(){
-        ArrayList<String>  listOfTypes = myDataStore.getTypes();
-        listOfTypes.addAll(getMainCharacterTypes());     
-        String[] types = listOfTypes.toArray(new String[listOfTypes.size()]);
-        Label labl = myDetailFrontEndUtil.createPropertyLbl("Select");
-        ComboBox<String> myTypesCombo = myDetailFrontEndUtil.createComboBox(types, null);
-        myTypesCombo.setMaxWidth(IAbstractCommandDetail.PADDED_DETAIL_WIDTH*1.5);
-        myTypesCombo.setMinWidth(IAbstractCommandDetail.PADDED_DETAIL_WIDTH*1.5);
-        myTypesCombo.setOnAction(e-> displayProjectileProperties(myTypesCombo));
-        BorderPane bp = myDetailFrontEndUtil.createBorderpane(myTypesCombo, labl);
-        myVBox.getChildren().add(bp);
-    }
-    
-    private ArrayList<String> getMainCharacterTypes(){
-        ArrayList<String> mainChars = new ArrayList<String> ();
-        ArrayList<String> listOfMainCharacters = myDataStore.getMainCharacterTypes();
-        for(String val: listOfMainCharacters){
-            String str = val.substring(0, DetailResources.MAIN_CHARACTER_TYPE.getResource().length());
-            String str2= val.substring(DetailResources.MAIN_CHARACTER_TYPE.getResource().length());
-            mainChars.add(str + " " + str2);
-        }
-        return mainChars;
-    }
-    
-    private void displayProjectileProperties(ComboBox <String> myCombo){
-        if(myCombo.getValue()!=null){
-            Map<String,String> myTypeMap = myDataStore.getType(myCombo.getValue());
-                   
-               }
+        myImageFile = myImageDetail.getFilePath();
+
+        int counter=0;
+        for(TextArea area: myTextInputs){
+            String label = DetailResources.PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL.getArrayResource()[counter];
+            String value = area.getText();
+            if(value.isEmpty()|| value!=null){
+                value = DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource();
             }
+            
+            projectilePropertiesMap.put(label.toLowerCase(), area.getText());   
+        }
     
-    private void addDirection(){
-        Label label = myDetailFrontEndUtil.createPropertyLbl(DetailResources.DIRECTION_LABEL.getResource());
-        String defaultDirection = DetailDefaultsResources.PROJECTILE_DIRECTION.getResource();
-        ComboBox <String> direction = myDetailFrontEndUtil.createComboBox(DetailResources.SCROLL_DIRECTIONS_OPTIONS.getArrayResource(), defaultDirection);
-        BorderPane bp = myDetailFrontEndUtil.createBorderpane(direction, label);
-        myVBox.getChildren().add(bp);
+    String type =null;
+    if(myTypes.getValue()!=null){
+        type = myTypes.getValue();
     }
+    myDataStore.addProjectileProperties(type, projectilePropertiesMap); 
+}
+
+
+private void addImagePane(){
+    myVBox.getChildren().add(myImageDetail.createImageChoose());
+}
+
+private void addTextAreaProperties(){
+    String [] propertiesList = DetailResources.PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL.getArrayResource();
+    for(String property: propertiesList){
+        Label label = myDetailFrontEndUtil.createPropertyLbl(property);
+        TextArea myTextArea= myDetailFrontEndUtil.createInputField(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource());
+        myDetailFrontEndUtil.handleClick(myTextArea);
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(myTextArea, label);
+        myVBox.getChildren().add(bp);
+        myTextInputs.add(myTextArea);
+    }
+}
+
+private void createSpriteTypesCombo(){
+    ArrayList<String>  listOfTypes = myDataStore.getTypes();
+    listOfTypes.addAll(getMainCharacterTypes());     
+    String[] types = listOfTypes.toArray(new String[listOfTypes.size()]);
+    Label labl = myDetailFrontEndUtil.createPropertyLbl("Select");
+    myTypes = myDetailFrontEndUtil.createComboBox(types, null);
+    myTypes.setMaxWidth(IAbstractCommandDetail.PADDED_DETAIL_WIDTH*1.5);
+    myTypes.setMinWidth(IAbstractCommandDetail.PADDED_DETAIL_WIDTH*1.5);
+    //myTypesCombo.setOnAction(e-> displayProjectileProperties(myTypesCombo));
+    BorderPane bp = myDetailFrontEndUtil.createBorderpane(myTypes, labl);
+    myVBox.getChildren().add(bp);
+}
+
+private ArrayList<String> getMainCharacterTypes(){
+    ArrayList<String> mainChars = new ArrayList<String> ();
+    ArrayList<String> listOfMainCharacters = myDataStore.getMainCharacterTypes();
+    for(String val: listOfMainCharacters){
+        String str = val.substring(0, DetailResources.MAIN_CHARACTER_TYPE.getResource().length());
+        String str2= val.substring(DetailResources.MAIN_CHARACTER_TYPE.getResource().length());
+        mainChars.add(str + " " + str2);
+    }
+    return mainChars;
+}
+
+//    private void displayProjectileProperties(ComboBox <String> myCombo){
+//        if(myCombo.getValue()!=null){
+//            Map<String,String> myTypeMap = myDataStore.getType(myCombo.getValue());
+//                   
+//               }
+//            }
+
+private void addDirection(){
+    Label label = myDetailFrontEndUtil.createPropertyLbl(DetailResources.DIRECTION_LABEL.getResource());
+    String defaultDirection = DetailDefaultsResources.PROJECTILE_DIRECTION.getResource();
+    projectileDirection = myDetailFrontEndUtil.createComboBox(DetailResources.SCROLL_DIRECTIONS_OPTIONS.getArrayResource(), defaultDirection);
+    BorderPane bp = myDetailFrontEndUtil.createBorderpane(projectileDirection, label);
+    myVBox.getChildren().add(bp);
+}
+
 
 }

@@ -51,6 +51,7 @@ public class GameEditorController implements IGameEditorController{
         myGameEditorBackEndController = new GameEditorBackendController();
         if(game==null){
             myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
+            myGameInterface = (IGame) myGameEditorBackEndController.getGame();
         }else{
             myGameEditorBackEndController.setGame(game);
             myGameInterface = (IGame) game;
@@ -133,9 +134,8 @@ public class GameEditorController implements IGameEditorController{
             
             ILevel levelInterface = (ILevel) level;
 
-            myLevelManager.createLevel(level);  
-
-            myGameEditorView = new GameEditorView(levelInterface, myGameType);          
+            myLevelManager.createLevel(level);
+            myGameEditorView = new GameEditorView(levelInterface, myGameInterface, myGameType);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);

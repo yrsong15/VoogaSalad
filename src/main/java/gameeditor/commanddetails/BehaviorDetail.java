@@ -1,7 +1,9 @@
 package gameeditor.commanddetails;
 
+import java.util.ArrayList;
 import com.sun.javafx.scene.traversal.Direction;
 import gameeditor.view.ViewResources;
+import gameengine.model.boundary.BasicBoundary;
 import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.control.Button;
@@ -25,6 +27,8 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private BorderPane myLimitWidthOption;
     private ComboBox<String> gameBoundaryOptions;
     private BorderPane myScrollWidthBP;
+    private String scrollTypeClass;
+    private ArrayList<Direction> scrollTypeDirections;
     
     public BehaviorDetail() {
         super();
@@ -53,6 +57,8 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private void addGameBoundary(){
         Label label = myDetailFrontEndUtil.createPropertyLbl("Game Boundary");
         gameBoundaryOptions = myDetailFrontEndUtil.createComboBox(GAME_BOUNDARY_OPTIONS, DetailDefaultsResources.GAME_BOUNDARY.getResource());
+        gameBoundaryOptions.setMaxWidth(CB_WIDTH*1.2);
+        gameBoundaryOptions.setMinWidth(CB_WIDTH*1.2);
         BorderPane bp = myDetailFrontEndUtil.createBorderpane(gameBoundaryOptions,label);
         myVBox.getChildren().add(bp);
     }
@@ -124,23 +130,25 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         }
 
         Double height = Double.valueOf(myScreenHeight.getText());
-        addGameBoundary(width,height);
+        addScrollType(width,height);
+        
     }
 
 
-    private void addGameBoundary(double width, double height){
+    private void addScrollType(double width, double height){
+        BasicBoundary boundary;
         if(gameBoundaryOptions.getValue().equals(GAME_BOUNDARY_OPTIONS[0])){
             // Toroidal
-            ToroidalBoundary boundary = new ToroidalBoundary(width,height);
-            myDataStore.addGameBoundary(boundary);
+             boundary = new ToroidalBoundary(width,height);
+            //myDataStore.addGameBoundary(boundary);
         } else {
-            StopAtEdgeBoundary boundary = new StopAtEdgeBoundary(width,height);
-            myDataStore.addGameBoundary(boundary);
-
+             boundary = new StopAtEdgeBoundary(width,height);
+            //myDataStore.addGameBoundary(boundary);
         }
-
+        ScrollType myScrollType = new ScrollType(scrollTypeClass,boundary);
+        myScrollType.addDirectionList(scrollTypeDirections);
     }
-    
+
     private boolean verifySave(){
         // TODO: Verify if right values entered
         return true;
@@ -160,22 +168,22 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void addScrollTypeListener(String className, Menu myMenu){
-        ScrollType myScrollType = new ScrollType(className);
         myMenu.getItems().stream().forEach(item -> {
             item.setOnAction(e -> {
-                myScrollType.addScrollDirection(Direction.valueOf(item.getText()));
-                myDataStore.addScrollType(myScrollType);
+                scrollTypeClass = className;
+                scrollTypeDirections.add(Direction.valueOf(item.getText()));
             });
         });
     }
 
     private void addFreeScrollTypeListener(MenuItem item){
         item.setOnAction(e -> {
-            ScrollType myScrollType = new ScrollType(FREE_SCROLL_TYPE);
-            myScrollType.addScrollDirection(Direction.LEFT); 
-            myScrollType.addScrollDirection(Direction.RIGHT); 
-            myScrollType.addScrollDirection(Direction.UP); 
-            myScrollType.addScrollDirection(Direction.DOWN); 
+            scrollTypeClass = FREE_SCROLL_TYPE;
+            scrollTypeDirections.clear();
+            scrollTypeDirections.add(Direction.LEFT); 
+            scrollTypeDirections.add(Direction.RIGHT); 
+            scrollTypeDirections.add(Direction.UP); 
+            scrollTypeDirections.add(Direction.DOWN); 
         });
     }
 }

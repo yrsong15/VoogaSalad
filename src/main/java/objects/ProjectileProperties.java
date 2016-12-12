@@ -23,7 +23,6 @@ public class ProjectileProperties {
         this.damage = damage;
     }
 
-
     public String getImageFileName() {
         return imageFileName;
     }

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import gameeditor.controller.interfaces.ICreateLevel;
 import objects.Level;
+import objects.interfaces.IGame;
 import objects.interfaces.ILevel;
 
 

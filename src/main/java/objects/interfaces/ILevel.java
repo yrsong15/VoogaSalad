@@ -42,4 +42,7 @@ public interface ILevel {
     public void addRandomGeneration (RandomGeneration randomGeneration);
     public String getMusicFilePath();
     public String getBackgroundFilePath();
+    
+    public ScrollType getScrollType();
+
 }

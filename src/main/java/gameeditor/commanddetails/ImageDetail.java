@@ -76,7 +76,8 @@ public class ImageDetail {
     }
 
     public String getFilePath(){
-        return myImagePath;
+        return  myImagePath.substring(myImagePath.lastIndexOf("/") +1);
+    
     }
     
 }
