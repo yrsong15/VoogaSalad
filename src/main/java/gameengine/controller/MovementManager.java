@@ -209,7 +209,9 @@ public class MovementManager implements ControlInterface{
 	private void runGameScrolling() {
 		try {			
 			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
-			scrollObjects.add(currLevel.getBackground());
+			if (currLevel.getBackground()!=null){
+				scrollObjects.add(currLevel.getBackground());
+			}
 			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0));
 		} catch (ScrollDirectionNotFoundException e) {
 			e.printStackTrace();
@@ -219,7 +221,9 @@ public class MovementManager implements ControlInterface{
 	private void runGameScrolling(double speed) {
 		try {
 			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
-			scrollObjects.add(currLevel.getBackground());
+			if (currLevel.getBackground()!=null){
+				scrollObjects.add(currLevel.getBackground());
+			}
 			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0), speed);
 		} catch (ScrollDirectionNotFoundException e) {
 			e.printStackTrace();

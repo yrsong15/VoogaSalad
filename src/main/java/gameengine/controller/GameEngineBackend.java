@@ -41,7 +41,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void startGame(Game currentGame) {
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
-		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
+		String scrollType = currentGame.getCurrentLevel().getScrollType().getScrollTypeName();
+		if (scrollType.equals("FreeScrolling")){
 			currentGame.getCurrentLevel().setBackgroundObject();
 		}
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
@@ -79,9 +80,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			mainChar.checkPlatformStatus();
 		}
 		checkProjectileDistance();
-		//if(currLevel.getRandomGenRules().size() > 0) {
-        //    randomlyGenerateFrames();
-        //}
+		if(currLevel.getRandomGenRules().size() > 0) {
+            randomlyGenerateFrames();
+        }
 		
 		if(toolbarHBox != null){
 			toolbarHBox.toFront();
