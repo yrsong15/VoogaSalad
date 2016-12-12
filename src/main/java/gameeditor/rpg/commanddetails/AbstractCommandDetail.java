@@ -1,9 +1,9 @@
-package gameeditor.commanddetails;
+package gameeditor.rpg.commanddetails;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.rpg.IGridDesignArea;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
-import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -19,7 +19,7 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
     protected IDetailPane myDetailPane;
     protected ScrollPane myContainerPane;
     protected IGameEditorData myDataStore;
-    protected IDesignArea myDesignArea;
+    protected IGridDesignArea myDesignArea;
     protected VBox myVBox;
     protected DetailFrontEndUtil myDetailFrontEndUtil;
 
@@ -47,8 +47,8 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
     }
 
 
-    public void setDesignArea(IDesignArea myDesignArea2){
-        myDesignArea = myDesignArea2;
+    public void setDesignArea(IGridDesignArea da){
+        myDesignArea = da;
     }
 
     public ScrollPane getPane(){
@@ -64,5 +64,25 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
         myVBox.setSpacing(MY_DETAIL_PADDING);
         myVBox.setAlignment(Pos.CENTER);
         myContainerPane.setContent(myVBox);    
+    }
+
+    protected TextArea createInputField(String initValue){
+        TextArea inputField = new TextArea();
+        inputField.setMinWidth(PADDED_DETAIL_WIDTH);
+        inputField.setMaxWidth(PADDED_DETAIL_WIDTH);
+        inputField.setMinHeight(CB_HEIGHT);
+        inputField.setMaxHeight(CB_HEIGHT);
+        inputField.setText(initValue);
+        inputField.setOnMouseClicked(e -> handleClick(inputField));
+        return inputField;
+    }
+
+   
+    protected void handleClick(TextArea field){
+        field.setText("");
+    }
+
+    protected Label createPropertyLbl(String property){
+        return  new Label (property);
     }
 }

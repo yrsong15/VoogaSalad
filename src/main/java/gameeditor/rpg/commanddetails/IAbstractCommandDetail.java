@@ -1,10 +1,9 @@
-package gameeditor.commanddetails;
+package gameeditor.rpg.commanddetails;
 
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.rpg.IGridDesignArea;
 import gameeditor.view.ViewResources;
-import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
-import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.scene.control.ScrollPane;
 
 public interface IAbstractCommandDetail {
@@ -29,13 +28,16 @@ public interface IAbstractCommandDetail {
     public static final String PLATFORM_KEY= DetailResources.PLATFORM_KEY.getResource();
     public static final String PLATFORM_LABEL=DetailResources.PLATFORM_LABEL.getResource();
     
-   
+    public static final String [] PLATFORM_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_INTERSECTABLE_OPTIONS.getArrayResource();
+    public static final String PLATFORM_NON_INTERSECTIBLE_LABEL = DetailResources.PLATFORM_NON_INTERSECTIBLE_LABEL.getResource();
+   public static final String[] PLATFORM_NON_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_NON_INTERSECTABLE_OPTIONS.getArrayResource();
+    
     public ScrollPane getPane();
     
     public abstract void init();
     
     public void setDataStore(IGameEditorData ged);
-    public void setDesignArea(IDesignArea da);
+    public void setDesignArea(IGridDesignArea da);
     public void setDetailPane(IDetailPane idp);
     
     

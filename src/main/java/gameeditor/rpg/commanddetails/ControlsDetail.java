@@ -1,8 +1,6 @@
-package gameeditor.commanddetails;
+package gameeditor.rpg.commanddetails;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,12 +21,8 @@ public class ControlsDetail extends AbstractCommandDetail {
     @Override
     public void init() {
         addVBoxSettings();
-        int counter=0;
         for (@SuppressWarnings("unused") String string : myControlsOptions){
-            String defaultKey = DetailDefaultsResources.CONTROLS_DEFAULT_VALUES.getArrayResource()[counter];
-            String defaultControl = DetailDefaultsResources.CONTROLS_DEFAULT_COMBO_OPTIONS.getArrayResource()[counter];
-            createSelectDirectionsControl(defaultKey, myControlsOptions,defaultControl);
-            counter++;
+            createSelectDirectionsControl("Input", myControlsOptions);
         }
         createSave();
     }
@@ -62,11 +56,11 @@ public class ControlsDetail extends AbstractCommandDetail {
         //		myDataStore.storeType(propertiesMap);
     }
 
-    private void createSelectDirectionsControl(String label, String[] optionsArray, String comboDefault){
+    private void createSelectDirectionsControl(String label, String[] optionsArray){
         HBox innerContainer = new HBox();
         innerContainer.setSpacing(HBOX_SPACING);
         innerContainer.setAlignment(Pos.CENTER);
-        ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,comboDefault);
+        ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,null);
         TextArea inputField = createControlsInput(label);
         myInputFields.add(inputField);
         myComboBoxes.add(cb);
@@ -76,7 +70,7 @@ public class ControlsDetail extends AbstractCommandDetail {
     }
 
     private TextArea createControlsInput(String label){
-        TextArea inputField = myDetailFrontEndUtil.createInputField(label);
+        TextArea inputField = createInputField(label);
         inputField.setOnKeyPressed(e -> inputField.clear());
         inputField.setOnKeyReleased(e -> handleKey(inputField, e.getCode()));
         return inputField;

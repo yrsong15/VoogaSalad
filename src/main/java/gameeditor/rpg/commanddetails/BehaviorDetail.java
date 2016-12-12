@@ -1,4 +1,4 @@
-package gameeditor.commanddetails;
+package gameeditor.rpg.commanddetails;
 
 import com.sun.javafx.scene.traversal.Direction;
 import gameeditor.view.ViewResources;
@@ -51,23 +51,23 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void addGameBoundary(){
-        Label label = myDetailFrontEndUtil.createPropertyLbl("Game Boundary");
+        Label label = createPropertyLbl("Game Boundary");
         gameBoundaryOptions = myDetailFrontEndUtil.createComboBox(GAME_BOUNDARY_OPTIONS, DetailDefaultsResources.GAME_BOUNDARY.getResource());
         BorderPane bp = myDetailFrontEndUtil.createBorderpane(gameBoundaryOptions,label);
         myVBox.getChildren().add(bp);
     }
 
     private void addScrollSpeed(){
-        scrollSpeedTextBox = myDetailFrontEndUtil.createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_SCROLL_SPEED.getDoubleResource()));
-        BorderPane scrollSpeed = myDetailFrontEndUtil.createBorderpane(scrollSpeedTextBox,myDetailFrontEndUtil.createPropertyLbl(SCROLL_SPEED_LABEL));
+        scrollSpeedTextBox = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_SCROLL_SPEED.getDoubleResource()));
+        BorderPane scrollSpeed = myDetailFrontEndUtil.createBorderpane(scrollSpeedTextBox,createPropertyLbl(SCROLL_SPEED_LABEL));
         myVBox.getChildren().add(scrollSpeed);
     }
 
     private void createWinConditions(){
-        myTimeWin = myDetailFrontEndUtil.createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_TIME_VALUE.getDoubleResource()));
-        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myTimeWin,myDetailFrontEndUtil.createPropertyLbl(TIME_PROPERTY_LABEL)));
-        myPointsWin = myDetailFrontEndUtil.createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_POINTS_VALUE.getDoubleResource())); 
-        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myPointsWin,myDetailFrontEndUtil.createPropertyLbl(POINTS_PROPERTY_LABEL)));
+        myTimeWin = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_TIME_VALUE.getDoubleResource()));
+        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myTimeWin,createPropertyLbl(TIME_PROPERTY_LABEL)));
+        myPointsWin = createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_POINTS_VALUE.getDoubleResource())); 
+        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myPointsWin,createPropertyLbl(POINTS_PROPERTY_LABEL)));
     }
 
     private void addScrollTypeOptions(){
@@ -89,15 +89,15 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
 
     private void addWidthOptions(){
         ComboBox<String>limitDimension =myDetailFrontEndUtil. createComboBox(LIMIT_DIMENSION_OPTIONS,DetailDefaultsResources.LIMIT_WIDTH.getResource() );
-        myLimitWidthOption = myDetailFrontEndUtil.createBorderpane(limitDimension,myDetailFrontEndUtil.createPropertyLbl(LIMIT_SCROLL_WIDTH_LABEL));
+        myLimitWidthOption = myDetailFrontEndUtil.createBorderpane(limitDimension,createPropertyLbl(LIMIT_SCROLL_WIDTH_LABEL));
         myVBox.getChildren().add(myLimitWidthOption);
         limitDimension.setOnAction(e-> cbOnAction(limitDimension));
     }
 
     private void cbOnAction(ComboBox<String> cb){
         if (cb.getValue().equals(TRUE)){
-            scrollWidthTextBox = myDetailFrontEndUtil.createInputField(Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()));
-            myScrollWidthBP = myDetailFrontEndUtil.createBorderpane(scrollWidthTextBox,myDetailFrontEndUtil.createPropertyLbl(SCROLL_WIDTH_LABEL));
+            scrollWidthTextBox = createInputField(Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()));
+            myScrollWidthBP = myDetailFrontEndUtil.createBorderpane(scrollWidthTextBox,createPropertyLbl(SCROLL_WIDTH_LABEL));
             int index = myVBox.getChildren().indexOf(myLimitWidthOption);
             myVBox.getChildren().add(index+1, myScrollWidthBP);
 
@@ -109,8 +109,8 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void addHeight(){
-        myScreenHeight = myDetailFrontEndUtil.createInputField(String.valueOf(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource()));
-        BorderPane scrollheight = myDetailFrontEndUtil.createBorderpane(myScreenHeight,myDetailFrontEndUtil.createPropertyLbl(SCROLL_HEIGHT_LABEL));
+        myScreenHeight = createInputField(String.valueOf(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource()));
+        BorderPane scrollheight = myDetailFrontEndUtil.createBorderpane(myScreenHeight,createPropertyLbl(SCROLL_HEIGHT_LABEL));
         myVBox.getChildren().add(scrollheight);
     }
     private void handleSave(){
@@ -140,7 +140,8 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         }
 
     }
-    
+
+
     private boolean verifySave(){
         // TODO: Verify if right values entered
         return true;
