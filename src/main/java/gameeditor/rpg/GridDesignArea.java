@@ -4,22 +4,15 @@ import java.util.ArrayList;
 
 import gameeditor.commanddetails.ISelectDetail;
 
-import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
-import gameeditor.objects.MultiBoundingBox;
+import gameeditor.view.AbstractDesignArea;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IGameEditorView;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -30,15 +23,7 @@ import javafx.scene.shape.Rectangle;
  *
  */
 
-public class GridDesignArea implements IDesignArea, IGridDesignArea {
-
-    private Pane myPane;
-    private ScrollPane myScrollPane;
-    private ArrayList<GameObjectView> mySprites = new ArrayList<GameObjectView>();
-
-    private boolean clickEnabled = false;
-    private ISelectDetail mySelectDetail;
-    private ArrayList<GameObjectView> myAvatars = new ArrayList<GameObjectView>();
+public class GridDesignArea extends AbstractDesignArea implements IDesignArea, IGridDesignArea {
     
     private CellGrid myCellGrid;
     private ArrayList<Cell> myCells = new ArrayList<Cell>();
@@ -46,34 +31,11 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
     private Cell myClickCell;
     private ArrayList<Cell> mySelectedCells = new ArrayList<Cell>();
     private ArrayList<Cell> myNewSelectedCells = new ArrayList<Cell>();
-
-    private GameObjectView mySelectedSprite;
-    private KeyCode myKeyCode;
-    
-    private double startX = -1;
-    private double startY = -1;
-    private double endX = 0;
-    private double endY = 0;
-    private boolean dragged = false;
-    private Rectangle mySelectionArea;
-    private MultiBoundingBox myMultiBoundingBox;
     
     public GridDesignArea() {
-        myScrollPane = new ScrollPane();
-        myScrollPane.setMinWidth(AREA_WIDTH);
-        myScrollPane.setMinHeight(AREA_HEIGHT);
-        myScrollPane.setMaxWidth(AREA_WIDTH);
-        myScrollPane.setMaxHeight(AREA_HEIGHT);
-        myScrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
-        myScrollPane.setVmax(0);
-        myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+    	super();
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
-        myPane = new Pane();
-        myPane.setLayoutX(0);
-        myPane.setLayoutY(0);
-        myPane.setMinSize(AREA_WIDTH, AREA_HEIGHT);
         myCellGrid = new CellGrid(0, 0, 40, (int) AREA_WIDTH/40, (int) AREA_HEIGHT/40, false, this);
         myCells = myCellGrid.getCells();
         for (Cell cell : myCells){
@@ -101,7 +63,7 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
     private void handlePress(double x, double y){
     	Cell cell = findCell(x, y);
     	if (myKeyCode != KeyCode.SHIFT){
-//        	resetCells();
+        	resetCells();
     	}
     	if (clickEnabled){
     		myClickCell = cell;
@@ -194,10 +156,6 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
         return myScrollPane;
     }
 
-    public void updateAvatar(Image newAvatar){
-
-    }
-
     public void setBackground(ImageView bg){
         ObservableList<Node> currentChildren = myPane.getChildren();
         ArrayList<Node> children = new ArrayList<Node>();
@@ -211,11 +169,6 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
         bg.setLayoutY(0);
         myPane.getChildren().add(bg);
         myPane.getChildren().addAll(children);
-    }
-
-    @Override
-    public void addSprite(GameObjectView sprite, Cell cell) {
-    	cell.addSprite(sprite);
     }
 
     @Override
@@ -252,11 +205,6 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
         }
     }
 
-    public void updateSpriteDetails(GameObjectView sprite, double x, double y, double width, double height){
-        mySelectDetail.updateSpritePosition(x, y);
-        mySelectDetail.updateSpriteDimensions(width, height);
-    }
-
     private void selectCells(double minX, double minY, double maxX, double maxY){
         Rectangle test = new Rectangle(minX, minY, maxX-minX, maxY-minY);
         for (Cell cell : myCells){
@@ -264,12 +212,6 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
                 invertSelection(cell);
             }
         }
-    }
-
-    @Override
-    public void addAvatar(GameObjectView gov) {
-        myAvatars.add(gov);
-        mySprites.add(gov);
     }
     
     public Pane getPane(){
@@ -286,46 +228,28 @@ public class GridDesignArea implements IDesignArea, IGridDesignArea {
 		return mySelectedCells;
 	}
 
-    @Override
-    public void addDragIn(ImageView tempIV) {
-        myPane.getChildren().add(tempIV);
-    }
-
-    @Override
-    public void removeDragIn(ImageView tempIV) {
-        myPane.getChildren().remove(tempIV);
-    }
-
-    @Override
-    public void addMultiBoundingBox(MultiBoundingBox mbb) {
-        myMultiBoundingBox = mbb;
-        myPane.getChildren().add(myMultiBoundingBox.getBound());
-    }
-
-    @Override
-    public void removeMultiBoundingBox() {
-        myPane.getChildren().remove(myMultiBoundingBox.getBound());
-    }
-
-    @Override
-    public void addBoundingBox(BoundingBox bb){
-        for(Rectangle rect : bb.getShapes()){
-            myPane.getChildren().add(rect);
-        }
-    }
-
-    @Override
-    public void removeBoundingBox(BoundingBox bb){
-        for(Rectangle rect : bb.getShapes()){
-            myPane.getChildren().remove(rect);
-        }
-    }
-
 	@Override
 	public void addSprite(GameObjectView gameObject) {
 		for (Cell cell : mySelectedCells){
 			addSprite(new GameObjectView(gameObject, 0, 0), cell);
 		}
 	}
+	
+    @Override
+    public void addSprite(GameObjectView sprite, Cell cell) {
+    	cell.addSprite(sprite);
+    }
+    
+
+    @Override
+    public void addAvatar(GameObjectView gov) {
+        myAvatars.add(gov);
+        mySprites.add(gov);
+        ArrayList<Cell> myCells = myCellGrid.getCells();
+        int index = (myCells.size()-1)/2;
+        if (myCells.size() > 0){
+            addSprite(gov, myCells.get(index));
+        }
+    }
 
 }
