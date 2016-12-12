@@ -64,7 +64,6 @@ class TcpConnection implements Runnable{
 						main.removeCharacter(sm.id);
 						break;
 					case PAUSE:
-						System.out.println("reached PAUSE in server TCP");
 						main.pause();
 						break;
 					default:
@@ -75,7 +74,6 @@ class TcpConnection implements Runnable{
 			}
 		}catch(IOException | ClassNotFoundException e){
 			e.printStackTrace();
-			System.out.println("Player leaves");
 		}
 	}
 

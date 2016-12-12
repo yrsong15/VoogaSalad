@@ -88,7 +88,6 @@ public class ServerMain {
 	
 	public void pause(){
 		isPaused = !isPaused;
-		
 	}
 	
 	private void runTimer(){

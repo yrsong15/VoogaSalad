@@ -49,12 +49,20 @@ public class MainController {
         GameFile newGame = new GameFile(title,gameData);
         gallery.addToGallery(newGame);
     }
+    
+    public void presentEditor(Game game) {
+		gameEditorController = new GameEditorController();
+		gameEditorController.startEditor(game);
+		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+	}
 
-    public void presentEditor(Game game ) {
-        gameEditorController = new GameEditorController();
-        gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-    }
+
+	public void presentEditor2(Game game, String gameType) {
+		System.out.println("hi");
+		gameEditorController = new GameEditorController(gameType);
+		gameEditorController.startEditor(game);
+		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+	}
 
     private void setUpGameEngineStage(Level level){
         gameEngineStage = new Stage();
@@ -66,7 +74,6 @@ public class MainController {
     }
 
     public void startPlaying(){
-
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());

@@ -1,5 +1,5 @@
 <objects.Game>
-  <name>Test Game</name>
+  <name>Doodle Jump</name>
   <levels/>
   <currentLevel>
     <level>1</level>
@@ -10,11 +10,11 @@
         <yPosition>570.0</yPosition>
         <width>700.0</width>
         <height>50.0</height>
-        <imageFileName>ground.png</imageFileName>
+        <imageFileName>platform.png</imageFileName>
         <properties>
           <entry>
             <string>nonintersectable</string>
-            <string>true</string>
+            <string>bottom</string>
           </entry>
         </properties>
         <xDistanceMoved>0.0</xDistanceMoved>
@@ -28,45 +28,81 @@
     <winConditions/>
     <loseConditions/>
     <gameConditions/>
-    <randomGenerations/>
+    <randomGenerationFrame class="gameengine.model.RandomGenFrameY">
+      <level reference="../.."/>
+      <randomGenRules>
+        <objects.RandomGeneration>
+          <objectProperties>
+            <entry>
+              <string>bounce</string>
+              <string>1000</string>
+            </entry>
+          </objectProperties>
+          <URL>platform.png</URL>
+          <numObjects class="int">2</numObjects>
+          <minX class="int">0</minX>
+          <maxX class="int">200</maxX>
+          <minY class="int">1234</minY>
+          <maxY class="int">1234</maxY>
+          <minSpacing class="int">400</minSpacing>
+          <maxSpacing class="int">500</maxSpacing>
+          <width class="int">150</width>
+          <height class="int">40</height>
+        </objects.RandomGeneration>
+        <objects.RandomGeneration>
+          <objectProperties reference="../../objects.RandomGeneration/objectProperties"/>
+          <URL>platform.png</URL>
+          <numObjects class="int">2</numObjects>
+          <minX class="int">200</minX>
+          <maxX class="int">500</maxX>
+          <minY class="int">1234</minY>
+          <maxY class="int">1234</maxY>
+          <minSpacing class="int">400</minSpacing>
+          <maxSpacing class="int">500</maxSpacing>
+          <width class="int">150</width>
+          <height class="int">40</height>
+        </objects.RandomGeneration>
+        <objects.RandomGeneration>
+          <objectProperties reference="../../objects.RandomGeneration/objectProperties"/>
+          <URL>platform.png</URL>
+          <numObjects class="int">2</numObjects>
+          <minX class="int">500</minX>
+          <maxX class="int">550</maxX>
+          <minY class="int">1234</minY>
+          <maxY class="int">1234</maxY>
+          <minSpacing class="int">400</minSpacing>
+          <maxSpacing class="int">500</maxSpacing>
+          <width class="int">150</width>
+          <height class="int">40</height>
+        </objects.RandomGeneration>
+      </randomGenRules>
+      <benchmarkPoint>-200.0</benchmarkPoint>
+    </randomGenerationFrame>
     <backgroundFilePath>Background/bg.png</backgroundFilePath>
     <players>
       <objects.GameObject>
-        <xPosition>100.0</xPosition>
-        <yPosition>100.0</yPosition>
+        <xPosition>400.0</xPosition>
+        <yPosition>500.0</yPosition>
         <width>100.0</width>
         <height>100.0</height>
-        <imageFileName>bird3.png</imageFileName>
+        <imageFileName>shyguy.png</imageFileName>
         <properties>
           <entry>
             <string>movespeed</string>
-            <string>30</string>
+            <string>10</string>
           </entry>
           <entry>
             <string>gravity</string>
             <string>0.8</string>
           </entry>
           <entry>
-            <string>health</string>
-            <string>10</string>
-          </entry>
-          <entry>
-            <string>jump</string>
-            <string>400</string>
+            <string>jumpunlimited</string>
+            <string>800</string>
           </entry>
         </properties>
-        <xDistanceMoved>100.0</xDistanceMoved>
-        <yDistanceMoved>100.0</yDistanceMoved>
+        <xDistanceMoved>400.0</xDistanceMoved>
+        <yDistanceMoved>500.0</yDistanceMoved>
         <onPlatform>false</onPlatform>
-        <projectileProperties>
-          <imageFileName>duvall.png</imageFileName>
-          <width>30</width>
-          <height>30</height>
-          <direction>RIGHT</direction>
-          <range>500.0</range>
-          <speed>30.0</speed>
-          <damage>20.0</damage>
-        </projectileProperties>
         <isPlayer>true</isPlayer>
         <id>0</id>
       </objects.GameObject>
@@ -74,15 +110,14 @@
     <scrollType>
       <myScrollTypeName>LimitedScrolling</myScrollTypeName>
       <myScrollDirectionList>
-        <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
+        <com.sun.javafx.scene.traversal.Direction>UP</com.sun.javafx.scene.traversal.Direction>
       </myScrollDirectionList>
       <scrollSpeed>0.0</scrollSpeed>
-      <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
+      <gameBoundaries class="gameengine.model.boundary.NoBoundary">
         <viewWidth>700.0</viewWidth>
         <viewHeight>675.0</viewHeight>
         <worldWidth>1.7976931348623157E308</worldWidth>
         <worldHeight>1.7976931348623157E308</worldHeight>
-        <movedToroidally>false</movedToroidally>
       </gameBoundaries>
     </scrollType>
   </currentLevel>
@@ -91,15 +126,11 @@
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
       <controls>
         <entry>
-          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-          <string>shoot</string>
-        </entry>
-        <entry>
           <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
           <string>right</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>W</javafx.scene.input.KeyCode>
+          <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
           <string>jump</string>
         </entry>
         <entry>
@@ -109,4 +140,13 @@
       </controls>
     </objects.Player>
   </players>
+  <clientMappings>
+    <entry>
+      <long>0</long>
+      <list>
+        <objects.Player reference="../../../../players/objects.Player"/>
+      </list>
+    </entry>
+  </clientMappings>
+  <minNumPlayers>1</minNumPlayers>
 </objects.Game>

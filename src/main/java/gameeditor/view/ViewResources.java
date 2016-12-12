@@ -19,6 +19,8 @@ public enum ViewResources {
 		AVATAR_IMAGE_LOCATION("images/Sprite"),
 		SCENE_WIDTH(1200),
 		SCENE_HEIGHT(620),
+		SCROLL_PANE_HEIGHT(527),
+		SCROLL_PANE_WIDTH(780),
 		
 		// Detail Pane
 		DETAIL_PANE_BG(Color.SLATEGREY),

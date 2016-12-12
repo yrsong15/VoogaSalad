@@ -22,7 +22,6 @@ public class GameEngineController implements CommandInterface {
 	private GameEngineBackend backend;
 	private boolean hostGame;
 	private String serverName;
-	private boolean serverStarted;
 	private Node toolbarHBox;
 
 	public GameEngineController() {
@@ -47,14 +46,15 @@ public class GameEngineController implements CommandInterface {
 				}
 			};
 			serverThread.start();
+			//TODO: let thread sleep if we want server before client - right here
 		}
 		startClientGame(currentGame.getClientMappings());
 		return currentGame.getCurrentLevel();
 	}
 	public void startServerGame(Game currentGame) {
+		this.currentGame = currentGame;
 		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
-		System.out.println("wwwwww");
 		if(toolbarHBox != null){
 			backend.setToolbarHBox(toolbarHBox);
 		}
@@ -62,15 +62,15 @@ public class GameEngineController implements CommandInterface {
 
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-
+		System.out.println("client");
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
+		toolbarHBox = gameEngineView.getToolbar();
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
 		gameEngineView.initLevel(playerMapping);
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
-		toolbarHBox = gameEngineView.getToolbar();
 	}
 
 	public Scene getScene() {

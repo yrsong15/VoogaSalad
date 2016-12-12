@@ -42,13 +42,16 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void startGame(Game currentGame) {
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
-		this.gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
+		String scrollType = currentGame.getCurrentLevel().getScrollType().getScrollTypeName();
+		if (scrollType.equals("FreeScrolling")){
+			currentGame.getCurrentLevel().setBackgroundObject();
+		}
+		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		serverMain = new ServerMain(this, 9090, serverName);
 	}
 
 	public void addPlayersToClient(int ID) {
-		//gfsgdf/
 		for (Long id: currentGame.getClientMappings().keySet()) {
 			if (id.equals(new Long(ID))) {
 				for (Player p : currentGame.getClientMappings().get(id)) {
@@ -63,7 +66,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	 */
 	public void updateGame() {
 		Level currLevel = currentGame.getCurrentLevel();
-
 		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
 			removeOffscreenElements();
 		}
@@ -147,7 +149,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		if (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
 				obj) == IntersectionAmount.COMPLETELY_INSIDE_X) {
 			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
-				// System.out.println("Resetting");
 				newPosition = obj.getYPosition() - mainChar.getHeight() + 5;
 				mainChar.setPlatformCharacterIsOn(obj);
 			} else
@@ -204,7 +205,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void runControl(String controlName, int ID, int charIdx) {
 		try {
 			Method method = gameMovement.getClass().getDeclaredMethod(controlName, GameObject.class, double.class);
-//			System.out.println(ID + " " + charIdx);
 			method.invoke(gameMovement, currentGame.getClientMappings().get(new Long(ID)).get(charIdx).getMainChar(), 10);
 
 		} catch (Exception ex) {
@@ -219,8 +219,11 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	private ClientGame generateClientGame(Game game) {
 		Level currLevel = game.getCurrentLevel();
-		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath());
+		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath(), highScores);
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
+		if (currLevel.getBackground()!=null){
+			clientGame.setBackgroundObject(currLevel.getBackground());
+		}
 		return clientGame;
 	}
 

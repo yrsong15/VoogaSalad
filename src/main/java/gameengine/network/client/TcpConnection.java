@@ -79,7 +79,6 @@ class TcpConnection {
 			ServerMessage sm = new ServerMessage(PAUSE);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
-			System.out.println("data written in client TCP");
 			oos.reset();
 		} catch (IOException ex) {
 			ex.printStackTrace();

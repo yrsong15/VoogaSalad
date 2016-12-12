@@ -14,7 +14,9 @@ import objects.ProjectileProperties;
 import objects.ScrollType;
 import utils.ReflectionUtil;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.sun.javafx.scene.traversal.Direction;
@@ -22,8 +24,6 @@ import com.sun.javafx.scene.traversal.Direction;
 
 public class MovementManager implements ControlInterface{
 	private Level currLevel;
-	private double screenWidth;
-	private double screenHeight;
 	private String scrollName;
 	private GeneralMovement genMovement;
 	private Scrolling gameScrolling;
@@ -31,14 +31,10 @@ public class MovementManager implements ControlInterface{
 	private Direction scrollDir;
 	private Map<Integer, Long> projectileStatus;
 
-
 	public MovementManager(Level currLevel, double screenWidth, double screenHeight){
 		projectileStatus = new HashMap<>();
 		this.currLevel = currLevel;
-		this.screenHeight = screenHeight;
-		this.screenWidth = screenWidth;
 		scrollName = currLevel.getScrollType().getScrollTypeName();
-		scrollDir = currLevel.getScrollType().getDirections().get(0);
 		initManager();
 	}
 
@@ -79,6 +75,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveDown(GameObject obj, double speed) {
+
 		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(Direction.DOWN, obj)){
 			gameScrolling.setDirection(Direction.DOWN);
 			runGameScrolling(speed);
@@ -92,6 +89,7 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveRight(GameObject obj, double speed) {
+
 		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(Direction.RIGHT, obj)){
 			gameScrolling.setDirection(Direction.RIGHT);
 			runGameScrolling(speed);
@@ -210,8 +208,12 @@ public class MovementManager implements ControlInterface{
 	}
 	
 	private void runGameScrolling() {
-		try {
-			gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getPlayers().get(0));
+		try {			
+			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
+			if (currLevel.getBackground()!=null){
+				scrollObjects.add(currLevel.getBackground());
+			}
+			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0));
 		} catch (ScrollDirectionNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -219,7 +221,11 @@ public class MovementManager implements ControlInterface{
 	
 	private void runGameScrolling(double speed) {
 		try {
-			gameScrolling.scrollScreen(currLevel.getGameObjects(), currLevel.getPlayers().get(0), speed);
+			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
+			if (currLevel.getBackground()!=null){
+				scrollObjects.add(currLevel.getBackground());
+			}
+			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0), speed);
 		} catch (ScrollDirectionNotFoundException e) {
 			e.printStackTrace();
 		}

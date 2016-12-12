@@ -3,16 +3,19 @@ package gameeditor.commanddetails;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
-
+/**
+ * @author John Martin
+ *
+ */
 public class DetailFactory {
 
-	public AbstractCommandDetail create(String name, IGameEditorData ged, IDesignArea da, IDetailPane idp) {
+	public AbstractCommandDetail create(String name, IGameEditorData ged, IDesignArea myDesignArea, IDetailPane idp) {
 		try {
 				Class<?> c = Class.forName(name);
 				AbstractCommandDetail detail = (AbstractCommandDetail) c.newInstance();
 				detail.setDetailPane(idp);
 				detail.setDataStore(ged);
-				detail.setDesignArea(da);
+				detail.setDesignArea(myDesignArea);
 				detail.init();
 				return detail;
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
