@@ -41,7 +41,7 @@ public class ProjectileDetail {
     public VBox getTabContent(){
         myVBox = new VBox();
         myVBox.setSpacing(IAbstractCommandDetail.MY_DETAIL_PADDING);
-        myVBox.setAlignment(Pos.CENTER);
+        myVBox.setAlignment(Pos.BASELINE_CENTER);
         createSpriteTypesCombo();
         addProperties();
         return myVBox;

@@ -37,6 +37,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     public void init() {
         addVBoxSettings();
         addLevelOptions();
+        scrollTypeDirections = new ArrayList<Direction>();
     }
 
     private void addLevelOptions(){

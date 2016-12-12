@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import gameeditor.controller.interfaces.IGameEditorData;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -21,6 +23,7 @@ public class PlatformDetail {
     private ImageDetail myImageDetail;
     private DetailFrontEndUtil myDetailFrontEndUtil;
     private TextArea myTypeTextArea;
+    private TextArea bounce;
    
     private BorderPane myNonIntersectableOptionBP;
     private BorderPane myIntersectableBP;
@@ -32,25 +35,30 @@ public class PlatformDetail {
         myDataStore = dataStore;
         myImageDetail = new ImageDetail();
         myDetailFrontEndUtil = new DetailFrontEndUtil();
-
     }
 
     public VBox getTabContent(){
         myVBox = new VBox();
         myVBox.setSpacing(IAbstractCommandDetail.MY_DETAIL_PADDING);
+        myVBox.setAlignment(Pos.BASELINE_CENTER);
         myTypeTextArea = myDetailFrontEndUtil.createTypeName();
         myVBox.getChildren().add(myTypeTextArea);
+        createBounceTextArea();
         createPlatformProperties();
         myVBox.getChildren().add(myImageDetail.createImageChoose());
         createSave(e-> handleSavePlatform()); 
-
         return myVBox;
     }
 
+    private void createBounceTextArea(){
+        Label label = myDetailFrontEndUtil.createPropertyLbl("Bounce");
+        bounce =myDetailFrontEndUtil.createInputField(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource());
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(bounce, label);
+        myVBox.getChildren().add(bp);
+    }
     private void createPlatformProperties(){
         String defaultProperty = DetailDefaultsResources.PLATFORM_NON_INTERSECTABLE.getResource();
         ComboBox<String> intersectable = myDetailFrontEndUtil.createComboBox(PLATFORM_INTERSECTABLE_OPTIONS, defaultProperty);
-
         intersectable.setOnAction(e -> handleIntersectibleProperty(intersectable));
         myIntersectableBP = myDetailFrontEndUtil.createBorderpane(intersectable,(myDetailFrontEndUtil.createPropertyLbl(PLATFORM_NON_INTERSECTIBLE_LABEL)));
         myVBox.getChildren().add(myIntersectableBP);
@@ -69,7 +77,7 @@ public class PlatformDetail {
             if(myVBox.getChildren().contains(myNonIntersectableOptionBP)){
                 myVBox.getChildren().remove(myVBox.getChildren().indexOf(myNonIntersectableOptionBP));
             }
-        }
+        }  
     }
 
     private void handleSavePlatform(){
@@ -79,7 +87,8 @@ public class PlatformDetail {
             propertiesMap.put(DetailResources.TYPE_NAME.getResource(),myTypeTextArea.getText());
             imageFilePath = myImageDetail.getFilePath();
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), imageFilePath);
-            myDataStore.storeType(propertiesMap);
+            propertiesMap.put("bounce", bounce.getText());
+            myDataStore.storeType(propertiesMap);   
         }
     }
 
@@ -91,7 +100,6 @@ public class PlatformDetail {
                 propertiesMap.put(DetailResources.ONE_SIDE_NON_INTERSECTABLEKEY.getResource(), nonInterSectableCombo.getValue().toString());
             }
         }
-
     }
 
     private void createSave(EventHandler<MouseEvent> handler){

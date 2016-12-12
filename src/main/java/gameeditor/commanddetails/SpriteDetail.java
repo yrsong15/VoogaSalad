@@ -8,17 +8,16 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderPane;          
 import javafx.scene.layout.VBox;
 
 public class SpriteDetail {
     private IGameEditorData myDataStore;
     private VBox myVBox;
     private TextArea myTypeTextArea;
-    private DetailFrontEndUtil myDetailFrontEndUtil;
+    private DetailFrontEndUtil myDetailFrontEndUtil;      
     private ImageDetail myImageDetail;
     private String myImageFilePath="";
     private String [] myPropertiesComBoArray = DetailResources.PROPERTIES_COMBO.getArrayResource();
@@ -27,6 +26,8 @@ public class SpriteDetail {
     private String[] SPRITE_DEFAULT_COMBO_PROPERTIES = DetailDefaultsResources.SPRITE_DEFAULT_COMBO_PROPERTIES.getArrayResource();
     private ArrayList<TextArea> myTextFields = new ArrayList<TextArea>();
     private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
+    private ComboBox<String> jumpCombo = new ComboBox<String>();
+
 
 
     public SpriteDetail(IGameEditorData dataStore){
@@ -38,7 +39,7 @@ public class SpriteDetail {
     public VBox getTabContent(){
         myVBox = new VBox();
         myVBox.setSpacing(IAbstractCommandDetail.MY_DETAIL_PADDING);
-        myVBox.setAlignment(Pos.CENTER);
+        myVBox.setAlignment(Pos.BASELINE_CENTER);
         myTypeTextArea=myDetailFrontEndUtil.createTypeName();
         myVBox.getChildren().add(myTypeTextArea);
         createProperties();
@@ -64,6 +65,13 @@ public class SpriteDetail {
             BorderPane bp = myDetailFrontEndUtil.createBorderpane(text,myDetailFrontEndUtil.createPropertyLbl(label));
             myVBox.getChildren().add(bp);
         }
+    
+        String[] options = DetailResources.JUMP_OPTIONS.getArrayResource();
+        jumpCombo = myDetailFrontEndUtil.createComboBox(options, options[0]);
+        jumpCombo.setMaxWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
+        jumpCombo.setMinWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(jumpCombo,myDetailFrontEndUtil.createPropertyLbl("Jump Type"));
+        myVBox.getChildren().add(bp);
     }
 
     private void createSave(EventHandler<MouseEvent> handler){
@@ -101,6 +109,12 @@ public class SpriteDetail {
                 propertiesMap.put(label,myComboBoxes.get(counter).getValue()); 
             }
             counter++;
+        }
+        
+        if(jumpCombo.getValue()!=null){
+            String value = jumpCombo.getValue().toLowerCase();
+            value = value.replaceAll("\\s+","");
+            propertiesMap.put(value,"true");
         }
     }
 

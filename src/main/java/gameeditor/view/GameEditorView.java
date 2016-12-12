@@ -97,7 +97,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     private VBox createCenter(){
         myCenterBox = new VBox();
-        System.out.println("Uno");
+        //System.out.println("Uno");
         if (myGameType.equals("Scrolling")){
             myDesignArea = new DesignArea();
         } else if (myGameType.equals("RPG")){
@@ -179,12 +179,14 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     @Override
     public void saveLevelData () {
+        System.out.println(" Cpmes here many times ");
         //if(myLevelSettings.getMainCharacter()==null){
             //myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
        // }
         // add Game Objects to level
-        myDataStoreInterface.addGameObjectsToLevel();
         myDataStoreInterface.storeMainCharToXML();
+        myDataStoreInterface.addGameObjectsToLevel();
+        
         closeLevelWindow.set(true);
     }
 

@@ -8,6 +8,7 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -35,6 +36,7 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
 
 
     private String myType;
+    private ComboBox<String>IsEnemyAllowed;
 
     public AbstractSelectDetail() {
         super();
@@ -141,6 +143,12 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
     }
 
     protected void createRandomGenProperties(){
+        String [] options = DetailResources.LIMIT_DIMENSION_OPTIONS.getArrayResource();
+        IsEnemyAllowed = myDetailFrontEndUtil.createComboBox(options, "True");
+        Label propertyLabel = myDetailFrontEndUtil.createPropertyLbl("Is Enemy Allowed");
+        BorderPane borderpane = myDetailFrontEndUtil.createBorderpane( IsEnemyAllowed,propertyLabel);
+        myVBox.getChildren().add(borderpane);
+        
         for (String label : myRandomGenerationParameters){           
             Label labl =myDetailFrontEndUtil. createPropertyLbl(label);
             TextArea input= myDetailFrontEndUtil.createInputField("0");
@@ -152,8 +160,6 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
     }
 
     private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
-
-
         //		if (kc == KeyCode.BACK_SPACE){
         if (field.getText().length() < label.length() && kc.isDigitKey()){
             field.setText(label + character);

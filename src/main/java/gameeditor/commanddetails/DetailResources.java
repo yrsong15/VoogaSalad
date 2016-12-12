@@ -12,7 +12,7 @@ public enum DetailResources {
 		SPRITE_PROPERTIES_TEXT_INPUT_LABEL(new String [] { "Damage", "Points", "Health","Gravity","Horizontal Speed","Jump"}),
 		CONTROL_OPTIONS( new String[] {"Up", "Down", "Right", "Left", "Jump", "Shoot"}),
 		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
-		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
+		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable",}),
 		RANDOM_GEN_KEY("randomgeneration"),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
 		MAIN_CHARACTER_PROPERTIES(new String[]{"Health","Gravity","Movement Speed","Jump"}),
@@ -26,6 +26,8 @@ public enum DetailResources {
 		NON_INTERSECTABLE_SIDES_LABEL("Select Side"),
 		NON_INTERSECTABLE_KEY("nonintersectable"),
 		ONE_SIDE_NON_INTERSECTABLEKEY("onewaynonintersectable"),
+		ISPLATFORM_KEY("isplatform"),
+		JUMP_OPTIONS(new String[] {"Jump Once", "Jump Unlimited"}),
 		
 		
 		GAMEBOUNDARY_OPTIONS(new String[] {"Toroidal","Stop At Edge"}),

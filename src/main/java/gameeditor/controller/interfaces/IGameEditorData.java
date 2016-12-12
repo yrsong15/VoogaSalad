@@ -27,19 +27,9 @@ public interface IGameEditorData {
     public ArrayList<String> getTypes();	
     public ArrayList<Map<String, String>> getTypeMaps();
 
-    // Controls Methods
-    public void addControl(KeyCode key, String value);
-
-
-    public void addMainCharacterImage(String imageFilePath);
-    public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties);
-
-    //public void addScrollType(ScrollType scrollType);
     public void addLoseCondition(String type, String action);
     public void addWinCondition(String type, String action);
    
-
-    public void addScrollSpeed(String speed);
 
     public void addGameObjectsToLevel();
 
@@ -48,9 +38,9 @@ public interface IGameEditorData {
 
     public ArrayList<String> getImageViews();
     
-    public Map<String,String> getViewMap(String viewName);
+    public Map<String, String> getSpriteViewMapByImageView (String viewName) ;
     
-    public Map<String,String> createViewMap(String typeName, String imageViewString);
+    public Map<String,String> getSpriteViewMapByType (String typeName, String imageViewString) ;
     public void storeImageViewMap(Map<String,String> viewMap);
     
     public void storeMainCharater(Map<String,String> myMainCharMap);
@@ -61,5 +51,8 @@ public interface IGameEditorData {
     public void addProjectileProperties(String typeName, ProjectileProperties properties);
     
     public void addControls(String typeName, Map<KeyCode,String> controlMap);
+    
+    public void removeGameobjectView(String imageViewName);
+    
 }
 
