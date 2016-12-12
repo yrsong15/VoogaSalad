@@ -143,7 +143,6 @@ public class GameEngineUI implements UDPHandler{
 		for(KeyCode key : keyPressed.keySet()){
 			if(keyPressed.get(key).equals(true)){
 				Player player = playerMappings.get(key);
-
 				keyMappings.get(key).invoke(clientMain, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 			}
 		}

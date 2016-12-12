@@ -82,9 +82,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		if(currLevel.getRandomGenRules().size() > 0) {
             randomlyGenerateFrames();
         }
-		
-		System.out.println("qqqqqq");
-		if(toolbarHBox != null){
+        if(toolbarHBox != null){
 			System.out.println("sadfasdfsadf");
 			toolbarHBox.toFront();
 		}
@@ -236,7 +234,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 					itr.remove();
 				}
 			} else {
-				if (projectile.getYDistanceMoved() >= properties.getRange()) {
+				if (Math.abs(projectile.getYDistanceMoved()) >= properties.getRange()) {
 					removeObject(projectile);
 					itr.remove();
 				}

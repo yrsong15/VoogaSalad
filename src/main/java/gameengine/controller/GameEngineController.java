@@ -30,16 +30,17 @@ public class GameEngineController implements CommandInterface {
 		serverName = "localhost";
 		serializer = new XMLSerializer();
 	}
-	public boolean startGame(String xmlData) {
-		Game currentGame = serializer.getGameFromString(xmlData);
+	public Level startGame(String xmlData) {
+        Game currentGame = serializer.getGameFromString(xmlData);
 		if (currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Cannot start game.");
 			alert.setContentText("You must create a level with a main character to start a game.");
 			alert.showAndWait();
-			return false;
+			return null;
 		}
-		if (hostGame) {
+        currentGame.getCurrentLevel().setTitle(currentGame.getGameName());
+        if (hostGame) {
 			Thread serverThread = new Thread() {
 				public void run() {
 					startServerGame(currentGame);
@@ -48,7 +49,7 @@ public class GameEngineController implements CommandInterface {
 			serverThread.start();
 		}
 		startClientGame(currentGame.getClientMappings());
-		return true;
+		return currentGame.getCurrentLevel();
 	}
 	public void startServerGame(Game currentGame) {
 		backend = new GameEngineBackend(serverName);
