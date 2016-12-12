@@ -24,10 +24,6 @@ import javafx.scene.shape.Rectangle;
  */
 
 public class GridDesignArea extends AbstractDesignArea implements IDesignArea, IGridDesignArea {
-
-    private boolean clickEnabled = false;
-    private ISelectDetail mySelectDetail;
-    private ArrayList<GameObjectView> myAvatars = new ArrayList<GameObjectView>();
     
     private CellGrid myCellGrid;
     private ArrayList<Cell> myCells = new ArrayList<Cell>();
@@ -67,7 +63,7 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
     private void handlePress(double x, double y){
     	Cell cell = findCell(x, y);
     	if (myKeyCode != KeyCode.SHIFT){
-//        	resetCells();
+        	resetCells();
     	}
     	if (clickEnabled){
     		myClickCell = cell;
@@ -207,11 +203,6 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
             mySelectDetail.switchSelectStyle(sprite);
             mySelectDetail.initLevel2(sprite);
         }
-    }
-
-    public void updateSpriteDetails(GameObjectView sprite, double x, double y, double width, double height){
-        mySelectDetail.updateSpritePosition(x, y);
-        mySelectDetail.updateSpriteDimensions(width, height);
     }
 
     private void selectCells(double minX, double minY, double maxX, double maxY){

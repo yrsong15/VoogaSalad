@@ -22,10 +22,6 @@ import javafx.scene.shape.Rectangle;
 
 public class DesignArea extends AbstractDesignArea implements IStandardDesignArea {
 
-    private boolean clickEnabled = false;
-    private ISelectDetail mySelectDetail;
-    private ArrayList<GameObjectView> myAvatars = new ArrayList<GameObjectView>();
-
     private GameObjectView myDuplicateSprite;
 
     public DesignArea() {
@@ -169,12 +165,6 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
             mySelectDetail.switchSelectStyle(sprite);
             mySelectDetail.initLevel2(sprite);
         }
-    }
-
-    public void updateSpriteDetails(GameObjectView sprite, double x, double y, double width, double height){
-        mySelectDetail.updateSpritePosition(x, y);
-        mySelectDetail.updateSpriteDimensions(width, height);
-
     }
 
     public void addBoundingBox(BoundingBox bb){

@@ -2,6 +2,7 @@ package gameeditor.view;
 
 import java.util.ArrayList;
 
+import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
@@ -18,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 /**
+ * 
  * @author John Martin
  *
  */
@@ -28,6 +30,10 @@ abstract public class AbstractDesignArea implements IDesignArea {
 	protected ArrayList<GameObjectView> mySprites = new ArrayList<GameObjectView>();
 	protected GameObjectView mySelectedSprite;
 	protected KeyCode myKeyCode;
+
+	protected boolean clickEnabled = false;
+    protected ISelectDetail mySelectDetail;
+    protected ArrayList<GameObjectView> myAvatars = new ArrayList<GameObjectView>();
     
 	protected double startX = -1;
 	protected double startY = -1;
@@ -53,7 +59,13 @@ abstract public class AbstractDesignArea implements IDesignArea {
         myPane.setMinSize(AREA_WIDTH, AREA_HEIGHT);
 	}
 	
-    
+    public void updateSpriteDetails(GameObjectView sprite, double x, double y, double width, double height){
+        if (mySelectDetail != null){
+        	mySelectDetail.updateSpritePosition(x, y);
+            mySelectDetail.updateSpriteDimensions(width, height);
+        }
+    }
+	
     @Override
     public void addDragIn(ImageView tempIV) {
         myPane.getChildren().add(tempIV);
