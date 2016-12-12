@@ -88,7 +88,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			mainChar.checkPlatformStatus();
 		}
 		checkProjectileDistance();
-		if(randomlyGeneratedFrames.size() > 0) {
+		if(currLevel.getRandomGenRules().size() > 0) {
             randomlyGenerateFrames();
         }
 		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
