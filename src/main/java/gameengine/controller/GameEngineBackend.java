@@ -217,7 +217,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	private ClientGame generateClientGame(Game game) {
 		Level currLevel = game.getCurrentLevel();
-		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath());
+		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath(), highScores);
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
 		if (currLevel.getBackground()!=null){
 			clientGame.setBackgroundObject(currLevel.getBackground());
