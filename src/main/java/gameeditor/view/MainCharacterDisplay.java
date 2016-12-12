@@ -23,7 +23,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
+/**
+ * 
+ * @author John Martin
+ *
+ */
 public class MainCharacterDisplay {
 
     private static final double TOTAL_ZONE_WIDTH = ViewResources.DETAIL_PANE_WIDTH.getDoubleResource()-2*ViewResources.DETAIL_ZONE_PADDING.getDoubleResource();

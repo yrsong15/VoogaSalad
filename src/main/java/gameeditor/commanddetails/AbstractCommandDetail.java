@@ -3,18 +3,18 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
-import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-
+/**
+ * @author John Martin
+ *
+ */
 public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
     protected IDetailPane myDetailPane;
     protected ScrollPane myContainerPane;

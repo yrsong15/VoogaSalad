@@ -128,6 +128,7 @@ public class GameEditorData implements IGameEditorData{
         myProjectileObjects.put(typeName, properties);
     }
 
+
 //    private void addRandomGeneration(Map<String,String> properties, List<TextArea>myRandomGenParameters){
 //        Integer num = Integer.parseInt(myRandomGenParameters.get(0).getText());
 //        if(num==0){num=5;}
@@ -152,6 +153,9 @@ public class GameEditorData implements IGameEditorData{
 
         //myLevel.addRandomGeneration(randomGeneration);
     //}
+
+
+    
 
 
     private Map<String,String> getPropertiesMap(Map<String,String> myItemMap){
@@ -266,6 +270,5 @@ public class GameEditorData implements IGameEditorData{
 
     }
 }
-
 
 

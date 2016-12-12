@@ -3,14 +3,12 @@ package gameeditor.controller.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import gameengine.model.boundary.BasicBoundary;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import objects.ProjectileProperties;
-import objects.ScrollType;
 /**
  *  To be used by the front end components to send data to the back end controller
- * @author pratikshasharma
+ * @author pratikshasharma, John Martin
  *
  */
 public interface IGameEditorData {

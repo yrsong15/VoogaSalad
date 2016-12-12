@@ -12,7 +12,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-
+/**
+ * 
+ * @author Pratiksha Sharma
+ *
+ */
 public class PlatformDetail {
     public static final String [] PLATFORM_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_INTERSECTABLE_OPTIONS.getArrayResource();
     public static final String PLATFORM_NON_INTERSECTIBLE_LABEL = DetailResources.PLATFORM_NON_INTERSECTIBLE_LABEL.getResource();

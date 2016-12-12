@@ -5,6 +5,10 @@ import javafx.scene.input.KeyCode;
 import objects.interfaces.ILevel;
 import java.security.Key;
 import java.util.*;
+
+import gameengine.model.RandomGenFrame;
+import gameengine.model.boundary.GameBoundary;
+import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 
 /**
@@ -21,52 +25,56 @@ public class Level implements ILevel{
     private Map<String, String> loseConditions;
     private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
-    private String musicFilePath;
-    private String backgroundFilePath;
-    private List<GameObject> players;
-    private ScrollType scrollType;
+    private String musicFilePath, backgroundFilePath, title;
+    private RandomGenFrame<Integer> randomGenerationFrame;
+	private List<GameObject> players;
+	private ScrollType scrollType;
+	private GameObject background;
 
     public Level(int level) {
         this.level = level;
         projectiles = new ArrayList<GameObject>();
         gameObjects = new ArrayList<GameObject>();
         obstacles = new ArrayList<GameObject>();
-        randomGenerations = new ArrayList<>();
         players = new ArrayList<>();
-        winConditions = new HashMap<>();
-        loseConditions = new HashMap<>();
-        gameConditions = new HashMap<>();
-    }
+		winConditions = new HashMap<>();
+		loseConditions = new HashMap<>();
+		gameConditions = new HashMap<>();
+	}
+	
+	
+	public void removeAllPlayers(){
+		players = new ArrayList<>();
+	}
 
-    public void removeAllPlayers(){
-        players = new ArrayList<>();
-    }
+	public void setScrollType(ScrollType scrollType) {
+		this.scrollType = scrollType;
+	}
 
-    public void setScrollType(ScrollType scrollType) {
-        this.scrollType = scrollType;
-    }
+	public ScrollType getScrollType() {
+		return this.scrollType;
+	}
+	
+	public RandomGenFrame getRandomGenerationFrame(){
+		return randomGenerationFrame;
+	}
+	public ArrayList<RandomGeneration<Integer>> getRandomGenRules() {
+		return randomGenerationFrame.getRandomGenerationRules();
+	}
 
-    public ScrollType getScrollType() {
-        return this.scrollType;
-    }
+	public void setRandomGenerationFrame(RandomGenFrame<Integer> randomGen) {
+		randomGenerationFrame = randomGen;
+	}
 
-    public List<RandomGeneration> getRandomGenRules() {
-        return randomGenerations;
-    }
+	public int getLevel() {
+		return level;
+	}
 
-    public void addRandomGeneration(RandomGeneration randomGen) {
-        randomGenerations.add(randomGen);
-    }
+	public void setLevel(int level) {
+		this.level = level;
+	}
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public void addProjectile(GameObject go) {
+	public void addProjectile(GameObject go) {
         projectiles.add(go);
     }
 
@@ -155,6 +163,15 @@ public class Level implements ILevel{
     public List<GameObject> getObstacles() {
         return obstacles;
     }
+    
+    public GameObject getBackground(){
+    	return background;
+    }
+    
+    public void setBackgroundObject(){
+    	GameBoundary gameBoundaries = this.getScrollType().getGameBoundary();
+        background = new GameObject(0, 0, 0, gameBoundaries.getWorldWidth(), gameBoundaries.getWorldHeight(), backgroundFilePath, new HashMap<>());
+    }
 
     public void setBackgroundImage(String filePath) {
         this.backgroundFilePath = filePath;
@@ -163,6 +180,8 @@ public class Level implements ILevel{
     public void setBackgroundMusic(String musicFilePath) {
         this.musicFilePath = musicFilePath;
     }
+
+    public void setTitle(String title){ this.title = title; }
 
     public List<GameObject> getAllGameObjects(){
         List<GameObject> allObjects = new ArrayList<>();
@@ -179,5 +198,13 @@ public class Level implements ILevel{
     public String getBackgroundFilePath(){
         return backgroundFilePath;
     }
-    
+
+	public String getTitle(){ return title; }
+
+
+    @Override
+    public void addRandomGeneration (RandomGeneration randomGeneration) {
+        // TODO Auto-generated method stub
+        
+    }
 }

@@ -1,8 +1,10 @@
 package gameeditor.commanddetails;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-
-
+/**
+ * @author John Martin
+ *
+ */
 public class CreateDetail extends AbstractCommandDetail {
     private TabPane myTabPane;
     private Tab mySpriteTab;

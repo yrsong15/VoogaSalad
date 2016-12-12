@@ -1,7 +1,10 @@
 package gameeditor.commanddetails;
 
 import gameeditor.objects.GameObjectView;
-
+/**
+ * @author John Martin
+ *
+ */
 public interface ISelectDetail extends ILevelTwo {
 	
     public static final String  RANDOM_GEN_KEY=DetailResources.RANDOM_GEN_KEY.getResource();

@@ -44,7 +44,7 @@ public class GameFileView implements IGameFileView
 	@Override
 	public void fireDeleteEvent()
 	{
-		view.fireEvent(new GameFileViewEvent(GameFileViewEvent.REMOVE_FROM_GALLERY,this));
+		view.fireEvent(new GameFileViewEvent(GameFileViewEvent.REMOVE_FROM_GALLERY, this));
 	}
 
 	@Override
@@ -96,11 +96,11 @@ public class GameFileView implements IGameFileView
 		int randVal = (int)(Math.random() * 3);
 		if(randVal == 0)
 		{
-			rect.setFill(Color.LAWNGREEN);
+			rect.setFill(Color.MEDIUMPURPLE);
 		}
 		else if(randVal == 1)
 		{
-			rect.setFill(Color.ORANGE);
+			rect.setFill(Color.DEEPPINK);
 		}
 		else
 		{

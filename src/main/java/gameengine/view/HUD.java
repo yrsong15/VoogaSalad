@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import gameengine.view.interfaces.IHUD;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
@@ -21,7 +22,7 @@ import objects.Level;
  *
  * @citation http://stackoverflow.com/questions/9966136/javafx-periodic-background-task
  */
-public class HUD {
+public class HUD implements IHUD {
 	
 	private HBox myHUD;
 	private Timeline timer;
@@ -34,11 +35,13 @@ public class HUD {
 		timer.play();
 		myHUD = new HBox();
 	}
-	
+
+	@Override
 	public HBox getHUD() {
 		return myHUD;
 	}
-	
+
+	@Override
 	public void update(Level level) {
 		myHUD.getChildren().clear();
 		if(level.getGameConditions().get("score") != null) {
@@ -52,7 +55,8 @@ public class HUD {
 		Text timeText = new Text("  |  Time: " + Integer.toString(timeCount));
 		myHUD.getChildren().add(timeText);
 	}
-	
+
+	@Override
 	public void resetTimer() {
 		timeCount = 0;
 	}

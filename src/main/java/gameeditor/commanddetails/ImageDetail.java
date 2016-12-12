@@ -11,7 +11,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * @author John Martin
+ *
+ */
 public class ImageDetail {
     private String myImagePath="";
     private Pane myImagePane;

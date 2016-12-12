@@ -5,7 +5,10 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-
+/**
+ * @author John Martin
+ *
+ */
 public class SelectDetail extends AbstractSelectDetail {
 
     public SelectDetail() {

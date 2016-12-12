@@ -12,8 +12,11 @@ import javafx.scene.control.ScrollPane;
 import gameeditor.commanddetails.*;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
-
-
+/**
+ * 
+ * @author John Martin
+ *
+ */
 public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
     // TODO: Remove hardcoding of all values

@@ -6,7 +6,10 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/**
+ * @author John Martin
+ *
+ */
 public class GameObjectView {
     private static final double DEFAULT_X = ObjectResources.DEFAULT_X.getDoubleResource();
     private static final double DEFAULT_Y = ObjectResources.DEFAULT_Y.getDoubleResource();

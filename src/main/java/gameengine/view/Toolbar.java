@@ -45,6 +45,7 @@ public class Toolbar implements IToolbar {
 		mySaveEvent = save;
 		myToolbar = new HBox();
 		myToolbar.setPrefHeight(40);
+		myToolbar.toFront();
 		addButtons();
 	}
 
@@ -75,7 +76,6 @@ public class Toolbar implements IToolbar {
 		myMuteButton = makeButton("MuteButton", myMuteEvent, listOfButtons);
 		myPauseButton = makeButton("PauseButton", myPauseEvent, listOfButtons);
 		mySaveButton = makeButton("SaveButton", mySaveEvent, listOfButtons);
-		
 		addButtonToToolbar(listOfButtons);
 	}
 	

@@ -10,8 +10,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-
-
+/**
+ * @author John Martin
+ *
+ */
 public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
     private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
     private String[] myControlsOptions = DetailResources.CONTROL_OPTIONS.getArrayResource();
@@ -40,9 +42,11 @@ public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
 
     @Override
     public void initLevel2 (GameObjectView sprite) {
+        if(sprite!=null){
         myGO = sprite;
         myImageViewString = myGO.getImageView().toString();
-        myMainCharMap = myDataStore.getMainCharMap(myImageViewString);       
+        myMainCharMap = myDataStore.getMainCharMap(myImageViewString);  
+        }
     }
 
     private void createSave(){

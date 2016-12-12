@@ -68,7 +68,7 @@ public enum DetailResources {
 		
 		
 		// Projectile Properties
-		PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL(new String[] {"Width","Height","Range","Speed","Damage"}),
+		PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL(new String[] {"Width","Height","Range","Speed","Damage","Time Between Shots"}),
 		PROJECTILE_IMAGE_KEY("imageFileName"),
 		DIRECTION_LABEL("Direction"),
 		DIRECTION_KEY("direction"),

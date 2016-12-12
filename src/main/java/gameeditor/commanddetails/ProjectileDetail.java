@@ -16,13 +16,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import objects.ProjectileProperties;
-
+/**
+ * @author Pratiksha Sharma
+ *
+ */
 public class ProjectileDetail {
     private IGameEditorData myDataStore;
     private VBox myVBox;
     private DetailFrontEndUtil myDetailFrontEndUtil;
     private ImageDetail myImageDetail;
-    private String selectedType;
+    @SuppressWarnings("unused")
+	private String selectedType;
     private ArrayList<TextArea> myTextInputs;
     private ComboBox<String> projectileDirection;
     private ComboBox<String> myTypes;
@@ -59,7 +63,8 @@ public class ProjectileDetail {
         myVBox.getChildren().add(save);
     }
 
-    private void handleSave(){
+    @SuppressWarnings("unused")
+	private void handleSave(){
         Map<String,String> projectilePropertiesMap = new HashMap<String,String>();
         //        if(projectileDirection.getValue()!=null){ 
         //            projectilePropertiesMap.put(DetailResources.DIRECTION_KEY.getResource(),projectileDirection.getValue());
@@ -83,11 +88,9 @@ public class ProjectileDetail {
             double range = Double.valueOf(getText(myTextInputs.get(2)));
             double speed = Double.valueOf(getText(myTextInputs.get(3)));
             double damage = Double.valueOf(getText(myTextInputs.get(4)));
+            double timeBetweenShots = Double.valueOf(getText(myTextInputs.get(4)));
             String type = myTypes.getValue();
-            System.out.println(type.equals(null));
-            System.out.println(" Type " + type);
-            System.out.println(type.isEmpty());
-            ProjectileProperties property = new ProjectileProperties(myImageFile,width,height,direction,range,speed,damage);
+            ProjectileProperties property = new ProjectileProperties(myImageFile,width,height,direction,range,speed,damage,timeBetweenShots);
             myDataStore.addProjectileProperties(type, property);
             
         }catch(RuntimeException e){

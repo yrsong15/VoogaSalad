@@ -11,9 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-
-
-// TODO: Refactor this class - duplicated code with CreateDetail
+/**
+ * @author John Martin
+ *
+ */
 public class MainCharacterDetail extends AbstractSelectDetail {
     private List<String> myPropertiesArray = Arrays.asList(DetailResources.MAIN_CHARACTER_PROPERTIES.getArrayResource());
     private List<TextArea> myTextInputs = new ArrayList<TextArea>();

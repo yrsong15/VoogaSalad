@@ -36,13 +36,15 @@ public class ServerMain {
 	// refreshing game state and sending data to clients every x ms
 	public static int idCounter = 0;
 
-	private static final long RESHRESH_GAP = 30;
+	private static final long REFRESH_GAP = 30;
 
 	private static int SERVER_PORT_TCP;
 
 	private static int IDs = 0;
 
 	private XMLSerializer serializer;
+	private Timer timer;
+	private boolean isPaused;
 
 	// thread safe array because while one thread is reading another
 	// might add delete some entries
@@ -58,6 +60,7 @@ public class ServerMain {
 		activeClients = new CopyOnWriteArrayList<IpPort>();
 		udpSend = new UdpConnectionsSend();
 		serializer = new XMLSerializer();
+		isPaused = false;
 		start(serverName);
 	}
 
@@ -79,21 +82,31 @@ public class ServerMain {
 	}
 
 	private void gameStateRefresher() {
-
-		Timer timer = new Timer();
+		timer = new Timer();
+		runTimer();
+	}
+	
+	public void pause(){
+		isPaused = !isPaused;
+		
+	}
+	
+	private void runTimer(){
 		timer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
+				if(!isPaused){
 				gameHandler.updateGame();
 				udpSend.sendGamePlay(gameHandler.getClientGame());
+				}
 			}
 
-		}, 0, RESHRESH_GAP);
+		}, 0, REFRESH_GAP);
 	}
 
 	synchronized long getId() {
-		gameHandler.addMainCharacter(IDs);
+		gameHandler.addPlayersToClient(IDs);
 		return IDs++;
 	}
 
@@ -101,8 +114,8 @@ public class ServerMain {
 
 	}
 
-	void readCommand(long id, String command) {
-		gameHandler.runControl(command, 0);
+	void readCommand(String command,int id, int charIdx) {
+		gameHandler.runControl(command, id, charIdx);
 	}
 
 	void addressBook(InetAddress address, int port) {

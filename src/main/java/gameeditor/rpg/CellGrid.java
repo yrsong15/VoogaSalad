@@ -1,19 +1,12 @@
 package gameeditor.rpg;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javafx.scene.Group;
 
-//This entire file is part of my masterpiece.
-//John Martin
-
 /**
- * CellGrid is responsible for holding the current Cells within the Cell Society
- * game. It stores the position of the cells and uses the specified Rule class
- * to update the Cells when specified.
+ * @author John Martin
+ *
  */
 
 public class CellGrid extends Group {

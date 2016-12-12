@@ -10,8 +10,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import gameeditor.view.interfaces.*;
-
+/**
+ * @author John Martin
+ *
+ */
 public class CommandButton implements ICommandButton {
 
 	// TODO: Remove hardcoding of the following values

@@ -75,15 +75,12 @@ public class GameObject {
     public GameObject getPlatformCharacterIsOn(){
         return platformCharacterIsOn;
     }
-
     public void setPlatformStatus(boolean status){
         this.onPlatform = status;
     }
-
     public boolean isOnPlatform(){
         return onPlatform;
     }
-
     public void checkPlatformStatus(){
         if(platformCharacterIsOn == null){
             this.onPlatform = false;
@@ -108,7 +105,6 @@ public class GameObject {
     public void setPropertiesList(Map<String, String> properties) {
         this.properties = properties;
     }
-
     public void killSpeed(){
         setProperty("fallspeed", "0.0");
     }
@@ -148,18 +144,15 @@ public class GameObject {
     public void setYDistanceMoved(double yDistanceMoved){
         this.yDistanceMoved = yDistanceMoved;
     }
-
     public void setProjectileProperties(ProjectileProperties projectileProperties){
         this.projectileProperties = projectileProperties;
     }
     public ProjectileProperties getProjectileProperties(){
         return projectileProperties;
     }
-
     public boolean isPlayer(){
         return isPlayer;
     }
-
     public void setIsPlayer(boolean value){
         System.out.println(" boolean: " + value);
         isPlayer = value;
