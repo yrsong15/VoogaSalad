@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry excluding="exception/|frontend/|frontend/util/|gameeditor/|gameeditor/commanddetails/|gameeditor/controller/|gameeditor/controller/interfaces/|gameeditor/interfaces/|gameeditor/objects/|gameeditor/view/|gameeditor/view/interfaces/|gameeditor/xml/|gameengine/|gameengine/controller/|gameengine/controller/interfaces/|gameengine/model/|gameengine/model/boundary/|gameengine/model/interfaces/|gameengine/model/rules/|gameengine/model/rules/collisionrules/|gameengine/model/rules/movementrules/|gameengine/model/settings/|gameengine/scrolling/|gameengine/view/|gameengine/view/interfaces/|general/|general/interfaces/|main/|main/resources/|main/resources/spark/|main/resources/spark/template/|main/resources/spark/template/freemarker/|objects/|objects/interfaces/|usecases/|usecases/mockObjects/|utils/" kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/xstream-1.4.9.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-doc.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-src.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
