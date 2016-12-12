@@ -11,4 +11,5 @@ public interface GameHandler {
 	public void runControl(String controlName, int ID, int charIdx);
 	public ClientGame getClientGame();
 	public void addPlayersToClient(int ID);
+	public void pause();
 }

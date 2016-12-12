@@ -253,6 +253,7 @@ public class GameEngineUI implements UDPHandler{
 			toolbar.pause();
 			animation.stop();
 		}
+		gamehandler.pause();
 		stopMusic();
 		isPaused = !isPaused;
 	}
