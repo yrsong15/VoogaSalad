@@ -13,16 +13,14 @@ import gameengine.model.RandomGenFrame;
 import gameengine.model.RandomGenFrameY;
 >>>>>>> bc91b68c79b88474c12227dcd52e50698d7c99f1
 import gameengine.model.boundary.NoBoundary;
-import gameengine.model.boundary.ScreenBoundary;
-import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import objects.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 public class MainController {
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
@@ -89,11 +87,11 @@ public class MainController {
        // fourthShyGuy.setProperty("gravity", "0.8");
         //firstShyGuy.setProperty("movespeed", "5");
        // secondShyGuy.setProperty("movespeed", "0");
-        thirdShyGuy.setProperty("movespeed", "0");
+        thirdShyGuy.setProperty("movespeed", "10");
        // fourthShyGuy.setProperty("movespeed", "0");
 
         Level level = new Level(1);
-        ScreenBoundary gameBoundaries = new NoBoundary(700, 675);
+        ScreenBoundary gameBoundaries = new ToroidalBoundary(700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
@@ -102,8 +100,10 @@ public class MainController {
        // player1.setControl(KeyCode.A, "jump");
        // player1.setControl(KeyCode.SPACE, "right");
        // player2.setControl(KeyCode.S, "jump");
-        player3.setControl(KeyCode.D, "jump");
-       // player4.setControl(KeyCode.F, "jump");
+        player3.setControl(KeyCode.UP, "jump");
+        player3.setControl(KeyCode.RIGHT, "right");
+        player3.setControl(KeyCode.LEFT, "left");
+        // player4.setControl(KeyCode.F, "jump");
         //level.addPlayer(firstShyGuy);
       //  level.addPlayer(secondShyGuy);
         level.addPlayer(thirdShyGuy);
@@ -128,13 +128,16 @@ public class MainController {
         
         //UNCOMMENT BELOW FOR DEM SPICY DOODLE JUMPZ
         HashMap<String,String> DoodleJumpProperties = new HashMap<String,String>();
-        DoodleJumpProperties.put("onewaynonintersectable", "top");
+//        DoodleJumpProperties.put("onewaynonintersectable", "top");
+        DoodleJumpProperties.put("bounce", "1000");
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
         RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
         RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
         ArrayList<RandomGeneration> asdf = new ArrayList<RandomGeneration>();
-        asdf.add(platforms);asdf.add(platforms2);asdf.add(platforms3);
-        RandomGenFrame frame = new RandomGenFrameY(level,asdf);
+        asdf.add(platforms);
+        asdf.add(platforms2);
+        asdf.add(platforms3);
+        RandomGenFrame frame = new RandomGenFrame(level,asdf);
         level.setRandomGenerationFrame(frame);
         
         
