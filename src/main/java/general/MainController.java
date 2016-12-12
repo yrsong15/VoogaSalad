@@ -52,7 +52,7 @@ public class MainController {
         gameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
     public void launchEngine(String XMLData){
-        XMLData = testGameEngine();
+        //XMLData = testGameEngine();
         gameEngineController = new GameEngineController();
         if(gameEngineController.startGame(XMLData) == true){
             setUpGameEngineStage();
@@ -60,7 +60,7 @@ public class MainController {
     }
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY/
-        Game game = new Game("Doodle Jump");
+        /**Game game = new Game("Doodle Jump");
         GameObject thirdShyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
         Player player3 = new Player(thirdShyGuy);
         game.addPlayer(player3);
@@ -87,6 +87,27 @@ public class MainController {
         level.addPlayer(thirdShyGuy);
         //  level.addPlayer(fourthShyGuy);
         GameObject ground = new GameObject(0, 570,700,50,"platform.png", new HashMap<>());
+        ground.setProperty("nonintersectable", "bottom");**/
+        
+        
+        Game game = new Game("Scrolling Tester");
+        GameObject bird = new GameObject(400, 500, 100, 100, "bird3.png", new HashMap<>());
+        Player player = new Player(bird);
+        game.addPlayer(player);
+        game.addPlayerToClient(0, player);
+        bird.setProperty("movespeed", "10");
+        Level level = new Level(1);
+        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675);
+        ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
+        scrollType.addScrollDirection(Direction.UP);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("Background/bg.png");
+        game.setCurrentLevel(level);
+        player.setControl(KeyCode.UP, "jump");
+        player.setControl(KeyCode.RIGHT, "right");
+        player.setControl(KeyCode.LEFT, "left");
+        level.addPlayer(bird);
+        GameObject ground = new GameObject(0, 570,700,50,"platform.png", new HashMap<>());
         ground.setProperty("nonintersectable", "bottom");
 
         //Left down up right <- order of arrows from left to right
@@ -105,6 +126,7 @@ public class MainController {
         */
 
         //UNCOMMENT BELOW FOR DEM SPICY DOODLE JUMPZ
+        /**
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "1000");
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
@@ -116,9 +138,10 @@ public class MainController {
         asdf.add(platforms3);
         RandomGenFrame frame = new RandomGenFrameY(level,asdf);
         level.setRandomGenerationFrame(frame);
-        level.addGameObject(ground);
+        level.addGameObject(ground);**/
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
     private void setUpGameEngineStage(){

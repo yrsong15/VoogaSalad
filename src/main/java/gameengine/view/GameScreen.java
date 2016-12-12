@@ -104,9 +104,7 @@ public class GameScreen {
         	image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
         }
         catch (NullPointerException e){
-        	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));
-        	img = new ImagePattern(image);
-        	
+        	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
         }     
         
         
