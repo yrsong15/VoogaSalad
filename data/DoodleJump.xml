@@ -95,7 +95,7 @@
         <scrollType>
             <myScrollTypeName>FreeScrolling</myScrollTypeName>
             <myScrollDirectionList>
-                <com.sun.javafx.scene.traversal.Direction>UP</com.sun.javafx.scene.traversal.Direction>
+                <com.sun.javafx.scene.traversal.Direction>RIGHT</com.sun.javafx.scene.traversal.Direction>
             </myScrollDirectionList>
             <scrollSpeed>30.0</scrollSpeed>
             <gameBoundaries class="gameengine.model.boundary.ToroidalBoundary">
@@ -103,7 +103,6 @@
                 <viewHeight>675.0</viewHeight>
                 <worldWidth>1200.0</worldWidth>
                 <worldHeight>1000.0</worldHeight>
-                <movedToroidally>false</movedToroidally>
             </gameBoundaries>
         </scrollType>
     </currentLevel>
