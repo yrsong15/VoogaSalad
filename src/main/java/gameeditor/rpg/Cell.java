@@ -52,6 +52,9 @@ public class Cell {
 	}
 	
 	public void addSprite(GameObjectView sprite){
+		if (mySprite != null){
+			removeSprite();
+		}
 		mySprite = sprite;
 		mySprite.setLayout(myX, myY);
 		mySprite.setDimensions(mySize, mySize);
@@ -77,6 +80,7 @@ public class Cell {
 	public void removeSprite() {
 		if (mySprite != null){
 			myDesignArea.getPane().getChildren().remove(mySprite.getImageView());
+			mySprite = null;
 		}
 		
 	}
