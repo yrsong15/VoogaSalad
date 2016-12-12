@@ -16,10 +16,13 @@ import gameengine.view.GameScreen;
 
 public abstract class RandomGenFrame<T> {
 
+	private static final double enemySize = 50;
+	
 	protected Level level;
     protected ArrayList<RandomGeneration<Integer>> randomGenRules;
     protected GameObject referenceFirstObject;
     protected static final Random RNG = new Random();
+    protected boolean generatingEnemies;
     
     public abstract void possiblyGenerateNewFrame (RandomGeneration<Integer> randomGenRules);
     public abstract void setNewFirstBenchmark(GameObject object);
@@ -33,10 +36,13 @@ public abstract class RandomGenFrame<T> {
     
 	protected void generateNewFrameAndSetBenchmark(Level level) {
 		ArrayList<RandomGeneration<Integer>> randomGenRulesList = randomGenRules;
+		
         for(RandomGeneration<Integer> elem:randomGenRulesList){
+        	int platformIndexWithEnemyForThisFrame = RNG.nextInt(elem.getNumObjects());
 	        int minSep = elem.getMinSpacing(); double width = elem.getWidth();
 	        int maxSep = elem.getMaxSpacing(); double height = elem.getHeight();
 	        int buffer = 0;         
+	        ArrayList<GameObject> newlyCreatedPlatforms = new ArrayList<>();
 	        for(int i=0; i<elem.getNumObjects();i++){
 	        	double nextSeparationDist = RNG.nextInt(maxSep - minSep) + minSep;
 	        	buffer += nextSeparationDist;
@@ -44,15 +50,25 @@ public abstract class RandomGenFrame<T> {
 	            if(margin <= 0) margin = 1;     
 	            double YPosition = calculateY(margin,elem,buffer);
 	            double XPosition = calculateX(margin,elem,buffer);
-	            generateObject(XPosition, YPosition, width, height, elem.getImageURL(),elem.getObjectProperties());
+	            newlyCreatedPlatforms.add(generateObject(XPosition, YPosition, width, height, elem.getImageURL(),elem.getObjectProperties()));
 	        }
+	        if(generatingEnemies)
+	        	generateEnemyOnPlatform(newlyCreatedPlatforms.get(platformIndexWithEnemyForThisFrame));
         }
     }
+	
+	private void generateEnemyOnPlatform(GameObject referencePlatform){
+		HashMap<String,String> enemyProperties = new HashMap<String,String>();
+		GameObject enemy = new GameObject(referencePlatform.getXPosition() + ((referencePlatform.getWidth() - enemySize)/2), referencePlatform.getYPosition() - enemySize, enemySize, enemySize, "duvall.png", enemyProperties);
+		enemy.setProperty("enemy", "");
+		level.getGameObjects().add(enemy);
+	}
     
-    protected void generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
+    protected GameObject generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
         GameObject object = new GameObject(xPosition, yPosition, width, height, URL,objectProperties);
         level.getGameObjects().add(object);
         setNewFirstBenchmark(object);
+        return object;
     }
   
 }

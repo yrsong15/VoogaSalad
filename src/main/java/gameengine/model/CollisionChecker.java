@@ -37,7 +37,6 @@ public class CollisionChecker {
 				if (mainChar != gameObject && collision(mainChar, gameObject)) {
 					try {
 						if(!checkIfAlreadyCollided(gameObject)){
-							//System.out.println("Collided!");
 							rulebook.applyRules(mainChar, gameObject);
 							//System.out.println("Adding object");
 						}
