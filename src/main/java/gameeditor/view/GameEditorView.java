@@ -1,13 +1,11 @@
 package gameeditor.view;
 
 import java.io.File;
-import java.util.HashMap;
 import frontend.util.FileOpener;
 import frontend.util.GameEditorException;
 import gameeditor.controller.GameEditorData;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.rpg.GridDesignArea;
-import gameeditor.rpg.IGridDesignArea;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -22,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import objects.GameObject;
 import objects.interfaces.IGame;
 import objects.interfaces.ILevel;
 
@@ -70,19 +67,19 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     
-    private void addSprites(){
-        if(myLevelSettings.getGameObjects().size()>0){
-            for(GameObject object: myLevelSettings.getGameObjects()){
-                double height = object.getHeight();
-                double width = object.getWidth();
-                String fileName = object.getImageFileName();
-                Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
-                ImageView spriteimageView = new ImageView(image); 
-                double xposition = object.getXPosition();
-                double ypositon = object.getYPosition();
-            }
-        }    
-    }
+//    private void addSprites(){
+//        if(myLevelSettings.getGameObjects().size()>0){
+//            for(GameObject object: myLevelSettings.getGameObjects()){
+//                double height = object.getHeight();
+//                double width = object.getWidth();
+//                String fileName = object.getImageFileName();
+//                Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
+//                ImageView spriteimageView = new ImageView(image); 
+//                double xposition = object.getXPosition();
+//                double ypositon = object.getYPosition();
+//            }
+//        }    
+//    }
     
     private HBox createLeftAlt(){
         myDataStoreInterface = new GameEditorData(myLevelSettings, myGameInterface);

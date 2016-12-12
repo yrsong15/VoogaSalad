@@ -1,7 +1,5 @@
 package gameeditor.view.interfaces;
 
-import java.util.Map;
-
 public interface IToolbarParent {
 
     public void setBackground();

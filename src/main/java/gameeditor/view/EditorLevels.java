@@ -37,7 +37,7 @@ public class EditorLevels implements IEditorLevels{
     private Group root;
     private Button saveGameButton;
     
-    private Button testEditButton;
+//    private Button testEditButton;
 
     public EditorLevels(){
         myActiveButtonId = new SimpleStringProperty(null);

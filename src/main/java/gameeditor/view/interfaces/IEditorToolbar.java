@@ -1,8 +1,6 @@
 package gameeditor.view.interfaces;
 
 import gameeditor.view.ViewResources;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 
 public interface IEditorToolbar {
