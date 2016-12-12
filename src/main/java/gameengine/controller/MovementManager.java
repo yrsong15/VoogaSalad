@@ -157,15 +157,19 @@ public class MovementManager implements ControlInterface{
 	
 	@Override
 	public void jump(GameObject obj, double speed) {
-        String jumpVelocity = obj.getProperty("jump");
-    	if(jumpVelocity!=null && obj.isOnPlatform()){
-    		obj.setProperty("fallspeed", "-" + jumpVelocity);
-    	}
+        String jumpVelocity;
+        if(obj.getProperty("jumponce") != null && obj.isOnPlatform()){
+			jumpVelocity = obj.getProperty("jumponce");
+			obj.setProperty("fallspeed", "-" + jumpVelocity);
+		}else if(obj.getProperty("jumpunlimited") != null){
+        	jumpVelocity = obj.getProperty("jumpunlimited");
+			obj.setProperty("fallspeed", "-" + jumpVelocity);
+		}
 	}
 
 	@Override
 	public void shootProjectile(GameObject obj, double speed) {
-	    if(!projectileStatus.containsKey(obj) || (projectileStatus.containsKey(obj) && (System.currentTimeMillis() - projectileStatus.get(obj) > 1000))) {
+	    if(!projectileStatus.containsKey(obj) || (projectileStatus.containsKey(obj) && (System.currentTimeMillis() - projectileStatus.get(obj) > obj.getProjectileProperties().getTimeBetweenShots()*1000))) {
             projectileStatus.put(obj, System.currentTimeMillis());
 	        if (obj.getProjectileProperties() != null) {
                 ProjectileProperties properties = obj.getProjectileProperties();

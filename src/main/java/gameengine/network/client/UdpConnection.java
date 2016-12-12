@@ -28,7 +28,7 @@ class UdpConnection implements Runnable {
 	
 		private ClientMain main;
 		
-		private byte[] buffer = new byte[1024 * 10];
+		private byte[] buffer = new byte[1024 * 50];
 		
 		private DatagramSocket datagramSocket;
 		

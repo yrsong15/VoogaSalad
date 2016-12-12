@@ -93,7 +93,7 @@ public class ServerMain {
 	}
 
 	synchronized long getId() {
-		gameHandler.addMainCharacter(IDs);
+		gameHandler.addPlayersToClient(IDs);
 		return IDs++;
 	}
 
@@ -101,8 +101,8 @@ public class ServerMain {
 
 	}
 
-	void readCommand(long id, String command) {
-		gameHandler.runControl(command, 0);
+	void readCommand(String command,int id, int charIdx) {
+		gameHandler.runControl(command, id, charIdx);
 	}
 
 	void addressBook(InetAddress address, int port) {

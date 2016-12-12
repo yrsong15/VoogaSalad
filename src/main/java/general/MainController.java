@@ -23,8 +23,9 @@ public class MainController {
 
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
-    private Stage gameEditorStage, gameEngineStage;
+    private Stage gameEngineStage;
     private Gallery gallery;
+    private Level level;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
 
@@ -67,25 +68,20 @@ public class MainController {
         Player player2 = new Player(secondShyGuy);
         Player player3 = new Player(thirdShyGuy);
         Player player4 = new Player(fourthShyGuy);
-        game.addPlayer(player1);
-        game.addPlayer(player2);
-        game.addPlayer(player3);
-        game.addPlayer(player4);
-        firstShyGuy.setProperty("jump", "400");
-        secondShyGuy.setProperty("jump", "400");
-        thirdShyGuy.setProperty("jump", "400");
-        fourthShyGuy.setProperty("jump", "400");
+        game.addPlayerToClient(0, player1);
+        game.addPlayerToClient(1, player2);
+        firstShyGuy.setProperty("jumponce", "400");
+        secondShyGuy.setProperty("jumponce", "400");
+        thirdShyGuy.setProperty("jumponce", "400");
+        fourthShyGuy.setProperty("jumponce", "400");
         firstShyGuy.setProperty("gravity", "0.8");
         secondShyGuy.setProperty("gravity", "0.8");
         thirdShyGuy.setProperty("gravity", "0.8");
         fourthShyGuy.setProperty("gravity", "0.8");
-        firstShyGuy.setProperty("movespeed", "5");
-        secondShyGuy.setProperty("movespeed", "0");
-        thirdShyGuy.setProperty("movespeed", "0");
-        fourthShyGuy.setProperty("movespeed", "0");
-        ProjectileProperties projectileProperties = new ProjectileProperties("duvall.png", 50, 50, Direction.RIGHT, 400, 30, 20);
+        ProjectileProperties projectileProperties = new ProjectileProperties(
+                "duvall.png", 50, 50, Direction.RIGHT, 400, 30, 20, 2);
         firstShyGuy.setProjectileProperties(projectileProperties);
-        Level level = new Level(1);
+        level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.RIGHT);
@@ -104,7 +100,7 @@ public class MainController {
         level.addPlayer(secondShyGuy);
         level.addPlayer(thirdShyGuy);
         level.addPlayer(fourthShyGuy);
-        GameObject ground = new GameObject(0, 570,700,50,"ground.png", new HashMap<>());
+        GameObject ground = new GameObject(0, 570, 700, 50, "ground.png", new HashMap<>());
         ground.setProperty("nonintersectable", "true");
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();
@@ -156,7 +152,12 @@ public class MainController {
     }
     private void setUpGameEngineStage(){
         gameEngineStage = new Stage();
-        gameEngineStage.setScene(new GameCoverSplash(gameEngineController.getLevel(), this).createSplashScene());
+//
+//        gameEngineStage.setScene(gameEngineController.getScene());
+//        gameEngineStage.show();
+//        gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+//        gameEngineStage.setResizable(false);
+        gameEngineStage.setScene(new GameCoverSplash(level, this).createSplashScene());
         //game cover splash here
 
     }
@@ -166,6 +167,7 @@ public class MainController {
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+        gameEngineStage.setResizable(false);
     }
 
 	private void sendDataToEngine() {
@@ -176,7 +178,7 @@ public class MainController {
 	}
 
 	public void launchEngine(String XMLData) {
-//		XMLData = testGameEngine();
+		XMLData = testGameEngine();
 		boolean multiplayer = false;
 		boolean isServer = false;
 		if (gameEngineController.startGame(XMLData) == true) {

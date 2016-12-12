@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -61,30 +62,29 @@ public class GameEngineUI implements UDPHandler{
 	private Map<KeyCode, Boolean> keyPressed = new HashMap<>();
 	private EventHandler<ActionEvent> resetEvent;
 	private Timeline animation;
-	private ControlInterface controlInterface;
+	private ClientMain clientMain;
 	private CommandInterface commandInterface;
 	private Stage endGameStage;
 	private ClientGame currentGame;
-	private Player mainPlayer;
 	private XMLSerializer mySerializer;
+	private List<Player> clientPlayerList;
+	private boolean isPaused, isMuted;
 
-	private boolean isPaused,isMuted;
 	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer,
-						EventHandler<ActionEvent> resetEvent, Player player, String serverName) {
-		mainPlayer = player;
+						EventHandler<ActionEvent> resetEvent, String serverName) {
+//		mainPlayer = player;
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		scene.getStylesheets().add(EDITOR_SPLASH_STYLE);
-		controlInterface = new ClientMain(serverName, 9090, -1, this);
+//		controlInterface = new ClientMain(serverName, 9090, -1, this);
+		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
-
 		setUpMethodMappings();
 	}
-
-	public void initLevel() {
+	public void initLevel(Map<Long, List<Player>> playerMapping) {
 		if (currentGame.getMusicFilePath() != null) {
 			playMusic(currentGame.getMusicFilePath());
 		}
@@ -94,6 +94,10 @@ public class GameEngineUI implements UDPHandler{
 		gameScreen.reset();
 		gameScreen.init(currentGame);
 		myHUD.resetTimer();
+		clientPlayerList = playerMapping.get(clientMain.getID());
+		for(Player player : clientPlayerList) {
+			mapKeys(player, player.getControls());
+		}
 	}
 	public Scene getScene() {
 		return scene;
@@ -126,7 +130,8 @@ public class GameEngineUI implements UDPHandler{
 		for(KeyCode key : keyPressed.keySet()){
 			if(keyPressed.get(key).equals(true)){
 				Player player = playerMappings.get(key);
-				keyMappings.get(key).invoke(controlInterface, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
+
+				keyMappings.get(key).invoke(clientMain, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 			}
 		}
 	}
@@ -137,13 +142,12 @@ public class GameEngineUI implements UDPHandler{
 		mapKeysToMethods(mappings);
 		setUpKeystrokeListeners();
 	}
-
 	public void setupKeyFrameAndTimeline(double delay) {
 		KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> {
 			try {
 				update();
 			} catch (Exception exception) {
-                exception.printStackTrace();
+				exception.printStackTrace();
 			}
 		});
 		animation = new Timeline();
@@ -163,7 +167,6 @@ public class GameEngineUI implements UDPHandler{
 //		endGameStage.setTitle("GAME OVER");
 //		endGameStage.show();
 	}
-
 	public void saveGame(){
 		FileOpener chooser = new FileOpener();
 		chooser.saveFile(myResources.getString("XML"), myResources.getString("data"),
@@ -182,14 +185,13 @@ public class GameEngineUI implements UDPHandler{
 		gameScreen.reset();
 		myHUD.resetTimer();
 	}
-
 	private void setUpMethodMappings() {
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
 			Iterator<String> keys = resources.getKeys();
 			while (keys.hasNext()) {
 				String key = keys.next();
-				methodMappings.put(key, controlInterface.getClass().getDeclaredMethod(resources.getResource(key),
+				methodMappings.put(key, clientMain.getClass().getDeclaredMethod(resources.getResource(key),
 						GameObject.class, double.class));
 			}
 		} catch (
@@ -273,13 +275,18 @@ public class GameEngineUI implements UDPHandler{
 			}
 		});
 	}
-
 	@Override
 	public void updateGame(ClientGame game) {
 		currentGame = game;
 	}
-
 	public boolean gameLoadedFromServer(){
 		return currentGame!=null;
+	}
+	@Override
+	public int getCharIdx(GameObject player) {
+		for(int i=0;i<clientPlayerList.size();i++){
+			if(clientPlayerList.get(i).getMainChar()==player) return i;
+		}
+		return -1;
 	}
 }

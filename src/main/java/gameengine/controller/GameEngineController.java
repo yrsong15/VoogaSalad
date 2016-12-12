@@ -5,6 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import objects.*;
 import xml.XMLSerializer;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
  *         Moon
@@ -24,8 +27,9 @@ public class GameEngineController implements CommandInterface {
 		serverName = "localhost";
 		serializer = new XMLSerializer();
 	}
+
 	public boolean startGame(String xmlData) {
-		currentGame = serializer.getGameFromString(xmlData);
+		Game currentGame = serializer.getGameFromString(xmlData);
 		if (currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Cannot start game.");
@@ -41,28 +45,54 @@ public class GameEngineController implements CommandInterface {
 			};
 			serverThread.start();
 		}
-		startClientGame(currentGame.getPlayers().get(0));
+		startClientGame(currentGame.getClientMappings());
 		return true;
 	}
+
 	public void startServerGame(Game currentGame) {
 		backend = new GameEngineBackend(serverName);
 		backend.startGame(currentGame);
 	}
-	public void startClientGame(Player player) {
-		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player, serverName);
+//	public void startClientGame(Player player) {
+//		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), player, serverName);
+//=======
+//
+//	public void startClientGame(Map<Long, List<Player>> playerMapping) {
+//		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
+//>>>>>>> 94cb789f97db1b9bae9a299f8e0467438741aa18
+//		while (!gameEngineView.gameLoadedFromServer()) {
+//			// staller
+//			System.out.print("");
+//		}
+//<<<<<<< HEAD
+//		beginUI(player);
+//	}
+//	public void beginUI(Player player) {
+//		gameEngineView.initLevel();
+//		gameEngineView.mapKeys(player, player.getControls());// NEED TO MAP FOR
+//		// MULTIPLE
+//		// PLAYERS
+//		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
+//	}
+//=======
+//		gameEngineView.initLevel(playerMapping);
+//
+//		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
+//	}
+
+
+	public void startClientGame(Map<Long, List<Player>> playerMapping) {
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
-		beginUI(player);
-	}
-	public void beginUI(Player player) {
-		gameEngineView.initLevel();
-		gameEngineView.mapKeys(player, player.getControls());// NEED TO MAP FOR
-		// MULTIPLE
-		// PLAYERS
+		gameEngineView.initLevel(playerMapping);
+
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
 	}
+
+//>>>>>>> 94cb789f97db1b9bae9a299f8e0467438741aa18
 	public Scene getScene() {
 		return gameEngineView.getScene();
 	}
