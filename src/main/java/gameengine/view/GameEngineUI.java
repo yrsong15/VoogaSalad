@@ -205,9 +205,10 @@ public class GameEngineUI implements UDPHandler{
 	private BorderPane makeRoot() {
 		BorderPane root = new BorderPane();
 		VBox vb = new VBox();
+		vb.setFillWidth(true);
 		vb.getChildren().addAll(makeToolbar(), makeHUD());
-		root.setTop(vb);
 		root.setCenter(makeGameScreen());
+		root.setTop(vb);
 		return root;
 	}
 	private Node makeToolbar() {
