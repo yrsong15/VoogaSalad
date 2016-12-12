@@ -45,6 +45,7 @@ public class Toolbar implements IToolbar {
 		mySaveEvent = save;
 		myToolbar = new HBox();
 		myToolbar.setPrefHeight(40);
+		myToolbar.toFront();
 		addButtons();
 	}
 

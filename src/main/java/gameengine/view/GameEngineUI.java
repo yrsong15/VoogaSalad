@@ -54,6 +54,7 @@ public class GameEngineUI implements UDPHandler{
 	private ErrorMessage myErrorMessage;
 	private String myLevelFileLocation;
 	private Toolbar toolbar;
+	private Node toolbarHBox;
 	private HUD myHUD;
 	private GameScreen gameScreen;
 	private MediaPlayer mediaPlayer;
@@ -229,8 +230,14 @@ public class GameEngineUI implements UDPHandler{
 	private Node makeToolbar() {
 		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent,
 				event -> mute(), event -> saveGame());
-		return toolbar.getToolbar();
+		toolbarHBox = toolbar.getToolbar();
+		return toolbarHBox;
 	}
+	
+	public Node getToolbar(){
+		return toolbarHBox;
+	}
+	
 	private Node makeHUD() {
 		myHUD = new HUD();
 		return myHUD.getHUD();
@@ -258,6 +265,7 @@ public class GameEngineUI implements UDPHandler{
 		myLevelFileLocation = levelFile.getAbsolutePath();
 	}
 	private void pause() {
+		System.out.println("pause button pressed in UI");
 		if (isPaused) {
 			toolbar.resume();
 			animation.play();

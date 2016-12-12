@@ -38,7 +38,6 @@ class TcpConnection implements Runnable{
 	public void run() {
 		try(ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 				ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream())){
-			System.out.println("ois oos initialized in TCP server");
 			while(true){
 				String msg = (String)ois.readObject();
 				ServerMessage sm;

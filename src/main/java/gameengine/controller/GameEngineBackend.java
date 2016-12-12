@@ -15,6 +15,7 @@ import gameengine.model.WinChecker;
 import gameengine.network.client.ClientMain;
 import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
+import javafx.scene.Node;
 import objects.*;
 
 public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHandler {
@@ -27,9 +28,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private ServerMain serverMain;
 	private Map<GameObject, Position> mainCharImprints;
 	private String serverName;
+	private Node toolbarHBox;
 
 	public GameEngineBackend(String serverName) {
-		System.out.println("Engine Backend initialized");
 		this.serverName = serverName;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
@@ -38,7 +39,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void startGame(Game currentGame) {
-		System.out.println("Startgame in Engine Backend called");
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
 		this.
@@ -70,16 +70,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		gameMovement.runActions();
-		/*
-		 * for(RandomGenFrame elem: randomlyGeneratedFrames){
-		 * for(RandomGeneration randomGeneration :
-		 * currLevel.getRandomGenRules()) { try {
-		 * elem.possiblyGenerateNewFrame(100, randomGeneration,
-		 * this.getClass().getMethod("setNewBenchmark")); } catch
-		 * (IllegalArgumentException | InvocationTargetException |
-		 * IllegalAccessException | NoSuchMethodException | SecurityException e)
-		 * { // TODO Auto-generated catch block e.printStackTrace(); } } }
-		 */
 
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
@@ -92,6 +82,13 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		if(currLevel.getRandomGenRules().size() > 0) {
             randomlyGenerateFrames();
         }
+		
+		System.out.println("qqqqqq");
+		if(toolbarHBox != null){
+			System.out.println("sadfasdfsadf");
+			toolbarHBox.toFront();
+		}
+		
 		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
 		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
 		LossChecker.checkLossConditions(this, currLevel.getLoseConditions(), currLevel.getGameConditions());
@@ -141,6 +138,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	public void addClientCharacter() {
 		// currentGame.addPlayer(tempPlayer);
+	}
+	
+	public void setToolbarHBox(Node toolbarHBox){
+		this.toolbarHBox = toolbarHBox;
 	}
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj) {
