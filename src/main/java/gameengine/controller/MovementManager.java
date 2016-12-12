@@ -149,8 +149,7 @@ public class MovementManager implements ControlInterface{
             }
         }
 	}
-	
-	
+
 	private void setScrolling() throws ScrollTypeNotFoundException{
 		ScrollType gameScroll = currLevel.getScrollType();
 		String classPath = "gameengine.scrolling." + gameScroll.getScrollTypeName();

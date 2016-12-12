@@ -9,7 +9,9 @@ import objects.GameObject;
 public class ApplyBouncableRule {
 
     public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
-        mainChar.killSpeed();
-        handler.removeObject(obj);
+        String jumpVelocity = obj.getProperty("bounce");
+        if(jumpVelocity!=null){
+            mainChar.setProperty("fallspeed", "-" + jumpVelocity);
+        }
     }
 }
