@@ -33,6 +33,9 @@ public class SpriteTypeButton {
     private double myY = 0;
     private double myWidth = 50;
     private double myHeight = 50;
+    
+    private double xFromCorner = 0;
+    private double yFromCorner = 0;
 
     private Pane myPane;
     private Rectangle myBGRectangle;
@@ -96,13 +99,14 @@ public class SpriteTypeButton {
     }
 
     private void handlePaneDrag(double x, double y, double sceneX, double sceneY){
+    	double adjustedSceneX = sceneX - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
         if (!dragEntering && dragExited && (myTempImageView != null && sceneX < X_LIMIT 
         		|| sceneY < Y_LIMIT)){
         	handleReentryLvl1();
         } else if (dragEntering) {
         	handleReentryLvl2();
-        	myTempImageView.setLayoutX(x);
-            myTempImageView.setLayoutY(y);
+        	myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+            myTempImageView.setLayoutY(sceneY - yFromCorner);
         } else if (!dragEntering && !dragExited && myTempImageView != null && sceneX > X_LIMIT 
                 && sceneY > Y_LIMIT){
             myDesignArea.addDragIn(myTempImageView);
@@ -118,8 +122,8 @@ public class SpriteTypeButton {
             myTempImageView.setLayoutX(myX);
             myTempImageView.setLayoutY(myY);
         } else if (!dragEntering && myTempImageView != null && sceneX < INNER_X_LIMIT){
-            myTempImageView.setLayoutX(x);
-            myTempImageView.setLayoutY(y);
+            myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+            myTempImageView.setLayoutY(sceneY - yFromCorner);
         }
     }
 
@@ -136,8 +140,12 @@ public class SpriteTypeButton {
         myTempImageView.setPreserveRatio(true);
         myTempImageView.setFitWidth(fitWidth);
         myTempImageView.setFitHeight(fitHeight);
-        myTempImageView.setLayoutX(sceneX - x - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource());
-        myTempImageView.setLayoutY(sceneY - y);
+        System.out.println(myImageView.getLayoutX());
+        xFromCorner = x - myImageView.getLayoutX();
+        yFromCorner = y - myImageView.getLayoutY();
+        double adjustedSceneX = sceneX - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
+        myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+        myTempImageView.setLayoutY(sceneY - yFromCorner);
         myDetailPane.getPane().getChildren().add(myTempImageView);
     }
     
