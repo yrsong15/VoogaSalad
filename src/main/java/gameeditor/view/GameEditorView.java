@@ -21,7 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import objects.GameObject;
-
+import objects.interfaces.IGame;
 import objects.interfaces.ILevel;
 
 
@@ -39,13 +39,15 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private IGameEditorData myDataStoreInterface;
     private IDetailPane myDetailPane;
     private ILevel myLevelSettings;
+    private IGame myGameInterface;
     private BooleanProperty closeLevelWindow;
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     public static final String SCORE_PROPERTY="score";
 
 
-    public GameEditorView(ILevel levelSettings){
+    public GameEditorView(ILevel levelSettings, IGame myGameInterface){
         this.myLevelSettings = levelSettings;
+        this.myGameInterface=myGameInterface;
         myRoot = new BorderPane();  
         closeLevelWindow = new SimpleBooleanProperty(false);
     }
@@ -75,15 +77,13 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                 ImageView spriteimageView = new ImageView(image); 
                 double xposition = object.getXPosition();
                 double ypositon = object.getYPosition();
-                
-
-                
+                    
             }
         }    
     }
     
     private HBox createLeftAlt(){
-        myDataStoreInterface = new GameEditorData(myLevelSettings);
+        myDataStoreInterface = new GameEditorData(myLevelSettings, myGameInterface);
         DetailPane dp = new DetailPane(myDesignArea, myDataStoreInterface);
         myDetailPane = dp;
         myCommandPane = new CommandPane(dp);

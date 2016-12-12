@@ -28,8 +28,7 @@ public class PlatformDetail {
     private String imageFilePath;
 
 
-    public PlatformDetail(IGameEditorData dataStore){
-        
+    public PlatformDetail(IGameEditorData dataStore){  
         myDataStore = dataStore;
         myImageDetail = new ImageDetail();
         myDetailFrontEndUtil = new DetailFrontEndUtil();

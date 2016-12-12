@@ -33,7 +33,7 @@ public interface IGameEditorData {
     public void addMainCharacterImage(String imageFilePath);
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties);
 
-    public void addScrollType(ScrollType scrollType);
+    //public void addScrollType(ScrollType scrollType);
     public void addLoseCondition(String type, String action);
     public void addWinCondition(String type, String action);
    
@@ -44,7 +44,6 @@ public interface IGameEditorData {
 
     public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters);
 
-    public  void addGameBoundary (BasicBoundary gameBoundary);
 
     public ArrayList<String> getImageViews();
     
@@ -58,5 +57,6 @@ public interface IGameEditorData {
     public void storeMainCharToXML();
     
     public ArrayList<String> getMainCharacterTypes();
+    public void addProjectileProperties(String typeName, Map<String,String> myMap);
 }
 

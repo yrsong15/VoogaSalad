@@ -80,6 +80,7 @@ public class SpriteDetail {
             getPropertiesFromTextArea(propertiesMap);
             propertiesMap.put(DetailResources.TYPE_NAME.getResource(), myTypeTextArea.getText());
             myImageFilePath = myImageDetail.getFilePath();
+            
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myImageFilePath);
             // Add Enemy Properties for the other sprites
             propertiesMap.put(DetailResources.ENEMY_KEY.getResource(), null);

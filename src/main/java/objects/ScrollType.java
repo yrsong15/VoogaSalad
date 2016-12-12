@@ -51,4 +51,8 @@ public class ScrollType {
     public void setScrollSpeed(int scrollSpeed){
         this.scrollSpeed = scrollSpeed;
     }
+    
+    public void addDirectionList(ArrayList<Direction> directions){
+        this.myScrollDirectionList=directions;
+    }
 }
