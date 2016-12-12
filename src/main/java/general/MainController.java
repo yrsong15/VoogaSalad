@@ -22,6 +22,10 @@ import xml.XMLSerializer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Delia Li
+ */
+
 public class MainController {
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
