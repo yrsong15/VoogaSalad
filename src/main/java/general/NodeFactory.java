@@ -29,6 +29,9 @@ public class NodeFactory implements INodeFactory{
     private String userDirectoryThumbnailPrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/DesignImages/";
+    private String userDirectoryToolbarPrefix = "file:"
+            + System.getProperty("user.dir")
+            + "/images/Toolbar/";
     private String userDirectorySpritePrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/Sprite/";
