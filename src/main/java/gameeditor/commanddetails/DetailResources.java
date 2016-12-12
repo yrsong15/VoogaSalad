@@ -27,6 +27,9 @@ public enum DetailResources {
 		NON_INTERSECTABLE_KEY("nonintersectable"),
 		ONE_SIDE_NON_INTERSECTABLEKEY("onewaynonintersectable"),
 		ISPLATFORM_KEY("isplatform"),
+		PLATFORM_ENEMY_ALLOWED_KEY("isenemyallowed"),
+		PlATFORM_ENEMY_ALLOWED_LABEL("Is Enemy Allowed"),
+		
 		JUMP_OPTIONS(new String[] {"Jump Once", "Jump Unlimited"}),
 		
 		

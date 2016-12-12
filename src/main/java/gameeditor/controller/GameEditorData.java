@@ -10,6 +10,7 @@ import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameengine.view.GameScreen;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.util.Pair;
@@ -116,7 +117,7 @@ public class GameEditorData implements IGameEditorData{
         myImageViewObjectMap.add(viewMap);
     }
 
-    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters){
+    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, ComboBox<String> isEnemyAllowed){
         Map<String,String> properties=  getType(type);
         Map<String,String> propertiesMap = getPropertiesMap(properties);
         //addRandomGeneration(propertiesMap, myRandomGenerationParameters);

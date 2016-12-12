@@ -39,7 +39,7 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
 
 
     private String myType;
-    private ComboBox<String>IsEnemyAllowed;
+    protected ComboBox<String>isEnemyAllowed;
 
     public AbstractSelectDetail() {
         super();
@@ -102,10 +102,10 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         typeMap.put(IGameEditorData.WIDTH_KEY,widthString.substring(WIDTH_LABEL.length()));
         typeMap.put(IGameEditorData.HEIGHT_KEY, heightString.substring(HEIGHT_LABEL.length()));
 
-
         String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
+        
         if(randomGen!=null && randomGen.equals("True")){ 
-            myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList);
+            myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed);
         }
     }
 
@@ -148,9 +148,9 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
 
     protected void createRandomGenProperties(){
         String [] options = DetailResources.LIMIT_DIMENSION_OPTIONS.getArrayResource();
-        IsEnemyAllowed = myDetailFrontEndUtil.createComboBox(options, "True");
+        isEnemyAllowed = myDetailFrontEndUtil.createComboBox(options, "True");
         Label propertyLabel = myDetailFrontEndUtil.createPropertyLbl("Is Enemy Allowed");
-        BorderPane borderpane = myDetailFrontEndUtil.createBorderpane( IsEnemyAllowed,propertyLabel);
+        BorderPane borderpane = myDetailFrontEndUtil.createBorderpane( isEnemyAllowed,propertyLabel);
         myVBox.getChildren().add(borderpane);
         
         for (String label : myRandomGenerationParameters){           

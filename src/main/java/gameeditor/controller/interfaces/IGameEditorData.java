@@ -3,6 +3,7 @@ package gameeditor.controller.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import objects.ProjectileProperties;
@@ -31,7 +32,7 @@ public interface IGameEditorData {
 
     public void addGameObjectsToLevel();
 
-    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters);
+    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, ComboBox<String> isEnemyAllowed);
 
 
     public ArrayList<String> getImageViews();
