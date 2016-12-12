@@ -138,10 +138,7 @@ public class GameEditorData implements IGameEditorData{
         removeValuesExceptProperties(myItemMap);
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
-            System.out.println(" v " + v);
-            if(!v.equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource())){
                 properties.put(k, v);
-            }
         });
         return properties;
     }
@@ -188,7 +185,8 @@ public class GameEditorData implements IGameEditorData{
     }
 
 
-    public void addGameObjectsToLevel(){    
+    public void addGameObjectsToLevel(){   
+        System.out.println(" Comes Here: ");
         for (Map<String, String> type : myImageViewObjectMap){
             double xPosition = Double.valueOf(type.get(ISelectDetail.X_POSITION_KEY));
             double yPosition = Double.valueOf(type.get(ISelectDetail.Y_POSITION_KEY));
@@ -199,6 +197,7 @@ public class GameEditorData implements IGameEditorData{
             String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
             Map<String,String> properties = getPropertiesMap(type);
             GameObject myObject = new GameObject(xPosition,yPosition,width,height,file,properties);
+
             myLevel.addGameObject(myObject);   
         }
     }
@@ -230,9 +229,9 @@ public class GameEditorData implements IGameEditorData{
         //    }
         for(Map<String,String> map: myMainCharImageViewMap){
             map.forEach((k,v)-> {
-                
+
             });
-            
+
         }
     }
 }

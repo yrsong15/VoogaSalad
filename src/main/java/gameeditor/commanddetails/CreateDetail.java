@@ -24,6 +24,7 @@ public class CreateDetail extends AbstractCommandDetail {
     private String [] myPropertiesComBoArray = DetailResources.PROPERTIES_COMBO.getArrayResource();
     private String[] myPropertiesTextBox = DetailResources.SPRITE_PROPERTIES_TEXT_INPUT_LABEL.getArrayResource();
     private String[] myPropertiesComboLabels = DetailResources.PROPERTIES_COMBO_LABELS.getArrayResource();
+    private String[] SPRITE_DEFAULT_COMBO_PROPERTIES = DetailDefaultsResources.SPRITE_DEFAULT_COMBO_PROPERTIES.getArrayResource();
     private ArrayList<TextArea> myTextFields = new ArrayList<TextArea>();
 
 
@@ -97,7 +98,7 @@ public class CreateDetail extends AbstractCommandDetail {
 
     private void handleIntersectibleProperty(ComboBox<String> combo){
         if(combo.getValue()=="False"){
-            String defaultVal = DetailDefaultsResources.PLATFORM_NON_INTERSECTABLE.getResource();
+            String defaultVal = DetailDefaultsResources.PLATFORM_INTERSECTABLE.getResource();
             nonInterSectableCombo = myDetailFrontEndUtil.createComboBox(PLATFORM_NON_INTERSECTABLE_OPTIONS, defaultVal);
             String label = DetailResources.NON_INTERSECTABLE_SIDES_LABEL.getResource();
             myNonIntersectableOptionBP = myDetailFrontEndUtil.createBorderpane( nonInterSectableCombo,createPropertyLbl(label));
@@ -149,8 +150,7 @@ public class CreateDetail extends AbstractCommandDetail {
             propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), myFilePath);
             // Add Enemy Properties for the other sprites
             propertiesMap.put(DetailResources.ENEMY_KEY.getResource(), null);
-            // Store only if the Type does not exist
-            
+        
             if(myDataStore.getType(myTypeTextArea.getText())==null){
                 myDataStore.storeType(propertiesMap);
             }else{
@@ -203,25 +203,27 @@ public class CreateDetail extends AbstractCommandDetail {
     }
    
     private void createProperties(){
+        int counter=0;
         for (String label : myPropertiesComBoArray){
-            ComboBox<String> cb = createPropertyCB(label);
+            ComboBox<String> cb = createPropertyCB(label,SPRITE_DEFAULT_COMBO_PROPERTIES[counter]);
             myComboBoxes.add(cb);
             BorderPane bp = myDetailFrontEndUtil.createBorderpane(cb,createPropertyLbl(label));
             myVBox.getChildren().add(bp);
+            counter++;
         }
 
         for (String label : myPropertiesTextBox){           
-            TextArea text = createInputField("0.0");
+            TextArea text = createInputField(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource());
             myTextFields.add(text);
             BorderPane bp = myDetailFrontEndUtil.createBorderpane(text,createPropertyLbl(label));
             myVBox.getChildren().add(bp);
         }
     }
 
-    private ComboBox<String> createPropertyCB(String property){
+    private ComboBox<String> createPropertyCB(String property, String defaultValue){
         DetailResources resourceChoice = DetailResources.valueOf(property.toUpperCase(Locale.ENGLISH));
         String [] optionsArray = resourceChoice.getArrayResource();
-        ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,null);
+        ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,defaultValue);
         return cb;
     }
 }
