@@ -243,6 +243,7 @@ public class GameEngineUI implements UDPHandler{
 		myLevelFileLocation = levelFile.getAbsolutePath();
 	}
 	private void pause() {
+		System.out.println("pause button pressed in UI");
 		if (isPaused) {
 			toolbar.resume();
 			animation.play();

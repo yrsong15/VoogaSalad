@@ -29,7 +29,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private String serverName;
 
 	public GameEngineBackend(String serverName) {
-		System.out.println("Engine Backend initialized");
 		this.serverName = serverName;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
@@ -38,7 +37,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	public void startGame(Game currentGame) {
-		System.out.println("Startgame in Engine Backend called");
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
 		this.
