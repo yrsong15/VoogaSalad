@@ -149,12 +149,12 @@ public class GalleryView implements IGalleryView{
         // This method reconfigures the GalleryView so that it accurately presents all files in the gallery
     }
 
-    private void addGalleryBackgroundImage() {
-        ImageView backgroundImageGalleryScreen = myFactory.makeBackgroundImage("SpinningScreens");
-        backgroundImageGalleryScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
-        backgroundImageGalleryScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
-        galleryWindow.getChildren().add(backgroundImageGalleryScreen);
-    }
+//    private void addGalleryBackgroundImage() {
+//        ImageView backgroundImageGalleryScreen = myFactory.makeBackgroundImage("SpinningScreens");
+//        backgroundImageGalleryScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
+//        backgroundImageGalleryScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
+//        galleryWindow.getChildren().add(backgroundImageGalleryScreen);
+//    }
 
     private void addGalleryBackdrop() {
 //        Rectangle backdrop = new Rectangle(1000, 200, Color.MIDNIGHTBLUE);
@@ -171,7 +171,8 @@ public class GalleryView implements IGalleryView{
 //        label.setFill(Color.LIGHTBLUE);
 //        label.setTranslateX(110);
 //        label.setTranslateY(115);
-        Text label = myFactory.makeLabel("To edit or load an existing game, select from the gallery", GALLERY_CORNER_X + 10, GALLERY_CORNER_Y + 15, 20);
+        Text label = myFactory.makeLabel("To edit or load an existing game, select from the gallery",
+                GALLERY_CORNER_X + 10, GALLERY_CORNER_Y + 15, 20);
         label.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
         galleryWindow.getChildren().addAll(backdrop, label);
     }
@@ -203,8 +204,7 @@ public class GalleryView implements IGalleryView{
     }
 
     private void launchSelectedFiles(){
-    	for(GameFileView gameFileView : mySelectedFiles)
-    	{
+    	for(GameFileView gameFileView : mySelectedFiles) {
     		myMainController.launchEngine(gameFileView.getGameFile().getGameData());
     	}
     }

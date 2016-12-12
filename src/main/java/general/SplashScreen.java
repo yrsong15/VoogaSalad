@@ -19,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
+
 import javafx.event.EventHandler;
 /**
  * Created by Delia on 11/15/2016.
@@ -32,15 +34,7 @@ public class SplashScreen implements ISplashScreen {
     private Gallery galleryItem;
     private GalleryView myGallery;
     private EditorSplash editorSplash;
-    private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
-            CycleMethod.NO_CYCLE,
-            new Stop(0, Color.WHITE),
-            new Stop(0.15, Color.HONEYDEW),
-            new Stop(0.3, Color.LIGHTBLUE),
-            new Stop(0.45, Color.WHITE),
-            new Stop(0.6, Color.LIGHTBLUE),
-            new Stop(0.75, Color.HONEYDEW),
-            new Stop(1, Color.WHITE));
+
     public SplashScreen(Gallery galleryItem, MainController mainController) {
         this.myFactory = new NodeFactory();
         this.galleryItem = galleryItem;
@@ -50,7 +44,8 @@ public class SplashScreen implements ISplashScreen {
     public Parent setUpWindow() {
         startWindow = new Pane();
         startWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
-        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
+        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("Animated");
+//        backgroundImageMainScreen.
         backgroundImageMainScreen.fitWidthProperty().bind(startWindow.widthProperty());
         backgroundImageMainScreen.fitHeightProperty().bind(startWindow.heightProperty());
         startWindow.getChildren().add(backgroundImageMainScreen);
@@ -60,20 +55,8 @@ public class SplashScreen implements ISplashScreen {
         return startWindow;
     }
     private void addTitle() {
-        BigNameText title = new BigNameText("Welcome to VoogaSalad");
-        title.setTranslateX(55);
-        title.setTranslateY(35);
+        Text title = myFactory.bigNameTitle("Welcome to VoogaSalad", 35, 75);
         startWindow.getChildren().add(title);
     }
-    private static class BigNameText extends StackPane {
-        /**
-         * @param Name
-         */
-        public BigNameText(String Name) {
-            Text titleText = new Text(Name);
-            titleText.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
-            titleText.setFill(textAndBoxGradient);
-            getChildren().add(titleText);
-        }
-    }
+
 }
