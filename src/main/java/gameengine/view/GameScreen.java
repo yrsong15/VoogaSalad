@@ -47,18 +47,20 @@ public class GameScreen {
         return screenHeight;
     }
     public void setBackgroundImage(String imageFile) {
-        /**BackgroundImage bi = new BackgroundImage(
+        BackgroundImage bi = new BackgroundImage(
                 new Image(getClass().getClassLoader().getResourceAsStream(imageFile), screenWidth, screenHeight, false,
                         true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-        myScreen.setBackground(new Background(bi));   **/  
+        myScreen.setBackground(new Background(bi));   
     }
 
 
     public void init(ClientGame game) {
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
-        addGameObject(game.getBackgroundObject());
+        if (game.getBackgroundObject()!=null){
+        	addGameObject(game.getBackgroundObject());
+        }
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {        	
             addGameObject(entry.getValue());
         }
@@ -84,7 +86,9 @@ public class GameScreen {
     		myScreen.getChildren().remove(bar);
     	}
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
-        updatePosition(game.getBackgroundObject());
+        if (game.getBackgroundObject()!=null){
+        	updatePosition(game.getBackgroundObject());
+        }
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             ClientGameObject object = entry.getValue();
             updatePosition(object);
@@ -113,7 +117,6 @@ public class GameScreen {
         catch (NullPointerException e){
         	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
         }     
-    	System.out.println(object.getID() +  "  " + object.getImageFileName());
 
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());

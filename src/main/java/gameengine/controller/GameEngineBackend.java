@@ -41,7 +41,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void startGame(Game currentGame) {
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
-		currentGame.getCurrentLevel().setBackgroundObject();
+		if (currentGame.getCurrentLevel().getScrollType().equals("FreeScrolling")){
+			currentGame.getCurrentLevel().setBackgroundObject();
+		}
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		serverMain = new ServerMain(this, 9090, serverName);
@@ -202,7 +204,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void runControl(String controlName, int ID, int charIdx) {
 		try {
 			Method method = gameMovement.getClass().getDeclaredMethod(controlName, GameObject.class, double.class);
-//			System.out.println(ID + " " + charIdx);
 			method.invoke(gameMovement, currentGame.getClientMappings().get(new Long(ID)).get(charIdx).getMainChar(), 10);
 
 		} catch (Exception ex) {
@@ -219,7 +220,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		Level currLevel = game.getCurrentLevel();
 		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath());
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
-		clientGame.setBackgroundObject(currLevel.getBackground());
+		if (currLevel.getBackground()!=null){
+			clientGame.setBackgroundObject(currLevel.getBackground());
+		}
 		return clientGame;
 	}
 
