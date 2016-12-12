@@ -97,8 +97,8 @@ public class MainCharacterDetail extends AbstractSelectDetail {
         BorderPane bp = new BorderPane();
         bp.setMinWidth(PADDED_PANE_WIDTH);
         bp.setMaxWidth(PADDED_PANE_WIDTH);
-        Label labl = createPropertyLbl(label);
-        TextArea text = createInputField(value);
+        Label labl = myDetailFrontEndUtil.createPropertyLbl(label);
+        TextArea text = myDetailFrontEndUtil.createInputField(value);
         myTextInputs.add(text);
         bp.setLeft(labl);
         bp.setRight(text);

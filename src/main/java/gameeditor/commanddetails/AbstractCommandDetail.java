@@ -64,24 +64,4 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
         myVBox.setAlignment(Pos.CENTER);
         myContainerPane.setContent(myVBox);    
     }
-
-    protected TextArea createInputField(String initValue){
-        TextArea inputField = new TextArea();
-        inputField.setMinWidth(PADDED_DETAIL_WIDTH);
-        inputField.setMaxWidth(PADDED_DETAIL_WIDTH);
-        inputField.setMinHeight(CB_HEIGHT);
-        inputField.setMaxHeight(CB_HEIGHT);
-        inputField.setText(initValue);
-        inputField.setOnMouseClicked(e -> handleClick(inputField));
-        return inputField;
-    }
-
-   
-    protected void handleClick(TextArea field){
-        field.setText("");
-    }
-
-    protected Label createPropertyLbl(String property){
-        return  new Label (property);
-    }
 }

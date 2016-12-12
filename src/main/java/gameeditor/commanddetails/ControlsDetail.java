@@ -21,8 +21,12 @@ public class ControlsDetail extends AbstractCommandDetail {
     @Override
     public void init() {
         addVBoxSettings();
+        int counter=0;
         for (@SuppressWarnings("unused") String string : myControlsOptions){
-            createSelectDirectionsControl("Input", myControlsOptions);
+            String defaultKey = DetailDefaultsResources.CONTROLS_DEFAULT_VALUES.getArrayResource()[counter];
+            String defaultControl = DetailDefaultsResources.CONTROLS_DEFAULT_COMBO_OPTIONS.getArrayResource()[counter];
+            createSelectDirectionsControl(defaultKey, myControlsOptions,defaultControl);
+            counter++;
         }
         createSave();
     }
@@ -56,11 +60,11 @@ public class ControlsDetail extends AbstractCommandDetail {
         //		myDataStore.storeType(propertiesMap);
     }
 
-    private void createSelectDirectionsControl(String label, String[] optionsArray){
+    private void createSelectDirectionsControl(String label, String[] optionsArray, String comboDefault){
         HBox innerContainer = new HBox();
         innerContainer.setSpacing(HBOX_SPACING);
         innerContainer.setAlignment(Pos.CENTER);
-        ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,null);
+        ComboBox<String> cb = myDetailFrontEndUtil.createComboBox(optionsArray,comboDefault);
         TextArea inputField = createControlsInput(label);
         myInputFields.add(inputField);
         myComboBoxes.add(cb);
@@ -70,7 +74,7 @@ public class ControlsDetail extends AbstractCommandDetail {
     }
 
     private TextArea createControlsInput(String label){
-        TextArea inputField = createInputField(label);
+        TextArea inputField = myDetailFrontEndUtil.createInputField(label);
         inputField.setOnKeyPressed(e -> inputField.clear());
         inputField.setOnKeyReleased(e -> handleKey(inputField, e.getCode()));
         return inputField;

@@ -18,18 +18,24 @@ public enum DetailDefaultsResources {
 	INIT_Y(200),
 	
 	// Sprite Type Defaults
-	SPRITE_PROPERTIES(new String [] {"False", "False", "False", "0", "0", "0", "0", "0", "0"}),
-	DESTRUCTIBLE("True"),
-	RANDOM("True"),
-	MOVABLE("True"),
-	DAMAGE("0"),
-	POINTS("0"),
-	HEALTH("0"),
-	GRAVITY("0"),
-	HORIZONTAL_SPEED("0"),
-	JUMP("0"),
+	       
+        DESTRUCTIBLE_DEFAULT("False"),
+        RANDOM_DEFAULT("False"),
+        MOVABLE_DEFAULT("False"),
+        DAMAGE("0"),
+        POINTS("0"),
+        HEALTH("0"),
+        GRAVITY("0"),
+        HORIZONTAL_SPEED("0"),
+        JUMP("0"),
+        
+        TEXT_BOX_NUMBER_DEFAULT_INPUT("0.0"),
+        
+	SPRITE_DEFAULT_PROPERTIES(new String [] {"False", "False", "False", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"}),
+	SPRITE_DEFAULT_COMBO_PROPERTIES(new String[]{DESTRUCTIBLE_DEFAULT.getResource(), RANDOM_DEFAULT.getResource(),MOVABLE_DEFAULT.getResource()}),
 	
-	TEXT_BOX_NUMBER_DEFAULT_INPUT("0.0"),
+	CONTROLS_DEFAULT_COMBO_OPTIONS(new String[] {"Up","Down","Right","Left","Jump","Shoot"}),
+	CONTROLS_DEFAULT_VALUES(new String[]{"UP","DOWN","RIGHT","LEFT","SPACE","S"}),
 	
 	// Random Generation
 	OBJECTS_PER_FRAME("0"),
