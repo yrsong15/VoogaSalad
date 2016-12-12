@@ -1,6 +1,10 @@
 package gameeditor.controller.interfaces;
 import java.util.HashMap;
-
+/**
+ * 
+ * @author Pratiksha Sharma
+ *
+ */
 public class ControlManager implements IControlManager{
     HashMap<String, String > myControlMap;
     

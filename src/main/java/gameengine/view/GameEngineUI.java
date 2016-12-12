@@ -90,7 +90,7 @@ public class GameEngineUI implements UDPHandler{
 		if (currentGame.getMusicFilePath() != null) {
 			playMusic(currentGame.getMusicFilePath());
 		}
-		if (currentGame.getBackgroundFilePath() != null) {
+		if (currentGame.getBackgroundFilePath() != null && currentGame.getBackgroundObject()==null) {
 			setBackgroundImage(currentGame.getBackgroundFilePath());
 		}
 		gameScreen.reset();
@@ -211,9 +211,11 @@ public class GameEngineUI implements UDPHandler{
 	private BorderPane makeRoot() {
 		BorderPane root = new BorderPane();
 		VBox vb = new VBox();
+		vb.setFillWidth(true);
 		vb.getChildren().addAll(makeToolbar(), makeHUD());
-		root.setTop(vb);
+	//	root.setTop(vb);
 		root.setCenter(makeGameScreen());
+		root.setTop(vb);
 		return root;
 	}
 	private Node makeToolbar() {

@@ -1,10 +1,11 @@
 package gameeditor.controller;
 
 import gameeditor.controller.interfaces.ICreateGame;
+import gameeditor.xml.XMLSerializer;
 import gameeditor.controller.interfaces.IGameEditorBackEndController;
 import objects.Game;
 import objects.Level;
-import xml.XMLSerializer;
+import objects.interfaces.IGame;
 
 /**
  * This controller manages the Game class used within the Game Editor.
@@ -19,6 +20,8 @@ implements IGameEditorBackEndController, ICreateGame{
     private Game myGame;
     private Level myCurrentLevel;
     private XMLSerializer mySerializer;
+    @SuppressWarnings("unused")
+	private IGame myGameInterface;
 
     public GameEditorBackendController(){
     	mySerializer = new XMLSerializer();

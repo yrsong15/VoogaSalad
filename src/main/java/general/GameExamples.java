@@ -17,7 +17,6 @@ import java.util.List;
  * Created by Soravit on 12/11/2016.
  */
 public class GameExamples{
-
     public String getDoodleJumpXML(){
         Game game = new Game("Doodle Jump");
         GameObject shyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
@@ -49,7 +48,7 @@ public class GameExamples{
         randomGen.add(platforms);
         randomGen.add(platforms2);
         randomGen.add(platforms3);
-        RandomGenFrame frame = new RandomGenFrameY(level, randomGen);
+        RandomGenFrame frame = new RandomGenFrameY(level, randomGen, false);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
         XMLSerializer testSerializer = new XMLSerializer();

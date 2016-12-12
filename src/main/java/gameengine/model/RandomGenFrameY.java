@@ -10,9 +10,10 @@ import objects.RandomGeneration;
 public class RandomGenFrameY<T> extends RandomGenFrame<T>{
 	private double benchmarkPoint = -200;
 	
-	public RandomGenFrameY(Level level, ArrayList<RandomGeneration<Integer>> randomGenerationRules) {
+	public RandomGenFrameY(Level level, ArrayList<RandomGeneration<Integer>> randomGenerationRules, boolean isGeneratingEnemies) {
 		this.randomGenRules = randomGenerationRules;
     	this.level = level;
+    	this.generatingEnemies = isGeneratingEnemies;
 	}
 	
 	@Override

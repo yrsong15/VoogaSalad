@@ -28,16 +28,13 @@ public class CollisionChecker {
 	 *
 	 */
 	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects) {
-		//System.out.println(currentlyCollidingObjectsWithCharacter.size());
 		for (Iterator<GameObject> itr = gameObjects.iterator(); itr.hasNext();) {
 			try {
 				GameObject gameObject = itr.next();
 				if (mainChar != gameObject && collision(mainChar, gameObject)) {
 					try {
 						if(!checkIfAlreadyCollided(gameObject)){
-							//System.out.println("Collided!");
 							rulebook.applyRules(mainChar, gameObject);
-							//System.out.println("Adding object");
 						}
 						
 					} catch (CollisionRuleNotFoundException e) {

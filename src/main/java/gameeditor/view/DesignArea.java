@@ -1,79 +1,123 @@
 package gameeditor.view;
-
 import java.util.ArrayList;
-
 import gameeditor.commanddetails.ISelectDetail;
-import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
-import gameeditor.objects.GameObject;
-import gameeditor.view.interfaces.IDesignArea;
+import gameeditor.objects.GameObjectView;
+import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.interfaces.IGameEditorView;
+import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
  * 
- * @author pratikshasharma, John
+ * @author John Martin
  *
  */
 
-public class DesignArea implements IDesignArea {
+public class DesignArea extends AbstractDesignArea implements IStandardDesignArea {
 
-    private Pane myPane;
-    private ScrollPane myScrollPane;
-    private ArrayList<GameObject> mySprites = new ArrayList<GameObject>();
-
-    private boolean clickEnabled = false;
-    private ISelectDetail mySelectDetail;
-    private GameObject myAvatar;
-
-    private GameObject mySelectedSprite;
- 
+    private GameObjectView myDuplicateSprite;
 
     public DesignArea() {
-        myScrollPane = new ScrollPane();
-        myScrollPane.setMinWidth(AREA_WIDTH);
-        myScrollPane.setMinHeight(AREA_HEIGHT);
-        myScrollPane.setMaxWidth(AREA_WIDTH);
-        myScrollPane.setMaxHeight(AREA_HEIGHT);
-        myScrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
-        myScrollPane.setVmax(0);
-        myScrollPane.setBackground(new Background(new BackgroundFill(Color.GHOSTWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        myPane = new Pane();
-        myPane.addEventFilter(KeyEvent.KEY_TYPED, (e) -> handleKeyType(e.getCode()));
+        super();
+        myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
+        myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
+        myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
+        myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
-    }    
+    }   
 
-    //TODO: get keytyped working
-    private void handleKeyType(KeyCode code) {
-        System.out.println("key typed");
-        if (code == KeyCode.BACK_SPACE){
-            // TODO: Remove from backend
-            removeSprite(mySelectedSprite);
+    private void handlePress(double x, double y){
+        GameObjectView sprite = checkForSprite(x, y);
+        resetPress(x, y);
+        if (checkForMultibox(x, y)){
+        } else if (myKeyCode == KeyCode.ALT && sprite != null){
+            sprite.initBound();
+            sprite.setOn(x, y);
+            mySelectedSprite = sprite;
+            myDuplicateSprite = new GameObjectView(sprite, x, y);
+            this.addSprite(myDuplicateSprite);
+        } else if (clickEnabled && sprite != null){
+            sprite.initBound();
+            sprite.setOn(x, y);
+            mySelectedSprite = sprite;
+        } else if (clickEnabled){
+            startX = x;
+            startY = y;
+            mySelectionArea = new Rectangle(x, y, 0, 0);
+            mySelectionArea.setFill(Color.AQUAMARINE);
+            mySelectionArea.setOpacity(0.1);
+            myPane.getChildren().add(mySelectionArea);
         }
+    }
+
+    private void resetPress(double x, double y){
+        if (mySelectedSprite != null){
+            mySelectedSprite.removeBound();
+            mySelectedSprite.setOff();
+            mySelectedSprite = null;
+        }
+        if (!checkForMultibox(x, y) && myMultiBoundingBox != null){
+            myMultiBoundingBox.hide();
+            myMultiBoundingBox = null;
+        }
+    }
+
+    private void handleRelease(double x, double y) {
+        // TODO Auto-generated method stub
+        if (dragged){
+            ArrayList<GameObjectView> selectedSprites = findSprites(startX, startY, endX, endY);
+            myMultiBoundingBox = new MultiBoundingBox(selectedSprites, this);
+            myMultiBoundingBox.show();
+            myPane.getChildren().remove(mySelectionArea);
+            mySelectionArea = null;
+        }
+        dragged = false;
+        startX = -1;
+        startY = -1;
+        endX = 0;
+        endY = 0;
+    }
+
+    private void handleDrag(double x, double y) {
+        if (myMultiBoundingBox == null && startX != -1 && startY != -1){
+            startX = Math.min(startX, x);
+            startY = Math.min(startY, y);
+            endX = Math.max(endX, x);
+	        endY = Math.max(endY, y);
+            mySelectionArea.setX(startX);
+            mySelectionArea.setY(startY);
+            mySelectionArea.setWidth(endX-startX);
+            mySelectionArea.setHeight(endY-startY);
+            if (!dragged){
+                dragged = true;
+            }
+        }
+    }
+
+    private void handleKeyPress(KeyCode code){
+        myKeyCode = code;
+    }
+
+    private void handleKeyRelease(KeyCode code){
+        if (code == KeyCode.BACK_SPACE && mySelectedSprite != null){
+            // TODO: Remove from backend
+            mySelectedSprite.removeBound();
+            mySelectedSprite.setOff();
+            mySelectedSprite.removeSelf();
+        }
+        myKeyCode = null;
     }
 
     public ScrollPane getScrollPane(){
         return myScrollPane;
-    }
-
-    public void updateAvatar(Image newAvatar){
-
     }
 
     public void setBackground(ImageView bg){
@@ -93,14 +137,14 @@ public class DesignArea implements IDesignArea {
     }
 
     @Override
-    public void addSprite(GameObject sprite) {
+    public void addSprite(GameObjectView sprite) {
         mySprites.add(sprite);
         //		TODO: Remove the hardcoding of the image size proportions
         myPane.getChildren().add(sprite.getImageView());
     }
 
     @Override
-    public void removeSprite(GameObject sprite) {
+    public void removeSprite(GameObjectView sprite) {
         mySprites.remove(sprite);
         myPane.getChildren().remove(sprite.getImageView());
     }
@@ -116,30 +160,11 @@ public class DesignArea implements IDesignArea {
         clickEnabled = true;	
     }
 
-    private void handlePress(double x, double y){
-        GameObject sprite = checkForSprite(x, y);
-        if (clickEnabled && sprite != null && mySelectedSprite != null && sprite != mySelectedSprite){
-            mySelectedSprite.removeBound();
-            mySelectedSprite.setOff();
-            sprite.initBound();
-            sprite.setOn(x, y);
-            mySelectedSprite = sprite;
-        } else if (clickEnabled && sprite != null && mySelectedSprite == null){
-            sprite.initBound();
-            sprite.setOn(x, y);
-            mySelectedSprite = sprite;
-        }
-    }
-
-    public void initSelectDetail2(GameObject sprite){
+    public void initSelectDetail2(GameObjectView sprite){
         if (clickEnabled){
+            mySelectDetail.switchSelectStyle(sprite);
             mySelectDetail.initLevel2(sprite);
         }
-    }
-
-    public void updateSpriteDetails(GameObject sprite, double x, double y, double width, double height){
-        mySelectDetail.updateSpritePosition(x, y);
-        mySelectDetail.updateSpriteDimensions(width, height);
     }
 
     public void addBoundingBox(BoundingBox bb){
@@ -154,36 +179,67 @@ public class DesignArea implements IDesignArea {
         }
     }
 
-    private GameObject checkForSprite(double x, double y){
-		Rectangle test = new Rectangle(x, y, 1, 1);
-		GameObject selectedSprite = null;
-		for (GameObject sprite : mySprites){
-			if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent())
-					&& clickEnabled && mySelectedSprite == sprite){
-				return sprite;
-			} else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
-				selectedSprite = sprite;
-			}
-		}
-		return selectedSprite;
-	}
-    
-    @Override
-	public void addAvatar(String filePath, double x, double y, double width, double height, IGameEditorData ds) {
-    	if (myAvatar != null){
-        	myPane.getChildren().remove(myAvatar.getImageView());
-        	mySprites.remove(myAvatar);
-    	}
-    	myAvatar = new GameObject(filePath, x, y, width, height, "Main Character", this, ds);
-	}
+    private GameObjectView checkForSprite(double x, double y){
+        Rectangle test = new Rectangle(x, y, 1, 1);
+        GameObjectView selectedSprite = null;
+        for (GameObjectView sprite : mySprites){
+            if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent())
+                    && clickEnabled && mySelectedSprite == sprite){
+                return sprite;
+            } else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
+                selectedSprite = sprite;
+            }
+        }
+        return selectedSprite;
+    }
 
-	@Override
-	public void addDragIn(ImageView tempIV) {
-		myPane.getChildren().add(tempIV);
-	}
-	
-	@Override
-	public void removeDragIn(ImageView tempIV) {
-		myPane.getChildren().remove(tempIV);
-	}
+    private ArrayList<GameObjectView> findSprites(double minX, double minY, double maxX, double maxY){
+        Rectangle test = new Rectangle(minX, minY, maxX-minX, maxY-minY);
+        ArrayList<GameObjectView> selectedSprites = new ArrayList<GameObjectView>();
+        for (GameObjectView sprite : mySprites){
+            if(test.getBoundsInParent().intersects(sprite.getImageView().getBoundsInParent())){
+                selectedSprites.add(sprite);
+            }
+        }
+        return selectedSprites;
+    }
+
+    @Override
+    public void addAvatar(GameObjectView gov) {
+        myAvatars.add(gov);
+        mySprites.add(gov);
+        myPane.getChildren().add(gov.getImageView());
+    }
+
+    @Override
+    public void addDragIn(ImageView tempIV) {
+        myPane.getChildren().add(tempIV);
+    }
+
+    @Override
+    public void removeDragIn(ImageView tempIV) {
+        myPane.getChildren().remove(tempIV);
+    }
+
+    @Override
+    public void addMultiBoundingBox(MultiBoundingBox mbb) {
+        myMultiBoundingBox = mbb;
+        myPane.getChildren().add(myMultiBoundingBox.getBound());
+    }
+
+    @Override
+    public void removeMultiBoundingBox() {
+        myPane.getChildren().remove(myMultiBoundingBox.getBound());
+    }
+    
+    private boolean checkForMultibox(double x, double y){
+    	if (myMultiBoundingBox == null){
+    		return false;
+    	} else {
+    		Rectangle test = new Rectangle(x, y, 1, 1);
+        	boolean check = test.getBoundsInParent().intersects(myMultiBoundingBox.getBound().getBoundsInParent());
+        	return check;
+    	}
+    }
+
 }

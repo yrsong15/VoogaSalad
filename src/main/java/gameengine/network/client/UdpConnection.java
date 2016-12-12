@@ -77,7 +77,6 @@ class UdpConnection implements Runnable {
 						String endTag = "</objects.ClientGame>";
 						int end = data.indexOf(endTag);
 						data = data.substring(0, end+endTag.length());
-//						System.out.println(data.length());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 						continue;

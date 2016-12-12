@@ -10,9 +10,10 @@ import objects.RandomGeneration;
 public class RandomGenFrameX<T> extends RandomGenFrame<T>{
 	private double benchmarkPoint = GameEngineUI.myAppWidth + 200;
 
-	public RandomGenFrameX(Level level, ArrayList<RandomGeneration<Integer>> randomGenerationRules) {
+	public RandomGenFrameX(Level level, ArrayList<RandomGeneration<Integer>> randomGenerationRules, boolean isGeneratingEnemies) {
 		this.randomGenRules = randomGenerationRules;
     	this.level = level;
+    	this.generatingEnemies = isGeneratingEnemies;
 	}
 	
 	@Override

@@ -30,7 +30,6 @@ public class GameCoverSplash {
     private NodeFactory myFactory = new NodeFactory();
 
     public GameCoverSplash(Level level, MainController myMainController){
-        System.out.println(level + " initialized yo");
         this.playahs = (ArrayList) level.getPlayers();
         this.background = level.getBackgroundFilePath();
         this.title = level.getTitle();
@@ -51,7 +50,6 @@ public class GameCoverSplash {
         ButtonTemplate startTemp = new ButtonTemplate("GalleryGameEngine", 250, 365);
         Button start = startTemp.getButton();
         start.setOnMouseClicked(e -> mainController.startPlaying());
-        System.out.println(playahs.size() + " playahs");
         myWindow.getChildren().addAll(backgroundImage, titleText, start);
         addPlayahs();
         return coverScene;

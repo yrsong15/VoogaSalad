@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 public enum DetailResources {
                 //PROPERTIES(new String[]{"Destructible","Damage","Points","Time","Health","Gravity","Speed","Random","Movable"}),
 		SPRITE_PROPERTIES_TEXT_INPUT_LABEL(new String [] { "Damage", "Points", "Health","Gravity","Horizontal Speed","Jump"}),
-		
+		CONTROL_OPTIONS( new String[] {"Up", "Down", "Right", "Left", "Jump", "Shoot"}),
 		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
 		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable"}),
 		RANDOM_GEN_KEY("randomgeneration"),
@@ -19,9 +19,21 @@ public enum DetailResources {
 		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
 		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
 		
+		// Platform Properties
+		PLATFORM_INTERSECTABLE_OPTIONS(new String[] {"True","False"}),
+		PLATFORM_NON_INTERSECTABLE_OPTIONS(new String[]{"Top","Bottom","Both"}),
+		PLATFORM_NON_INTERSECTIBLE_LABEL("Intersectable"),
+		NON_INTERSECTABLE_SIDES_LABEL("Select Side"),
+		NON_INTERSECTABLE_KEY("nonintersectable"),
+		ONE_SIDE_NON_INTERSECTABLEKEY("onewaynonintersectable"),
+		
+		
+		GAMEBOUNDARY_OPTIONS(new String[] {"Toroidal","Stop At Edge"}),
 		X_POSITION_KEY("xPosition"),
                 Y_POSITION_KEY("yPosition"),
-                
+                PLATFORM_LABEL("Platform"),
+                PLATFORM_KEY("platform"),
+                ENEMY_KEY("enemy"),
 		
 		// Limit Width
 		LIMIT_DIMENSION_LABEL("Limit Dimension"),
@@ -53,6 +65,11 @@ public enum DetailResources {
 		//		RANDOM_GENERATION_KEYS(new String[]{"numObjects","minX","minY",)
 		
 		
+		// Projectile Properties
+		PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL(new String[] {"Width","Height","Range","Speed","Damage"}),
+		PROJECTILE_IMAGE_KEY("imageFileName"),
+		DIRECTION_LABEL("Direction"),
+		DIRECTION_KEY("direction"),
 		TYPE_IMAGE_ZONE_WIDTH(50),
 		TYPE_IMAGE_ZONE_HEIGHT(50),
 		TYPE_IMAGE_ZONE_PADDING(10),
@@ -70,7 +87,9 @@ public enum DetailResources {
 		SAVE_BUTTON_TEXT("Save"),
 		
 		SELECT_LABEL_TEXT("Select An Object"),
-		UPDATE_BUTTON_TEXT("Update"),
+		UPDATE_BUTTON_TEXT("Update"), 
+		IMAGEVIEW_KEY("imageview"), 
+		MAIN_CHARACTER_TYPE("Main Character"),
 		;
 
     private double resourceDouble;
