@@ -45,6 +45,7 @@ public enum DetailDefaultsResources {
 	MAXIMUM_Y("0"),
 	MINIMUM_SPACING("0"),
 	MAXIMUM_SPACING("0"),
+	PROJECTILE_DIRECTION("RIGHT"),
 	
 	// Level Properties Defaults
 	LIMIT_WIDTH("False"),

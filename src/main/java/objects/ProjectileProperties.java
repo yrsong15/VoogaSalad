@@ -1,12 +1,10 @@
 package objects;
-
 import com.sun.javafx.scene.traversal.Direction;
 
 /**
  * Created by Soravit on 12/6/2016.
  */
 public class ProjectileProperties {
-
     String imageFileName;
     private int width;
     private int height;
