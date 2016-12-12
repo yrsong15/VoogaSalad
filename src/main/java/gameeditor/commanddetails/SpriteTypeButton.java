@@ -33,6 +33,9 @@ public class SpriteTypeButton {
     private double myY = 0;
     private double myWidth = 50;
     private double myHeight = 50;
+    
+    private double xFromCorner = 0;
+    private double yFromCorner = 0;
 
     private Pane myPane;
     private Rectangle myBGRectangle;
@@ -58,7 +61,7 @@ public class SpriteTypeButton {
         myDesignArea = da;
         myDataStore = dataStore;
         myPane.setOnMouseDragged((e) -> handlePaneDrag(e.getX(), e.getY(), e.getSceneX(), e.getSceneY()));
-        myPane.setOnMousePressed((e) -> handlePress());
+        myPane.setOnMousePressed((e) -> handlePress(e.getX(), e.getY(), e.getSceneX(), e.getSceneY()));
         myPane.setOnMouseReleased((e) -> handleRelease());
         setBGRect(width, height, 10);
         setImage(myImage);
@@ -96,13 +99,14 @@ public class SpriteTypeButton {
     }
 
     private void handlePaneDrag(double x, double y, double sceneX, double sceneY){
+    	double adjustedSceneX = sceneX - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
         if (!dragEntering && dragExited && (myTempImageView != null && sceneX < X_LIMIT 
         		|| sceneY < Y_LIMIT)){
         	handleReentryLvl1();
         } else if (dragEntering) {
         	handleReentryLvl2();
-        	myTempImageView.setLayoutX(x);
-            myTempImageView.setLayoutY(y);
+        	myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+            myTempImageView.setLayoutY(sceneY - yFromCorner);
         } else if (!dragEntering && !dragExited && myTempImageView != null && sceneX > X_LIMIT 
                 && sceneY > Y_LIMIT){
             myDesignArea.addDragIn(myTempImageView);
@@ -118,12 +122,12 @@ public class SpriteTypeButton {
             myTempImageView.setLayoutX(myX);
             myTempImageView.setLayoutY(myY);
         } else if (!dragEntering && myTempImageView != null && sceneX < INNER_X_LIMIT){
-            myTempImageView.setLayoutX(x);
-            myTempImageView.setLayoutY(y);
+            myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+            myTempImageView.setLayoutY(sceneY - yFromCorner);
         }
     }
 
-    private void handlePress(){
+    private void handlePress(double x, double y, double sceneX, double sceneY){
         double padding = 5;
         double fitWidth = myBGRectangle.getWidth() - padding;
         double fitHeight = myBGRectangle.getHeight() - padding;
@@ -136,6 +140,12 @@ public class SpriteTypeButton {
         myTempImageView.setPreserveRatio(true);
         myTempImageView.setFitWidth(fitWidth);
         myTempImageView.setFitHeight(fitHeight);
+        System.out.println(myImageView.getLayoutX());
+        xFromCorner = x - myImageView.getLayoutX();
+        yFromCorner = y - myImageView.getLayoutY();
+        double adjustedSceneX = sceneX - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
+        myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+        myTempImageView.setLayoutY(sceneY - yFromCorner);
         myDetailPane.getPane().getChildren().add(myTempImageView);
     }
     

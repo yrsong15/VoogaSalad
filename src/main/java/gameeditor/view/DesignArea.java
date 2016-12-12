@@ -274,5 +274,9 @@ public class DesignArea implements IDesignArea {
     public void removeMultiBoundingBox() {
         myPane.getChildren().remove(myMultiBoundingBox.getBound());
     }
+    
+    public boolean checkInArea(Node test){
+    	return myPane.getChildren().contains(test);
+    }
 
 }

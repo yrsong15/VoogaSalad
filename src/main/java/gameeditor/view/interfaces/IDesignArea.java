@@ -6,6 +6,7 @@ import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.ViewResources;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -51,6 +52,8 @@ public interface IDesignArea {
 	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox);
 
 	public void removeMultiBoundingBox();
+	
+	public boolean checkInArea(Node test);
 
 
 }
