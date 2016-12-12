@@ -29,11 +29,37 @@ public class EditorSplash {
         this.myFactory = new NodeFactory();
         this.myMainController = mainController;
         this.splashWindow = startwindow;
+//<<<<<<< HEAD
         backdrop = myFactory.makeBackdrop(EDITOR_CORNER_X, EDITOR_CORNER_Y, 890, 170, Color.MIDNIGHTBLUE);
         splashWindow.getChildren().addAll(backdrop);
+
+//    }
+//=======
+//        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
+//        backgroundImageMainScreen.fitWidthProperty().bind(splashWindow.widthProperty());
+//        backgroundImageMainScreen.fitHeightProperty().bind(splashWindow.heightProperty());
+//        backdrop = myFactory.makeBackdrop(EDITOR_CORNER_X, EDITOR_CORNER_Y,
+//                890, 170, Color.MIDNIGHTBLUE);
+//        splashWindow.getChildren().addAll(backdrop);
         addTitle();
         addButtons();
+//        addThumbnails();
+//        addThumbnailLabels();
     }
+
+//    public Parent setUpWindow() {
+//        splashWindow = new Pane();
+//        splashWindow.setPrefSize(SPLASH_WIDTH, SPLASH_HEIGHT);
+//        ImageView backgroundImageMainScreen = myFactory.makeBackgroundImage("FloatingCubes");
+//        backgroundImageMainScreen.fitWidthProperty().bind(splashWindow.widthProperty());
+//        backgroundImageMainScreen.fitHeightProperty().bind(splashWindow.heightProperty());
+//        backdrop = myFactory.makeBackdrop(65, 65, 590, 270, Color.MIDNIGHTBLUE);
+//        splashWindow.getChildren().addAll(backgroundImageMainScreen, backdrop);
+//        addTitle();
+//        addButtons();
+//        return splashWindow;
+//    }
+//>>>>>>> bbb5f8a7eeac0e7da002fb44b4496a0a7da27b8e
 
     private void addTitle() {
         Text title = myFactory.makeLabel("To start from scratch, select a game model", EDITOR_CORNER_X + 15,

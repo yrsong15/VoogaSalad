@@ -170,12 +170,32 @@ public class MainController {
         //game cover splash here
     }
 
+//<<<<<<< HEAD
     public void startPlaying(){
 
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
     }
+//=======
+	private void sendDataToEngine() {
+		String title = gameEditorController.getGameTitle();
+		String gameFile = gameEditorController.getGameFile();
+		addNewGameFile(title, gameFile);
+		launchEngine(gameFile);
+	}
+
+	public void launchEngine(String XMLData) {
+		 XMLData = testGameEngine();
+		boolean multiplayer = true;
+		boolean isServer = false;
+		// if (gameEngineController.startGame(XMLData) == true && (!multiplayer
+		// || (multiplayer && !isServer))) {
+		if (gameEngineController.startGame(XMLData) == true) {
+			setUpGameEngineStage();
+		}
+	}
+//>>>>>>> bbb5f8a7eeac0e7da002fb44b4496a0a7da27b8e
 
 //<<<<<<< HEAD
 //	private void sendDataToEngine() {
@@ -195,23 +215,24 @@ public class MainController {
 //	}
 //=======
 
+//
+//    private void sendDataToEngine() {
+//        String title = gameEditorController.getGameTitle();
+//        String gameFile = gameEditorController.getGameFile();
+//        addNewGameFile(title, gameFile);
+//        launchEngine(gameFile);
+//    }
 
-    private void sendDataToEngine() {
-        String title = gameEditorController.getGameTitle();
-        String gameFile = gameEditorController.getGameFile();
-        addNewGameFile(title, gameFile);
-        launchEngine(gameFile);
-    }
+//<<<<<<< HEAD
 
-
-    public void launchEngine(String XMLData) {
-        XMLData = testGameEngine();
-        boolean multiplayer = false;
-        boolean isServer = false;
-        if (gameEngineController.startGame(XMLData) == true) {
-            setUpGameEngineStage();
-        }
-    }
+//    public void launchEngine(String XMLData) {
+//        XMLData = testGameEngine();
+//        boolean multiplayer = false;
+//        boolean isServer = false;
+//        if (gameEngineController.startGame(XMLData) == true) {
+//            setUpGameEngineStage();
+//        }
+//    }
 //>>>>>>> 7fcc12f3236b3fa6085f8dbc915d8c235045adef
 
     public void editGame() {
@@ -221,4 +242,13 @@ public class MainController {
         Game myGame = (Game) mySerializer.fromXML(file);
         presentEditor(myGame);
     }
+//=======
+//	public void editGame() {
+//		FileOpener chooser = new FileOpener();
+//		File file = chooser.chooseFile("XML", "data");
+//		XStream mySerializer = new XStream(new DomDriver());
+//		Game myGame = (Game) mySerializer.fromXML(file);
+//		presentEditor(myGame);
+//	}
+//>>>>>>> bbb5f8a7eeac0e7da002fb44b4496a0a7da27b8e
 }

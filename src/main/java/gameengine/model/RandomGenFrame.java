@@ -7,7 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+//<<<<<<< HEAD
 import gameengine.network.server.ServerMain;
+//=======
+//>>>>>>> bbb5f8a7eeac0e7da002fb44b4496a0a7da27b8e
 import objects.GameObject;
 import objects.Level;
 import objects.RandomGeneration;
@@ -22,18 +25,18 @@ public class RandomGenFrame<T> {
     private RGInterface RGinterface;
     private static final Random RNG = new Random();
 
-    public RandomGenFrame (RGInterface RGinterface, T newFramePoint, Level level) {
+    public RandomGenFrame(RGInterface RGinterface, T newFramePoint, Level level) {
         this.benchmark = newFramePoint;
         this.level = level;
         this.RGinterface = RGinterface;
     }
 
-    public <T extends Comparable<T>> void possiblyGenerateNewFrame (T xPosition,
-                                                                    RandomGeneration<Integer> randomGenRules,
-                                                                    Method callback)
-                                                                                     throws IllegalArgumentException,
-                                                                                     InvocationTargetException,
-                                                                                     IllegalAccessException {
+    public <T extends Comparable<T>> void possiblyGenerateNewFrame(T xPosition,
+                                                                   RandomGeneration<Integer> randomGenRules,
+                                                                   Method callback)
+            throws IllegalArgumentException,
+            InvocationTargetException,
+            IllegalAccessException {
         // System.out.println("benchmark " + benchmark + " Position: " +
         // xPosition);
         if (xPosition.compareTo((T) benchmark) >= 0) {
@@ -43,7 +46,7 @@ public class RandomGenFrame<T> {
 
     }
 
-    private void generateNewFrame (Level level, RandomGeneration<Integer> randomGenRules) {
+    private void generateNewFrame(Level level, RandomGeneration<Integer> randomGenRules) {
         int val = 0;
         int minX = randomGenRules.getMinX() + 400;
         int minSep = randomGenRules.getMinSpacing();
@@ -55,34 +58,34 @@ public class RandomGenFrame<T> {
             minX += nextSeparationDist;
             int randomYPosition =
                     RNG.nextInt(randomGenRules.getMaxY() - randomGenRules.getMinY()) +
-                                  randomGenRules.getMinY();
+                            randomGenRules.getMinY();
             // generatePipesAndScoreObjects(minX, randomYPosition, 80, 200,
             // objectURL, new HashMap<>());
             generatePipesAndScoreObjects(minX, randomYPosition, 80,
-                                         randomGenRules.getObjectProperties());
+                    randomGenRules.getObjectProperties());
         }
     }
 
-    private void generatePipesAndScoreObjects (double xPosition,
-                                               double yPosition,
-                                               double width,
-                                               Map<String, String> objectProperties) {
+    private void generatePipesAndScoreObjects(double xPosition,
+                                              double yPosition,
+                                              double width,
+                                              Map<String, String> objectProperties) {
         double gapHeight = 200; // between the two pipes
 
         Map<String, String> topPipeMap = new HashMap<String, String>();
         topPipeMap.put("damage", objectProperties.get("damage"));
         GameObject topPipe =
                 new GameObject(xPosition, 0, width, yPosition - gapHeight / 2, "PipeOpposite.png",
-                               topPipeMap);
+                        topPipeMap);
         level.getGameObjects().add(topPipe);
 
-        
+
         Map<String, String> bottomPipeMap = new HashMap<String, String>();
         bottomPipeMap.put("damage", objectProperties.get("damage"));
         GameObject bottomPipe = new GameObject(xPosition, yPosition + gapHeight / 2, width,
-                                               GameScreen.screenHeight - (yPosition +
-                                                                          gapHeight / 2),
-                                               "Pipes.png", bottomPipeMap);
+                GameScreen.screenHeight - (yPosition +
+                        gapHeight / 2),
+                "Pipes.png", bottomPipeMap);
         level.getGameObjects().add(bottomPipe);
 
         Map<String, String> scoreMap = new HashMap<String, String>();
@@ -94,7 +97,7 @@ public class RandomGenFrame<T> {
 
     }
 
-    public void setNewBenchmark (T newVal) {
+    public void setNewBenchmark(T newVal) {
         this.benchmark = newVal;
     }
 
