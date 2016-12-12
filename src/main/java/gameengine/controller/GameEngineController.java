@@ -22,10 +22,17 @@ public class GameEngineController implements CommandInterface {
 	private GameEngineBackend backend;
 	private boolean hostGame;
 	private String serverName;
+//<<<<<<< HEAD
+//=======
+	private boolean serverStarted;
+
+//>>>>>>> e3d8e69680ea7a079bfdad2029af3cebedd8f45a
 	public GameEngineController() {
+		serverStarted = false;
 		this.hostGame = true;
 		serverName = "localhost";
 		serializer = new XMLSerializer();
+		backend = new GameEngineBackend(serverName);
 	}
 
 	public boolean startGame(String xmlData) {
@@ -45,12 +52,22 @@ public class GameEngineController implements CommandInterface {
 			};
 			serverThread.start();
 		}
+		while(!serverStarted){
+			//staller
+			System.out.print("");
+		}
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			System.out.println("Error in Thread Sleep before Start Client Game method.");
+		}
 		startClientGame(currentGame.getClientMappings());
 		return true;
 	}
 
 	public void startServerGame(Game currentGame) {
-		backend = new GameEngineBackend(serverName);
+//		System.out.println("start server game");
+		serverStarted = true;
 		backend.startGame(currentGame);
 	}
 //	public void startClientGame(Player player) {
@@ -82,7 +99,8 @@ public class GameEngineController implements CommandInterface {
 
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
+//		System.out.println("start client game");
+		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), backend, serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
