@@ -1,14 +1,16 @@
-package gameeditor.view;
-import java.util.ArrayList;
+package gameeditor.rpg;
+
+import java.util.ArrayList;import java.util.List;
+
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
+
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IGameEditorView;
-import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -20,7 +22,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -30,7 +34,7 @@ import javafx.scene.shape.Rectangle;
  *
  */
 
-public class DesignArea implements IStandardDesignArea {
+public class GridDesignArea implements IDesignArea, IGridDesignArea {
 
     private Pane myPane;
     private ScrollPane myScrollPane;
@@ -39,20 +43,24 @@ public class DesignArea implements IStandardDesignArea {
     private boolean clickEnabled = false;
     private ISelectDetail mySelectDetail;
     private ArrayList<GameObjectView> myAvatars = new ArrayList<GameObjectView>();
-
-    private GameObjectView myDuplicateSprite;
+    
+    private CellGrid myCellGrid;
+    private ArrayList<Cell> myCells = new ArrayList<Cell>();
+    private Cell myHoverCell;
+    private ArrayList<Cell> mySelectedCells = new ArrayList<Cell>();
 
     private GameObjectView mySelectedSprite;
+    private KeyCode myKeyCode;
+    
     private double startX = -1;
     private double startY = -1;
     private double endX = 0;
     private double endY = 0;
     private boolean dragged = false;
-    private KeyCode myKeyCode;
     private Rectangle mySelectionArea;
     private MultiBoundingBox myMultiBoundingBox;
-
-    public DesignArea() {
+    
+    public GridDesignArea() {
         myScrollPane = new ScrollPane();
         myScrollPane.setMinWidth(AREA_WIDTH);
         myScrollPane.setMinHeight(AREA_HEIGHT);
@@ -67,27 +75,41 @@ public class DesignArea implements IStandardDesignArea {
         myPane = new Pane();
         myPane.setMinWidth(AREA_WIDTH);
         myPane.setMinWidth(AREA_HEIGHT);
+        myCellGrid = new CellGrid(0, 0, 40, (int) AREA_WIDTH/40, (int) AREA_HEIGHT/40, false, this);
+        myCells = myCellGrid.getCells();
+        for (Cell cell : myCells){
+        	myPane.getChildren().add(cell.getRect());
+        }
+        myPane.setOnMouseMoved(e -> handleHover(e.getX(), e.getY()));
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
         myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
     }   
+    
+    private void handleHover(double x, double y){
+//    	Cell cellOver = findCell(x, y);
+//    	if (cellOver != null && myHoverCell != null && cellOver != myHoverCell){
+//    		myHoverCell.resetColor();
+//    		myHoverCell = cellOver;
+//    		myHoverCell.setColor();
+//    	} else if (cellOver != null){
+//    		myHoverCell = cellOver;
+//    		myHoverCell.setColor();
+//    	}
+    }
 
     private void handlePress(double x, double y){
-        GameObjectView sprite = checkForSprite(x, y);
-        resetPress(x, y);
-        if (checkForMultibox(x, y)){
-        	
-        } else if (myKeyCode == KeyCode.ALT && sprite != null){
-            sprite.initBound();
-            sprite.setOn(x, y);
-            mySelectedSprite = sprite;
-            myDuplicateSprite = new GameObjectView(sprite, x, y);
-        } else if (clickEnabled && sprite != null){
-            sprite.initBound();
-            sprite.setOn(x, y);
-            mySelectedSprite = sprite;
-        } else if (clickEnabled){
+    	Cell cell = findCell(x, y);
+    	resetCells();
+    	if (clickEnabled && cell != null && mySelectedCells.contains(cell)){
+    		mySelectedCells.remove(cell);
+    		cell.resetColor();
+    	} else if (clickEnabled && cell != null && !mySelectedCells.contains(cell)){
+    		mySelectedCells.add(cell);
+    		cell.setColor();
+    	}
+    	if (clickEnabled){
             startX = x;
             startY = y;
             mySelectionArea = new Rectangle(x, y, 0, 0);
@@ -95,26 +117,13 @@ public class DesignArea implements IStandardDesignArea {
             mySelectionArea.setOpacity(0.1);
             myPane.getChildren().add(mySelectionArea);
         }
-    }
-
-    private void resetPress(double x, double y){
-        if (mySelectedSprite != null){
-            mySelectedSprite.removeBound();
-            mySelectedSprite.setOff();
-            mySelectedSprite = null;
-        }
-        if (!checkForMultibox(x, y) && myMultiBoundingBox != null){
-            myMultiBoundingBox.hide();
-            myMultiBoundingBox = null;
-        }
+    	
     }
 
     private void handleRelease(double x, double y) {
-        // TODO Auto-generated method stub
+    	// TODO Auto-generated method stub
         if (dragged){
-            ArrayList<GameObjectView> selectedSprites = findSprites(startX, startY, endX, endY);
-            myMultiBoundingBox = new MultiBoundingBox(selectedSprites, this);
-            myMultiBoundingBox.show();
+        	selectCells(startX, startY, endX, endY);
             myPane.getChildren().remove(mySelectionArea);
             mySelectionArea = null;
         }
@@ -126,8 +135,8 @@ public class DesignArea implements IStandardDesignArea {
     }
 
     private void handleDrag(double x, double y) {
-        if (myMultiBoundingBox == null && startX != -1 && startY != -1){
-            startX = Math.min(startX, x);
+    	if (startX != -1 && startY != -1){
+    		startX = Math.min(startX, x);
             startY = Math.min(startY, y);
             endX = Math.max(endX, x);
 	        endY = Math.max(endY, y);
@@ -148,11 +157,25 @@ public class DesignArea implements IStandardDesignArea {
     private void handleKeyRelease(KeyCode code){
         if (code == KeyCode.BACK_SPACE && mySelectedSprite != null){
             // TODO: Remove from backend
-            mySelectedSprite.removeBound();
-            mySelectedSprite.setOff();
             mySelectedSprite.removeSelf();
         }
         myKeyCode = null;
+    }
+    
+    private void resetCells(){
+    	for (Cell cell : mySelectedCells){
+    		cell.resetColor();
+    	}
+    }
+    
+    private Cell findCell(double x, double y){
+    	Rectangle test = new Rectangle(x, y, 1, 1);
+    	for (Cell cell : myCells){
+    		if (test.getBoundsInParent().intersects(cell.getRect().getBoundsInParent())){
+    			return cell;
+    		}
+    	}
+    	return null;
     }
 
     public ScrollPane getScrollPane(){
@@ -174,22 +197,29 @@ public class DesignArea implements IStandardDesignArea {
         myPane.getChildren().clear();
         bg.setLayoutX(0);
         bg.setLayoutY(0);
-
         myPane.getChildren().add(bg);
         myPane.getChildren().addAll(children);
     }
 
     @Override
-    public void addSprite(GameObjectView sprite) {
-        mySprites.add(sprite);
-        //		TODO: Remove the hardcoding of the image size proportions
-        myPane.getChildren().add(sprite.getImageView());
+    public void addSprite(GameObjectView sprite, Cell cell) {
+    	cell.addSprite(sprite);
     }
 
     @Override
     public void removeSprite(GameObjectView sprite) {
+    	for (Cell cell : myCells){
+    		if (cell.getSprite() == sprite){
+    			cell.removeSprite();
+    		}
+    	}
         mySprites.remove(sprite);
         myPane.getChildren().remove(sprite.getImageView());
+    }
+    
+    @Override
+    public void removeSpriteFromCell(Cell cell) {
+    	cell.removeSprite();
     }
 
     @Override
@@ -213,44 +243,16 @@ public class DesignArea implements IStandardDesignArea {
     public void updateSpriteDetails(GameObjectView sprite, double x, double y, double width, double height){
         mySelectDetail.updateSpritePosition(x, y);
         mySelectDetail.updateSpriteDimensions(width, height);
-
     }
 
-    public void addBoundingBox(BoundingBox bb){
-        for(Rectangle rect : bb.getShapes()){
-            myPane.getChildren().add(rect);
-        }
-    }
-
-    public void removeBoundingBox(BoundingBox bb){
-        for(Rectangle rect : bb.getShapes()){
-            myPane.getChildren().remove(rect);
-        }
-    }
-
-    private GameObjectView checkForSprite(double x, double y){
-        Rectangle test = new Rectangle(x, y, 1, 1);
-        GameObjectView selectedSprite = null;
-        for (GameObjectView sprite : mySprites){
-            if(sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent())
-                    && clickEnabled && mySelectedSprite == sprite){
-                return sprite;
-            } else if (sprite.getImageView().getBoundsInParent().intersects(test.getBoundsInParent()) && clickEnabled){
-                selectedSprite = sprite;
-            }
-        }
-        return selectedSprite;
-    }
-
-    private ArrayList<GameObjectView> findSprites(double minX, double minY, double maxX, double maxY){
+    private void selectCells(double minX, double minY, double maxX, double maxY){
         Rectangle test = new Rectangle(minX, minY, maxX-minX, maxY-minY);
-        ArrayList<GameObjectView> selectedSprites = new ArrayList<GameObjectView>();
-        for (GameObjectView sprite : mySprites){
-            if(test.getBoundsInParent().intersects(sprite.getImageView().getBoundsInParent())){
-                selectedSprites.add(sprite);
+        for (Cell cell : myCells){
+            if(test.getBoundsInParent().intersects(cell.getRect().getBoundsInParent())){
+                mySelectedCells.add(cell);
+                cell.setColor();
             }
         }
-        return selectedSprites;
     }
 
     @Override
@@ -258,6 +260,20 @@ public class DesignArea implements IStandardDesignArea {
         myAvatars.add(gov);
         mySprites.add(gov);
     }
+    
+    public Pane getPane(){
+    	return myPane;
+    }
+
+	@Override
+	public Cell getHoverCell() {
+		return myHoverCell;
+	}
+
+	@Override
+	public ArrayList<Cell> getSelectedCells() {
+		return mySelectedCells;
+	}
 
     @Override
     public void addDragIn(ImageView tempIV) {
@@ -279,16 +295,26 @@ public class DesignArea implements IStandardDesignArea {
     public void removeMultiBoundingBox() {
         myPane.getChildren().remove(myMultiBoundingBox.getBound());
     }
-    
-    private boolean checkForMultibox(double x, double y){
-    	if (myMultiBoundingBox == null){
-    		return false;
-    	} else {
-    		Rectangle test = new Rectangle(x, y, 1, 1);
-        	boolean check = test.getBoundsInParent().intersects(myMultiBoundingBox.getBound().getBoundsInParent());
-        	System.out.println(check);
-        	return check;
-    	}
+
+    @Override
+    public void addBoundingBox(BoundingBox bb){
+        for(Rectangle rect : bb.getShapes()){
+            myPane.getChildren().add(rect);
+        }
     }
+
+    @Override
+    public void removeBoundingBox(BoundingBox bb){
+        for(Rectangle rect : bb.getShapes()){
+            myPane.getChildren().remove(rect);
+        }
+    }
+
+	@Override
+	public void addSprite(GameObjectView gameObject) {
+		for (Cell cell : mySelectedCells){
+			addSprite(new GameObjectView(gameObject, 0, 0), cell);
+		}
+	}
 
 }

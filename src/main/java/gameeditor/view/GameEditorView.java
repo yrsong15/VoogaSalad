@@ -6,6 +6,8 @@ import frontend.util.FileOpener;
 import frontend.util.GameEditorException;
 import gameeditor.controller.GameEditorData;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.rpg.GridDesignArea;
+import gameeditor.rpg.IGridDesignArea;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
@@ -42,10 +44,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private BooleanProperty closeLevelWindow;
     public static final String DEFAULT_MAIN_CHARACTER = "bird2.gif";
     public static final String SCORE_PROPERTY="score";
+    private String myGameType;
 
 
-    public GameEditorView(ILevel levelSettings){
+    public GameEditorView(ILevel levelSettings, String gameType){
         this.myLevelSettings = levelSettings;
+        myGameType = gameType;
         myRoot = new BorderPane();  
         closeLevelWindow = new SimpleBooleanProperty(false);
     }
@@ -75,9 +79,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                 ImageView spriteimageView = new ImageView(image); 
                 double xposition = object.getXPosition();
                 double ypositon = object.getYPosition();
-                
-
-                
             }
         }    
     }
@@ -95,7 +96,12 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     private VBox createCenter(){
         myCenterBox = new VBox();
-        myDesignArea = new DesignArea();
+        System.out.println("Uno");
+        if (myGameType.equals("Scrolling")){
+            myDesignArea = new DesignArea();
+        } else if (myGameType.equals("RPG")){
+        	myDesignArea = new GridDesignArea();
+        }
         myScrollPane = myDesignArea.getScrollPane();
         myToolbar = new EditorToolbar(this);
         myCenterBox.getChildren().add(myToolbar.getPane());

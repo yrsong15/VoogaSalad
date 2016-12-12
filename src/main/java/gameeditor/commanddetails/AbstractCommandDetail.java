@@ -3,6 +3,7 @@ import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
+import gameeditor.view.interfaces.IStandardDesignArea;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -46,8 +47,8 @@ public abstract class AbstractCommandDetail  implements IAbstractCommandDetail{
     }
 
 
-    public void setDesignArea(IDesignArea da){
-        myDesignArea = da;
+    public void setDesignArea(IDesignArea myDesignArea2){
+        myDesignArea = myDesignArea2;
     }
 
     public ScrollPane getPane(){

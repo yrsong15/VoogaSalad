@@ -140,8 +140,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         }
 
     }
-
-
+    
     private boolean verifySave(){
         // TODO: Verify if right values entered
         return true;
