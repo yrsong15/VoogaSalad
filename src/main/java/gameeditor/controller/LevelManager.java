@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import gameeditor.controller.interfaces.ICreateLevel;
 import objects.Level;
+import objects.interfaces.ILevel;
 
 
 /**
@@ -30,5 +31,6 @@ public class LevelManager implements  ICreateLevel{
     public void setCurrentLevel(Level level){
         this.myLevel = level; 
     }
+    
     
 }

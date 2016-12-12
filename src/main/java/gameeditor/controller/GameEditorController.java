@@ -69,6 +69,7 @@ public class GameEditorController implements IGameEditorController{
 
     private void displayInitialStage(){  
         myLevelStage = new Stage();
+        myLevelStage.setResizable(false);
         myLevelStage.setTitle("Game Editor");
         myLevelScene = new Scene(myRoot, EDITOR_LEVELS_SPLASH_WIDTH, EDITOR_LEVELS_SPLASH_HEIGHT);
 
@@ -121,9 +122,10 @@ public class GameEditorController implements IGameEditorController{
             }else {
                 level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             }
+            
             ILevel levelInterface = (ILevel) level;
 
-            myLevelManager.createLevel(level);   
+            myLevelManager.createLevel(level);  
 
             myGameEditorView = new GameEditorView(levelInterface);          
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
@@ -163,6 +165,7 @@ public class GameEditorController implements IGameEditorController{
     private void resizeToLevelStage(){
         myLevelStage.setHeight(GameEditorView.SCENE_HEIGHT+20);
         myLevelStage.setWidth(GameEditorView.SCENE_WIDTH);
+        myLevelStage.setResizable(false);
         myLevelScene.getStylesheets().remove(CSS_STYLING_EDITOR_LEVELS);
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         myLevelStage.setX((screenBounds.getWidth() - myLevelStage.getWidth()) / 2); 

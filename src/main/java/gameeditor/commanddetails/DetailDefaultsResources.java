@@ -29,6 +29,8 @@ public enum DetailDefaultsResources {
 	HORIZONTAL_SPEED("0"),
 	JUMP("0"),
 	
+	TEXT_BOX_NUMBER_DEFAULT_INPUT("0.0"),
+	
 	// Random Generation
 	OBJECTS_PER_FRAME("0"),
 	MINIMUM_X("0"),
@@ -50,6 +52,7 @@ public enum DetailDefaultsResources {
 	// Platform Default Properties
 	PLATFORM_NON_INTERSECTABLE("True"),
 	PLATFORM_INTERSECTABLE("Bottom"),
+	
 	
 
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import frontend.util.GameEditorException;
 import gameeditor.commanddetails.CreateObjectDetail;
+import gameeditor.commanddetails.DetailDefaultsResources;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
@@ -85,9 +86,13 @@ public class GameEditorData implements IGameEditorData{
     } 
 
     private Map<String,String> getDesiredMap(String key, ArrayList<Map<String,String>> mapList, String value){
+       // System.out.println(" Key Val: " + key);
+       // System.out.println(" ImageView Value: " + value);
         for(Map<String,String> map: mapList){
             String valueFromMap = map.get(key);
+            //System.out.println(" Value from Map: " + valueFromMap);
             if (value.equals(valueFromMap)){
+                //System.out.println(" Found Image View " );
                 return map;
             }
         }
@@ -95,6 +100,12 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public Map<String,String> getMainCharMap(String imageViewName){
+        //System.out.println(" ImageView Name: " + imageViewName);
+            for(Map<String,String> map: myMainCharImageViewMap){     
+                for(String key: map.keySet()){
+                    //System.out.println(" Main Char Key Before : " + key + " Value: " + map.get(key));
+                }
+            }
         return getDesiredMap(DetailResources.IMAGEVIEW_KEY.getResource(),myMainCharImageViewMap,imageViewName);
     }
 
@@ -155,16 +166,16 @@ public class GameEditorData implements IGameEditorData{
         removeValuesExceptProperties(myItemMap);
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
-            if(v!="0.0"){
+            //if(!v.equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource())){
                 properties.put(k, v);
-            }
+           // }
         });
         return properties;
     }
 
 
     public void addControl(KeyCode key, String action){
-        myLevel.setControl(key, action);
+        //myLevel.setControl(key, action);
     }
 
 
@@ -190,9 +201,7 @@ public class GameEditorData implements IGameEditorData{
         this.mainCharacterImageFilePath = imageFilePath;
     }
 
-    public void addScrollWidth(String width){
-        myLevel.addScrollWidth(Double.parseDouble(width));
-    }
+
 
     @Override
     public void addScrollSpeed(String speed) {
@@ -202,53 +211,57 @@ public class GameEditorData implements IGameEditorData{
     public void addMainCharacter(double xpos, double ypos, double width, double height, Map<String,String> properties){
         GameObject mainCharacter = new GameObject(xpos,ypos,MAIN_CHAR_WIDTH,MAIN_CHAR_HEIGHT,this.mainCharacterImageFilePath,properties);
         myLevel.addGameObject(mainCharacter);
-        myLevel.setMainCharacter(mainCharacter);
+        //myLevel.setMainCharacter(mainCharacter);
     }
 
 
     public void addGameObjectsToLevel(){    
         for (Map<String, String> type : myImageViewObjectMap){
-        double xPosition = Double.valueOf(type.get(ISelectDetail.X_POSITION_KEY));
-        double yPosition = Double.valueOf(type.get(ISelectDetail.Y_POSITION_KEY));
-        double width = Double.valueOf(type.get(WIDTH_KEY));
-        double height = Double.valueOf(type.get(HEIGHT_KEY));
+            double xPosition = Double.valueOf(type.get(ISelectDetail.X_POSITION_KEY));
+            double yPosition = Double.valueOf(type.get(ISelectDetail.Y_POSITION_KEY));
+            double width = Double.valueOf(type.get(WIDTH_KEY));
+            double height = Double.valueOf(type.get(HEIGHT_KEY));
 
-        String imagePath = type.get(IMAGE_PATH_KEY);
-        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
-        Map<String,String> properties = getPropertiesMap(type);
-        GameObject myObject = new GameObject(xPosition,yPosition,width,height,file,properties);
-        myLevel.addGameObject(myObject);   
+            String imagePath = type.get(IMAGE_PATH_KEY);
+            String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
+            Map<String,String> properties = getPropertiesMap(type);
+            GameObject myObject = new GameObject(xPosition,yPosition,width,height,file,properties);
+            myLevel.addGameObject(myObject);   
+        }
     }
-}
 
-private void removeValuesExceptProperties(Map<String,String> typeMap){
-    typeMap.remove(IMAGE_PATH_KEY);
-    typeMap.remove(HEIGHT_KEY);
-    typeMap.remove(WIDTH_KEY);
-    typeMap.remove(ISelectDetail.X_POSITION_KEY);
-    typeMap.remove(ISelectDetail.Y_POSITION_KEY);
-    typeMap.remove(DetailResources.TYPE_NAME.getResource()); 
-    typeMap.remove(DetailResources.IMAGEVIEW_KEY.getResource());
-}
-
-
-@Override
-public void addGameBoundary (BasicBoundary gameBoundary) {
-    //TODO: ADD GAME BOUNDARY -- Where? 
-}
+    private void removeValuesExceptProperties(Map<String,String> typeMap){
+        typeMap.remove(IMAGE_PATH_KEY);
+        typeMap.remove(HEIGHT_KEY);
+        typeMap.remove(WIDTH_KEY);
+        typeMap.remove(ISelectDetail.X_POSITION_KEY);
+        typeMap.remove(ISelectDetail.Y_POSITION_KEY);
+        typeMap.remove(DetailResources.TYPE_NAME.getResource()); 
+        typeMap.remove(DetailResources.IMAGEVIEW_KEY.getResource());
+    }
 
 
-@Override
-public void storeMainCharToXML () {
-    // TODO Auto-generated method stub
-//    for(Map<String,String> map: myMainCharImageViewMap){
-//        
-//        for(String key: map.keySet()){
-//            System.out.println(" Main Char Key: " + key + " Value: " + map.get(key));
-//        }
-//    }
+    @Override
+    public void addGameBoundary (BasicBoundary gameBoundary) {
+        //TODO: ADD GAME BOUNDARY -- Where? 
+    }
 
-}
+
+    @Override
+    public void storeMainCharToXML () {
+        //TODO: Save to Game Engine
+        //    for(Map<String,String> map: myMainCharImageViewMap){     
+        //        for(String key: map.keySet()){
+        //            System.out.println(" Main Char Key: " + key + " Value: " + map.get(key));
+        //        }
+        //    }
+        for(Map<String,String> map: myMainCharImageViewMap){
+            map.forEach((k,v)-> {
+                
+            });
+            
+        }
+    }
 }
 
 
