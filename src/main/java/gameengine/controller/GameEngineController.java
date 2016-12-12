@@ -46,12 +46,7 @@ public class GameEngineController implements CommandInterface {
 				}
 			};
 			serverThread.start();
-//			try {
-//				serverThread.sleep(1000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			//TODO: let thread sleep if we want server before client - right here
 		}
 		startClientGame(currentGame.getClientMappings());
 		return true;
