@@ -52,8 +52,6 @@ public interface IDesignArea {
 	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox);
 
 	public void removeMultiBoundingBox();
-	
-	public boolean checkInArea(Node test);
 
 
 }

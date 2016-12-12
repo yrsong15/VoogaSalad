@@ -64,6 +64,8 @@ public class DesignArea implements IDesignArea {
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myPane = new Pane();
+        myPane.setMinWidth(AREA_WIDTH);
+        myPane.setMinWidth(AREA_HEIGHT);
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
         myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
@@ -72,8 +74,10 @@ public class DesignArea implements IDesignArea {
 
     private void handlePress(double x, double y){
         GameObjectView sprite = checkForSprite(x, y);
-        resetPress();
-        if (myKeyCode == KeyCode.ALT && sprite != null){
+        resetPress(x, y);
+        if (checkForMultibox(x, y)){
+        	
+        } else if (myKeyCode == KeyCode.ALT && sprite != null){
             sprite.initBound();
             sprite.setOn(x, y);
             mySelectedSprite = sprite;
@@ -92,13 +96,13 @@ public class DesignArea implements IDesignArea {
         }
     }
 
-    private void resetPress(){
+    private void resetPress(double x, double y){
         if (mySelectedSprite != null){
             mySelectedSprite.removeBound();
             mySelectedSprite.setOff();
             mySelectedSprite = null;
         }
-        if (myMultiBoundingBox != null){
+        if (!checkForMultibox(x, y) && myMultiBoundingBox != null){
             myMultiBoundingBox.hide();
             myMultiBoundingBox = null;
         }
@@ -121,7 +125,7 @@ public class DesignArea implements IDesignArea {
     }
 
     private void handleDrag(double x, double y) {
-        if (startX != -1 && startY != -1){
+        if (myMultiBoundingBox == null && startX != -1 && startY != -1){
             startX = Math.min(startX, x);
             startY = Math.min(startY, y);
             endX = Math.max(startX, x);
@@ -275,8 +279,16 @@ public class DesignArea implements IDesignArea {
         myPane.getChildren().remove(myMultiBoundingBox.getBound());
     }
     
-    public boolean checkInArea(Node test){
-    	return myPane.getChildren().contains(test);
+    private boolean checkForMultibox(double x, double y){
+    	if (myMultiBoundingBox == null){
+    		return false;
+    	} else {
+    		Rectangle test = new Rectangle(x, y, 1, 1);
+        	boolean check = test.getBoundsInParent().intersects(myMultiBoundingBox.getBound().getBoundsInParent());
+        	System.out.println(check);
+        	return check;
+    	}
+    	
     }
 
 }
