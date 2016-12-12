@@ -44,7 +44,7 @@ public class GameScreen {
                         true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-        myScreen.setBackground(new Background(bi));
+        myScreen.setBackground(new Background(bi));     
     }
 
 

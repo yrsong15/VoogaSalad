@@ -58,10 +58,10 @@ public class MainController {
     private String testGameEngine(){
         //FOR TESTING PURPOSES ONLY/
         Game game = new Game("Dance Dance Revolution");
-        GameObject firstShyGuy = new GameObject(0, 100, 500, 100, 100, "shyguy.png", new HashMap<>());
-        GameObject secondShyGuy = new GameObject(0, 250, 500, 100, 100, "shyguy.png", new HashMap<>());
-        GameObject thirdShyGuy = new GameObject(0, 400, 500, 100, 100, "shyguy.png", new HashMap<>());
-        GameObject fourthShyGuy = new GameObject(0, 550, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject firstShyGuy = new GameObject(ServerMain.idCounter++, 100, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject secondShyGuy = new GameObject(ServerMain.idCounter++, 250, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject thirdShyGuy = new GameObject(ServerMain.idCounter++, 400, 500, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject fourthShyGuy = new GameObject(ServerMain.idCounter++, 550, 500, 100, 100, "shyguy.png", new HashMap<>());
         Player player1 = new Player(firstShyGuy);
         Player player2 = new Player(secondShyGuy);
         Player player3 = new Player(thirdShyGuy);
@@ -105,8 +105,6 @@ public class MainController {
         GameObject ground = new GameObject(0, 570,700,50,"ground.png", new HashMap<>());
         ground.setProperty("nonintersectable", "true");
         level.addGameObject(ground);
-        XMLSerializer testSerializer = new XMLSerializer();
-        String xml = testSerializer.serializeGame(game);
 /**
     	//doodle jump configuration
     	
@@ -150,6 +148,10 @@ public class MainController {
          ground.setProperty("damage","0");
          ground.setProperty("nonintersectable", "true");
          level.addGameObject(ground);**/
+    	
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
     private void setUpGameEngineStage(){
@@ -170,7 +172,7 @@ public class MainController {
 
 
 	public void launchEngine(String XMLData) {
-//		XMLData = testGameEngine();
+		//XMLData = testGameEngine();
 		boolean multiplayer = false;
 		boolean isServer = false;
 		if (gameEngineController.startGame(XMLData) == true) {
