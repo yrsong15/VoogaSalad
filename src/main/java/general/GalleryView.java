@@ -149,12 +149,12 @@ public class GalleryView implements IGalleryView{
         // This method reconfigures the GalleryView so that it accurately presents all files in the gallery
     }
 
-    private void addGalleryBackgroundImage() {
-        ImageView backgroundImageGalleryScreen = myFactory.makeBackgroundImage("SpinningScreens");
-        backgroundImageGalleryScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
-        backgroundImageGalleryScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
-        galleryWindow.getChildren().add(backgroundImageGalleryScreen);
-    }
+//    private void addGalleryBackgroundImage() {
+//        ImageView backgroundImageGalleryScreen = myFactory.makeBackgroundImage("SpinningScreens");
+//        backgroundImageGalleryScreen.fitWidthProperty().bind(galleryWindow.widthProperty());
+//        backgroundImageGalleryScreen.fitHeightProperty().bind(galleryWindow.heightProperty());
+//        galleryWindow.getChildren().add(backgroundImageGalleryScreen);
+//    }
 
     private void addGalleryBackdrop() {
 //        Rectangle backdrop = new Rectangle(1000, 200, Color.MIDNIGHTBLUE);
@@ -204,8 +204,7 @@ public class GalleryView implements IGalleryView{
     }
 
     private void launchSelectedFiles(){
-    	for(GameFileView gameFileView : mySelectedFiles)
-    	{
+    	for(GameFileView gameFileView : mySelectedFiles) {
     		myMainController.launchEngine(gameFileView.getGameFile().getGameData());
     	}
     }

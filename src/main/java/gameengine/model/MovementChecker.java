@@ -1,7 +1,7 @@
 package gameengine.model;
 
 import gameengine.controller.interfaces.ControlInterface;
-import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.GameBoundary;
 import gameengine.model.rules.MovementRulebook;
 import objects.GameObject;
 import exception.MovementRuleNotFoundException;
@@ -14,7 +14,7 @@ public class MovementChecker {
 
     private MovementRulebook movementRulebook;
 
-    public MovementChecker(ControlInterface gameMovement, ScreenBoundary gameBoundaries){
+    public MovementChecker(ControlInterface gameMovement, GameBoundary gameBoundaries){
         movementRulebook = new MovementRulebook(gameMovement, gameBoundaries);
     }
 

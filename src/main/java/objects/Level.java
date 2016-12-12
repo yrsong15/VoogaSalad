@@ -20,8 +20,7 @@ public class Level {
 	private Map<String, String> loseConditions;
 	private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
-    private String musicFilePath;
-	private String backgroundFilePath;
+    private String musicFilePath, backgroundFilePath, title;
 	private List<GameObject> players;
 	private ScrollType scrollType;
 
@@ -35,6 +34,10 @@ public class Level {
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
 		gameConditions = new HashMap<>();
+	}
+	
+	public void removeAllPlayers(){
+		players = new ArrayList<>();
 	}
 
 	public void setScrollType(ScrollType scrollType) {
@@ -159,6 +162,8 @@ public class Level {
         this.musicFilePath = musicFilePath;
     }
 
+    public void setTitle(String title){ this.title = title; }
+
     public List<GameObject> getAllGameObjects(){
         List<GameObject> allObjects = new ArrayList<>();
         allObjects.addAll(players);
@@ -175,5 +180,5 @@ public class Level {
         return backgroundFilePath;
     }
 
-
+	public String getTitle(){ return title; }
 }

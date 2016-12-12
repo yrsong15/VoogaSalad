@@ -25,9 +25,7 @@ public class CollisionChecker {
 	
 	/**
 	 * Passes the projectile list and any object colliding with it to the rulebook
-	 * 
-	 * @param firstObjects
-	 * @param secondObjects
+	 *
 	 */
 	public void checkCollisions(GameObject mainChar, List<GameObject> gameObjects) {
 		//System.out.println(currentlyCollidingObjectsWithCharacter.size());
@@ -80,7 +78,7 @@ public class CollisionChecker {
             }
         }
     }
-	
+
 	//Used in both platform apply rules for collision rules
 	public void manuallyRemoveFromConcurrentCollisionList(GameObject obj) {
 		removeGameObjectFromSet(obj);

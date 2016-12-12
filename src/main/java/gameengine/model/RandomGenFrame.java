@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import gameengine.network.server.ServerMain;
 import objects.GameObject;
 import objects.Level;
 import objects.RandomGeneration;
@@ -87,7 +89,7 @@ public class RandomGenFrame<T> {
         scoreMap.put("points", objectProperties.get("points"));
         scoreMap.put("removeobject", "");
         GameObject scoreObject =
-                new GameObject(xPosition + width, -100, 1, GameScreen.screenHeight + 100, scoreMap);
+                new GameObject(ServerMain.idCounter++, xPosition + width, -100, 1, GameScreen.screenHeight + 100, scoreMap);
         level.getGameObjects().add(scoreObject);
 
     }

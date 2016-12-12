@@ -8,6 +8,10 @@ public class NoBoundary extends BasicBoundary{
 		super(width, height);
 	}
 	
+	public NoBoundary(double viewWidth, double viewHeight, double worldWidth, double worldHeight){
+		super(viewWidth, viewHeight, worldWidth, worldHeight);
+	}
+	
 	
 	@Override
 	public boolean moveToXPos(GameObject toMove, double newXPos) {
