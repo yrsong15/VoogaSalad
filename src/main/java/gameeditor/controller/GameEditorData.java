@@ -86,9 +86,13 @@ public class GameEditorData implements IGameEditorData{
     } 
 
     private Map<String,String> getDesiredMap(String key, ArrayList<Map<String,String>> mapList, String value){
+       // System.out.println(" Key Val: " + key);
+       // System.out.println(" ImageView Value: " + value);
         for(Map<String,String> map: mapList){
             String valueFromMap = map.get(key);
+            //System.out.println(" Value from Map: " + valueFromMap);
             if (value.equals(valueFromMap)){
+                //System.out.println(" Found Image View " );
                 return map;
             }
         }
@@ -96,6 +100,12 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public Map<String,String> getMainCharMap(String imageViewName){
+        //System.out.println(" ImageView Name: " + imageViewName);
+            for(Map<String,String> map: myMainCharImageViewMap){     
+                for(String key: map.keySet()){
+                    //System.out.println(" Main Char Key Before : " + key + " Value: " + map.get(key));
+                }
+            }
         return getDesiredMap(DetailResources.IMAGEVIEW_KEY.getResource(),myMainCharImageViewMap,imageViewName);
     }
 

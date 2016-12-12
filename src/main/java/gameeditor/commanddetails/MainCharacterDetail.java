@@ -10,12 +10,10 @@ import java.util.Map;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+
 
 // TODO: Refactor this class - duplicated code with CreateDetail
 public class MainCharacterDetail extends AbstractSelectDetail {
@@ -81,7 +79,7 @@ public class MainCharacterDetail extends AbstractSelectDetail {
                 }
                 i++;
             } 
-            
+
         } else {
 
         }
@@ -98,11 +96,7 @@ public class MainCharacterDetail extends AbstractSelectDetail {
 
     public void createProperties(){
         myPropertiesArray.forEach(label -> {
-            if(myMainCharMap.containsKey(label.toLowerCase())){
-                myVBox.getChildren().add(addOptions(label,myMainCharMap.get(label.toLowerCase())));
-            }else{
-                myVBox.getChildren().add(addOptions(label,DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource()));
-            }
+            myVBox.getChildren().add(addOptions(label,DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource()));
         });            
     }
 
@@ -125,5 +119,4 @@ public class MainCharacterDetail extends AbstractSelectDetail {
             myDetailPane.setDetail("Select");
         }
     }
-
 }

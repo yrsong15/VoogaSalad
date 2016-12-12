@@ -146,8 +146,7 @@ public class MainCharacterDisplay {
             myDetailPane.setDetail("MainCharacter");
             myDesignArea.initSelectDetail2(myCurrentAvatar);
             mainCharPropActive = !mainCharPropActive;
-        }
-       
+        }    
     }
 
     private void scrollLeft(){
@@ -231,18 +230,18 @@ public class MainCharacterDisplay {
         // TODO: Remove Hard Coding
         double playerX = DEFAULT_PLAYER_X + myTotalChars*(10+DEFAULT_PLAYER_WIDTH);
         double playerY = DEFAULT_PLAYER_Y - endHeight/2;
-    	GameObjectView newAvatarGOV = new GameObjectView(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, DetailResources.MAIN_CHARACTER_TYPE.getResource(), true, myDesignArea, myDataStore);
+        GameObjectView newAvatarGOV = new GameObjectView(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, DetailResources.MAIN_CHARACTER_TYPE.getResource(), true, myDesignArea, myDataStore);
         myAvatarGOVs.add(newAvatarGOV);
-    	myDesignArea.addAvatar(newAvatarGOV);
+        myDesignArea.addAvatar(newAvatarGOV);
         return avView;
     }
 
     public BorderPane getPane(){
         return myBP;
     }
-    
+
     public GameObjectView getCurrentMain(){
-		return myCurrentAvatar;
+        return myCurrentAvatar;
     }
 
 }
