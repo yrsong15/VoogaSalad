@@ -22,7 +22,7 @@ public class MainController {
 
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
-    private Stage gameEditorStage, gameEngineStage;
+    private Stage gameEngineStage;
     private Gallery gallery;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
@@ -70,19 +70,15 @@ public class MainController {
         game.addPlayerToClient(1, player2);
 //        game.addPlayer(player3);
 //        game.addPlayer(player4);
-        firstShyGuy.setProperty("jump", "400");
-        secondShyGuy.setProperty("jump", "400");
-        thirdShyGuy.setProperty("jump", "400");
-        fourthShyGuy.setProperty("jump", "400");
+        firstShyGuy.setProperty("jumponce", "400");
+        secondShyGuy.setProperty("jumponce", "400");
+        thirdShyGuy.setProperty("jumponce", "400");
+        fourthShyGuy.setProperty("jumponce", "400");
         firstShyGuy.setProperty("gravity", "0.8");
         secondShyGuy.setProperty("gravity", "0.8");
         thirdShyGuy.setProperty("gravity", "0.8");
         fourthShyGuy.setProperty("gravity", "0.8");
-        firstShyGuy.setProperty("movespeed", "5");
-        secondShyGuy.setProperty("movespeed", "0");
-        thirdShyGuy.setProperty("movespeed", "0");
-        fourthShyGuy.setProperty("movespeed", "0");
-        ProjectileProperties projectileProperties = new ProjectileProperties("duvall.png", 50, 50, Direction.RIGHT, 400, 30, 20);
+        ProjectileProperties projectileProperties = new ProjectileProperties("duvall.png", 50, 50, Direction.RIGHT, 400, 30, 20, 2);
         firstShyGuy.setProjectileProperties(projectileProperties);
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
@@ -157,6 +153,7 @@ public class MainController {
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+        gameEngineStage.setResizable(false);
     }
 
 

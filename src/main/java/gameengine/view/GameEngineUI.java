@@ -68,7 +68,6 @@ public class GameEngineUI implements UDPHandler{
 	private ClientGame currentGame;
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
-
 	private boolean isPaused,isMuted;
 	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, EventHandler<ActionEvent> resetEvent, String serverName) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
@@ -78,10 +77,8 @@ public class GameEngineUI implements UDPHandler{
 		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
-
 		setUpMethodMappings();
 	}
-
 	public void initLevel(Map<Long, List<Player>> playerMapping) {
 		if (currentGame.getMusicFilePath() != null) {
 			playMusic(currentGame.getMusicFilePath());
@@ -94,8 +91,8 @@ public class GameEngineUI implements UDPHandler{
 		myHUD.resetTimer();
 		clientPlayerList = playerMapping.get(clientMain.getID());
 		for(Player player : clientPlayerList) {
-            mapKeys(player, player.getControls());
-        }
+			mapKeys(player, player.getControls());
+		}
 	}
 	public Scene getScene() {
 		return scene;
@@ -128,7 +125,7 @@ public class GameEngineUI implements UDPHandler{
 		for(KeyCode key : keyPressed.keySet()){
 			if(keyPressed.get(key).equals(true)){
 				Player player = playerMappings.get(key);
-				
+
 				keyMappings.get(key).invoke(clientMain, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 			}
 		}
@@ -140,13 +137,12 @@ public class GameEngineUI implements UDPHandler{
 		mapKeysToMethods(mappings);
 		setUpKeystrokeListeners();
 	}
-
 	public void setupKeyFrameAndTimeline(double delay) {
 		KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> {
 			try {
 				update();
 			} catch (Exception exception) {
-                exception.printStackTrace();
+				exception.printStackTrace();
 			}
 		});
 		animation = new Timeline();
@@ -166,7 +162,6 @@ public class GameEngineUI implements UDPHandler{
 //		endGameStage.setTitle("GAME OVER");
 //		endGameStage.show();
 	}
-
 	public void saveGame(){
 		FileOpener chooser = new FileOpener();
 		chooser.saveFile(myResources.getString("XML"), myResources.getString("data"),
@@ -185,7 +180,6 @@ public class GameEngineUI implements UDPHandler{
 		gameScreen.reset();
 		myHUD.resetTimer();
 	}
-
 	private void setUpMethodMappings() {
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
@@ -276,16 +270,13 @@ public class GameEngineUI implements UDPHandler{
 			}
 		});
 	}
-
 	@Override
 	public void updateGame(ClientGame game) {
 		currentGame = game;
 	}
-
 	public boolean gameLoadedFromServer(){
 		return currentGame!=null;
 	}
-
 	@Override
 	public int getCharIdx(GameObject player) {
 		for(int i=0;i<clientPlayerList.size();i++){

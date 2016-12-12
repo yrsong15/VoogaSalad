@@ -205,7 +205,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void runControl(String controlName, int ID, int charIdx) {
 		try {
 			Method method = gameMovement.getClass().getDeclaredMethod(controlName, GameObject.class, double.class);
-			System.out.println(ID + " " + charIdx);
+//			System.out.println(ID + " " + charIdx);
 			method.invoke(gameMovement, currentGame.getClientMappings().get(new Long(ID)).get(charIdx).getMainChar(), 10);
 
 		} catch (Exception ex) {
