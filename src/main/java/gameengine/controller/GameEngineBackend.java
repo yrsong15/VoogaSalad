@@ -36,13 +36,13 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		randomlyGeneratedFrames = new ArrayList<>();
 		highScores = new ArrayList<>();
 		mainCharImprints = new HashMap<>();
+
 	}
 
 	public void startGame(Game currentGame) {
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
-		this.
-		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
+		this.gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
 		serverMain = new ServerMain(this, 9090, serverName);
 	}

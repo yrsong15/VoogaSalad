@@ -81,7 +81,7 @@ public class MainController {
 
 	public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-        XMLData = gameExamples.getDanceDanceRevolution();
+        XMLData = gameExamples.getDoodleJumpXML();
 		boolean multiplayer = true;
 		boolean isServer = false;
         Level level = gameEngineController.startGame(XMLData);
