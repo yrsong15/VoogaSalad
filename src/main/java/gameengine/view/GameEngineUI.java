@@ -246,7 +246,7 @@ public class GameEngineUI implements UDPHandler{
 		return myHUD.getHUD();
 	}
 	private Node makeGameScreen() {
-		gameScreen = new GameScreen(resetEvent);
+		gameScreen = new GameScreen(resetEvent, event -> mute(), event -> pause(), event -> saveGame());
 		return gameScreen.getScreen();
 	}
 	private void mute() {
