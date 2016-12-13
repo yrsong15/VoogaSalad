@@ -17,7 +17,7 @@ import javafx.scene.Node;
 import objects.*;
 
 public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHandler {
-
+	private static final int marginCollisionSeparation = 10;
 	private List<RandomGenFrame> randomlyGeneratedFrames;
 	private List<Integer> highScores;
 	private CollisionChecker collisionChecker;
@@ -99,30 +99,36 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			System.out.println("Position" + position.getX());
 		}
 	}
+	private double setNewPosition(double mainCharacterReference, GameObject mainChar, GameObject obj){
+		double newPosition;
+		if (mainCharacterReference < obj.getYPosition()) {
+			newPosition = obj.getYPosition() - mainChar.getHeight() - marginCollisionSeparation/2;
+			mainChar.setPlatformCharacterIsOn(obj);
+		} else
+			newPosition = obj.getYPosition() + obj.getHeight();
+		
+		return newPosition;
+	}
 	
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj, boolean oneSided) {
 		double newPosition;
-		if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) != IntersectionAmount.NOT_INTERSECTING){
-			if (mainCharImprints.get(mainChar).getY() + mainChar.getHeight() < obj.getYPosition()) {
+		/*if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) != IntersectionAmount.NOT_INTERSECTING){
+			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
 				mainChar.setPlatformCharacterIsOn(obj);
 			} 	
+		}*/
+		if(oneSided && SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
+				obj) != IntersectionAmount.NOT_INTERSECTING) {
+			newPosition = setNewPosition(mainCharImprints.get(mainChar).getY(), mainChar, obj);
 		}
-		if ((SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
-				obj) == IntersectionAmount.COMPLETELY_INSIDE_X) || (oneSided && SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
-				obj) != IntersectionAmount.NOT_INTERSECTING)) {
-			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
-				newPosition = obj.getYPosition() - mainChar.getHeight() - 5;
-				mainChar.setPlatformCharacterIsOn(obj);
-			} else
-				newPosition = obj.getYPosition() + obj.getHeight();
+		else if ((SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,obj) != IntersectionAmount.NOT_INTERSECTING)) {
+			newPosition = setNewPosition(mainCharImprints.get(mainChar).getY() + mainChar.getHeight() - marginCollisionSeparation, mainChar, obj);
 		} else {
 			newPosition = mainCharImprints.get(mainChar).getY();
 		}
 
 		mainChar.setYPosition(newPosition);
-		//System.out.println("Current Position: " + mainChar.getXPosition());
-		//System.out.println("Imprint Position: " + mainCharImprints.get(mainChar).getX());
 		mainChar.setXPosition(mainCharImprints.get(mainChar).getX());
 	}
 
