@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gameengine.view;
 
@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import objects.Game;
 import objects.Level;
 
 /**
@@ -23,7 +24,7 @@ import objects.Level;
  * @citation http://stackoverflow.com/questions/9966136/javafx-periodic-background-task
  */
 public class HUD implements IHUD {
-	
+
 	private HBox myHUD;
 	private Timeline timer;
 	private int timeCount;
@@ -42,16 +43,17 @@ public class HUD implements IHUD {
 	}
 
 	@Override
-	public void update(Level level) {
+	public void update(Game game) {
 		myHUD.getChildren().clear();
-		if(level.getGameConditions().get("score") != null) {
-			Text scoreText = new Text("Score: " + Integer.toString(level.getScore()));
-			myHUD.getChildren().add(scoreText);
-		}
-		if(level.getPlayers() != null) {
-			Text healthText = new Text("  |  Health: " + level.getPlayers().get(0).getProperty("health"));
-            myHUD.getChildren().add(healthText);
-        }
+		game.getCurrentLevel().setTime(timeCount);
+//		if(game.getGameConditions().get("score") != null) {
+//			Text scoreText = new Text("Score: " + Integer.toString(level.getScore()));
+//			myHUD.getChildren().add(scoreText);
+//		}
+//		if(level.getPlayers() != null) {
+//			Text healthText = new Text("  |  Health: " + level.getPlayers().get(0).getProperty("health"));
+//            myHUD.getChildren().add(healthText);
+//        }
 		Text timeText = new Text("  |  Time: " + Integer.toString(timeCount));
 		myHUD.getChildren().add(timeText);
 	}
@@ -60,7 +62,7 @@ public class HUD implements IHUD {
 	public void resetTimer() {
 		timeCount = 0;
 	}
-	
+
 	private void incrementTime() {
 		timeCount++;
 	}

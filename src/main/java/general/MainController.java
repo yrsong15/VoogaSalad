@@ -53,20 +53,19 @@ public class MainController {
         GameFile newGame = new GameFile(title,gameData);
         gallery.addToGallery(newGame);
     }
-    
+
     public void presentEditor(Game game) {
-                gameEditorController = new GameEditorController();
-                gameEditorController.startEditor(game);
-                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-        }
+        gameEditorController = new GameEditorController();
+        gameEditorController.startEditor(game);
+        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+    }
 
 
-        public void presentEditor2(Game game, String gameType) {
-                System.out.println("hi");
-                gameEditorController = new GameEditorController(gameType);
-                gameEditorController.startEditor(game);
-                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-        }
+    public void presentEditor2(Game game, String gameType) {
+        gameEditorController = new GameEditorController(gameType);
+        gameEditorController.startEditor(game);
+        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+    }
 
     private void setUpGameEngineStage(Level level){
         gameEngineStage = new Stage();
@@ -83,25 +82,31 @@ public class MainController {
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
     }
 
-        private void sendDataToEngine() {
-                String title = gameEditorController.getGameTitle();
-                String gameFile = gameEditorController.getGameFile();
-                addNewGameFile(title, gameFile);
-                launchEngine(gameFile);
-        }
+    private void sendDataToEngine() {
+        String title = gameEditorController.getGameTitle();
+        String gameFile = gameEditorController.getGameFile();
+        addNewGameFile(title, gameFile);
+        launchEngine(gameFile);
+    }
 
-	public void launchEngine(String XMLData) {
+    public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
+<<<<<<< HEAD
         //Uncomment either one to get that game for testing
 //        XMLData = gameExamples.getDoodleJumpXML();
         XMLData = gameExamples.getDanceDanceRevolution();
 		boolean multiplayer = true;
 		boolean isServer = false;
+=======
+        XMLData = gameExamples.getMultiplayerDDR();
+        boolean multiplayer = true;
+        boolean isServer = false;
+>>>>>>> 09db16c920c431b34f4ef796d0d9968a96718848
         Level level = gameEngineController.startGame(XMLData);
-		if (level != null) {
-			setUpGameEngineStage(level);
-		}
-	}
+        if (level != null) {
+            setUpGameEngineStage(level);
+        }
+    }
 
     public void editGame() {
         FileOpener chooser = new FileOpener();

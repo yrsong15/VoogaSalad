@@ -15,6 +15,7 @@ public class ClientGame {
 	private String backgroundFilePath;
 	private ClientGameObject background;
 	private List<Integer> highScores;
+	private Map<Long, Integer> scoreMapping;
 
 	public ClientGame(String musicFilePath, String backgroundFilePath, List<Integer> highScores) {
 		gameObjectMap = new HashMap<>();
@@ -47,6 +48,10 @@ public class ClientGame {
 
 	public ClientGameObject getBackgroundObject() {
 		return background;
+	}
+	
+	public void addScores(Map<Long, Integer> scores){
+		scoreMapping = scores;
 	}
 
 	public String getMusicFilePath() {
