@@ -97,7 +97,7 @@ public class MainController {
 		boolean multiplayer = true;
 		boolean isServer = false;
 //        XMLData = gameExamples.getMultiplayerDDR();
-        XMLData = gameExamples.getDoodleJumpXML();
+//        XMLData = gameExamples.getDoodleJumpXML();
         Level level = gameEngineController.startGame(XMLData);
         if (level != null) {
             setUpGameEngineStage(level);
