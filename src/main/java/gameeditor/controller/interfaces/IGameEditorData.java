@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import objects.ProjectileProperties;
+import objects.ScrollType;
 /**
  *  To be used by the front end components to send data to the back end controller
  * @author pratikshasharma, John Martin
@@ -32,7 +33,8 @@ public interface IGameEditorData {
 
     public void addGameObjectsToLevel();
 
-    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, ComboBox<String> isEnemyAllowed);
+    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters,
+                                    ComboBox<String> isEnemyAllowed,ComboBox<String> direction);
 
 
     public ArrayList<String> getImageViews();
@@ -52,6 +54,10 @@ public interface IGameEditorData {
     public void addControls(String typeName, Map<KeyCode,String> controlMap);
     
     public void removeGameobjectView(String imageViewName);
+    
+    public void addRandomGenerationFrame();
+    
+    public void addScrollType(ScrollType scrolltype);
     
 }
 

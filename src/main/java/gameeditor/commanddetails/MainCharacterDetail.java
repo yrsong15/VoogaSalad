@@ -8,11 +8,12 @@ import java.util.Map;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 /**
- * @author John Martin
+ * @author John Martin, Pratiksha Sharma
  *
  */
 public class MainCharacterDetail extends AbstractSelectDetail {
@@ -25,6 +26,7 @@ public class MainCharacterDetail extends AbstractSelectDetail {
 
     private  String imageViewString;
     private Map<String,String> myMainCharMap;
+    private ComboBox<String> jumpCombo;
 
     public MainCharacterDetail() {
         super();
@@ -66,10 +68,20 @@ public class MainCharacterDetail extends AbstractSelectDetail {
             for(String label: myPropertiesArray){
                 boolean containsDefault= myTextInputs.get(i).getText().equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource());
                 if(!(myTextInputs.get(i).getText().isEmpty()) &&(!containsDefault )){
+                    if(!label.equals(DetailResources.MAIN_CHAR_MOVEMENT_LABEL.getResource())){
+                        label = DetailResources.MAIN_CHAR_MOVEMENT_KEY.getResource();
+                    }
                     myMainCharMap.put(label.toLowerCase(), myTextInputs.get(i).getText()); 
                 }
                 i++;
-            } 
+            }
+            
+            if(jumpCombo.getValue()!=null){
+                String value = jumpCombo.getValue().toLowerCase();
+                value = value.replaceAll("\\s+","");
+                myMainCharMap.put(value, myMainCharMap.get("jump"));
+                myMainCharMap.remove("jump");
+            }
 
         } else {
 
@@ -91,9 +103,21 @@ public class MainCharacterDetail extends AbstractSelectDetail {
               myVBox.getChildren().add(addOptions(label,myMainCharMap.get(label.toLowerCase())));
           }else{
             myVBox.getChildren().add(addOptions(label,DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource()));
-        }});            
+        }}); 
+        
+         addjumpTypeCombo();
+        
     }
 
+    private void addjumpTypeCombo(){
+        String[] options = DetailResources.JUMP_OPTIONS.getArrayResource();
+        jumpCombo = myDetailFrontEndUtil.createComboBox(options, options[0]);
+        jumpCombo.setMaxWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
+        jumpCombo.setMinWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(jumpCombo,myDetailFrontEndUtil.createPropertyLbl("Jump Type"));
+        myVBox.getChildren().add(bp);
+    }
+    
     private BorderPane addOptions(String label, String value){
         BorderPane bp = new BorderPane();
         bp.setMinWidth(PADDED_PANE_WIDTH);

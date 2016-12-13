@@ -1,12 +1,11 @@
 package gameeditor.commanddetails;
 
-
+/**
+ * @author Pratiksha Sharma
+ *
+ */
 public interface IBehaviorDetail {
-	/**
-	 * 
-	 * @author Pratiksha Sharma
-	 *
-	 */
+	
     public static final String SCROLL_TYPE_LABEL = DetailResources.SCROLL_TYPE_OPTIONS_LABEL.getResource();
     public static final String SCROLL_WIDTH_LABEL = DetailResources.SCROLL_WIDTH_LABEL.getResource();
     public static final String TRUE = "True";

@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.WindowEvent;
 import objects.*;
 import xml.XMLSerializer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +84,10 @@ public class GameEngineController implements CommandInterface {
 	}
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-		System.out.println("fdfas");
+		if(playerMapping.keySet().size()==0){
+	                playerMapping = new HashMap<Long, List<Player>>();
+	                playerMapping.put(0L,currentGame.getPlayers());
+	            }
 		toolbarHBox = gameEngineView.getToolbar();
 		gameEngineView.startClient(serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {

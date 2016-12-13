@@ -54,6 +54,11 @@ public class Game implements IGame{
 	public void removePlayer(Player player){
 		players.remove(player);
 	}
+
+	public List<Player> getPlayers(){
+        return players;
+    }
+
 	
 	public void addPlayer(Player player){
 		players.add(player);

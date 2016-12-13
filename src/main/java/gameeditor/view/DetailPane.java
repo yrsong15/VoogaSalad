@@ -1,5 +1,6 @@
 package gameeditor.view;
 
+import gameeditor.view.interfaces.ICommandButton;
 import gameeditor.view.interfaces.ICommandDetailDisplay;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
@@ -29,6 +30,7 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     private IDesignArea myDesignArea;
     private MainCharacterDisplay myAvatarDisplay;
     private String myLastPaneType;
+    private CommandPane myCommandPane;
 
     public DetailPane(IDesignArea da, IGameEditorData dataStore) {
     	myDesignArea = da;
@@ -51,6 +53,9 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
 
     @Override
     public void setDetail(String paneType) {
+    	for (ICommandButton icb : myCommandPane.getButtons()){
+    		icb.checkHighlight(paneType);
+    	}
         myLastPaneType = paneType;
         String className = "gameeditor.commanddetails." + paneType + "Detail";
         myPane.getChildren().remove(myDetailPane);
@@ -78,5 +83,10 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     @Override
     public void updateDetail(){
         setDetail(myLastPaneType);
+    }
+    
+    @Override
+    public void setCommandPane(CommandPane cp){
+    	myCommandPane = cp;
     }
 }

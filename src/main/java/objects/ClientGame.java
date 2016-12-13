@@ -36,7 +36,7 @@ public class ClientGame {
 			gameObjectMap.put(o.getID(),
 					new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
 							o.getDirection(), o.getImageFileName(),
-							o.getProperty("health") == null ? null : Integer.parseInt(o.getProperty("health"))));
+							o.getProperty("health") == null ? null : Double.parseDouble(o.getProperty("health"))));
 		}
 	}
 

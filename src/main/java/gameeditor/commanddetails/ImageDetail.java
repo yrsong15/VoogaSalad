@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 /**
  * @author John Martin
+ * Modified by Pratiksha
  *
  */
 public class ImageDetail {

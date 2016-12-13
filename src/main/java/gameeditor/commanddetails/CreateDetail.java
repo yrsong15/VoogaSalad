@@ -2,7 +2,7 @@ package gameeditor.commanddetails;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 /**
- * @author John Martin
+ * @author Pratiksha Sharma
  *
  */
 public class CreateDetail extends AbstractCommandDetail {
