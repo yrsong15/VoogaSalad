@@ -34,7 +34,7 @@ public class GameCoverSplash {
     private TextField addServer;
     private NodeFactory myFactory = new NodeFactory();
 
-    public GameCoverSplash(Level level, MainController myMainController){
+    public GameCoverSplash(Level level, MainController myMainController) {
         this.playahs = (ArrayList) level.getPlayers();
         this.background = level.getBackgroundFilePath();
         this.title = level.getTitle();
@@ -42,10 +42,10 @@ public class GameCoverSplash {
         this.mainController = myMainController;
     }
 
-    public Scene createSplashScene(){
+    public Scene createSplashScene() {
         myWindow = new Pane();
         int titleWidth = 100 + (30 * title.length());
-        if(titleWidth < COVER_WIDTH) titleWidth = COVER_WIDTH;
+        if (titleWidth < COVER_WIDTH) titleWidth = COVER_WIDTH;
         coverScene = new Scene(myWindow, titleWidth, 775);
         coverScene.getStylesheets().add(COVER_SPLASH_STYLE);
         Image backg = new Image(background);
@@ -66,7 +66,7 @@ public class GameCoverSplash {
         return coverScene;
     }
 
-    private void setUpMulti(){
+    private void setUpMulti() {
         ButtonTemplate hostTemp = new ButtonTemplate("HostGame", 150, 365);
         Button host = hostTemp.getButton();
         host.setOnMouseClicked(e -> mainController.startPlayingMulti(true, addServer.getText()));
@@ -77,8 +77,8 @@ public class GameCoverSplash {
         myWindow.getChildren().addAll(host, join, addServer);
     }
 
-    private void addPlayahs(){
-        for (int i = 0; i < playahs.size(); i++){
+    private void addPlayahs() {
+        for (int i = 0; i < playahs.size(); i++) {
             Image playah = new Image(myFactory.getUserDirectorySpritePrefix() + playahs.get(i).getImageFileName());
             ImageView newPlayah = new ImageView(playah);
             newPlayah.setPreserveRatio(true);
@@ -89,7 +89,7 @@ public class GameCoverSplash {
         }
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 }

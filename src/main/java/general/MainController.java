@@ -3,27 +3,15 @@ package general;
 import java.io.File;
 import java.io.IOException;
 
-import com.sun.javafx.scene.traversal.Direction;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
-import gameengine.model.RandomGenFrame;
-import gameengine.model.RandomGenFrameY;
-import gameengine.model.boundary.GameBoundary;
-import gameengine.model.boundary.NoBoundary;
-import gameengine.model.boundary.ToroidalBoundary;
-import gameengine.network.server.ServerMain;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import objects.*;
-import xml.XMLSerializer;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * @author Delia Li
@@ -87,6 +75,10 @@ public class MainController {
     }
 
     public void startPlayingSingle() {
+        GameExamples gameExamples = new GameExamples();
+        String XMLData = gameExamples.getDanceDanceRevolution();
+        Game game = gameEngineController.createGameFromXML(XMLData);
+        Level level = game.getCurrentLevel();
         gameEngineController.setHostMode(true, "localhost");
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
@@ -109,10 +101,10 @@ public class MainController {
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
         XMLData = gameExamples.getMultiplayerDDR();
-        //   XMLData = gameExamples.getDoodleJumpXML();
+//           XMLData = gameExamples.getDoodleJumpXML();
         //  XMLData = gameExamples.getScrollingXML();
 //      XMLData = gameExamples.getMarioXML();
-        //   XMLData = gameExamples.getDanceDanceRevolution();
+//           XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         boolean isServer = false;
         Game game = gameEngineController.createGameFromXML(XMLData);
