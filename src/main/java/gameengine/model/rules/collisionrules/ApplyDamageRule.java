@@ -7,7 +7,14 @@ public class ApplyDamageRule extends ApplyEnemyCollisionRule implements Collisio
 
 	
 	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
-		takeDamage(handler,mainChar,obj);
+		int currHealth = Integer.parseInt(mainChar.getProperty("health"));
+		currHealth -= Integer.parseInt(obj.getProperty("damage"));
+		if (currHealth <= 0) {
+			handler.endGame();
+		}
+		else {
+			mainChar.setProperty("health", Integer.toString(currHealth));
+		}
 	}
 
 }
