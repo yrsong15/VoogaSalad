@@ -2,6 +2,7 @@ package general;
 
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.model.RandomGenFrame;
+import gameengine.model.RandomGenFrameX;
 import gameengine.model.RandomGenFrameY;
 import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.NoBoundary;
@@ -24,20 +25,21 @@ public class GameExamples{
 	
 	public String getMarioXML(){
 		Game game = new Game("Mario");
-        GameObject shyGuy = new GameObject(20, 200 , 100, 150, "mario.png", new HashMap<>());
+        GameObject shyGuy = new GameObject(20, 200 , 50, 75, "mario.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
-        shyGuy.setProperty("movespeed", "20");
+        shyGuy.setProperty("movespeed", "5");
         shyGuy.setProperty("gravity", "1.2");
-        shyGuy.setProperty("jumponce", "400");
+        shyGuy.setProperty("jumponce", "600");
         shyGuy.setProperty("health", "30");
         Level level = new Level(1);
-        GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 800);
+        GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
-        scrollType.addScrollDirection(Direction.UP);
+        scrollType.addScrollDirection(Direction.RIGHT);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
+        level.setBackgroundMusic("SuperMarioBrosTheme.mp3");
         game.setCurrentLevel(level);
         player1.setControl(KeyCode.W, "jump");
         player1.setControl(KeyCode.RIGHT, "right");
@@ -46,27 +48,38 @@ public class GameExamples{
         player1.setControl(KeyCode.DOWN, "down");
         player1.setControl(KeyCode.SPACE, "shoot");
         level.addPlayer(shyGuy);
-        GameObject ground = new GameObject(0, 675, 700, 125, "blocks.png", new HashMap<>());
+        GameObject ground = new GameObject(0, 600, 1500, 75, "halfGrassyGround.png", new HashMap<>());
         level.addGameObject(ground);
         ground.setProperty("nonintersectable", "");
         
-        GameObject killer = new GameObject(0, GameEngineUI.myAppHeight+100, GameEngineUI.myAppWidth,50,"platform.png", new HashMap<>());
+        GameObject pipe = new GameObject(400, 475, 50, 125, "pipes.png", new HashMap<>());
+        level.addGameObject(pipe);
+        pipe.setProperty("nonintersectable", "");
+        
+        GameObject block = new GameObject(200, 400, 50, 50, "block.png", new HashMap<>());
+        level.addGameObject(block);
+        block.setProperty("nonintersectable", "");
+        
+        GameObject killer = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
         killer.setProperty("damage", "30");
         killer.setProperty("nonscrollable", "");
         level.addGameObject(killer);        
       /**  GameObject ground1 = new GameObject(300, 650, 300, 125, "blocks.png", new HashMap<>());
         level.addGameObject(ground1);
-        ground1.setProperty("nonintersectable", "");
-
+        ground1.setProperty("nonintersectable", "");**/
+        HashMap<String,String> DoodleJumpProperties = new HashMap<>();
+        DoodleJumpProperties.put("bounce", "2000");
+        DoodleJumpProperties.put("points", "5");
         
-        GameObject ground2 = new GameObject(600, 650, 300, 125, "blocks.png", new HashMap<>());
-        level.addGameObject(ground2);
-        ground2.setProperty("nonintersectable", "");
-
-        
-        GameObject ground3 = new GameObject(900, 650, 300, 125, "blocks.png", new HashMap<>());
-        level.addGameObject(ground3);
-        ground3.setProperty("nonintersectable", "");**/
+        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
+        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
+        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
+        ArrayList<RandomGeneration> randomGen = new ArrayList<>();
+        randomGen.add(platforms);
+        randomGen.add(platforms2);
+        randomGen.add(platforms3);
+        RandomGenFrame frame = new RandomGenFrameX(level, randomGen, true);
+        level.setRandomGenerationFrame(frame);
 
         
         XMLSerializer testSerializer = new XMLSerializer();
