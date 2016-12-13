@@ -52,6 +52,11 @@ public class ForcedScrolling implements Scrolling{
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		scrollObjects.remove(mainChar);
+		for (GameObject obj: scrollObjects){
+			if (obj.getProperty("nonScrollable") != null){
+				scrollObjects.remove(obj);
+			}
+		}
 		Object[] parameters = new Object[]{scrollObjects, scrollingSpeed};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {

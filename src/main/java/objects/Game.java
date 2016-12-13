@@ -21,6 +21,8 @@ public class Game implements IGame{
 	private List<Player> players;
 	private Map<Long, List<Player>> clientMappings;
 	private Map<Long, Integer> scoreMapping;
+	private boolean gameLost;
+	private boolean gameWon;
 
 	public Map<Long, List<Player>> getClientMappings(){
 	    return clientMappings;
@@ -53,6 +55,22 @@ public class Game implements IGame{
 	
 	public void addPlayer(Player player){
 		players.add(player);
+	}
+	
+	public void setGameOver(boolean status){
+		gameLost = status;
+	}
+	
+	public boolean isGameLost(){
+		return gameLost;
+	}
+	
+	public void setGameWon(boolean status){
+		gameWon = status;
+	}
+	
+	public boolean isGameWon(){
+		return gameWon;
 	}
 
     public void addLevel(Level level) {

@@ -97,21 +97,16 @@ public class MainController {
 		launchEngine(gameFile);
 	}
 
-	public void launchEngine(String XMLData) {
-		GameExamples gameExamples = new GameExamples();
-		// Uncomment either one to get that game for testing
-//		XMLData = gameExamples.getDoodleJumpXML();
-		// XMLData = gameExamples.getDanceDanceRevolution();
-		 XMLData = gameExamples.getMultiplayerDDR();
-		// XMLData = gameExamples.getDoodleJumpXML();
-		
-		boolean multiplayer = true;
-		boolean isServer = false;
-		Level level = gameEngineController.startGame(XMLData);
-		if (level != null) {
-			setUpGameEngineStage(level);
-		}
-	}
+    public void launchEngine(String XMLData) {
+        GameExamples gameExamples = new GameExamples();
+        XMLData = gameExamples.getMultiplayerDDR();
+        boolean multiplayer = true;
+        boolean isServer = false;
+        Level level = gameEngineController.startGame(XMLData);
+        if (level != null) {
+            setUpGameEngineStage(level);
+        }
+    }
 
 	public void editGame() {
 		FileOpener chooser = new FileOpener();
