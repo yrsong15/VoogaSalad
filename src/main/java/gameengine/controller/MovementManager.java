@@ -38,6 +38,10 @@ public class MovementManager implements ControlInterface{
 		initManager();
 	}
 
+	public void setCurrLevel(Level currLevel){
+		this.currLevel = currLevel;
+	}
+
 	private void initManager(){
 		try {
 			setScrolling();

@@ -19,7 +19,7 @@ public class ApplyEnemyCollisionRule{
 		int currHealth = Integer.parseInt(mainChar.getProperty("health"));
 		currHealth -= Integer.parseInt(obj.getProperty("enemy"));
 		if (currHealth <= 0) {
-			System.out.println("dfdf");
+//			System.out.println("dfdf");
 			handler.endGame();
 		}
 		else {

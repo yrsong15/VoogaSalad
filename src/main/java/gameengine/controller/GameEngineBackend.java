@@ -68,6 +68,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	 */
 	public void updateGame() {
 		Level currLevel = currentGame.getCurrentLevel();
+		gameMovement.setCurrLevel(currentGame.getCurrentLevel());
 		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling") || currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("LimitedScrolling")) {
 			removeOffscreenElements();
 		}

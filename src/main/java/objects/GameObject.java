@@ -158,18 +158,18 @@ public class GameObject {
         return isPlayer;
     }
     public void setIsPlayer(boolean value){
-        System.out.println(" boolean: " + value);
+        //System.out.println(" boolean: " + value);
         isPlayer = value;
     }
 
     public List getProjectiles(){
         return projectiles;
     }
-    
+
     public void setTypeName(String typeName){
         this.typeName = typeName;
     }
-    
+
     public String getTypeName(){
         return this.typeName;
     }

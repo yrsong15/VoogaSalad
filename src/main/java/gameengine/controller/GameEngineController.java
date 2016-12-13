@@ -101,7 +101,6 @@ public class GameEngineController implements CommandInterface {
 	public void reset() {
 		this.currentGame = createGameFromXML(xmlData);
 		backend.setGame(currentGame);
-		return;
 	}
 
 	public void setHostMode(boolean ishosted, String serverName){

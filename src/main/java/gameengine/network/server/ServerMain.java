@@ -113,7 +113,7 @@ public class ServerMain {
 
 			@Override
 			public void run() {
-				System.out.println(IDs);
+				//System.out.println(IDs);
 				if(!isPaused && (IDs >= gameHandler.getGame().getMinNumPlayers())){
 				gameHandler.updateGame();
 				}
