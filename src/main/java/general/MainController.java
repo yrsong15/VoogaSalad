@@ -80,17 +80,17 @@ public class MainController {
         gameEngineController.setHostMode(isHosted, myServer);
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
-        gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+        gameEngineStage.setOnCloseRequest(event -> shutdownClient());
     }
 
 	public void startPlayingSingle() {
 		gameEngineStage.setScene(gameEngineController.getScene());
 		gameEngineStage.show();
-		gameEngineController.setGameEngineStage(gameEngineStage);
-		gameEngineStage.setOnCloseRequest(event -> shutdownServerThread());
+		gameEngineStage.setOnCloseRequest(event -> shutdownClient());
 	}
 	
-	private void shutdownServerThread(){
+	private void shutdownClient(){
+		gameEngineController.setupServerShutdown();
 		gameEngineController.stop();
 	}
 

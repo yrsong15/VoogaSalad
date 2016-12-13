@@ -111,4 +111,10 @@ public class ClientMain{
 	public void restart(){
 		connections.sendRestartCommand();
 	}
+	
+	public void shutdownServerThread(){
+		if(ID == 0){
+			connections.sendShutdownCommand();
+		}
+	}
 }
