@@ -13,8 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import value.ActualValue;
 import value.PropertyValue;
 import value.ReadOnlyPositionable;
@@ -38,6 +43,22 @@ public class ViewFormatter
 		viewObject.connectNode(node);
 		viewObject.setWidth(new ActualValue(defaultWidth));
 		viewObject.setHeight(new ActualValue(defaultHeight));
+		
+		return new ViewObjectBuilder(viewObject,this);
+	}
+	
+	public ViewObjectBuilder addView(Region node, String viewObjectID)
+	{
+		ViewObject viewObject = getViewObject(viewObjectID);
+		viewObject.connectNode(node);
+		
+		return new ViewObjectBuilder(viewObject,this);
+	}
+	
+	public ViewObjectBuilder addView(ImageView node, String viewObjectID)
+	{
+		ViewObject viewObject = getViewObject(viewObjectID);
+		viewObject.connectNode(node);
 		
 		return new ViewObjectBuilder(viewObject,this);
 	}
@@ -74,19 +95,56 @@ public class ViewFormatter
 		screen.getHeight().setValue(new ActualValue(height));
 	}
 	
+	private void updateView(Pane root)
+	{
+		for(ViewObject viewObject : viewObjects.values())
+		{
+			viewObject.updateDimensions();
+		}
+		
+		root.getChildren().clear();
+	}
+	
+	private void addViewObjectsToView(Pane root)
+	{
+		List<ViewObject> sortedViewObjects = new ArrayList<ViewObject>(viewObjects.values());
+		Collections.sort(sortedViewObjects, new BottomLayerFirstComparator());
+		
+		for(ViewObject viewObject : sortedViewObjects)
+		{
+			System.out.println(viewObject.getViewObjectID() + " width: " + viewObject.getWidth().getValue() + " height: " + viewObject.getHeight().getValue() );
+			root.getChildren().add(viewObject.renderNode());
+		}
+		
+	}
+	
+	private void calculateSizeOfNodes()
+	{
+		Pane root = new Pane();
+		for(ViewObject viewObject : viewObjects.values())
+		{
+			root.getChildren().add(viewObject.getNode());
+		} 
+		
+
+		Stage testStage = new Stage();
+		Scene testScene = new Scene(root);
+		testStage.setScene(testScene);
+		testStage.show();
+		updateView(root);
+		testStage.close();
+		
+	}
+	
 	public Pane renderView(double width, double height)
 	{
 		Pane root = new Pane();
 		root.setMinSize(width, height);
 		setSizeProperties(width,height);
-	
-		List<ViewObject> sortedViewObjects = new ArrayList<ViewObject>(viewObjects.values());
-		Collections.sort(sortedViewObjects,new BottomLayerFirstComparator());
 		
-		for(ViewObject viewObject : sortedViewObjects)
-		{
-			root.getChildren().add(viewObject.renderNode());
-		}
+		calculateSizeOfNodes();
+		
+		addViewObjectsToView(root);
 		
 		return root;
 			

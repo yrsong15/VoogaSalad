@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -69,31 +70,32 @@ public class EditorLevels implements IEditorLevels{
         		.setX(100)
         		.centerYInScreen(); 
     
-     // addButtons();
         newLevelButton = createNewLevelButton();
-        formatter.addView(newLevelButton, "NewLevelButton", 150, 50)
+        formatter.addView(newLevelButton, "NewLevelButton")
         		.position(Side.BOTTOM, "LevelView", 10)
-        		.setWidth(.4, "LevelView")
+        		.setXAsFractionOfWidth(.05, "LevelView")
         		.setZ(2);
-        		//.setPosition(LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6);
         
         loadGameButton = new Button("LOAD GAME");//getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2.5,LEVEL_PANE_Y_POSITION*6);
-        formatter.addView(loadGameButton, "LoadGameButton", 125, 50)
-        		.position(Side.BOTTOM, "LevelView", 10)
-        		.setXAsFractionOfWidthFromFarSide(0, "LevelView");
+        formatter.addView(loadGameButton, "LoadGameButton")
+        		.position(Side.RIGHT, "SaveGameButton", 10);
         
         saveGameButton = new Button(SAVE_LABEL);
-        formatter.addView(saveGameButton, "SaveGameButton", 70, 50)
-        		.position(Side.LEFT, "LoadGameButton", 10)
-        		//.setXAsFractionOfWidthFromFarSide(0, "LevelView")
-        		.setZ(1);
+        formatter.addView(saveGameButton, "SaveGameButton")
+        		.position(Side.RIGHT, "NewLevelButton", 10)
+        		.setZ(5);
+        
+        GameCoverView gameCoverView = new GameCoverView(130,100);
+        formatter.addView(gameCoverView.getNode(),"GameCover",80,100)
+        		.position(Side.RIGHT,"LevelView", 10);
+        
         
         Region title = createTitle(gameName);
-        formatter.addView(title, "Title", 0, 30)
-        	.position(Side.TOP, "LevelView", 10)
-        	.setWidth(.8,"LevelView");
-       // root.getChildren().addAll(myPane,newLevelButton,addGameTitle(gameName),loadGameButton,saveGameButton);
+        formatter.addView(title, "Title")
+        	.position(Side.TOP, "LevelView", 10);
+        
         return formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
+        
     }
     
     private Button createNewLevelButton()
@@ -114,8 +116,8 @@ public class EditorLevels implements IEditorLevels{
         TextField myGameName = new TextField(gameName);
         myGameName.setOnMouseExited(e->addGameTitleListener(myGameName));
         HBox myHBox = new HBox(40);
-        myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
-        myHBox.setLayoutY(LEVEL_PANE_Y_POSITION/2);
+       // myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
+       // myHBox.setLayoutY(LEVEL_PANE_Y_POSITION/2);
         myHBox.getChildren().addAll(gameLabel,myGameName); 
         return myHBox;
     }
@@ -150,7 +152,9 @@ public class EditorLevels implements IEditorLevels{
         level.setGraphic(levelIcon);
         myVBox.getChildren().add(level);
         myLevels.add(level);
+        
     }
+ 
 
     public void setOnLevelClicked(EventHandler<MouseEvent> handler){
         for(Button l:myLevels){
@@ -159,8 +163,8 @@ public class EditorLevels implements IEditorLevels{
         }   
     }
 
-    private Button getButton(String property, double xposition, double yposition){
-        ButtonTemplate myButton = new ButtonTemplate(property, xposition, yposition);
+    private Button getButton(String property){
+        ButtonTemplate myButton = new ButtonTemplate(property);
         return myButton.getButton();
     }
 

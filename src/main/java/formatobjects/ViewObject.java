@@ -1,18 +1,27 @@
 package formatobjects;
 
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import value.ActualValue;
+import value.FormatValue;
+import value.ViewObjectPropertyValue;
 
 public class ViewObject extends FormatObject
 {
 	private String viewObjectID;
 	private Node node;
+	private ViewObjectPropertyValue width;
+	private ViewObjectPropertyValue height;
 	
 	
 	public ViewObject(String viewObjectID)
 	{
 		super();
 		this.viewObjectID = viewObjectID;
+		this.width = new ViewObjectPropertyValue(getWidth(), new ActualValue(0));
+		this.height = new ViewObjectPropertyValue(getHeight(), new ActualValue(0));
+		
 	}
 	
 	public ViewObject(Node node, String viewObjectID)
@@ -22,7 +31,7 @@ public class ViewObject extends FormatObject
 	}
 	
 	/**
-	 * THIS METHOD IS CURRENTLY UNUSED
+	 * THIS METHOD IS CURRENTLY UNUSED/ It's used for testing
 	 * @return
 	 */
 	public String getViewObjectID()
@@ -35,13 +44,31 @@ public class ViewObject extends FormatObject
 		this.node = node;
 	}
 	
+	public void updateDimensions()
+	{
+		if(node instanceof Region)
+		{
+			Region region = ((Region)node);
+			double widthValue = region.getWidth() + region.insetsProperty().getValue().getLeft() + region.insetsProperty().getValue().getRight();
+			getWidth().setValue(new ActualValue(widthValue));
+			double heightValue = region.getHeight() + region.insetsProperty().getValue().getBottom() + region.insetsProperty().getValue().getTop();
+			getHeight().setValue(new ActualValue(heightValue));
+			
+			/*
+			System.out.println(viewObjectID + "-------------");
+			System.out.println("Right: " + region.insetsProperty().getValue().getRight());
+			System.out.println("Left: " + region.insetsProperty().getValue().getLeft());
+			System.out.println("Top: " + region.insetsProperty().getValue().getTop());
+			System.out.println("Bottom: " + region.insetsProperty().getValue().getBottom());*/
+		}
+	}
+	
 	public Node renderNode()
 	{
 		updateWidth();
 		updateHeight();
 		updateX();
 		updateY();
-		updateSize();
 		
 		return getNode();
 	}
@@ -50,31 +77,65 @@ public class ViewObject extends FormatObject
 		return node;
 	}
 	
-	private void updateSize()
+	@Override
+	public void setWidth(FormatValue formatValue)
 	{
-		if(node instanceof Region)
-		{
-			((Region)node).setPrefSize(getWidth().getValue(), getHeight().getValue());
-		}
+		width.setValue(formatValue);
 	}
 	
+	@Override
+	public void setHeight(FormatValue formatValue)
+	{
+		height.setValue(formatValue);
+	}
+
 	private void updateWidth()
 	{
-		if(getWidth().hasValidValue())
+		if(width.hasValueToUpdate())
 		{
-			node.minWidth(getWidth().getValue());
-			node.prefWidth(getWidth().getValue());
-			node.maxWidth(getWidth().getValue());
+			double widthValue = width.getValue();
+			System.out.println(viewObjectID + " width: " + widthValue + "");
+			if(node instanceof Region)
+			{
+				((Region)node).setMinWidth(widthValue);
+				((Region)node).setPrefWidth(widthValue);
+				((Region)node).setMaxWidth(widthValue);
+			}
+			else if(node instanceof ImageView)
+			{
+				((ImageView)node).setFitWidth(widthValue);
+			}
+			else
+			{
+				node.minWidth(widthValue);
+				node.prefWidth(widthValue);
+				node.maxWidth(widthValue);
+			}
 		}
 	}
 	
 	private void updateHeight()
 	{
-		if(getHeight().hasValidValue())
+		if(height.hasValueToUpdate())
 		{
-			node.minHeight(getHeight().getValue());
-			node.prefHeight(getHeight().getValue());
-			node.maxHeight(getHeight().getValue());
+			double heightValue = height.getValue();
+			System.out.println(viewObjectID + " height: " + heightValue);
+			if(node instanceof Region)
+			{
+				((Region)node).setMinHeight(heightValue);
+				((Region)node).setPrefHeight(heightValue);
+				((Region)node).setMaxHeight(heightValue);
+			}
+			else if(node instanceof ImageView)
+			{
+				((ImageView)node).setFitHeight(heightValue);
+			}
+			else
+			{
+				node.minHeight(heightValue);
+				node.prefHeight(heightValue);
+				node.maxHeight(heightValue);
+			}
 		}
 	}
 	

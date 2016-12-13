@@ -8,6 +8,12 @@ import value.PercentageValue;
 import value.ProductValue;
 import value.ReadOnlyPositionable;
 import value.SumValue;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
 import formatobjects.ViewObject;
 import javafx.scene.Node;
 
@@ -15,6 +21,7 @@ public class ViewObjectBuilder
 {
 	private ViewObject viewObject;
 	private ViewFormatter formatter;
+	private List<Method> builderCommands;
 	
 	
 	/**
@@ -26,6 +33,7 @@ public class ViewObjectBuilder
 	{
 		this.viewObject = viewObject;
 		this.formatter = formatter;
+		this.builderCommands = new ArrayList<Method>();
 	}
 	
 	public ViewObjectBuilder(Node node, String viewObjectID)
@@ -77,10 +85,22 @@ public class ViewObjectBuilder
 	{
 		FormatValue baseValue = reference.getX();
 		FormatValue limit = reference.getWidth();
-		FormatValue midpoint = new ProductValue(new ActualValue(.5), limit);
+		FormatValue midpoint = new SumValue(baseValue, new ProductValue(new ActualValue(.5), limit));
 		FormatValue halfOfWidth = new ProductValue(new ActualValue(.5), viewObject.getWidth());
-		FormatValue newX = new SumValue(baseValue, new DifferenceValue(midpoint,halfOfWidth));
+		FormatValue newX = new DifferenceValue(midpoint,halfOfWidth);
 		viewObject.setX(newX);
+		return this;
+	}
+	
+	public ViewObjectBuilder setWidth(double width)
+	{
+		viewObject.setWidth(new ActualValue(width));
+		return this;
+	}
+	
+	public ViewObjectBuilder setHeight(double height)
+	{
+		viewObject.setHeight(new ActualValue(height));
 		return this;
 	}
 	
@@ -90,7 +110,7 @@ public class ViewObjectBuilder
 		return centerY(reference);
 	}
 	
-	public ViewObjectBuilder centerYBasedOnWidthOf(String viewObjectID)
+	public ViewObjectBuilder centerYBasedOnHeighthOf(String viewObjectID)
 	{
 		ReadOnlyPositionable reference = formatter.getViewObject(viewObjectID);
 		return centerY(reference);
@@ -127,16 +147,36 @@ public class ViewObjectBuilder
 	public ViewObjectBuilder setWidth(double widthPercent, String viewObjectID)
 	{
 		ReadOnlyPositionable reference = formatter.getViewObject(viewObjectID);
+		return setWidth(widthPercent,reference);
+	}
+	
+	public ViewObjectBuilder setWidthAsFractionOfScreen(double widthPercent)
+	{
+		ReadOnlyPositionable reference = formatter.getScreenFormat();
+		return setWidth(widthPercent,reference);
+	}
+	
+	private ViewObjectBuilder setWidth(double widthPercent, ReadOnlyPositionable reference)
+	{
 		viewObject.setWidth(new PercentageValue(widthPercent,reference.getWidth()));
-		
 		return this;
 	}
 	
 	public ViewObjectBuilder setHeight(double heightPercent, String viewObjectID)
 	{
 		ReadOnlyPositionable reference = formatter.getViewObject(viewObjectID);
-		viewObject.setWidth(new PercentageValue(heightPercent,reference.getWidth()));
-		
+		return setHeight(heightPercent,reference);
+	}
+	
+	public ViewObjectBuilder setHeightAsFractionOfScreen(double heightPercent)
+	{
+		ReadOnlyPositionable reference = formatter.getScreenFormat();
+		return setHeight(heightPercent,reference);
+	}
+	
+	private ViewObjectBuilder setHeight(double heightPercent, ReadOnlyPositionable reference)
+	{
+		viewObject.setHeight(new PercentageValue(heightPercent,reference.getHeight()));
 		return this;
 	}
 	
@@ -151,22 +191,33 @@ public class ViewObjectBuilder
 	public ViewObjectBuilder setXAsFractionOfWidth(double xPercent, String viewObjectID)
 	{
 		ViewObject other = formatter.getViewObject(viewObjectID);
-		FormatValue otherWidth = other.getWidth();
-		FormatValue newWidth = new PercentageValue(xPercent,otherWidth);
-		FormatValue otherX = other.getX();
-		viewObject.setX(new SumValue(otherX,newWidth));
-		return this;
-	}
-	
-	public ViewObjectBuilder setXAsFractionOfWidthFromFarSide(double xPercent, String viewObjectID)
-	{
-		ViewObject other = formatter.getViewObject(viewObjectID);
 		return setXAsFraction(xPercent,other);
 	}
 	
 	public ViewObjectBuilder setXAsFractionOfScreenWidth(double xPercent)
 	{
 		return setXAsFraction(xPercent,formatter.getScreenFormat());
+	}
+	
+	public ViewObjectBuilder setXAsFractionOfWidthFromFarSide(double xPercent, String viewObjectID)
+	{
+		ReadOnlyPositionable reference = formatter.getViewObject(viewObjectID);
+		FormatValue otherWidth = reference.getWidth();
+		FormatValue farX = new SumValue(otherWidth,reference.getX());
+		FormatValue newWidth = new PercentageValue(xPercent,otherWidth);
+		FormatValue newX = new DifferenceValue(farX, new SumValue(newWidth,viewObject.getWidth()));
+		viewObject.setX(newX);
+		return this;
+	}
+	
+
+	private ViewObjectBuilder setXAsFraction(double xPercent, ReadOnlyPositionable reference)
+	{
+		FormatValue referenceWidth = reference.getWidth();
+		FormatValue newWidth = new PercentageValue(xPercent,referenceWidth);
+		FormatValue referenceX = reference.getX();
+		viewObject.setX(new SumValue(referenceX,newWidth));
+		return this;
 	}
 	
 	public ViewObjectBuilder setX(double xPosition)
@@ -181,15 +232,6 @@ public class ViewObjectBuilder
 		return this;
 	}
 	
-	private ViewObjectBuilder setXAsFraction(double xPercent, ReadOnlyPositionable reference)
-	{
-		FormatValue otherWidth = reference.getWidth();
-		FormatValue farX = new SumValue(otherWidth,reference.getX());
-		FormatValue newWidth = new PercentageValue(xPercent,otherWidth);
-		FormatValue newX = new DifferenceValue(farX, new SumValue(newWidth,viewObject.getWidth()));
-		viewObject.setX(newX);
-		return this;
-	}
 	
 	public ViewObjectBuilder setYAsFractionOfHeight(double yPercent, String viewObjectID)
 	{

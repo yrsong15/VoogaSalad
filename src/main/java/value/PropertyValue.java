@@ -19,9 +19,18 @@ public class PropertyValue implements FormatValue
 		this.trueValue = value;
 	}
 	
+	protected FormatValue getInternalValue()
+	{
+		return trueValue;
+	}
+	
 	@Override
 	public double getValue() 
 	{
+		if(trueValue == null)
+		{
+			return 0;
+		}
 		return trueValue.getValue();
 	}
 	
@@ -29,5 +38,5 @@ public class PropertyValue implements FormatValue
 	{
 		return !(trueValue == null);
 	}
-
+	
 }

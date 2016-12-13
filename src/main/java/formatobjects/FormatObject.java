@@ -20,15 +20,6 @@ public class FormatObject implements ReadOnlyPositionable
 		this.x = new PropertyValue();
 		this.y = new PropertyValue();
 		this.z = 0;
-		setDefaultValues();
-	}
-	
-	private void setDefaultValues()
-	{
-		width.setValue(new ActualValue(0));
-		height.setValue(new ActualValue(0));
-		x.setValue(new ActualValue(0));
-		y.setValue(new ActualValue(0));
 	}
 	
 	@Override
