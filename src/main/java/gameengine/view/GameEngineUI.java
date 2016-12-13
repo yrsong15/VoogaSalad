@@ -11,11 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import frontend.util.FileOpener;
-import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
-import gameengine.controller.interfaces.CommandInterface;
-import gameengine.controller.interfaces.ControlInterface;
-import gameengine.controller.interfaces.GameHandler;
 import gameengine.network.client.ClientMain;
 import gameengine.network.server.UDPHandler;
 import gameengine.view.interfaces.IGameEngineUI;
@@ -35,15 +31,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.ClientGame;
-import objects.Game;
 import objects.GameObject;
-import objects.Level;
 import objects.Player;
-import objects.interfaces.ILevelInfo;
 import utils.ResourceReader;
 import xml.XMLSerializer;
 /**
- * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
+ * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song, Chalena Scholl
  *
  */
 public class GameEngineUI implements UDPHandler, IGameEngineUI{
@@ -53,7 +46,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 	private ResourceBundle myResources;
 	private Scene scene;
-	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
 	private String myLevelFileLocation;
 	private Toolbar toolbar;
@@ -68,7 +60,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private EventHandler<ActionEvent> resetEvent;
 	private Timeline animation;
 	private ClientMain clientMain;
-	private Stage endGameStage;
 	private ClientGame currentGame;
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
@@ -98,7 +89,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		gameScreen.reset();
 		gameScreen.init(currentGame);
 		myHUD.resetTimer();
-		System.out.println(playerMapping.keySet().size());
 		clientPlayerList = playerMapping.get(clientMain.getID());
 		for(Player player : clientPlayerList) {
 			mapKeys(player, player.getControls());

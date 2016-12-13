@@ -61,14 +61,25 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
-        level.addWinCondition("score", "1000");
+        level.addWinCondition("score", "10");
         
         
         Level level2 = new Level(2);
         level2.setScrollType(scrollType);
-        level2.setBackgroundImage("Background/bg.png");
+        level2.setBackgroundImage("Background/bubbles.png");
         level2.addPlayer(shyGuy);
-        level2.setRandomGenerationFrame(frame);
+        
+        RandomGeneration platform = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
+        RandomGeneration platform2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
+        RandomGeneration platform3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
+        ArrayList<RandomGeneration> randomGe = new ArrayList<>();
+        randomGe.add(platforms);
+        randomGe.add(platforms2);
+        randomGe.add(platforms3);
+        RandomGenFrame fram = new RandomGenFrameY(level2, randomGe, true);
+        level2.setRandomGenerationFrame(fram);
+        level2.addGameObject(ground);
+        level2.addWinCondition("score", "10");
         game.addLevel(level2);
         GameObject ground2 = new GameObject(200, 570,700,50,"pipes.png", new HashMap<>());
         
