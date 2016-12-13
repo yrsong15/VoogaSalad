@@ -9,9 +9,9 @@ public class ConditionChecker {
 	public static void checkConditions(RuleActionHandler handler, Map<String, String> winConditions, Map<String, String> loseConditions){
 	    for(Map.Entry<String, String> condition : winConditions.entrySet()){
 			if(condition.getKey().equals("time") && handler.getTime() >= Integer.parseInt(condition.getValue())){
-				handler.winGame();
+				handler.goNextLevel();
 			}else if(condition.getKey().equals("score") && handler.reachedScore(Integer.parseInt(condition.getValue()))){
-				handler.winGame();
+				handler.goNextLevel();
 			}
 		}
 		for(Map.Entry<String, String> condition : loseConditions.entrySet()){
