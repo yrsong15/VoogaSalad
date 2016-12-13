@@ -12,10 +12,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import objects.Level;
 import objects.interfaces.ILevelInfo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Delia on 12/11/2016.
@@ -26,16 +27,20 @@ public abstract class ScoreScreen {
     protected double myAppHeight = 340;
     protected NodeFactory myFactory = new NodeFactory();
     private Scene myScene;
-    private Level myLevel;
+    private ILevelInfo myLevel;
+    private IGameEngineUI myGameEngine;
+    private int myTime;
+    private Map<Long, Integer> myScoreMapping;
     private List<Integer> highScores;
     private BorderPane root;
-    private CommandInterface commandInterface;
 
-    public ScoreScreen(Level level, List<Integer> highScores, IGameEngineUI iGameEngine) {
+    public ScoreScreen(List<Integer> highScores, int time, Map<Long,
+            Integer> scoreMapping, IGameEngineUI iGameEngine) {
         this.highScores = highScores;
-       // this.myLevel = level;
+        this.myTime = time;
+        this.myScoreMapping = scoreMapping;
+        this.myGameEngine = iGameEngine;
         this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-        //this.commandInterface = iGameEngine;
     }
 
     private BorderPane makeRoot() {
@@ -57,21 +62,37 @@ public abstract class ScoreScreen {
             root.getChildren().add(text);
             index++;
         }
-        ButtonTemplate exitTemplate = new ButtonTemplate("Quit", 10, 10);
-        ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
-        Button exit = exitTemplate.getButton();
-        exit.setOnMouseClicked(e -> {
-            commandInterface.stop();
-            //stage.close();
-        });
-        Button replay = replayTemplate.getButton();
-        replay.setOnMouseClicked(e -> commandInterface.reset());
-        root.getChildren().addAll(exit, replay);
+        addButtons();
+//        ButtonTemplate exitTemplate = new ButtonTemplate("Quit", 10, 10);
+//        ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
+//        Button exit = exitTemplate.getButton();
+////        exit.setOnMouseClicked(e -> {
+////            commandInterface.stop();
+////            //stage.close();
+////        });
+//        Button replay = replayTemplate.getButton();
+//        replay.setOnMouseClicked(e -> myGameEngine.pause());
+//        root.getChildren().addAll(exit, replay);
         return root;
     }
 
+    public Scene getScene(){
+        return myScene;
+    }
+
+    public abstract String getStageTitle();
+
+    protected abstract void addButtons();
 
     protected abstract ImageView makeBackground();
+
+    protected IGameEngineUI getMyGameEngine(){
+        return myGameEngine;
+    }
+
+    protected BorderPane getRoot(){
+        return root;
+    }
 //    Scene getScene();
 }
 

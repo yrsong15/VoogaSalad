@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
- *         Moon, Ray Song
+ *         Moon, Ray Song, Delia Li
  */
 public class GameEngineController implements CommandInterface {
 	public static final double FRAMES_PER_SECOND = 60;

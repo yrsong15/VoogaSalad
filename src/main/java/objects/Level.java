@@ -123,7 +123,6 @@ public class Level implements ILevel{
         return loseConditions;
     }
 
-
     public void addPlayer(GameObject player){
         players.add(player);
     }
