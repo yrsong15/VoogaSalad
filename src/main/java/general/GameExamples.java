@@ -43,6 +43,7 @@ public class GameExamples{
         level.addPlayer(shyGuy);
         GameObject ground = new GameObject(0, GameEngineUI.myAppHeight, GameEngineUI.myAppWidth,50,"platform.png", new HashMap<>());
         ground.setProperty("damage", "30");
+        ground.setProperty("nonscrollable", "");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "2000");
         DoodleJumpProperties.put("points", "5");
@@ -76,7 +77,7 @@ public class GameExamples{
         RandomGenFrame fram = new RandomGenFrameY(level2, randomGe, true);
         level2.setRandomGenerationFrame(fram);
         level2.addGameObject(ground);
-        level2.addWinCondition("score", "10");
+        level2.addWinCondition("score", "100");
         game.addLevel(level2);
         GameObject ground2 = new GameObject(200, 570,700,50,"pipes.png", new HashMap<>());
         

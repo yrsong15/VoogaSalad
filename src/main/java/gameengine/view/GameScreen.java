@@ -81,9 +81,6 @@ public class GameScreen {
     
     
     public void update(ClientGame game){
-    	if (currLevel != game.getLevel()){
-    		
-    	}
     	for (Rectangle bar : barList){
     		myScreen.getChildren().remove(bar);
     	}

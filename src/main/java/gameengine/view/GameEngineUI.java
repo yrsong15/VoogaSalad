@@ -111,11 +111,13 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		}
 		else if (currentGame.isGameLost()){
 			makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
+
 		}
 		
-		/**else if(currentGame.isGameWon()){
+		else if(currentGame.isGameWon()){
+			System.out.println("you're amazingggggg pat yourself on the back");
 			
-		}**/
+		}
 		gameScreen.update(currentGame);
 		myHUD.update(currentGame.getScores());
 	}
