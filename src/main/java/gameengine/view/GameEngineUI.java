@@ -360,7 +360,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 
 	
 	public void serverShutdown(){
-		System.out.println("shutdown in UI");
 		clientMain.shutdownServerThread();
 	}
 
