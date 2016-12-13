@@ -27,7 +27,6 @@ public class MainController {
     private static final String GAME_TITLE = "VoogaSalad";
     private Stage gameEngineStage;
     private Gallery gallery;
-    private Level level;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
     public MainController(Stage stage) throws IOException {
@@ -65,66 +64,13 @@ public class MainController {
                 gameEditorController.setOnLoadGame(e -> sendDataToEngine());
         }
 
-    private String testGameEngine(){
-        //FOR TESTING PURPOSES ONLY/
-        Game game = new Game("Dance Dance Revolution Jump");
-        GameObject thirdShyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
-        Player player1 = new Player(thirdShyGuy);
-        game.addPlayer(player1);
-        game.addPlayerToClient(0, player1);
-        thirdShyGuy.setProperty("jumpunlimited", "800");
-        thirdShyGuy.setProperty("gravity", "0.8");
-        thirdShyGuy.setProperty("movespeed", "10");
-        level = new Level(1);
-        level.setTitle(game.getGameName());
-        GameBoundary gameBoundaries = new NoBoundary(700, 675);
-        ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
-        scrollType.setScrollSpeed(10);
-        scrollType.addScrollDirection(Direction.UP);
-        level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/ddrbackground.jpg");
-        game.setCurrentLevel(level);
-        level.addPlayer(thirdShyGuy);
-        //  level.addPlayer(fourthShyGuy);
-        GameObject ground = new GameObject(0, 570,700,50,"platform.png", new HashMap<>());
-        ground.setProperty("nonintersectable", "bottom");
-        //Left down up right <- order of arrows from left to right
-        //UNCOMMENT BELOW FOR DEM SPICY DDR
-        /*
-        HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
-        RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,150,150,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
-        RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,150,150,"ddrdownarrow.png",2, 190 ,190,1234,1234,500,520);
-        RandomGeneration arrow3 = new RandomGeneration(DDRArrowProperties,150,150,"ddruparrow.png",2, 360,360,1234,1234,300,600);
-        RandomGeneration arrow4 = new RandomGeneration(DDRArrowProperties,150,150,"ddrrightarrow.png",2, 530,530,1234,1234,540,1000);
-        ArrayList<RandomGeneration> asdf = new ArrayList<RandomGeneration>();
-        asdf.add(arrow1);asdf.add(arrow2);asdf.add(arrow3);asdf.add(arrow4);
-        RandomGenFrame frame = new RandomGenFrameY(level,asdf,false);
-        level.setRandomGenerationFrame(frame);
-        */
-        //UNCOMMENT BELOW FOR DEM SPICY DOODLE JUMPZ
-        HashMap<String,String> DoodleJumpProperties = new HashMap<>();
-        DoodleJumpProperties.put("bounce", "1000");
-        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 3, 0,200,1234,1234,400,500);
-        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 3, 200,500,1234,1234,400,500);
-        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 3, 500,550,1234,1234,400,500);
-        ArrayList<RandomGeneration> asdf = new ArrayList<RandomGeneration>();
-        asdf.add(platforms);
-        asdf.add(platforms2);
-        asdf.add(platforms3);
-        RandomGenFrame frame = new RandomGenFrameY(level,asdf,true);
-        level.setRandomGenerationFrame(frame);
-        level.addGameObject(ground);
-        XMLSerializer testSerializer = new XMLSerializer();
-        String xml = testSerializer.serializeGame(game);
-        return xml;
-    }
-
-    private void setUpGameEngineStage(){
+    private void setUpGameEngineStage(Level level){
         gameEngineStage = new Stage();
         GameCoverSplash myCover = new GameCoverSplash(level, this);
         gameEngineStage.setScene(myCover.createSplashScene());
         gameEngineStage.setTitle(myCover.getTitle());
         gameEngineStage.show();
+        //startPlaying();
     }
 
     public void startPlaying(){
@@ -141,13 +87,13 @@ public class MainController {
         }
 
         public void launchEngine(String XMLData) {
-                 XMLData = testGameEngine();
+        GameExamples gameExamples = new GameExamples();
+        XMLData = gameExamples.getDoodleJumpXML();
                 boolean multiplayer = true;
                 boolean isServer = false;
-                // if (gameEngineController.startGame(XMLData) == true && (!multiplayer
-                // || (multiplayer && !isServer))) {
-                if (gameEngineController.startGame(XMLData) == true) {
-                        setUpGameEngineStage();
+        Level level = gameEngineController.startGame(XMLData);
+                if (level != null) {
+                        setUpGameEngineStage(level);
                 }
         }
 

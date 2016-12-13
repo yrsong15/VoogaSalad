@@ -31,6 +31,7 @@ public class GameEditorData implements IGameEditorData{
     private ArrayList<Map<String,String>> myMainCharImageViewMaps= new ArrayList<Map<String,String>>();
     private Map<String,ProjectileProperties> myProjectileObjects = new HashMap<String,ProjectileProperties>();
     private Map<String,Map<KeyCode,String>> myPlayerControlsMap = new HashMap<String,Map<KeyCode,String>>();
+    
 
     private ILevel myLevel;
     private IGame myGame;
@@ -117,45 +118,53 @@ public class GameEditorData implements IGameEditorData{
         myImageViewObjectMap.add(viewMap);
     }
 
-    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, ComboBox<String> isEnemyAllowed){
-        Map<String,String> properties=  getType(type);
-        Map<String,String> propertiesMap = getPropertiesMap(properties);
-        //addRandomGeneration(propertiesMap, myRandomGenerationParameters);
-        //mySpriteTypes.remove(properties);
-    }
-
-
     public void addProjectileProperties(String typeName, ProjectileProperties properties){
         myProjectileObjects.put(typeName, properties);
     }
+    
+    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, ComboBox<String> isEnemyAllowed){
+        Map<String,String> properties=  getType(type);
+        String isenemyallowed = isEnemyAllowed.getValue();
+       
+        Map<String,String> propertiesMap = getPropertiesMap(properties);
+        
+        propertiesMap.put("isenemyallowed", "true");
+        //addRandomGeneration(propertiesMap, myRandomGenerationParameters);
+        //mySpriteTypes.remove(properties);
+  
+       
+            double width = Double.valueOf(properties.get(WIDTH_KEY));
+            double height = Double.valueOf(properties.get(HEIGHT_KEY));
+            String imagePath = properties.get(IMAGE_PATH_KEY);
+            
+            String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
+            Integer num = Integer.parseInt(myRandomGenerationParameters.get(0).getText());
+            if(num==0){num=5;}
+            Integer xMin = Integer.parseInt(myRandomGenerationParameters.get(1).getText());
+            if(xMin==0){xMin=(int) (GameScreen.screenWidth/5);}
+            Integer xMax = Integer.parseInt(myRandomGenerationParameters.get(2).getText());
+            if(xMax==0){xMax=(int) GameScreen.screenWidth;}
+            Integer yMin = Integer.parseInt(myRandomGenerationParameters.get(3).getText());
+            if(yMin==0){yMin=((int) (GameScreen.screenHeight*0.2));}
+            Integer yMax = Integer.parseInt(myRandomGenerationParameters.get(4).getText());
+            if(yMax==0){yMax=(int) (GameScreen.screenHeight*0.6);}
+            Integer minSpacing = Integer.parseInt(myRandomGenerationParameters.get(5).getText());
+            if(minSpacing==0){minSpacing=250;}
+            Integer maxSpacing = Integer.parseInt(myRandomGenerationParameters.get(6).getText());
+            if(maxSpacing==0){maxSpacing=500;}
+
+            // Need width and height of the game objects
+            // Image URL (bird.png)
+            // 
+
+            //RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
+
+            //myLevel.addRandomGeneration(randomGeneration);
+        //}
+    }
 
 
-//    private void addRandomGeneration(Map<String,String> properties, List<TextArea>myRandomGenParameters){
-//        Integer num = Integer.parseInt(myRandomGenParameters.get(0).getText());
-//        if(num==0){num=5;}
-//        Integer xMin = Integer.parseInt(myRandomGenParameters.get(1).getText());
-//        if(xMin==0){xMin=(int) (GameScreen.screenWidth/5);}
-//        Integer xMax = Integer.parseInt(myRandomGenParameters.get(2).getText());
-//        if(xMax==0){xMax=(int) GameScreen.screenWidth;}
-//        Integer yMin = Integer.parseInt(myRandomGenParameters.get(3).getText());
-//        if(yMin==0){yMin=((int) (GameScreen.screenHeight*0.2));}
-//        Integer yMax = Integer.parseInt(myRandomGenParameters.get(4).getText());
-//        if(yMax==0){yMax=(int) (GameScreen.screenHeight*0.6);}
-//        Integer minSpacing = Integer.parseInt(myRandomGenParameters.get(5).getText());
-//        if(minSpacing==0){minSpacing=250;}
-//        Integer maxSpacing = Integer.parseInt(myRandomGenParameters.get(6).getText());
-//        if(maxSpacing==0){maxSpacing=500;}
-
-        // Need width and height of the game objects
-        // Image URL (bird.png)
-        // 
-
-        //RandomGeneration randomGeneration = new RandomGeneration(properties,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
-
-        //myLevel.addRandomGeneration(randomGeneration);
-    //}
-
-
+   
     
 
 

@@ -1,0 +1,71 @@
+<objects.Game>
+  <name>Dance Dance Revolution Jump</name>
+  <levels/>
+  <currentLevel>
+    <level>1</level>
+    <projectiles/>
+    <gameObjects/>
+    <obstacles/>
+    <winConditions/>
+    <loseConditions/>
+    <gameConditions/>
+    <backgroundFilePath>Background/ddrbackground.jpg</backgroundFilePath>
+    <title>Dance Dance Revolution Jump</title>
+    <players>
+      <objects.GameObject>
+        <xPosition>400.0</xPosition>
+        <yPosition>500.0</yPosition>
+        <width>100.0</width>
+        <height>100.0</height>
+        <imageFileName>shyguy.png</imageFileName>
+        <properties>
+          <entry>
+            <string>movespeed</string>
+            <string>10</string>
+          </entry>
+          <entry>
+            <string>gravity</string>
+            <string>0.8</string>
+          </entry>
+          <entry>
+            <string>jumpunlimited</string>
+            <string>800</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>400.0</xDistanceMoved>
+        <yDistanceMoved>500.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>true</isPlayer>
+        <id>0</id>
+      </objects.GameObject>
+    </players>
+    <scrollType>
+      <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+      <myScrollDirectionList>
+        <com.sun.javafx.scene.traversal.Direction>UP</com.sun.javafx.scene.traversal.Direction>
+      </myScrollDirectionList>
+      <scrollSpeed>10.0</scrollSpeed>
+      <gameBoundaries class="gameengine.model.boundary.NoBoundary">
+        <viewWidth>700.0</viewWidth>
+        <viewHeight>675.0</viewHeight>
+        <worldWidth>1.7976931348623157E308</worldWidth>
+        <worldHeight>1.7976931348623157E308</worldHeight>
+      </gameBoundaries>
+    </scrollType>
+  </currentLevel>
+  <players>
+    <objects.Player>
+      <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
+      <controls/>
+    </objects.Player>
+  </players>
+  <clientMappings>
+    <entry>
+      <long>0</long>
+      <list>
+        <objects.Player reference="../../../../players/objects.Player"/>
+      </list>
+    </entry>
+  </clientMappings>
+  <minNumPlayers>1</minNumPlayers>
+</objects.Game>
