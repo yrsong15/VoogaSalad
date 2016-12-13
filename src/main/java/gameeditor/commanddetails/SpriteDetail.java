@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import frontend.util.GameEditorException;
 import gameeditor.controller.interfaces.IGameEditorData;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -90,8 +92,11 @@ public class SpriteDetail {
             nonInterSectableCombo = myDetailFrontEndUtil.createComboBox(PLATFORM_NON_INTERSECTABLE_OPTIONS, defaultVal);
             String label = DetailResources.NON_INTERSECTABLE_SIDES_LABEL.getResource();
             myNonIntersectableOptionBP = myDetailFrontEndUtil.createBorderpane( nonInterSectableCombo,myDetailFrontEndUtil.createPropertyLbl(label));
+            ArrayList<Node> currentList = new ArrayList<Node>(myVBox.getChildren());
             int index = myVBox.getChildren().indexOf(myIntersectableBP);
-            myVBox.getChildren().add(index+1, myNonIntersectableOptionBP);         
+            currentList.add(index+1, myNonIntersectableOptionBP);
+            myVBox.getChildren().clear();         
+            myVBox.getChildren().addAll(currentList);
                   
         } else if((combo.getValue().equals("True"))){
             if(myVBox.getChildren().contains(myNonIntersectableOptionBP)){
