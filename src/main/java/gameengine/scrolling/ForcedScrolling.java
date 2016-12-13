@@ -3,6 +3,7 @@ package gameengine.scrolling;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.sun.javafx.scene.traversal.Direction;
@@ -51,12 +52,13 @@ public class ForcedScrolling implements Scrolling{
 			throws ScrollDirectionNotFoundException {
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
-		scrollObjects.remove(mainChar);
-		for (GameObject obj: scrollObjects){
-			if (obj.getProperty("nonScrollable") != null){
+
+		for (GameObject obj: gameObjects){
+			if (obj.getProperty("nonscrollable") != null){
 				scrollObjects.remove(obj);
 			}
 		}
+		scrollObjects.remove(mainChar);
 		Object[] parameters = new Object[]{scrollObjects, scrollingSpeed};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {
