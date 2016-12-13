@@ -13,9 +13,10 @@ public class ApplyOneSideNonIntersectableRule extends ApplyNonIntersectableRule{
 		IntersectionAmount intersectionAmountY = SingletonBoundaryChecker.getInstance().getVerticalIntersectionAmount(mainChar, obj);
 		
 		//Difficult to read but basically saying, apply blockage if you're trying to hit from top or bottom depending on status of platform/passability of platform
-		if((((intersectionAmountY == IntersectionAmount.COMPLETELY_INSIDE_Y) || (intersectionAmountY == IntersectionAmount.PARTIALLY_ABOVE)) && passableTop)
-			|| (((intersectionAmountY == IntersectionAmount.COMPLETELY_INSIDE_Y) || (intersectionAmountY == IntersectionAmount.PARTIALLY_BELOW)) && passableBottom))
+		if((((intersectionAmountY == IntersectionAmount.PARTIALLY_ABOVE)) && passableTop)
+			|| (((intersectionAmountY == IntersectionAmount.PARTIALLY_BELOW)) && passableBottom))
 		{
+			this.isOneSided = true;
 			applyPlatformCollision(handler,mainChar,obj);
 		}
 

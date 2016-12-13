@@ -52,11 +52,17 @@ public class GameExamples{
         level.addGameObject(ground);
         ground.setProperty("nonintersectable", "");
         
+        
+        GameObject onewaypassabletestplatform = new GameObject(50, 450, 100, 50, "platform.png", new HashMap<>());
+        level.addGameObject(onewaypassabletestplatform);
+        onewaypassabletestplatform.setProperty("onewaynonintersectable", "top");
+        
+        
         GameObject pipe = new GameObject(400, 475, 50, 125, "pipes.png", new HashMap<>());
         level.addGameObject(pipe);
         pipe.setProperty("nonintersectable", "");
         
-        GameObject block = new GameObject(200, 400, 50, 50, "block.png", new HashMap<>());
+        GameObject block = new GameObject(250, 400, 50, 50, "block.png", new HashMap<>());
         level.addGameObject(block);
         block.setProperty("nonintersectable", "");
         
