@@ -33,6 +33,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import objects.ClientGame;
 import objects.Game;
@@ -74,6 +75,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private List<Player> clientPlayerList;
 	private boolean isPaused,isMuted;
 	private int currLevel;
+	private Stage gameEngineStage;
 
 	public GameEngineUI(XMLSerializer mySerializer, 
 			EventHandler<ActionEvent> resetEvent, String serverName) {
@@ -85,6 +87,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 //		controlInterface = new ClientMain(serverName, 9090, -1, this);
 		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.mySerializer = mySerializer;
+		setupServerShutdown();
 		setUpMethodMappings();
 	}
 
@@ -350,4 +353,19 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		myLevelStage.setScene(myLevelScreen.getScene());
 		myLevelStage.show();
 	}
+	
+	public void setGameEngineStage(Stage gameEngineStage){
+		this.gameEngineStage = gameEngineStage;
+	}
+	
+	public void setupServerShutdown(){
+		if(gameEngineStage != null){
+			gameEngineStage.setOnCloseRequest(e->serverShutdown());	
+		}
+	}
+	
+	private void serverShutdown(){
+		System.out.println("Server Shutdown initiated!");
+	}
+
 }
