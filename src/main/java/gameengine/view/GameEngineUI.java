@@ -18,6 +18,7 @@ import gameengine.controller.interfaces.ControlInterface;
 import gameengine.controller.interfaces.GameHandler;
 import gameengine.network.client.ClientMain;
 import gameengine.network.server.UDPHandler;
+import gameengine.view.interfaces.IGameEngineUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -37,13 +38,14 @@ import objects.Game;
 import objects.GameObject;
 import objects.Level;
 import objects.Player;
+import objects.interfaces.ILevelInfo;
 import utils.ResourceReader;
 import xml.XMLSerializer;
 /**
  * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
  *
  */
-public class GameEngineUI implements UDPHandler{
+public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	public static final double myAppWidth = 700;
 	public static final double myAppHeight = 775;
 	public static final String RESOURCE_FILENAME = "GameEngineUI";
@@ -73,7 +75,6 @@ public class GameEngineUI implements UDPHandler{
 
 	public GameEngineUI(XMLSerializer mySerializer, 
 			EventHandler<ActionEvent> resetEvent, String serverName) {
-		System.out.println("game engine ui instnatiated");
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
@@ -254,8 +255,7 @@ public class GameEngineUI implements UDPHandler{
 		File levelFile = levelChooser.showOpenDialog(new Stage());
 		myLevelFileLocation = levelFile.getAbsolutePath();
 	}
-	private void pause() {
-		System.out.println("pause button pressed in UI");
+	public void pause() {
 		if (isPaused) {
 			toolbar.resume();
 			animation.play();
@@ -299,5 +299,9 @@ public class GameEngineUI implements UDPHandler{
 			if(clientPlayerList.get(i).getMainChar()==player) return i;
 		}
 		return -1;
+	}
+	
+	public void makeLevelScreen(Level level, List<Integer> highScores, IGameEngineUI IGameEngine){
+		LevelScreen levelUp = new LevelScreen(level, highScores, IGameEngine);
 	}
 }

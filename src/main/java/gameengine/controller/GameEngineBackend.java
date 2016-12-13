@@ -2,9 +2,7 @@ package gameengine.controller;
 
 import java.lang.reflect.Method;
 import java.util.*;
-
 import com.sun.javafx.scene.traversal.Direction;
-
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.GameHandler;
 import gameengine.controller.interfaces.RGInterface;
@@ -35,6 +33,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public GameEngineBackend(CommandInterface commandInterface, String serverName) {
 		this.commandInterface = commandInterface;
 		this.serverName = serverName;
+		this.commandInterface = commandInterface;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
 		highScores = new ArrayList<>();
@@ -88,7 +87,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
             randomlyGenerateFrames();
         }
         if(toolbarHBox != null){
-//			System.out.println("sadfasdfsadf");
 			toolbarHBox.toFront();
 		}
 		
@@ -156,6 +154,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
     }
 
     public void goNextLevel() {
+    	System.out.println(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null);
+    	
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
 		} else {
@@ -251,6 +251,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		Level currLevel = game.getCurrentLevel();
 		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath(), highScores);
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
+		clientGame.addScores(game.getScoreMapping());
+		clientGame.setLevel(currLevel.getLevel());
 		if (currLevel.getBackground()!=null){
 			clientGame.setBackgroundObject(currLevel.getBackground());
 		}

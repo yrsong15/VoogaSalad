@@ -83,7 +83,6 @@ public class GameEngineController implements CommandInterface {
 	}
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-		System.out.println("client");
 		gameEngineView = new GameEngineUI(serializer, event -> reset(), serverName);
 		toolbarHBox = gameEngineView.getToolbar();
 		while (!gameEngineView.gameLoadedFromServer()) {
@@ -117,7 +116,7 @@ public class GameEngineController implements CommandInterface {
 		gameEngineView.endGame();
 	}
 
-	public Level getLevel() {
-		return currentGame.getCurrentLevel();
+	public Level getLevel() { 
+		return currentGame.getCurrentLevel(); 
 	}
 }

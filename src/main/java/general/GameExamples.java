@@ -60,6 +60,17 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
+        
+        
+        Level level2 = new Level(2);
+        level2.setScrollType(scrollType);
+        level2.setBackgroundImage("Background/bg.png");
+        level2.addPlayer(shyGuy);
+        level2.setRandomGenerationFrame(frame);
+        game.addLevel(level2);
+        GameObject ground2 = new GameObject(200, 570,700,50,"pipes.png", new HashMap<>());
+        
+        
         ProjectileProperties projectileProperties = new ProjectileProperties("doodler.png", 30, 30, Direction.UP, 400, 500, 30, 3);
         shyGuy.setProjectileProperties(projectileProperties);
         XMLSerializer testSerializer = new XMLSerializer();

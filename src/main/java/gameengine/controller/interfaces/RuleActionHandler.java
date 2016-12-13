@@ -13,6 +13,7 @@ public interface RuleActionHandler {
 	public void resetObjectPosition(GameObject mainChar, GameObject obj);
 	public void removeFromCollidedList(GameObject obj);
 	public void winGame();
+	public void goNextLevel();
 	public boolean reachedScore(int score);
 	public int getTime();
 	public long getPlayerID(GameObject object);
