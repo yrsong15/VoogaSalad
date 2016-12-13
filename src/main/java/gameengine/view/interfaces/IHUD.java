@@ -1,6 +1,7 @@
 package gameengine.view.interfaces;
 
 import javafx.scene.layout.HBox;
+import objects.Game;
 import objects.Level;
 
 /**
@@ -10,7 +11,7 @@ public interface IHUD {
 
     HBox getHUD();
 
-    void update(Level level);
+    void update(Game game);
 
     void resetTimer();
 }

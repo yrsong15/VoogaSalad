@@ -107,4 +107,14 @@ public class ClientMain{
 	public void pause(){
 		connections.sendPauseCommand();
 	}
+	
+	public void restart(){
+		connections.sendRestartCommand();
+	}
+	
+	public void shutdownServerThread(){
+		if(ID == 0){
+			connections.sendShutdownCommand();
+		}
+	}
 }

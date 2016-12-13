@@ -8,8 +8,6 @@ import objects.GameObject;
 public class ApplyScoreRule implements CollisionRule{
 
     public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
-            handler.modifyScore(Integer.parseInt(obj.getProperty("points")));
-            GameExamples.score += Integer.parseInt(obj.getProperty("points"));
-            System.out.println("score: " + GameExamples.score);
+            handler.modifyScore(handler.getPlayerID(mainChar), Integer.parseInt(obj.getProperty("points")));
     }
 }
