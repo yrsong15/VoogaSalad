@@ -62,8 +62,9 @@ public class GameExamples{
         
 		GameObject enemy = new GameObject(225, 525, 50, 75, "hawaiiBird.png", new HashMap<>());
 		enemy.setProperty("enemy", "30");
-		enemy.setProperty("horizontalmovement", "10");
-		enemy.setProperty("bounceBack", "");
+		enemy.setProperty("bounceSpeed", "-1");
+		enemy.setProperty("bounceBack", "100");
+		enemy.setProperty("bounceTracker", "0");
 		level.addGameObject(enemy);
 		
         

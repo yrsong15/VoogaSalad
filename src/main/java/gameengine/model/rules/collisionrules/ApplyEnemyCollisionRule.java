@@ -9,7 +9,8 @@ public class ApplyEnemyCollisionRule{
 	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
 		if(mainChar.getYPosition() + mainChar.getHeight() - GameEngineController.FRAMES_PER_SECOND/3 < obj.getYPosition()){
 			mainChar.killSpeed();
-			//handler.removeObject(obj);
+			handler.removeObject(obj);
+			return;
 		}
 		takeDamage(handler,mainChar,obj);
     }
