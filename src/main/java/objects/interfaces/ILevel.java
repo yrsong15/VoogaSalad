@@ -5,6 +5,7 @@ import objects.RandomGeneration;
 import objects.ScrollType;
 import objects.interfaces.ILevel;
 import java.util.*;
+import gameengine.model.RandomGenFrame;
 public interface ILevel {
     public void setScrollType(ScrollType scrollType);
 
@@ -31,14 +32,27 @@ public interface ILevel {
 
     public List<GameObject> getGameObjects();
 
-    
+    // public void setControl(KeyCode key, String action);
+
+    // public Map<KeyCode, String> getControls();
+
     public void setBackgroundImage(String filePath);
 
     public void setBackgroundMusic(String musicFilePath);
-    
+
+    //public void addRandomGeneration (RandomGeneration randomGeneration);
+    public RandomGenFrame getRandomGenerationFrame();
+
+    public ArrayList<RandomGeneration<Integer>> getRandomGenRules();
+
+
+    public void setRandomGenerationFrame(RandomGenFrame<Integer> randomGen);
+
+
+
     public String getMusicFilePath();
     public String getBackgroundFilePath();
-    
+
     public ScrollType getScrollType();
 
 }

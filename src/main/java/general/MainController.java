@@ -62,7 +62,6 @@ public class MainController {
 
 
         public void presentEditor2(Game game, String gameType) {
-                System.out.println("hi");
                 gameEditorController = new GameEditorController(gameType);
                 gameEditorController.startEditor(game);
                 gameEditorController.setOnLoadGame(e -> sendDataToEngine());
@@ -90,18 +89,18 @@ public class MainController {
                 launchEngine(gameFile);
         }
 
-	public void launchEngine(String XMLData) {
+        public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
         //Uncomment either one to get that game for testing
 //        XMLData = gameExamples.getDoodleJumpXML();
         XMLData = gameExamples.getDanceDanceRevolution();
-		boolean multiplayer = true;
-		boolean isServer = false;
+                boolean multiplayer = true;
+                boolean isServer = false;
         Level level = gameEngineController.startGame(XMLData);
-		if (level != null) {
-			setUpGameEngineStage(level);
-		}
-	}
+                if (level != null) {
+                        setUpGameEngineStage(level);
+                }
+        }
 
     public void editGame() {
         FileOpener chooser = new FileOpener();

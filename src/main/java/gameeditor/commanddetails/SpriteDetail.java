@@ -42,7 +42,7 @@ public class SpriteDetail {
     public VBox getTabContent(){
         myVBox = new VBox();
         myVBox.setSpacing(IAbstractCommandDetail.MY_DETAIL_PADDING);
-        myVBox.setAlignment(Pos.BASELINE_CENTER);
+        myVBox.setAlignment(Pos.BOTTOM_CENTER);
         myTypeTextArea=myDetailFrontEndUtil.createTypeName();
         myVBox.getChildren().add(myTypeTextArea);
         createProperties();
@@ -69,12 +69,12 @@ public class SpriteDetail {
             myVBox.getChildren().add(bp);
         }
     
-        String[] options = DetailResources.JUMP_OPTIONS.getArrayResource();
-        jumpCombo = myDetailFrontEndUtil.createComboBox(options, options[0]);
-        jumpCombo.setMaxWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
-        jumpCombo.setMinWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
-        BorderPane bp = myDetailFrontEndUtil.createBorderpane(jumpCombo,myDetailFrontEndUtil.createPropertyLbl("Jump Type"));
-        myVBox.getChildren().add(bp);
+//        String[] options = DetailResources.JUMP_OPTIONS.getArrayResource();
+//        jumpCombo = myDetailFrontEndUtil.createComboBox(options, options[0]);
+//        jumpCombo.setMaxWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
+//        jumpCombo.setMinWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
+//        BorderPane bp = myDetailFrontEndUtil.createBorderpane(jumpCombo,myDetailFrontEndUtil.createPropertyLbl("Jump Type"));
+//        myVBox.getChildren().add(bp);
     }
 
     private void createSave(EventHandler<MouseEvent> handler){
@@ -114,11 +114,13 @@ public class SpriteDetail {
             counter++;
         }
         
-        if(jumpCombo.getValue()!=null){
-            String value = jumpCombo.getValue().toLowerCase();
-            value = value.replaceAll("\\s+","");
-            propertiesMap.put(value,"true");
-        }
+//        if(jumpCombo.getValue()!=null){
+//            String value = jumpCombo.getValue().toLowerCase();
+//            value = value.replaceAll("\\s+","");
+//            String jumpvalue = myTextFields.get(myTextFields.size()).getText();
+//            myTextFields.remove(myTextFields.size()-1);
+//            propertiesMap.put(value,jumpvalue);
+//        }
     }
 
     private void getPropertiesFromTextArea(Map<String,String> propertiesMap){

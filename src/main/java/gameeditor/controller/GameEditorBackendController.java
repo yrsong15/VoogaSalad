@@ -31,7 +31,7 @@ implements IGameEditorBackEndController, ICreateGame{
     public Game getGame() {
         return myGame;
     }
-
+      
     @Override
     public void createGame(String title) {
         Game game = new Game(title);

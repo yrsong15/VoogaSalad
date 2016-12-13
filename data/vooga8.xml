@@ -14,7 +14,7 @@
         <properties>
           <entry>
             <string>Type Name</string>
-            <string>MainCharacter0</string>
+            <string>Main Character0</string>
           </entry>
         </properties>
         <xDistanceMoved>100.0</xDistanceMoved>

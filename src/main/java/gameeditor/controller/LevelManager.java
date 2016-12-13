@@ -32,5 +32,9 @@ public class LevelManager implements  ICreateLevel{
         this.myLevel = level; 
     }
     
+    public void setLeveltitle(String title){
+        myLevel.setTitle(title);
+    }
+    
     
 }

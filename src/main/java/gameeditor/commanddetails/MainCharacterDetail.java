@@ -8,6 +8,7 @@ import java.util.Map;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
@@ -25,6 +26,7 @@ public class MainCharacterDetail extends AbstractSelectDetail {
 
     private  String imageViewString;
     private Map<String,String> myMainCharMap;
+    private ComboBox<String> jumpCombo;
 
     public MainCharacterDetail() {
         super();
@@ -69,7 +71,14 @@ public class MainCharacterDetail extends AbstractSelectDetail {
                     myMainCharMap.put(label.toLowerCase(), myTextInputs.get(i).getText()); 
                 }
                 i++;
-            } 
+            }
+            
+            if(jumpCombo.getValue()!=null){
+                String value = jumpCombo.getValue().toLowerCase();
+                value = value.replaceAll("\\s+","");
+                myMainCharMap.put(value, myMainCharMap.get("jump"));
+                myMainCharMap.remove("jump");
+            }
 
         } else {
 
@@ -91,9 +100,21 @@ public class MainCharacterDetail extends AbstractSelectDetail {
               myVBox.getChildren().add(addOptions(label,myMainCharMap.get(label.toLowerCase())));
           }else{
             myVBox.getChildren().add(addOptions(label,DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource()));
-        }});            
+        }}); 
+        
+         addjumpTypeCombo();
+        
     }
 
+    private void addjumpTypeCombo(){
+        String[] options = DetailResources.JUMP_OPTIONS.getArrayResource();
+        jumpCombo = myDetailFrontEndUtil.createComboBox(options, options[0]);
+        jumpCombo.setMaxWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
+        jumpCombo.setMinWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(jumpCombo,myDetailFrontEndUtil.createPropertyLbl("Jump Type"));
+        myVBox.getChildren().add(bp);
+    }
+    
     private BorderPane addOptions(String label, String value){
         BorderPane bp = new BorderPane();
         bp.setMinWidth(PADDED_PANE_WIDTH);
