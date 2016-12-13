@@ -8,7 +8,7 @@ import gameengine.controller.SingletonBoundaryChecker;
 import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 /**
  *
- * @author Ray Song, Soravit
+ * @author Ray Song, Soravit, Pratiksha
  *
  */
 public class GameObject {
@@ -166,7 +166,7 @@ public class GameObject {
     }
 
 
-    public List getProjectiles(){
+    public List<GameObject> getProjectiles(){
         return projectiles;
     }
 

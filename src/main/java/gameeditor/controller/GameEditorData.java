@@ -33,6 +33,7 @@ public class GameEditorData implements IGameEditorData{
     private ArrayList<Map<String,String>> myMainCharImageViewMaps;
     private Map<String,ProjectileProperties> myProjectileObjects ;
     private Map<String,Map<KeyCode,String>> myPlayerControlsMap;
+    @SuppressWarnings("rawtypes")
     private Map<String,RandomGeneration> myTypeRandomGenerationMap;
     private List<String> spriteToRemove ;
 
@@ -44,6 +45,7 @@ public class GameEditorData implements IGameEditorData{
 
 
 
+    @SuppressWarnings("rawtypes")
     public GameEditorData(ILevel level, IGame myGameInterface){
         myLevel = level;
         myGame = myGameInterface;
@@ -174,11 +176,13 @@ public class GameEditorData implements IGameEditorData{
         // Image URL (bird.png)
         // 
 
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         RandomGeneration randomGeneration = new RandomGeneration((HashMap) properties,width,height,file,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
         myTypeRandomGenerationMap.put(DetailResources.TYPE_NAME.getResource(), randomGeneration);
 
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void addRandomGenerationFrame(){
         if(!myTypeRandomGenerationMap.isEmpty()){
             ArrayList<RandomGeneration> list = new ArrayList<RandomGeneration>();

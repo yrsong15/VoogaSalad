@@ -2,9 +2,6 @@ package gameeditor.commanddetails;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 /**
  * @author John Martin
+ * Modified by Pratiksha sharma
  *
  */
 abstract public class AbstractSelectDetail extends AbstractCommandDetail implements ISelectDetail {

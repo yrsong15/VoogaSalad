@@ -27,7 +27,6 @@
     <obstacles/>
     <winConditions/>
     <loseConditions/>
-    <gameConditions/>
     <backgroundFilePath>Background/bg.png</backgroundFilePath>
     <randomGenerationFrame class="gameengine.model.RandomGenFrameY">
       <level reference="../.."/>

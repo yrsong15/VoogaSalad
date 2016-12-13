@@ -16,7 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import objects.ScrollType;
 /**
- * @author John Martin
+ * @ author Pratiksha Sharma
  *
  */
 public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail{
@@ -68,15 +68,15 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void addScrollSpeed(){
-        scrollSpeedTextBox = myDetailFrontEndUtil.createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_SCROLL_SPEED.getDoubleResource()));
+        scrollSpeedTextBox = myDetailFrontEndUtil.createInputField(DetailDefaultsResources.DEFAULT_SCROLL_SPEED.getResource());
         BorderPane scrollSpeed = myDetailFrontEndUtil.createBorderpane(scrollSpeedTextBox,myDetailFrontEndUtil.createPropertyLbl(SCROLL_SPEED_LABEL));
         myVBox.getChildren().add(scrollSpeed);
     }
 
     private void createWinConditions(){
-        myTimeWin = myDetailFrontEndUtil.createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_TIME_VALUE.getDoubleResource()));
+        myTimeWin = myDetailFrontEndUtil.createInputField(DetailDefaultsResources.DEFAULT_TIME_VALUE.getResource());
         myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myTimeWin,myDetailFrontEndUtil.createPropertyLbl(TIME_PROPERTY_LABEL)));
-        myPointsWin = myDetailFrontEndUtil.createInputField(String.valueOf(DetailDefaultsResources.DEFAULT_POINTS_VALUE.getDoubleResource())); 
+        myPointsWin = myDetailFrontEndUtil.createInputField(DetailDefaultsResources.DEFAULT_POINTS_VALUE.getResource()); 
         myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myPointsWin,myDetailFrontEndUtil.createPropertyLbl(POINTS_PROPERTY_LABEL)));
     }
 

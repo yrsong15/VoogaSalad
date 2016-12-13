@@ -13,7 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;          
 import javafx.scene.layout.VBox;
 /**
- * @author John Martin
+ * @author John Martin, Pratiksha Sharma
+ * 
  *
  */
 public class SpriteDetail {
@@ -29,7 +30,7 @@ public class SpriteDetail {
     private String[] SPRITE_DEFAULT_COMBO_PROPERTIES = DetailDefaultsResources.SPRITE_DEFAULT_COMBO_PROPERTIES.getArrayResource();
     private ArrayList<TextArea> myTextFields = new ArrayList<TextArea>();
     private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
-    private ComboBox<String> jumpCombo = new ComboBox<String>();
+
 
 
 
@@ -68,13 +69,7 @@ public class SpriteDetail {
             BorderPane bp = myDetailFrontEndUtil.createBorderpane(text,myDetailFrontEndUtil.createPropertyLbl(label));
             myVBox.getChildren().add(bp);
         }
-    
-//        String[] options = DetailResources.JUMP_OPTIONS.getArrayResource();
-//        jumpCombo = myDetailFrontEndUtil.createComboBox(options, options[0]);
-//        jumpCombo.setMaxWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
-//        jumpCombo.setMinWidth(IAbstractCommandDetail.CB_WIDTH*1.3);
-//        BorderPane bp = myDetailFrontEndUtil.createBorderpane(jumpCombo,myDetailFrontEndUtil.createPropertyLbl("Jump Type"));
-//        myVBox.getChildren().add(bp);
+
     }
 
     private void createSave(EventHandler<MouseEvent> handler){
@@ -113,14 +108,6 @@ public class SpriteDetail {
             }
             counter++;
         }
-        
-//        if(jumpCombo.getValue()!=null){
-//            String value = jumpCombo.getValue().toLowerCase();
-//            value = value.replaceAll("\\s+","");
-//            String jumpvalue = myTextFields.get(myTextFields.size()).getText();
-//            myTextFields.remove(myTextFields.size()-1);
-//            propertiesMap.put(value,jumpvalue);
-//        }
     }
 
     private void getPropertiesFromTextArea(Map<String,String> propertiesMap){

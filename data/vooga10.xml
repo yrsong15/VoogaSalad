@@ -55,10 +55,9 @@
     <loseConditions>
       <entry>
         <string>time</string>
-        <string>400.0</string>
+        <string>400</string>
       </entry>
     </loseConditions>
-    <gameConditions/>
     <musicFilePath>PacMan%20Original%20Theme.mp3</musicFilePath>
     <backgroundFilePath>Background/bg.png</backgroundFilePath>
     <randomGenerationFrame class="gameengine.model.RandomGenFrameX">

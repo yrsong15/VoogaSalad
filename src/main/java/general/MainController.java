@@ -2,29 +2,19 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
-import com.sun.javafx.scene.traversal.Direction;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
-import gameengine.model.RandomGenFrame;
-import gameengine.model.RandomGenFrameY;
-import gameengine.model.boundary.GameBoundary;
-import gameengine.model.boundary.NoBoundary;
-import gameengine.model.boundary.ToroidalBoundary;
-import gameengine.network.server.ServerMain;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import objects.*;
-import xml.XMLSerializer;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 
 /**
- * @author Delia Li
+ * @author Delia Li, Pratiksha
  */
 
 public class MainController {
@@ -107,8 +97,9 @@ public class MainController {
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
         XMLData = gameExamples.getMultiplayerDDR();
-        //XMLData = gameExamples.getMultiplayerDDR();
+        @SuppressWarnings("unused")
         boolean multiplayer = true;
+        @SuppressWarnings("unused")
         boolean isServer = false;
                 Game game = gameEngineController.createGameFromXML(XMLData);
         Level level = game.getCurrentLevel();
