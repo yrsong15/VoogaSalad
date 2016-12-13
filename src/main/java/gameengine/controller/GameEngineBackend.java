@@ -145,8 +145,15 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
     public long getPlayerID(GameObject object) {
         for(Map.Entry<Long, List<Player>> mapping : currentGame.getClientMappings().entrySet()){
             for(Player player : mapping.getValue()){
-                if(player.getMainChar().equals(object)){
+                if(player.getMainChar() == object){
                     return mapping.getKey();
+                }else{
+                    List<GameObject> projectiles = player.getMainChar().getProjectiles();
+                    for(int i = 0; i <projectiles.size(); i ++){
+                        if(projectiles.get(i) == object){
+                            return mapping.getKey();
+                        }
+                    }
                 }
             }
         }
@@ -264,12 +271,14 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			ProjectileProperties properties = projectile.getProjectileProperties();
 			if (properties.getDirection().equals(Direction.RIGHT) || properties.getDirection().equals(Direction.LEFT)) {
 				if (projectile.getXDistanceMoved() >= properties.getRange()) {
+				    projectile.getProjectiles().remove(projectile);
 					removeObject(projectile);
 					itr.remove();
 				}
 			} else {
 				if (Math.abs(projectile.getYDistanceMoved()) >= properties.getRange()) {
-					removeObject(projectile);
+                    projectile.getProjectiles().remove(projectile);
+                    removeObject(projectile);
 					itr.remove();
 				}
 			}

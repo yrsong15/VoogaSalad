@@ -1,4 +1,6 @@
 package objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import com.sun.javafx.scene.traversal.Direction;
@@ -26,6 +28,7 @@ public class GameObject {
     private Direction direction;
     private int id;
     private String typeName;
+    private List<GameObject> projectiles;
 
     public GameObject(int id, double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
@@ -46,6 +49,7 @@ public class GameObject {
         this.width = width;
         this.height = height;
         this.properties = properties;
+        projectiles = new ArrayList<>();
     }
 
     public int getID(){
@@ -156,6 +160,10 @@ public class GameObject {
     public void setIsPlayer(boolean value){
         System.out.println(" boolean: " + value);
         isPlayer = value;
+    }
+
+    public List getProjectiles(){
+        return projectiles;
     }
     
     public void setTypeName(String typeName){
