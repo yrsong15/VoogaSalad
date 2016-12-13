@@ -5,6 +5,7 @@ import gameengine.model.RandomGenFrame;
 import gameengine.model.RandomGenFrameY;
 import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.NoBoundary;
+import gameengine.model.boundary.ToroidalBoundary;
 import gameengine.view.GameEngineUI;
 import javafx.scene.input.KeyCode;
 import objects.*;
@@ -17,6 +18,45 @@ import java.util.Map;
  * Created by Soravit on 12/11/2016.
  */
 public class GameExamples{
+	
+	public String getScrollingXML(){
+		Game game = new Game("Scrolling Tester");
+        GameObject shyGuy = new GameObject(0, 250, 75, 50, "doodler.png", new HashMap<>());
+        Player player1 = new Player(shyGuy);
+        game.addPlayer(player1);
+        game.addPlayerToClient(0, player1);
+        shyGuy.setProperty("movespeed", "60");
+        Level level = new Level(1);
+        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 1200, 800);
+        ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
+        scrollType.addScrollDirection(Direction.UP);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("Background/bg.png");
+        game.setCurrentLevel(level);
+        player1.setControl(KeyCode.W, "jump");
+        player1.setControl(KeyCode.RIGHT, "right");
+        player1.setControl(KeyCode.LEFT, "left");
+        player1.setControl(KeyCode.UP, "up");
+        player1.setControl(KeyCode.DOWN, "down");
+        player1.setControl(KeyCode.SPACE, "shoot");
+        level.addPlayer(shyGuy);
+        GameObject ground = new GameObject(0, 250, 10, 800, "pipes.png", new HashMap<>());
+        level.addGameObject(ground);
+        
+        GameObject ground1 = new GameObject(1200, 250, 10, 800, "pipes.png", new HashMap<>());
+        level.addGameObject(ground1);
+        
+        GameObject ground2 = new GameObject(250, 1000, 1200, 10, "platform.png", new HashMap<>());
+        level.addGameObject(ground2);
+        
+        GameObject ground3 = new GameObject(250, 0, 1200, 10, "platform.png", new HashMap<>());
+        level.addGameObject(ground3);
+        
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        return xml;
+		
+	}
 
 
     public String getDoodleJumpXML(){
@@ -28,9 +68,9 @@ public class GameExamples{
         shyGuy.setProperty("jumpunlimited", "800");
         shyGuy.setProperty("gravity", "1.0");
         shyGuy.setProperty("movespeed", "60");
-        shyGuy.setProperty("health", "30");
+        shyGuy.setProperty("health", "300");
         Level level = new Level(1);
-        GameBoundary gameBoundaries = new NoBoundary(700, 675);
+        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
@@ -59,7 +99,7 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
-        level.addWinCondition("score", "10");
+        level.addWinCondition("score", "1000");
         
         
         Level level2 = new Level(2);

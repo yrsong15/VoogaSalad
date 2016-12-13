@@ -32,14 +32,12 @@ public class GameScreen {
     public static final double screenHeight = GameEngineUI.myAppHeight - 100;
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
-    private List<Rectangle> barList;
     private int currLevel;
     
     public GameScreen() {
         myScreen = new Pane();
         myScreen.setMaxSize(screenWidth, screenHeight);
         gameObjectImageViewMap = new HashMap<>();
-        barList = new ArrayList<Rectangle>();
     }
     public Pane getScreen() {
         return myScreen;
@@ -75,15 +73,11 @@ public class GameScreen {
         }
         else {
             addGameObject(obj);
-            Rectangle bar = new Rectangle(obj.getXPosition(), obj.getYPosition() - 8, obj.getWidth(), 10);
         }
     }
     
     
     public void update(ClientGame game){
-    	for (Rectangle bar : barList){
-    		myScreen.getChildren().remove(bar);
-    	}
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
         if (game.getBackgroundObject()!=null){
         	updatePosition(game.getBackgroundObject());
@@ -94,9 +88,10 @@ public class GameScreen {
         }
         for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
             int ID = it.next();
-            if(!allGameObjects.containsKey(ID)
-                    //&& (ID != game.getBackgroundObject().getID())
-                    ){
+            if (game.getBackgroundObject() != null && game.getBackgroundObject().getID() == ID){
+            	continue;
+            }
+            if(!allGameObjects.containsKey(ID)){
                 myScreen.getChildren().remove(gameObjectImageViewMap.get(ID));
                 it.remove();
             }
@@ -118,31 +113,7 @@ public class GameScreen {
         catch (NullPointerException e){
         	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
         }     
-        
 
-
-        ImageView iv = new ImageView(image);
-        iv.setFitHeight(object.getHeight());
-        iv.setFitWidth(object.getWidth());
-        iv.setX(object.getXPosition());
-        iv.setY(object.getYPosition());
-        iv.setRotationAxis(Rotate.Y_AXIS);
-        if(object.getDirection() == null){
-            object.setDirection(Direction.RIGHT);
-        }
-        if(object.getDirection().equals(Direction.LEFT)){
-            iv.setRotate(180);
-        }else{
-            iv.setRotate(0);
-        }
-        gameObjectImageViewMap.put(object.getID(), iv);
-        myScreen.getChildren().add(iv);
-    }
-
-    private void addGameObjectHealthBar(ClientGameObject object){
-        if (object.getImageFileName() == null)
-            return;
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());
         iv.setFitWidth(object.getWidth());

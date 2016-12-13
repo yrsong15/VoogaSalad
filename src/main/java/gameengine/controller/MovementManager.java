@@ -113,6 +113,7 @@ public class MovementManager implements ControlInterface{
 			double newXPos = obj.getXPosition() - Math.abs(speed);
 			genMovement.moveLeft(obj, speed);
 			checkXToroidalChange(obj, newXPos);
+			
 		}
         obj.setDirection(Direction.LEFT);
     }

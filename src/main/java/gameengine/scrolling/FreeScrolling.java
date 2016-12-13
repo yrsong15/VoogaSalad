@@ -89,11 +89,6 @@ public class FreeScrolling implements Scrolling{
 		trackDistanceScrolling(speed, mainChar);
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
-		for (GameObject obj: gameObjects){
-			if (obj.getProperty("nonscrollable") != null){
-				scrollObjects.remove(obj);
-			}
-		}
 		scrollObjects.remove(mainChar);
 		Object[] parameters = new Object[]{scrollObjects, speed};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
