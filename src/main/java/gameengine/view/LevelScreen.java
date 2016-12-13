@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import objects.Level;
-import objects.interfaces.ILevelInfo;
 
 import java.util.List;
 import java.util.Map;

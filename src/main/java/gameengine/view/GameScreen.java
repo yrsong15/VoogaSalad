@@ -121,6 +121,8 @@ public class GameScreen {
         catch (NullPointerException e){
         	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
         }     
+        
+
 
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());

@@ -161,7 +161,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
     }
 
     public void goNextLevel() {
-		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
+		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel()+1) != null) {
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
 		} else {
 			winGame();
@@ -230,7 +230,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void endGame() {
-        System.out.println("Game Lost");
         for(Map.Entry<Long, Integer> mapping : currentGame.getScoreMapping().entrySet()) {
 			addHighScore(mapping.getValue());
 		}
