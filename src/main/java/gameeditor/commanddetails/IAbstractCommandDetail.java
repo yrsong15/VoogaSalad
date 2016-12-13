@@ -40,8 +40,4 @@ public interface IAbstractCommandDetail {
     public void setDesignArea(IDesignArea da);
     public void setDetailPane(IDetailPane idp);
     
-    
-    
-    
- 
 }

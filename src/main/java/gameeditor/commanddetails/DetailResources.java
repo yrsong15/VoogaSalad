@@ -3,7 +3,7 @@ package gameeditor.commanddetails;
 import javafx.scene.paint.Color;
 
 /**
- * @author John Martin (jfm41)
+ * @author John Martin (jfm41), Pratiksha sharma
  *
  */
 
@@ -16,6 +16,8 @@ public enum DetailResources {
 		RANDOM_GEN_KEY("randomgeneration"),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
 		MAIN_CHARACTER_PROPERTIES(new String[]{"Health","Gravity","Movement Speed","Jump"}),
+		MAIN_CHAR_MOVEMENT_LABEL("Movement Speed"),
+		MAIN_CHAR_MOVEMENT_KEY("movespeed"),
 		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
 		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
 		
@@ -31,6 +33,7 @@ public enum DetailResources {
 		PlATFORM_ENEMY_ALLOWED_LABEL("Is Enemy Allowed"),
 		
 		JUMP_OPTIONS(new String[] {"Jump Once", "Jump Unlimited"}),
+		RANDOM_GEN_DIRECTION_OPTIONS(new String[] {"vertical","horixontal"}),
 		
 		
 		GAMEBOUNDARY_OPTIONS(new String[] {"Toroidal","Stop At Edge"}),
@@ -71,7 +74,7 @@ public enum DetailResources {
 		
 		
 		// Projectile Properties
-		PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL(new String[] {"Width","Height","Range","Speed","Damage","Time Between Shots"}),
+		PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL(new String[] {"Width","Height","Range","Speed","Damage","Time InBetween"}),
 		PROJECTILE_IMAGE_KEY("imageFileName"),
 		DIRECTION_LABEL("Direction"),
 		DIRECTION_KEY("direction"),

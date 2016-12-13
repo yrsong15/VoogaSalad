@@ -96,7 +96,12 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		gameScreen.reset();
 		gameScreen.init(currentGame);
 		myHUD.resetTimer();
+		System.out.println(" Client Id " + clientMain.getID());
+	              System.out.println(playerMapping.keySet().size());
+
+		
 		clientPlayerList = playerMapping.get(clientMain.getID());
+		
 		for(Player player : clientPlayerList) {
 			mapKeys(player, player.getControls());
 		}
@@ -116,11 +121,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 			makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
 			pause();
 		}
-		/**
-		else if(currentGame.isGameWon()){
-			System.out.println("you're amazingggggg pat yourself on the back");
-			pause();
-		}**/
 		gameScreen.update(currentGame);
 		myHUD.update(currentGame.getScores());
 	}

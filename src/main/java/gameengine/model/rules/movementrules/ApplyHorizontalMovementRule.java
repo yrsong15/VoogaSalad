@@ -12,7 +12,11 @@ public class ApplyHorizontalMovementRule implements MovementRule{
 	@Override
 	public void applyRule(GameObject obj, ControlInterface gameMovement, GameBoundary gameBoundaries) {
         double moveSpeed = Double.parseDouble(obj.getProperty("horizontalmovement"));
-        double newXPos = obj.getXPosition() + moveSpeed;
+        moveObj(gameMovement, obj, moveSpeed);
+	}
+	
+	public static void moveObj(ControlInterface gameMovement, GameObject obj, double moveSpeed){
+		double newXPos = obj.getXPosition() + moveSpeed;
 		if(newXPos > obj.getXPosition()){
 			gameMovement.moveRight(obj, moveSpeed);
 		}

@@ -43,7 +43,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	public void startGame(Game currentGame) {
 		this.currentGame = currentGame;
 		currentGame.getCurrentLevel().removeAllPlayers();
+	
+		
 		String scrollType = currentGame.getCurrentLevel().getScrollType().getScrollTypeName();
+		System.out.println(scrollType);
 		if (scrollType.equals("FreeScrolling")){
 			currentGame.getCurrentLevel().setBackgroundObject();
 		}
@@ -267,6 +270,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private ClientGame generateClientGame(Game game) {
 		Level currLevel = game.getCurrentLevel();
 		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath(), highScores);
+		
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
 		clientGame.addScores(game.getScoreMapping());
 		clientGame.setGameInfo(currLevel.getLevel(), game.isGameLost(), game.isGameWon());

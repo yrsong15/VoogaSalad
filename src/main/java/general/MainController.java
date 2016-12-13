@@ -2,29 +2,19 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
-import com.sun.javafx.scene.traversal.Direction;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
-import gameengine.model.RandomGenFrame;
-import gameengine.model.RandomGenFrameY;
-import gameengine.model.boundary.GameBoundary;
-import gameengine.model.boundary.NoBoundary;
-import gameengine.model.boundary.ToroidalBoundary;
-import gameengine.network.server.ServerMain;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import objects.*;
-import xml.XMLSerializer;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 
 /**
- * @author Delia Li
+ * @author Delia Li, Pratiksha
  */
 
 public class MainController {
@@ -62,7 +52,7 @@ public class MainController {
 		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
 	}
 
-	public void presentEditor2(Game game, String gameType) {
+	public void presentEditor(Game game, String gameType) {
 		gameEditorController = new GameEditorController(gameType);
 		gameEditorController.startEditor(game);
 		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
@@ -81,49 +71,52 @@ public class MainController {
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> shutdownClient());
-		gameEngineController.startGame();
+                gameEngineController.startGame();
     }
 
-	public void startPlayingSingle() {
+        public void startPlayingSingle() {
         gameEngineController.setHostMode(true, "localhost");
-		gameEngineStage.setScene(gameEngineController.getScene());
-		gameEngineStage.show();
-		gameEngineStage.setOnCloseRequest(event -> shutdownClient());
-		gameEngineController.startGame();
-	}
+                gameEngineStage.setScene(gameEngineController.getScene());
+                gameEngineStage.show();
+                gameEngineStage.setOnCloseRequest(event -> shutdownClient());
+                gameEngineController.startGame();
+        }
 
-	private void shutdownClient(){
-		gameEngineController.setupServerShutdown();
-		gameEngineController.stop();
-	}
+        private void shutdownClient(){
+                gameEngineController.setupServerShutdown();
+                gameEngineController.stop();
+        }
 
-	private void sendDataToEngine() {
-		String title = gameEditorController.getGameTitle();
-		String gameFile = gameEditorController.getGameFile();
-		addNewGameFile(title, gameFile);
-		launchEngine(gameFile);
-	}
+        private void sendDataToEngine() {
+                String title = gameEditorController.getGameTitle();
+                String gameFile = gameEditorController.getGameFile();
+                addNewGameFile(title, gameFile);
+                launchEngine(gameFile);
+        }
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-       //XMLData = gameExamples.getMultiplayerDDR();
-       // XMLData = gameExamples.getDoodleJumpXML();
+//        XMLData = gameExamples.getDanceDanceRevolution();
+   //    XMLData = gameExamples.getMultiplayerDDR();
+     //   XMLData = gameExamples.getDoodleJumpXML();
       //  XMLData = gameExamples.getScrollingXML();
-       XMLData = gameExamples.getMarioXML();
+      XMLData = gameExamples.getMarioXML();
+  //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
+        @SuppressWarnings("unused")
         boolean isServer = false;
-		Game game = gameEngineController.createGameFromXML(XMLData);
+                Game game = gameEngineController.createGameFromXML(XMLData);
         Level level = game.getCurrentLevel();
         if (level != null) {
             setUpGameEngineStage(level);
         }
     }
 
-	public void editGame() {
-		FileOpener chooser = new FileOpener();
-		File file = chooser.chooseFile("XML", "data");
-		XStream mySerializer = new XStream(new DomDriver());
-		Game myGame = (Game) mySerializer.fromXML(file);
-		presentEditor(myGame);
-	}
+        public void editGame() {
+                FileOpener chooser = new FileOpener();
+                File file = chooser.chooseFile("XML", "data");
+                XStream mySerializer = new XStream(new DomDriver());
+                Game myGame = (Game) mySerializer.fromXML(file);
+                presentEditor(myGame);
+        }
 }

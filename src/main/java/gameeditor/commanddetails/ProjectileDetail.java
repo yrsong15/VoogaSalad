@@ -25,16 +25,12 @@ public class ProjectileDetail {
     private VBox myVBox;
     private DetailFrontEndUtil myDetailFrontEndUtil;
     private ImageDetail myImageDetail;
-    @SuppressWarnings("unused")
-	private String selectedType;
     private ArrayList<TextArea> myTextInputs;
     private ComboBox<String> projectileDirection;
     private ComboBox<String> myTypes;
     private String myImageFile;
 
 
-
-    //public static String [] 
     public ProjectileDetail(IGameEditorData dataStore){
         myDataStore = dataStore;
         myImageDetail= new ImageDetail();
@@ -66,9 +62,6 @@ public class ProjectileDetail {
     @SuppressWarnings("unused")
 	private void handleSave(){
         Map<String,String> projectilePropertiesMap = new HashMap<String,String>();
-        //        if(projectileDirection.getValue()!=null){ 
-        //            projectilePropertiesMap.put(DetailResources.DIRECTION_KEY.getResource(),projectileDirection.getValue());
-        //        }
 
         Direction direction=null;
         if(projectileDirection.getValue()!=null){
@@ -97,23 +90,6 @@ public class ProjectileDetail {
             GameEditorException ex = new GameEditorException();
             ex.showError("Values cannot be Empty");
         }
-
-
-        //        for(TextArea area: myTextInputs){
-        //            String label = DetailResources.PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL.getArrayResource()[counter];
-        //            String value = area.getText();
-        //            if(value.isEmpty()|| value!=null){
-        //                value = DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource();
-        //            }
-        //
-        //            projectilePropertiesMap.put(label.toLowerCase(), area.getText());   
-        //        }
-
-        //        String type =null;
-        //        if(myTypes.getValue()!=null){
-        //            type = myTypes.getValue();
-        //        }
-        // myDataStore.addProjectileProperties(type, projectilePropertiesMap); 
     }
 
     private String getText( TextArea area){
@@ -132,8 +108,8 @@ public class ProjectileDetail {
         String [] propertiesList = DetailResources.PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL.getArrayResource();
         for(String property: propertiesList){
             Label label = myDetailFrontEndUtil.createPropertyLbl(property);
-            TextArea myTextArea= myDetailFrontEndUtil.createInputField(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource());
-            myDetailFrontEndUtil.handleClick(myTextArea);
+            String init = DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource();
+            TextArea myTextArea= myDetailFrontEndUtil.createInputField(init);
             BorderPane bp = myDetailFrontEndUtil.createBorderpane(myTextArea, label);
             myVBox.getChildren().add(bp);
             myTextInputs.add(myTextArea);
@@ -142,7 +118,7 @@ public class ProjectileDetail {
 
     private void createSpriteTypesCombo(){
         ArrayList<String>  listOfTypes = myDataStore.getTypes();
-        listOfTypes.addAll(getMainCharacterTypes());     
+        listOfTypes.addAll(myDataStore.getMainCharacterTypes());     
         String[] types = listOfTypes.toArray(new String[listOfTypes.size()]);
         Label labl = myDetailFrontEndUtil.createPropertyLbl("Select");
         myTypes = myDetailFrontEndUtil.createComboBox(types, null);
@@ -151,17 +127,6 @@ public class ProjectileDetail {
         //myTypesCombo.setOnAction(e-> displayProjectileProperties(myTypesCombo));
         BorderPane bp = myDetailFrontEndUtil.createBorderpane(myTypes, labl);
         myVBox.getChildren().add(bp);
-    }
-
-    private ArrayList<String> getMainCharacterTypes(){
-        ArrayList<String> mainChars = new ArrayList<String> ();
-        ArrayList<String> listOfMainCharacters = myDataStore.getMainCharacterTypes();
-        for(String val: listOfMainCharacters){
-            String str = val.substring(0, DetailResources.MAIN_CHARACTER_TYPE.getResource().length());
-            String str2= val.substring(DetailResources.MAIN_CHARACTER_TYPE.getResource().length());
-            mainChars.add(str + " " + str2);
-        }
-        return mainChars;
     }
 
     //    private void displayProjectileProperties(ComboBox <String> myCombo){

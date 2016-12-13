@@ -2,9 +2,6 @@ package gameeditor.commanddetails;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 /**
  * @author John Martin
+ * Modified by Pratiksha sharma
  *
  */
 abstract public class AbstractSelectDetail extends AbstractCommandDetail implements ISelectDetail {
@@ -40,6 +38,7 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
 
     private String myType;
     protected ComboBox<String>isEnemyAllowed;
+    protected ComboBox<String> randomGenDirection;
 
     public AbstractSelectDetail() {
         super();
@@ -79,35 +78,35 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         update.setMinWidth((PADDED_PANE_WIDTH - HBOX_SPACING)/2);
         update.setMaxWidth((PADDED_PANE_WIDTH - HBOX_SPACING)/2);
         update.setMinHeight(CB_HEIGHT);
-        update.setOnAction((e) -> {handleUpdate();});
+        //update.setOnAction((e) -> {handleUpdate();});
         myVBox.getChildren().add(update);
     }
 
-    private void handleUpdate() {
-        String xString = myXTextArea.getText();
-        String yString = myYTextArea.getText();
-        String widthString = myWidthTextArea.getText();
-        String heightString = myHeightTextArea.getText();
-        double x = Double.parseDouble(xString.substring(X_LABEL.length()));
-        double y = Double.parseDouble(yString.substring(Y_LABEL.length()));
-        double width = Double.parseDouble(widthString.substring(WIDTH_LABEL.length()));
-        double height = Double.parseDouble(heightString.substring(HEIGHT_LABEL.length()));
-
-        myGO.update(x, y, width, height);
-
-        // Update Data in the Back End
-        Map<String, String> typeMap = myDataStore.getType(myGO.getType());
-        typeMap.put(ISelectDetail.X_POSITION_KEY,xString.substring(X_LABEL.length()));
-        typeMap.put(ISelectDetail.Y_POSITION_KEY, yString.substring(Y_LABEL.length()));
-        typeMap.put(IGameEditorData.WIDTH_KEY,widthString.substring(WIDTH_LABEL.length()));
-        typeMap.put(IGameEditorData.HEIGHT_KEY, heightString.substring(HEIGHT_LABEL.length()));
-
-        String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
-        
-        if(randomGen!=null && randomGen.equals("True")){ 
-            myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed);
-        }
-    }
+//    private void handleUpdate() {
+//        String xString = myXTextArea.getText();
+//        String yString = myYTextArea.getText();
+//        String widthString = myWidthTextArea.getText();
+//        String heightString = myHeightTextArea.getText();
+//        double x = Double.parseDouble(xString.substring(X_LABEL.length()));
+//        double y = Double.parseDouble(yString.substring(Y_LABEL.length()));
+//        double width = Double.parseDouble(widthString.substring(WIDTH_LABEL.length()));
+//        double height = Double.parseDouble(heightString.substring(HEIGHT_LABEL.length()));
+//
+//        myGO.update(x, y, width, height);
+//
+//        // Update Data in the Back End
+//        Map<String, String> typeMap = myDataStore.getType(myGO.getType());
+//        typeMap.put(ISelectDetail.X_POSITION_KEY,xString.substring(X_LABEL.length()));
+//        typeMap.put(ISelectDetail.Y_POSITION_KEY, yString.substring(Y_LABEL.length()));
+//        typeMap.put(IGameEditorData.WIDTH_KEY,widthString.substring(WIDTH_LABEL.length()));
+//        typeMap.put(IGameEditorData.HEIGHT_KEY, heightString.substring(HEIGHT_LABEL.length()));
+//
+//        String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
+//        
+//        if(randomGen!=null && randomGen.equals("True")){ 
+//            myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed);
+//        }
+//    }
 
     protected void addSelectLabel(){
         BorderPane bp = new BorderPane();
@@ -152,6 +151,13 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         Label propertyLabel = myDetailFrontEndUtil.createPropertyLbl("Is Enemy Allowed");
         BorderPane borderpane = myDetailFrontEndUtil.createBorderpane( isEnemyAllowed,propertyLabel);
         myVBox.getChildren().add(borderpane);
+        
+        String[] randomgen = DetailResources.RANDOM_GEN_DIRECTION_OPTIONS.getArrayResource();
+        randomGenDirection = myDetailFrontEndUtil.createComboBox(randomgen, "horizontal");
+        
+        Label myLabel = myDetailFrontEndUtil.createPropertyLbl("Direction");
+        BorderPane mypane = myDetailFrontEndUtil.createBorderpane( randomGenDirection,myLabel);
+        myVBox.getChildren().add(mypane);
         
         for (String label : myRandomGenerationParameters){           
             Label labl =myDetailFrontEndUtil. createPropertyLbl(label);

@@ -31,7 +31,7 @@ public class GameExamples{
         game.addPlayerToClient(0, player1);
         shyGuy.setProperty("movespeed", "5");
         shyGuy.setProperty("gravity", "1.2");
-        shyGuy.setProperty("jumponce", "600");
+        shyGuy.setProperty("jumponce", "800");
         shyGuy.setProperty("health", "30");
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
@@ -62,9 +62,70 @@ public class GameExamples{
         level.addGameObject(pipe);
         pipe.setProperty("nonintersectable", "");
         
-        GameObject block = new GameObject(250, 400, 50, 50, "block.png", new HashMap<>());
+        GameObject pipe2 = new GameObject(800, 475, 50, 125, "pipes.png", new HashMap<>());
+        level.addGameObject(pipe2);
+        pipe2.setProperty("nonintersectable", "");
+        
+        GameObject coin = new GameObject(400, 420, 20, 30, "coin.png", new HashMap<>());
+        level.addGameObject(coin);
+        coin.setProperty("points", "5");
+        coin.setProperty("removeobject", "");
+        
+        GameObject coin2 = new GameObject(500, 465, 20, 30, "coin.png", new HashMap<>());
+        level.addGameObject(coin2);
+        coin2.setProperty("points", "5");
+        coin2.setProperty("removeobject", "");
+        
+        GameObject coin3 = new GameObject(565, 250, 20, 30, "coin.png", new HashMap<>());
+        level.addGameObject(coin3);
+        coin3.setProperty("points", "5");
+        coin3.setProperty("removeobject", "");
+        
+        GameObject coin4 = new GameObject(640, 250, 20, 30, "coin.png", new HashMap<>());
+        level.addGameObject(coin4);
+        coin4.setProperty("points", "5");
+        coin4.setProperty("removeobject", "");
+        
+        
+        
+        //first block sequence
+        GameObject block = new GameObject(500, 300, 50, 50, "block.png", new HashMap<>());
         level.addGameObject(block);
         block.setProperty("nonintersectable", "");
+        
+        GameObject block2 = new GameObject(550, 300, 50, 50, "block.png", new HashMap<>());
+        level.addGameObject(block2);
+        block2.setProperty("nonintersectable", "");
+        
+        GameObject block3 = new GameObject(600, 300, 50, 50, "block.png", new HashMap<>());
+        level.addGameObject(block3);
+        block3.setProperty("nonintersectable", "");
+        
+        GameObject block4 = new GameObject(650, 300, 50, 50, "block.png", new HashMap<>());
+        level.addGameObject(block4);
+        block4.setProperty("nonintersectable", "");
+        
+        GameObject block5 = new GameObject(700, 300, 50, 50, "block.png", new HashMap<>());
+        level.addGameObject(block5);
+        block5.setProperty("nonintersectable", "");
+        
+        GameObject block6 = new GameObject(500, 250, 50, 50, "block.png", new HashMap<>());
+        level.addGameObject(block6);
+        block6.setProperty("nonintersectable", "");
+        
+        GameObject block7 = new GameObject(700, 250, 50, 50, "block.png", new HashMap<>());
+        level.addGameObject(block7);
+        block7.setProperty("nonintersectable", "");
+        
+        
+        
+		GameObject enemy = new GameObject(225, 525, 50, 75, "hawaiiBird.png", new HashMap<>());
+		enemy.setProperty("enemy", "30");
+		enemy.setProperty("bounceSpeed", "-1");
+		enemy.setProperty("bounceBack", "100");
+		enemy.setProperty("bounceTracker", "0");
+		level.addGameObject(enemy);
+		
         
         GameObject killer = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
         killer.setProperty("damage", "30");
@@ -223,7 +284,7 @@ public class GameExamples{
         GameObject hack3 = new GameObject(350+5, 550, 50, 10, "emptyimage.png", properties);
         GameObject hack4 = new GameObject(520+5, 550, 50, 10, "emptyimage.png", properties);
 
-        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 100, 30, 0, 1);
+        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 100, 30, 0, 0);
         one.setProjectileProperties(projectileProperties);
         two.setProjectileProperties(projectileProperties);
         three.setProjectileProperties(projectileProperties);
@@ -255,10 +316,10 @@ public class GameExamples{
         level.setBackgroundMusic("Cascada - Everytime We Touch.mp3");
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
-        scrollType.setScrollSpeed(5);
+        scrollType.setScrollSpeed(15);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/discoBall.gif");
+        level.setBackgroundImage("Background/ddrbackground.jpg");
         game.setCurrentLevel(level);
         level.addPlayer(one);
         level.addPlayer(two);
@@ -315,7 +376,7 @@ public class GameExamples{
         GameObject hack7 = new GameObject(10+85+85+85+100+85+85+11, 550, 50, 10, "emptyimage.png", properties);
         GameObject hack8 = new GameObject(10+85+85+85+100+85+85+85+11, 550, 50, 10, "emptyimage.png", properties);
 
-        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 1);
+        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 0);
         one.setProjectileProperties(projectileProperties);
         two.setProjectileProperties(projectileProperties);
         three.setProjectileProperties(projectileProperties);

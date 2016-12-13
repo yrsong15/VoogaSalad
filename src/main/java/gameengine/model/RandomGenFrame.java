@@ -25,6 +25,7 @@ public abstract class RandomGenFrame<T> {
     public abstract double calculateY(int margin, RandomGeneration<Integer> elem, double buffer);
     public abstract int calculateMargin(RandomGeneration<Integer> elem);
     public abstract double calculateX(int margin, RandomGeneration<Integer> elem, double buffer);
+    
     public ArrayList<RandomGeneration<Integer>> getRandomGenerationRules(){
         return this.randomGenRules;
     }
@@ -33,9 +34,12 @@ public abstract class RandomGenFrame<T> {
         ArrayList<RandomGeneration<Integer>> randomGenRulesList = randomGenRules;
 
         for(RandomGeneration<Integer> elem:randomGenRulesList){
-            int platformIndexWithEnemyForThisFrame = RNG.nextInt(elem.getNumObjects());
-            int minSep = elem.getMinSpacing(); double width = elem.getWidth();
-            int maxSep = elem.getMaxSpacing(); double height = elem.getHeight();
+            int platformIndexWithEnemyForThisFrame = RNG.nextInt(elem.getNumObjects());   
+            int minSep = elem.getMinSpacing();        
+            double width = (double) ((Integer) elem.getWidth()).intValue() ;
+            double height = (double) ((Integer) elem.getHeight()).intValue();
+            int maxSep = elem.getMaxSpacing();
+            
             int buffer = 0;
             ArrayList<GameObject> newlyCreatedPlatforms = new ArrayList<>();
             for(int i=0; i<elem.getNumObjects();i++){

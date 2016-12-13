@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @author John Martin (jfm41)
+ * Modified Pratiksha Sharma
  *
  */
 
@@ -29,7 +30,7 @@ public enum DetailDefaultsResources {
         HORIZONTAL_SPEED("0"),
         JUMP("0"),
         
-        TEXT_BOX_NUMBER_DEFAULT_INPUT("0.0"),
+        TEXT_BOX_NUMBER_DEFAULT_INPUT("0"),
         
 	SPRITE_DEFAULT_PROPERTIES(new String [] {"False", "False", "False", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"}),
 	SPRITE_DEFAULT_COMBO_PROPERTIES(new String[]{DESTRUCTIBLE_DEFAULT.getResource(), RANDOM_DEFAULT.getResource(),MOVABLE_DEFAULT.getResource()}),
@@ -52,9 +53,9 @@ public enum DetailDefaultsResources {
 	GAME_BOUNDARY("Stop At Edge"),
 	SCROLL_HEIGHT(String.valueOf(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource())),
 	SCROLL_WIDTH(String.valueOf(ViewResources.SCROLL_PANE_WIDTH.getDoubleResource())),
-	DEFAULT_TIME_VALUE (400),
-	DEFAULT_POINTS_VALUE(20),
-	DEFAULT_SCROLL_SPEED(10),
+	DEFAULT_TIME_VALUE ("400"),
+	DEFAULT_POINTS_VALUE("20"),
+	DEFAULT_SCROLL_SPEED("10"),
 	
 	// Platform Default Properties
 	PLATFORM_NON_INTERSECTABLE("True"),

@@ -137,19 +137,6 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
     }
 
     @Override
-    public void addSprite(GameObjectView sprite) {
-        mySprites.add(sprite);
-        //		TODO: Remove the hardcoding of the image size proportions
-        myPane.getChildren().add(sprite.getImageView());
-    }
-
-    @Override
-    public void removeSprite(GameObjectView sprite) {
-        mySprites.remove(sprite);
-        myPane.getChildren().remove(sprite.getImageView());
-    }
-
-    @Override
     public void enableClick(ISelectDetail sd) {
         mySelectDetail = sd;
         clickEnabled = true;	
@@ -202,6 +189,37 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
             }
         }
         return selectedSprites;
+    }
+
+    @Override
+    public void addSprite(GameObjectView sprite) {
+        mySprites.add(sprite);
+        //		TODO: Remove the hardcoding of the image size proportions
+        myPane.getChildren().add(sprite.getImageView());
+        if (sprite.getIsRandomGen()){
+        	addRandomGen(sprite);
+        }
+    }
+    
+    private void addRandomGen(GameObjectView sprite){
+    	for (ImageView iv : sprite.getRandomPreviews()){
+    		myPane.getChildren().add(iv);
+    	}
+    }
+    
+    private void removeRandomGen(GameObjectView sprite){
+    	for (ImageView iv : sprite.getRandomPreviews()){
+    		myPane.getChildren().remove(iv);
+    	}
+    }
+
+    @Override
+    public void removeSprite(GameObjectView sprite) {
+        mySprites.remove(sprite);
+        myPane.getChildren().remove(sprite.getImageView());
+        if (sprite.getIsRandomGen()){
+        	removeRandomGen(sprite);
+        }
     }
 
     @Override
