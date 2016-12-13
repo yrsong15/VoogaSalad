@@ -21,7 +21,6 @@ import java.util.Map;
  */
 public class GameExamples{
 
-    public static int score = 0;
 
     public String getDoodleJumpXML(){
         Game game = new Game("Doodle Jump");
@@ -62,7 +61,7 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
-        level.addWinCondition("score", "10");
+        level.addWinCondition("score", "1000");
         
         
         Level level2 = new Level(2);
