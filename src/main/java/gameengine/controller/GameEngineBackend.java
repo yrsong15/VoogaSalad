@@ -111,8 +111,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		if (objects == null || objects.size() == 0)
 			return;
 		for (int i = objects.size() - 1; i >= 0; i--) {
-            if(objects.get(i).getYPosition() > GameEngineUI.myAppHeight + 100){
-                removeObject(objects.get(i));
+			GameObject obj = objects.get(i);
+            if(obj.getYPosition() > GameEngineUI.myAppHeight && obj.getProperty("nonscrollable") == null){
+                removeObject(obj);
             }
 		}
 	}
