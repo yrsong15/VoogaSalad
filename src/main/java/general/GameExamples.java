@@ -114,7 +114,7 @@ public class GameExamples{
         game.addPlayerToClient(0, player4);
 
         Level level = new Level(1);
-        level.setBackgroundMusic("Lucifer.mp3");
+        level.setBackgroundMusic("Cascada - Everytime We Touch.mp3");
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
         scrollType.setScrollSpeed(15);
