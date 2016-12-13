@@ -291,7 +291,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 			animation.stop();
 		}
 		clientMain.pause();
-		stopMusic();
 		isPaused = !isPaused;
 	}
 
