@@ -89,7 +89,6 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveRight(GameObject obj, double speed) {
-
 		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(Direction.RIGHT, obj)){
 			gameScrolling.setDirection(Direction.RIGHT);
 			runGameScrolling(speed);

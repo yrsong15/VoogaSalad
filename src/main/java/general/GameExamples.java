@@ -52,6 +52,7 @@ public class GameExamples{
         
         GameObject killer = new GameObject(0, GameEngineUI.myAppHeight+100, GameEngineUI.myAppWidth,50,"platform.png", new HashMap<>());
         killer.setProperty("damage", "30");
+        killer.setProperty("nonscrollable", "");
         level.addGameObject(killer);        
       /**  GameObject ground1 = new GameObject(300, 650, 300, 125, "blocks.png", new HashMap<>());
         level.addGameObject(ground1);
