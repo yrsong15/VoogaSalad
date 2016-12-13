@@ -36,6 +36,8 @@ public class Game implements IGame{
 		players = new ArrayList<>();
 		clientMappings = new HashMap<>();
 		this.name = name;
+		gameLost = false;
+		gameWon = false;
 	}
 
 	public void addPlayerToClient(long ID, Player player){
