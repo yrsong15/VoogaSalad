@@ -144,10 +144,12 @@ public class GameEditorData implements IGameEditorData{
 
     public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, 
                                     ComboBox<String> isEnemyAllowed, ComboBox<String> direction){
+        
         Map<String,String> properties =  getType(type);
         enemyAllowed = Boolean.getBoolean(isEnemyAllowed.getValue());
         randomGenDirection = direction.getValue();
 
+ 
 
         int width = Double.valueOf(properties.get(WIDTH_KEY)).intValue();
         int height = Double.valueOf(properties.get(HEIGHT_KEY)).intValue();
@@ -189,9 +191,7 @@ public class GameEditorData implements IGameEditorData{
             myTypeRandomGenerationMap.forEach((k,v)->{
                 list.add(v);
             });
-
-            System.out.println(list.size());
-            
+           
             RandomGenFrame frame=null;
             if(randomGenDirection.equals("vertical")){
                 frame = new RandomGenFrameY(myGame.getCurrentLevel(), list, enemyAllowed);
@@ -292,6 +292,7 @@ public class GameEditorData implements IGameEditorData{
     public void storeMainCharToXML () {   
         removeFromMapList(myMainCharImageViewMaps);
         
+        int counter =0;
         for(Map<String,String> map: myMainCharImageViewMaps){
 
             GameObject myObject = createGameObject(map);
@@ -303,7 +304,9 @@ public class GameEditorData implements IGameEditorData{
             //exception.showError("Not all Players have Controls Set up");
             // }
             myGame.addPlayer(player);
-            myLevel.addPlayer(player.getMainChar());
+            myGame.addPlayerToClient(counter,player);
+            myLevel.addPlayer(myObject);
+           // myLevel.addPlayer(player.getMainChar());
             
 //            if(!myProjectileObjects.isEmpty()&& myProjectileObjects.containsKey(map.get(DetailResources.TYPE_NAME.getResource()))){
 //                ProjectileProperties projectileProp= myProjectileObjects.get(map.get(myObject.getTypeName()));

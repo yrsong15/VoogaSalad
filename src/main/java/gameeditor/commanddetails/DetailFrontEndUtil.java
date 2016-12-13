@@ -58,26 +58,24 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
         myTypeTextArea.setOnMouseClicked(e-> handleClick(myTypeTextArea)); 
         return myTypeTextArea; 
     }
-        
-        public void verifyValue(TextArea myTypeTextArea){
 
+    public void verifyValue(TextArea myTypeTextArea){
         myTypeTextArea.textProperty().addListener(new javafx.beans.value.ChangeListener<String>(){
             @Override
             public void changed (ObservableValue<? extends String> observable,
                                  String oldValue,
                                  String newValue) {
                 if(!newValue.isEmpty()){
-                try {
-                    @SuppressWarnings("unused")
-                    int val = Integer.parseInt(newValue);
-                } catch (NumberFormatException e) {
-                    GameEditorException exception = new GameEditorException();
-                    exception.showError("Value must be a number");;
-                } 
-            }  
+                    try {
+                        @SuppressWarnings("unused")
+                        int val = Integer.parseInt(newValue);
+                    } catch (NumberFormatException e) {
+                        GameEditorException exception = new GameEditorException();
+                        exception.showError("Value must be a number");;
+                    }
+                }  
             }
         }); 
-       
     }
 
     public ComboBox<String> createPropertyCB(String property, String defaultValue){
@@ -99,7 +97,9 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
         inputField.setMaxHeight(IAbstractCommandDetail.CB_HEIGHT);
         inputField.setText(initValue);
         inputField.setOnMouseClicked(e -> handleClick(inputField));
-        inputField.setOnMouseExited(e-> verifyValue(inputField));
+        if(initValue.equals("0")){
+            inputField.setOnMouseExited(e-> verifyValue(inputField));
+        }
         return inputField;
     }
 
