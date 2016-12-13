@@ -99,7 +99,7 @@ public class ServerMain {
 
 			@Override
 			public void run() {
-				if(!isPaused){
+				if(!isPaused && (IDs + 1 >= gameHandler.getGame().getMinNumPlayers())){
 				gameHandler.updateGame();
 				udpSend.sendGamePlay(gameHandler.getClientGame());
 				}

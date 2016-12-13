@@ -29,7 +29,6 @@ public class GameEngineController implements CommandInterface {
 
 	public GameEngineController() {
 		this.hostGame = true;
-		serverName = "localhost";
 		serializer = new XMLSerializer();
 	}
 

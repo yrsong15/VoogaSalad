@@ -163,6 +163,7 @@ public class GameExamples{
 
     public String getMultiplayerDDR(){
         Game game = new Game("Dance Dance Revolution");
+        game.setMinNumPlayers(2);
         GameObject one = new GameObject(5, 550, 1, 10, "emptyimage.png", new HashMap<>());
         GameObject two = new GameObject(10+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
         GameObject three = new GameObject(10+85+85, 550, 1, 10, "shyguy.png", new HashMap<>());
