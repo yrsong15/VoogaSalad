@@ -90,6 +90,10 @@ public class ServerMain {
 		isPaused = !isPaused;
 	}
 	
+	public void restart(){
+		gameHandler.restart();
+	}
+	
 	private void runTimer(){
 		timer.scheduleAtFixedRate(new TimerTask() {
 

@@ -18,6 +18,7 @@ class TcpConnection {
 	private static final int GET_ID_IP_PORT = 2;
 	private static final int REMOVE_CHARACTER = 3;
 	private static final int PAUSE = 4;
+	private static final int RESTART = 5;
 	
 	private final int SERVER_PORT_TCP;
 	
@@ -77,6 +78,18 @@ class TcpConnection {
 	void sendPauseCommand(){
 		try {
 			ServerMessage sm = new ServerMessage(PAUSE);
+			String data = serializer.serializeServerMessage(sm);
+			oos.writeObject(data);
+			oos.reset();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+	
+	void sendRestartCommand(){
+		try {
+			ServerMessage sm = new ServerMessage(RESTART);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			oos.reset();
