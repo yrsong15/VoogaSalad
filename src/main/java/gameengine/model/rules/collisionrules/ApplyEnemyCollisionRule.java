@@ -7,10 +7,10 @@ import objects.GameObject;
 public class ApplyEnemyCollisionRule{
 	
 	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
+		System.out.println("applying rule");
 		if(mainChar.getYPosition() + mainChar.getHeight() - GameEngineController.FRAMES_PER_SECOND/3 < obj.getYPosition()){
 			mainChar.killSpeed();
 			handler.removeObject(obj);
-			return;
 		}
 		takeDamage(handler,mainChar,obj);
     }

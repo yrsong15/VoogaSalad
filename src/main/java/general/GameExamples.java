@@ -78,7 +78,7 @@ public class GameExamples{
         randomGen.add(platforms);
         randomGen.add(platforms2);
         randomGen.add(platforms3);
-        RandomGenFrame frame = new RandomGenFrameX(level, randomGen, true);
+        RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
 
         
@@ -139,7 +139,7 @@ public class GameExamples{
         shyGuy.setProperty("jumpunlimited", "800");
         shyGuy.setProperty("gravity", "1.0");
         shyGuy.setProperty("movespeed", "60");
-        shyGuy.setProperty("health", "300");
+        shyGuy.setProperty("health", "30");
         Level level = new Level(1);
         GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
