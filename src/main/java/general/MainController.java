@@ -74,9 +74,13 @@ public class MainController {
 		gameEngineStage.setScene(myCover.createSplashScene());
 		gameEngineStage.setTitle(myCover.getTitle());
 		gameEngineStage.show();
-		// startPlaying();
+		gameEngineStage.setOnCloseRequest(e->printstuff());
 	}
 
+	private void printstuff(){
+		System.out.println("xxx");
+	}
+	
 	public void startPlaying() {
 		gameEngineStage.setScene(gameEngineController.getScene());
 		gameEngineStage.show();

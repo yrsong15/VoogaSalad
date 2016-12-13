@@ -40,13 +40,11 @@ public class GameEngineController implements CommandInterface {
 		if (hostGame) {
 			Thread serverThread = createServerThread();
 			serverThread.start();
-			// TODO: let thread sleep if we want server before client - right
-			// here
 		}
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Error in Thread Sleep before StartClientGame");
 			e.printStackTrace();
 		}
 		startClientGame(currentGame.getClientMappings());
