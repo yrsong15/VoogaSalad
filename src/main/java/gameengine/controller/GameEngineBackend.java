@@ -83,9 +83,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			mainChar.checkPlatformStatus();
 		}
 		checkProjectileDistance();
-		if(currLevel.getRandomGenRules().size() > 0) {
-            randomlyGenerateFrames();
-        }
+		//if(currLevel.getRandomGenRules().size() > 0) {
+          //  randomlyGenerateFrames();
+        //}
         if(toolbarHBox != null){
 			toolbarHBox.toFront();
 		}

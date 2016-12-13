@@ -5,6 +5,7 @@ import gameengine.model.RandomGenFrame;
 import gameengine.model.RandomGenFrameY;
 import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.NoBoundary;
+import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import gameengine.view.GameEngineUI;
 import javafx.scene.input.KeyCode;
@@ -18,6 +19,62 @@ import java.util.Map;
  * Created by Soravit on 12/11/2016.
  */
 public class GameExamples{
+	
+	
+	
+	public String getMarioXML(){
+		Game game = new Game("Mario");
+        GameObject shyGuy = new GameObject(20, 200 , 100, 150, "mario.png", new HashMap<>());
+        Player player1 = new Player(shyGuy);
+        game.addPlayer(player1);
+        game.addPlayerToClient(0, player1);
+        shyGuy.setProperty("movespeed", "20");
+        shyGuy.setProperty("gravity", "1.2");
+        shyGuy.setProperty("jumponce", "400");
+        shyGuy.setProperty("health", "30");
+        Level level = new Level(1);
+        GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 800);
+        ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
+        scrollType.addScrollDirection(Direction.UP);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("Background/bg.png");
+        game.setCurrentLevel(level);
+        player1.setControl(KeyCode.W, "jump");
+        player1.setControl(KeyCode.RIGHT, "right");
+        player1.setControl(KeyCode.LEFT, "left");
+        player1.setControl(KeyCode.UP, "up");
+        player1.setControl(KeyCode.DOWN, "down");
+        player1.setControl(KeyCode.SPACE, "shoot");
+        level.addPlayer(shyGuy);
+        GameObject ground = new GameObject(0, 675, 700, 125, "blocks.png", new HashMap<>());
+        level.addGameObject(ground);
+        ground.setProperty("nonintersectable", "");
+        
+        GameObject killer = new GameObject(0, GameEngineUI.myAppHeight+100, GameEngineUI.myAppWidth,50,"platform.png", new HashMap<>());
+        killer.setProperty("damage", "30");
+        level.addGameObject(killer);        
+      /**  GameObject ground1 = new GameObject(300, 650, 300, 125, "blocks.png", new HashMap<>());
+        level.addGameObject(ground1);
+        ground1.setProperty("nonintersectable", "");
+
+        
+        GameObject ground2 = new GameObject(600, 650, 300, 125, "blocks.png", new HashMap<>());
+        level.addGameObject(ground2);
+        ground2.setProperty("nonintersectable", "");
+
+        
+        GameObject ground3 = new GameObject(900, 650, 300, 125, "blocks.png", new HashMap<>());
+        level.addGameObject(ground3);
+        ground3.setProperty("nonintersectable", "");**/
+
+        
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        return xml;
+		
+	}
+	
+	
 	
 	public String getScrollingXML(){
 		Game game = new Game("Scrolling Tester");
