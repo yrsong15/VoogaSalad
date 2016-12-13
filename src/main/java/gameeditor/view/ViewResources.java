@@ -18,7 +18,7 @@ public enum ViewResources {
 		SPRITE_IMAGE_LOCATION("images/Sprite"),
 		AVATAR_IMAGE_LOCATION("images/Sprite"),
 		SCENE_WIDTH(1200),
-		SCENE_HEIGHT(620),
+		SCENE_HEIGHT(650),
 		SCROLL_PANE_HEIGHT(527),
 		SCROLL_PANE_WIDTH(780),
 		
