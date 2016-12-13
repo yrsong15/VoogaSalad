@@ -53,6 +53,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 	private ResourceBundle myResources;
 	private Scene scene;
+	private Stage myLevelStage;
 	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
 	private String myLevelFileLocation;
@@ -344,9 +345,14 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	public void makeLevelScreen(List<Integer> highScores, int time, Map<Long,
 			Integer> scoreMapping, IGameEngineUI iGameEngine){
 		ScoreScreen myLevelScreen = new LevelScreen(highScores, time, scoreMapping, iGameEngine);
-		Stage myLevelStage = new Stage();
+		myLevelStage = new Stage();
 		myLevelStage.setTitle(myLevelScreen.getStageTitle());
 		myLevelStage.setScene(myLevelScreen.getScene());
 		myLevelStage.show();
+	}
+
+	@Override
+	public Stage getMyLevelStage(){
+		return myLevelStage;
 	}
 }
