@@ -54,6 +54,10 @@ public class ClientGame {
 	public void addScores(Map<Long, Integer> scores){
 		scoreMapping = scores;
 	}
+	
+	public Map<Long, Integer> getScores() {
+		return scoreMapping;
+	}
 
 	public String getMusicFilePath() {
 		return musicFilePath;
