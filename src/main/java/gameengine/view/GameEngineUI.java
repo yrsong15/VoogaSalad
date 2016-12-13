@@ -106,7 +106,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 
 	public void update() {
 		gameScreen.update(currentGame);
-//		myHUD.update(currentGame);
+		myHUD.update(currentGame.getScores());
 	}
 	public void playMusic(String musicFileName) {
 		try {

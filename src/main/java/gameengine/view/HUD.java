@@ -23,7 +23,7 @@ import objects.Level;
  *
  * @citation http://stackoverflow.com/questions/9966136/javafx-periodic-background-task
  */
-public class HUD implements IHUD {
+public class HUD {
 
 	private HBox myHUD;
 	private Timeline timer;
@@ -37,15 +37,18 @@ public class HUD implements IHUD {
 		myHUD = new HBox();
 	}
 
-	@Override
 	public HBox getHUD() {
 		return myHUD;
 	}
 
-	@Override
-	public void update(Game game) {
+	public void update(Map<Long, Integer> scores) {
 		myHUD.getChildren().clear();
-		game.getCurrentLevel().setTime(timeCount);
+		//game.getCurrentLevel().setTime(timeCount);
+		for (Long clientID : scores.keySet()) {
+			
+			Text scoreText = new Text("Score: " + Integer.toString(scores.get(clientID)));
+			myHUD.getChildren().add(scoreText);
+		}
 //		if(game.getGameConditions().get("score") != null) {
 //			Text scoreText = new Text("Score: " + Integer.toString(level.getScore()));
 //			myHUD.getChildren().add(scoreText);
@@ -58,7 +61,6 @@ public class HUD implements IHUD {
 		myHUD.getChildren().add(timeText);
 	}
 
-	@Override
 	public void resetTimer() {
 		timeCount = 0;
 	}
