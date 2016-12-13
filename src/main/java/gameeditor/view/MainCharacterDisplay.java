@@ -66,6 +66,7 @@ public class MainCharacterDisplay {
     private double currentX = baseX;
     private Rectangle myLeft;
     private Rectangle myRight;
+    private Label myLabel;
 
     public MainCharacterDisplay(IGameEditorData ds, IDesignArea da, IDetailPane dp) {
         myDataStore = ds;
@@ -73,7 +74,7 @@ public class MainCharacterDisplay {
         myDetailPane = dp;
         createCenterParent();
         createCenterPane();
-        createAvatarButton();
+        createAvatarLabel();
         createBP();	
     }
 
@@ -84,8 +85,8 @@ public class MainCharacterDisplay {
         myBP.setLayoutX(PADDING);
         myBP.setLayoutY(GameEditorView.SCENE_HEIGHT-PADDING-TOTAL_ZONE_HEIGHT);
         myBP.setCenter(myCenterParent);
-        myBP.setBottom(myButton);
-        myBP.setAlignment(myButton, Pos.CENTER);
+        myBP.setBottom(myLabel);
+        myBP.setAlignment(myLabel, Pos.CENTER);
     }
 
     private void createCenterParent(){
@@ -105,15 +106,26 @@ public class MainCharacterDisplay {
         myCenterParent.setContent(myCenterPane);
     }
 
-    private void createAvatarButton(){
+    @SuppressWarnings("static-access")
+	private void createAvatarButton(){
         myButton = new Button();
         myButton.setText("Main Character Properties");
         myButton.setMinWidth(BUTTON_WIDTH); myButton.setMaxWidth(BUTTON_WIDTH);
         myButton.setMinHeight(BUTTON_HEIGHT); myButton.setMaxHeight(BUTTON_HEIGHT);
-        myButton.setOnMouseClicked((e) -> {handleButton();});
+        myButton.setOnMouseClicked((e) -> {handleButton();});myBP.setBottom(myLabel);
+        myBP.setBottom(myButton);
+        myBP.setAlignment(myButton, Pos.CENTER);
+    }
+    
+    private void createAvatarLabel(){
+    	myLabel = new Label("No Main Characters Created.");
     }
 
     private void update(){
+    	if (myButton == null && myTotalChars > 0){
+    		myLabel = null;
+            createAvatarButton();
+    	}
         myCenterPane.getChildren().remove(myLeft);
         myCenterPane.getChildren().remove(myRight);
         createLeft();
@@ -217,7 +229,8 @@ public class MainCharacterDisplay {
         return avatarZone;
     }
 
-    private ImageView createAvatarView(String filePath, Rectangle avZone){
+    @SuppressWarnings("unused")
+	private ImageView createAvatarView(String filePath, Rectangle avZone){
         Image newAvatar = new Image(filePath);
         String file = filePath.substring(filePath.lastIndexOf("/") +1);
         double fitWidth = avZone.getWidth() - PADDING;

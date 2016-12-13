@@ -21,8 +21,10 @@ public class CommandPane implements ICommandButtonOut {
 	
 	private ArrayList<ICommandButton> myButtons = new ArrayList<ICommandButton>();
 	private int numButtons = 0;
+	private ICommandDetailDisplay myCommandDetailDisplay;
 
 	public CommandPane(ICommandDetailDisplay commandDetailDisplay) {
+		myCommandDetailDisplay = commandDetailDisplay;
 		myPane = new Pane();
 		myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
 		myPane.setBackground(new Background(new BackgroundFill(ViewResources.COMMAND_PANE_BG.getColorResource(),
@@ -35,6 +37,7 @@ public class CommandPane implements ICommandButtonOut {
 			myPane.getChildren().add(button.getBG());
 			myPane.getChildren().add(button.getImageView());
 		}
+		myCommandDetailDisplay.setCommandPane(this);
 	}
 	
 	public void lowlightButtons(){
@@ -45,5 +48,9 @@ public class CommandPane implements ICommandButtonOut {
 	
 	public Pane getPane(){
 		return myPane;
+	}
+	
+	public ArrayList<ICommandButton> getButtons(){
+		return myButtons;
 	}
 }

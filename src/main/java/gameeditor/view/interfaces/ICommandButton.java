@@ -15,5 +15,6 @@ public interface ICommandButton {
 	
 	public void highlight();
 	public void lowlight();
+	public void checkHighlight(String paneType);
 	
 }
