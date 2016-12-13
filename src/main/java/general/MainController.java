@@ -107,9 +107,9 @@ public class MainController {
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
    //     XMLData = gameExamples.getMultiplayerDDR();
-     //   XMLData = gameExamples.getDoodleJumpXML();
+        XMLData = gameExamples.getDoodleJumpXML();
       //  XMLData = gameExamples.getScrollingXML();
-        XMLData = gameExamples.getMarioXML();
+   //    XMLData = gameExamples.getMarioXML();
         boolean multiplayer = true;
         boolean isServer = false;
 		Game game = gameEngineController.createGameFromXML(XMLData);
