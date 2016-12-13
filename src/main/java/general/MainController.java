@@ -52,7 +52,7 @@ public class MainController {
                 gameEditorController.setOnLoadGame(e -> sendDataToEngine());
         }
 
-        public void presentEditor2(Game game, String gameType) {
+        public void presentEditor(Game game, String gameType) {
                 gameEditorController = new GameEditorController(gameType);
                 gameEditorController.startEditor(game);
                 gameEditorController.setOnLoadGame(e -> sendDataToEngine());
@@ -96,8 +96,12 @@ public class MainController {
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-        XMLData = gameExamples.getMultiplayerDDR();
-        @SuppressWarnings("unused")
+//        XMLData = gameExamples.getDanceDanceRevolution();
+   //    XMLData = gameExamples.getMultiplayerDDR();
+     //   XMLData = gameExamples.getDoodleJumpXML();
+      //  XMLData = gameExamples.getScrollingXML();
+      XMLData = gameExamples.getMarioXML();
+  //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;
