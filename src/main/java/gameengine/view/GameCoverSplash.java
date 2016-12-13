@@ -1,6 +1,7 @@
 package gameengine.view;
 
 import frontend.util.ButtonTemplate;
+import gameengine.view.interfaces.ScoreScreen;
 import general.MainController;
 import general.NodeFactory;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import objects.GameObject;
 import objects.Level;
 
@@ -27,12 +29,14 @@ public class GameCoverSplash {
     private Scene coverScene;
     private Pane myWindow;
     private MainController mainController;
+    private Level myLevel;
     private NodeFactory myFactory = new NodeFactory();
 
     public GameCoverSplash(Level level, MainController myMainController){
         this.playahs = (ArrayList) level.getPlayers();
         this.background = level.getBackgroundFilePath();
         this.title = level.getTitle();
+        this.myLevel = level;
         this.mainController = myMainController;
     }
 
@@ -47,6 +51,7 @@ public class GameCoverSplash {
         backgroundImage.setPreserveRatio(true);
         backgroundImage.setFitHeight(775);
         Text titleText = myFactory.bigNameTitle(title, 35, 100);
+//        titleText.setOnMouseClicked(e -> testLevelScreens());
         ButtonTemplate startTemp = new ButtonTemplate("GalleryGameEngine", 250, 365);
         Button start = startTemp.getButton();
         start.setOnMouseClicked(e -> mainController.startPlaying());
@@ -66,6 +71,18 @@ public class GameCoverSplash {
             myWindow.getChildren().add(newPlayah);
         }
     }
+
+//    private void testLevelScreens(){
+//        ArrayList<Integer> highScores = new ArrayList<Integer>();
+//        highScores.add(myLevel.getScore());
+////        System.out.println("level screen");
+////        Level level = new Level(1);
+//        ScoreScreen myLevelScreen = new LevelScreen(myLevel, highScores);
+//        Stage smallLevelStage = new Stage();
+//        smallLevelStage.setScene(myLevelScreen.getScene());
+//        smallLevelStage.setTitle(myLevelScreen.getStageTitle());
+//        smallLevelStage.show();
+//    }
 
     public String getTitle(){
         return title;

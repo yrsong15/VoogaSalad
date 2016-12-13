@@ -120,7 +120,7 @@ public class GameExamples{
         scrollType.setScrollSpeed(15);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/ddrbackground.jpg");
+        level.setBackgroundImage("Background/discoBall.gif");
         game.setCurrentLevel(level);
         level.addPlayer(one);
         level.addPlayer(two);
