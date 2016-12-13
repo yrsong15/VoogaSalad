@@ -72,6 +72,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
 	private boolean isPaused,isMuted;
+	private int currLevel;
 
 	public GameEngineUI(XMLSerializer mySerializer, 
 			EventHandler<ActionEvent> resetEvent, String serverName) {
@@ -106,6 +107,9 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	}
 
 	public void update() {
+		if (currLevel != currentGame.getLevel()){
+			pause();
+		}
 		gameScreen.update(currentGame);
 //		myHUD.update(currentGame);
 	}
