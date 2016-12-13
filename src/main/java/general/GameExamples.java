@@ -48,7 +48,7 @@ public class GameExamples{
         ground.setProperty("damage", "30");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "2000");
-        DoodleJumpProperties.put("score", "5");
+        DoodleJumpProperties.put("points", "5");
         GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth/2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", DoodleJumpProperties);
         level.getGameObjects().add(mainPlatform);
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
