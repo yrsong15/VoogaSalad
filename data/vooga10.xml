@@ -6,8 +6,8 @@
     <projectiles/>
     <gameObjects>
       <objects.GameObject>
-        <xPosition>393.0</xPosition>
-        <yPosition>190.0</yPosition>
+        <xPosition>251.0</xPosition>
+        <yPosition>182.0</yPosition>
         <width>49.699999999999996</width>
         <height>11.2</height>
         <imageFileName>platform.png</imageFileName>
@@ -30,7 +30,7 @@
           </entry>
           <entry>
             <string>Type Name</string>
-            <string>p</string>
+            <string>plat</string>
           </entry>
           <entry>
             <string>points</string>
@@ -42,7 +42,7 @@
         <onPlatform>false</onPlatform>
         <isPlayer>false</isPlayer>
         <id>0</id>
-        <typeName>p</typeName>
+        <typeName>plat</typeName>
       </objects.GameObject>
     </gameObjects>
     <obstacles/>
@@ -61,7 +61,7 @@
     <gameConditions/>
     <musicFilePath>PacMan%20Original%20Theme.mp3</musicFilePath>
     <backgroundFilePath>Background/bg.png</backgroundFilePath>
-    <randomGenerationFrame class="gameengine.model.RandomGenFrameY">
+    <randomGenerationFrame class="gameengine.model.RandomGenFrameX">
       <level reference="../.."/>
       <randomGenRules>
         <objects.RandomGeneration>
@@ -88,7 +88,7 @@
             </entry>
             <entry>
               <string>Type Name</string>
-              <string>p</string>
+              <string>plat</string>
             </entry>
             <entry>
               <string>points</string>
@@ -112,19 +112,19 @@
             </entry>
           </objectProperties>
           <URL>platform.png</URL>
-          <numObjects class="int">3</numObjects>
-          <minX class="int">450</minX>
+          <numObjects class="int">30</numObjects>
+          <minX class="int">230</minX>
           <maxX class="int">340</maxX>
-          <minY class="int">1234</minY>
-          <maxY class="int">1234</maxY>
-          <minSpacing class="int">345</minSpacing>
-          <maxSpacing class="int">500</maxSpacing>
+          <minY class="int">450</minY>
+          <maxY class="int">450</maxY>
+          <minSpacing class="int">340</minSpacing>
+          <maxSpacing class="int">450</maxSpacing>
           <width class="int">50</width>
           <height class="int">11</height>
         </objects.RandomGeneration>
       </randomGenRules>
       <generatingEnemies>false</generatingEnemies>
-      <benchmarkPoint>-200.0</benchmarkPoint>
+      <benchmarkPoint>900.0</benchmarkPoint>
     </randomGenerationFrame>
     <players>
       <objects.GameObject>
@@ -135,21 +135,31 @@
         <imageFileName>bird3.png</imageFileName>
         <properties>
           <entry>
-            <string>gravity</string>
-            <string>0.8</string>
-          </entry>
-          <entry>
-            <string>health</string>
-            <string>30</string>
+            <string>movespeed</string>
+            <string>200</string>
           </entry>
           <entry>
             <string>Type Name</string>
             <string>MainCharacter0</string>
           </entry>
+          <entry>
+            <string>movement speed</string>
+            <string>40</string>
+          </entry>
         </properties>
         <xDistanceMoved>100.0</xDistanceMoved>
         <yDistanceMoved>181.4075630252101</yDistanceMoved>
         <onPlatform>false</onPlatform>
+        <projectileProperties>
+          <imageFileName>doodler.png</imageFileName>
+          <width>30.0</width>
+          <height>30.0</height>
+          <direction>UP</direction>
+          <range>400.0</range>
+          <speed>10.0</speed>
+          <damage>20.0</damage>
+          <timeBetweenShots>20.0</timeBetweenShots>
+        </projectileProperties>
         <isPlayer>true</isPlayer>
         <id>0</id>
         <typeName>MainCharacter0</typeName>
@@ -174,28 +184,28 @@
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
       <controls>
         <entry>
-          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-          <string>moveDown</string>
+          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+          <string>jump</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-          <string>moveLeft</string>
+          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+          <string>moveDown</string>
         </entry>
         <entry>
           <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
           <string>moveRight</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
-          <string>shootProjectile</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-          <string>jump</string>
-        </entry>
-        <entry>
           <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
           <string>moveUp</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+          <string>moveLeft</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
+          <string>shootProjectile</string>
         </entry>
       </controls>
     </objects.Player>

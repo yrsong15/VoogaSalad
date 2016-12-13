@@ -142,20 +142,20 @@
       <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
       <controls>
         <entry>
-          <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-          <string>jump</string>
-        </entry>
-        <entry>
           <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
           <string>right</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-          <string>left</string>
-        </entry>
-        <entry>
           <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
           <string>shoot</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+          <string>jump</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+          <string>left</string>
         </entry>
       </controls>
     </objects.Player>

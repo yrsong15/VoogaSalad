@@ -154,15 +154,14 @@ public class GameObject {
         return isPlayer;
     }
     public void setIsPlayer(boolean value){
-        System.out.println(" boolean: " + value);
         isPlayer = value;
     }
     
-    public void setTypeName(String typeName){
-        this.typeName = typeName;
+    public void setTypeName(String name){
+        this.typeName = name;
     }
     
     public String getTypeName(){
-        return this.typeName;
+        return typeName;
     }
 }

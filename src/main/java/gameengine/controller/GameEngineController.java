@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import objects.*;
 import xml.XMLSerializer;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
@@ -30,7 +32,7 @@ public class GameEngineController implements CommandInterface {
 		serializer = new XMLSerializer();
 	}
 	public Level startGame(String xmlData) {
-        Game currentGame = serializer.getGameFromString(xmlData);
+        currentGame = serializer.getGameFromString(xmlData);
 		if (currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Cannot start game.");
@@ -62,6 +64,10 @@ public class GameEngineController implements CommandInterface {
 
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
+	    if(playerMapping.keySet().size()==0){
+	        playerMapping = new HashMap<Long, List<Player>>();
+	        playerMapping.put(0L,currentGame.getPlayers());
+	    }
 		System.out.println("client");
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
 		toolbarHBox = gameEngineView.getToolbar();

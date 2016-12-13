@@ -24,7 +24,9 @@ public class GameExamples{
     public String getDoodleJumpXML(){
         Game game = new Game("Doodle Jump");
         GameObject shyGuy = new GameObject(400, 500, 100, 100, "shyguy.png", new HashMap<>());
+        
         Player player1 = new Player(shyGuy);
+        
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
         shyGuy.setProperty("jumpunlimited", "800");
@@ -42,7 +44,9 @@ public class GameExamples{
         player1.setControl(KeyCode.RIGHT, "right");
         player1.setControl(KeyCode.LEFT, "left");
         player1.setControl(KeyCode.SPACE, "shoot");
+        
         level.addPlayer(shyGuy);
+        
         GameObject ground = new GameObject(0, 570,700,50,"platform.png", new HashMap<>());
         ground.setProperty("nonintersectable", "bottom");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
@@ -58,7 +62,9 @@ public class GameExamples{
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
         ProjectileProperties projectileProperties = new ProjectileProperties("doodler.png", 30, 30, Direction.UP, 400, 500, 30, 3);
+        
         shyGuy.setProjectileProperties(projectileProperties);
+        
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
         return xml;

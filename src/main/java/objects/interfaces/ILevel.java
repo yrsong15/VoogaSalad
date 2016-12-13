@@ -45,14 +45,14 @@ public interface ILevel {
 
     public ArrayList<RandomGeneration<Integer>> getRandomGenRules();
 
-
     public void setRandomGenerationFrame(RandomGenFrame<Integer> randomGen);
-
-
-
+    
+    public void addPlayer(GameObject player);
+    
     public String getMusicFilePath();
     public String getBackgroundFilePath();
 
     public ScrollType getScrollType();
+    
 
 }
