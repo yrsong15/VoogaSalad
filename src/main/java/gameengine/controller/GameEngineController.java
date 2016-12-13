@@ -119,8 +119,4 @@ public class GameEngineController implements CommandInterface {
 	public Level getLevel() { 
 		return currentGame.getCurrentLevel(); 
 	}
-	@Override
-	public void nextLevel() {
-		gameEngineView.pause();
-	}
 }
