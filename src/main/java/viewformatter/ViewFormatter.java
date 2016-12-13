@@ -112,18 +112,24 @@ public class ViewFormatter
 		
 		for(ViewObject viewObject : sortedViewObjects)
 		{
-			System.out.println(viewObject.getViewObjectID() + " width: " + viewObject.getWidth().getValue() + " height: " + viewObject.getHeight().getValue() );
 			root.getChildren().add(viewObject.renderNode());
 		}
 		
 	}
 	
-	private void calculateSizeOfNodes()
+	private void calculateSizeOfNodes() throws Exception
 	{
 		Pane root = new Pane();
 		for(ViewObject viewObject : viewObjects.values())
 		{
-			root.getChildren().add(viewObject.getNode());
+			if(viewObject.getNode() == null)
+			{
+				throw new Exception("ViewObject \"" + viewObject.getViewObjectID() + "\" does not have a representative Node.");
+			}
+			else
+			{
+				root.getChildren().add(viewObject.getNode());
+			}
 		} 
 		
 
@@ -141,8 +147,15 @@ public class ViewFormatter
 		Pane root = new Pane();
 		root.setMinSize(width, height);
 		setSizeProperties(width,height);
-		
-		calculateSizeOfNodes();
+		try
+		{
+			calculateSizeOfNodes();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.exit(0);
+		}
 		
 		addViewObjectsToView(root);
 		

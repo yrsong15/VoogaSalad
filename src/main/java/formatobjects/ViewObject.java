@@ -94,7 +94,6 @@ public class ViewObject extends FormatObject
 		if(width.hasValueToUpdate())
 		{
 			double widthValue = width.getValue();
-			System.out.println(viewObjectID + " width: " + widthValue + "");
 			if(node instanceof Region)
 			{
 				((Region)node).setMinWidth(widthValue);
@@ -119,7 +118,6 @@ public class ViewObject extends FormatObject
 		if(height.hasValueToUpdate())
 		{
 			double heightValue = height.getValue();
-			System.out.println(viewObjectID + " height: " + heightValue);
 			if(node instanceof Region)
 			{
 				((Region)node).setMinHeight(heightValue);

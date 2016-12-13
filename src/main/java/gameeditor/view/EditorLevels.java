@@ -92,7 +92,7 @@ public class EditorLevels implements IEditorLevels{
         
         Region title = createTitle(gameName);
         formatter.addView(title, "Title")
-        	.position(Side.TOP, "LevelView", 10);
+        	.position(Side.TOP, "LevelView", 10); 
         
         return formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
         
