@@ -69,19 +69,24 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private int currLevel;
 
 	public GameEngineUI(XMLSerializer mySerializer, 
-			EventHandler<ActionEvent> resetEvent, String serverName) {
+			EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		scene.getStylesheets().add(EDITOR_SPLASH_STYLE);
 //		controlInterface = new ClientMain(serverName, 9090, -1, this);
-		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.mySerializer = mySerializer;
-		setUpMethodMappings();
 	}
+	
+	public void startClient(String serverName){
+		clientMain = new ClientMain(serverName, 9090, -1, this);
+	}
+	
+
 
 	public void initLevel(Map<Long, List<Player>> playerMapping) {
+		setUpMethodMappings();
 		if (currentGame.getMusicFilePath() != null) {
 			playMusic(currentGame.getMusicFilePath());
 		}

@@ -33,11 +33,11 @@ public class GameEngineController implements CommandInterface {
 	public GameEngineController() {
 		this.hostGame = true;
 		serializer = new XMLSerializer();
+		gameEngineView = new GameEngineUI(serializer, event -> reset());
 	}
 
-	public Level startGame(String xmlData) {
-		this.xmlData = xmlData;
-		this.currentGame = createGameFromXML(xmlData);
+	public void startGame() {
+		
 		if (hostGame) {
 			Thread serverThread = createServerThread();
 			serverThread.start();
@@ -49,7 +49,6 @@ public class GameEngineController implements CommandInterface {
 			e.printStackTrace();
 		}
 		startClientGame(currentGame.getClientMappings());
-		return currentGame.getCurrentLevel();
 	}
 
 	private Thread createServerThread() {
@@ -60,8 +59,9 @@ public class GameEngineController implements CommandInterface {
 		};
 	}
 
-	private Game createGameFromXML(String xmlData) {
-		Game currentGame = serializer.getGameFromString(xmlData);
+	public Game createGameFromXML(String xmlData) {
+		this.xmlData = xmlData;
+		this.currentGame = serializer.getGameFromString(xmlData);
 		if (currentGame.getCurrentLevel() == null || currentGame.getCurrentLevel().getPlayers().isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Cannot start game.");
@@ -83,13 +83,15 @@ public class GameEngineController implements CommandInterface {
 	}
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-		gameEngineView = new GameEngineUI(serializer, event -> reset(), serverName);
+		System.out.println("fdfas");
 		toolbarHBox = gameEngineView.getToolbar();
+		gameEngineView.startClient(serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
 			System.out.print("");
 		}
 		gameEngineView.initLevel(playerMapping);
+
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
 	}
 
