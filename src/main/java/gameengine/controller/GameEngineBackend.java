@@ -68,7 +68,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	 */
 	public void updateGame() {
 		Level currLevel = currentGame.getCurrentLevel();
-		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling")) {
+		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling") || currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("LimitedScrolling")) {
 			removeOffscreenElements();
 		}
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
@@ -108,12 +108,12 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	private void removeOffscreenElements() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getAllGameObjects();
-		if (objects.size() == 0 || objects == null)
+		if (objects == null || objects.size() == 0)
 			return;
 		for (int i = objects.size() - 1; i >= 0; i--) {
-			if (objects.get(i).getXPosition() > -(2 * GameEngineUI.myAppWidth) || objects.get(i) == null)
-				continue;// CHANGE THIS TO PIPE WIDTH
-			objects.remove(i);
+            if(objects.get(i).getYPosition() > GameEngineUI.myAppHeight + 100){
+                removeObject(objects.get(i));
+            }
 		}
 	}
 
@@ -124,8 +124,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void winGame() {
-		
-
+        System.out.println("Game Won");
 	}
 
 	@Override
@@ -226,7 +225,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void endGame() {
-		for(Map.Entry<Long, Integer> mapping : currentGame.getScoreMapping().entrySet()) {
+        System.out.println("Game Lost");
+        for(Map.Entry<Long, Integer> mapping : currentGame.getScoreMapping().entrySet()) {
 			addHighScore(mapping.getValue());
 		}
 	}
