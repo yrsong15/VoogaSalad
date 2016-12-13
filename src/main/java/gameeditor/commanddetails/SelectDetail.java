@@ -1,9 +1,13 @@
 package gameeditor.commanddetails;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 /**
  * @author John Martin, Pratiksha Sharma
@@ -72,9 +76,9 @@ public class SelectDetail extends AbstractSelectDetail {
         
         
         String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
-       if(randomGen!=null && randomGen.equals("True")){ 
-           myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList,isEnemyAllowed,randomGenDirection);
-       }
+        if(randomGen!=null && randomGen.equals("True")){ 
+        	myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed, randomGenDirection);
+        }
     }   
     
     public void switchSelectStyle(GameObjectView sprite){
