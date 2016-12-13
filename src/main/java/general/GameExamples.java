@@ -48,6 +48,7 @@ public class GameExamples{
         ground.setProperty("damage", "30");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "2000");
+        DoodleJumpProperties.put("score", "5");
         GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth/2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", DoodleJumpProperties);
         level.getGameObjects().add(mainPlatform);
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
@@ -60,6 +61,7 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
+        level.addWinCondition("score", "10");
         
         
         Level level2 = new Level(2);
@@ -114,7 +116,7 @@ public class GameExamples{
         game.addPlayerToClient(0, player4);
 
         Level level = new Level(1);
-        level.setBackgroundMusic("Lucifer.mp3");
+        level.setBackgroundMusic("Cascada - Everytime We Touch.mp3");
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
         scrollType.setScrollSpeed(15);
