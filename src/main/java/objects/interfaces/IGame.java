@@ -17,5 +17,6 @@ public interface IGame {
     public int getNumberOfLevels();
     public String getGameName();
     public Level getLevelByIndex(int index);
+    public void addPlayerToClient(long ID, Player player);
     
 }

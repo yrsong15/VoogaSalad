@@ -2,6 +2,8 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
@@ -18,55 +20,55 @@ import objects.*;
  */
 
 public class MainController {
-        public static final String STYLESHEET = "default.css";
-        private static final String GAME_TITLE = "VoogaSalad";
-        private Stage gameEngineStage;
-        private Gallery gallery;
-        private GameEditorController gameEditorController;
-        private GameEngineController gameEngineController;
+	public static final String STYLESHEET = "default.css";
+	private static final String GAME_TITLE = "VoogaSalad";
+	private Stage gameEngineStage;
+	private Gallery gallery;
+	private GameEditorController gameEditorController;
+	private GameEngineController gameEngineController;
 
-        public MainController(Stage stage) throws IOException {
-                this.gallery = new Gallery();
-                Scene scene = new Scene(new SplashScreen(gallery, this).setUpWindow());
-                scene.getStylesheets().add(STYLESHEET);
-                stage.setScene(scene);
-                stage.setTitle(GAME_TITLE);
-                stage.show();
-                initializeGallery();
-                gameEngineController = new GameEngineController();
-                gameEditorController = new GameEditorController();
-        }
+	public MainController(Stage stage) throws IOException {
+		this.gallery = new Gallery();
+		Scene scene = new Scene(new SplashScreen(gallery, this).setUpWindow());
+		scene.getStylesheets().add(STYLESHEET);
+		stage.setScene(scene);
+		stage.setTitle(GAME_TITLE);
+		stage.show();
+		initializeGallery();
+		gameEngineController = new GameEngineController();
+		gameEditorController = new GameEditorController();
+	}
 
-        private void initializeGallery() throws IOException {
-                this.gallery = new Gallery();
-        }
+	private void initializeGallery() throws IOException {
+		this.gallery = new Gallery();
+	}
 
-        private void addNewGameFile(String title, String gameData) {
-                GameFile newGame = new GameFile(title, gameData);
-                gallery.addToGallery(newGame);
-        }
+	private void addNewGameFile(String title, String gameData) {
+		GameFile newGame = new GameFile(title, gameData);
+		gallery.addToGallery(newGame);
+	}
 
-        public void presentEditor(Game game) {
-                gameEditorController = new GameEditorController();
-                gameEditorController.startEditor(game);
-                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-        }
+	public void presentEditor(Game game) {
+		gameEditorController = new GameEditorController();
+		gameEditorController.startEditor(game);
+		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+	}
 
-        public void presentEditor(Game game, String gameType) {
-                gameEditorController = new GameEditorController(gameType);
-                gameEditorController.startEditor(game);
-                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-        }
+	public void presentEditor(Game game, String gameType) {
+		gameEditorController = new GameEditorController(gameType);
+		gameEditorController.startEditor(game);
+		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+	}
 
-        private void setUpGameEngineStage(Level level) {
-                gameEngineStage = new Stage();
-                GameCoverSplash myCover = new GameCoverSplash(level, this);
-                gameEngineStage.setScene(myCover.createSplashScene());
-                gameEngineStage.setTitle(myCover.getTitle());
-                gameEngineStage.show();
-        }
+	private void setUpGameEngineStage(Level level) {
+		gameEngineStage = new Stage();
+		GameCoverSplash myCover = new GameCoverSplash(level, this);
+		gameEngineStage.setScene(myCover.createSplashScene());
+		gameEngineStage.setTitle(myCover.getTitle());
+		gameEngineStage.show();
+	}
 
-        public void startPlayingMulti(boolean isHosted, String myServer){
+	public void startPlayingMulti(boolean isHosted, String myServer){
         gameEngineController.setHostMode(isHosted, myServer);
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
@@ -88,19 +90,31 @@ public class MainController {
         }
 
         private void sendDataToEngine() {
-                String title = gameEditorController.getGameTitle();
-                String gameFile = gameEditorController.getGameFile();
-                addNewGameFile(title, gameFile);
-                launchEngine(gameFile);
+               // String title = gameEditorController.getGameTitle();
+                //String gameFile = gameEditorController.getGameFile();
+                //addNewGameFile(title, gameFile);
+               
+                
+                String content = null;
+              try {
+                  content = new String(Files.readAllBytes(Paths.get("data/vooga10.xml")));
+              }
+              catch (IOException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+              }
+              launchEngine(content);
         }
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-//        XMLData = gameExamples.getDanceDanceRevolution();
+        //XMLData = gameExamples.getDanceDanceRevolution();
+        
    //    XMLData = gameExamples.getMultiplayerDDR();
-     //   XMLData = gameExamples.getDoodleJumpXML();
+       XMLData = gameExamples.getDoodleJumpXML();
+       System.out.println(XMLData);
       //  XMLData = gameExamples.getScrollingXML();
-      XMLData = gameExamples.getMarioXML();
+      //XMLData = gameExamples.getMarioXML();
   //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")

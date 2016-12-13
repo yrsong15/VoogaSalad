@@ -141,7 +141,7 @@ public class GameEditorController implements IGameEditorController{
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);
-            myGameEditorBackEndController.addCurrentLevelToGame();
+            //myGameEditorBackEndController.addCurrentLevelToGame();
             //myGameEditorBackEndController.addCurrentLevelToGame();  
             addSaveLevelListener();
         }     
