@@ -81,9 +81,6 @@ public class GameScreen {
     
     
     public void update(ClientGame game){
-    	if (currLevel != game.getLevel()){
-    		
-    	}
     	for (Rectangle bar : barList){
     		myScreen.getChildren().remove(bar);
     	}
@@ -121,6 +118,8 @@ public class GameScreen {
         catch (NullPointerException e){
         	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
         }     
+        
+
 
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());

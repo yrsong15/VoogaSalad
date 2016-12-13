@@ -12,7 +12,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import objects.interfaces.ILevelInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,6 @@ public abstract class ScoreScreen {
     protected double myAppHeight = 340;
     protected NodeFactory myFactory = new NodeFactory();
     private Scene myScene;
-    private ILevelInfo myLevel;
     private IGameEngineUI myGameEngine;
     private int myTime;
     private Map<Long, Integer> myScoreMapping;

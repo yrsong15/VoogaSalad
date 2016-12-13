@@ -54,6 +54,8 @@ public class ServerMain {
 
 	private GameHandler gameHandler;
 
+	private ServerSocket serverSocket;
+	
 	public ServerMain(GameHandler gameHandler, int tcpPort, String serverName) {
 		this.gameHandler = gameHandler;
 		SERVER_PORT_TCP = tcpPort;
@@ -66,7 +68,7 @@ public class ServerMain {
 
 	private void start(String serverName) {
 		try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT_TCP, 0, InetAddress.getByName(serverName))) {
-
+			this.serverSocket = serverSocket;
 			Socket clientSocket;
 			while ((clientSocket = serverSocket.accept()) != null) {
 				new Thread(new TcpConnection(this, clientSocket)).start();
@@ -92,6 +94,18 @@ public class ServerMain {
 	
 	public void restart(){
 		gameHandler.restart();
+	}
+	
+	public synchronized void shutdownServerThread(){
+		System.out.println("shutdown in servermain");
+		try {
+			serverSocket.close();
+		} catch (IOException ex) {
+			System.out.println("Error in closing server socket");
+			ex.printStackTrace();
+		}
+		Thread.currentThread().interrupt();
+//		return;
 	}
 	
 	private void runTimer(){
