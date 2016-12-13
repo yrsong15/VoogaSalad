@@ -12,6 +12,7 @@ public class ApplyBouncableRule {
     public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
             String jumpVelocity = obj.getProperty("bounce");
             if(jumpVelocity!=null && Double.parseDouble(mainChar.getProperty("fallspeed")) > 0){
+            	handler.goNextLevel();
                 mainChar.setProperty("fallspeed", "-" + jumpVelocity);
                 handler.endGame();
             }

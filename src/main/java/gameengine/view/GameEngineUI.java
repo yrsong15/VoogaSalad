@@ -76,7 +76,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 
 	public GameEngineUI(XMLSerializer mySerializer, 
 			EventHandler<ActionEvent> resetEvent, String serverName) {
-		System.out.println("game engine ui instnatiated");
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
@@ -277,7 +276,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	}
 
 	public void pause() {
-		System.out.println("pause button pressed in UI");
 		if (isPaused) {
 			toolbar.resume();
 			animation.play();

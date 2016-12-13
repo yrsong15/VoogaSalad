@@ -51,7 +51,7 @@ public class GameCoverSplash {
         backgroundImage.setPreserveRatio(true);
         backgroundImage.setFitHeight(775);
         Text titleText = myFactory.bigNameTitle(title, 35, 100);
-        titleText.setOnMouseClicked(e -> testLevelScreens());
+//        titleText.setOnMouseClicked(e -> testLevelScreens());
         ButtonTemplate startTemp = new ButtonTemplate("GalleryGameEngine", 250, 365);
         Button start = startTemp.getButton();
         start.setOnMouseClicked(e -> mainController.startPlaying());
@@ -72,17 +72,17 @@ public class GameCoverSplash {
         }
     }
 
-    private void testLevelScreens(){
-        ArrayList<Integer> highScores = new ArrayList<Integer>();
-        highScores.add(myLevel.getScore());
-//        System.out.println("level screen");
-//        Level level = new Level(1);
-        ScoreScreen myLevelScreen = new LevelScreen(myLevel, highScores);
-        Stage smallLevelStage = new Stage();
-        smallLevelStage.setScene(myLevelScreen.getScene());
-        smallLevelStage.setTitle(myLevelScreen.getStageTitle());
-        smallLevelStage.show();
-    }
+//    private void testLevelScreens(){
+//        ArrayList<Integer> highScores = new ArrayList<Integer>();
+//        highScores.add(myLevel.getScore());
+////        System.out.println("level screen");
+////        Level level = new Level(1);
+//        ScoreScreen myLevelScreen = new LevelScreen(myLevel, highScores);
+//        Stage smallLevelStage = new Stage();
+//        smallLevelStage.setScene(myLevelScreen.getScene());
+//        smallLevelStage.setTitle(myLevelScreen.getStageTitle());
+//        smallLevelStage.show();
+//    }
 
     public String getTitle(){
         return title;

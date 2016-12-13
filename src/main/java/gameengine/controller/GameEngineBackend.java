@@ -155,9 +155,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
     }
 
     public void goNextLevel() {
+    	System.out.println(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null);
+    	
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
-			commandInterface.nextLevel();
 		} else {
 			winGame();
 		}
@@ -251,6 +252,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath(), highScores);
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
 		clientGame.addScores(game.getScoreMapping());
+		clientGame.setLevel(currLevel.getLevel());
 		if (currLevel.getBackground()!=null){
 			clientGame.setBackgroundObject(currLevel.getBackground());
 		}
