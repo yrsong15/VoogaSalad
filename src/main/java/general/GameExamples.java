@@ -60,6 +60,13 @@ public class GameExamples{
         level.addGameObject(block);
         block.setProperty("nonintersectable", "");
         
+		GameObject enemy = new GameObject(225, 525, 50, 75, "hawaiiBird.png", new HashMap<>());
+		enemy.setProperty("enemy", "30");
+		enemy.setProperty("horizontalmovement", "10");
+		enemy.setProperty("bounceBack", "");
+		level.addGameObject(enemy);
+		
+        
         GameObject killer = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
         killer.setProperty("damage", "30");
         killer.setProperty("nonscrollable", "");
