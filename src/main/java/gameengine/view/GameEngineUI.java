@@ -87,7 +87,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		if (currentGame.getMusicFilePath() != null) {
 			playMusic(currentGame.getMusicFilePath());
 		}
-		if (currentGame.getBackgroundFilePath() != null && currentGame.getBackgroundObject()==null) {
+		if (currentGame.getBackgroundFilePath() != null && currentGame.getBackgroundObject() == null) {
 			setBackgroundImage(currentGame.getBackgroundFilePath());
 		}
 		gameScreen.reset();
@@ -109,9 +109,9 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 			makeLevelScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
 			currLevel = currentGame.getLevel();
 		}
-		/**else if (currentGame.isGameLost()){
-			
-		}**/
+		else if (currentGame.isGameLost()){
+			makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
+		}
 		
 		/**else if(currentGame.isGameWon()){
 			
@@ -146,7 +146,8 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		for(KeyCode key : keyPressed.keySet()){
 			if(keyPressed.get(key).equals(true)){
 				Player player = playerMappings.get(key);
-				keyMappings.get(key).invoke(clientMain, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
+				keyMappings.get(key).invoke(clientMain, player.getMainChar(),
+						Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 			}
 		}
 	}
@@ -335,12 +336,21 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		return -1;
 	}
 
-	public void makeLevelScreen(List<Integer> highScores, int time, Map<Long,
+	private void makeLevelScreen(List<Integer> highScores, int time, Map<Long,
 			Integer> scoreMapping, IGameEngineUI iGameEngine){
 		ScoreScreen myLevelScreen = new LevelScreen(highScores, time, scoreMapping, iGameEngine);
 		myLevelStage = new Stage();
 		myLevelStage.setTitle(myLevelScreen.getStageTitle());
 		myLevelStage.setScene(myLevelScreen.getScene());
+		myLevelStage.show();
+	}
+
+	private void makeLoseScreen(List<Integer> highScores, int time, Map<Long,
+			Integer> scoreMapping, IGameEngineUI iGameEngine){
+		ScoreScreen myLoseScreen = new LoseScreen(highScores, time, scoreMapping, iGameEngine);
+		myLevelStage = new Stage();
+		myLevelStage.setTitle(myLoseScreen.getStageTitle());
+		myLevelStage.setScene(myLoseScreen.getScene());
 		myLevelStage.show();
 	}
 
@@ -363,6 +373,4 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private void serverShutdown(){
 		System.out.println("Server Shutdown initiated!");
 	}
-
-
 }

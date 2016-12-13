@@ -23,7 +23,7 @@ import java.util.Collections;
  * Created by Delia on 12/11/2016.
  */
 public class GameCoverSplash {
-    private String title, character, background;
+    private String title, background;
     private static final String COVER_SPLASH_STYLE = "default.css";
     private static final int COVER_WIDTH = 700;
     private ArrayList<GameObject> playahs;
@@ -88,18 +88,6 @@ public class GameCoverSplash {
             myWindow.getChildren().add(newPlayah);
         }
     }
-
-//    private void testLevelScreens(){
-//        ArrayList<Integer> highScores = new ArrayList<Integer>();
-//        highScores.add(myLevel.getScore());
-////        System.out.println("level screen");
-////        Level level = new Level(1);
-//        ScoreScreen myLevelScreen = new LevelScreen(myLevel, highScores);
-//        Stage smallLevelStage = new Stage();
-//        smallLevelStage.setScene(myLevelScreen.getScene());
-//        smallLevelStage.setTitle(myLevelScreen.getStageTitle());
-//        smallLevelStage.show();
-//    }
 
     public String getTitle(){
         return title;
