@@ -1,0 +1,41 @@
+<objects.Game>
+  <name>Untitled</name>
+  <levels/>
+  <currentLevel>
+    <level>1</level>
+    <projectiles/>
+    <gameObjects>
+      <objects.GameObject>
+        <xPosition>100.0</xPosition>
+        <yPosition>176.57849829351537</yPosition>
+        <width>75.0</width>
+        <height>46.84300341296928</height>
+        <imageFileName>bird2.gif</imageFileName>
+        <properties>
+          <entry>
+            <string>Type Name</string>
+            <string>Main Character0</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>100.0</xDistanceMoved>
+        <yDistanceMoved>176.57849829351537</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>true</isPlayer>
+        <id>0</id>
+        <typeName>MainCharacter0</typeName>
+      </objects.GameObject>
+    </gameObjects>
+    <obstacles/>
+    <winConditions/>
+    <loseConditions/>
+    <gameConditions/>
+    <players/>
+  </currentLevel>
+  <players>
+    <objects.Player>
+      <mainChar reference="../../../currentLevel/gameObjects/objects.GameObject"/>
+    </objects.Player>
+  </players>
+  <clientMappings/>
+  <minNumPlayers>1</minNumPlayers>
+</objects.Game>

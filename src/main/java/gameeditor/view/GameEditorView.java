@@ -89,18 +89,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 //            }
 //        }
 //
-//    }
-////    private void addSprites(){
-////        if(myLevelSettings.getAllGameObjects().size()>0){
-////            for(GameObject object: myLevelSettings.getGameObjects()){
-//////                double height = object.getHeight();
-//////                double width = object.getWidth();
-//////                String fileName = object.getImageFileName();
-////                Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
-//////                ImageView spriteimageView = new ImageView(image);
-////            }
-////        }
-////    }
 
     
     private HBox createLeftAlt(){
@@ -205,6 +193,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         // add Game Objects to level
         myDataStoreInterface.storeMainCharToXML();
         myDataStoreInterface.addGameObjectsToLevel();
+        myDataStoreInterface.addRandomGenerationFrame();
         
         closeLevelWindow.set(true);
     }

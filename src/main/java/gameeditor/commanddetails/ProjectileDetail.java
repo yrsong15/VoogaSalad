@@ -33,8 +33,6 @@ public class ProjectileDetail {
     private String myImageFile;
 
 
-
-    //public static String [] 
     public ProjectileDetail(IGameEditorData dataStore){
         myDataStore = dataStore;
         myImageDetail= new ImageDetail();
@@ -66,9 +64,6 @@ public class ProjectileDetail {
     @SuppressWarnings("unused")
 	private void handleSave(){
         Map<String,String> projectilePropertiesMap = new HashMap<String,String>();
-        //        if(projectileDirection.getValue()!=null){ 
-        //            projectilePropertiesMap.put(DetailResources.DIRECTION_KEY.getResource(),projectileDirection.getValue());
-        //        }
 
         Direction direction=null;
         if(projectileDirection.getValue()!=null){
@@ -97,23 +92,6 @@ public class ProjectileDetail {
             GameEditorException ex = new GameEditorException();
             ex.showError("Values cannot be Empty");
         }
-
-
-        //        for(TextArea area: myTextInputs){
-        //            String label = DetailResources.PROJECTILE_TEXT_INPUT_PROPERTIES_LABEL.getArrayResource()[counter];
-        //            String value = area.getText();
-        //            if(value.isEmpty()|| value!=null){
-        //                value = DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource();
-        //            }
-        //
-        //            projectilePropertiesMap.put(label.toLowerCase(), area.getText());   
-        //        }
-
-        //        String type =null;
-        //        if(myTypes.getValue()!=null){
-        //            type = myTypes.getValue();
-        //        }
-        // myDataStore.addProjectileProperties(type, projectilePropertiesMap); 
     }
 
     private String getText( TextArea area){

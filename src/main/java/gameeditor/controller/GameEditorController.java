@@ -135,12 +135,12 @@ public class GameEditorController implements IGameEditorController{
             ILevel levelInterface = (ILevel) level;
             
             myLevelManager.createLevel(level);
-           myLevelManager.setLeveltitle(myEditorLevels.getGameTitle().get());
+            myLevelManager.setLeveltitle(myEditorLevels.getGameTitle().get());
             myGameEditorView = new GameEditorView(levelInterface, myGameInterface, myGameType);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);
-            myGameEditorBackEndController.addCurrentLevelToGame();  
+            //myGameEditorBackEndController.addCurrentLevelToGame();  
             addSaveLevelListener();
         }     
     }

@@ -82,9 +82,6 @@ public class EditorSplash {
                 EDITOR_CORNER_X + 660, EDITOR_CORNER_Y + 70);
         Button limited = newTemplate.getButton();
         limited.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        
-        // Testing only
-        limited.setOnMouseClicked(e -> myMainController.testGameEngine());
         ImageView doodle = myFactory.makeThumbnailImage("Doodle", 98, 130);
         Tooltip TLimited = myFactory.makeTooltip("Limited", doodle);
         Tooltip.install(limited, TLimited);

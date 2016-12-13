@@ -32,7 +32,8 @@ public interface IGameEditorData {
 
     public void addGameObjectsToLevel();
 
-    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, ComboBox<String> isEnemyAllowed);
+    public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters,
+                                    ComboBox<String> isEnemyAllowed,ComboBox<String> direction);
 
 
     public ArrayList<String> getImageViews();
@@ -52,6 +53,8 @@ public interface IGameEditorData {
     public void addControls(String typeName, Map<KeyCode,String> controlMap);
     
     public void removeGameobjectView(String imageViewName);
+    
+    public void addRandomGenerationFrame();
     
 }
 
