@@ -76,7 +76,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private List<Player> clientPlayerList;
 	private boolean isPaused,isMuted;
 	private int currLevel;
-	private Stage gameEngineStage;
 
 	public GameEngineUI(XMLSerializer mySerializer, 
 			EventHandler<ActionEvent> resetEvent, String serverName) {
@@ -88,7 +87,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 //		controlInterface = new ClientMain(serverName, 9090, -1, this);
 		clientMain = new ClientMain(serverName, 9090, -1, this);
 		this.mySerializer = mySerializer;
-		setupServerShutdown();
 		setUpMethodMappings();
 	}
 
@@ -359,18 +357,9 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	public Stage getMyLevelStage(){
 		return myLevelStage;
 	}
+
 	
-	public void setGameEngineStage(Stage gameEngineStage){
-		this.gameEngineStage = gameEngineStage;
-	}
-	
-	public void setupServerShutdown(){
-		if(gameEngineStage != null){
-			gameEngineStage.setOnCloseRequest(e->serverShutdown());	
-		}
-	}
-	
-	private void serverShutdown(){
+	public void serverShutdown(){
 		System.out.println("Server Shutdown initiated!");
 	}
 
