@@ -94,6 +94,12 @@ public class ServerMain {
 		gameHandler.restart();
 	}
 	
+	public void shutdownServerThread(){
+		System.out.println("shutdown in servermain");
+		Thread.currentThread().interrupt();
+		return;
+	}
+	
 	private void runTimer(){
 		timer.scheduleAtFixedRate(new TimerTask() {
 
