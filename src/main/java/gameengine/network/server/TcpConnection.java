@@ -23,6 +23,8 @@ class TcpConnection implements Runnable{
 	private static final int GET_ID_IP_PORT = 2;
 	private static final int REMOVE_CHARACTER = 3;
 	private static final int PAUSE = 4;
+	private static final int RESTART = 5;
+	private static final int SERVER_THREAD_SHUTDOWN = 6;
 
 	private ServerMain main;
 	private Socket socket;
@@ -65,6 +67,12 @@ class TcpConnection implements Runnable{
 						break;
 					case PAUSE:
 						main.pause();
+						break;
+					case RESTART:
+						main.restart();
+						break;
+					case SERVER_THREAD_SHUTDOWN:
+						main.shutdownServerThread();
 						break;
 					default:
 						break;

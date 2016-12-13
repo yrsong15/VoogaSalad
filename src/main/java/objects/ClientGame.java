@@ -15,6 +15,10 @@ public class ClientGame {
 	private String backgroundFilePath;
 	private ClientGameObject background;
 	private List<Integer> highScores;
+	private Map<Long, Integer> scoreMapping;
+	private int currLevel;
+	private boolean gameLost;
+	private boolean gameWon;
 
 	public ClientGame(String musicFilePath, String backgroundFilePath, List<Integer> highScores) {
 		gameObjectMap = new HashMap<>();
@@ -32,7 +36,7 @@ public class ClientGame {
 			gameObjectMap.put(o.getID(),
 					new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
 							o.getDirection(), o.getImageFileName(),
-							o.getProperty("health") == null ? null : Integer.parseInt(o.getProperty("health"))));
+							o.getProperty("health") == null ? null : Double.parseDouble(o.getProperty("health"))));
 		}
 	}
 
@@ -48,6 +52,14 @@ public class ClientGame {
 	public ClientGameObject getBackgroundObject() {
 		return background;
 	}
+	
+	public void addScores(Map<Long, Integer> scores){
+		scoreMapping = scores;
+	}
+	
+	public Map<Long, Integer> getScores() {
+		return scoreMapping;
+	}
 
 	public String getMusicFilePath() {
 		return musicFilePath;
@@ -55,6 +67,24 @@ public class ClientGame {
 
 	public void setMusicFilePath(String musicFilePath) {
 		this.musicFilePath = musicFilePath;
+	}
+	
+	public void setGameInfo(int level, boolean lost, boolean won){
+		currLevel = level;
+		gameLost = lost;
+		gameWon = won;
+	}
+	
+	public int getLevel(){
+		return currLevel;
+	}
+	
+	public boolean isGameLost(){
+		return gameLost;
+	}
+	
+	public boolean isGameWon(){
+		return gameLost;
 	}
 
 	public String getBackgroundFilePath() {

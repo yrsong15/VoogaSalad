@@ -33,6 +33,7 @@ public class GameScreen {
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
     private List<Rectangle> barList;
+    private int currLevel;
     
     public GameScreen() {
         myScreen = new Pane();
@@ -117,6 +118,8 @@ public class GameScreen {
         catch (NullPointerException e){
         	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
         }     
+        
+
 
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());

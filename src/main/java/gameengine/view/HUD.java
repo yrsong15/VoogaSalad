@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gameengine.view;
 
@@ -12,8 +12,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import objects.Game;
 import objects.Level;
 
 /**
@@ -22,8 +26,8 @@ import objects.Level;
  *
  * @citation http://stackoverflow.com/questions/9966136/javafx-periodic-background-task
  */
-public class HUD implements IHUD {
-	
+public class HUD {
+
 	private HBox myHUD;
 	private Timeline timer;
 	private int timeCount;
@@ -36,31 +40,43 @@ public class HUD implements IHUD {
 		myHUD = new HBox();
 	}
 
-	@Override
 	public HBox getHUD() {
 		return myHUD;
 	}
 
-	@Override
-	public void update(Level level) {
+	public void update(Map<Long, Integer> scores) {
 		myHUD.getChildren().clear();
-		if(level.getGameConditions().get("score") != null) {
-			Text scoreText = new Text("Score: " + Integer.toString(level.getScore()));
+//		myHUD.getChildren().add(scoreText);
+		//game.getCurrentLevel().setTime(timeCount);
+		for (Long clientID : scores.keySet()) {
+			Text scoreText = new Text("Player " + Long.toString((clientID+1))
+					+ ": " + Integer.toString(scores.get(clientID)));
+			scoreText.setFill(Color.WHITE);
+			scoreText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+			scoreText.setTranslateY(60);
+			scoreText.setTranslateX(30);
 			myHUD.getChildren().add(scoreText);
 		}
-		if(level.getPlayers() != null) {
-			Text healthText = new Text("  |  Health: " + level.getPlayers().get(0).getProperty("health"));
-            myHUD.getChildren().add(healthText);
-        }
+//		if(game.getGameConditions().get("score") != null) {
+//			Text scoreText = new Text("Score: " + Integer.toString(level.getScore()));
+//			myHUD.getChildren().add(scoreText);
+//		}
+//		if(level.getPlayers() != null) {
+//			Text healthText = new Text("  |  Health: " + level.getPlayers().get(0).getProperty("health"));
+//            myHUD.getChildren().add(healthText);
+//        }
 		Text timeText = new Text("  |  Time: " + Integer.toString(timeCount));
+		timeText.setFill(Color.WHITE);
+		timeText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+		timeText.setTranslateY(60);
+		timeText.setTranslateX(130);
 		myHUD.getChildren().add(timeText);
 	}
 
-	@Override
 	public void resetTimer() {
 		timeCount = 0;
 	}
-	
+
 	private void incrementTime() {
 		timeCount++;
 	}

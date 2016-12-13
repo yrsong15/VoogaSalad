@@ -1,0 +1,215 @@
+<objects.Game>
+  <name>Untitled</name>
+  <levels/>
+  <currentLevel>
+    <level>1</level>
+    <projectiles/>
+    <gameObjects>
+      <objects.GameObject>
+        <xPosition>251.0</xPosition>
+        <yPosition>182.0</yPosition>
+        <width>49.699999999999996</width>
+        <height>11.2</height>
+        <imageFileName>platform.png</imageFileName>
+        <properties>
+          <entry>
+            <string>damage</string>
+            <string>30</string>
+          </entry>
+          <entry>
+            <string>isDestructible</string>
+            <string>False</string>
+          </entry>
+          <entry>
+            <string>movable</string>
+            <string>False</string>
+          </entry>
+          <entry>
+            <string>randomgeneration</string>
+            <string>True</string>
+          </entry>
+          <entry>
+            <string>Type Name</string>
+            <string>plat</string>
+          </entry>
+          <entry>
+            <string>points</string>
+            <string>1</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>0.0</xDistanceMoved>
+        <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
+        <id>0</id>
+        <typeName>plat</typeName>
+      </objects.GameObject>
+    </gameObjects>
+    <obstacles/>
+    <winConditions>
+      <entry>
+        <string>points</string>
+        <string>20.0</string>
+      </entry>
+    </winConditions>
+    <loseConditions>
+      <entry>
+        <string>time</string>
+        <string>400.0</string>
+      </entry>
+    </loseConditions>
+    <gameConditions/>
+    <musicFilePath>PacMan%20Original%20Theme.mp3</musicFilePath>
+    <backgroundFilePath>Background/bg.png</backgroundFilePath>
+    <randomGenerationFrame class="gameengine.model.RandomGenFrameX">
+      <level reference="../.."/>
+      <randomGenRules>
+        <objects.RandomGeneration>
+          <objectProperties>
+            <entry>
+              <string>damage</string>
+              <string>30</string>
+            </entry>
+            <entry>
+              <string>randomgeneration</string>
+              <string>True</string>
+            </entry>
+            <entry>
+              <string>health</string>
+              <string>0.0</string>
+            </entry>
+            <entry>
+              <string>enemy</string>
+              <null/>
+            </entry>
+            <entry>
+              <string>horizontal speed</string>
+              <string>0.0</string>
+            </entry>
+            <entry>
+              <string>Type Name</string>
+              <string>plat</string>
+            </entry>
+            <entry>
+              <string>points</string>
+              <string>1</string>
+            </entry>
+            <entry>
+              <string>isDestructible</string>
+              <string>False</string>
+            </entry>
+            <entry>
+              <string>movable</string>
+              <string>False</string>
+            </entry>
+            <entry>
+              <string>gravity</string>
+              <string>0.0</string>
+            </entry>
+            <entry>
+              <string>jump</string>
+              <string>0.0</string>
+            </entry>
+          </objectProperties>
+          <URL>platform.png</URL>
+          <numObjects class="int">30</numObjects>
+          <minX class="int">230</minX>
+          <maxX class="int">340</maxX>
+          <minY class="int">450</minY>
+          <maxY class="int">450</maxY>
+          <minSpacing class="int">340</minSpacing>
+          <maxSpacing class="int">450</maxSpacing>
+          <width class="int">50</width>
+          <height class="int">11</height>
+        </objects.RandomGeneration>
+      </randomGenRules>
+      <generatingEnemies>false</generatingEnemies>
+      <benchmarkPoint>900.0</benchmarkPoint>
+    </randomGenerationFrame>
+    <players>
+      <objects.GameObject>
+        <xPosition>100.0</xPosition>
+        <yPosition>181.4075630252101</yPosition>
+        <width>75.0</width>
+        <height>37.18487394957983</height>
+        <imageFileName>bird3.png</imageFileName>
+        <properties>
+          <entry>
+            <string>movespeed</string>
+            <string>200</string>
+          </entry>
+          <entry>
+            <string>Type Name</string>
+            <string>MainCharacter0</string>
+          </entry>
+          <entry>
+            <string>movement speed</string>
+            <string>40</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>100.0</xDistanceMoved>
+        <yDistanceMoved>181.4075630252101</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <projectileProperties>
+          <imageFileName>doodler.png</imageFileName>
+          <width>30.0</width>
+          <height>30.0</height>
+          <direction>UP</direction>
+          <range>400.0</range>
+          <speed>10.0</speed>
+          <damage>20.0</damage>
+          <timeBetweenShots>20.0</timeBetweenShots>
+        </projectileProperties>
+        <isPlayer>true</isPlayer>
+        <id>0</id>
+        <typeName>MainCharacter0</typeName>
+      </objects.GameObject>
+    </players>
+    <scrollType>
+      <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+      <myScrollDirectionList>
+        <com.sun.javafx.scene.traversal.Direction>UP</com.sun.javafx.scene.traversal.Direction>
+      </myScrollDirectionList>
+      <scrollSpeed>0.0</scrollSpeed>
+      <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
+        <viewWidth>825.0</viewWidth>
+        <viewHeight>527.0</viewHeight>
+        <worldWidth>1.7976931348623157E308</worldWidth>
+        <worldHeight>1.7976931348623157E308</worldHeight>
+      </gameBoundaries>
+    </scrollType>
+  </currentLevel>
+  <players>
+    <objects.Player>
+      <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
+      <controls>
+        <entry>
+          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+          <string>jump</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+          <string>moveDown</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+          <string>moveRight</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+          <string>moveUp</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+          <string>moveLeft</string>
+        </entry>
+        <entry>
+          <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
+          <string>shootProjectile</string>
+        </entry>
+      </controls>
+    </objects.Player>
+  </players>
+  <clientMappings/>
+  <minNumPlayers>1</minNumPlayers>
+</objects.Game>

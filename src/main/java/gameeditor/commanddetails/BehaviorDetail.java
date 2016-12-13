@@ -150,7 +150,8 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
             //myDataStore.addGameBoundary(boundary);
         }
         ScrollType myScrollType = new ScrollType(scrollTypeClass,boundary);
-        myScrollType.addDirectionList(scrollTypeDirections);
+        myScrollType.addDirectionList(scrollTypeDirections);  
+        myDataStore.addScrollType(myScrollType);
     }
 
     @SuppressWarnings("unused")

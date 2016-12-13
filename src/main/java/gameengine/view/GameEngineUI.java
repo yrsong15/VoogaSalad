@@ -11,13 +11,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import frontend.util.FileOpener;
-import gameengine.controller.MovementManager;
 import gameengine.controller.ScrollerController;
-import gameengine.controller.interfaces.CommandInterface;
-import gameengine.controller.interfaces.ControlInterface;
-import gameengine.controller.interfaces.GameHandler;
 import gameengine.network.client.ClientMain;
 import gameengine.network.server.UDPHandler;
+import gameengine.view.interfaces.IGameEngineUI;
+import gameengine.view.interfaces.ScoreScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -33,23 +31,22 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.ClientGame;
-import objects.Game;
 import objects.GameObject;
-import objects.Level;
 import objects.Player;
 import utils.ResourceReader;
 import xml.XMLSerializer;
 /**
- * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
+ * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song, Chalena Scholl
  *
  */
-public class GameEngineUI implements UDPHandler{
+public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	public static final double myAppWidth = 700;
 	public static final double myAppHeight = 775;
 	public static final String RESOURCE_FILENAME = "GameEngineUI";
 	private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
 	private ResourceBundle myResources;
 	private Scene scene;
+	private Stage myLevelStage;
 	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
 	private String myLevelFileLocation;
@@ -65,49 +62,74 @@ public class GameEngineUI implements UDPHandler{
 	private EventHandler<ActionEvent> resetEvent;
 	private Timeline animation;
 	private ClientMain clientMain;
-	private CommandInterface commandInterface;
-	private Stage endGameStage;
 	private ClientGame currentGame;
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
 	private boolean isPaused,isMuted;
+	private int currLevel;
 
-	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, 
-			EventHandler<ActionEvent> resetEvent, String serverName) {
-		System.out.println("game engine ui instnatiated");
+	public GameEngineUI(XMLSerializer mySerializer, 
+			EventHandler<ActionEvent> resetEvent) {
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
 		this.myErrorMessage = new ErrorMessage();
 		this.resetEvent = resetEvent;
 		this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
 		scene.getStylesheets().add(EDITOR_SPLASH_STYLE);
 //		controlInterface = new ClientMain(serverName, 9090, -1, this);
-		clientMain = new ClientMain(serverName, 9090, -1, this);
-		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
-		setUpMethodMappings();
 	}
+	
+	public void startClient(String serverName){
+		clientMain = new ClientMain(serverName, 9090, -1, this);
+	}
+	
+
+
 	public void initLevel(Map<Long, List<Player>> playerMapping) {
+		setUpMethodMappings();
 		if (currentGame.getMusicFilePath() != null) {
 			playMusic(currentGame.getMusicFilePath());
 		}
-		if (currentGame.getBackgroundFilePath() != null && currentGame.getBackgroundObject()==null) {
+		if (currentGame.getBackgroundFilePath() != null && currentGame.getBackgroundObject() == null) {
 			setBackgroundImage(currentGame.getBackgroundFilePath());
 		}
 		gameScreen.reset();
 		gameScreen.init(currentGame);
 		myHUD.resetTimer();
+		System.out.println(" Client Id " + clientMain.getID());
+	              System.out.println(playerMapping.keySet().size());
+
+		
 		clientPlayerList = playerMapping.get(clientMain.getID());
+		
 		for(Player player : clientPlayerList) {
 			mapKeys(player, player.getControls());
 		}
 	}
+
 	public Scene getScene() {
 		return scene;
 	}
 
 	public void update() {
+		if (currLevel != currentGame.getLevel()){
+			//pause();
+			makeLevelScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
+			currLevel = currentGame.getLevel();
+		}
+		else if (currentGame.isGameLost()){
+			makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
+
+		}
+		
+		else if(currentGame.isGameWon()){
+			System.out.println("you're amazingggggg pat yourself on the back");
+			
+		}
 		gameScreen.update(currentGame);
+		myHUD.update(currentGame.getScores());
 	}
+
 	public void playMusic(String musicFileName) {
 		try {
 			if (mediaPlayer != null) {
@@ -122,6 +144,7 @@ public class GameEngineUI implements UDPHandler{
 			System.out.println(myResources.getString("MusicFileError"));
 		}
 	}
+
 	public void setBackgroundImage(String imageFile) {
 		try {
 			gameScreen.setBackgroundImage(imageFile);
@@ -133,10 +156,12 @@ public class GameEngineUI implements UDPHandler{
 		for(KeyCode key : keyPressed.keySet()){
 			if(keyPressed.get(key).equals(true)){
 				Player player = playerMappings.get(key);
-				keyMappings.get(key).invoke(clientMain, player.getMainChar(), Double.parseDouble(player.getMainChar().getProperty("movespeed")));
+				keyMappings.get(key).invoke(clientMain, player.getMainChar(),
+						Double.parseDouble(player.getMainChar().getProperty("movespeed")));
 			}
 		}
 	}
+
 	public void mapKeys(Player player, Map<KeyCode, String> mappings) {
 		for(KeyCode key : mappings.keySet()){
 			playerMappings.put(key, player);
@@ -144,6 +169,7 @@ public class GameEngineUI implements UDPHandler{
 		mapKeysToMethods(mappings);
 		setUpKeystrokeListeners();
 	}
+
 	public void setupKeyFrameAndTimeline(double delay) {
 		KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> {
 			try {
@@ -157,6 +183,7 @@ public class GameEngineUI implements UDPHandler{
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
+
 	public void endGame() {
 		animation.stop();
 //		HighScoreScreen splash = new HighScoreScreen(currentGame, new ArrayList<Integer>(),
@@ -169,24 +196,29 @@ public class GameEngineUI implements UDPHandler{
 //		endGameStage.setTitle("GAME OVER");
 //		endGameStage.show();
 	}
+
 	public void saveGame(){
 		FileOpener chooser = new FileOpener();
 		chooser.saveFile(myResources.getString("XML"), myResources.getString("data"),
 				mySerializer.serializeClientGame(currentGame), myResources.getString("DefaultGameTitle"));
 	}
+
 	public void stop() {
 		stopMusic();
 		animation.stop();
 	}
+
 	public void stopMusic() {
 		if (currentGame.getMusicFilePath() != null) {
 			mediaPlayer.stop();
 		}
 	}
+
 	public void resetGameScreen() {
 		gameScreen.reset();
 		myHUD.resetTimer();
 	}
+
 	private void setUpMethodMappings() {
 		try {
 			ResourceReader resources = new ResourceReader("Controls");
@@ -201,6 +233,7 @@ public class GameEngineUI implements UDPHandler{
 			e.printStackTrace();
 		}
 	}
+
 	private void mapKeysToMethods(Map<KeyCode, String> mappings) {
 		for (Map.Entry<KeyCode, String> m : mappings.entrySet()) {
 			if (methodMappings.containsKey(m.getValue())) {
@@ -208,6 +241,7 @@ public class GameEngineUI implements UDPHandler{
 			}
 		}
 	}
+
 	private BorderPane makeRoot() {
 		BorderPane root = new BorderPane();
 		VBox vb = new VBox();
@@ -218,6 +252,7 @@ public class GameEngineUI implements UDPHandler{
 		root.setTop(vb);
 		return root;
 	}
+
 	private Node makeToolbar() {
 		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent,
 				event -> mute(), event -> saveGame());
@@ -233,10 +268,12 @@ public class GameEngineUI implements UDPHandler{
 		myHUD = new HUD();
 		return myHUD.getHUD();
 	}
+
 	private Node makeGameScreen() {
 		gameScreen = new GameScreen();
 		return gameScreen.getScreen();
 	}
+
 	private void mute() {
 		if (isMuted) {
 			isMuted = false;
@@ -249,14 +286,15 @@ public class GameEngineUI implements UDPHandler{
 			mediaPlayer.setMute(true);
 		}
 	}
+
 	private void loadLevel() {
 		FileChooser levelChooser = new FileChooser();
 		levelChooser.setTitle("Open Level File");
 		File levelFile = levelChooser.showOpenDialog(new Stage());
 		myLevelFileLocation = levelFile.getAbsolutePath();
 	}
-	private void pause() {
-		System.out.println("pause button pressed in UI");
+
+	public void pause() {
 		if (isPaused) {
 			toolbar.resume();
 			animation.play();
@@ -265,9 +303,9 @@ public class GameEngineUI implements UDPHandler{
 			animation.stop();
 		}
 		clientMain.pause();
-		stopMusic();
 		isPaused = !isPaused;
 	}
+
 	private void setUpKeystrokeListeners() {
 		this.scene.setOnKeyPressed(event -> {
 			if (keyMappings.containsKey(event.getCode())) {
@@ -287,18 +325,53 @@ public class GameEngineUI implements UDPHandler{
 			}
 		});
 	}
+
 	@Override
 	public void updateGame(ClientGame game) {
+		if (currLevel == 0){
+			currLevel = game.getLevel();
+		}
 		currentGame = game;
 	}
+
 	public boolean gameLoadedFromServer(){
-		return currentGame!=null;
+		return currentGame != null;
 	}
+
 	@Override
 	public int getCharIdx(GameObject player) {
-		for(int i=0;i<clientPlayerList.size();i++){
-			if(clientPlayerList.get(i).getMainChar()==player) return i;
+		for(int i = 0; i < clientPlayerList.size(); i++){
+			if(clientPlayerList.get(i).getMainChar() == player) return i;
 		}
 		return -1;
+	}
+
+	private void makeLevelScreen(List<Integer> highScores, int time, Map<Long,
+			Integer> scoreMapping, IGameEngineUI iGameEngine){
+		ScoreScreen myLevelScreen = new LevelScreen(highScores, time, scoreMapping, iGameEngine);
+		myLevelStage = new Stage();
+		myLevelStage.setTitle(myLevelScreen.getStageTitle());
+		myLevelStage.setScene(myLevelScreen.getScene());
+		myLevelStage.show();
+	}
+
+	private void makeLoseScreen(List<Integer> highScores, int time, Map<Long,
+			Integer> scoreMapping, IGameEngineUI iGameEngine){
+		ScoreScreen myLoseScreen = new LoseScreen(highScores, time, scoreMapping, iGameEngine);
+		myLevelStage = new Stage();
+		myLevelStage.setTitle(myLoseScreen.getStageTitle());
+		myLevelStage.setScene(myLoseScreen.getScene());
+		myLevelStage.show();
+	}
+
+
+	@Override
+	public Stage getMyLevelStage(){
+		return myLevelStage;
+	}
+
+	
+	public void serverShutdown(){
+		clientMain.shutdownServerThread();
 	}
 }

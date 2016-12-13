@@ -126,7 +126,7 @@ public class SpriteDetail {
     private void getPropertiesFromTextArea(Map<String,String> propertiesMap){
         int i=0;
         for(String labl: myPropertiesTextBox){
-            if(!myTextFields.get(i).getText().isEmpty()){
+            if(!myTextFields.get(i).getText().isEmpty()){              
                 propertiesMap.put(labl.toLowerCase(), myTextFields.get(i).getText());  
                 i++;
             }

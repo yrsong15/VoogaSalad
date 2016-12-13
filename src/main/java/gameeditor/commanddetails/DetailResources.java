@@ -16,6 +16,8 @@ public enum DetailResources {
 		RANDOM_GEN_KEY("randomgeneration"),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
 		MAIN_CHARACTER_PROPERTIES(new String[]{"Health","Gravity","Movement Speed","Jump"}),
+		MAIN_CHAR_MOVEMENT_LABEL("Movement Speed"),
+		MAIN_CHAR_MOVEMENT_KEY("movespeed"),
 		SCROLL_TYPE_OPTIONS_LABEL("Scroll Type"),
 		SCROLL_DIRECTIONS_OPTIONS(new String[] {"LEFT","RIGHT","UP","DOWN"}),
 		
