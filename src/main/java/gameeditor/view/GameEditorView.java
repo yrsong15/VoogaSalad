@@ -124,6 +124,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         }
     }
 
+    @SuppressWarnings("unused")
     private void addAvatar(){
         //if(myLevelSettings.getMainCharacter()!=null){
             //if(myLevelSettings.getMainCharacter().getImageFileName()!=null){

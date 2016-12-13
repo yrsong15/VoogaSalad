@@ -3,7 +3,7 @@ package gameeditor.commanddetails;
 import javafx.scene.paint.Color;
 
 /**
- * @author John Martin (jfm41)
+ * @author John Martin (jfm41), Pratiksha sharma
  *
  */
 

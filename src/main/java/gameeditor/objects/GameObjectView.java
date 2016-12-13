@@ -7,7 +7,7 @@ import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 /**
- * @author John Martin
+ * @author John Martin, Pratiksha sharma
  *
  */
 public class GameObjectView {
