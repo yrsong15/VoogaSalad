@@ -106,7 +106,7 @@ public class GameExamples{
         GameObject hack3 = new GameObject(350+5, 550, 50, 10, "emptyimage.png", properties);
         GameObject hack4 = new GameObject(520+5, 550, 50, 10, "emptyimage.png", properties);
 
-        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 100, 30, 0, 1);
+        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 100, 30, 0, 0);
         one.setProjectileProperties(projectileProperties);
         two.setProjectileProperties(projectileProperties);
         three.setProjectileProperties(projectileProperties);
@@ -138,10 +138,10 @@ public class GameExamples{
         level.setBackgroundMusic("Cascada - Everytime We Touch.mp3");
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
-        scrollType.setScrollSpeed(5);
+        scrollType.setScrollSpeed(15);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/discoBall.gif");
+        level.setBackgroundImage("Background/ddrbackground.jpg");
         game.setCurrentLevel(level);
         level.addPlayer(one);
         level.addPlayer(two);
@@ -198,7 +198,7 @@ public class GameExamples{
         GameObject hack7 = new GameObject(10+85+85+85+100+85+85+11, 550, 50, 10, "emptyimage.png", properties);
         GameObject hack8 = new GameObject(10+85+85+85+100+85+85+85+11, 550, 50, 10, "emptyimage.png", properties);
 
-        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 1);
+        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 0);
         one.setProjectileProperties(projectileProperties);
         two.setProjectileProperties(projectileProperties);
         three.setProjectileProperties(projectileProperties);

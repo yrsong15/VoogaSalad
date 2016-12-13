@@ -1,7 +1,6 @@
 package general;
 
 import frontend.util.ButtonTemplate;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -89,7 +88,7 @@ public class EditorSplash {
                 EDITOR_CORNER_X + 360, EDITOR_CORNER_Y + 70);
         Button free = newTemplate.getButton();
         free.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        free.setOnMouseClicked(e -> myMainController.presentEditor2(null, "RPG"));
+        free.setOnMouseClicked(e -> myMainController.presentEditor(null, "RPG"));
         ImageView mario = myFactory.makeThumbnailImage("Mario", 150, 50);
         Tooltip TFree = myFactory.makeTooltip("Free", mario);
         Tooltip.install(free, TFree);

@@ -62,7 +62,7 @@ public class MainController {
 		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
 	}
 
-	public void presentEditor2(Game game, String gameType) {
+	public void presentEditor(Game game, String gameType) {
 		gameEditorController = new GameEditorController(gameType);
 		gameEditorController.startEditor(game);
 		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
@@ -106,8 +106,7 @@ public class MainController {
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-        XMLData = gameExamples.getMultiplayerDDR();
-        //XMLData = gameExamples.getMultiplayerDDR();
+        XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         boolean isServer = false;
 		Game game = gameEngineController.createGameFromXML(XMLData);
