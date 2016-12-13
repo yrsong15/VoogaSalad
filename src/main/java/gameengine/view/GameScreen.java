@@ -33,6 +33,7 @@ public class GameScreen {
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
     private List<Rectangle> barList;
+    private int currLevel;
     
     public GameScreen() {
         myScreen = new Pane();
@@ -80,6 +81,9 @@ public class GameScreen {
     
     
     public void update(ClientGame game){
+    	if (currLevel != game.getLevel()){
+    		
+    	}
     	for (Rectangle bar : barList){
     		myScreen.getChildren().remove(bar);
     	}
