@@ -31,7 +31,7 @@ public abstract class ScoreScreen {
     private BorderPane root;
     private CommandInterface commandInterface;
 
-    public ScoreScreen(ILevelInfo level, List<Integer> highScores, IGameEngineUI iGameEngine) {
+    public ScoreScreen(Level level, List<Integer> highScores, IGameEngineUI iGameEngine) {
         this.highScores = highScores;
        // this.myLevel = level;
         this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);

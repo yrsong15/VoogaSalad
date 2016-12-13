@@ -17,7 +17,7 @@ import gameengine.view.GameEngineUI;
  * Created by Soravit on 11/18/2016.
  * @author : Soravit, Pratiksha, Chalena
  */
-public class Level implements ILevel, ILevelInfo{
+public class Level implements ILevel{
 
     private int level;
     private List<GameObject> projectiles;

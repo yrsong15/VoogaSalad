@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Delia on 12/11/2016.
  */
 public class LevelScreen extends ScoreScreen { 
-    public LevelScreen(ILevelInfo level, List<Integer> highScores, IGameEngineUI iGameEngine) {
+    public LevelScreen(Level level, List<Integer> highScores, IGameEngineUI iGameEngine) {
         super(level, highScores, iGameEngine);
     }
 

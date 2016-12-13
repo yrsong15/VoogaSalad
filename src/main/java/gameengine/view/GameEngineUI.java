@@ -303,7 +303,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		return -1;
 	}
 	
-	public void makeLevelScreen(ILevelInfo level, List<Integer> highScores, IGameEngineUI IGameEngine){
+	public void makeLevelScreen(Level level, List<Integer> highScores, IGameEngineUI IGameEngine){
 		LevelScreen levelUp = new LevelScreen(level, highScores, IGameEngine);
 	}
 }
