@@ -61,6 +61,7 @@ public class GameEditorController implements IGameEditorController{
         
         if(myGameEditorBackEndController.getGame().getNumberOfLevels()!=0){
             for(int i=0;i<myGameEditorBackEndController.getGame().getNumberOfLevels();i++){
+                System.out.println(" HERE ");
                 addLevelButton();
             }
         }
@@ -140,6 +141,7 @@ public class GameEditorController implements IGameEditorController{
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);
+            myGameEditorBackEndController.addCurrentLevelToGame();
             //myGameEditorBackEndController.addCurrentLevelToGame();  
             addSaveLevelListener();
         }     

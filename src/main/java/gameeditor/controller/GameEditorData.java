@@ -327,8 +327,7 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public void removeGameobjectView (String imageViewName) {
-        spriteToRemove.add(imageViewName);
-       
+        spriteToRemove.add(imageViewName);  
     }
 
     private void removeFromMapList(ArrayList<Map<String,String>> mapList ){
