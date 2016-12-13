@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import objects.Level;
+import objects.interfaces.ILevelInfo;
 
 import java.util.List;
 
@@ -30,11 +31,11 @@ public abstract class ScoreScreen {
     private BorderPane root;
     private CommandInterface commandInterface;
 
-    public ScoreScreen(Level level, List<Integer> highScores, CommandInterface commandInterface) {
+    public ScoreScreen(ILevelInfo level, List<Integer> highScores, IGameEngineUI iGameEngine) {
         this.highScores = highScores;
-        this.myLevel = level;
+       // this.myLevel = level;
         this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-        this.commandInterface = commandInterface;
+        //this.commandInterface = iGameEngine;
     }
 
     private BorderPane makeRoot() {

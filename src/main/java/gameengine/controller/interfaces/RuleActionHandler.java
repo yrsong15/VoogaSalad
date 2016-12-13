@@ -13,4 +13,5 @@ public interface RuleActionHandler {
 	public void resetObjectPosition(GameObject mainChar, GameObject obj);
 	public void removeFromCollidedList(GameObject obj);
 	public void winGame();
+	public void goNextLevel();
 }

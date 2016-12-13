@@ -51,18 +51,18 @@ public class MainController {
     }
     
     public void presentEditor(Game game) {
-                gameEditorController = new GameEditorController();
-                gameEditorController.startEditor(game);
-                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-        }
+            gameEditorController = new GameEditorController();
+            gameEditorController.startEditor(game);
+            gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+    }
 
 
-        public void presentEditor2(Game game, String gameType) {
-                System.out.println("hi");
-                gameEditorController = new GameEditorController(gameType);
-                gameEditorController.startEditor(game);
-                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-        }
+    public void presentEditor2(Game game, String gameType) {
+            System.out.println("hi");
+            gameEditorController = new GameEditorController(gameType);
+            gameEditorController.startEditor(game);
+            gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+    }
 
     private void setUpGameEngineStage(Level level){
         gameEngineStage = new Stage();
@@ -79,12 +79,12 @@ public class MainController {
         gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
     }
 
-        private void sendDataToEngine() {
-                String title = gameEditorController.getGameTitle();
-                String gameFile = gameEditorController.getGameFile();
-                addNewGameFile(title, gameFile);
-                launchEngine(gameFile);
-        }
+    private void sendDataToEngine() {
+            String title = gameEditorController.getGameTitle();
+            String gameFile = gameEditorController.getGameFile();
+            addNewGameFile(title, gameFile);
+            launchEngine(gameFile);
+    }
 
 	public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();

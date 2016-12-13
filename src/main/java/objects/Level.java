@@ -3,6 +3,8 @@ package objects;
 import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.input.KeyCode;
 import objects.interfaces.ILevel;
+import objects.interfaces.ILevelInfo;
+
 import java.security.Key;
 import java.util.*;
 
@@ -13,9 +15,9 @@ import gameengine.view.GameEngineUI;
 
 /**
  * Created by Soravit on 11/18/2016.
- * @author : Soravit, Pratiksha
+ * @author : Soravit, Pratiksha, Chalena
  */
-public class Level implements ILevel{
+public class Level implements ILevel, ILevelInfo{
 
     private int level;
     private List<GameObject> projectiles;

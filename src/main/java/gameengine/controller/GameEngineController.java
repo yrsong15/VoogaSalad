@@ -53,7 +53,7 @@ public class GameEngineController implements CommandInterface {
 	}
 	public void startServerGame(Game currentGame) {
 		this.currentGame = currentGame;
-		backend = new GameEngineBackend(serverName);
+		backend = new GameEngineBackend(this, serverName);
 		backend.startGame(currentGame);
 		if(toolbarHBox != null){
 			backend.setToolbarHBox(toolbarHBox);
@@ -62,7 +62,6 @@ public class GameEngineController implements CommandInterface {
 
 
 	public void startClientGame(Map<Long, List<Player>> playerMapping) {
-		System.out.println("client");
 		gameEngineView = new GameEngineUI(this, serializer, event -> reset(), serverName);
 		toolbarHBox = gameEngineView.getToolbar();
 		while (!gameEngineView.gameLoadedFromServer()) {
@@ -91,5 +90,13 @@ public class GameEngineController implements CommandInterface {
 		gameEngineView.endGame();
 	}
 
-	public Level getLevel() { return currentGame.getCurrentLevel(); }
+	public Level getLevel() { 
+		return currentGame.getCurrentLevel(); 
+	}
+	@Override
+	public void nextLevel() {
+		gameEngineView.pause();
+		
+		
+	}
 }

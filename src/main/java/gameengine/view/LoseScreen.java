@@ -10,6 +10,7 @@ import frontend.util.ButtonTemplate;
 import gameengine.controller.GameEngineController;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.ControlInterface;
+import gameengine.view.interfaces.IGameEngineUI;
 import gameengine.view.interfaces.ScoreScreen;
 import general.NodeFactory;
 import javafx.scene.Group;
@@ -38,7 +39,7 @@ public class LoseScreen extends ScoreScreen{
 //	private BorderPane root;
 //	private CommandInterface commandInterface;
 	
-	public LoseScreen(Level level, List<Integer> highScores, CommandInterface commandInterface) {
+	public LoseScreen(Level level, List<Integer> highScores, IGameEngineUI commandInterface) {
 		super(level, highScores, commandInterface);
 	}
 //

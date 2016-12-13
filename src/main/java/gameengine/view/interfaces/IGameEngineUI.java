@@ -14,11 +14,9 @@ public interface IGameEngineUI {
 
 	public Scene getScene();
 	
-	public void update(Level level);
-	
-	public void setMusic(String musicFileLocation);
-	
 	public void setBackgroundImage(String imageFileLocation);
 	
 	public void stopMusic();
+	
+	public void pause();
 }

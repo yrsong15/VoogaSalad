@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import com.sun.javafx.scene.traversal.Direction;
+
+import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.GameHandler;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
@@ -12,7 +14,6 @@ import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 import gameengine.model.LossChecker;
 import gameengine.model.RandomGenFrame;
 import gameengine.model.WinChecker;
-import gameengine.network.client.ClientMain;
 import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 import javafx.scene.Node;
@@ -29,9 +30,11 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private Map<GameObject, Position> mainCharImprints;
 	private String serverName;
 	private Node toolbarHBox;
+	private CommandInterface commandInterface;
 
-	public GameEngineBackend(String serverName) {
+	public GameEngineBackend(CommandInterface commandInterface, String serverName) {
 		this.serverName = serverName;
+		this.commandInterface = commandInterface;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
 		highScores = new ArrayList<>();
@@ -85,7 +88,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
             randomlyGenerateFrames();
         }
         if(toolbarHBox != null){
-			System.out.println("sadfasdfsadf");
 			toolbarHBox.toFront();
 		}
 		
@@ -124,13 +126,14 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void winGame() {
-		// TODO: SPLASH SCREEN
+		
 
 	}
 
 	public void goNextLevel() {
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
+			commandInterface.nextLevel();
 		} else {
 			winGame();
 		}
