@@ -54,10 +54,10 @@ public class GameCoverSplash {
         backgroundImage.setFitHeight(775);
         Text titleText = myFactory.bigNameTitle(title, 35, 100);
 //        titleText.setOnMouseClicked(e -> testLevelScreens());
-        ButtonTemplate singleTemp = new ButtonTemplate("Singleplayer", 300, 165);
+        ButtonTemplate singleTemp = new ButtonTemplate("Singleplayer", 150, 165);
         Button single = singleTemp.getButton();
         single.setOnMouseClicked(e -> mainController.startPlayingSingle());
-        ButtonTemplate multiTemp = new ButtonTemplate("Multiplayer", 300, 265);
+        ButtonTemplate multiTemp = new ButtonTemplate("Multiplayer", 150, 265);
         Button multi = multiTemp.getButton();
         multi.setOnMouseClicked(e -> setUpMulti());
         myWindow.getChildren().addAll(backgroundImage, titleText, single, multi);
@@ -67,13 +67,13 @@ public class GameCoverSplash {
     }
 
     private void setUpMulti(){
-        ButtonTemplate hostTemp = new ButtonTemplate("HostGame", 300, 365);
+        ButtonTemplate hostTemp = new ButtonTemplate("HostGame", 150, 365);
         Button host = hostTemp.getButton();
         host.setOnMouseClicked(e -> mainController.startPlayingMulti(true, addServer.getText()));
-        ButtonTemplate joinTemp = new ButtonTemplate("JoinGame", 300, 465);
+        ButtonTemplate joinTemp = new ButtonTemplate("JoinGame", 150, 465);
         Button join = joinTemp.getButton();
         join.setOnMouseClicked(e -> mainController.startPlayingMulti(false, addServer.getText()));
-        addServer = myFactory.makeTextField("Enter a server", 520, 485);
+        addServer = myFactory.makeTextField("Enter a server", 370, 485);
         myWindow.getChildren().addAll(host, join, addServer);
     }
 
