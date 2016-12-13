@@ -109,6 +109,7 @@ public class GameExamples{
         game.addPlayerToClient(0, player4);
 
         Level level = new Level(1);
+        level.setBackgroundMusic("FlappyBirdThemeSong.mp3");
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
         scrollType.setScrollSpeed(10);
@@ -123,6 +124,7 @@ public class GameExamples{
 
         HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
         DDRArrowProperties.put("points", "50");
+        DDRArrowProperties.put("removeobject", "");
         RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,150,150,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
         RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,150,150,"ddrdownarrow.png",2, 190 ,190,1234,1234,500,520);
         RandomGeneration arrow3 = new RandomGeneration(DDRArrowProperties,150,150,"ddruparrow.png",2, 360,360,1234,1234,300,600);
@@ -132,7 +134,116 @@ public class GameExamples{
         randomGenerations.add(arrow2);
         randomGenerations.add(arrow3);
         randomGenerations.add(arrow4);
-        RandomGenFrame frame = new RandomGenFrameY(level,randomGenerations, true);
+        RandomGenFrame frame = new RandomGenFrameY(level,randomGenerations, false);
+        level.setRandomGenerationFrame(frame);
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        return xml;
+    }
+
+    public String getMultiplayerDDR(){
+        Game game = new Game("Dance Dance Revolution");
+        GameObject one = new GameObject(10, 550, 10, 10, "emptyimage.png", new HashMap<>());
+        GameObject two = new GameObject(10+85, 550, 10, 10, "emptyimage.png", new HashMap<>());
+        GameObject three = new GameObject(10+85+85, 550, 10, 10, "emptyimage.png", new HashMap<>());
+        GameObject four = new GameObject(10+85+85+85, 550, 10, 10, "emptyimage.png", new HashMap<>());
+
+        GameObject five = new GameObject(10+85+85+85+100, 550, 10, 10, "shyguy.png", new HashMap<>());
+        GameObject six = new GameObject(10+85+85+85+100+85, 550, 10, 10, "shyguy.png", new HashMap<>());
+        GameObject seven = new GameObject(10+85+85+85+100+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
+        GameObject eight = new GameObject(10+85+85+85+100+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
+
+        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 1);
+        one.setProjectileProperties(projectileProperties);
+        two.setProjectileProperties(projectileProperties);
+        three.setProjectileProperties(projectileProperties);
+        four.setProjectileProperties(projectileProperties);
+        five.setProjectileProperties(projectileProperties);
+        six.setProjectileProperties(projectileProperties);
+        seven.setProjectileProperties(projectileProperties);
+        eight.setProjectileProperties(projectileProperties);
+        one.setProperty("movespeed","0");
+        two.setProperty("movespeed","0");
+        three.setProperty("movespeed","0");
+        four.setProperty("movespeed","0");
+        five.setProperty("movespeed","0");
+        six.setProperty("movespeed","0");
+        seven.setProperty("movespeed","0");
+        eight.setProperty("movespeed","0");
+
+        Player player1 = new Player(one);
+        Player player2 = new Player(two);
+        Player player3 = new Player(three);
+        Player player4 = new Player(four);
+        Player player5 = new Player(five);
+        Player player6 = new Player(six);
+        Player player7 = new Player(seven);
+        Player player8 = new Player(eight);
+        player1.setControl(KeyCode.A, "shoot");
+        player2.setControl(KeyCode.S, "shoot");
+        player3.setControl(KeyCode.D, "shoot");
+        player4.setControl(KeyCode.F, "shoot");
+//        player5.setControl(KeyCode.A, "shoot");
+//        player6.setControl(KeyCode.S, "shoot");
+//        player7.setControl(KeyCode.D, "shoot");
+//        player8.setControl(KeyCode.F, "shoot");
+
+        game.addPlayer(player1);
+        game.addPlayer(player2);
+        game.addPlayer(player3);
+        game.addPlayer(player4);
+        game.addPlayer(player5);
+        game.addPlayer(player6);
+        game.addPlayer(player7);
+        game.addPlayer(player8);
+        game.addPlayerToClient(0, player1);
+        game.addPlayerToClient(0, player2);
+        game.addPlayerToClient(0, player3);
+        game.addPlayerToClient(0, player4);
+        game.addPlayerToClient(1, player5);
+        game.addPlayerToClient(1, player6);
+        game.addPlayerToClient(1, player7);
+        game.addPlayerToClient(1, player8);
+        Level level = new Level(1);
+        level.setBackgroundMusic("FlappyBirdThemeSong.mp3");
+        GameBoundary gameBoundaries = new NoBoundary(700, 675);
+        ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
+        scrollType.setScrollSpeed(10);
+        scrollType.addScrollDirection(Direction.UP);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("Background/multiplayerddr.png");
+        game.setCurrentLevel(level);
+        level.addPlayer(one);
+        level.addPlayer(two);
+        level.addPlayer(three);
+        level.addPlayer(four);
+        level.addPlayer(five);
+        level.addPlayer(six);
+        level.addPlayer(seven);
+        level.addPlayer(eight);
+
+        HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
+        DDRArrowProperties.put("points", "50");
+        DDRArrowProperties.put("removeobject", "");
+        RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,75,75,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
+        RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,75,75,"ddrdownarrow.png",2, 20+85 ,20+85,1234,1234,500,520);
+        RandomGeneration arrow3 = new RandomGeneration(DDRArrowProperties,75,75,"ddruparrow.png",2, 20+85+85,20+85+85,1234,1234,300,600);
+        RandomGeneration arrow4 = new RandomGeneration(DDRArrowProperties,75,75,"ddrrightarrow.png",2, 20+85+85+85,20+85+85+85,1234,1234,540,1000);
+        RandomGeneration arrow5 = new RandomGeneration(DDRArrowProperties,75,75,"ddrleftarrow.png",2, 20+85+85+85+100,20+85+85+85+100,1234,1234,700,800);
+        RandomGeneration arrow6 = new RandomGeneration(DDRArrowProperties,75,75,"ddrdownarrow.png",2, 20+85+85+85+100+85 ,20+85+85+85+100+85,1234,1234,500,520);
+        RandomGeneration arrow7 = new RandomGeneration(DDRArrowProperties,75,75,"ddruparrow.png",2, 20+85+85+85+100+85+85,20+85+85+85+100+85+85,1234,1234,300,600);
+        RandomGeneration arrow8 = new RandomGeneration(DDRArrowProperties,75,75,"ddrrightarrow.png",2, 20+85+85+85+100+85+85+85,20+85+85+85+100+85+85+85,1234,1234,540,1000);
+
+        ArrayList<RandomGeneration> randomGenerations = new ArrayList<RandomGeneration>();
+        randomGenerations.add(arrow1);
+        randomGenerations.add(arrow2);
+        randomGenerations.add(arrow3);
+        randomGenerations.add(arrow4);
+        randomGenerations.add(arrow5);
+        randomGenerations.add(arrow6);
+        randomGenerations.add(arrow7);
+        randomGenerations.add(arrow8);
+        RandomGenFrame frame = new RandomGenFrameY(level,randomGenerations, false);
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);

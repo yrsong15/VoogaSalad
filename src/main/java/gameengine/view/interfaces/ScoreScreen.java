@@ -44,12 +44,12 @@ public abstract class ScoreScreen {
         background.setFitWidth(myAppWidth);
         Rectangle backdrop = myFactory.makeBackdrop(20, 20, 350, 300, Color.WHITE);
         root = new BorderPane();
-        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
-        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+//        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
+//        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         Text highScoreText = new Text (50, 100, "High Scores");
         highScoreText.setFill(Color.RED);
         highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-        root.getChildren().addAll(background, backdrop, score, highScoreText);
+        root.getChildren().addAll(background, backdrop, highScoreText);
         int index = 0;
         for (Integer highScore : highScores) {
             Text text = new Text (50, 120 + index * 20, " " + (index + 1) + ".\t" + Integer.toString(highScore));
