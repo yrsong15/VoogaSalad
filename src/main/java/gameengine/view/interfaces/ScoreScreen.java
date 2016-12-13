@@ -13,7 +13,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import objects.Level;
+import objects.interfaces.ILevel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,16 +27,17 @@ public abstract class ScoreScreen {
     protected double myAppHeight = 340;
     protected NodeFactory myFactory = new NodeFactory();
     private Scene myScene;
-    private Level myLevel;
+    private ILevelInfo myLevel;
+    private IGameEngineUI myGameEngine;
     private List<Integer> highScores;
     private BorderPane root;
-    private CommandInterface commandInterface;
 
-    public ScoreScreen(Level level, List<Integer> highScores, CommandInterface commandInterface) {
+    public ScoreScreen(ILevelInfo level, ArrayList<Integer> highScores, IGameEngineUI gameengine) {
         this.highScores = highScores;
         this.myLevel = level;
         this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
-        this.commandInterface = commandInterface;
+        this.myGameEngine = gameengine;
+//        this.commandInterface = commandInterface;
     }
 
     private BorderPane makeRoot() {
@@ -59,15 +62,21 @@ public abstract class ScoreScreen {
         ButtonTemplate exitTemplate = new ButtonTemplate("Quit", 10, 10);
         ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
         Button exit = exitTemplate.getButton();
-        exit.setOnMouseClicked(e -> {
-            commandInterface.stop();
-            //stage.close();
-        });
+//        exit.setOnMouseClicked(e -> {
+//            commandInterface.stop();
+//            //stage.close();
+//        });
         Button replay = replayTemplate.getButton();
-        replay.setOnMouseClicked(e -> commandInterface.reset());
-        root.getChildren().addAll(exit, replay);
+        replay.setOnMouseClicked(e -> myGameEngine.pause());
+//        root.getChildren().addAll(exit, replay);
         return root;
     }
+
+    public Scene getScene(){
+        return myScene;
+    }
+
+    public abstract String getStageTitle();
 
 
     protected abstract ImageView makeBackground();

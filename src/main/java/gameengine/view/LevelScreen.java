@@ -12,13 +12,18 @@ import java.util.List;
  * Created by Delia on 12/11/2016.
  */
 public class LevelScreen extends ScoreScreen {
-    public LevelScreen(Level level, List<Integer> highScores, CommandInterface commandInterface) {
-        super(level, highScores, commandInterface);
+    public LevelScreen(Level level, List<Integer> highScores){//}, CommandInterface commandInterface) {
+        super(level, highScores);//, commandInterface);
     }
 
     @Override
     protected ImageView makeBackground() {
-        return null;
+        return myFactory.makeBackgroundImage("LevelUp");
+    }
+
+    @Override
+    public String getStageTitle(){
+        return "LEVEL UP";
     }
 
 //    @Override

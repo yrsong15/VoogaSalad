@@ -21,4 +21,6 @@ public interface IGameEngineUI {
 	public void setBackgroundImage(String imageFileLocation);
 	
 	public void stopMusic();
+
+	void pause();
 }

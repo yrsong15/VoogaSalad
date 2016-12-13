@@ -39,7 +39,7 @@ public class LoseScreen extends ScoreScreen{
 //	private CommandInterface commandInterface;
 	
 	public LoseScreen(Level level, List<Integer> highScores, CommandInterface commandInterface) {
-		super(level, highScores, commandInterface);
+		super(level, highScores);//, commandInterface);
 	}
 //
 //	@Override
@@ -86,6 +86,11 @@ public class LoseScreen extends ScoreScreen{
 	@Override
 	protected ImageView makeBackground() {
 		return myFactory.makeBackgroundImage("GameOver");
+	}
+
+	@Override
+	public String getStageTitle(){
+		return "GAME OVER";
 	}
 
 //	public BorderPane getRoot(){

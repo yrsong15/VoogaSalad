@@ -43,7 +43,7 @@ import xml.XMLSerializer;
  * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song
  *
  */
-public class GameEngineUI implements UDPHandler{
+public class GameEngineUI implements UDPHandler {
 	public static final double myAppWidth = 700;
 	public static final double myAppHeight = 775;
 	public static final String RESOURCE_FILENAME = "GameEngineUI";
