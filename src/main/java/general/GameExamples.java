@@ -156,7 +156,7 @@ public class GameExamples{
         GameObject five = new GameObject(10+85+85+85+100, 550, 10, 10, "shyguy.png", new HashMap<>());
         GameObject six = new GameObject(10+85+85+85+100+85, 550, 10, 10, "shyguy.png", new HashMap<>());
         GameObject seven = new GameObject(10+85+85+85+100+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
-        GameObject eight = new GameObject(10+85+85+85+100+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
+        GameObject eight = new GameObject(10+85+85+85+100+85+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
 
         ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 1);
         one.setProjectileProperties(projectileProperties);
@@ -188,10 +188,10 @@ public class GameExamples{
         player2.setControl(KeyCode.S, "shoot");
         player3.setControl(KeyCode.D, "shoot");
         player4.setControl(KeyCode.F, "shoot");
-//        player5.setControl(KeyCode.A, "shoot");
-//        player6.setControl(KeyCode.S, "shoot");
-//        player7.setControl(KeyCode.D, "shoot");
-//        player8.setControl(KeyCode.F, "shoot");
+        player5.setControl(KeyCode.A, "shoot");
+        player6.setControl(KeyCode.S, "shoot");
+        player7.setControl(KeyCode.D, "shoot");
+        player8.setControl(KeyCode.F, "shoot");
 
         game.addPlayer(player1);
         game.addPlayer(player2);

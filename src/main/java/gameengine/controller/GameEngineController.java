@@ -29,7 +29,7 @@ public class GameEngineController implements CommandInterface {
 
 	public GameEngineController() {
 		this.hostGame = true;
-		serverName = "localhost";
+		serverName = "25.16.229.50";
 		serializer = new XMLSerializer();
 	}
 
