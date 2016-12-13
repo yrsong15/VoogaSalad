@@ -29,7 +29,6 @@ public class GameEngineController implements CommandInterface {
 
 	public GameEngineController() {
 		this.hostGame = true;
-		//serverName = "25.33.137.51";
 		serverName = "localhost";
 		serializer = new XMLSerializer();
 	}
@@ -103,6 +102,11 @@ public class GameEngineController implements CommandInterface {
 		this.currentGame = createGameFromXML(xmlData);
 		backend.setGame(currentGame);
 		return;
+	}
+
+	public void setHostMode(boolean ishosted, String serverName){
+		this.hostGame = ishosted;
+		this.serverName = serverName;
 	}
 
 	@Override

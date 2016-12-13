@@ -1,6 +1,7 @@
 package general;
 
 import general.interfaces.INodeFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,6 +36,9 @@ public class NodeFactory implements INodeFactory{
     private String userDirectorySpritePrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/Sprite/";
+    private String textFieldFill = "-fx-background-color: linear-gradient(#00110e, #4d66cc);" +
+            "-fx-background-radius: 20;" +
+            "-fx-text-fill: white;";
     private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
             CycleMethod.NO_CYCLE,
             new Stop(0, Color.WHITE),
@@ -108,6 +112,15 @@ public class NodeFactory implements INodeFactory{
         label.setTranslateY(y);
 
         return label;
+    }
+
+    public TextField makeTextField(String prompt, int x, int y){
+        TextField addServer = new TextField();
+        addServer.setPromptText(prompt);
+        addServer.setStyle(textFieldFill);
+        addServer.setTranslateX(x);
+        addServer.setTranslateY(y);
+        return addServer;
     }
 
     public Tooltip makeTooltip(String property) {
