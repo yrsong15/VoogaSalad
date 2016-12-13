@@ -74,7 +74,6 @@ public class MainController {
 		gameEngineStage.setScene(myCover.createSplashScene());
 		gameEngineStage.setTitle(myCover.getTitle());
 		gameEngineStage.show();
-		// startPlaying();
 	}
 
 	public void startPlayingMulti(boolean isHosted, String myServer){
@@ -87,7 +86,13 @@ public class MainController {
 	public void startPlayingSingle() {
 		gameEngineStage.setScene(gameEngineController.getScene());
 		gameEngineStage.show();
-		gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+		gameEngineController.setGameEngineStage(gameEngineStage);
+		gameEngineStage.setOnCloseRequest(event -> shutdownServerThread());
+	}
+	
+	private void shutdownServerThread(){
+		System.out.println("xxx");
+		gameEngineController.stop();
 	}
 
 	private void sendDataToEngine() {
