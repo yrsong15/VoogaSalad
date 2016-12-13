@@ -1,10 +1,14 @@
 package gameengine.controller;
 
 import gameengine.controller.interfaces.CommandInterface;
+import gameengine.network.client.ClientMain;
 import gameengine.view.GameEngineUI;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import objects.*;
 import xml.XMLSerializer;
 import java.util.List;
@@ -26,6 +30,7 @@ public class GameEngineController implements CommandInterface {
 	private String serverName;
 	private Node toolbarHBox;
 	private String xmlData;
+	private Stage gameEngineStage;
 
 	public GameEngineController() {
 		this.hostGame = true;
@@ -38,13 +43,11 @@ public class GameEngineController implements CommandInterface {
 		if (hostGame) {
 			Thread serverThread = createServerThread();
 			serverThread.start();
-			// TODO: let thread sleep if we want server before client - right
-			// here
 		}
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Error in Thread Sleep before StartClientGame");
 			e.printStackTrace();
 		}
 		startClientGame(currentGame.getClientMappings());
@@ -93,6 +96,8 @@ public class GameEngineController implements CommandInterface {
 	}
 
 	public Scene getScene() {
+		gameEngineView.setGameEngineStage(gameEngineStage);
+		gameEngineView.setupServerShutdown();
 		return gameEngineView.getScene();
 	}
 
@@ -120,5 +125,12 @@ public class GameEngineController implements CommandInterface {
 
 	public Level getLevel() { 
 		return currentGame.getCurrentLevel(); 
+	}
+	
+//	public void setEventOnClose(EventHandler<WindowEvent> closeEvent){
+//		this.closeEvent = closeEvent;
+//	}
+	public void setGameEngineStage(Stage gameEngineStage){
+		this.gameEngineStage = gameEngineStage;
 	}
 }
