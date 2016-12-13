@@ -81,12 +81,15 @@ public class MainController {
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> shutdownClient());
+		gameEngineController.startGame();
     }
 
 	public void startPlayingSingle() {
+        gameEngineController.setHostMode(true, "localhost");
 		gameEngineStage.setScene(gameEngineController.getScene());
 		gameEngineStage.show();
 		gameEngineStage.setOnCloseRequest(event -> shutdownClient());
+		gameEngineController.startGame();
 	}
 
 	private void shutdownClient(){
@@ -108,7 +111,8 @@ public class MainController {
 //        XMLData = gameExamples.getDoodleJumpXML();
         boolean multiplayer = true;
         boolean isServer = false;
-        Level level = gameEngineController.startGame(XMLData);
+		Game game = gameEngineController.createGameFromXML(XMLData);
+        Level level = game.getCurrentLevel();
         if (level != null) {
             setUpGameEngineStage(level);
         }
