@@ -14,6 +14,7 @@ import xml.XMLSerializer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Soravit on 12/11/2016.
@@ -117,7 +118,7 @@ public class GameExamples{
         level.setBackgroundMusic("Lucifer.mp3");
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
-        scrollType.setScrollSpeed(15);
+        scrollType.setScrollSpeed(5);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/ddrbackground.jpg");
@@ -128,7 +129,7 @@ public class GameExamples{
         level.addPlayer(four);
 
         HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
-        DDRArrowProperties.put("points", "50");
+        DDRArrowProperties.put("points", "20");
         DDRArrowProperties.put("removeobject", "");
         RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,150,150,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
         RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,150,150,"ddrdownarrow.png",2, 190 ,190,1234,1234,500,520);
@@ -148,15 +149,26 @@ public class GameExamples{
 
     public String getMultiplayerDDR(){
         Game game = new Game("Dance Dance Revolution");
-        GameObject one = new GameObject(10, 550, 10, 10, "emptyimage.png", new HashMap<>());
-        GameObject two = new GameObject(10+85, 550, 10, 10, "emptyimage.png", new HashMap<>());
-        GameObject three = new GameObject(10+85+85, 550, 10, 10, "emptyimage.png", new HashMap<>());
-        GameObject four = new GameObject(10+85+85+85, 550, 10, 10, "emptyimage.png", new HashMap<>());
-
+        GameObject one = new GameObject(10, 550, 10, 10, "shyguy.png", new HashMap<>());
+        GameObject two = new GameObject(10+85, 550, 10, 10, "shyguy.png", new HashMap<>());
+        GameObject three = new GameObject(10+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
+        GameObject four = new GameObject(10+85+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
         GameObject five = new GameObject(10+85+85+85+100, 550, 10, 10, "shyguy.png", new HashMap<>());
         GameObject six = new GameObject(10+85+85+85+100+85, 550, 10, 10, "shyguy.png", new HashMap<>());
         GameObject seven = new GameObject(10+85+85+85+100+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
-        GameObject eight = new GameObject(10+85+85+85+100+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
+        GameObject eight = new GameObject(10+85+85+85+100+85+85+85, 550, 10, 10, "shyguy.png", new HashMap<>());
+
+        Map<String, String> properties = new HashMap<>();
+        properties.put("nonscrollable", "");
+
+        GameObject hack = new GameObject(10+20, 550, 10, 50, "shyguy.png", properties);
+        GameObject hack2 = new GameObject(10+85+20, 550, 10, 10, "shyguy.png", properties);
+        GameObject hack3 = new GameObject(10+85+85+20, 550, 10, 10, "shyguy.png", properties);
+        GameObject hack4 = new GameObject(10+85+85+85+20, 550, 10, 10, "shyguy.png", properties);
+        GameObject hack5 = new GameObject(10+85+85+85+100+20, 550, 10, 10, "shyguy.png", properties);
+        GameObject hack6 = new GameObject(10+85+85+85+100+85+20, 550, 10, 10, "shyguy.png", properties);
+        GameObject hack7 = new GameObject(10+85+85+85+100+85+85+20, 550, 10, 10, "shyguy.png", properties);
+        GameObject hack8 = new GameObject(10+85+85+85+100+85+85+85+20, 550, 10, 10, "shyguy.png", properties);
 
         ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 1);
         one.setProjectileProperties(projectileProperties);
@@ -188,10 +200,10 @@ public class GameExamples{
         player2.setControl(KeyCode.S, "shoot");
         player3.setControl(KeyCode.D, "shoot");
         player4.setControl(KeyCode.F, "shoot");
-//        player5.setControl(KeyCode.A, "shoot");
-//        player6.setControl(KeyCode.S, "shoot");
-//        player7.setControl(KeyCode.D, "shoot");
-//        player8.setControl(KeyCode.F, "shoot");
+        player5.setControl(KeyCode.A, "shoot");
+        player6.setControl(KeyCode.S, "shoot");
+        player7.setControl(KeyCode.D, "shoot");
+        player8.setControl(KeyCode.F, "shoot");
 
         game.addPlayer(player1);
         game.addPlayer(player2);
@@ -201,6 +213,7 @@ public class GameExamples{
         game.addPlayer(player6);
         game.addPlayer(player7);
         game.addPlayer(player8);
+
         game.addPlayerToClient(0, player1);
         game.addPlayerToClient(0, player2);
         game.addPlayerToClient(0, player3);
@@ -226,6 +239,17 @@ public class GameExamples{
         level.addPlayer(six);
         level.addPlayer(seven);
         level.addPlayer(eight);
+
+        level.getGameObjects().add(hack);
+        level.getGameObjects().add(hack2);
+        level.getGameObjects().add(hack3);
+        level.getGameObjects().add(hack4);
+        level.getGameObjects().add(hack5);
+        level.getGameObjects().add(hack6);
+        level.getGameObjects().add(hack7);
+        level.getGameObjects().add(hack8);
+
+
 
         HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
         DDRArrowProperties.put("points", "50");
