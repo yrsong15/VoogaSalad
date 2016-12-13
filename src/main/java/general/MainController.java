@@ -74,7 +74,6 @@ public class MainController {
 		gameEngineStage.setScene(myCover.createSplashScene());
 		gameEngineStage.setTitle(myCover.getTitle());
 		gameEngineStage.show();
-		// startPlaying();
 	}
 
 	public void startPlayingMulti(boolean isHosted, String myServer){
@@ -87,7 +86,12 @@ public class MainController {
 	public void startPlayingSingle() {
 		gameEngineStage.setScene(gameEngineController.getScene());
 		gameEngineStage.show();
-		gameEngineStage.setOnCloseRequest(event -> gameEngineController.stop());
+		gameEngineController.setGameEngineStage(gameEngineStage);
+		gameEngineStage.setOnCloseRequest(event -> shutdownServerThread());
+	}
+	
+	private void shutdownServerThread(){
+		gameEngineController.stop();
 	}
 
 	private void sendDataToEngine() {
@@ -99,8 +103,8 @@ public class MainController {
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-      //  XMLData = gameExamples.getMultiplayerDDR();
-        XMLData = gameExamples.getDoodleJumpXML();
+        XMLData = gameExamples.getMultiplayerDDR();
+      //  XMLData = gameExamples.getDoodleJumpXML();
         boolean multiplayer = true;
         boolean isServer = false;
         Level level = gameEngineController.startGame(XMLData);

@@ -175,7 +175,7 @@ public class MovementManager implements ControlInterface{
 
             if (obj.getProjectileProperties() != null) {
                 ProjectileProperties properties = obj.getProjectileProperties();
-                GameObject projectile = new GameObject(0, obj.getXPosition(), obj.getYPosition(),
+                GameObject projectile = new GameObject(0, obj.getXPosition()+obj.getWidth()/2, obj.getYPosition()+obj.getHeight()/2,
                         properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
                 if (properties.getDirection().equals(Direction.LEFT)) {
                     projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed() * -1));
@@ -188,6 +188,7 @@ public class MovementManager implements ControlInterface{
                 }
                 projectile.setProperty("damage", String.valueOf(properties.getDamage()));
                 projectile.setProjectileProperties(properties);
+                obj.getProjectiles().add(projectile);
                 currLevel.getProjectiles().add(projectile);
             }
         }
