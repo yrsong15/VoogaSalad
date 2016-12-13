@@ -281,4 +281,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		commandInterface.reset();
 	}
 
+	public void setGame(Game currentGame) {
+		this.currentGame = currentGame;
+	}
+
 }

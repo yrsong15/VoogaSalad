@@ -100,9 +100,7 @@ public class GameEngineController implements CommandInterface {
 	@Override
 	public void reset() {
 		this.currentGame = createGameFromXML(xmlData);
-		Thread serverThread = createServerThread();
-		serverThread.start();
-		Thread.currentThread().interrupt();
+		backend.setGame(currentGame);
 		return;
 	}
 
