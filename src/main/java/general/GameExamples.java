@@ -58,7 +58,7 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
-        level.addWinCondition("score", "10000");
+        level.addWinCondition("score", "10");
         
         
         Level level2 = new Level(2);
