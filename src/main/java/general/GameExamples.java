@@ -25,14 +25,14 @@ public class GameExamples{
 	
 	public String getMarioXML(){
 		Game game = new Game("Mario");
-        GameObject shyGuy = new GameObject(20, 200 , 50, 75, "mario.png", new HashMap<>());
-        Player player1 = new Player(shyGuy);
+        GameObject mario = new GameObject(20, 200 , 50, 75, "mario.png", new HashMap<>());
+        Player player1 = new Player(mario);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
-        shyGuy.setProperty("movespeed", "5");
-        shyGuy.setProperty("gravity", "1.2");
-        shyGuy.setProperty("jumponce", "800");
-        shyGuy.setProperty("health", "30");
+        mario.setProperty("movespeed", "5");
+        mario.setProperty("gravity", "0.8");
+        mario.setProperty("jumpunlimited", "800");
+        mario.setProperty("health", "30");
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
@@ -41,13 +41,12 @@ public class GameExamples{
         level.setBackgroundImage("Background/bg.png");
         level.setBackgroundMusic("SuperMarioBrosTheme.mp3");
         game.setCurrentLevel(level);
-        player1.setControl(KeyCode.W, "jump");
         player1.setControl(KeyCode.RIGHT, "right");
         player1.setControl(KeyCode.LEFT, "left");
-        player1.setControl(KeyCode.UP, "up");
+        player1.setControl(KeyCode.UP, "jump");
         player1.setControl(KeyCode.DOWN, "down");
         player1.setControl(KeyCode.SPACE, "shoot");
-        level.addPlayer(shyGuy);
+        level.addPlayer(mario);
         GameObject ground = new GameObject(0, 600, 1500, 75, "halfGrassyGround.png", new HashMap<>());
         level.addGameObject(ground);
         ground.setProperty("nonintersectable", "");
