@@ -91,7 +91,6 @@ public class MainController {
 	}
 	
 	private void shutdownServerThread(){
-		System.out.println("xxx");
 		gameEngineController.stop();
 	}
 
@@ -104,8 +103,7 @@ public class MainController {
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-//        XMLData = gameExamples.getDoodleJumpXML();
-        XMLData = gameExamples.getMultiplayerDDR();
+        XMLData = gameExamples.getDoodleJumpXML();
         boolean multiplayer = true;
         boolean isServer = false;
         Level level = gameEngineController.startGame(XMLData);

@@ -45,9 +45,10 @@ public class GameExamples{
         GameObject ground = new GameObject(0, GameEngineUI.myAppHeight, GameEngineUI.myAppWidth,50,"platform.png", new HashMap<>());
         ground.setProperty("damage", "30");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
-        DoodleJumpProperties.put("bounce", "2000");
+        DoodleJumpProperties.put("bounce", "1000");
         DoodleJumpProperties.put("points", "5");
-        GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth/2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", DoodleJumpProperties);
+        GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth/2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", new HashMap<>());
+        mainPlatform.setProperty("bounce", "1600");
         level.getGameObjects().add(mainPlatform);
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
         RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
@@ -71,7 +72,7 @@ public class GameExamples{
         GameObject ground2 = new GameObject(200, 570,700,50,"pipes.png", new HashMap<>());
         
         
-        ProjectileProperties projectileProperties = new ProjectileProperties("doodler.png", 30, 30, Direction.UP, 400, 500, 30, 3);
+        ProjectileProperties projectileProperties = new ProjectileProperties("doodler.png", 30, 30, Direction.UP, 400, 500, 30, 1);
         shyGuy.setProjectileProperties(projectileProperties);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
@@ -89,10 +90,10 @@ public class GameExamples{
         properties.put("nonscrollable", "");
         properties.put("points", "-10");
 
-        GameObject hack = new GameObject(10+5, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack2 = new GameObject(180+5, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack3 = new GameObject(350+5, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack4 = new GameObject(520+5, 550, 1, 10, "emptyimage.png", properties);
+        GameObject hack = new GameObject(10+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack2 = new GameObject(180+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack3 = new GameObject(350+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack4 = new GameObject(520+5, 550, 50, 10, "emptyimage.png", properties);
 
         ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 100, 30, 0, 1);
         one.setProjectileProperties(projectileProperties);
@@ -166,25 +167,25 @@ public class GameExamples{
         game.setMinNumPlayers(2);
         GameObject one = new GameObject(5, 550, 1, 10, "emptyimage.png", new HashMap<>());
         GameObject two = new GameObject(10+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
-        GameObject three = new GameObject(10+85+85, 550, 1, 10, "shyguy.png", new HashMap<>());
-        GameObject four = new GameObject(10+85+85+85, 550, 1, 10, "shyguy.png", new HashMap<>());
-        GameObject five = new GameObject(10+85+85+85+100, 550, 1, 10, "shyguy.png", new HashMap<>());
-        GameObject six = new GameObject(10+85+85+85+100+85, 550, 1, 10, "shyguy.png", new HashMap<>());
-        GameObject seven = new GameObject(10+85+85+85+100+85+85, 550, 1, 10, "shyguy.png", new HashMap<>());
-        GameObject eight = new GameObject(10+85+85+85+100+85+85+85, 550, 1, 10, "shyguy.png", new HashMap<>());
+        GameObject three = new GameObject(10+85+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject four = new GameObject(10+85+85+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject five = new GameObject(10+85+85+85+100, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject six = new GameObject(10+85+85+85+100+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject seven = new GameObject(10+85+85+85+100+85+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject eight = new GameObject(10+85+85+85+100+85+85+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
 
         Map<String, String> properties = new HashMap<>();
         properties.put("nonscrollable", "");
         properties.put("points", "-10");
 
-        GameObject hack = new GameObject(5+11, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack2 = new GameObject(10+85+5, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack3 = new GameObject(10+85+85+11, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack4 = new GameObject(10+85+85+85+11, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack5 = new GameObject(10+85+85+85+100+4, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack6 = new GameObject(10+85+85+85+100+85+5, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack7 = new GameObject(10+85+85+85+100+85+85+11, 550, 1, 10, "emptyimage.png", properties);
-        GameObject hack8 = new GameObject(10+85+85+85+100+85+85+85+11, 550, 1, 10, "emptyimage.png", properties);
+        GameObject hack = new GameObject(5+11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack2 = new GameObject(10+85+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack3 = new GameObject(10+85+85+11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack4 = new GameObject(10+85+85+85+11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack5 = new GameObject(10+85+85+85+100+4, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack6 = new GameObject(10+85+85+85+100+85+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack7 = new GameObject(10+85+85+85+100+85+85+11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack8 = new GameObject(10+85+85+85+100+85+85+85+11, 550, 50, 10, "emptyimage.png", properties);
 
         ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 1);
         one.setProjectileProperties(projectileProperties);
