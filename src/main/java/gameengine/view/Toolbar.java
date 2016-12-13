@@ -38,7 +38,6 @@ public class Toolbar implements IToolbar {
 	
 	public Toolbar(ResourceBundle resources, EventHandler<ActionEvent> loadLevel, EventHandler<ActionEvent> pause, 
 			EventHandler<ActionEvent> reset, EventHandler<ActionEvent> mute, EventHandler<ActionEvent> save) {
-		System.out.println("toolbar is instantiated");
 		myResources = resources;
 		myPauseEvent = pause;
 		myResetEvent = reset;
