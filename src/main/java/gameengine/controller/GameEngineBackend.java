@@ -9,10 +9,8 @@ import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
-import gameengine.model.LossChecker;
+import gameengine.model.ConditionChecker;
 import gameengine.model.RandomGenFrame;
-import gameengine.model.WinChecker;
-import gameengine.network.client.ClientMain;
 import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 import javafx.scene.Node;
@@ -23,6 +21,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private List<RandomGenFrame> randomlyGeneratedFrames;
 	private List<Integer> highScores;
 	private CollisionChecker collisionChecker;
+	private ConditionChecker conditionChecker;
 	private Game currentGame;
 	private MovementManager gameMovement;
 	private ServerMain serverMain;
@@ -36,7 +35,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		randomlyGeneratedFrames = new ArrayList<>();
 		highScores = new ArrayList<>();
 		mainCharImprints = new HashMap<>();
-
 	}
 
 	public void startGame(Game currentGame) {
@@ -48,7 +46,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		}
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
-		serverMain = new ServerMain(this, 9090, serverName);
+        conditionChecker = new ConditionChecker();
+        serverMain = new ServerMain(this, 9090, serverName);
 	}
 
 	public void addPlayersToClient(int ID) {
@@ -91,8 +90,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		
 		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
 		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
-		LossChecker.checkLossConditions(this, currLevel.getLoseConditions(), currLevel.getGameConditions());
-		WinChecker.checkWinConditions(this, currLevel.getWinConditions(), currLevel.getGameConditions());
+		conditionChecker.checkConditions(this, currentGame.getCurrentLevel().getWinConditions(), currentGame.getCurrentLevel().getLoseConditions());
 	}
 
 	private void randomlyGenerateFrames(){
@@ -128,7 +126,33 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	}
 
-	public void goNextLevel() {
+	@Override
+	public boolean reachedScore(int score) {
+	    for(Map.Entry<Long, Integer> mapping : currentGame.getScoreMapping().entrySet()) {
+            if(mapping.getValue() >= score){
+                return true;
+            }
+        }
+        return false;
+	}
+
+	@Override
+	public int getTime() {
+		return currentGame.getCurrentLevel().getTime();
+	}
+
+    public long getPlayerID(GameObject object) {
+        for(Map.Entry<Long, List<Player>> mapping : currentGame.getClientMappings().entrySet()){
+            for(Player player : mapping.getValue()){
+                if(player.getMainChar().equals(object)){
+                    return mapping.getKey();
+                }
+            }
+        }
+        return -1;
+    }
+
+    public void goNextLevel() {
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
 		} else {
@@ -180,10 +204,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	}
 
 	@Override
-	public void modifyScore(int score) {
-		int prevScore = currentGame.getCurrentLevel().getScore();
+	public void modifyScore(long ID, int score) {
+		int prevScore = currentGame.getScoreMapping().get(ID);
 		int currScore = prevScore + score;
-		currentGame.getCurrentLevel().setScore(currScore);
+		currentGame.modifyScore(ID, currScore);
 	}
 
 	@Override
@@ -198,7 +222,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void endGame() {
-		addHighScore(currentGame.getCurrentLevel().getScore());
+		for(Map.Entry<Long, Integer> mapping : currentGame.getScoreMapping().entrySet()) {
+			addHighScore(mapping.getValue());
+		}
 	}
 
 	@Override

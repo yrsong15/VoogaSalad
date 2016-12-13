@@ -23,13 +23,13 @@ public class Level implements ILevel{
     private List<GameObject> obstacles;
     private Map<String, String> winConditions;
     private Map<String, String> loseConditions;
-    private Map<String, Double> gameConditions;
     private List<RandomGeneration> randomGenerations;
     private String musicFilePath, backgroundFilePath, title;
     private RandomGenFrame<Integer> randomGenerationFrame;
 	private List<GameObject> players;
 	private ScrollType scrollType;
 	private GameObject background;
+	private int time = 0;
 
     public Level(int level) {
         this.level = level;
@@ -39,7 +39,6 @@ public class Level implements ILevel{
         players = new ArrayList<>();
 		winConditions = new HashMap<>();
 		loseConditions = new HashMap<>();
-		gameConditions = new HashMap<>();
 	}
 	
 	
@@ -61,6 +60,14 @@ public class Level implements ILevel{
 	public ArrayList<RandomGeneration<Integer>> getRandomGenRules() {
 		return randomGenerationFrame.getRandomGenerationRules();
 	}
+
+	public void setTime(int time){
+	    this.time = time;
+    }
+
+    public int getTime(){
+	    return time;
+    }
 
 	public void setRandomGenerationFrame(RandomGenFrame<Integer> randomGen) {
 		randomGenerationFrame = randomGen;
@@ -114,42 +121,13 @@ public class Level implements ILevel{
         return loseConditions;
     }
 
-    public Map<String, Double> getGameConditions() {
-        return gameConditions;
-    }
 
     public void addPlayer(GameObject player){
         players.add(player);
     }
 
-    public void removePlayer(GameObject player){
-        players.remove(player);
-    }
-
     public List<GameObject> getPlayers(){
         return players;
-    }
-
-    public int getScore() {
-        if(gameConditions.get("score") == null){
-            gameConditions.put("score", 0.0);
-        }
-        return gameConditions.get("score").intValue();
-    }
-
-    public void setScore(double score) {
-        gameConditions.put("score", score);
-    }
-
-    public double getTime() {
-        if(gameConditions.get("time") == null){
-            gameConditions.put("time", 0.0);
-        }
-        return gameConditions.get("time");
-    }
-
-    public void setTime(double time) {
-        gameConditions.put("time", time);
     }
 
     public List<GameObject> getProjectiles(){
