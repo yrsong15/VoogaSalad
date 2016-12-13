@@ -7,10 +7,10 @@
     <gameObjects>
       <objects.GameObject>
         <xPosition>100.0</xPosition>
-        <yPosition>181.4075630252101</yPosition>
+        <yPosition>176.57849829351537</yPosition>
         <width>75.0</width>
-        <height>37.18487394957983</height>
-        <imageFileName>bird3.png</imageFileName>
+        <height>46.84300341296928</height>
+        <imageFileName>bird2.gif</imageFileName>
         <properties>
           <entry>
             <string>Type Name</string>
@@ -18,7 +18,7 @@
           </entry>
         </properties>
         <xDistanceMoved>100.0</xDistanceMoved>
-        <yDistanceMoved>181.4075630252101</yDistanceMoved>
+        <yDistanceMoved>176.57849829351537</yDistanceMoved>
         <onPlatform>false</onPlatform>
         <isPlayer>true</isPlayer>
         <id>0</id>
@@ -34,32 +34,6 @@
   <players>
     <objects.Player>
       <mainChar reference="../../../currentLevel/gameObjects/objects.GameObject"/>
-      <controls>
-        <entry>
-          <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-          <string>moveUp</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-          <string>moveLeft</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-          <string>jump</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
-          <string>shootProjectile</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-          <string>moveRight</string>
-        </entry>
-        <entry>
-          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-          <string>moveDown</string>
-        </entry>
-      </controls>
     </objects.Player>
   </players>
   <clientMappings/>

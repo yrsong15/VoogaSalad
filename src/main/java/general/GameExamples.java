@@ -37,16 +37,12 @@ public class GameExamples{
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
-        
         game.setCurrentLevel(level);
-        
         player1.setControl(KeyCode.UP, "jump");
         player1.setControl(KeyCode.RIGHT, "right");
         player1.setControl(KeyCode.LEFT, "left");
         player1.setControl(KeyCode.SPACE, "shoot");
-        
         level.addPlayer(shyGuy);
-        
         GameObject ground = new GameObject(0, 570,700,50,"platform.png", new HashMap<>());
         ground.setProperty("nonintersectable", "bottom");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
@@ -109,7 +105,7 @@ public class GameExamples{
         scrollType.setScrollSpeed(10);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/ddrbackground.jpg");
+        level.setBackgroundImage("Background/giphy2.gif");
         game.setCurrentLevel(level);
         level.addPlayer(one);
         level.addPlayer(two);

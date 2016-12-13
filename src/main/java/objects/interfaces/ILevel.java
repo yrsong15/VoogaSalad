@@ -40,7 +40,7 @@ public interface ILevel {
 
     public void setBackgroundMusic(String musicFilePath);
 
-    public void addRandomGeneration (RandomGeneration randomGeneration);
+    //public void addRandomGeneration (RandomGeneration randomGeneration);
     public RandomGenFrame getRandomGenerationFrame();
 
     public ArrayList<RandomGeneration<Integer>> getRandomGenRules();

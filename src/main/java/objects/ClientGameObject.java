@@ -11,9 +11,10 @@ public class ClientGameObject {
 	private Direction direction;
 	private int id;
 	private String imageFileName;
+	private Integer health;
 
 
-	public ClientGameObject(int id, double xPosition, double yPosition, double width, double height, Direction direction, String imageFileName) {
+	public ClientGameObject(int id, double xPosition, double yPosition, double width, double height, Direction direction, String imageFileName, Integer health) {
 		this.id = id;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
@@ -21,6 +22,7 @@ public class ClientGameObject {
 		this.height = height;
 		this.imageFileName = imageFileName;
 		this.direction = direction;
+		this.health = health;
 	}
 
 	public int getID(){

@@ -52,12 +52,14 @@ public abstract class RandomGenFrame<T> {
         }
     }
 
-    private void generateEnemyOnPlatform(GameObject referencePlatform){
-        HashMap<String,String> enemyProperties = new HashMap<String,String>();
-        GameObject enemy = new GameObject(referencePlatform.getXPosition() + ((referencePlatform.getWidth() - enemySize)/2), referencePlatform.getYPosition() - enemySize, enemySize, enemySize, "duvall.png", enemyProperties);
-        enemy.setProperty("enemy", "");
-        level.getGameObjects().add(enemy);
-    }
+	private void generateEnemyOnPlatform(GameObject referencePlatform){
+		HashMap<String,String> enemyProperties = new HashMap<String,String>();
+		GameObject enemy = new GameObject(referencePlatform.getXPosition() + ((referencePlatform.getWidth() - enemySize)/2), referencePlatform.getYPosition() - enemySize, enemySize, enemySize, "duvall.png", enemyProperties);
+		enemy.setProperty("enemy", "30");
+		enemy.setProperty("removeobject", "");
+		level.getGameObjects().add(enemy);
+	}
+
 
     protected GameObject generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
         GameObject object = new GameObject(xPosition, yPosition, width, height, URL,objectProperties);

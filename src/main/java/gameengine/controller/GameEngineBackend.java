@@ -36,6 +36,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		randomlyGeneratedFrames = new ArrayList<>();
 		highScores = new ArrayList<>();
 		mainCharImprints = new HashMap<>();
+
 	}
 
 	public void startGame(Game currentGame) {
@@ -83,7 +84,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		if(currLevel.getRandomGenRules().size() > 0) {
             randomlyGenerateFrames();
         }
-		if(toolbarHBox != null){
+        if(toolbarHBox != null){
+			System.out.println("sadfasdfsadf");
 			toolbarHBox.toFront();
 		}
 		
@@ -217,7 +219,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	private ClientGame generateClientGame(Game game) {
 		Level currLevel = game.getCurrentLevel();
-		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath());
+		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath(), highScores);
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
 		if (currLevel.getBackground()!=null){
 			clientGame.setBackgroundObject(currLevel.getBackground());
@@ -235,7 +237,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 					itr.remove();
 				}
 			} else {
-				if (projectile.getYDistanceMoved() >= properties.getRange()) {
+				if (Math.abs(projectile.getYDistanceMoved()) >= properties.getRange()) {
 					removeObject(projectile);
 					itr.remove();
 				}
