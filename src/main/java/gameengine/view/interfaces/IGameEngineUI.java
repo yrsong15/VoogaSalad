@@ -4,6 +4,7 @@
 package gameengine.view.interfaces;
 
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import objects.Level;
 
 /**
@@ -19,4 +20,6 @@ public interface IGameEngineUI {
 	void stopMusic();
 
 	void pause();
+
+	Stage getMyLevelStage();
 }

@@ -23,6 +23,7 @@ import java.util.Map;
  */
 public abstract class ScoreScreen {
 
+    private static final String COVER_SPLASH_STYLE = "default.css";
     protected double myAppWidth = 400;
     protected double myAppHeight = 340;
     protected NodeFactory myFactory = new NodeFactory();
@@ -41,6 +42,7 @@ public abstract class ScoreScreen {
         this.myScoreMapping = scoreMapping;
         this.myGameEngine = iGameEngine;
         this.myScene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+        myScene.getStylesheets().add(COVER_SPLASH_STYLE);
     }
 
     private BorderPane makeRoot() {
@@ -48,10 +50,14 @@ public abstract class ScoreScreen {
         background.setFitHeight(myAppHeight);
         background.setFitWidth(myAppWidth);
         Rectangle backdrop = myFactory.makeBackdrop(20, 20, 350, 300, Color.WHITE);
+        backdrop.setOnMouseClicked(e -> {
+            getMyGameEngine().getMyLevelStage().close();
+            getMyGameEngine().pause();
+        });
         root = new BorderPane();
 //        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
 //        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-        Text highScoreText = new Text (50, 100, "High Scores");
+        Text highScoreText = new Text (50, 100, "Click anywhere to play the next level \nHigh Scores");
         highScoreText.setFill(Color.RED);
         highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         root.getChildren().addAll(background, backdrop, highScoreText);
@@ -62,7 +68,11 @@ public abstract class ScoreScreen {
             root.getChildren().add(text);
             index++;
         }
-        addButtons();
+//        ButtonTemplate nextLevelButton = new ButtonTemplate("NextLevel", 10, 10);//myAppWidth / 2, myAppHeight - 50);
+//        Button awefadsff = nextLevelButton.getButton();
+//        awefadsff.setOnMouseClicked(e -> getMyGameEngine().pause());
+//        root.getChildren().addAll(awefadsff);
+//        addButtons();
 //        ButtonTemplate exitTemplate = new ButtonTemplate("Quit", 10, 10);
 //        ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
 //        Button exit = exitTemplate.getButton();
