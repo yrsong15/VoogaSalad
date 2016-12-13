@@ -2,9 +2,12 @@ package general;
 
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.model.RandomGenFrame;
+import gameengine.model.RandomGenFrameX;
 import gameengine.model.RandomGenFrameY;
 import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.NoBoundary;
+import gameengine.model.boundary.StopAtEdgeBoundary;
+import gameengine.model.boundary.ToroidalBoundary;
 import gameengine.view.GameEngineUI;
 import javafx.scene.input.KeyCode;
 import objects.*;
@@ -17,6 +20,122 @@ import java.util.Map;
  * Created by Soravit on 12/11/2016.
  */
 public class GameExamples{
+	
+	
+	
+	public String getMarioXML(){
+		Game game = new Game("Mario");
+        GameObject shyGuy = new GameObject(20, 200 , 50, 75, "mario.png", new HashMap<>());
+        Player player1 = new Player(shyGuy);
+        game.addPlayer(player1);
+        game.addPlayerToClient(0, player1);
+        shyGuy.setProperty("movespeed", "5");
+        shyGuy.setProperty("gravity", "1.2");
+        shyGuy.setProperty("jumponce", "600");
+        shyGuy.setProperty("health", "30");
+        Level level = new Level(1);
+        GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
+        ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
+        scrollType.addScrollDirection(Direction.RIGHT);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("Background/bg.png");
+        level.setBackgroundMusic("SuperMarioBrosTheme.mp3");
+        game.setCurrentLevel(level);
+        player1.setControl(KeyCode.W, "jump");
+        player1.setControl(KeyCode.RIGHT, "right");
+        player1.setControl(KeyCode.LEFT, "left");
+        player1.setControl(KeyCode.UP, "up");
+        player1.setControl(KeyCode.DOWN, "down");
+        player1.setControl(KeyCode.SPACE, "shoot");
+        level.addPlayer(shyGuy);
+        GameObject ground = new GameObject(0, 600, 1500, 75, "halfGrassyGround.png", new HashMap<>());
+        level.addGameObject(ground);
+        ground.setProperty("nonintersectable", "");
+        
+        GameObject pipe = new GameObject(400, 475, 50, 125, "pipes.png", new HashMap<>());
+        level.addGameObject(pipe);
+        pipe.setProperty("nonintersectable", "");
+        
+        GameObject block = new GameObject(200, 400, 50, 50, "block.png", new HashMap<>());
+        level.addGameObject(block);
+        block.setProperty("nonintersectable", "");
+        
+		GameObject enemy = new GameObject(225, 525, 50, 75, "hawaiiBird.png", new HashMap<>());
+		enemy.setProperty("enemy", "30");
+		enemy.setProperty("bounceSpeed", "-1");
+		enemy.setProperty("bounceBack", "100");
+		enemy.setProperty("bounceTracker", "0");
+		level.addGameObject(enemy);
+		
+        
+        GameObject killer = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
+        killer.setProperty("damage", "30");
+        killer.setProperty("nonscrollable", "");
+        level.addGameObject(killer);        
+      /**  GameObject ground1 = new GameObject(300, 650, 300, 125, "blocks.png", new HashMap<>());
+        level.addGameObject(ground1);
+        ground1.setProperty("nonintersectable", "");**/
+        HashMap<String,String> DoodleJumpProperties = new HashMap<>();
+        DoodleJumpProperties.put("bounce", "2000");
+        DoodleJumpProperties.put("points", "5");
+        
+        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
+        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
+        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
+        ArrayList<RandomGeneration> randomGen = new ArrayList<>();
+        randomGen.add(platforms);
+        randomGen.add(platforms2);
+        randomGen.add(platforms3);
+        RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
+        level.setRandomGenerationFrame(frame);
+
+        
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        return xml;
+		
+	}
+	
+	
+	
+	public String getScrollingXML(){
+		Game game = new Game("Scrolling Tester");
+        GameObject shyGuy = new GameObject(0, 250, 75, 50, "doodler.png", new HashMap<>());
+        Player player1 = new Player(shyGuy);
+        game.addPlayer(player1);
+        game.addPlayerToClient(0, player1);
+        shyGuy.setProperty("movespeed", "60");
+        Level level = new Level(1);
+        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 1200, 800);
+        ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
+        scrollType.addScrollDirection(Direction.UP);
+        level.setScrollType(scrollType);
+        level.setBackgroundImage("Background/bg.png");
+        game.setCurrentLevel(level);
+        player1.setControl(KeyCode.W, "jump");
+        player1.setControl(KeyCode.RIGHT, "right");
+        player1.setControl(KeyCode.LEFT, "left");
+        player1.setControl(KeyCode.UP, "up");
+        player1.setControl(KeyCode.DOWN, "down");
+        player1.setControl(KeyCode.SPACE, "shoot");
+        level.addPlayer(shyGuy);
+        GameObject ground = new GameObject(0, 250, 10, 800, "pipes.png", new HashMap<>());
+        level.addGameObject(ground);
+        
+        GameObject ground1 = new GameObject(1200, 250, 10, 800, "pipes.png", new HashMap<>());
+        level.addGameObject(ground1);
+        
+        GameObject ground2 = new GameObject(250, 1000, 1200, 10, "platform.png", new HashMap<>());
+        level.addGameObject(ground2);
+        
+        GameObject ground3 = new GameObject(250, 0, 1200, 10, "platform.png", new HashMap<>());
+        level.addGameObject(ground3);
+        
+        XMLSerializer testSerializer = new XMLSerializer();
+        String xml = testSerializer.serializeGame(game);
+        return xml;
+		
+	}
 
 
     public String getDoodleJumpXML(){
@@ -30,7 +149,7 @@ public class GameExamples{
         shyGuy.setProperty("movespeed", "60");
         shyGuy.setProperty("health", "30");
         Level level = new Level(1);
-        GameBoundary gameBoundaries = new NoBoundary(700, 675);
+        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
@@ -60,7 +179,7 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
-        level.addWinCondition("score", "10");
+        level.addWinCondition("score", "1000");
         
         
         Level level2 = new Level(2);

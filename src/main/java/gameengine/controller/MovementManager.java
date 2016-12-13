@@ -93,7 +93,6 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveRight(GameObject obj, double speed) {
-
 		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(Direction.RIGHT, obj)){
 			gameScrolling.setDirection(Direction.RIGHT);
 			runGameScrolling(speed);
@@ -117,6 +116,7 @@ public class MovementManager implements ControlInterface{
 			double newXPos = obj.getXPosition() - Math.abs(speed);
 			genMovement.moveLeft(obj, speed);
 			checkXToroidalChange(obj, newXPos);
+			
 		}
         obj.setDirection(Direction.LEFT);
     }
