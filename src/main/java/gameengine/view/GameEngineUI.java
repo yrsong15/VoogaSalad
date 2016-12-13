@@ -73,6 +73,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
 	private boolean isPaused,isMuted;
+	private int currLevel;
 
 	public GameEngineUI(XMLSerializer mySerializer, 
 			EventHandler<ActionEvent> resetEvent, String serverName) {
@@ -108,8 +109,13 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	}
 
 	public void update() {
+		if (currLevel != currentGame.getLevel()){
+			pause();
+			makeLevelScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
+			currLevel = currentGame.getLevel();
+		}
 		gameScreen.update(currentGame);
-//		myHUD.update(currentGame);
+		myHUD.update(currentGame.getScores());
 	}
 
 	public void playMusic(String musicFileName) {
@@ -310,6 +316,9 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 
 	@Override
 	public void updateGame(ClientGame game) {
+		if (currLevel == 0){
+			currLevel = game.getLevel();
+		}
 		currentGame = game;
 	}
 
