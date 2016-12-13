@@ -30,7 +30,7 @@ public class Game implements IGame{
 
 	public Game(String name) {
 		levels = new HashMap<>();
-		scoreMapping = new HashMap<>();
+		scoreMapping = new HashMap();
 		players = new ArrayList<>();
 		clientMappings = new HashMap<>();
 		this.name = name;

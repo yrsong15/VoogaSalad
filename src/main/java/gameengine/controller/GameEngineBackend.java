@@ -207,7 +207,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void modifyScore(long ID, int score) {
-		int prevScore = currentGame.getScoreMapping().get(ID);
+		int prevScore = currentGame.getScore(ID);
 		int currScore = prevScore + score;
 		currentGame.modifyScore(ID, currScore);
 	}
