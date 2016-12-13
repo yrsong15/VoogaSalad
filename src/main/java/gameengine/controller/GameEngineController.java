@@ -28,8 +28,8 @@ public class GameEngineController implements CommandInterface {
 	private String xmlData;
 
 	public GameEngineController() {
-		this.hostGame = true;
-		serverName = "localhost";
+		this.hostGame = false;
+		serverName = "25.16.229.50";
 		serializer = new XMLSerializer();
 	}
 

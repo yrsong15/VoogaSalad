@@ -93,10 +93,10 @@ public class MainController {
         GameExamples gameExamples = new GameExamples();
         //Uncomment either one to get that game for testing
 //        XMLData = gameExamples.getDoodleJumpXML();
-        XMLData = gameExamples.getDanceDanceRevolution();
+//        XMLData = gameExamples.getDanceDanceRevolution();
 		boolean multiplayer = true;
 		boolean isServer = false;
-//        XMLData = gameExamples.getMultiplayerDDR();
+        XMLData = gameExamples.getMultiplayerDDR();
 //        XMLData = gameExamples.getDoodleJumpXML();
         Level level = gameEngineController.startGame(XMLData);
         if (level != null) {
