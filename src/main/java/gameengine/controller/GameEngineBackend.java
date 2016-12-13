@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import com.sun.javafx.scene.traversal.Direction;
+
+import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.GameHandler;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
@@ -28,8 +30,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private Map<GameObject, Position> mainCharImprints;
 	private String serverName;
 	private Node toolbarHBox;
+	private CommandInterface commandInterface;
 
-	public GameEngineBackend(String serverName) {
+	public GameEngineBackend(CommandInterface commandInterface, String serverName) {
+		this.commandInterface = commandInterface;
 		this.serverName = serverName;
 		collisionChecker = new CollisionChecker(this);
 		randomlyGeneratedFrames = new ArrayList<>();
@@ -269,6 +273,11 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 				}
 			}
 		}
+	}
+
+	@Override
+	public void restart() {
+		commandInterface.reset();
 	}
 
 }

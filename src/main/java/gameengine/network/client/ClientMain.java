@@ -107,4 +107,8 @@ public class ClientMain{
 	public void pause(){
 		connections.sendPauseCommand();
 	}
+	
+	public void restart(){
+		connections.sendRestartCommand();
+	}
 }

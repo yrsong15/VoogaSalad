@@ -65,14 +65,13 @@ public class GameEngineUI implements UDPHandler{
 	private EventHandler<ActionEvent> resetEvent;
 	private Timeline animation;
 	private ClientMain clientMain;
-	private CommandInterface commandInterface;
 	private Stage endGameStage;
 	private ClientGame currentGame;
 	private XMLSerializer mySerializer;
 	private List<Player> clientPlayerList;
 	private boolean isPaused,isMuted;
 
-	public GameEngineUI(CommandInterface commandInterface, XMLSerializer mySerializer, 
+	public GameEngineUI(XMLSerializer mySerializer, 
 			EventHandler<ActionEvent> resetEvent, String serverName) {
 		System.out.println("game engine ui instnatiated");
 		this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
@@ -82,7 +81,6 @@ public class GameEngineUI implements UDPHandler{
 		scene.getStylesheets().add(EDITOR_SPLASH_STYLE);
 //		controlInterface = new ClientMain(serverName, 9090, -1, this);
 		clientMain = new ClientMain(serverName, 9090, -1, this);
-		this.commandInterface = commandInterface;
 		this.mySerializer = mySerializer;
 		setUpMethodMappings();
 	}
