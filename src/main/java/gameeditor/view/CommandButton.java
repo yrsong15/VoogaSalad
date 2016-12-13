@@ -125,7 +125,6 @@ public class CommandButton implements ICommandButton {
 	public void highlight(){
 //		myCommandOut.lowlightButtons();
 		myBorder.setFill(ON_COLOUR);
-		System.out.println("Highlight: " + myType);
 	}
 	
 	private void setOn(){

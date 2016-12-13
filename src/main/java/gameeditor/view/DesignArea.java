@@ -74,8 +74,14 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
         // TODO Auto-generated method stub
         if (dragged){
             ArrayList<GameObjectView> selectedSprites = findSprites(startX, startY, endX, endY);
-            myMultiBoundingBox = new MultiBoundingBox(selectedSprites, this);
-            myMultiBoundingBox.show();
+            if (selectedSprites.size() > 1){
+            	myMultiBoundingBox = new MultiBoundingBox(selectedSprites, this);
+                myMultiBoundingBox.show();
+            } else if (selectedSprites.size() == 1) {
+            	mySelectedSprite = selectedSprites.get(0);
+            	mySelectedSprite.initBound();
+            	mySelectedSprite.setOn(x, y);
+            }
             myPane.getChildren().remove(mySelectionArea);
             mySelectionArea = null;
         }
@@ -197,12 +203,14 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
         //		TODO: Remove the hardcoding of the image size proportions
         myPane.getChildren().add(sprite.getImageView());
         if (sprite.getIsRandomGen()){
+        	System.out.println("isRandomGen");
         	addRandomGen(sprite);
         }
     }
     
     private void addRandomGen(GameObjectView sprite){
     	for (ImageView iv : sprite.getRandomPreviews()){
+        	System.out.println("added");
     		myPane.getChildren().add(iv);
     	}
     }
