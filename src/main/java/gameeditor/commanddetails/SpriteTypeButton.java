@@ -170,7 +170,7 @@ public class SpriteTypeButton {
     		
     	} else {
     		myDesignArea.removeDragIn(myTempImageView);
-	        GameObjectView go = new GameObjectView(myFilePath, myX, myY, myWidth, myHeight, myType, false, myDesignArea, myDataStore);
+	        GameObjectView go = new GameObjectView(myFilePath, myX, myY, myWidth, myHeight, myType, false, false, myDesignArea, myDataStore);
 	        myDesignArea.addSprite(go);
 	        Map<String, String> typeMap = myDataStore.getType(myType);
 
