@@ -124,7 +124,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void winGame() {
-        System.out.println("Game Won");
+		currentGame.setGameWon(true);
 	}
 
 	@Override
@@ -154,8 +154,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
     }
 
     public void goNextLevel() {
-    	System.out.println(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null);
-    	
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
 		} else {
@@ -208,7 +206,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	@Override
 	public void modifyScore(long ID, int score) {
-		int prevScore = currentGame.getScoreMapping().get(ID);
+		int prevScore = currentGame.getScore(ID);
 		int currScore = prevScore + score;
 		currentGame.modifyScore(ID, currScore);
 	}
@@ -229,6 +227,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
         for(Map.Entry<Long, Integer> mapping : currentGame.getScoreMapping().entrySet()) {
 			addHighScore(mapping.getValue());
 		}
+        currentGame.setGameOver(true);
 	}
 
 	@Override
@@ -252,7 +251,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		ClientGame clientGame = new ClientGame(currLevel.getMusicFilePath(), currLevel.getBackgroundFilePath(), highScores);
 		clientGame.addAll(game.getCurrentLevel().getAllGameObjects());
 		clientGame.addScores(game.getScoreMapping());
-		clientGame.setLevel(currLevel.getLevel());
+		clientGame.setGameInfo(currLevel.getLevel(), game.isGameLost(), game.isGameWon());
 		if (currLevel.getBackground()!=null){
 			clientGame.setBackgroundObject(currLevel.getBackground());
 		}
@@ -280,6 +279,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	@Override
 	public void restart() {
 		commandInterface.reset();
+	}
+
+	public void setGame(Game currentGame) {
+		this.currentGame = currentGame;
 	}
 
 }

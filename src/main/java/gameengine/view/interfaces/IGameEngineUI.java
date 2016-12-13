@@ -12,11 +12,11 @@ import objects.Level;
  */
 public interface IGameEngineUI {
 
-	public Scene getScene();
+	Scene getScene();
 	
-	public void setBackgroundImage(String imageFileLocation);
+	void setBackgroundImage(String imageFileLocation);
 	
-	public void stopMusic();
-	
-	public void pause();
+	void stopMusic();
+
+	void pause();
 }

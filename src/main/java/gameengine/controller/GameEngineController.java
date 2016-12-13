@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * @author Soravit Sophastienphong, Eric Song, Brian Zhou, Chalena Scholl, Noel
- *         Moon, Ray Song
+ *         Moon, Ray Song, Delia Li
  */
 public class GameEngineController implements CommandInterface {
 	public static final double FRAMES_PER_SECOND = 60;
@@ -29,6 +29,7 @@ public class GameEngineController implements CommandInterface {
 
 	public GameEngineController() {
 		this.hostGame = true;
+		//serverName = "25.16.229.50";
 		serverName = "localhost";
 		serializer = new XMLSerializer();
 	}
@@ -100,9 +101,7 @@ public class GameEngineController implements CommandInterface {
 	@Override
 	public void reset() {
 		this.currentGame = createGameFromXML(xmlData);
-		Thread serverThread = createServerThread();
-		serverThread.start();
-		Thread.currentThread().interrupt();
+		backend.setGame(currentGame);
 		return;
 	}
 

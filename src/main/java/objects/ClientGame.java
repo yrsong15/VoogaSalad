@@ -17,6 +17,8 @@ public class ClientGame {
 	private List<Integer> highScores;
 	private Map<Long, Integer> scoreMapping;
 	private int currLevel;
+	private boolean gameLost;
+	private boolean gameWon;
 
 	public ClientGame(String musicFilePath, String backgroundFilePath, List<Integer> highScores) {
 		gameObjectMap = new HashMap<>();
@@ -54,6 +56,10 @@ public class ClientGame {
 	public void addScores(Map<Long, Integer> scores){
 		scoreMapping = scores;
 	}
+	
+	public Map<Long, Integer> getScores() {
+		return scoreMapping;
+	}
 
 	public String getMusicFilePath() {
 		return musicFilePath;
@@ -63,12 +69,22 @@ public class ClientGame {
 		this.musicFilePath = musicFilePath;
 	}
 	
-	public void setLevel(int level){
+	public void setGameInfo(int level, boolean lost, boolean won){
 		currLevel = level;
+		gameLost = lost;
+		gameWon = won;
 	}
 	
 	public int getLevel(){
 		return currLevel;
+	}
+	
+	public boolean isGameLost(){
+		return gameLost;
+	}
+	
+	public boolean isGameWon(){
+		return gameLost;
 	}
 
 	public String getBackgroundFilePath() {
