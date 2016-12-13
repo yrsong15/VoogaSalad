@@ -12,6 +12,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import objects.Game;
@@ -43,9 +46,15 @@ public class HUD {
 
 	public void update(Map<Long, Integer> scores) {
 		myHUD.getChildren().clear();
+//		myHUD.getChildren().add(scoreText);
 		//game.getCurrentLevel().setTime(timeCount);
 		for (Long clientID : scores.keySet()) {
-			Text scoreText = new Text("Player " + Long.toString((clientID+1)) + ": " + Integer.toString(scores.get(clientID)));
+			Text scoreText = new Text("Player " + Long.toString((clientID+1))
+					+ ": " + Integer.toString(scores.get(clientID)));
+			scoreText.setFill(Color.WHITE);
+			scoreText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+			scoreText.setTranslateY(60);
+			scoreText.setTranslateX(30);
 			myHUD.getChildren().add(scoreText);
 		}
 //		if(game.getGameConditions().get("score") != null) {
@@ -57,6 +66,10 @@ public class HUD {
 //            myHUD.getChildren().add(healthText);
 //        }
 		Text timeText = new Text("  |  Time: " + Integer.toString(timeCount));
+		timeText.setFill(Color.WHITE);
+		timeText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+		timeText.setTranslateY(60);
+		timeText.setTranslateX(130);
 		myHUD.getChildren().add(timeText);
 	}
 
