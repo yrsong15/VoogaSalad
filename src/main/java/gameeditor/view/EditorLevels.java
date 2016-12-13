@@ -41,6 +41,7 @@ public class EditorLevels implements IEditorLevels{
     private NodeFactory myFactory;
     private Group root;
     private Button saveGameButton;
+    private GameCoverView gameCoverView;
     
     private Button testEditButton;
 
@@ -85,7 +86,7 @@ public class EditorLevels implements IEditorLevels{
         		.position(Side.RIGHT, "NewLevelButton", 10)
         		.setZ(5);
         
-        GameCoverView gameCoverView = new GameCoverView(130,100);
+        gameCoverView = new GameCoverView(130,100);
         formatter.addView(gameCoverView.getNode(),"GameCover",80,100)
         		.position(Side.RIGHT,"LevelView", 10);
         
@@ -187,6 +188,11 @@ public class EditorLevels implements IEditorLevels{
 
     public Parent getRoot(){
         return this.root;
+    }
+    
+    public Image getGameCoverImage()
+    {
+    	return this.gameCoverView.getGameCoverImage();
     }
 
     public void setOnSaveGame(EventHandler<MouseEvent> handler){

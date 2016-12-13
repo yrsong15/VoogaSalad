@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import general.interfaces.IGallery;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import objects.Game;
 import org.apache.commons.io.FileUtils;
 import java.util.List;
@@ -24,7 +26,9 @@ public class Gallery implements IGallery {
 	}
 
 	private void addDefaultGame() throws IOException {
-		GameFile defaultGame = new GameFile("Example Game", readFile("data/GameEditorExampleXML.xml")); //
+		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
+		ImageView gameCoverView = new ImageView(new Image(userDirectoryString));
+		GameFile defaultGame = new GameFile("Example Game", readFile("data/GameEditorExampleXML.xml"),gameCoverView.getImage()); //
 		addToGallery(defaultGame);
 	}
 

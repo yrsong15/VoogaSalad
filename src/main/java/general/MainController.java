@@ -8,6 +8,8 @@ import gameeditor.controller.GameEditorController;
 import gameeditor.xml.XMLSerializer;
 import gameengine.controller.GameEngineController;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import objects.Game;
 import objects.GameObject;
@@ -48,9 +50,9 @@ public class MainController {
         this.gallery = new Gallery();
     }
 
-    private void addNewGameFile(String title, String gameData)
+    private void addNewGameFile(String title, String gameData, Image gameCoverImage)
     {
-        GameFile newGame = new GameFile(title,gameData);
+        GameFile newGame = new GameFile(title,gameData,gameCoverImage);
         gallery.addToGallery(newGame);
     }
 
@@ -96,7 +98,8 @@ public class MainController {
     private void sendDataToEngine() {
         String title = gameEditorController.getGameTitle();
         String gameFile = gameEditorController.getGameFile();
-        addNewGameFile(title,gameFile);
+        Image gameCoverImage = gameEditorController.getGameCoverImage();
+        addNewGameFile(title,gameFile,gameCoverImage);
         launchEngine(gameFile);
     }
 

@@ -29,19 +29,6 @@ public class GameCoverView
 		this.root = renderView();
 	}
 	
-	private Rectangle generateRectangle(double width, double height)
-	{
-		Rectangle rect = new Rectangle(width,height);
-		rect.setFill(Color.GREEN);
-		return rect;
-	}
-	
-	private ImageView createGameCoverImage()
-	{
-		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
-        ImageView levelIcon = new ImageView(new Image(userDirectoryString));
-		return levelIcon;
-	}
 	
 	public Pane renderView()
 	{
@@ -78,6 +65,25 @@ public class GameCoverView
 	public Node getNode()
 	{
 		return root;
+	}
+	
+	public Image getGameCoverImage()
+	{
+		return gameCover.getImage();
+	}
+
+	private Rectangle generateRectangle(double width, double height)
+	{
+		Rectangle rect = new Rectangle(width,height);
+		rect.setFill(Color.GREEN);
+		return rect;
+	}
+	
+	private ImageView createGameCoverImage()
+	{
+		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
+		ImageView gameCoverView = new ImageView(new Image(userDirectoryString));
+		return gameCoverView;
 	}
 	
 }
