@@ -45,7 +45,7 @@ public class HUD {
 		myHUD.getChildren().clear();
 		//game.getCurrentLevel().setTime(timeCount);
 		for (Long clientID : scores.keySet()) {
-			Text scoreText = new Text("Player " + Long.toString((clientID+1)) + ": " + Integer.toString(scores.get(clientID)));
+			Text scoreText = new Text("   Player " + Long.toString((clientID+1)) + ": " + Integer.toString(scores.get(clientID)));
 			myHUD.getChildren().add(scoreText);
 		}
 //		if(game.getGameConditions().get("score") != null) {
