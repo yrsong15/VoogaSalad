@@ -125,6 +125,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	@Override
 	public void winGame() {
         System.out.println("Game Won");
+        goNextLevel();
 	}
 
 	@Override
@@ -154,8 +155,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
     }
 
     public void goNextLevel() {
-    	System.out.println(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null);
-    	
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1) != null) {
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
 		} else {
