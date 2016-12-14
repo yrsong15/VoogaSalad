@@ -29,9 +29,10 @@ public class GameExamples{
         game.addPlayerToClient(0, player1);
         mario.setProperty("movespeed", "10");
         mario.setProperty("gravity", "1.2");
-        mario.setProperty("jumponce", "800");
+        mario.setProperty("jumponce", "650");
         mario.setProperty("health", "30");
-        ProjectileProperties projectileProperties = new ProjectileProperties("fireball.png", 50, 50, Direction.RIGHT, 200, 30, 30, 1);
+        
+        ProjectileProperties projectileProperties = new ProjectileProperties("fireball.png", 25, 25, Direction.RIGHT, 300, 15, 30, 1);
         mario.setProjectileProperties(projectileProperties);
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
@@ -47,24 +48,24 @@ public class GameExamples{
         player1.setControl(KeyCode.SPACE, "shoot");
 
         level.addPlayer(mario);
-        GameObject ground = new GameObject(0, 700, 1000, 75, "quarterGrassyGround.png", new HashMap<>());
+        GameObject ground = new GameObject(0, 600, 1000, 75, "quarterGrassyGround.png", new HashMap<>());
         level.addGameObject(ground);
         ground.setProperty("nonintersectable", "");
         
-        GameObject pipe = new GameObject(400, 475, 50, 125, "pipes.png", new HashMap<>());
+        GameObject pipe = new GameObject(350, 475, 50, 125, "pipes.png", new HashMap<>());
         level.addGameObject(pipe);
         pipe.setProperty("nonintersectable", "");
         
-        GameObject pipe2 = new GameObject(800, 475, 50, 125, "pipes.png", new HashMap<>());
+        GameObject pipe2 = new GameObject(850, 475, 50, 125, "pipes.png", new HashMap<>());
         level.addGameObject(pipe2);
         pipe2.setProperty("nonintersectable", "");
         
-        GameObject coin3 = new GameObject(565, 250, 20, 30, "coin.png", new HashMap<>());
+        GameObject coin3 = new GameObject(565, 315, 20, 30, "coinGif.gif", new HashMap<>());
         level.addGameObject(coin3);
         coin3.setProperty("points", "5");
         coin3.setProperty("removeobject", "");
         
-        GameObject coin4 = new GameObject(640, 250, 20, 30, "coin.png", new HashMap<>());
+        GameObject coin4 = new GameObject(640, 315, 20, 30, "coinGif.gif", new HashMap<>());
         level.addGameObject(coin4);
         coin4.setProperty("points", "5");
         coin4.setProperty("removeobject", "");
@@ -72,16 +73,16 @@ public class GameExamples{
         
         
         //first block sequence
-        GameObject block = new GameObject(500, 300, 250, 50, "fiveBlocks.png", new HashMap<>());
+        GameObject block = new GameObject(500, 375, 250, 50, "fiveBlocks.png", new HashMap<>());
         level.addGameObject(block);
         block.setProperty("nonintersectable", "");
         
-        level.addGameObject(makeBox(500, 250, 50, 50));
-        level.addGameObject(makeBox(700, 250, 50, 50));
+        level.addGameObject(makeBox(500, 330, 50, 50));
+        level.addGameObject(makeBox(700, 330, 50, 50));
         
         
         
-		GameObject enemy = new GameObject(600, 525, 50, 75, "goombo.png", new HashMap<>());
+		GameObject enemy = new GameObject(300, 525, 50, 75, "goombo.png", new HashMap<>());
 		enemy.setProperty("enemy", "30");
 		enemy.setProperty("bounceSpeed", "-1");
 		enemy.setProperty("bounceBack", "120");
@@ -93,29 +94,26 @@ public class GameExamples{
         level.addGameObject(ground2);
         ground2.setProperty("nonintersectable", "");
         
-		GameObject enemy2 = new GameObject(1400, 525, 75, 100, "bomb.png", new HashMap<>());
-		enemy2.setProperty("enemy", "30");
-		enemy2.setProperty("bounceSpeed", "-1");
-		enemy2.setProperty("bounceBack", "5");
-		enemy2.setProperty("bounceTracker", "0");
-		level.addGameObject(enemy);
+		GameObject bomb = new GameObject(1650, 550, 25, 50, "bomb.png", new HashMap<>());
+		bomb.setProperty("enemy", "30");
+		level.addGameObject(bomb);
 		
 		
-        GameObject pipe3 = new GameObject(1300, 425, 50, 225, "pipes.png", new HashMap<>());
+        GameObject pipe3 = new GameObject(1300, 450, 50, 150, "pipes.png", new HashMap<>());
         level.addGameObject(pipe3);
         pipe3.setProperty("nonintersectable", "");
         
         //first block sequence
-        GameObject block2 = new GameObject(1350, 450, 250, 50, "fiveBlocks.png", new HashMap<>());
+        GameObject block2 = new GameObject(1350, 400, 250, 50, "fiveBlocks.png", new HashMap<>());
         level.addGameObject(block2);
         block2.setProperty("nonintersectable", "");
         
-        GameObject coin41 = new GameObject(1420, 550, 20, 30, "coin.png", new HashMap<>());
+        GameObject coin41 = new GameObject(1420, 550, 20, 30, "coinGif.gif", new HashMap<>());
         level.addGameObject(coin41);
         coin41.setProperty("points", "5");
         coin41.setProperty("removeobject", "");
         
-        GameObject coin5 = new GameObject(1500, 550, 20, 30, "coin.png", new HashMap<>());
+        GameObject coin5 = new GameObject(1500, 550, 20, 30, "coinGif.gif", new HashMap<>());
         level.addGameObject(coin5);
         coin5.setProperty("points", "5");
         coin5.setProperty("removeobject", "");
@@ -124,7 +122,7 @@ public class GameExamples{
         level.addGameObject(ground3);
         ground3.setProperty("nonintersectable", "");
         
-        GameObject flag = new GameObject(2000, 375, 200, 400, "flag.png", new HashMap<>());
+        GameObject flag = new GameObject(2000, 375, 150, 225, "flag.png", new HashMap<>());
         level.addGameObject(flag);
         flag.setProperty("levelup", "");
         
@@ -141,42 +139,14 @@ public class GameExamples{
 
         Level level2 = new Level(2);
         level2.setScrollType(scrollType);
-    //    level2.setBackgroundImage("Background/bubbles.png");
-
         game.addLevel(level2);
-        level2.setBackgroundImage("bg.png");
-
-        //level2.addPlayer(shyGuy);
         level2.addPlayer(mario);
         mario.setXPosition(48);
         mario.setYPosition(236);
-
-        level2.addGameObject(makeBox(168, 106, 50, 50));
-        level2.addGameObject(makeBox(320, 204, 50, 50));
-        level2.addGameObject(makeBox(460, 102, 50, 50));
-        level2.addGameObject(makeBox(48, 285, 50, 50));
-        level2.addGameObject(makeBox(97, 312, 50, 50));
-        level2.addGameObject(makeBox(145, 342, 50, 50));
-        level2.addGameObject(makeBox(194, 376, 50, 50));
-        level2.addGameObject(makeBox(244, 393, 50, 50));
-        level2.addGameObject(makeBox(294, 394, 50, 50));
-
-        level2.addGameObject(makeBox(393, 394, 50, 50));
-        level2.addGameObject(makeBox(442, 394, 50, 50));
-        level2.addGameObject(makeBox(491, 367, 50, 50));
-        level2.addGameObject(makeBox(540, 341, 50, 50));
-        level2.addGameObject(makeBox(589, 315, 50, 50));
-        level2.addGameObject(makeBox(638, 288, 50, 50));
-        level2.setBackgroundImage("bubbles.png");
-        
-        level2.addPlayer(mario);
-        mario.setXPosition(48);
-        mario.setYPosition(236);
-        
-        
-        level2.addGameObject(makeBox(168, 46, 50, 50));
-        level2.addGameObject(makeBox(320, 144, 50, 50));
-        level2.addGameObject(makeBox(460, 46, 50, 50));
+        level2.setBackgroundImage("Background/christmas.jpg");
+        level2.addGameObject(makeBox(168, 16, 50, 50));
+        level2.addGameObject(makeBox(320, 114, 50, 50));
+        level2.addGameObject(makeBox(460, 16, 50, 50));
         level2.addGameObject(makeBox(48, 335, 50, 50));
         level2.addGameObject(makeBox(97, 362, 50, 50));
         level2.addGameObject(makeBox(145, 392, 50, 50));
@@ -191,10 +161,54 @@ public class GameExamples{
         level2.addGameObject(makeBox(540, 391, 50, 50));
         level2.addGameObject(makeBox(589, 365, 50, 50));
         level2.addGameObject(makeBox(638, 335, 50, 50));
+        
+        
+        
+        
+        
+        //second half of level 2
+        level2.addGameObject(makeBox(850, 250, 50, 50));
+        level2.addGameObject(makeBox(1050, 500, 50, 50));
+        
+        level2.addGameObject(makeBox(1250, 600, 50, 50));
+        level2.addGameObject(makeBox(1350, 450, 50, 50));
+        level2.addGameObject(makeBox(1550, 350, 50, 50));
+        level2.addGameObject(makeBox(1750, 300, 50, 50));
+        
+        GameObject solid = new GameObject(2000, 400, 500, 50,"fourSolid.png", new HashMap<>());
+        solid.setProperty("nonintersectable", "");
+        level2.addGameObject(solid); 
+        
+        GameObject pipeT = new GameObject(2000, 425, 100,300,"candyCane.png", new HashMap<>());
+        level2.addGameObject(pipeT); 
+        
+        GameObject candy = new GameObject(2175, 425, 100,300,"candyCane.png", new HashMap<>());
+        level2.addGameObject(candy); 
+        
+        GameObject candy2 = new GameObject(2350, 425, 100,300,"candyCane.png", new HashMap<>());
+        level2.addGameObject(candy2); 
+        
+        
+		GameObject ghost = new GameObject(2600, 250, 100, 200, "sideGhost.gif", new HashMap<>());
+		ghost.setProperty("enemy", "30");
+		ghost.setProperty("bounceSpeed", "-1");
+		ghost.setProperty("bounceBack", "100");
+		ghost.setProperty("bounceTracker", "0");
+		ghost.setProperty("health", "60");
+        ghost.setProperty("removeobject", "");
+		level2.addGameObject(ghost);
 
         
+        GameObject tree = new GameObject(2900, 400, 100,300,"christmasTree.png", new HashMap<>());
+        tree.setProperty("bounce", "1000");
+        level2.addGameObject(tree); 
+        
+        GameObject star= new GameObject(2900, 10, 50, 50,"star.gif-c200", new HashMap<>());
+        star.setProperty("levelup", "");
+        level2.addGameObject(star); 
+        
         GameObject killer2 = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
-        killer2.setProperty("damage", "30");
+        killer2.setProperty("damage", "60");
         killer2.setProperty("nonscrollable", "");
         level2.addGameObject(killer2); 
 
@@ -217,16 +231,16 @@ public class GameExamples{
 
 
         HashMap<String,String> DoodleJumpProperties2 = new HashMap<>();
-        DoodleJumpProperties.put("bounce", "2000");
-        DoodleJumpProperties.put("points", "5");
+        DoodleJumpProperties2.put("bounce", "2000");
+        DoodleJumpProperties2.put("points", "5");
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties2,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
         RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties2,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
         RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties2,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
         ArrayList<RandomGeneration> randomGen = new ArrayList<>();
-        randomGe.add(platform);
-        randomGe.add(platform2);
-        randomGe.add(platform3);
-        RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
+        randomGen.add(platforms);
+        randomGen.add(platforms2);
+        randomGen.add(platforms3);
+        RandomGenFrame frame = new RandomGenFrameY(level2, randomGen, true);
         level2.setRandomGenerationFrame(frame);
 
         

@@ -195,6 +195,11 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
 				currentGame.getCurrentLevel().setBackgroundObject();
 			}
+			GameObject mario = currentGame.getCurrentLevel().getPlayers().get(0);
+			mario.setXPosition(50);
+			mario.setYPosition(50);
+			mario.setXDistanceMoved(0);
+			mario.setYDistanceMoved(0);
 			
 		} else {
 			System.out.println("won");

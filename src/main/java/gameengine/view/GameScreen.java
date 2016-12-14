@@ -53,6 +53,10 @@ public class GameScreen {
                 BackgroundSize.DEFAULT);
         myScreen.setBackground(new Background(bi));   
     }
+    
+    public void nextLevel(){
+    	gameObjectImageViewMap.remove(0);
+    }
 
 
     public void init(ClientGame game) {
@@ -113,6 +117,7 @@ public class GameScreen {
     }
 
     private void addGameObject(ClientGameObject object) {
+    	System.out.println("adding " + object.getImageFileName() + "with id " + object.getID());
         if (object.getImageFileName() == null)
             return;
         Image image = null;
