@@ -131,8 +131,8 @@ public class MainController {
 //        XMLData = gameExamples.getDanceDanceRevolution();
         //           XMLData = gameExamples.getMultiplayerDDR();
 //              XMLData = gameExamples.getDoodleJumpXML()
-  //        XMLData = gameExamples.getScrollingXML();
-         XMLData = gameExamples.getMarioXML();
+          XMLData = gameExamples.getScrollingXML();
+     //    XMLData = gameExamples.getMarioXML();
         //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
