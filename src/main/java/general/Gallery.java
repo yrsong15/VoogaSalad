@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Delia Li, Ryan Bergamini
+ */
+
 public class Gallery implements IGallery {
 
 	private ArrayList<GameFile> gallery;
@@ -25,23 +29,20 @@ public class Gallery implements IGallery {
 	}
 
 	private void addDefaultGame() throws IOException {
-
 		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
 		Image gameCover = new Image(userDirectoryString);
-		GameFile defaultGame = new GameFile("Example Game", readFile("data/GameEditorExampleXML.xml"),gameCover); //
-
-		addToGallery(defaultGame);
-		GameFile spicyGame = new GameFile("A Spicy Game To Test Platforms",
-				readFile("data/GameEditorExampleXML.xml"),gameCover); //
-		addToGallery(spicyGame);
-		GameFile scrollingGame = new GameFile("Scrolling Tester",
-				readFile("data/DoodleJump.xml"),gameCover); //
-		addToGallery(scrollingGame);
-		GameFile exampleGame = new GameFile("Example Flappy Bird",
-				readFile("data/FlappyExample.xml"),gameCover);
-		addToGallery(exampleGame);
-		GameFile ddr = new GameFile("Dance Dance Revolution", readFile("data/DanceDanceRevolution.xml"),gameCover);
+		GameFile ddr = new GameFile("Dance Dance Revolution",
+				readFile("data/DanceDanceRevolution.xml"), gameCover);
 		addToGallery(ddr);
+		GameFile mario = new GameFile("Super Mario",
+				readFile("data/Mario.xml"), gameCover);
+		addToGallery(mario);
+		GameFile doodle = new GameFile("Doodle Jump",
+				readFile("data/DoodleJump.xml"), gameCover);
+		addToGallery(doodle);
+		GameFile flappy = new GameFile("Example Flappy Bird",
+				readFile("data/FlappyExample.xml"), gameCover);
+		addToGallery(flappy);
 	}
 
 	@Override

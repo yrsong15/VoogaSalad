@@ -49,7 +49,7 @@ public abstract class BasicBoundary implements GameBoundary{
 	}
 
 	@Override
-	public abstract boolean moveToXPos(GameObject toMove, double newXPos);
+	public abstract boolean moveToXPos(GameObject toMove, double newXPos, double speed);
 
 	@Override
 	public abstract boolean moveToYPos(GameObject toMove, double newYPos);

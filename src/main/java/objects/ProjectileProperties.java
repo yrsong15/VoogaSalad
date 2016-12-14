@@ -29,10 +29,6 @@ public class ProjectileProperties {
         return timeBetweenShots;
     }
 
-    public void setTimeBetweenShots(double timeBetweenShots) {
-        this.timeBetweenShots = timeBetweenShots;
-    }
-
     public String getImageFileName() {
         return imageFileName;
     }
