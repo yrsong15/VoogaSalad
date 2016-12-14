@@ -96,11 +96,16 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         myHUD.resetTimer();
         //System.out.println(" Client Id " + clientMain.getID());
         //System.out.println(playerMapping.keySet().size());
+
         clientPlayerList = playerMapping.get(clientMain.getID());
-        //System.out.println("clientPLayerList in Engine UI: " + clientPlayerList);
+//		System.out.println("clientPlayerList in Engine UI: " + clientPlayerList);
         for (Player player : clientPlayerList) {
             mapKeys(player, player.getControls());
         }
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     public void update() {
@@ -115,10 +120,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         }
         gameScreen.update(currentGame);
         myHUD.update(currentGame.getScores());
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     public void playMusic(String musicFileName) {
