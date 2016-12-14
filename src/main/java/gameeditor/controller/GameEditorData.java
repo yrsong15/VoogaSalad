@@ -145,12 +145,12 @@ public class GameEditorData implements IGameEditorData{
     public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, 
                                     ComboBox<String> isEnemyAllowed, ComboBox<String> direction){
         
+        
         Map<String,String> properties =  getType(type);
         enemyAllowed = Boolean.getBoolean(isEnemyAllowed.getValue());
         randomGenDirection = direction.getValue();
 
  
-
         int width = Double.valueOf(properties.get(WIDTH_KEY)).intValue();
         int height = Double.valueOf(properties.get(HEIGHT_KEY)).intValue();
         String imagePath = properties.get(IMAGE_PATH_KEY);
@@ -186,20 +186,20 @@ public class GameEditorData implements IGameEditorData{
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void addRandomGenerationFrame(){
+        
         if(!myTypeRandomGenerationMap.isEmpty()){
             ArrayList<RandomGeneration> list = new ArrayList<RandomGeneration>();
             myTypeRandomGenerationMap.forEach((k,v)->{
                 list.add(v);
             });
-           
+                               
             RandomGenFrame frame=null;
             if(randomGenDirection.equals("vertical")){
                 frame = new RandomGenFrameY(myGame.getCurrentLevel(), list, enemyAllowed);
             }else if (randomGenDirection.equals("horizontal")){
                 frame = new RandomGenFrameX(myGame.getCurrentLevel(), list, enemyAllowed);
             }
-
-            System.out.println(frame);
+            
             myLevel.setRandomGenerationFrame(frame);
         }
     }
@@ -292,7 +292,6 @@ public class GameEditorData implements IGameEditorData{
     public void storeMainCharToXML () {   
         removeFromMapList(myMainCharImageViewMaps);
         
-        int counter =0;
         for(Map<String,String> map: myMainCharImageViewMaps){
 
             GameObject myObject = createGameObject(map);
@@ -304,7 +303,7 @@ public class GameEditorData implements IGameEditorData{
             //exception.showError("Not all Players have Controls Set up");
             // }
             myGame.addPlayer(player);
-            myGame.addPlayerToClient(counter,player);
+            myGame.addPlayerToClient(0,player);
             myLevel.addPlayer(myObject);
            // myLevel.addPlayer(player.getMainChar());
             
