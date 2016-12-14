@@ -33,10 +33,10 @@ public class ClientGame {
 				ServerMain.idCounter++;
 				o.setID(ServerMain.idCounter);
 			}
-			gameObjectMap.put(o.getID(),
-					new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
-							o.getDirection(), o.getImageFileName(),
-							o.getProperty("health") == null ? null : Double.parseDouble(o.getProperty("health"))));
+			ClientGameObject gameObject = new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
+					o.getDirection(), o.getImageFileName(),
+					o.getProperty("health") == null ? null : Double.parseDouble(o.getProperty("health")));
+			gameObjectMap.put(o.getID(), gameObject);
 		}
 	}
 

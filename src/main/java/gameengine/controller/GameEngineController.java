@@ -44,7 +44,7 @@ public class GameEngineController implements CommandInterface {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			System.out.println("Error in Thread Sleep before StartClientGame");
+			//System.out.println("Error in Thread Sleep before StartClientGame");
 			e.printStackTrace();
 		}
 		startClientGame(currentGame.getClientMappings());

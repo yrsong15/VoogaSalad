@@ -65,8 +65,6 @@ public class SelectDetail extends AbstractSelectDetail {
         double width = Double.parseDouble(widthString.substring(WIDTH_LABEL.length()));
         double height = Double.parseDouble(heightString.substring(HEIGHT_LABEL.length()));
 
-        myGO.update(x, y, width, height);
-
         // Update Data in the Back End
         Map<String, String> typeMap = myDataStore.getType(myGO.getType());
         typeMap.put(ISelectDetail.X_POSITION_KEY,xString.substring(X_LABEL.length()));
@@ -74,11 +72,13 @@ public class SelectDetail extends AbstractSelectDetail {
         typeMap.put(IGameEditorData.WIDTH_KEY,widthString.substring(WIDTH_LABEL.length()));
         typeMap.put(IGameEditorData.HEIGHT_KEY, heightString.substring(HEIGHT_LABEL.length()));
         
-        
+        myGO.update(x, y, width, height);
         String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
         if(randomGen!=null && randomGen.equals("True")){ 
-        	myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed, randomGenDirection);
+//        	myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed, randomGenDirection);
+            myGO.addRandomGen(myRandomGenerationList, randomGenDirection);
         }
+        
     }   
     
     public void switchSelectStyle(GameObjectView sprite){

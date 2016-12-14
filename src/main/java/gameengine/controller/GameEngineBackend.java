@@ -87,10 +87,11 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
 		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
 		conditionChecker.checkConditions(this, currentGame.getCurrentLevel().getWinConditions(), currentGame.getCurrentLevel().getLoseConditions());
-	
-		
+
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
+			//System.out.println(mainChar.getVelX());
+			mainChar.setXPosition(mainChar.getXPosition() + mainChar.getVelX());
 			Position position = new Position();
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 			mainCharImprints.put(mainChar, position);
@@ -110,11 +111,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj, boolean oneSided) {
 		double newPosition;
-		/*if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) != IntersectionAmount.NOT_INTERSECTING){
-			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
-				mainChar.setPlatformCharacterIsOn(obj);
-			} 	
-		}*/
 		if(oneSided && SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
 				obj) != IntersectionAmount.NOT_INTERSECTING) {
 			newPosition = setNewPosition(mainCharImprints.get(mainChar).getY(), mainChar, obj);
@@ -197,10 +193,13 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
     public void goNextLevel() {
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel()+1) != null) {
-			System.out.println("switching levelss");
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
+			if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
+				currentGame.getCurrentLevel().setBackgroundObject();
+			}
+			
 		} else {
-			System.out.println("won");
+			//System.out.println("won");
 			winGame();
 		}
 	}
@@ -312,6 +311,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	public void setGame(Game currentGame) {
 		this.currentGame = currentGame;
+		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
+			currentGame.getCurrentLevel().setBackgroundObject();
+		}
 	}
 
 }

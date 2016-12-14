@@ -15,7 +15,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import objects.ClientGame;
 import objects.ClientGameObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,7 +32,7 @@ public class GameScreen {
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
     private int currLevel;
-    
+
     public GameScreen() {
         myScreen = new Pane();
         myScreen.setMaxSize(screenWidth, screenHeight);
@@ -51,36 +50,48 @@ public class GameScreen {
                         true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-        myScreen.setBackground(new Background(bi));   
+        myScreen.setBackground(new Background(bi));
     }
 
-
+    public void nextLevel(){
+        gameObjectImageViewMap.remove(0);
+    }
     public void init(ClientGame game) {
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
         if (game.getBackgroundObject()!=null){
-        	addGameObject(game.getBackgroundObject());
+            addGameObject(game.getBackgroundObject());
         }
-        for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {        	
+        for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             addGameObject(entry.getValue());
         }
     }
 
-    
     public void updatePosition(ClientGameObject obj){
         if (gameObjectImageViewMap.containsKey(obj.getID())) {
-            gameObjectImageViewMap.get(obj.getID()).relocate(obj.getXPosition(),
-                    obj.getYPosition());
+            ImageView iv = gameObjectImageViewMap.get(obj.getID());
+            if(obj.getXPosition() != iv.getX() || obj.getYPosition() != iv.getY()) {
+                iv.relocate(obj.getXPosition(),
+                        obj.getYPosition());
+            }
+            if(obj.getDirection() == null){
+                obj.setDirection(Direction.RIGHT);
+            }
+            if(obj.getDirection().equals(Direction.LEFT)){
+                iv.setRotate(180);
+            }else{
+                iv.setRotate(0);
+            }
         }
         else {
             addGameObject(obj);
         }
     }
-    
-    
+
+
     public void update(ClientGame game){
         Map<Integer, ClientGameObject> allGameObjects = game.getAllGameObjects();
         if (game.getBackgroundObject()!=null){
-        	updatePosition(game.getBackgroundObject());
+            updatePosition(game.getBackgroundObject());
         }
         for (Map.Entry<Integer, ClientGameObject> entry : allGameObjects.entrySet()) {
             ClientGameObject object = entry.getValue();
@@ -89,7 +100,7 @@ public class GameScreen {
         for(Iterator<Integer> it = gameObjectImageViewMap.keySet().iterator(); it.hasNext();){
             int ID = it.next();
             if (game.getBackgroundObject() != null && game.getBackgroundObject().getID() == ID){
-            	continue;
+                continue;
             }
             if(!allGameObjects.containsKey(ID)){
                 myScreen.getChildren().remove(gameObjectImageViewMap.get(ID));
@@ -97,23 +108,23 @@ public class GameScreen {
             }
         }
     }
-
     public void reset() {
         gameObjectImageViewMap.clear();
         myScreen.getChildren().clear();
     }
-
     private void addGameObject(ClientGameObject object) {
-        if (object.getImageFileName() == null)
-            return;
+        if (object.getImageFileName() == null) {
+            System.out.println("adding " + object.getImageFileName() + "with id " + object.getID());
+            if (object.getImageFileName() == null)
+                return;
+        }
         Image image = null;
         try{
-        	image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
+            image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
         }
         catch (NullPointerException e){
-        	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
-        }     
-
+            image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));
+        }
         ImageView iv = new ImageView(image);
         iv.setFitHeight(object.getHeight());
         iv.setFitWidth(object.getWidth());

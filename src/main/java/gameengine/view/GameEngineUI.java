@@ -47,7 +47,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
     private ResourceBundle myResources;
     private Scene scene;
     private Stage myLevelStage;
-    private ScrollerController scrollerController;
     private ErrorMessage myErrorMessage;
     private Toolbar toolbar;
     private Node toolbarHBox;
@@ -92,11 +91,11 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
         gameScreen.reset();
         gameScreen.init(currentGame);
         myHUD.resetTimer();
-        System.out.println(" Client Id " + clientMain.getID());
-        System.out.println(playerMapping.keySet().size());
+        //System.out.println(" Client Id " + clientMain.getID());
+        //System.out.println(playerMapping.keySet().size());
 
         clientPlayerList = playerMapping.get(clientMain.getID());
-
+        //System.out.println("clientPLayerList in Engine UI: " + clientPlayerList);
         for(Player player : clientPlayerList) {
             mapKeys(player, player.getControls());
         }
@@ -104,12 +103,12 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
     public Scene getScene() {
         return scene;
     }
-
     public void update() {
         if (currLevel != currentGame.getLevel()){
             pause();
             makeLevelScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
             currLevel = currentGame.getLevel();
+            gameScreen.nextLevel();
         }
         else if (currentGame.isGameLost()){
             makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
@@ -145,6 +144,8 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
                 Player player = playerMappings.get(key);
                 keyMappings.get(key).invoke(clientMain, player.getMainChar(),
                         Double.parseDouble(player.getMainChar().getProperty("movespeed")));
+            }else if(keyMappings.get(key).getName().equals("moveLeft") || keyMappings.get(key).getName().equals("moveRight")){
+                playerMappings.get(key).getMainChar().setVelX(0);
             }
         }
     }
@@ -286,6 +287,13 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
         this.scene.setOnKeyReleased(event -> {
             if (keyMappings.containsKey(event.getCode())) {
                 keyPressed.put(event.getCode(), false);
+                try {
+                    checkKeyPressed();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -30,18 +30,15 @@ public class Gallery implements IGallery {
 		GameFile ddr = new GameFile("Dance Dance Revolution",
 				readFile("data/DanceDanceRevolution.xml"));
 		addToGallery(ddr);
-		GameFile defaultGame = new GameFile("Super Mario",
-				readFile("data/ScrollingTestGameEditorExampleXML.xml")); //
-		addToGallery(defaultGame);
-		GameFile spicyGame = new GameFile("Doodle Jump",
-				readFile("data/GameEditorExampleXML.xml")); //
-		addToGallery(spicyGame);
-//		GameFile scrollingGame = new GameFile("Scrolling Tester",
-//				readFile("data/DoodleJump.xml")); //
-//		addToGallery(scrollingGame);
-//		GameFile exampleGame = new GameFile("Example Flappy Bird",
-//				readFile("data/FlappyExample.xml"));
-//		addToGallery(exampleGame);
+		GameFile mario = new GameFile("Super Mario",
+				readFile("data/Mario.xml")); //
+		addToGallery(mario);
+		GameFile doodle = new GameFile("Doodle Jump",
+				readFile("data/DoodleJump.xml")); //
+		addToGallery(doodle);
+		GameFile flappy = new GameFile("Example Flappy Bird",
+				readFile("data/FlappyExample.xml"));
+		addToGallery(flappy);
 	}
 
 	@Override

@@ -29,6 +29,7 @@ public class GameObject {
     private int id;
     private String typeName;
     private List<GameObject> projectiles;
+    private double velX = 0;
 
     public GameObject(int id, double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
@@ -177,5 +178,13 @@ public class GameObject {
 
     public String getTypeName(){
         return typeName;
+    }
+
+    public double getVelX() {
+        return velX;
+    }
+
+    public void setVelX(double velX) {
+        this.velX = velX;
     }
 }

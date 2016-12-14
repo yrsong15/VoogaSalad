@@ -14,15 +14,9 @@ public class NoBoundary extends BasicBoundary{
 	
 	
 	@Override
-	public boolean moveToXPos(GameObject toMove, double newXPos) {
-		if(newXPos <= getViewWidth()-toMove.getWidth() && newXPos >= 0){
-			toMove.setXPosition(newXPos);
-			return true;
-		}
-		else{
-			toMove.killSpeed();
-			return false;
-		}
+	public boolean moveToXPos(GameObject toMove, double newPosition, double speed) {
+		toMove.setVelX(speed);
+		return true;
 	}
 
 	@Override

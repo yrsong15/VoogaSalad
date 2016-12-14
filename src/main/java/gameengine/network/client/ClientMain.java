@@ -17,11 +17,14 @@ import objects.Player;
  *         game.
  * 
  *         Go to www.tskrebe.me for more info
+ *         
+ * 
+ * Edited by Eric Song, Ray Song
  * 
  */
 public class ClientMain{
 
-	public static long ID = -1; // we get ID from the server side
+	public long ID = -1; // we get ID from the server side
 
 	private TcpConnection connections; // establishing TCP connection
 

@@ -66,21 +66,6 @@ public abstract class ScoreScreen {
             root.getChildren().add(text);
             index++;
         }
-//        ButtonTemplate nextLevelButton = new ButtonTemplate("NextLevel", 10, 10);//myAppWidth / 2, myAppHeight - 50);
-//        Button awefadsff = nextLevelButton.getButton();
-//        awefadsff.setOnMouseClicked(e -> getMyGameEngine().pause());
-//        root.getChildren().addAll(awefadsff);
-//        addButtons();
-//        ButtonTemplate exitTemplate = new ButtonTemplate("Quit", 10, 10);
-//        ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
-//        Button exit = exitTemplate.getButton();
-////        exit.setOnMouseClicked(e -> {
-////            commandInterface.stop();
-////            //stage.close();
-////        });
-//        Button replay = replayTemplate.getButton();
-//        replay.setOnMouseClicked(e -> myGameEngine.pause());
-//        root.getChildren().addAll(exit, replay);
         return root;
     }
 
@@ -101,6 +86,5 @@ public abstract class ScoreScreen {
     protected BorderPane getRoot(){
         return root;
     }
-//    Scene getScene();
 }
 

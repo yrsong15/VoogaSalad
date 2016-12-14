@@ -46,8 +46,6 @@ public class HUD {
 
 	public void update(Map<Long, Integer> scores) {
 		myHUD.getChildren().clear();
-//		myHUD.getChildren().add(scoreText);
-		//game.getCurrentLevel().setTime(timeCount);
 		for (Long clientID : scores.keySet()) {
 			Text scoreText = new Text("Player " + Long.toString((clientID+1))
 					+ ": " + Integer.toString(scores.get(clientID)));

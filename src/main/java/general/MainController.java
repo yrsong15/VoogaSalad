@@ -1,6 +1,8 @@
 package general;
+
 import java.io.File;
 import java.io.IOException;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
@@ -64,7 +66,7 @@ public class MainController {
         gameEngineController.setEngineStage(gameEngineStage);
     }
 
-    public void startPlayingMulti(boolean isHosted, String myServer){
+    public void startPlayingMulti(boolean isHosted, String myServer) {
         gameEngineController.setHostMode(isHosted, myServer);
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
@@ -80,7 +82,7 @@ public class MainController {
         gameEngineController.startGame();
     }
 
-    public void startPlayingSingleDDR(){
+    public void startPlayingSingleDDR() {
         GameExamples gameExamples = new GameExamples();
         String XMLData = gameExamples.getDanceDanceRevolution();
         Game game = gameEngineController.createGameFromXML(XMLData);
@@ -90,7 +92,7 @@ public class MainController {
         gameEngineController.startGame();
     }
 
-    private void shutdownClient(){
+    private void shutdownClient() {
         gameEngineController.setupServerShutdown();
         gameEngineController.stop();
     }
@@ -104,7 +106,6 @@ public class MainController {
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-//        XMLData = gameExamples.getDanceDanceRevolution();
         XMLData = gameExamples.getMultiplayerDDR();
 //        XMLData = gameExamples.getDoodleJumpXML();
 //        XMLData = gameExamples.getScrollingXML();
