@@ -29,20 +29,12 @@ import org.w3c.dom.css.Rect;
  *         Delia Li (dl202)
  */
 public class HighScoreScreen extends ScoreScreen{
-//    public static final double myAppWidth = 400;
-//    public static final double myAppHeight = 340;
-//    private NodeFactory myFactory = new NodeFactory();
-//    private Scene myScene;
-//    private Level myLevel;
-//    private List<Integer> highScores;
-//    private BorderPane root;
-//    private CommandInterface commandInterface;
-    public HighScoreScreen(List<Integer> highScores, int time, Map<Long, Integer> scoreMapping, IGameEngineUI iGameEngine) {
+
+    public HighScoreScreen(List<Integer> highScores, int time, Map<Long,
+            Integer> scoreMapping, IGameEngineUI iGameEngine) {
         super(highScores, time, scoreMapping, iGameEngine);
     }
-//    public Scene getScene() {
-//        return myScene;
-////    }
+    
     @Override
     public String getStageTitle() {
         return "YOU WIN";
