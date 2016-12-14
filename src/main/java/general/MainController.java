@@ -53,7 +53,7 @@ public class MainController {
     public void presentEditor(Game game) {
         gameEditorController = new GameEditorController();
         gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        gameEditorController.setOnLoadGame(e -> sendXMLFileDataToEngine());
     }
 
     public void presentEditor(Game game, String gameType) {
@@ -118,7 +118,7 @@ public class MainController {
              
     	String content = null;
 	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/pokegame.xml")));
+	    	content = new String(Files.readAllBytes(Paths.get("data/poke6.xml")));
 	    }
 	    catch (IOException e) {
 	       // TODO Auto-generated catch block
@@ -137,7 +137,7 @@ public class MainController {
  //           XMLData = gameExamples.getMultiplayerDDR();
 //              XMLData = gameExamples.getDoodleJumpXML();
         //  XMLData = gameExamples.getScrollingXML();
-         XMLData = gameExamples.getMarioXML();
+//         XMLData = gameExamples.getMarioXML();
         //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
