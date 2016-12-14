@@ -29,10 +29,12 @@ public class GameExamples{
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
-        shyGuy.setProperty("movespeed", "30");
+        shyGuy.setProperty("movespeed", "5");
         shyGuy.setProperty("gravity", "1.2");
-        shyGuy.setProperty("jumponce", "500");
+        shyGuy.setProperty("jumponce", "800");
         shyGuy.setProperty("health", "30");
+        ProjectileProperties projectileProperties = new ProjectileProperties("doodler.png", 30, 30, Direction.RIGHT, 400, 100, 30, 1);
+        shyGuy.setProjectileProperties(projectileProperties);
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
@@ -77,14 +79,8 @@ public class GameExamples{
         level.addGameObject(block);
         block.setProperty("nonintersectable", "");
         
-        
-        GameObject block6 = new GameObject(500, 250, 50, 50, "block.png", new HashMap<>());
-        level.addGameObject(block6);
-        block6.setProperty("nonintersectable", "");
-        
-        GameObject block7 = new GameObject(700, 250, 50, 50, "block.png", new HashMap<>());
-        level.addGameObject(block7);
-        block7.setProperty("nonintersectable", "");
+        level.addGameObject(makeBox(500, 250, 50, 50));
+        level.addGameObject(makeBox(700, 250, 50, 50));
         
         
         
@@ -148,14 +144,36 @@ public class GameExamples{
         Level level2 = new Level(2);
         level2.setScrollType(scrollType);
     //    level2.setBackgroundImage("Background/bubbles.png");
-        level2.addPlayer(shyGuy);
+        
         game.addLevel(level2);
+        level2.setBackgroundImage("bg.png");
+        
+        level2.addPlayer(shyGuy);
         
         
-        GameObject coin51 = new GameObject(0, 550, 200, 200, "coin.png", new HashMap<>());
-        level2.addGameObject(coin51);
-        coin51.setProperty("points", "5");
-        coin51.setProperty("removeobject", "");
+        level2.addGameObject(makeBox(168, 106, 50, 50));
+        level2.addGameObject(makeBox(320, 204, 50, 50));
+        level2.addGameObject(makeBox(460, 102, 50, 50));
+        level2.addGameObject(makeBox(48, 285, 50, 50));
+        level2.addGameObject(makeBox(97, 312, 50, 50));
+        level2.addGameObject(makeBox(145, 342, 50, 50));
+        level2.addGameObject(makeBox(194, 376, 50, 50));
+        level2.addGameObject(makeBox(244, 393, 50, 50));
+        level2.addGameObject(makeBox(294, 394, 50, 50));
+        
+        level2.addGameObject(makeBox(393, 394, 50, 50));
+        level2.addGameObject(makeBox(442, 394, 50, 50));
+        level2.addGameObject(makeBox(491, 367, 50, 50));
+        level2.addGameObject(makeBox(540, 341, 50, 50));
+        level2.addGameObject(makeBox(589, 315, 50, 50));
+        level2.addGameObject(makeBox(638, 288, 50, 50));
+
+        
+        GameObject killer2 = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
+        killer2.setProperty("damage", "30");
+        killer2.setProperty("nonscrollable", "");
+        level2.addGameObject(killer2); 
+
         
         
         
@@ -193,6 +211,14 @@ public class GameExamples{
         return xml;
 		
 	}
+	
+	private GameObject makeBox(double xPos, double yPos, double width, double height){
+		GameObject box = new GameObject(xPos, yPos, width, height, "block.png", new HashMap<>());
+	    box.setProperty("nonintersectable", "");
+	    return box;
+	}
+
+
 	
 	
 	
