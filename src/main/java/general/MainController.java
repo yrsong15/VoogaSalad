@@ -116,7 +116,9 @@ public class MainController implements IMainControllerIn {
     	//addNewGameFile(title, gameFile);
     	String content = null;
 	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/" + myLoadXML)));
+	    	content = new String(Files.readAllBytes(Paths.get("data/legoo.xml")));
+//	    	content = new String(Files.readAllBytes(Paths.get("data/" + myLoadXML)));
+
 	    }
 	    catch (IOException e) {
 	    }
