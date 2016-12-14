@@ -11,6 +11,13 @@ import javax.xml.bind.JAXBException;
 import gameengine.network.ServerMessage;
 import xml.XMLSerializer;
 
+/**
+ * 
+ * @author Titas Skrebe
+ * 
+ * Edited by Eric Song, Ray Song
+ * 
+ */
 class TcpConnection {
 
 	private static final int GET_ID = 0;

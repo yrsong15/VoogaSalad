@@ -107,6 +107,7 @@ public class GameEngineController implements CommandInterface {
 
 	@Override
 	public void reset() {
+		System.out.println("reset started in Engine Controller!");
 		this.currentGame = createGameFromXML(xmlData);
 		backend.setGame(currentGame);
 		gameEngineView.closeLoseScreenStage();

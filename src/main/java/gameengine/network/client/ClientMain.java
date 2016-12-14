@@ -17,6 +17,9 @@ import objects.Player;
  *         game.
  * 
  *         Go to www.tskrebe.me for more info
+ *         
+ * 
+ * Edited by Eric Song, Ray Song
  * 
  */
 public class ClientMain{

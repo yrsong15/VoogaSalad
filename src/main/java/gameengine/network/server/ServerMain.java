@@ -31,6 +31,14 @@ import objects.Game;
 import xml.XMLSerializer;
 import xml.XMLTrimmer;
 
+/**
+ * 
+ * @author Titas Skrebe
+ * 
+ * Edited by Eric Song, Ray Song
+ *
+ *
+ */
 public class ServerMain {
 
 	// refreshing game state and sending data to clients every x ms
