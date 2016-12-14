@@ -10,7 +10,7 @@ public interface RuleActionHandler {
 	public void removeObject(GameObject obj);
 	public void endGame();
 	public void modifyScore(long ID, int score);
-	public void resetObjectPosition(GameObject mainChar, GameObject obj);
+	public void resetObjectPosition(GameObject mainChar, GameObject obj, boolean isOneSided);
 	public void removeFromCollidedList(GameObject obj);
 	public void winGame();
 	public void goNextLevel();
