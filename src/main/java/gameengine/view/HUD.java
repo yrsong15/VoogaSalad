@@ -47,7 +47,7 @@ public class HUD {
 	public void update(Map<Long, Integer> scores) {
 		myHUD.getChildren().clear();
 		for (Long clientID : scores.keySet()) {
-			Text scoreText = new Text("Player " + Long.toString((clientID+1))
+			Text scoreText = new Text("  Player " + Long.toString((clientID+1))
 					+ ": " + Integer.toString(scores.get(clientID)));
 			scoreText.setFill(Color.WHITE);
 			scoreText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
