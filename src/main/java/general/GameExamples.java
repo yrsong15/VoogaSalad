@@ -144,29 +144,30 @@ public class GameExamples{
     //    level2.setBackgroundImage("Background/bubbles.png");
         
         game.addLevel(level2);
-        level2.setBackgroundImage("bg.png");
+        level2.setBackgroundImage("bubbles.png");
         
         level2.addPlayer(shyGuy);
         shyGuy.setXPosition(48);
         shyGuy.setYPosition(236);
         
         
-        level2.addGameObject(makeBox(168, 106, 50, 50));
-        level2.addGameObject(makeBox(320, 204, 50, 50));
-        level2.addGameObject(makeBox(460, 102, 50, 50));
-        level2.addGameObject(makeBox(48, 285, 50, 50));
-        level2.addGameObject(makeBox(97, 312, 50, 50));
-        level2.addGameObject(makeBox(145, 342, 50, 50));
-        level2.addGameObject(makeBox(194, 376, 50, 50));
-        level2.addGameObject(makeBox(244, 393, 50, 50));
-        level2.addGameObject(makeBox(294, 394, 50, 50));
+        level2.addGameObject(makeBox(168, 156, 50, 50));
+        level2.addGameObject(makeBox(320, 254, 50, 50));
+        level2.addGameObject(makeBox(460, 152, 50, 50));
+        level2.addGameObject(makeBox(48, 335, 50, 50));
+        level2.addGameObject(makeBox(97, 362, 50, 50));
+        level2.addGameObject(makeBox(145, 392, 50, 50));
         
-        level2.addGameObject(makeBox(393, 394, 50, 50));
-        level2.addGameObject(makeBox(442, 394, 50, 50));
-        level2.addGameObject(makeBox(491, 367, 50, 50));
-        level2.addGameObject(makeBox(540, 341, 50, 50));
-        level2.addGameObject(makeBox(589, 315, 50, 50));
-        level2.addGameObject(makeBox(638, 288, 50, 50));
+        level2.addGameObject(makeBox(194, 426, 50, 50));
+        level2.addGameObject(makeBox(244, 443, 50, 50));
+        level2.addGameObject(makeBox(294, 444, 50, 50));
+        level2.addGameObject(makeBox(393, 444, 50, 50));
+        level2.addGameObject(makeBox(442, 444, 50, 50));
+        level2.addGameObject(makeBox(491, 406, 50, 50));
+        
+        level2.addGameObject(makeBox(540, 391, 50, 50));
+        level2.addGameObject(makeBox(589, 365, 50, 50));
+        level2.addGameObject(makeBox(638, 238, 50, 50));
 
         
         GameObject killer2 = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
