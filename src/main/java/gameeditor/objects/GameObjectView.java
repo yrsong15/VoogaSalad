@@ -11,7 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import objects.RandomGeneration;
 /**
  * @author John Martin, Pratiksha sharma
  *
@@ -189,13 +188,10 @@ public class GameObjectView {
         setLayout(x, y);
         setDimensions(width, height);
         if (myRandomGenDirection != null && myRandomGenDirection.equals("horizontal")){
-        	System.out.println("hori");
         	generateHorizontalRandom();
     	} else if (myRandomGenDirection != null && myRandomGenDirection.equals("vertical")){
-        	System.out.println("verti");
         	generateVerticalRandom();
         } else {
-        	System.out.println("neither");
         }
         myDesignArea.addSprite(this);
     }
@@ -287,7 +283,6 @@ public class GameObjectView {
         	temp.setLayoutX(tempX);
         	temp.setLayoutY(tempY);
         	myRandomPreviews.add(temp);
-        	System.out.println("added");
             tempSpacing = myRandomMinSpacing + Math.random()*(myRandomMaxSpacing-myRandomMinSpacing);
             tempX += tempSpacing;
             tempY = myRandomYMin + Math.random()*(myRandomYMax - myRandomYMin);

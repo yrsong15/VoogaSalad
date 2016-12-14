@@ -1,8 +1,6 @@
 package gameeditor.commanddetails;
 
 import java.util.Locale;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import frontend.util.ButtonTemplate;
 import frontend.util.GameEditorException;
 import javafx.beans.value.ObservableValue;
