@@ -120,7 +120,7 @@ public class MainController {
              
     	String content = null;
 	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/trial3.xml")));
+	    	content = new String(Files.readAllBytes(Paths.get("data/pokegame.xml")));
 	    }
 	    catch (IOException e) {
 	       // TODO Auto-generated catch block
