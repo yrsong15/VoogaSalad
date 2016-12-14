@@ -1,8 +1,6 @@
 package gameeditor.commanddetails;
 
 import java.util.Locale;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import frontend.util.ButtonTemplate;
 import frontend.util.GameEditorException;
 import javafx.beans.value.ObservableValue;
@@ -97,7 +95,7 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
         inputField.setMaxHeight(IAbstractCommandDetail.CB_HEIGHT);
         inputField.setText(initValue);
         inputField.setOnMouseClicked(e -> handleClick(inputField));
-        if(initValue.equals("0")){
+        if(initValue!=null && initValue.equals("0")){
             inputField.setOnMouseExited(e-> verifyValue(inputField));
         }
         return inputField;

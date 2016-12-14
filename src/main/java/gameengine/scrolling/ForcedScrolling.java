@@ -66,7 +66,6 @@ public class ForcedScrolling implements Scrolling{
 			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				//throw (new ScrollDirectionNotFoundException());
-				e.printStackTrace();
 			}
 		
 	}

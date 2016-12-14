@@ -56,6 +56,8 @@ public class SpriteTypeButton {
     public SpriteTypeButton(double width, double height, String filePath, String type, IDesignArea da, IGameEditorData dataStore, IDetailPane idp) {
         myDetailPane = idp;
         myFilePath = filePath;
+        
+//        System.out.println(" file Path"  + filePath);
         myImage = new Image(filePath);
         myPane = new Pane();
         myPane.setMaxWidth(width);
@@ -69,6 +71,7 @@ public class SpriteTypeButton {
         setBGRect(width, height, 10);
         setImage(myImage);
 
+//        System.out.println(" File " + filePath);
     }
 
     public Pane getPane(){
@@ -144,7 +147,6 @@ public class SpriteTypeButton {
         myTempImageView.setPreserveRatio(true);
         myTempImageView.setFitWidth(fitWidth);
         myTempImageView.setFitHeight(fitHeight);
-        //System.out.println(myImageView.getLayoutX());
         xFromCorner = x - myImageView.getLayoutX();
         yFromCorner = y - myImageView.getLayoutY();
         double adjustedSceneX = sceneX - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();

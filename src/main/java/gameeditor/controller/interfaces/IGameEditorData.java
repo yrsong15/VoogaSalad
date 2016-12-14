@@ -59,5 +59,6 @@ public interface IGameEditorData {
     
     public void addScrollType(ScrollType scrolltype);
     
+    public Map<KeyCode,String> getControlsMap(String typeName);
 }
 

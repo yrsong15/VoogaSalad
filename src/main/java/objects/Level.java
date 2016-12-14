@@ -59,7 +59,11 @@ public class Level implements ILevel{
     }
 
     public ArrayList<RandomGeneration<Integer>> getRandomGenRules() {
-        return randomGenerationFrame.getRandomGenerationRules();
+    	try {
+            return randomGenerationFrame.getRandomGenerationRules();
+    	} catch (NullPointerException npe){
+    		return new ArrayList<RandomGeneration<Integer>>();
+    	}
     }
 
     public void setTime(int time){

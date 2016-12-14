@@ -20,7 +20,6 @@ public class DetailFactory {
 				return detail;
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return null;
       

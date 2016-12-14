@@ -30,7 +30,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private BorderPane myLimitWidthOption;
     private ComboBox<String> gameBoundaryOptions;
     private BorderPane myScrollWidthBP;
-    private String scrollTypeClass;
+    private String scrollTypeClass = FREE_SCROLL_TYPE;
     private ArrayList<Direction> scrollTypeDirections;
     
     public BehaviorDetail() {
@@ -143,7 +143,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         BasicBoundary boundary;
         if(gameBoundaryOptions.getValue().equals(GAME_BOUNDARY_OPTIONS[0])){
             // Toroidal
-             boundary = new ToroidalBoundary(width,height);
+             boundary = new ToroidalBoundary(width,height,width,height);
             //myDataStore.addGameBoundary(boundary);
         } else {
              boundary = new StopAtEdgeBoundary(width,height);

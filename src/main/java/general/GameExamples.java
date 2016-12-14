@@ -142,17 +142,19 @@ public class GameExamples{
         level2.addGameObject(makeBox(168, 16, 50, 50));
         level2.addGameObject(makeBox(320, 114, 50, 50));
         level2.addGameObject(makeBox(460, 16, 50, 50));
+        
+        
+        
         level2.addGameObject(makeBox(48, 335, 50, 50));
         level2.addGameObject(makeBox(97, 362, 50, 50));
         level2.addGameObject(makeBox(145, 392, 50, 50));
-
         level2.addGameObject(makeBox(194, 426, 50, 50));
         level2.addGameObject(makeBox(244, 443, 50, 50));
         level2.addGameObject(makeBox(294, 444, 50, 50));
+        level2.addGameObject(makeBox(344, 444, 50, 50));        
         level2.addGameObject(makeBox(393, 444, 50, 50));
         level2.addGameObject(makeBox(442, 444, 50, 50));
         level2.addGameObject(makeBox(491, 406, 50, 50));
-
         level2.addGameObject(makeBox(540, 391, 50, 50));
         level2.addGameObject(makeBox(589, 365, 50, 50));
         level2.addGameObject(makeBox(638, 335, 50, 50));
@@ -239,7 +241,7 @@ public class GameExamples{
 
     public String getScrollingXML(){
         Game game = new Game("Scrolling Tester");
-        GameObject shyGuy = new GameObject(200, 250, 75, 100, "spicybrian.png", new HashMap<>());
+        GameObject shyGuy = new GameObject(200, 200, 100, 200, "spicybrianStick.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
@@ -283,6 +285,7 @@ public class GameExamples{
 
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
 
     }
@@ -336,6 +339,7 @@ public class GameExamples{
         shyGuy.setProjectileProperties(projectileProperties);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+//        System.out.println(xml);
         return xml;
     }
     public String getDanceDanceRevolution(){
@@ -380,7 +384,7 @@ public class GameExamples{
         level.setBackgroundMusic("Cascada - Everytime We Touch.mp3");
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
-        scrollType.setScrollSpeed(20);
+        scrollType.setScrollSpeed(15);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/ddrbackground.jpg");
@@ -409,6 +413,7 @@ public class GameExamples{
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+//        System.out.println(xml);
         return xml;
     }
     public String getMultiplayerDDR(){
@@ -531,6 +536,7 @@ public class GameExamples{
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+//        System.out.println(xml);
         return xml;
     }
 }

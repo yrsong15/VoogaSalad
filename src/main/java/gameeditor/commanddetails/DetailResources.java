@@ -26,13 +26,14 @@ public enum DetailResources {
 		// Platform Properties
 		PLATFORM_INTERSECTABLE_OPTIONS(new String[] {"True","False"}),
 		PLATFORM_NON_INTERSECTABLE_OPTIONS(new String[]{"Top","Bottom","Both"}),
-		PLATFORM_NON_INTERSECTIBLE_LABEL("Intersectable"),
+		PLATFORM_NON_INTERSECTIBLE_LABEL("Non Intersectable"),
 		NON_INTERSECTABLE_SIDES_LABEL("Select Side"),
 		NON_INTERSECTABLE_KEY("nonintersectable"),
 		ONE_SIDE_NON_INTERSECTABLEKEY("onewaynonintersectable"),
 		ISPLATFORM_KEY("isplatform"),
 		PLATFORM_ENEMY_ALLOWED_KEY("isenemyallowed"),
 		PlATFORM_ENEMY_ALLOWED_LABEL("Is Enemy Allowed"),
+		
 		
 		JUMP_OPTIONS(new String[] {"Jump Once", "Jump Unlimited"}),
 		RANDOM_GEN_DIRECTION_OPTIONS(new String[] {"vertical","horizontal"}),
