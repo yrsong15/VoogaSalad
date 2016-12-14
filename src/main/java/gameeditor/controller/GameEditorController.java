@@ -207,6 +207,12 @@ public class GameEditorController implements IGameEditorController{
             myEditorLevels.getLoadButton().setOnMouseClicked(handler);  
         }
     }
+    
+    public void setOnSaveGame(EventHandler<MouseEvent> handler){
+        if(myEditorLevels!=null){
+            myEditorLevels.setOnSaveGame(handler);
+        }
+    }
 
     public String getGameTitle(){
         return myEditorLevels.getGameTitle().get();

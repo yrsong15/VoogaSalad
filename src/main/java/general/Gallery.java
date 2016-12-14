@@ -31,7 +31,7 @@ public class Gallery implements IGallery {
 	private void addDefaultGame() throws IOException {
 		String ddRString = "file:" + System.getProperty("user.dir") + "/images/Sprite/ddrrightarrow.png";
 		
-		GameFile ddr = new GameFile("Dance Dance Revolution",
+		GameFile ddr = new GameFile("Dance Dance Revolution Single",
 				readFile("data/DanceDanceRevolution.xml"), new Image(ddRString));
 		addToGallery(ddr);
 		String marioString = "file:" + System.getProperty("user.dir") + "/images/Sprite/mario.png";
@@ -39,6 +39,9 @@ public class Gallery implements IGallery {
 		GameFile mario = new GameFile("Super Mario",
 				readFile("data/Mario.xml"), new Image(marioString));
 		addToGallery(mario);
+		GameFile multiplayerDDR = new GameFile("Multiplayer DDR",
+				readFile("data/MultiplayerDDR.xml"), new Image(ddRString));
+		addToGallery(multiplayerDDR);
 		String doodleString = "file:" + System.getProperty("user.dir") + "/images/Sprite/doodler.png";
 		
 		GameFile doodle = new GameFile("Doodle Jump",
@@ -49,8 +52,6 @@ public class Gallery implements IGallery {
 		GameFile flappy = new GameFile("Example Flappy Bird",
 				readFile("data/FlappyExample.xml"), new Image(flappyString));
 		addToGallery(flappy);
-		GameFile multiplayerDDR = new GameFile("Multiplayer DDR", readFile("data/MultiplayerDDR.xml"), new Image(ddRString));
-		addToGallery(multiplayerDDR);
 	}
 
 	@Override
