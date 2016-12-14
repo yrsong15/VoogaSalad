@@ -2,7 +2,11 @@ package gameeditor.view.interfaces;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * 
+ * @author John Martin
+ *
+ */
 public interface ICommandButton {
 	
 	public Rectangle getBorder();
@@ -11,5 +15,6 @@ public interface ICommandButton {
 	
 	public void highlight();
 	public void lowlight();
+	public void checkHighlight(String paneType);
 	
 }

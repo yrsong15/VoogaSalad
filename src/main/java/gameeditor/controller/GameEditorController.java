@@ -33,16 +33,25 @@ public class GameEditorController implements IGameEditorController{
     private Stage myLevelStage;
     private Parent myRoot;
     private IGame myGameInterface;
+    private String myGameType;
 
     //TODO: move all hard-coded strings into a resource bundle
     public static final String DEFAULT_GAME_TITLE = "Untitled";
-
+    
+    public GameEditorController(String gameType){
+    	myGameType = gameType;
+    }
+    
+    public GameEditorController(){
+    	this("Scrolling");
+    }
 
     public void startEditor(Game game) {
         myLevelManager = new LevelManager();
         myGameEditorBackEndController = new GameEditorBackendController();
         if(game==null){
             myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
+            myGameInterface = (IGame) myGameEditorBackEndController.getGame();
         }else{
             myGameEditorBackEndController.setGame(game);
             myGameInterface = (IGame) game;
@@ -52,6 +61,7 @@ public class GameEditorController implements IGameEditorController{
         
         if(myGameEditorBackEndController.getGame().getNumberOfLevels()!=0){
             for(int i=0;i<myGameEditorBackEndController.getGame().getNumberOfLevels();i++){
+                System.out.println(" HERE ");
                 addLevelButton();
             }
         }
@@ -69,6 +79,8 @@ public class GameEditorController implements IGameEditorController{
 
     private void displayInitialStage(){  
         myLevelStage = new Stage();
+        myLevelStage.setResizable(false);
+        myLevelStage.setTitle("Game Editor");
         myLevelScene = new Scene(myRoot, EDITOR_LEVELS_SPLASH_WIDTH, EDITOR_LEVELS_SPLASH_HEIGHT);
 
         //myLevelScene = new Scene(myRoot, GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
@@ -120,15 +132,17 @@ public class GameEditorController implements IGameEditorController{
             }else {
                 level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             }
+            
             ILevel levelInterface = (ILevel) level;
-
-            myLevelManager.createLevel(level);   
-
-            myGameEditorView = new GameEditorView(levelInterface);          
+            
+            myLevelManager.createLevel(level);
+            myLevelManager.setLeveltitle(myEditorLevels.getGameTitle().get());
+            myGameEditorView = new GameEditorView(levelInterface, myGameInterface, myGameType);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
             setNewLevelSceneRoot();         
             myGameEditorBackEndController.setCurrentLevel(level);
-            myGameEditorBackEndController.addCurrentLevelToGame();  
+            //myGameEditorBackEndController.addCurrentLevelToGame();
+            //myGameEditorBackEndController.addCurrentLevelToGame();  
             addSaveLevelListener();
         }     
     }
@@ -162,6 +176,7 @@ public class GameEditorController implements IGameEditorController{
     private void resizeToLevelStage(){
         myLevelStage.setHeight(GameEditorView.SCENE_HEIGHT+20);
         myLevelStage.setWidth(GameEditorView.SCENE_WIDTH);
+        myLevelStage.setResizable(false);
         myLevelScene.getStylesheets().remove(CSS_STYLING_EDITOR_LEVELS);
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         myLevelStage.setX((screenBounds.getWidth() - myLevelStage.getWidth()) / 2); 

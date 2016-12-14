@@ -5,162 +5,170 @@ import javafx.scene.input.KeyCode;
 import objects.interfaces.ILevel;
 import java.security.Key;
 import java.util.*;
+import gameengine.model.RandomGenFrame;
+import gameengine.model.boundary.GameBoundary;
+import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
 
 /**
  * Created by Soravit on 11/18/2016.
- * @author : Soravit, Pratiksha
+ * @author : Soravit, Pratiksha, Chalena
  */
 public class Level implements ILevel{
 
-	private int level;
-	private List<GameObject> gameObjects;
-	private Map<String, String> winConditions;
-	private Map<String, String> loseConditions;
-	private Map<String, Double> gameConditions;
-	private Map<KeyCode, String> controls;
-	private String musicFilePath;
-	private String backgroundFilePath;
+    private int level;
+    private List<GameObject> projectiles;
+    private List<GameObject> gameObjects;
+    private List<GameObject> obstacles;
+    private Map<String, String> winConditions;
+    private Map<String, String> loseConditions;
+    private List<RandomGeneration> randomGenerations;
+    private String musicFilePath, backgroundFilePath, title;
+    private RandomGenFrame<Integer> randomGenerationFrame;
+    private List<GameObject> players;
+    private ScrollType scrollType;
+    private GameObject background;
+    private int time = 0;
 
-	private List<RandomGeneration> randomGenerations;
 
-	private GameObject mainCharacter;
-
-	private ScrollType scrollType;
-
-	public Level(int level) {
+    public Level(int level) {
         this.level = level;
-        gameObjects = new ArrayList<>();
-		randomGenerations = new ArrayList<>();
-		winConditions = new HashMap<>();
-		loseConditions = new HashMap<>();
-		gameConditions = new HashMap<>();
-		controls = new HashMap<>();
-	}
+        projectiles = new ArrayList<GameObject>();
+        gameObjects = new ArrayList<GameObject>();
+        obstacles = new ArrayList<GameObject>();
+        players = new ArrayList<>();
 
-	public void setScrollType(ScrollType scrollType) {
-		this.scrollType = scrollType;
-	}
+        winConditions = new HashMap<>();
+        loseConditions = new HashMap<>();
+     
+    }
 
-	public ScrollType getScrollType() {
-		return this.scrollType;
-	}
 
-	public List<RandomGeneration> getRandomGenRules() {
-		return randomGenerations;
-	}
 
-	public void addRandomGeneration(RandomGeneration randomGen) {
-		randomGenerations.add(randomGen);
-	}
+    public void removeAllPlayers(){
+        players = new ArrayList<>();
+    }
 
-	public int getLevel() {
-		return level;
-	}
+    public void setScrollType(ScrollType scrollType) {
+        this.scrollType = scrollType;
+    }
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
+    public ScrollType getScrollType() {
+        return this.scrollType;
+    }
 
-	public void addGameObject(GameObject go) {
-		gameObjects.add(go);
-	}
+    public RandomGenFrame getRandomGenerationFrame(){
+        return randomGenerationFrame;
+    }
+    public ArrayList<RandomGeneration<Integer>> getRandomGenRules() {
+        return randomGenerationFrame.getRandomGenerationRules();
+    }
 
-	public void removeGameObject(GameObject go) {
-		gameObjects.remove(go);
-	}
+    public void setTime(int time){
+        this.time = time;
+    }
 
-	public void removeGameObject(int index) {
-		gameObjects.remove(index);
-	}
+    public int getTime(){
+        return time;
+    }
 
-	public void addWinCondition(String type, String action) {
-		winConditions.put(type, action);
-	}
+    public void setRandomGenerationFrame(RandomGenFrame<Integer> randomGen) {
+        randomGenerationFrame = randomGen;
+    }
 
-	public void removeWinCondition(String type, String action) {
-		winConditions.remove(type);
-	}
+    public int getLevel() {
+        return level;
+    }
 
-	public Map<String, String> getWinConditions() {
-		return winConditions;
-	}
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
-	public void addLoseCondition(String type, String action) {
-		loseConditions.put(type, action);
-	}
+    public void addProjectile(GameObject go) {
+        projectiles.add(go);
+    }
 
-	public void removeLoseCondition(String type, String action) {
-		loseConditions.remove(type);
-	}
+    public void removeProjectile(GameObject go) {
+        projectiles.remove(go);
+    }
 
-	public Map<String, String> getLoseConditions() {
-		return loseConditions;
-	}
+    public void addGameObject(GameObject go) {
+        gameObjects.add(go);
+    }
 
-	public Map<String, Double> getGameConditions() {
-		return gameConditions;
-	}
+    public void removeGameObject(GameObject go) {
+        gameObjects.remove(go);
+    }
 
-	public GameObject getMainCharacter() {
-		return mainCharacter;
-	}
+    public void addWinCondition(String type, String action) {
+        winConditions.put(type, action);
+    }
 
-	public void setMainCharacter(GameObject mainCharacter) {
-		this.mainCharacter = mainCharacter;
-	}
+    public void removeWinCondition(String type, String action) {
+        winConditions.remove(type);
+    }
 
-	public int getScore() {
-        if(gameConditions.get("score") == null){
-            gameConditions.put("score", 0.0);
-        }
-		return gameConditions.get("score").intValue();
-	}
+    public Map<String, String> getWinConditions() {
+        return winConditions;
+    }
 
-	public void setScore(double score) {
-		gameConditions.put("score", score);
-	}
+    public void addLoseCondition(String type, String action) {
+        loseConditions.put(type, action);
+    }
 
-	public double getTime() {
-        if(gameConditions.get("time") == null){
-            gameConditions.put("time", 0.0);
-        }
-		return gameConditions.get("time");
-	}
+    public void removeLoseCondition(String type, String action) {
+        loseConditions.remove(type);
+    }
 
-	public void setTime(double time) {
-		gameConditions.put("time", time);
-	}
+    public Map<String, String> getLoseConditions() {
+        return loseConditions;
+    }
 
-	public List<GameObject> getGameObjects() {
-		return gameObjects;
-	}
+    public void addPlayer(GameObject player){
+        players.add(player);
+    }
 
-	public void setControl(KeyCode key, String action) {
-		controls.put(key, action);
-	}
+    public List<GameObject> getPlayers(){
+        return players;
+    }
 
-	public void removeControl(KeyCode key) {
-		controls.remove(key);
-	}
+    public List<GameObject> getProjectiles(){
+        return projectiles;
+    }
 
-	public Map<KeyCode, String> getControls() {
-		return controls;
-	}
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
+    }
 
-    @Override
+    public List<GameObject> getObstacles() {
+        return obstacles;
+    }
+
+    public GameObject getBackground(){
+        return background;
+    }
+
+    public void setBackgroundObject(){
+        GameBoundary gameBoundaries = this.getScrollType().getGameBoundary();
+        background = new GameObject(0, 0, 0, gameBoundaries.getWorldWidth(), gameBoundaries.getWorldHeight(), backgroundFilePath, new HashMap<>());
+    }
+
     public void setBackgroundImage(String filePath) {
         this.backgroundFilePath = filePath;
     }
 
-    @Override
     public void setBackgroundMusic(String musicFilePath) {
         this.musicFilePath = musicFilePath;
     }
 
-    @Override
-    public void addScrollWidth(double scrollWidth) {
+    public void setTitle(String title){ this.title = title; }
 
+    public List<GameObject> getAllGameObjects(){
+        List<GameObject> allObjects = new ArrayList<>();
+        allObjects.addAll(players);
+        allObjects.addAll(gameObjects);
+        allObjects.addAll(projectiles);
+        return allObjects;
     }
 
     public String getMusicFilePath(){
@@ -169,5 +177,9 @@ public class Level implements ILevel{
 
     public String getBackgroundFilePath(){
         return backgroundFilePath;
+    }
+
+    public String getTitle(){ 
+        return title; 
     }
 }

@@ -1,4 +1,5 @@
 package gameeditor.controller;
+
 import java.util.ArrayList;
 import java.util.List;
 import gameeditor.controller.interfaces.ICreateLevel;
@@ -30,5 +31,10 @@ public class LevelManager implements  ICreateLevel{
     public void setCurrentLevel(Level level){
         this.myLevel = level; 
     }
+    
+    public void setLeveltitle(String title){
+        myLevel.setTitle(title);
+    }
+    
     
 }

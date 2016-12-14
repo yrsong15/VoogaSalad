@@ -9,102 +9,91 @@ import com.sun.javafx.scene.traversal.Direction;
 
 import exception.MovementRuleNotFoundException;
 import exception.ScrollDirectionNotFoundException;
+import gameengine.model.boundary.GameBoundary;
 import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
 
+/**
+ * @author Chalena Scholl
+ */
+
 public class LimitedScrolling implements Scrolling{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
 	private double scrollingSpeed;
-	private double screenWidth;
-	private double screenHeight;
 	private double lastXPosition;
 	private double lastYPosition;
+	private GameBoundary gameBoundaries;
 	
-	public LimitedScrolling(Direction dir, double speed, double width, double height){
+	public LimitedScrolling(Direction dir, double speed, GameBoundary gameBoundaries){
 		this.direction = dir;
 		this.scrollingSpeed = speed;
-		this.screenWidth = width;
-		this.screenHeight = height;
+		this.gameBoundaries = gameBoundaries;
 	}
 
 	@Override
 	public void setSpeed(double speed) {
 		this.scrollingSpeed = speed;
-		
 	}
 	
-	private boolean needToMoveScreen(GameObject mainChar){
-		if (direction==Direction.LEFT){
-			return mainChar.getXPosition() <= screenWidth*0.3;
-		}
-		else if (direction == Direction.RIGHT){
-			return mainChar.getXPosition() >= screenWidth*0.7;
-		}
-		else if (direction == Direction.UP){
-			return mainChar.getYPosition() <= screenWidth*0.3;
-		}
-		
-		else if(direction == Direction.DOWN){
-			return mainChar.getYPosition() <= screenWidth*0.7;
-		}
-		return false;
+	@Override
+	public void setDirection(Direction scrollDirection){
+		this.direction = scrollDirection;
 	}
-
 	
-	private boolean needToMoveScreen2(GameObject mainChar){
-		if (direction==Direction.LEFT || direction == Direction.RIGHT){
-			return mainChar.getXPosition() != lastXPosition;
-		}
-		else if (direction==Direction.UP || direction == Direction.DOWN){
-			return mainChar.getYPosition() != lastYPosition;
-		}
-		
-		return false;
+	
+	public boolean allowedToScroll(Direction requestedDir, GameObject player){
+		double viewWidth = gameBoundaries.getViewWidth();
+		double viewHeight = gameBoundaries.getViewHeight();
+		return (direction == requestedDir)  
+			    && (requestedDir == Direction.LEFT && player.getXPosition()<= viewWidth*0.3
+				||  requestedDir == Direction.RIGHT && player.getXPosition()>= viewWidth*0.7
+				||  requestedDir == Direction.UP && player.getYPosition() <= viewHeight*0.3
+				||  requestedDir == Direction.DOWN && player.getYPosition() >= viewHeight*0.7);
 	}
 	
 	
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar) throws ScrollDirectionNotFoundException {
-		
-		if(!needToMoveScreen(mainChar)) return;
+		scrollScreen(gameObjects, mainChar, Double.parseDouble(mainChar.getProperty("movespeed")));
+	}
+
+	@Override
+	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed)
+			throws ScrollDirectionNotFoundException {
 		String methodName = "scroll" + direction.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
-		if (mainChar.getProperties().containsKey("gravity") && Double.parseDouble(mainChar.getProperty("gravity")) != 0.0){
-			scrollObjects.remove(mainChar);
+		for (GameObject obj: gameObjects){
+			if (obj.getProperty("nonscrollable") != null){
+				scrollObjects.remove(obj);
+			}
 		}
+		scrollObjects.remove(mainChar);
 		
- 		Object[] parameters = new Object[]{scrollObjects, Double.parseDouble(mainChar.getProperty("movespeed"))};
+ 		Object[] parameters = new Object[]{scrollObjects, speed};
  		Class<?>[] parameterTypes = new Class<?>[]{List.class, double.class};
          try {
 				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
 			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				throw (new ScrollDirectionNotFoundException());
+				e.printStackTrace();
 			}
-		
-		
-		/**
-		Method method = null;
-		try {
-			method = ReflectionUtil.getMethodFromClass(className, methodName,  new Class[]{List.class, double.class});
-		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			method.invoke(new GeneralScroll(), scrollObjects, Double.parseDouble(mainChar.getProperty("movespeed")));
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}**/
 		
 	}
 
-	
-	
+	@Override
+	public double getXDistanceScrolled() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
+	@Override
+	public double getYDistanceScrolled() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }
 

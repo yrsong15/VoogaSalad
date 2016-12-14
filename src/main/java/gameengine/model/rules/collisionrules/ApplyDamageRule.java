@@ -3,13 +3,12 @@ package gameengine.model.rules.collisionrules;
 import gameengine.controller.interfaces.RuleActionHandler;
 import objects.GameObject;
 
-public class ApplyDamageRule implements CollisionRule {
+public class ApplyDamageRule extends ApplyEnemyCollisionRule implements CollisionRule {
 
 	
-	public static void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
+	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
 		int currHealth = Integer.parseInt(mainChar.getProperty("health"));
 		currHealth -= Integer.parseInt(obj.getProperty("damage"));
-//		System.out.println(currHealth);
 		if (currHealth <= 0) {
 			handler.endGame();
 		}

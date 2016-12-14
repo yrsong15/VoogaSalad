@@ -2,7 +2,12 @@ package frontend.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-
+/**
+ * 
+ * @author Pratiksha Sharma
+ *
+ */
+@SuppressWarnings("serial")
 public class GameEditorException extends RuntimeException{
 
 

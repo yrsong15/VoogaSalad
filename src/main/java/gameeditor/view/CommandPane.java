@@ -10,7 +10,10 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-
+/**
+ * @author John Martin
+ *
+ */
 public class CommandPane implements ICommandButtonOut {
 	
 	private Pane myPane;
@@ -18,11 +21,14 @@ public class CommandPane implements ICommandButtonOut {
 	
 	private ArrayList<ICommandButton> myButtons = new ArrayList<ICommandButton>();
 	private int numButtons = 0;
+	private ICommandDetailDisplay myCommandDetailDisplay;
 
 	public CommandPane(ICommandDetailDisplay commandDetailDisplay) {
+		myCommandDetailDisplay = commandDetailDisplay;
 		myPane = new Pane();
 		myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
-		myPane.setBackground(new Background(new BackgroundFill(ViewResources.COMMAND_PANE_BG.getColorResource(), CornerRadii.EMPTY, Insets.EMPTY)));
+		myPane.setBackground(new Background(new BackgroundFill(ViewResources.COMMAND_PANE_BG.getColorResource(),
+				CornerRadii.EMPTY, Insets.EMPTY)));
 		String [] buttonLocations = ViewResources.BUTTON_FILE_LOCATIONS.getArrayResource();
 		for (String location : buttonLocations){
 			ICommandButton button = new CommandButton(location, numButtons++, myPaneWidth, this, commandDetailDisplay);
@@ -31,6 +37,7 @@ public class CommandPane implements ICommandButtonOut {
 			myPane.getChildren().add(button.getBG());
 			myPane.getChildren().add(button.getImageView());
 		}
+		myCommandDetailDisplay.setCommandPane(this);
 	}
 	
 	public void lowlightButtons(){
@@ -41,5 +48,9 @@ public class CommandPane implements ICommandButtonOut {
 	
 	public Pane getPane(){
 		return myPane;
+	}
+	
+	public ArrayList<ICommandButton> getButtons(){
+		return myButtons;
 	}
 }

@@ -3,7 +3,7 @@ package gameeditor.commanddetails;
 import java.util.Map;
 
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameeditor.objects.GameObject;
+import gameeditor.objects.GameObjectView;
 import gameeditor.view.ViewResources;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
@@ -12,13 +12,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * @author John Martin
+ *
+ */
 public class SpriteTypeButton {
 
-    private static final String X_POSITION_KEY =ISelectDetail.X_POSITION_KEY;
-    private static final String Y_POSITION_KEY = ISelectDetail.Y_POSITION_KEY;
-    private static final String SPRITE_WIDTH_KEY =IGameEditorData.WIDTH_KEY;
-    private static final String SPRITE_HEIGHT_KEY =IGameEditorData.HEIGHT_KEY;
+//    private static final String X_POSITION_KEY =ISelectDetail.X_POSITION_KEY;
+//    private static final String Y_POSITION_KEY = ISelectDetail.Y_POSITION_KEY;
+//    private static final String SPRITE_WIDTH_KEY =IGameEditorData.WIDTH_KEY;
+//    private static final String SPRITE_HEIGHT_KEY =IGameEditorData.HEIGHT_KEY;
 
     private static final double DEFAULT_X = 0;
     private static final double DEFAULT_Y = 0;
@@ -33,6 +36,9 @@ public class SpriteTypeButton {
     private double myY = 0;
     private double myWidth = 50;
     private double myHeight = 50;
+    
+    private double xFromCorner = 0;
+    private double yFromCorner = 0;
 
     private Pane myPane;
     private Rectangle myBGRectangle;
@@ -58,7 +64,7 @@ public class SpriteTypeButton {
         myDesignArea = da;
         myDataStore = dataStore;
         myPane.setOnMouseDragged((e) -> handlePaneDrag(e.getX(), e.getY(), e.getSceneX(), e.getSceneY()));
-        myPane.setOnMousePressed((e) -> handlePress());
+        myPane.setOnMousePressed((e) -> handlePress(e.getX(), e.getY(), e.getSceneX(), e.getSceneY()));
         myPane.setOnMouseReleased((e) -> handleRelease());
         setBGRect(width, height, 10);
         setImage(myImage);
@@ -96,13 +102,14 @@ public class SpriteTypeButton {
     }
 
     private void handlePaneDrag(double x, double y, double sceneX, double sceneY){
+    	double adjustedSceneX = sceneX - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
         if (!dragEntering && dragExited && (myTempImageView != null && sceneX < X_LIMIT 
         		|| sceneY < Y_LIMIT)){
         	handleReentryLvl1();
         } else if (dragEntering) {
         	handleReentryLvl2();
-        	myTempImageView.setLayoutX(x);
-            myTempImageView.setLayoutY(y);
+        	myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+            myTempImageView.setLayoutY(sceneY - yFromCorner);
         } else if (!dragEntering && !dragExited && myTempImageView != null && sceneX > X_LIMIT 
                 && sceneY > Y_LIMIT){
             myDesignArea.addDragIn(myTempImageView);
@@ -118,12 +125,13 @@ public class SpriteTypeButton {
             myTempImageView.setLayoutX(myX);
             myTempImageView.setLayoutY(myY);
         } else if (!dragEntering && myTempImageView != null && sceneX < INNER_X_LIMIT){
-            myTempImageView.setLayoutX(x);
-            myTempImageView.setLayoutY(y);
+            myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+            myTempImageView.setLayoutY(sceneY - yFromCorner);
         }
     }
 
-    private void handlePress(){
+    @SuppressWarnings("unused")
+	private void handlePress(double x, double y, double sceneX, double sceneY){
         double padding = 5;
         double fitWidth = myBGRectangle.getWidth() - padding;
         double fitHeight = myBGRectangle.getHeight() - padding;
@@ -136,7 +144,13 @@ public class SpriteTypeButton {
         myTempImageView.setPreserveRatio(true);
         myTempImageView.setFitWidth(fitWidth);
         myTempImageView.setFitHeight(fitHeight);
-        myPane.getChildren().add(myTempImageView);
+        //System.out.println(myImageView.getLayoutX());
+        xFromCorner = x - myImageView.getLayoutX();
+        yFromCorner = y - myImageView.getLayoutY();
+        double adjustedSceneX = sceneX - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();
+        myTempImageView.setLayoutX(adjustedSceneX - xFromCorner);
+        myTempImageView.setLayoutY(sceneY - yFromCorner);
+        myDetailPane.getPane().getChildren().add(myTempImageView);
     }
     
     private void handleReentryLvl1(){
@@ -146,29 +160,31 @@ public class SpriteTypeButton {
     }
     
     private void handleReentryLvl2(){
-    	myPane.getChildren().add(myTempImageView);
+    	myDetailPane.getPane().getChildren().add(myTempImageView);
     	dragEntering = false;
     }
 
-    private void handleRelease(){
+    @SuppressWarnings("unused")
+	private void handleRelease(){
     	if (!dragExited){
     		
     	} else {
     		myDesignArea.removeDragIn(myTempImageView);
-	        GameObject go = new GameObject(myFilePath, myX, myY, myWidth, myHeight, myType, myDesignArea, myDataStore);
+	        GameObjectView go = new GameObjectView(myFilePath, myX, myY, myWidth, myHeight, myType, false, false, myDesignArea, myDataStore);
+	        myDesignArea.addSprite(go);
 	        Map<String, String> typeMap = myDataStore.getType(myType);
 
 	        // Add the properties to the Map now
-	        typeMap.put(X_POSITION_KEY, String.valueOf(myX));
-	        typeMap.put(Y_POSITION_KEY, String.valueOf(myY));       
-	        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(myWidth));
-	        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(myHeight));
+//	        typeMap.put(X_POSITION_KEY, String.valueOf(myX));
+//	        typeMap.put(Y_POSITION_KEY, String.valueOf(myY));       
+//	        typeMap.put(SPRITE_WIDTH_KEY, String.valueOf(myWidth));
+//	        typeMap.put(SPRITE_HEIGHT_KEY, String.valueOf(myHeight));
     	}
         myX = DEFAULT_X;
         myY = DEFAULT_Y;
         myWidth = DEFAULT_WIDTH;
         myHeight = DEFAULT_HEIGHT;
-        myPane.getChildren().remove(myTempImageView);
+        myDetailPane.getPane().getChildren().remove(myTempImageView);
         dragExited = false;
         myTempImageView = null;
     }

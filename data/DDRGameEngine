@@ -1,0 +1,306 @@
+<objects.Game>
+  <name>Dance Dance Revolution</name>
+  <levels/>
+  <currentLevel>
+    <level>1</level>
+    <projectiles/>
+    <gameObjects>
+      <objects.GameObject>
+        <xPosition>15.0</xPosition>
+        <yPosition>550.0</yPosition>
+        <width>50.0</width>
+        <height>10.0</height>
+        <imageFileName>emptyimage.png</imageFileName>
+        <properties>
+          <entry>
+            <string>nonscrollable</string>
+            <string></string>
+          </entry>
+          <entry>
+            <string>points</string>
+            <string>-10</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>0.0</xDistanceMoved>
+        <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
+        <id>0</id>
+        <projectiles/>
+      </objects.GameObject>
+      <objects.GameObject>
+        <xPosition>185.0</xPosition>
+        <yPosition>550.0</yPosition>
+        <width>50.0</width>
+        <height>10.0</height>
+        <imageFileName>emptyimage.png</imageFileName>
+        <properties reference="../../objects.GameObject/properties"/>
+        <xDistanceMoved>0.0</xDistanceMoved>
+        <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
+        <id>0</id>
+        <projectiles/>
+      </objects.GameObject>
+      <objects.GameObject>
+        <xPosition>355.0</xPosition>
+        <yPosition>550.0</yPosition>
+        <width>50.0</width>
+        <height>10.0</height>
+        <imageFileName>emptyimage.png</imageFileName>
+        <properties reference="../../objects.GameObject/properties"/>
+        <xDistanceMoved>0.0</xDistanceMoved>
+        <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
+        <id>0</id>
+        <projectiles/>
+      </objects.GameObject>
+      <objects.GameObject>
+        <xPosition>525.0</xPosition>
+        <yPosition>550.0</yPosition>
+        <width>50.0</width>
+        <height>10.0</height>
+        <imageFileName>emptyimage.png</imageFileName>
+        <properties reference="../../objects.GameObject/properties"/>
+        <xDistanceMoved>0.0</xDistanceMoved>
+        <yDistanceMoved>0.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <isPlayer>false</isPlayer>
+        <id>0</id>
+        <projectiles/>
+      </objects.GameObject>
+    </gameObjects>
+    <obstacles/>
+    <winConditions/>
+    <loseConditions/>
+    <musicFilePath>Cascada - Everytime We Touch.mp3</musicFilePath>
+    <backgroundFilePath>Background/ddrbackground.jpg</backgroundFilePath>
+    <randomGenerationFrame class="gameengine.model.RandomGenFrameY">
+      <level reference="../.."/>
+      <randomGenRules>
+        <objects.RandomGeneration>
+          <objectProperties>
+            <entry>
+              <string>removeobject</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>points</string>
+              <string>20</string>
+            </entry>
+          </objectProperties>
+          <URL>ddrleftarrow.png</URL>
+          <numObjects class="int">2</numObjects>
+          <minX class="int">20</minX>
+          <maxX class="int">20</maxX>
+          <minY class="int">1234</minY>
+          <maxY class="int">1234</maxY>
+          <minSpacing class="int">700</minSpacing>
+          <maxSpacing class="int">800</maxSpacing>
+          <width class="int">150</width>
+          <height class="int">150</height>
+        </objects.RandomGeneration>
+        <objects.RandomGeneration>
+          <objectProperties reference="../../objects.RandomGeneration/objectProperties"/>
+          <URL>ddrdownarrow.png</URL>
+          <numObjects class="int">2</numObjects>
+          <minX class="int">190</minX>
+          <maxX class="int">190</maxX>
+          <minY class="int">1234</minY>
+          <maxY class="int">1234</maxY>
+          <minSpacing class="int">500</minSpacing>
+          <maxSpacing class="int">520</maxSpacing>
+          <width class="int">150</width>
+          <height class="int">150</height>
+        </objects.RandomGeneration>
+        <objects.RandomGeneration>
+          <objectProperties reference="../../objects.RandomGeneration/objectProperties"/>
+          <URL>ddruparrow.png</URL>
+          <numObjects class="int">2</numObjects>
+          <minX class="int">360</minX>
+          <maxX class="int">360</maxX>
+          <minY class="int">1234</minY>
+          <maxY class="int">1234</maxY>
+          <minSpacing class="int">300</minSpacing>
+          <maxSpacing class="int">600</maxSpacing>
+          <width class="int">150</width>
+          <height class="int">150</height>
+        </objects.RandomGeneration>
+        <objects.RandomGeneration>
+          <objectProperties reference="../../objects.RandomGeneration/objectProperties"/>
+          <URL>ddrrightarrow.png</URL>
+          <numObjects class="int">2</numObjects>
+          <minX class="int">530</minX>
+          <maxX class="int">530</maxX>
+          <minY class="int">1234</minY>
+          <maxY class="int">1234</maxY>
+          <minSpacing class="int">540</minSpacing>
+          <maxSpacing class="int">1000</maxSpacing>
+          <width class="int">150</width>
+          <height class="int">150</height>
+        </objects.RandomGeneration>
+      </randomGenRules>
+      <generatingEnemies>false</generatingEnemies>
+      <benchmarkPoint>-200.0</benchmarkPoint>
+    </randomGenerationFrame>
+    <players>
+      <objects.GameObject>
+        <xPosition>10.0</xPosition>
+        <yPosition>550.0</yPosition>
+        <width>1.0</width>
+        <height>10.0</height>
+        <imageFileName>emptyimage.png</imageFileName>
+        <properties>
+          <entry>
+            <string>movespeed</string>
+            <string>0</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>10.0</xDistanceMoved>
+        <yDistanceMoved>550.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <projectileProperties>
+          <imageFileName>emptyimage.png</imageFileName>
+          <width>30.0</width>
+          <height>30.0</height>
+          <direction>RIGHT</direction>
+          <range>100.0</range>
+          <speed>30.0</speed>
+          <damage>0.0</damage>
+          <timeBetweenShots>0.0</timeBetweenShots>
+        </projectileProperties>
+        <isPlayer>true</isPlayer>
+        <id>0</id>
+        <projectiles/>
+      </objects.GameObject>
+      <objects.GameObject>
+        <xPosition>180.0</xPosition>
+        <yPosition>550.0</yPosition>
+        <width>1.0</width>
+        <height>10.0</height>
+        <imageFileName>emptyimage.png</imageFileName>
+        <properties>
+          <entry>
+            <string>movespeed</string>
+            <string>0</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>180.0</xDistanceMoved>
+        <yDistanceMoved>550.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <projectileProperties reference="../../objects.GameObject/projectileProperties"/>
+        <isPlayer>true</isPlayer>
+        <id>0</id>
+        <projectiles/>
+      </objects.GameObject>
+      <objects.GameObject>
+        <xPosition>350.0</xPosition>
+        <yPosition>550.0</yPosition>
+        <width>1.0</width>
+        <height>10.0</height>
+        <imageFileName>emptyimage.png</imageFileName>
+        <properties>
+          <entry>
+            <string>movespeed</string>
+            <string>0</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>350.0</xDistanceMoved>
+        <yDistanceMoved>550.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <projectileProperties reference="../../objects.GameObject/projectileProperties"/>
+        <isPlayer>true</isPlayer>
+        <id>0</id>
+        <projectiles/>
+      </objects.GameObject>
+      <objects.GameObject>
+        <xPosition>520.0</xPosition>
+        <yPosition>550.0</yPosition>
+        <width>1.0</width>
+        <height>10.0</height>
+        <imageFileName>emptyimage.png</imageFileName>
+        <properties>
+          <entry>
+            <string>movespeed</string>
+            <string>0</string>
+          </entry>
+        </properties>
+        <xDistanceMoved>520.0</xDistanceMoved>
+        <yDistanceMoved>550.0</yDistanceMoved>
+        <onPlatform>false</onPlatform>
+        <projectileProperties reference="../../objects.GameObject/projectileProperties"/>
+        <isPlayer>true</isPlayer>
+        <id>0</id>
+        <projectiles/>
+      </objects.GameObject>
+    </players>
+    <scrollType>
+      <myScrollTypeName>ForcedScrolling</myScrollTypeName>
+      <myScrollDirectionList>
+        <com.sun.javafx.scene.traversal.Direction>UP</com.sun.javafx.scene.traversal.Direction>
+      </myScrollDirectionList>
+      <scrollSpeed>15.0</scrollSpeed>
+      <gameBoundaries class="gameengine.model.boundary.NoBoundary">
+        <viewWidth>700.0</viewWidth>
+        <viewHeight>675.0</viewHeight>
+        <worldWidth>1.7976931348623157E308</worldWidth>
+        <worldHeight>1.7976931348623157E308</worldHeight>
+      </gameBoundaries>
+    </scrollType>
+    <time>0</time>
+  </currentLevel>
+  <players>
+    <objects.Player>
+      <mainChar reference="../../../currentLevel/players/objects.GameObject"/>
+      <controls>
+        <entry>
+          <javafx.scene.input.KeyCode>A</javafx.scene.input.KeyCode>
+          <string>shoot</string>
+        </entry>
+      </controls>
+    </objects.Player>
+    <objects.Player>
+      <mainChar reference="../../../currentLevel/players/objects.GameObject[2]"/>
+      <controls>
+        <entry>
+          <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
+          <string>shoot</string>
+        </entry>
+      </controls>
+    </objects.Player>
+    <objects.Player>
+      <mainChar reference="../../../currentLevel/players/objects.GameObject[3]"/>
+      <controls>
+        <entry>
+          <javafx.scene.input.KeyCode>D</javafx.scene.input.KeyCode>
+          <string>shoot</string>
+        </entry>
+      </controls>
+    </objects.Player>
+    <objects.Player>
+      <mainChar reference="../../../currentLevel/players/objects.GameObject[4]"/>
+      <controls>
+        <entry>
+          <javafx.scene.input.KeyCode>F</javafx.scene.input.KeyCode>
+          <string>shoot</string>
+        </entry>
+      </controls>
+    </objects.Player>
+  </players>
+  <clientMappings>
+    <entry>
+      <long>0</long>
+      <list>
+        <objects.Player reference="../../../../players/objects.Player"/>
+        <objects.Player reference="../../../../players/objects.Player[2]"/>
+        <objects.Player reference="../../../../players/objects.Player[3]"/>
+        <objects.Player reference="../../../../players/objects.Player[4]"/>
+      </list>
+    </entry>
+  </clientMappings>
+  <scoreMapping/>
+  <gameLost>false</gameLost>
+  <gameWon>false</gameWon>
+  <minNumPlayers>1</minNumPlayers>
+</objects.Game>
