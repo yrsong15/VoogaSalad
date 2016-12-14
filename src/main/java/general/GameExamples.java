@@ -241,7 +241,7 @@ public class GameExamples{
 
     public String getScrollingXML(){
         Game game = new Game("Scrolling Tester");
-        GameObject shyGuy = new GameObject(200, 250, 75, 100, "spicybrian.png", new HashMap<>());
+        GameObject shyGuy = new GameObject(200, 200, 100, 200, "spicybrianStick.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
