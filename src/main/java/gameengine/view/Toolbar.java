@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  */
 public class Toolbar implements IToolbar {
 
-    private final int DEFAULT_BUTTON_WIDTH = 75;
+    private final int DEFAULT_BUTTON_WIDTH = 90;
     private ResourceBundle myResources;
     private HBox myToolbar;
 
