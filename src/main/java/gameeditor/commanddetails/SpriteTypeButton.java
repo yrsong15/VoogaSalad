@@ -147,7 +147,6 @@ public class SpriteTypeButton {
         myTempImageView.setPreserveRatio(true);
         myTempImageView.setFitWidth(fitWidth);
         myTempImageView.setFitHeight(fitHeight);
-        //System.out.println(myImageView.getLayoutX());
         xFromCorner = x - myImageView.getLayoutX();
         yFromCorner = y - myImageView.getLayoutY();
         double adjustedSceneX = sceneX - ViewResources.COMMAND_PANE_WIDTH.getDoubleResource();

@@ -173,7 +173,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private void addAvatar(){
         if(myGameInterface.getCurrentLevel()!=null){
             for(GameObject player: myGameInterface.getCurrentLevel().getPlayers()){ 
-                System.out.println(myGameInterface.getCurrentLevel().getPlayers().size());
                 ArrayList<GameObjectView> listOfPlayer = myDetailPane.getCurrentAvatars();
                 if(!playerIsActive(player,listOfPlayer))
                 {             

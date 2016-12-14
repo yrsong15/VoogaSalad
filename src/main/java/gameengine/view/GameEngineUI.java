@@ -117,6 +117,10 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
             pause();
         }
+        else if (currentGame.isGameWon()){
+            makeWinScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
+            pause();
+        }
         gameScreen.update(currentGame);
         myHUD.update(currentGame.getScores());
     }
@@ -132,7 +136,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
                 mediaPlayer.play();
             }
         } catch (Exception e) {
-            System.out.println(myResources.getString("MusicFileError"));
         }
     }
 
@@ -169,7 +172,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             try {
                 update();
             } catch (Exception exception) {
-                exception.printStackTrace();
             }
         });
         animation = new Timeline();
@@ -224,7 +226,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             }
         } catch (
                 NoSuchMethodException e) {
-            e.printStackTrace();
         }
     }
 
@@ -300,9 +301,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             try {
                 checkKeyPressed();
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
         });
         this.scene.setOnKeyReleased(event -> {
@@ -311,9 +310,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
                 try {
                     checkKeyPressed();
                 } catch (InvocationTargetException e) {
-                    e.printStackTrace();
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
                 }
             }
         });
@@ -354,6 +351,15 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         myLevelStage = new Stage();
         myLevelStage.setTitle(myLoseScreen.getStageTitle());
         myLevelStage.setScene(myLoseScreen.getScene());
+        myLevelStage.show();
+    }
+
+    private void makeWinScreen(List<Integer> highScores, int time, Map<Long,
+            Integer> scoreMapping, IGameEngineUI iGameEngine) {
+        ScoreScreen myWinScreen = new HighScoreScreen(highScores, time, scoreMapping, iGameEngine);
+        myLevelStage = new Stage();
+        myLevelStage.setTitle(myWinScreen.getStageTitle());
+        myLevelStage.setScene(myWinScreen.getScene());
         myLevelStage.show();
     }
 

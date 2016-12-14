@@ -62,7 +62,6 @@ public class ViewObject extends FormatObject
 			getWidth().setValue(new ActualValue(widthValue));
 			double heightValue = node.layoutBoundsProperty().getValue().getHeight();
 			getHeight().setValue(new ActualValue(heightValue));
-			//System.out.println(viewObjectID + " width: " + widthValue + " height: " + heightValue);
 		}
 	}
 	
