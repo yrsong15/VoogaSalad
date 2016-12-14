@@ -32,7 +32,7 @@ public class GameExamples{
 	        mario.setProperty("jumponce", "650");
 	        mario.setProperty("health", "30");
 	        
-	        ProjectileProperties projectileProperties = new ProjectileProperties("fireball.png", 25, 25, Direction.RIGHT, 300, 15, 30, 1);
+	        ProjectileProperties projectileProperties = new ProjectileProperties("fireball.png", 40, 40, Direction.RIGHT, 200, 20, 30, 1);
 	        mario.setProjectileProperties(projectileProperties);
 	        Level level = new Level(1);
 	        GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
@@ -83,10 +83,11 @@ public class GameExamples{
 	        
 	        
 			GameObject enemy = new GameObject(300, 525, 50, 75, "goombo.png", new HashMap<>());
-			enemy.setProperty("enemy", "30");
+//			enemy.setProperty("enemy", "30");
 			enemy.setProperty("bounceSpeed", "-1");
 			enemy.setProperty("bounceBack", "120");
 			enemy.setProperty("bounceTracker", "0");
+			enemy.setProperty("removeobject", "");
 			level.addGameObject(enemy);
 			
 			
@@ -356,21 +357,21 @@ public class GameExamples{
 
     public String getDanceDanceRevolution(){
         Game game = new Game("Dance Dance Revolution");
-        GameObject one = new GameObject(10, 550, 1, 10, "shyguy.png", new HashMap<>());
-        GameObject two = new GameObject(180, 550, 1, 10, "shyguy.png", new HashMap<>());
-        GameObject three = new GameObject(350, 550, 1, 10, "shyguy.png", new HashMap<>());
-        GameObject four = new GameObject(520, 550, 1, 10, "shyguy.png", new HashMap<>());
+        GameObject one = new GameObject(10, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject two = new GameObject(180, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject three = new GameObject(350, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject four = new GameObject(520, 550, 1, 10, "emptyimage.png", new HashMap<>());
 
         Map<String, String> properties = new HashMap<>();
         properties.put("nonscrollable", "");
         properties.put("points", "-10");
 
-        GameObject hack = new GameObject(10+5, 550, 50, 10, "shyguy.png", properties);
-        GameObject hack2 = new GameObject(180+5, 550, 50, 10, "shyguy.png", properties);
-        GameObject hack3 = new GameObject(350+5, 550, 50, 10, "shyguy.png", properties);
-        GameObject hack4 = new GameObject(520+5, 550, 50, 10, "shyguy.png", properties);
+        GameObject hack = new GameObject(10+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack2 = new GameObject(180+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack3 = new GameObject(350+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack4 = new GameObject(520+5, 550, 50, 10, "emptyimage.png", properties);
 
-        ProjectileProperties projectileProperties = new ProjectileProperties("shyguy.png", 20, 30, Direction.RIGHT, 100, 50, 0, 0);
+        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 20, 30, Direction.RIGHT, 100, 50, 0, 0);
         one.setProjectileProperties(projectileProperties);
         two.setProjectileProperties(projectileProperties);
         three.setProjectileProperties(projectileProperties);

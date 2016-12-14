@@ -88,10 +88,15 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
 		conditionChecker.checkConditions(this, currentGame.getCurrentLevel().getWinConditions(), currentGame.getCurrentLevel().getLoseConditions());
 
+		List<GameObject> objects = currLevel.getAllGameObjects();
+		for(GameObject object : objects){
+			object.setXPosition(object.getXPosition() + object.getVelX());
+
+		}
+
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
 			//System.out.println(mainChar.getVelX());
-			mainChar.setXPosition(mainChar.getXPosition() + mainChar.getVelX());
 			Position position = new Position();
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 			mainCharImprints.put(mainChar, position);

@@ -114,7 +114,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 			pause();
 			makeLevelScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
 			currLevel = currentGame.getLevel();
-			gameScreen.nextLevel();
 		}
 		else if (currentGame.isGameLost()){
 			makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);

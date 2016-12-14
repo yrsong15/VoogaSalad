@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import objects.ClientGame;
 import objects.ClientGameObject;
+import objects.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,9 +54,8 @@ public class GameScreen {
                 BackgroundSize.DEFAULT);
         myScreen.setBackground(new Background(bi));   
     }
-    
-    public void nextLevel(){
-    	gameObjectImageViewMap.remove(0);
+
+    public void nextLevel(Level level){
     }
 
 
