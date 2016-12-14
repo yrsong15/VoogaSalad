@@ -68,8 +68,17 @@ public class GameScreen {
     
     public void updatePosition(ClientGameObject obj){
         if (gameObjectImageViewMap.containsKey(obj.getID())) {
+            ImageView iv = gameObjectImageViewMap.get(obj.getID());
             gameObjectImageViewMap.get(obj.getID()).relocate(obj.getXPosition(),
                     obj.getYPosition());
+            if(obj.getDirection() == null){
+                obj.setDirection(Direction.RIGHT);
+            }
+            if(obj.getDirection().equals(Direction.LEFT)){
+                iv.setRotate(180);
+            }else{
+                iv.setRotate(0);
+            }
         }
         else {
             addGameObject(obj);

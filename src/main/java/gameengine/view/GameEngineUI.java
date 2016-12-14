@@ -47,7 +47,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private ResourceBundle myResources;
 	private Scene scene;
 	private Stage myLevelStage;
-	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
 	private Toolbar toolbar;
 	private Node toolbarHBox;
@@ -100,7 +99,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 
 		
 		clientPlayerList = playerMapping.get(clientMain.getID());
-		
+		System.out.println("clientPLayerList in Engine UI: " + clientPlayerList);
 		for(Player player : clientPlayerList) {
 			mapKeys(player, player.getControls());
 		}

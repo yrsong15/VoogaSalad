@@ -20,19 +20,19 @@ import java.util.Map;
  * Created by Soravit on 12/11/2016.
  */
 public class GameExamples{
-		
+
 	public String getMarioXML(){
 	   Game game = new Game("Mario");
-        GameObject shyGuy = new GameObject(20, 200 , 50, 75, "mario.png", new HashMap<>());
-        Player player1 = new Player(shyGuy);
+        GameObject mario = new GameObject(20, 200 , 50, 75, "mario.png", new HashMap<>());
+        Player player1 = new Player(mario);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
-        shyGuy.setProperty("movespeed", "5");
-        shyGuy.setProperty("gravity", "1.2");
-        shyGuy.setProperty("jumponce", "800");
-        shyGuy.setProperty("health", "30");
-        ProjectileProperties projectileProperties = new ProjectileProperties("doodler.png", 30, 30, Direction.RIGHT, 400, 100, 30, 1);
-        shyGuy.setProjectileProperties(projectileProperties);
+        mario.setProperty("movespeed", "10");
+        mario.setProperty("gravity", "1.2");
+        mario.setProperty("jumponce", "800");
+        mario.setProperty("health", "30");
+        ProjectileProperties projectileProperties = new ProjectileProperties("fireball.png", 50, 50, Direction.RIGHT, 200, 30, 30, 1);
+        mario.setProjectileProperties(projectileProperties);
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
@@ -41,14 +41,13 @@ public class GameExamples{
         level.setBackgroundImage("Background/bg.png");
         level.setBackgroundMusic("SuperMarioBrosTheme.mp3");
         game.setCurrentLevel(level);
-        player1.setControl(KeyCode.W, "jump");
         player1.setControl(KeyCode.RIGHT, "right");
         player1.setControl(KeyCode.LEFT, "left");
-        player1.setControl(KeyCode.UP, "up");
-        player1.setControl(KeyCode.DOWN, "down");
+        player1.setControl(KeyCode.UP, "jump");
         player1.setControl(KeyCode.SPACE, "shoot");
-        level.addPlayer(shyGuy);
-        GameObject ground = new GameObject(0, 600, 1000, 75, "quarterGrassyGround.png", new HashMap<>());
+
+        level.addPlayer(mario);
+        GameObject ground = new GameObject(0, 700, 1000, 75, "quarterGrassyGround.png", new HashMap<>());
         level.addGameObject(ground);
         ground.setProperty("nonintersectable", "");
         
@@ -135,20 +134,44 @@ public class GameExamples{
         GameObject killer = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
         killer.setProperty("damage", "30");
         killer.setProperty("nonscrollable", "");
+        killer.setProperty("removeobject", "");
         level.addGameObject(killer);       
         
-        
-        
+
+
         Level level2 = new Level(2);
         level2.setScrollType(scrollType);
     //    level2.setBackgroundImage("Background/bubbles.png");
-        
+
         game.addLevel(level2);
+        level2.setBackgroundImage("bg.png");
+
+        //level2.addPlayer(shyGuy);
+        level2.addPlayer(mario);
+        mario.setXPosition(48);
+        mario.setYPosition(236);
+
+        level2.addGameObject(makeBox(168, 106, 50, 50));
+        level2.addGameObject(makeBox(320, 204, 50, 50));
+        level2.addGameObject(makeBox(460, 102, 50, 50));
+        level2.addGameObject(makeBox(48, 285, 50, 50));
+        level2.addGameObject(makeBox(97, 312, 50, 50));
+        level2.addGameObject(makeBox(145, 342, 50, 50));
+        level2.addGameObject(makeBox(194, 376, 50, 50));
+        level2.addGameObject(makeBox(244, 393, 50, 50));
+        level2.addGameObject(makeBox(294, 394, 50, 50));
+
+        level2.addGameObject(makeBox(393, 394, 50, 50));
+        level2.addGameObject(makeBox(442, 394, 50, 50));
+        level2.addGameObject(makeBox(491, 367, 50, 50));
+        level2.addGameObject(makeBox(540, 341, 50, 50));
+        level2.addGameObject(makeBox(589, 315, 50, 50));
+        level2.addGameObject(makeBox(638, 288, 50, 50));
         level2.setBackgroundImage("bubbles.png");
         
-        level2.addPlayer(shyGuy);
-        shyGuy.setXPosition(48);
-        shyGuy.setYPosition(236);
+        level2.addPlayer(mario);
+        mario.setXPosition(48);
+        mario.setYPosition(236);
         
         
         level2.addGameObject(makeBox(168, 46, 50, 50));
@@ -190,9 +213,9 @@ public class GameExamples{
         randomGe.add(platform3);
         RandomGenFrame fram = new RandomGenFrameY(level, randomGe, true);
         level.setRandomGenerationFrame(fram);
-        
-        
-        
+
+
+
         HashMap<String,String> DoodleJumpProperties2 = new HashMap<>();
         DoodleJumpProperties.put("bounce", "2000");
         DoodleJumpProperties.put("points", "5");
@@ -271,11 +294,11 @@ public class GameExamples{
         game.addPlayerToClient(0, player1);
         shyGuy.setProperty("jumpunlimited", "800");
         shyGuy.setProperty("gravity", "1.0");
-        shyGuy.setProperty("movespeed", "60");
+        shyGuy.setProperty("movespeed", "200");
         shyGuy.setProperty("health", "30");
         
         Level level = new Level(1);
-        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 700, 675);
+        GameBoundary gameBoundaries = new StopAtEdgeBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
@@ -293,10 +316,10 @@ public class GameExamples{
         ground.setProperty("damage", "30");
         ground.setProperty("nonscrollable", "");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
-        DoodleJumpProperties.put("bounce", "1000");
+        DoodleJumpProperties.put("bounce", "1200");
         DoodleJumpProperties.put("points", "5");
         GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth/2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", new HashMap<>());
-        mainPlatform.setProperty("bounce", "1600");
+        mainPlatform.setProperty("bounce", "1500");
         level.getGameObjects().add(mainPlatform);
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
         RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
@@ -308,29 +331,8 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
-        level.addWinCondition("score", "1000");
-        
-        
-        Level level2 = new Level(2);
-        level2.setScrollType(scrollType);
-        level2.setBackgroundImage("Background/bubbles.png");
-        level2.addPlayer(shyGuy);
-        
-        RandomGeneration platform = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
-        RandomGeneration platform2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
-        RandomGeneration platform3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
-        ArrayList<RandomGeneration> randomGe = new ArrayList<>();
-        randomGe.add(platforms);
-        randomGe.add(platforms2);
-        randomGe.add(platforms3);
-        RandomGenFrame fram = new RandomGenFrameY(level2, randomGe, true);
-        level2.setRandomGenerationFrame(fram);
-        level2.addGameObject(ground);
-        level2.addWinCondition("score", "100");
-        game.addLevel(level2);
-        GameObject ground2 = new GameObject(200, 570,700,50,"pipes.png", new HashMap<>());
-        
-        
+        //level.addWinCondition("score", "1000");
+
         ProjectileProperties projectileProperties = new ProjectileProperties("doodler.png", 30, 30, Direction.UP, 400, 500, 30, 1);
         shyGuy.setProjectileProperties(projectileProperties);
         XMLSerializer testSerializer = new XMLSerializer();
@@ -446,7 +448,7 @@ public class GameExamples{
         GameObject hack7 = new GameObject(10+85+85+85+100+85+85+11, 550, 50, 10, "emptyimage.png", properties);
         GameObject hack8 = new GameObject(10+85+85+85+100+85+85+85+11, 550, 50, 10, "emptyimage.png", properties);
 
-        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 0);
+        ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 0.5);
         one.setProjectileProperties(projectileProperties);
         two.setProjectileProperties(projectileProperties);
         three.setProjectileProperties(projectileProperties);
@@ -524,8 +526,6 @@ public class GameExamples{
         level.getGameObjects().add(hack6);
         level.getGameObjects().add(hack7);
         level.getGameObjects().add(hack8);
-
-
 
         HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
         DDRArrowProperties.put("points", "20");
