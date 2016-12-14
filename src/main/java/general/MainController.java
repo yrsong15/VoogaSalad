@@ -110,20 +110,20 @@ public class MainController {
     }
     
     private void sendXMLFileDataToEngine() {
-        // String title = gameEditorController.getGameTitle();
+    	// String title = gameEditorController.getGameTitle();
         //String gameFile = gameEditorController.getGameFile();
-        //addNewGameFile(title, gameFile);
+    	//addNewGameFile(title, gameFile);
             
              
-        String content = null;
-            try {
-                content = new String(Files.readAllBytes(Paths.get("data/trial3.xml")));
-            }
-            catch (IOException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-            }
-            launchEngine(content);
+    	String content = null;
+	    try {
+	    	content = new String(Files.readAllBytes(Paths.get("data/trial3.xml")));
+	    }
+	    catch (IOException e) {
+	       // TODO Auto-generated catch block
+	       e.printStackTrace();
+	    }
+	    launchEngine(content);
         // String gameFile = gameEditorController.getGameFile();
         Image gameCoverImage = gameEditorController.getGameCoverImage();
         //addNewGameFile(title,gameFile,gameCoverImage);
