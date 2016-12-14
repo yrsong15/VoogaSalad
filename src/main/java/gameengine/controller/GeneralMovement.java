@@ -37,12 +37,12 @@ public class GeneralMovement{
 
     public void moveLeft(GameObject obj, double speed){
         double newPos = obj.getXPosition() - Math.abs(speed);
-        moveX(obj, newPos, speed);
+        moveX(obj, newPos, -speed);
     }
     
     private void moveX(GameObject obj, double newXPos, double speed){
     	double oldXPos = obj.getXPosition();
-        if (currBoundary.moveToXPos(obj, newXPos)){
+        if (currBoundary.moveToXPos(obj, newXPos, speed)){
         	if (oldXPos > newXPos){
         		obj.setXDistanceMoved(obj.getXDistanceMoved() - speed);
         	}

@@ -90,6 +90,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
+			System.out.println(mainChar.getVelX());
+			mainChar.setXPosition(mainChar.getXPosition() + mainChar.getVelX());
 			Position position = new Position();
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 			mainCharImprints.put(mainChar, position);

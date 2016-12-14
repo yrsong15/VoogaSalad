@@ -69,8 +69,10 @@ public class GameScreen {
     public void updatePosition(ClientGameObject obj){
         if (gameObjectImageViewMap.containsKey(obj.getID())) {
             ImageView iv = gameObjectImageViewMap.get(obj.getID());
-            gameObjectImageViewMap.get(obj.getID()).relocate(obj.getXPosition(),
-                    obj.getYPosition());
+            if(obj.getXPosition() != iv.getX() || obj.getYPosition() != iv.getY()) {
+                iv.relocate(obj.getXPosition(),
+                        obj.getYPosition());
+            }
             if(obj.getDirection() == null){
                 obj.setDirection(Direction.RIGHT);
             }
@@ -113,14 +115,15 @@ public class GameScreen {
     }
 
     private void addGameObject(ClientGameObject object) {
-        if (object.getImageFileName() == null)
+        if (object.getImageFileName() == null) {
             return;
+        }
         Image image = null;
         try{
         	image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/" + object.getImageFileName()));
         }
         catch (NullPointerException e){
-        	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));        	
+        	image = new Image(getClass().getClassLoader().getResourceAsStream(object.getImageFileName()));
         }     
 
         ImageView iv = new ImageView(image);

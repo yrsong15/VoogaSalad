@@ -15,7 +15,7 @@ public class ToroidalBoundary extends BasicBoundary{
 	}
 	
 	@Override
-	public boolean moveToXPos(GameObject toMove, double newXPos) {
+	public boolean moveToXPos(GameObject toMove, double newXPos, double speed) {
 		if (getViewWidth()-toMove.getWidth() <= newXPos){
 			toMove.setXPosition(0);
 		}
@@ -23,7 +23,7 @@ public class ToroidalBoundary extends BasicBoundary{
 			toMove.setXPosition(getViewWidth()-toMove.getWidth());
 		}
 		else{
-			toMove.setXPosition(newXPos);
+			toMove.setVelX(speed);
 		}
 		return true;
 	}

@@ -14,8 +14,9 @@ public class NoBoundary extends BasicBoundary{
 	
 	
 	@Override
-	public boolean moveToXPos(GameObject toMove, double newXPos) {
-		toMove.setXPosition(newXPos);
+	public boolean moveToXPos(GameObject toMove, double newPosition, double speed) {
+		System.out.println("set");
+		toMove.setVelX(speed);
 		return true;
 	}
 

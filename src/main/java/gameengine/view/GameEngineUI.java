@@ -151,7 +151,9 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 				Player player = playerMappings.get(key);
 				keyMappings.get(key).invoke(clientMain, player.getMainChar(),
 						Double.parseDouble(player.getMainChar().getProperty("movespeed")));
-			}
+			}else if(keyMappings.get(key).getName().equals("moveLeft") || keyMappings.get(key).getName().equals("moveRight")){
+                playerMappings.get(key).getMainChar().setVelX(0);
+            }
 		}
 	}
 
@@ -307,7 +309,14 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		this.scene.setOnKeyReleased(event -> {
 			if (keyMappings.containsKey(event.getCode())) {
 				keyPressed.put(event.getCode(), false);
-			}
+                try {
+                    checkKeyPressed();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
 		});
 	}
 

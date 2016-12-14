@@ -27,14 +27,14 @@ public class GameExamples{
         Player player1 = new Player(mario);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
-        mario.setProperty("movespeed", "10");
+        mario.setProperty("movespeed", "2");
         mario.setProperty("gravity", "1.2");
         mario.setProperty("jumponce", "800");
         mario.setProperty("health", "30");
         ProjectileProperties projectileProperties = new ProjectileProperties("fireball.png", 50, 50, Direction.RIGHT, 200, 30, 30, 1);
         mario.setProjectileProperties(projectileProperties);
         Level level = new Level(1);
-        GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
+        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 3000, 675);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.RIGHT);
         level.setScrollType(scrollType);
@@ -47,7 +47,7 @@ public class GameExamples{
         player1.setControl(KeyCode.SPACE, "shoot");
 
         level.addPlayer(mario);
-        GameObject ground = new GameObject(0, 700, 1000, 75, "quarterGrassyGround.png", new HashMap<>());
+        GameObject ground = new GameObject(0, 0, 1000, 75, "quarterGrassyGround.png", new HashMap<>());
         level.addGameObject(ground);
         ground.setProperty("nonintersectable", "");
         
@@ -288,17 +288,17 @@ public class GameExamples{
 
     public String getDoodleJumpXML(){
         Game game = new Game("Doodle Jump");
-        GameObject shyGuy = new GameObject(GameEngineUI.myAppWidth/2-100, 0, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject shyGuy = new GameObject(GameEngineUI.myAppWidth/2-100, 10, 100, 100, "shyguy.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
         shyGuy.setProperty("jumpunlimited", "800");
         shyGuy.setProperty("gravity", "1.0");
-        shyGuy.setProperty("movespeed", "200");
+        shyGuy.setProperty("movespeed", "20");
         shyGuy.setProperty("health", "30");
         
         Level level = new Level(1);
-        GameBoundary gameBoundaries = new StopAtEdgeBoundary(700, 675, 700, 675);
+        GameBoundary gameBoundaries = new NoBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
@@ -312,7 +312,7 @@ public class GameExamples{
         player1.setControl(KeyCode.SPACE, "shoot");
         level.addPlayer(shyGuy);
         
-        GameObject ground = new GameObject(0, GameEngineUI.myAppHeight, GameEngineUI.myAppWidth,50,"platform.png", new HashMap<>());
+        GameObject ground = new GameObject(0, 0, GameEngineUI.myAppWidth,1,"emptyimage.png", new HashMap<>());
         ground.setProperty("damage", "30");
         ground.setProperty("nonscrollable", "");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
