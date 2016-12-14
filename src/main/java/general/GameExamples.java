@@ -189,22 +189,11 @@ public class GameExamples{
 	        GameObject candy2 = new GameObject(2350, 425, 100,300,"candyCane.png", new HashMap<>());
 	        level2.addGameObject(candy2); 
 	        
-	        
-			GameObject ghost = new GameObject(2600, 250, 100, 200, "sideGhost.gif", new HashMap<>());
-			ghost.setProperty("enemy", "30");
-			ghost.setProperty("bounceSpeed", "-1");
-			ghost.setProperty("bounceBack", "100");
-			ghost.setProperty("bounceTracker", "0");
-			ghost.setProperty("health", "60");
-	        ghost.setProperty("removeobject", "");
-			level2.addGameObject(ghost);
-
-	        
-	        GameObject tree = new GameObject(2900, 400, 100,300,"christmasTree.png", new HashMap<>());
+	        GameObject tree = new GameObject(2600, 400, 100,300,"christmasTree.png", new HashMap<>());
 	        tree.setProperty("bounce", "1000");
 	        level2.addGameObject(tree); 
 	        
-	        GameObject star= new GameObject(2900, 10, 50, 50,"star.gif-c200", new HashMap<>());
+	        GameObject star= new GameObject(2610, 10, 50, 50,"star.gif-c200", new HashMap<>());
 	        star.setProperty("levelup", "");
 	        level2.addGameObject(star); 
 	        
