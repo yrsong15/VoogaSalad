@@ -149,6 +149,8 @@ public class GameExamples{
         level2.setBackgroundImage("bg.png");
         
         level2.addPlayer(shyGuy);
+        shyGuy.setXPosition(48);
+        shyGuy.setYPosition(236);
         
         
         level2.addGameObject(makeBox(168, 106, 50, 50));

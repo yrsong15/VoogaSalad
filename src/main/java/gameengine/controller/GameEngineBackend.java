@@ -197,8 +197,11 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
     public void goNextLevel() {
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel()+1) != null) {
-			System.out.println("switching levelss");
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
+			if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
+				currentGame.getCurrentLevel().setBackgroundObject();
+			}
+			
 		} else {
 			System.out.println("won");
 			winGame();
