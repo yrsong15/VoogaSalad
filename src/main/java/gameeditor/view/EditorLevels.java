@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,8 +37,8 @@ public class EditorLevels implements IEditorLevels{
     private NodeFactory myFactory;
     private Group root;
     private Button saveGameButton;
-    
-//    private Button testEditButton;
+
+    //    private Button testEditButton;
 
     public EditorLevels(){
         myActiveButtonId = new SimpleStringProperty(null);
@@ -73,6 +74,7 @@ public class EditorLevels implements IEditorLevels{
     private HBox addGameTitle(String gameName){
         Label gameLabel = new Label("Game Title: ");
         TextField myGameName = new TextField(gameName);
+        myGameName.setOnMouseClicked(e-> handleClick(myGameName));
         myGameName.setOnMouseExited(e->addGameTitleListener(myGameName));
         HBox myHBox = new HBox(40);
         myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
@@ -80,7 +82,9 @@ public class EditorLevels implements IEditorLevels{
         myHBox.getChildren().addAll(gameLabel,myGameName); 
         return myHBox;
     }
-
+    private void handleClick(TextField myText){
+        myText.setText(" ");
+    }
     private void addGameTitleListener(TextField myGameName){
         if(myGameName.getText()!=null && !myGameName.getText().isEmpty()){
             myGameTitle.set(myGameName.getText());
@@ -91,14 +95,14 @@ public class EditorLevels implements IEditorLevels{
         newLevelButton = getButton("LevelCommand", LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6);
         loadGameButton = getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2.5,LEVEL_PANE_Y_POSITION*6);
         saveGameButton = new Button(SAVE_LABEL);
-        
+
         saveGameButton.setLayoutX(LEVEL_PANE_X_POSITION*2);
         saveGameButton.setLayoutY(LEVEL_PANE_Y_POSITION*6);
-        
+
         String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/AddLevelIcon.png";
         ImageView newLevelIcon = new ImageView(new Image(userDirectoryString));
 
-        
+
         newLevelIcon.setFitHeight(BUTTON_ICON_PROPORTION);
         newLevelIcon.setFitWidth(BUTTON_ICON_PROPORTION);
 

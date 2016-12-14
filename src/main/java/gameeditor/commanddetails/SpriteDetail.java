@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -53,8 +54,14 @@ public class SpriteDetail {
         myTypeTextArea=myDetailFrontEndUtil.createTypeName();
         myVBox.getChildren().add(myTypeTextArea);
         createProperties();
+        
         myVBox.getChildren().addAll(myImageDetail.createImageChoose());
+        
+        Label labl = myDetailFrontEndUtil.createPropertyLbl(null);
         createSave(e-> handleSaveSprite()); 
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(labl, null);
+        myVBox.getChildren().add(bp);
+        
         
         return myVBox;
     }
@@ -141,9 +148,7 @@ public class SpriteDetail {
             getPlatFormProperties(propertiesMap);
         }else{
 
-        }   
-        
-        
+        }       
     }
 
     private void getPropertiesFromCombo(Map<String,String> propertiesMap){

@@ -34,6 +34,7 @@ public enum DetailResources {
 		PLATFORM_ENEMY_ALLOWED_KEY("isenemyallowed"),
 		PlATFORM_ENEMY_ALLOWED_LABEL("Is Enemy Allowed"),
 		
+		
 		JUMP_OPTIONS(new String[] {"Jump Once", "Jump Unlimited"}),
 		RANDOM_GEN_DIRECTION_OPTIONS(new String[] {"vertical","horizontal"}),
 		

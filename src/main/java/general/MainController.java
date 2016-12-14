@@ -2,6 +2,8 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
@@ -64,7 +66,6 @@ public class MainController {
 		gameEngineStage.setScene(myCover.createSplashScene());
 		gameEngineStage.setTitle(myCover.getTitle());
 		gameEngineStage.show();
-		gameEngineController.setEngineStage(gameEngineStage);
 	}
 
 	public void startPlayingMulti(boolean isHosted, String myServer){
@@ -89,19 +90,30 @@ public class MainController {
         }
 
         private void sendDataToEngine() {
-                String title = gameEditorController.getGameTitle();
-                String gameFile = gameEditorController.getGameFile();
-                addNewGameFile(title, gameFile);
-                launchEngine(gameFile);
+               // String title = gameEditorController.getGameTitle();
+                //String gameFile = gameEditorController.getGameFile();
+                //addNewGameFile(title, gameFile);
+               
+                
+                String content = null;
+              try {
+                  content = new String(Files.readAllBytes(Paths.get("data/help.xml")));
+              }
+              catch (IOException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+              }
+              launchEngine(content);
         }
 
     public void launchEngine(String XMLData) {
-        GameExamples gameExamples = new GameExamples();
+        //GameExamples gameExamples = new GameExamples();
 //        XMLData = gameExamples.getDanceDanceRevolution();
-//        XMLData = gameExamples.getMultiplayerDDR();
-//        XMLData = gameExamples.getDoodleJumpXML();
-//        XMLData = gameExamples.getScrollingXML();
-        XMLData = gameExamples.getMarioXML();
+   //    XMLData = gameExamples.getMultiplayerDDR();
+     //   XMLData = gameExamples.getDoodleJumpXML();
+      //  XMLData = gameExamples.getScrollingXML();
+      //XMLData = gameExamples.getMarioXML();
+  //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;

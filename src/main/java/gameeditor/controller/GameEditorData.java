@@ -59,7 +59,7 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public void addControls(String typeName, Map<KeyCode,String> controlMap){
-         typeName = typeName.replaceAll("\\s+","");
+        typeName = typeName.replaceAll("\\s+","");
         myPlayerControlsMap.put(typeName, controlMap);
     }
 
@@ -144,18 +144,18 @@ public class GameEditorData implements IGameEditorData{
 
     public void addRandomGeneration(String type, List<TextArea> myRandomGenerationParameters, 
                                     ComboBox<String> isEnemyAllowed, ComboBox<String> direction){
-        
-        
+
+
         Map<String,String> properties =  getType(type);
         enemyAllowed = Boolean.getBoolean(isEnemyAllowed.getValue());
         randomGenDirection = direction.getValue();
 
- 
+
         int width = Double.valueOf(properties.get(WIDTH_KEY)).intValue();
         int height = Double.valueOf(properties.get(HEIGHT_KEY)).intValue();
         String imagePath = properties.get(IMAGE_PATH_KEY);
         String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
-        
+
         Map<String,String> propertiesMap = getPropertiesMap(properties);
         propertiesMap.put("isenemyallowed", "true");
 
@@ -186,20 +186,20 @@ public class GameEditorData implements IGameEditorData{
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void addRandomGenerationFrame(){
-        
+
         if(!myTypeRandomGenerationMap.isEmpty()){
             ArrayList<RandomGeneration> list = new ArrayList<RandomGeneration>();
             myTypeRandomGenerationMap.forEach((k,v)->{
                 list.add(v);
             });
-                               
+
             RandomGenFrame frame=null;
             if(randomGenDirection.equals("vertical")){
                 frame = new RandomGenFrameY(myGame.getCurrentLevel(), list, enemyAllowed);
             }else if (randomGenDirection.equals("horizontal")){
                 frame = new RandomGenFrameX(myGame.getCurrentLevel(), list, enemyAllowed);
             }
-            
+
             myLevel.setRandomGenerationFrame(frame);
         }
     }
@@ -211,8 +211,8 @@ public class GameEditorData implements IGameEditorData{
         Map<String,String> properties = new HashMap<String,String>();
         myItemMap.forEach((k,v)-> {
             if(v!=null){
-            if(!(v.isEmpty()) && !(v.equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource())))
-                properties.put(k, v);
+                if(!(v.isEmpty()) && !(v.equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource())))
+                    properties.put(k, v);
             }
         });
         return properties;
@@ -232,7 +232,7 @@ public class GameEditorData implements IGameEditorData{
     }
 
     public void addGameObjectsToLevel(){   
-        removeFromMapList(myImageViewObjectMap);
+        //removeFromMapList(myImageViewObjectMap);
         for (Map<String, String> type : myImageViewObjectMap){
             if(!myTypeRandomGenerationMap.containsKey(type.get(DetailResources.TYPE_NAME.getResource()))){
                 GameObject myObject = createGameObject(type);
@@ -240,7 +240,7 @@ public class GameEditorData implements IGameEditorData{
             }
         }
     }
-
+    
     private GameObject createGameObject(Map<String,String> map){
         GameObject object=null;
         try{
@@ -253,26 +253,26 @@ public class GameEditorData implements IGameEditorData{
             String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
             Map<String,String> properties = getPropertiesMap(map);
             object = new GameObject(xPosition,yPosition,width,height,file,properties); 
-            
+
             // Remove Spaces from TypeName
             String typeName = map.get(DetailResources.TYPE_NAME.getResource());
             String typeKey = typeName.replaceAll("\\s+","");
-           
+
             map.put(DetailResources.TYPE_NAME.getResource(), typeKey);
-         
+
             object.setTypeName(map.get(DetailResources.TYPE_NAME.getResource()));
-            
-            
+
+
             if(!myProjectileObjects.isEmpty()&& myProjectileObjects.containsKey(map.get(DetailResources.TYPE_NAME.getResource()))){             
                 ProjectileProperties projectileProp= myProjectileObjects.get(map.get((DetailResources.TYPE_NAME.getResource())));         
                 object.setProjectileProperties(projectileProp);
             }
-            
+
             return object;
         }catch(NullPointerException e){
             GameEditorException exception = new GameEditorException();
             exception.showError(e.getMessage());
-       }
+        }
         return object;
     }
 
@@ -290,32 +290,21 @@ public class GameEditorData implements IGameEditorData{
 
     @Override
     public void storeMainCharToXML () {   
-        removeFromMapList(myMainCharImageViewMaps);
-        
-        for(Map<String,String> map: myMainCharImageViewMaps){
+        //removeFromMapList(myMainCharImageViewMaps);
+        if(myMainCharImageViewMaps.size()>0){
+            for(Map<String,String> map: myMainCharImageViewMaps){
+                GameObject myObject = createGameObject(map);
+                if(myObject!=null){
+                    Player player = new Player(myObject);
+                    player.setControlMap(myPlayerControlsMap.get(myObject.getTypeName()));
 
-            GameObject myObject = createGameObject(map);
-            Player player = new Player(myObject);
-            //if(myPlayerControlsMap.containsKey(myObject.getTypeName())){
-            player.setControlMap(myPlayerControlsMap.get(myObject.getTypeName()));
-            //}else {
-            //GameEditorException exception = new GameEditorException();
-            //exception.showError("Not all Players have Controls Set up");
-            // }
-            myGame.addPlayer(player);
-            myGame.addPlayerToClient(0,player);
-            myLevel.addPlayer(myObject);
-           // myLevel.addPlayer(player.getMainChar());
-            
-//            if(!myProjectileObjects.isEmpty()&& myProjectileObjects.containsKey(map.get(DetailResources.TYPE_NAME.getResource()))){
-//                ProjectileProperties projectileProp= myProjectileObjects.get(map.get(myObject.getTypeName()));
-//                myObject.setProjectileProperties(projectileProp);
-//            }
-//            
-           //myLevel.addGameObject(myObject);  
-            //});
+                    myGame.addPlayer(player);
+                    myGame.addPlayerToClient(0,player);
+                    myLevel.addPlayer(myObject);
+
+                }
+            }
         }
-
     }
 
     @Override
@@ -341,9 +330,17 @@ public class GameEditorData implements IGameEditorData{
             }
         }
     }
-    
+
     public void addScrollType(ScrollType scrolltype){
         myLevel.setScrollType(scrolltype);
+    }
+    
+    public Map<KeyCode,String> getControlsMap(String typeName){ 
+        typeName = typeName.replaceAll("\\s+","");
+        if(!myPlayerControlsMap.isEmpty()){
+        return myPlayerControlsMap.get(typeName);   
+        }
+        return null;
     }
 }
 

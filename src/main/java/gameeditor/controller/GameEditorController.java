@@ -122,6 +122,9 @@ public class GameEditorController implements IGameEditorController{
     private void displayLevel(){
         if(myLevelEditorMap.containsKey(activeButtonId)){
             myGameEditorView=myLevelEditorMap.get(activeButtonId);
+            Level level = myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1);
+          
+            myGameInterface.setCurrentLevel(level);
             setSavedLevelRoot();
             myGameEditorView.setSaveProperty(false);
             addSaveLevelListener();
@@ -133,15 +136,16 @@ public class GameEditorController implements IGameEditorController{
                 level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             }
             
-            ILevel levelInterface = (ILevel) level;
-            
+            ILevel levelInterface = (ILevel) level;      
             myLevelManager.createLevel(level);
             myLevelManager.setLeveltitle(myEditorLevels.getGameTitle().get());
+            myGameEditorBackEndController.setCurrentLevel(level);
+            myGameEditorBackEndController.addCurrentLevelToGame();
             myGameEditorView = new GameEditorView(levelInterface, myGameInterface, myGameType);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
-            setNewLevelSceneRoot();         
-            myGameEditorBackEndController.setCurrentLevel(level);
-            //myGameEditorBackEndController.addCurrentLevelToGame();
+                 
+            
+            setNewLevelSceneRoot();    
             //myGameEditorBackEndController.addCurrentLevelToGame();  
             addSaveLevelListener();
         }     
@@ -169,7 +173,6 @@ public class GameEditorController implements IGameEditorController{
 
     private void setNewLevelSceneRoot(){
         myLevelScene.setRoot(myGameEditorView.createRoot()); 
-
         resizeToLevelStage();
     } 
 
@@ -185,12 +188,13 @@ public class GameEditorController implements IGameEditorController{
 
     public String getGameFile(){
         //System.out.println (myGameEditorBackEndController.serializeGame());
-
+        myGameInterface.setGameName(myEditorLevels.getGameTitle().get());
         return myGameEditorBackEndController.serializeGame();
     }
 
-    private void setSavedLevelRoot(){
+    private void setSavedLevelRoot(){  
         myLevelScene.setRoot(myGameEditorView.getRoot());
+        myGameEditorView.addStuffFromOtherFiles();
         resizeToLevelStage();
     }
 
@@ -203,6 +207,4 @@ public class GameEditorController implements IGameEditorController{
     public String getGameTitle(){
         return myEditorLevels.getGameTitle().get();
     }
-
-
 }

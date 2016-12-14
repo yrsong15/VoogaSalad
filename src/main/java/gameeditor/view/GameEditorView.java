@@ -1,10 +1,14 @@
 package gameeditor.view;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import frontend.util.FileOpener;
 import frontend.util.GameEditorException;
+import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.GameEditorData;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.objects.GameObjectView;
 import gameeditor.rpg.GridDesignArea;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
@@ -20,6 +24,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import objects.GameObject;
+import objects.Player;
 import objects.interfaces.IGame;
 import objects.interfaces.ILevel;
 /**
@@ -64,33 +70,56 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public Parent createRoot(){
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
-        try{
-            addBackground();
-//            addAvatar();
-           // addSprites();
-        }catch(NullPointerException e){
-            GameEditorException exception = new GameEditorException();
-            exception.showError(e.getMessage());
-        }
+        //try{
+        addStuffFromOtherFiles();
+        //        addBackground();
+        //        addAvatar();
+        //        addSprites();
+        //}catch(NullPointerException e){
+        //GameEditorException exception = new GameEditorException();
+        //exception.showError(e.getMessage());
+        //}
         return myRoot;
     }
 
-    
-//    private void addSprites(){
-//        if(myLevelSettings.getGameObjects().size()>0){
-//            for(GameObject object: myLevelSettings.getGameObjects()){
-//                double height = object.getHeight();
-//                double width = object.getWidth();
-//                String fileName = object.getImageFileName();
-//                Image image = new Image(getClass().getClassLoader().getResourceAsStream("Sprite/"+object.getImageFileName()));
-//                ImageView spriteimageView = new ImageView(image);
-//
-//
-//            }
-//        }
-//
+    public void addStuffFromOtherFiles(){
+       // try{ 
+            addBackground();
+            addAvatar();
+            addSprites();
+        //}catch(NullPointerException e){
+            //GameEditorException exception = new GameEditorException();
+            //exception.showError(e.getMessage());
+       // }
+    }
 
-    
+    private void addSprites(){
+        if(myLevelSettings.getGameObjects().size()>0){
+            for(GameObject object: myLevelSettings.getGameObjects()){
+                double height = object.getHeight();
+                double width = object.getWidth();
+                double x=object.getXPosition();
+                double y = object.getYPosition();
+                String type = object.getTypeName();
+                String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/";
+                String fileName = userDirectoryString+"Sprite/" + object.getImageFileName();
+
+                Map<String,String> propertiesMap = new HashMap<String,String>();
+               propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), fileName);
+                propertiesMap.putAll(object.getProperties());
+                // Store type in data storage
+               if(myDataStoreInterface.getType(object.getTypeName())==null){
+                myDataStoreInterface.storeType(propertiesMap);
+               }
+
+                GameObjectView objectView = new GameObjectView(fileName,x,y,width,height,type,false,false,myDesignArea,myDataStoreInterface);
+
+                myDesignArea.addSprite(objectView);
+            } 
+        }
+    }
+
+
     private HBox createLeftAlt(){
         myDataStoreInterface = new GameEditorData(myLevelSettings, myGameInterface);
         DetailPane dp = new DetailPane(myDesignArea, myDataStoreInterface);
@@ -107,7 +136,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         if (myGameType.equals("Scrolling")){
             myDesignArea = new DesignArea();
         } else if (myGameType.equals("RPG")){
-        	myDesignArea = new GridDesignArea();
+            myDesignArea = new GridDesignArea();
         }
         myScrollPane = myDesignArea.getScrollPane();
         myToolbar = new EditorToolbar(this);
@@ -117,21 +146,26 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     }
 
     private void addBackground(){
-        if(myLevelSettings.getBackgroundFilePath() != null){
+        if(myLevelSettings.getBackgroundFilePath()!=null){
             String filePath = FILE_PREFIX + getUserDirectory()
-                    + IMAGES_LOCATION + myLevelSettings.getBackgroundFilePath();
+            + IMAGES_LOCATION + myLevelSettings.getBackgroundFilePath();
             displayBackgroundOnScreen(filePath);
         }
     }
 
     @SuppressWarnings("unused")
     private void addAvatar(){
-        //if(myLevelSettings.getMainCharacter()!=null){
-            //if(myLevelSettings.getMainCharacter().getImageFileName()!=null){
-                //String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+myLevelSettings.getMainCharacter().getImageFileName();
-               // myDetailPane.setAvatar(filePath);
-           // }
-       // }
+        if(myGameInterface.getCurrentLevel()!=null){
+//            System.out.println(" Level " + myGameInterface.getCurrentLevel().getLevel());
+//            System.out.println(" Players " +myGameInterface.getCurrentLevel().getPlayers().size());
+//            System.out.println(myGameInterface.getCurrentLevel());
+            if(myGameInterface.getCurrentLevel().getPlayers().size()>0){
+                for(GameObject player: myGameInterface.getCurrentLevel().getPlayers()){                  
+                    String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+player.getImageFileName();
+                    myDetailPane.setAvatar(filePath);
+                }
+            }
+        }
     }
 
     public void setBackground(){
@@ -148,7 +182,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
             myScrollPane.setPrefSize(ViewResources.SCROLL_PANE_WIDTH.getDoubleResource(), ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource()); 
             myDesignArea.setBackground(backgroundImage); 
-            
+
             String file = filePath.substring(filePath.lastIndexOf("/") + 1);
             myLevelSettings.setBackgroundImage("Background/" + file);
         }
@@ -189,13 +223,13 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     @Override
     public void saveLevelData () {
         //if(myLevelSettings.getMainCharacter()==null){
-            //myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
-       // }
+        //myDataStoreInterface.addMainCharacter(0, 0, IGameEditorData.MAIN_CHAR_WIDTH, IGameEditorData.MAIN_CHAR_HEIGHT,null);
+        // }
         // add Game Objects to level
         myDataStoreInterface.storeMainCharToXML();
         myDataStoreInterface.addGameObjectsToLevel();
         myDataStoreInterface.addRandomGenerationFrame();
-        
+
         closeLevelWindow.set(true);
     }
 

@@ -213,6 +213,7 @@ public class GameObjectView {
         if(myIsMainChar){
             Map<String,String> mainCharMap = myDataStore.getMainCharMap(myImageView.toString());
             if(mainCharMap==null){
+                System.out.println(" HERE ");
                 mainCharMap = new HashMap<String,String>();
                 mainCharMap.put(DetailResources.IMAGE_PATH.getResource(), myImageFilePath);
                 mainCharMap.put(DetailResources.IMAGEVIEW_KEY.getResource(),myImageView.toString());
@@ -223,7 +224,7 @@ public class GameObjectView {
         } else{
             Map<String, String> typeMap = myDataStore.getSpriteViewMapByImageView(myImageView.toString());
             if(typeMap==null){
-                typeMap = myDataStore.getSpriteViewMapByType(myType, myImageView.toString());
+               typeMap = myDataStore.getSpriteViewMapByType(myType, myImageView.toString());
                 myDataStore.storeImageViewMap(typeMap);
             } 
             addCommonValuesToMap(typeMap);
