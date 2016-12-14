@@ -119,8 +119,6 @@ public class MainController {
 	    	content = new String(Files.readAllBytes(Paths.get("data/poke6.xml")));
 	    }
 	    catch (IOException e) {
-	       // TODO Auto-generated catch block
-	       e.printStackTrace();
 	    }
 	    launchEngine(content);
         // String gameFile = gameEditorController.getGameFile();

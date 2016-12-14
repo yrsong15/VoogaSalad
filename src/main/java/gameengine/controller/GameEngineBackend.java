@@ -96,7 +96,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
-			//System.out.println(mainChar.getVelX());
 			Position position = new Position();
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 			mainCharImprints.put(mainChar, position);
@@ -135,8 +134,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			try {
 				currentGame.getCurrentLevel().getRandomGenerationFrame().possiblyGenerateNewFrame(randomGeneration);
 			} catch (IllegalArgumentException | SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 	}
@@ -271,7 +268,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			method.invoke(gameMovement, currentGame.getClientMappings().get(new Long(ID)).get(charIdx).getMainChar(), 10);
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 	}
 

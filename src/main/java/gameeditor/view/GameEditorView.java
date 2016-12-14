@@ -169,7 +169,6 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             myLevelSettings.setBackgroundMusic(file);
 
         }catch (NullPointerException e){
-            System.out.println("Music was not added");
         }
     }
 
