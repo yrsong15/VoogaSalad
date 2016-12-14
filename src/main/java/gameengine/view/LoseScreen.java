@@ -50,6 +50,11 @@ public class LoseScreen extends ScoreScreen{
 	}
 
 	@Override
+	protected String makeScreenText() {
+		return "Click anywhere to play again";
+	}
+
+	@Override
 	protected void addButtons() {
 		ButtonTemplate nextLevelButton = new ButtonTemplate("Replay", myAppWidth / 2, myAppHeight - 50);
 		Button level = nextLevelButton.getButton();

@@ -52,8 +52,8 @@ public abstract class ScoreScreen {
 //        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
 //        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         ViewFormatter formatter = new ViewFormatter();
-        
-        Text highScoreText = new Text ("Click anywhere to play the next level \nHigh Scores");
+
+        Text highScoreText = new Text (makeScreenText() + " \nHigh Scores");
         highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         highScoreText.setFill(Color.RED);
         formatter.addView(highScoreText, "High Score Text")
@@ -72,6 +72,12 @@ public abstract class ScoreScreen {
             getMyGameEngine().getMyLevelStage().close();
             getMyGameEngine().pause();
         });
+        root = new BorderPane();
+//        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
+//        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        highScoreText.setFill(Color.RED);
+        highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        root.getChildren().addAll(background, backdrop, highScoreText);
         formatter.addView(backdrop,"Back Drop");
         
         VBox vbox = new VBox();
@@ -97,6 +103,8 @@ public abstract class ScoreScreen {
 
     public abstract String getStageTitle();
 
+    protected abstract String makeScreenText();
+
     protected abstract void addButtons();
 
     protected abstract ImageView makeBackground();
@@ -108,6 +116,5 @@ public abstract class ScoreScreen {
     protected BorderPane getRoot(){
         return root;
     }
-//    Scene getScene();
 }
 

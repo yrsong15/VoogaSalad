@@ -14,9 +14,9 @@ public class StopAtEdgeBoundary extends BasicBoundary{
 
 
 	@Override
-	public boolean moveToXPos(GameObject toMove, double newXPos) {
+	public boolean moveToXPos(GameObject toMove, double newXPos, double speed) {
 		if(newXPos <= getViewWidth()-toMove.getWidth() && newXPos >= 0){
-			toMove.setXPosition(newXPos);
+			toMove.setVelX(speed);
 			return true;
 		}
 		else{

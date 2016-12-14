@@ -3,6 +3,11 @@ package general;
 import general.interfaces.IGameFile;
 import javafx.scene.image.Image;
 
+/**
+ * @author Ryan Bergamini
+ */
+
+
 public class GameFile implements IGameFile{
 
     private String myGameName;
