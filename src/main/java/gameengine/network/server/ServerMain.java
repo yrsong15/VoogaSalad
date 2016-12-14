@@ -107,16 +107,13 @@ public class ServerMain {
 	
 	public void shutdownServerThread(){
 		System.out.println("shutdown in servermain");
-//		try {
-//			serverSocket.close();
-////			System.out.println("Socket closed!!");
-//		} catch (IOException ex) {
-//			System.out.println("Error in closing server socket");
-//			ex.printStackTrace();
-//		}
-//		Thread.currentThread().interrupt();
-//		Thread.currentThread().stop();
-//		System.out.println("thread closed!!");
+		try {
+			serverSocket.close();
+		} catch (IOException ex) {
+			System.out.println("Error in closing server socket");
+			ex.printStackTrace();
+		}
+		Thread.currentThread().interrupt();
 		return;
 	}
 	
@@ -125,7 +122,7 @@ public class ServerMain {
 			
 			@Override
 			public void run() {
-				System.out.println(IDs + " " + Thread.currentThread().isAlive());
+//				System.out.println(IDs + " " + Thread.currentThread().isAlive());
 				if(!isPaused && (IDs >= gameHandler.getGame().getMinNumPlayers())){
 					gameHandler.updateGame();
 				}
