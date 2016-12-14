@@ -16,7 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import objects.ScrollType;
 /**
- * @ author Pratiksha Sharma
+ * @ author Pratiksha Sharma, John Martin
  *
  */
 public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail{
