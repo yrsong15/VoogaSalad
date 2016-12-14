@@ -48,8 +48,6 @@ public abstract class ScoreScreen {
     }
 
     private BorderPane makeRoot() {
-        
-        
         root = new BorderPane();
 //        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
 //        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));

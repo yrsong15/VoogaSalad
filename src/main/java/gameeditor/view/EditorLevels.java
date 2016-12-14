@@ -39,7 +39,7 @@ public class EditorLevels implements IEditorLevels{
     private Button loadGameButton;
     private SimpleStringProperty myGameTitle;
     private NodeFactory myFactory;
-    private Group root;
+    private Parent root;
     private Button saveGameButton;
     private GameCoverView gameCoverView;
     
@@ -49,6 +49,7 @@ public class EditorLevels implements IEditorLevels{
         myActiveButtonId = new SimpleStringProperty(null);
         myGameTitle = new SimpleStringProperty(null);
         this.myFactory = new NodeFactory();
+        
     }
 
     public Parent createRoot(String gameName){
@@ -62,7 +63,6 @@ public class EditorLevels implements IEditorLevels{
         formatter.addView(background, "Background", SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_WIDTH)
         		.setZ(-1);	
         
-        root = new Group();
         myVBox = new VBox(20);
         myLevels = new ArrayList<Button>();
         
@@ -95,8 +95,8 @@ public class EditorLevels implements IEditorLevels{
         formatter.addView(title, "Title")
         	.position(Side.TOP, "LevelView", 10); 
         
-        return formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
-        
+        root = formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
+        return root;
     }
     
     private Button createNewLevelButton()
