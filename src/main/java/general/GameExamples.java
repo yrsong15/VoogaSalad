@@ -252,43 +252,53 @@ public class GameExamples{
 	
 	public String getScrollingXML(){
 		Game game = new Game("Scrolling Tester");
-        GameObject shyGuy = new GameObject(0, 250, 75, 50, "doodler.png", new HashMap<>());
+        GameObject shyGuy = new GameObject(200, 250, 75, 100, "spicybrian.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
-        shyGuy.setProperty("movespeed", "60");
+        shyGuy.setProperty("movespeed", "5");
+        shyGuy.setProperty("gravity", "1.2");
+        shyGuy.setProperty("jumponce", "400");
         Level level = new Level(1);
-        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 1200, 800);
+        GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
-        scrollType.addScrollDirection(Direction.UP);
+        scrollType.addScrollDirection(Direction.RIGHT);
         level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/bg.png");
+        level.setBackgroundImage("Background/desert.png");
         game.setCurrentLevel(level);
-        player1.setControl(KeyCode.W, "jump");
         player1.setControl(KeyCode.RIGHT, "right");
         player1.setControl(KeyCode.LEFT, "left");
-        player1.setControl(KeyCode.UP, "up");
-        player1.setControl(KeyCode.DOWN, "down");
-        player1.setControl(KeyCode.SPACE, "shoot");
+        player1.setControl(KeyCode.UP, "jump");
         level.addPlayer(shyGuy);
-        GameObject ground = new GameObject(0, 250, 10, 800, "pipes.png", new HashMap<>());
-        level.addGameObject(ground);
         
-        GameObject ground1 = new GameObject(1200, 250, 10, 800, "pipes.png", new HashMap<>());
-        level.addGameObject(ground1);
+        GameObject rock = new GameObject(150, 400, 150, 100,"platform.png", new HashMap<>());
+        rock.setProperty("nonintersectable", "");
+        level.addGameObject(rock); 
         
-        GameObject ground2 = new GameObject(250, 1000, 1200, 10, "platform.png", new HashMap<>());
-        level.addGameObject(ground2);
+        GameObject rock2 = new GameObject(450, 400, 150, 100,"platform.png", new HashMap<>());
+        rock2.setProperty("nonintersectable", "");
+        level.addGameObject(rock2); 
         
-        GameObject ground3 = new GameObject(250, 0, 1200, 10, "platform.png", new HashMap<>());
-        level.addGameObject(ground3);
+        
+        HashMap<String,String> DoodleJumpProperties = new HashMap<>();
+        DoodleJumpProperties.put("bounce", "2000");
+        DoodleJumpProperties.put("points", "5");
+        RandomGeneration platform = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
+        RandomGeneration platform2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
+        RandomGeneration platform3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
+        ArrayList<RandomGeneration> randomGe = new ArrayList<>();
+        randomGe.add(platform);
+        randomGe.add(platform2);
+        randomGe.add(platform3);
+        RandomGenFrame fram = new RandomGenFrameY(level, randomGe, true);
+        level.setRandomGenerationFrame(fram);
+        
         
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
         return xml;
 		
 	}
-
 
     public String getDoodleJumpXML(){
         Game game = new Game("Doodle Jump");
