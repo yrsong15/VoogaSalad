@@ -5347,8 +5347,8 @@
       <gameBoundaries class="gameengine.model.boundary.StopAtEdgeBoundary">
         <viewWidth>825.0</viewWidth>
         <viewHeight>527.0</viewHeight>
-        <worldWidth>1.7976931348623157E308</worldWidth>
-        <worldHeight>1.7976931348623157E308</worldHeight>
+        <worldWidth>800</worldWidth>
+        <worldHeight>527</worldHeight>
       </gameBoundaries>
     </scrollType>
     <time>0</time>
