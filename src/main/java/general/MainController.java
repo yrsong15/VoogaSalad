@@ -99,13 +99,11 @@ public class MainController {
         GameExamples gameExamples = new GameExamples();
 //       XMLData = gameExamples.getDanceDanceRevolution();
    //    XMLData = gameExamples.getMultiplayerDDR();
-   //  XMLData = gameExamples.getMultiplayerDDR();
-      //  XMLData = gameExamples.getScrollingXML();
    //   XMLData = gameExamples.getMarioXML();
         //   XMLData = gameExamples.getDanceDanceRevolution();
 //        XMLData = gameExamples.getDanceDanceRevolution();
 //        XMLData = gameExamples.getMultiplayerDDR();
-      XMLData = gameExamples.getDoodleJumpXML();
+      XMLData = gameExamples.getMultiplayerDDR();
  //       XMLData = gameExamples.getScrollingXML();
       // XMLData = gameExamples.getMarioXML();
         boolean multiplayer = true;
