@@ -309,6 +309,9 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	public void setGame(Game currentGame) {
 		this.currentGame = currentGame;
+		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
+			currentGame.getCurrentLevel().setBackgroundObject();
+		}
 	}
 
 }
