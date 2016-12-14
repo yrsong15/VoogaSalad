@@ -1,5 +1,6 @@
 package gameengine.network.client;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import objects.Player;
  */
 public class ClientMain{
 
-	public static long ID = -1; // we get ID from the server side
+	public long ID = -1; // we get ID from the server side
 
 	private TcpConnection connections; // establishing TCP connection
 
@@ -32,6 +33,8 @@ public class ClientMain{
 	private int server_port_tcp;
 	private int client_port_udp;
 	private UDPHandler handler;
+	
+	private Thread udpThread;
 
 	public ClientMain(String ip, int portTcp, int portUdp, UDPHandler handler) {
 		server_ip = ip;
@@ -46,7 +49,8 @@ public class ClientMain{
 			System.err.println("cant get id for char");
 		}
 
-		new Thread(new UdpConnection(this, connections, client_port_udp, handler)).start();
+		udpThread = new Thread(new UdpConnection(this, connections, client_port_udp, handler));
+		udpThread.start();
 	}
 
 	/** Function to send main characters data to server */
@@ -120,4 +124,5 @@ public class ClientMain{
 			connections.sendShutdownCommand();
 		}
 	}
+
 }

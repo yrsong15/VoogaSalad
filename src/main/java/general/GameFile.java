@@ -2,6 +2,11 @@ package general;
 
 import general.interfaces.IGameFile;
 
+/**
+ * @author Ryan Bergamini
+ */
+
+
 public class GameFile implements IGameFile{
 
     private String myGameName;

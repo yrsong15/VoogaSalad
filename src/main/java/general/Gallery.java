@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Delia Li, Ryan Bergamini
+ */
+
 public class Gallery implements IGallery {
 
 	private ArrayList<GameFile> gallery;
@@ -23,20 +27,18 @@ public class Gallery implements IGallery {
 	}
 
 	private void addDefaultGame() throws IOException {
-		GameFile defaultGame = new GameFile("Game To Test Projectiles",
-				readFile("data/ScrollingTestGameEditorExampleXML.xml")); //
-		addToGallery(defaultGame);
-		GameFile spicyGame = new GameFile("A Spicy Game To Test Platforms",
-				readFile("data/GameEditorExampleXML.xml")); //
-		addToGallery(spicyGame);
-		GameFile scrollingGame = new GameFile("Scrolling Tester",
-				readFile("data/DoodleJump.xml")); //
-		addToGallery(scrollingGame);
-		GameFile exampleGame = new GameFile("Example Flappy Bird",
-				readFile("data/FlappyExample.xml"));
-		addToGallery(exampleGame);
-		GameFile ddr = new GameFile("Dance Dance Revolution", readFile("data/DanceDanceRevolution.xml"));
+		GameFile ddr = new GameFile("Dance Dance Revolution",
+				readFile("data/DanceDanceRevolution.xml"));
 		addToGallery(ddr);
+		GameFile mario = new GameFile("Super Mario",
+				readFile("data/Mario.xml")); //
+		addToGallery(mario);
+		GameFile doodle = new GameFile("Doodle Jump",
+				readFile("data/DoodleJump.xml")); //
+		addToGallery(doodle);
+		GameFile flappy = new GameFile("Example Flappy Bird",
+				readFile("data/FlappyExample.xml"));
+		addToGallery(flappy);
 	}
 
 	@Override

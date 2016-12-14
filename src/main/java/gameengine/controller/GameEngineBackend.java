@@ -87,10 +87,16 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
 		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
 		conditionChecker.checkConditions(this, currentGame.getCurrentLevel().getWinConditions(), currentGame.getCurrentLevel().getLoseConditions());
-	
-		
+
+		List<GameObject> objects = currLevel.getAllGameObjects();
+		for(GameObject object : objects){
+			object.setXPosition(object.getXPosition() + object.getVelX());
+
+		}
+
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
+			//System.out.println(mainChar.getVelX());
 			Position position = new Position();
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 			mainCharImprints.put(mainChar, position);
@@ -110,11 +116,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj, boolean oneSided) {
 		double newPosition;
-		/*if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) != IntersectionAmount.NOT_INTERSECTING){
-			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
-				mainChar.setPlatformCharacterIsOn(obj);
-			} 	
-		}*/
 		if(oneSided && SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
 				obj) != IntersectionAmount.NOT_INTERSECTING) {
 			newPosition = setNewPosition(mainCharImprints.get(mainChar).getY(), mainChar, obj);
@@ -201,9 +202,14 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
 				currentGame.getCurrentLevel().setBackgroundObject();
 			}
+			GameObject mario = currentGame.getCurrentLevel().getPlayers().get(0);
+			mario.setXPosition(50);
+			mario.setYPosition(50);
+			mario.setXDistanceMoved(0);
+			mario.setYDistanceMoved(0);
 			
 		} else {
-			System.out.println("won");
+			//System.out.println("won");
 			winGame();
 		}
 	}
@@ -319,5 +325,4 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			currentGame.getCurrentLevel().setBackgroundObject();
 		}
 	}
-
 }

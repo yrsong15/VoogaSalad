@@ -15,6 +15,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.event.EventType;
 
+/**
+ * @author Ryan Bergamini
+ */
+
+
 public class GameFileView implements IGameFileView
 {
 	private GameFile gameFile;
