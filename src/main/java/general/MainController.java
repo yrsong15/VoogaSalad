@@ -57,7 +57,7 @@ public class MainController {
         public void presentEditor(Game game) {
                 gameEditorController = new GameEditorController();
                 gameEditorController.startEditor(game);
-                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+                gameEditorController.setOnLoadGame(e -> sendXMLFileDataToEngine());
         }
 
 /*
@@ -120,7 +120,7 @@ public class MainController {
              
     	String content = null;
 	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/help.xml")));
+	    	content = new String(Files.readAllBytes(Paths.get("data/trial3.xml")));
 	    }
 	    catch (IOException e) {
 	       // TODO Auto-generated catch block
@@ -138,7 +138,7 @@ public class MainController {
 //        XMLData = gameExamples.getDanceDanceRevolution();
 
    //    XMLData = gameExamples.getMultiplayerDDR();
-        XMLData = gameExamples.getDoodleJumpXML();
+//        XMLData = gameExamples.getDoodleJumpXML();
       //  XMLData = gameExamples.getScrollingXML();
      // XMLData = gameExamples.getMarioXML();
   //   XMLData = gameExamples.getDanceDanceRevolution();
