@@ -13,7 +13,6 @@ import gameengine.controller.GameEngineController;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import objects.*;

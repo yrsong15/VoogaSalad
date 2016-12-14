@@ -249,6 +249,8 @@ public class MainCharacterDisplay {
         // TODO: Remove Hard Coding
         double playerX = DEFAULT_PLAYER_X + myTotalChars*(10+DEFAULT_PLAYER_WIDTH);
         double playerY = DEFAULT_PLAYER_Y - endHeight/2;
+        
+        
         GameObjectView newAvatarGOV = new GameObjectView(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, DetailResources.MAIN_CHARACTER_TYPE.getResource() + myAvatarGOVs.size(), true, false, myDesignArea, myDataStore);
         
         myAvatarGOVs.add(newAvatarGOV);
