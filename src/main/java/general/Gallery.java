@@ -19,17 +19,29 @@ public class Gallery implements IGallery {
 
 	private ArrayList<GameFile> gallery;
 
-
 	public Gallery() throws IOException {
-		this.gallery = new ArrayList<GameFile>();
+		this.gallery = new ArrayList<>();
 		addDefaultGame();
 	}
 
 	private void addDefaultGame() throws IOException {
+
 		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
-		ImageView gameCoverView = new ImageView(new Image(userDirectoryString));
-		GameFile defaultGame = new GameFile("Example Game", readFile("data/GameEditorExampleXML.xml"),gameCoverView.getImage()); //
+		Image gameCover = new Image(userDirectoryString);
+		GameFile defaultGame = new GameFile("Example Game", readFile("data/GameEditorExampleXML.xml"),gameCover); //
+
 		addToGallery(defaultGame);
+		GameFile spicyGame = new GameFile("A Spicy Game To Test Platforms",
+				readFile("data/GameEditorExampleXML.xml"),gameCover); //
+		addToGallery(spicyGame);
+		GameFile scrollingGame = new GameFile("Scrolling Tester",
+				readFile("data/DoodleJump.xml"),gameCover); //
+		addToGallery(scrollingGame);
+		GameFile exampleGame = new GameFile("Example Flappy Bird",
+				readFile("data/FlappyExample.xml"),gameCover);
+		addToGallery(exampleGame);
+		GameFile ddr = new GameFile("Dance Dance Revolution", readFile("data/DanceDanceRevolution.xml"),gameCover);
+		addToGallery(ddr);
 	}
 
 	@Override

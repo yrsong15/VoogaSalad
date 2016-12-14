@@ -1,10 +1,15 @@
 package general;
 
 import general.interfaces.INodeFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -25,6 +30,24 @@ public class NodeFactory implements INodeFactory{
     private String userDirectoryThumbnailPrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/DesignImages/";
+    private String userDirectoryToolbarPrefix = "file:"
+            + System.getProperty("user.dir")
+            + "/images/Toolbar/";
+    private String userDirectorySpritePrefix = "file:"
+            + System.getProperty("user.dir")
+            + "/images/Sprite/";
+    private String textFieldFill = "-fx-background-color: linear-gradient(#00110e, #4d66cc);" +
+            "-fx-background-radius: 20;" +
+            "-fx-text-fill: white;";
+    private static final LinearGradient textAndBoxGradient = new LinearGradient(0d, 1d, 1d, 0d, true,
+            CycleMethod.NO_CYCLE,
+            new Stop(0, Color.WHITE),
+            new Stop(0.15, Color.HONEYDEW),
+            new Stop(0.3, Color.LIGHTBLUE),
+            new Stop(0.45, Color.WHITE),
+            new Stop(0.6, Color.LIGHTBLUE),
+            new Stop(0.75, Color.HONEYDEW),
+            new Stop(1, Color.WHITE));
 
     public NodeFactory(){
         myImageResources = ResourceBundle.getBundle(IMAGE_LABEL_FILE, Locale.getDefault());
@@ -37,6 +60,8 @@ public class NodeFactory implements INodeFactory{
         ImageView backgroundImage = new ImageView(background);
         return backgroundImage;
     }
+
+//    public ImageView makeBackgroundImage()
 
     public ImageView makeThumbnailImage(String property, int x, int y, double width, double height){
         ImageView thumbNail = makeThumbnailImage(property, width, height);
@@ -89,6 +114,15 @@ public class NodeFactory implements INodeFactory{
         return label;
     }
 
+    public TextField makeTextField(String prompt, int x, int y){
+        TextField addServer = new TextField();
+        addServer.setPromptText(prompt);
+        addServer.setStyle(textFieldFill);
+        addServer.setTranslateX(x);
+        addServer.setTranslateY(y);
+        return addServer;
+    }
+
     public Tooltip makeTooltip(String property) {
         Tooltip t = new Tooltip(myTooltipResources.getString(property));
         return t;
@@ -98,5 +132,18 @@ public class NodeFactory implements INodeFactory{
         Tooltip t = makeTooltip(property);
         t.setGraphic(icon);
         return t;
+    }
+
+    public Text bigNameTitle(String name, int x, int y) {
+        Text titleText = new Text(name);
+        titleText.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
+        titleText.setFill(textAndBoxGradient);
+        titleText.setTranslateX(x);
+        titleText.setTranslateY(y);
+        return titleText;
+    }
+
+    public String getUserDirectorySpritePrefix(){
+        return userDirectorySpritePrefix;
     }
 }

@@ -1,7 +1,9 @@
 package gameeditor.view.interfaces;
-
-import java.util.Map;
-
+/**
+ * 
+ * @author John Martin
+ *
+ */
 public interface IToolbarParent {
 
     public void setBackground();
@@ -11,7 +13,4 @@ public interface IToolbarParent {
     public void setMusic ();
     
     public void saveLevelData ();
-
-
-
 }

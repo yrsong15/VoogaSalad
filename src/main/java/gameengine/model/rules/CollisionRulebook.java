@@ -22,18 +22,23 @@ public class CollisionRulebook{
 		this.handler = handler;
 	}
 	 
-	public void applyRules(GameObject mainChar, GameObject obj) throws CollisionRuleNotFoundException{
-		for(String property: obj.getPropertiesList()){
+	public void applyRules(GameObject firstObject, GameObject secondObject) throws CollisionRuleNotFoundException{
+		apply(firstObject, secondObject);
+        apply(secondObject, firstObject);
+    }
+
+	private void apply(GameObject firstObject, GameObject secondObject) throws CollisionRuleNotFoundException {
+		for(String property: secondObject.getPropertiesList()){
 			if(resources.containsResource(property)) {
 				String ruleName = rulesPath + resources.getResource(property);
-	        		Object[] parameters = new Object[]{handler, mainChar, obj};
-	        		Class<?>[] parameterTypes = new Class<?>[]{RuleActionHandler.class, GameObject.class, GameObject.class};
-	                try {
-						ReflectionUtil.runMethod(ruleName, "applyRule", parameters, parameterTypes);
-					} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
-							| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-						throw (new CollisionRuleNotFoundException());
-					}
+				Object[] parameters = new Object[]{handler, firstObject, secondObject};
+				Class<?>[] parameterTypes = new Class<?>[]{RuleActionHandler.class, GameObject.class, GameObject.class};
+				try {
+					ReflectionUtil.runMethod(ruleName, "applyRule", parameters, parameterTypes);
+				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
+						| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					throw (new CollisionRuleNotFoundException());
+				}
 			}
 		}
 	}

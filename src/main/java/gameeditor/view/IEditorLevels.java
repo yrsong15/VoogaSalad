@@ -2,7 +2,11 @@ package gameeditor.view;
 
 import gameeditor.commanddetails.DetailResources;
 import javafx.scene.Parent;
-
+/**
+ * 
+ * @author Pratiksha Sharma
+ *
+ */
 public interface IEditorLevels {
 
     public static final String LEVEL_LABEL = "Level";

@@ -1,7 +1,8 @@
 package gameengine.model.rules;
 
+import gameengine.controller.interfaces.ControlInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
-import gameengine.model.boundary.ScreenBoundary;
+import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
 import utils.ReflectionUtil;
 import utils.ResourceReader;
@@ -26,10 +27,12 @@ public class MovementRulebook {
     private static final String rulesPath = "gameengine.model.rules.movementrules.";
     
     private ResourceReader resources;
-    private ScreenBoundary gameBoundaries;
+    private ControlInterface gameMovement;
+    private GameBoundary gameBoundaries;
 
-    public MovementRulebook(ScreenBoundary gameBoundaries) {
+    public MovementRulebook(ControlInterface gameMovement, GameBoundary gameBoundaries) {
         this.resources = new ResourceReader(resourcesPath);
+        this.gameMovement = gameMovement;
         this.gameBoundaries = gameBoundaries;
     }
 
@@ -39,8 +42,8 @@ public class MovementRulebook {
     	String property = itr.next();
             if(resources.containsResource(property)) {
                 String ruleName = rulesPath + resources.getResource(property);
-        		Object[] parameters = new Object[]{obj, gameBoundaries};
-        		Class<?>[] parameterTypes = new Class<?>[]{GameObject.class, ScreenBoundary.class};
+        		Object[] parameters = new Object[]{obj, gameMovement, gameBoundaries};
+        		Class<?>[] parameterTypes = new Class<?>[]{GameObject.class, ControlInterface.class, GameBoundary.class};
                 try {
 					ReflectionUtil.runMethod(ruleName, "applyRule", parameters, parameterTypes);
 				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException

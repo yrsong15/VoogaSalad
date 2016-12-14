@@ -47,6 +47,14 @@ public class ViewFormatter
 		return new ViewObjectBuilder(viewObject,this);
 	}
 	
+	public ViewObjectBuilder addView(Node node, String viewObjectID)
+	{
+		ViewObject viewObject = getViewObject(viewObjectID);
+		viewObject.connectNode(node);
+		
+		return new ViewObjectBuilder(viewObject,this);
+	}
+	
 	public ViewObjectBuilder addView(Region node, String viewObjectID)
 	{
 		ViewObject viewObject = getViewObject(viewObjectID);
@@ -142,11 +150,36 @@ public class ViewFormatter
 		
 	}
 	
-	public Pane renderView(double width, double height)
+	private double findMaxViewObjectWidth()
 	{
-		Pane root = new Pane();
-		root.setMinSize(width, height);
-		setSizeProperties(width,height);
+		double maxWidth = 0;
+		for(ViewObject viewObject : viewObjects.values())
+		{
+			if(viewObject.getWidth().getValue() > maxWidth)
+			{
+				maxWidth = viewObject.getWidth().getValue();
+			}
+			
+		}
+		return maxWidth;
+	}
+	
+	private double findMaxViewObjectHeight()
+	{
+		double maxHeight = 0;
+		for(ViewObject viewObject : viewObjects.values())
+		{
+			if(viewObject.getHeight().getValue() > maxHeight)
+			{
+				maxHeight = viewObject.getHeight().getValue();
+			}
+			
+		}
+		return maxHeight;
+	}
+	
+	public Pane renderView()
+	{
 		try
 		{
 			calculateSizeOfNodes();
@@ -157,10 +190,39 @@ public class ViewFormatter
 			System.exit(0);
 		}
 		
+		double maxWidth = findMaxViewObjectWidth();
+		double maxHeight = findMaxViewObjectHeight();
+		
+
+		return createPaneWithViewObjects(maxWidth,maxHeight);
+	}
+	
+	public Pane renderView(double width, double height)
+	{
+		try
+		{
+			calculateSizeOfNodes();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+		return createPaneWithViewObjects(width,height);
+			
+	}
+	
+	private Pane createPaneWithViewObjects(double width, double height)
+	{
+		
+		Pane root = new Pane();
+		root.setMinSize(width, height);
+		setSizeProperties(width,height);
+		
 		addViewObjectsToView(root);
 		
 		return root;
-			
 	}
 	
 }

@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * @author John Martin
+ *
+ */
 public class BoundingBox {
 	
 	private ArrayList<Rectangle> myCorners = new ArrayList<Rectangle>();
 	private ArrayList<Rectangle> myShapes = new ArrayList<Rectangle>();
-	private GameObject mySprite;
+	private GameObjectView mySprite;
 	private IDesignArea myDesignArea;
 	
 	private Rectangle myBounds;
@@ -27,7 +30,7 @@ public class BoundingBox {
 	private double yDistanceFromCorner = 0;
 
 
-	public BoundingBox(GameObject sprite, IDesignArea da) {
+	public BoundingBox(GameObjectView sprite, IDesignArea da) {
 		mySprite = sprite;
 		myDesignArea = da;
 		previousX = sprite.getX();
@@ -39,15 +42,6 @@ public class BoundingBox {
 		double spriteHeight = sprite.getHeight();
 		createLines(spriteX, spriteY, spriteWidth, spriteHeight, lineWidth);
 		createCorners(spriteX, spriteY, spriteWidth, spriteHeight);
-	}
-	
-	private void handleCenterPress(double x, double y){
-		mySprite.setDistanceFromCorner(x, y);
-	}
-	
-	private void handleCenterDrag(double x, double y){
-		mySprite.handleDrag(x, y);
-		updateLayout();
 	}
 	
 	private void handleCornerPress(double x, double y){
@@ -70,8 +64,7 @@ public class BoundingBox {
 		myBounds = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
 		myBounds.setFill(Color.TRANSPARENT);
 		myBounds.setStroke(Color.LIGHTGRAY);
-		myBounds.setOnMouseDragged((e) -> handleCenterDrag(e.getX(), e.getY()));
-		myBounds.setOnMousePressed((e) -> handleCenterPress(e.getX(), e.getY()));
+		myBounds.setMouseTransparent(true);
 		myShapes.add(myBounds);
 	}
 	

@@ -3,6 +3,8 @@ package formatobjects;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import value.ActualValue;
 import value.FormatValue;
 import value.ViewObjectPropertyValue;
@@ -53,13 +55,14 @@ public class ViewObject extends FormatObject
 			getWidth().setValue(new ActualValue(widthValue));
 			double heightValue = region.getHeight() + region.insetsProperty().getValue().getBottom() + region.insetsProperty().getValue().getTop();
 			getHeight().setValue(new ActualValue(heightValue));
-			
-			/*
-			System.out.println(viewObjectID + "-------------");
-			System.out.println("Right: " + region.insetsProperty().getValue().getRight());
-			System.out.println("Left: " + region.insetsProperty().getValue().getLeft());
-			System.out.println("Top: " + region.insetsProperty().getValue().getTop());
-			System.out.println("Bottom: " + region.insetsProperty().getValue().getBottom());*/
+		}
+		else if(!(node instanceof ImageView))
+		{
+			double widthValue = node.layoutBoundsProperty().getValue().getWidth();
+			getWidth().setValue(new ActualValue(widthValue));
+			double heightValue = node.layoutBoundsProperty().getValue().getHeight();
+			getHeight().setValue(new ActualValue(heightValue));
+			//System.out.println(viewObjectID + " width: " + widthValue + " height: " + heightValue);
 		}
 	}
 	
@@ -103,6 +106,9 @@ public class ViewObject extends FormatObject
 			else if(node instanceof ImageView)
 			{
 				((ImageView)node).setFitWidth(widthValue);
+				node.minWidth(widthValue);
+				node.prefWidth(widthValue);
+				node.maxWidth(widthValue);
 			}
 			else
 			{
@@ -127,6 +133,9 @@ public class ViewObject extends FormatObject
 			else if(node instanceof ImageView)
 			{
 				((ImageView)node).setFitHeight(heightValue);
+				node.minHeight(heightValue);
+				node.prefHeight(heightValue);
+				node.maxHeight(heightValue);
 			}
 			else
 			{

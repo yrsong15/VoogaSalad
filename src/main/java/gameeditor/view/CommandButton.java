@@ -10,8 +10,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import gameeditor.view.interfaces.*;
-
+/**
+ * @author John Martin
+ *
+ */
 public class CommandButton implements ICommandButton {
 
 	// TODO: Remove hardcoding of the following values
@@ -25,6 +27,7 @@ public class CommandButton implements ICommandButton {
 	private static final Color OFF_COLOUR = ViewResources.BORDER_OFF_COLOUR.getColorResource();
 	private static final Color ON_COLOUR = ViewResources.BORDER_ON_COLOUR.getColorResource();
 	
+	@SuppressWarnings("unused")
 	private ICommandButtonOut myCommandOut;
 	private ICommandDetailDisplay myDetailDisplay;
 	private ImageView myImageView;
@@ -32,6 +35,7 @@ public class CommandButton implements ICommandButton {
 	private Rectangle myBG;
 	private Image myButtonImage;
 	private String myType;
+	private boolean active = false;
 	
 	public CommandButton(String fileLocation, double buttonNumber, double paneWidth,
 						 ICommandButtonOut commandOut, ICommandDetailDisplay detailDisplay) {
@@ -58,7 +62,17 @@ public class CommandButton implements ICommandButton {
 		myBorder.setFill(OFF_COLOUR);
 		myBorder.setArcHeight(CORNER_RADIUS);
 		myBorder.setArcWidth(CORNER_RADIUS);
+		myBorder.setOnMouseEntered(e -> mouseEnter());
+		myBorder.setOnMouseExited(e -> mouseExit());
 		myBorder.setOnMouseClicked(e -> handleClick());
+	}
+	
+	private void mouseEnter(){
+		highlight();
+	}
+	
+	private void mouseExit(){
+		lowlight();
 	}
 	
 	private void createBG(double x, double y){
@@ -67,6 +81,8 @@ public class CommandButton implements ICommandButton {
 		myBG.setFill(BG_COLOUR);
 		myBG.setArcHeight(CORNER_RADIUS);
 		myBG.setArcWidth(CORNER_RADIUS);
+		myBG.setOnMouseEntered(e -> mouseEnter());
+		myBG.setOnMouseExited(e -> mouseExit());
 		myBG.setOnMouseClicked(e -> handleClick());
 	}
 	
@@ -84,6 +100,8 @@ public class CommandButton implements ICommandButton {
 		myImageView.setFitWidth(fitHeight);
 		myImageView.setLayoutX(x + myBG.getWidth()/2 - endWidth/2);
 		myImageView.setLayoutY(y + myBG.getHeight()/2 - endHeight/2);
+		myImageView.setOnMouseEntered(e -> mouseEnter());
+		myImageView.setOnMouseExited(e -> mouseExit());
 		myImageView.setOnMouseClicked(e -> handleClick());
 	}
 	
@@ -100,17 +118,37 @@ public class CommandButton implements ICommandButton {
 	}
 	
 	public void handleClick(){
-		highlight();
+//		highlight();
 		myDetailDisplay.setDetail(myType);
 	}
 	
 	public void highlight(){
-		myCommandOut.lowlightButtons();
+//		myCommandOut.lowlightButtons();
 		myBorder.setFill(ON_COLOUR);
 	}
 	
+	private void setOn(){
+		active = true;
+		highlight();
+	}
+	
 	public void lowlight(){
-		myBorder.setFill(OFF_COLOUR);
+		if (!active){
+			myBorder.setFill(OFF_COLOUR);
+		}
+	}
+	
+	private void setOff(){
+		active = false;
+		lowlight();
+	}
+	
+	public void checkHighlight(String currentPaneType){
+		if (currentPaneType.equals(myType)){
+			setOn();
+		} else {
+			setOff();
+		}
 	}
 
 }

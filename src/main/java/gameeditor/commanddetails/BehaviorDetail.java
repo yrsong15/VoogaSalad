@@ -1,10 +1,11 @@
 package gameeditor.commanddetails;
-import java.util.Map;
+
+import java.util.ArrayList;
 import com.sun.javafx.scene.traversal.Direction;
-import frontend.util.ButtonTemplate;
 import gameeditor.view.ViewResources;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
+import gameengine.model.boundary.BasicBoundary;
+import gameengine.model.boundary.StopAtEdgeBoundary;
+import gameengine.model.boundary.ToroidalBoundary;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -13,66 +14,71 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import objects.ScrollType;
-
-public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail {
-    private VBox myVBox;
+/**
+ * @ author Pratiksha Sharma, John Martin
+ *
+ */
+public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail{
+    //private VBox myVBox;
     private Menu scrollTypeMenu;
     private TextArea scrollWidthTextBox ;
     private TextArea myTimeWin;
+    private TextArea myScreenHeight;
     private TextArea myPointsWin;
     private TextArea scrollSpeedTextBox;
     private BorderPane myLimitWidthOption;
+    private ComboBox<String> gameBoundaryOptions;
     private BorderPane myScrollWidthBP;
-    public static final String DEFAULT_TIME_VALUE = "400";
-    public static final String DEFAULT_POINTS_VALUE = "20";
-    public static final String DEFAULT_SCROLL_SPEED = "10";
-
-
+    private String scrollTypeClass;
+    private ArrayList<Direction> scrollTypeDirections;
+    
     public BehaviorDetail() {
         super();
     }
 
     public void init() {
-        myVBox = new VBox();
-        myVBox.setSpacing(myDetailPadding);
-        myVBox.setAlignment(Pos.CENTER);
-        myContainerPane.setContent(myVBox); 
+        addVBoxSettings();
         addLevelOptions();
+        scrollTypeDirections = new ArrayList<Direction>();
     }
 
     private void addLevelOptions(){
         addScrollTypeOptions();
-        addWidthOptions();
         createWinConditions();
         addScrollSpeed();
+        addGameBoundary();
+        addWidthOptions();
+        addHeight();
         createSave();
     }
 
     private void createSave(){
-        Button save = new Button(SAVE_BUTTON_LABEL);
-        save.setMinHeight(cbHeight);
-        save.setMinWidth(cbWidth);
-        save.setOnMouseClicked((e) -> {handleSave();});
+        Button save = myDetailFrontEndUtil.createButton("SaveCommand",e -> handleSave());
         myVBox.getChildren().add(save);
+    }
 
+    private void addGameBoundary(){
+        Label label = myDetailFrontEndUtil.createPropertyLbl("Game Boundary");
+        gameBoundaryOptions = myDetailFrontEndUtil.createComboBox(GAME_BOUNDARY_OPTIONS, DetailDefaultsResources.GAME_BOUNDARY.getResource());
+        gameBoundaryOptions.setMaxWidth(CB_WIDTH*1.2);
+        gameBoundaryOptions.setMinWidth(CB_WIDTH*1.2);
+        BorderPane bp = myDetailFrontEndUtil.createBorderpane(gameBoundaryOptions,label);
+        myVBox.getChildren().add(bp);
     }
 
     private void addScrollSpeed(){
-        scrollSpeedTextBox = createInputField(DEFAULT_SCROLL_SPEED);
-        BorderPane scrollSpeed = createBorderpane(scrollSpeedTextBox,createLabel(SCROLL_SPEED_LABEL));
+        scrollSpeedTextBox = myDetailFrontEndUtil.createInputField(DetailDefaultsResources.DEFAULT_SCROLL_SPEED.getResource());
+        BorderPane scrollSpeed = myDetailFrontEndUtil.createBorderpane(scrollSpeedTextBox,myDetailFrontEndUtil.createPropertyLbl(SCROLL_SPEED_LABEL));
         myVBox.getChildren().add(scrollSpeed);
-
     }
 
     private void createWinConditions(){
-        myTimeWin = createInputField(DEFAULT_TIME_VALUE);
-        myVBox.getChildren().add(createBorderpane(myTimeWin,createLabel(TIME_PROPERTY_LABEL)));
-        myPointsWin = createInputField(DEFAULT_POINTS_VALUE); 
-        myVBox.getChildren().add(createBorderpane(myPointsWin,createLabel(POINTS_PROPERTY_LABEL)));
+        myTimeWin = myDetailFrontEndUtil.createInputField(DetailDefaultsResources.DEFAULT_TIME_VALUE.getResource());
+        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myTimeWin,myDetailFrontEndUtil.createPropertyLbl(TIME_PROPERTY_LABEL)));
+        myPointsWin = myDetailFrontEndUtil.createInputField(DetailDefaultsResources.DEFAULT_POINTS_VALUE.getResource()); 
+        myVBox.getChildren().add(myDetailFrontEndUtil.createBorderpane(myPointsWin,myDetailFrontEndUtil.createPropertyLbl(POINTS_PROPERTY_LABEL)));
     }
-
 
     private void addScrollTypeOptions(){
         MenuBar menuBar = new MenuBar();
@@ -92,72 +98,64 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void addWidthOptions(){
-        ComboBox<String>limitDimension = createComboBox(DetailResources.LIMIT_DIMENSION_OPTIONS.getArrayResource());
-        myLimitWidthOption = createBorderpane(limitDimension,createLabel(LIMIT_SCROLL_WIDTH_LABEL));
+        ComboBox<String>limitDimension =myDetailFrontEndUtil. createComboBox(LIMIT_DIMENSION_OPTIONS,DetailDefaultsResources.LIMIT_WIDTH.getResource() );
+        myLimitWidthOption = myDetailFrontEndUtil.createBorderpane(limitDimension,myDetailFrontEndUtil.createPropertyLbl(LIMIT_SCROLL_WIDTH_LABEL));
         myVBox.getChildren().add(myLimitWidthOption);
         limitDimension.setOnAction(e-> cbOnAction(limitDimension));
     }
 
-    public void cbOnAction(ComboBox<String> cb){
+    private void cbOnAction(ComboBox<String> cb){
         if (cb.getValue().equals(TRUE)){
-            scrollWidthTextBox = createInputField(Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()));
-            myScrollWidthBP = createBorderpane(scrollWidthTextBox,createLabel(SCROLL_WIDTH_LABEL));
+            scrollWidthTextBox = myDetailFrontEndUtil.createInputField(Double.toString(ViewResources.AREA_WIDTH.getDoubleResource()));
+            myScrollWidthBP = myDetailFrontEndUtil.createBorderpane(scrollWidthTextBox,myDetailFrontEndUtil.createPropertyLbl(SCROLL_WIDTH_LABEL));
             int index = myVBox.getChildren().indexOf(myLimitWidthOption);
             myVBox.getChildren().add(index+1, myScrollWidthBP);
 
         } else if((cb.getValue().equals("False"))){
             if(myVBox.getChildren().contains(myScrollWidthBP)){
-            myVBox.getChildren().remove(myVBox.getChildren().indexOf(myLimitWidthOption)+1);
+                myVBox.getChildren().remove(myVBox.getChildren().indexOf(myLimitWidthOption)+1);
             }
         }
     }
 
-    private BorderPane createBorderpane(Node right, Node left){
-        BorderPane bp = new BorderPane();
-        bp.setMinWidth(paddedPaneWidth);
-        bp.setMaxWidth(paddedPaneWidth);
-        bp.setLeft(left);
-        bp.setRight(right);
-        return bp; 
+    private void addHeight(){
+        myScreenHeight = myDetailFrontEndUtil.createInputField(String.valueOf(ViewResources.SCROLL_PANE_HEIGHT.getDoubleResource()));
+        BorderPane scrollheight = myDetailFrontEndUtil.createBorderpane(myScreenHeight,myDetailFrontEndUtil.createPropertyLbl(SCROLL_HEIGHT_LABEL));
+        myVBox.getChildren().add(scrollheight);
     }
-    private ComboBox<String> createComboBox(String [] boxOptions){
-        ComboBox<String> cb = new ComboBox<String>();
-        cb.getItems().addAll(boxOptions);
-        cb.setMinWidth(cbWidth);
-        cb.setMaxWidth(cbWidth);
-        cb.setMinHeight(cbHeight);
-        cb.setMaxHeight(cbHeight);
-        return cb;
-    }
-
-    private TextArea createInputField(String initValue){
-        TextArea inputField = new TextArea();
-        inputField.setMinWidth(paddedDetailWidth);
-        inputField.setMaxWidth(paddedDetailWidth);
-        inputField.setMinHeight(cbHeight);
-        inputField.setMaxHeight(cbHeight);
-        inputField.setText(initValue);
-        inputField.setOnMouseClicked(e -> handleClick(inputField));
-        return inputField;
-    }
-
-    private void handleClick(TextArea field){
-        field.setText("");
-    }
-
-    public void handleSave(){
+    private void handleSave(){
         myDataStore.addWinCondition(POINTS_PROPERTY, myPointsWin.getText());
         myDataStore.addLoseCondition(TIME_PROPERTY, myTimeWin.getText());
-        myDataStore.addScrollWidth(scrollWidthTextBox.getText());
-        myDataStore.addScrollSpeed(DEFAULT_SCROLL_SPEED);
+        Double width=0.0;
+        if(scrollWidthTextBox==null){
+            width = Double.MAX_VALUE;
+        }else{
+            width = Double.valueOf(scrollWidthTextBox.getText());
+        }
+
+        Double height = Double.valueOf(myScreenHeight.getText());
+        addScrollType(width,height);
         
     }
 
-    private Label createLabel(String property){
-        return new Label(property);
+
+    private void addScrollType(double width, double height){
+        BasicBoundary boundary;
+        if(gameBoundaryOptions.getValue().equals(GAME_BOUNDARY_OPTIONS[0])){
+            // Toroidal
+             boundary = new ToroidalBoundary(width,height);
+            //myDataStore.addGameBoundary(boundary);
+        } else {
+             boundary = new StopAtEdgeBoundary(width,height);
+            //myDataStore.addGameBoundary(boundary);
+        }
+        ScrollType myScrollType = new ScrollType(scrollTypeClass,boundary);
+        myScrollType.addDirectionList(scrollTypeDirections);  
+        myDataStore.addScrollType(myScrollType);
     }
 
-    public boolean verifySave(){
+    @SuppressWarnings("unused")
+	private boolean verifySave(){
         // TODO: Verify if right values entered
         return true;
     }
@@ -176,22 +174,22 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     }
 
     private void addScrollTypeListener(String className, Menu myMenu){
-        ScrollType myScrollType = new ScrollType(className);
         myMenu.getItems().stream().forEach(item -> {
             item.setOnAction(e -> {
-                myScrollType.addScrollDirection(Direction.valueOf(item.getText()));
-                myDataStore.addScrollType(myScrollType);
+                scrollTypeClass = className;
+                scrollTypeDirections.add(Direction.valueOf(item.getText()));
             });
         });
     }
 
     private void addFreeScrollTypeListener(MenuItem item){
         item.setOnAction(e -> {
-            ScrollType myScrollType = new ScrollType(FREE_SCROLL_TYPE);
-            myScrollType.addScrollDirection(Direction.LEFT); 
-            myScrollType.addScrollDirection(Direction.RIGHT); 
-            myScrollType.addScrollDirection(Direction.UP); 
-            myScrollType.addScrollDirection(Direction.DOWN); 
+            scrollTypeClass = FREE_SCROLL_TYPE;
+            scrollTypeDirections.clear();
+            scrollTypeDirections.add(Direction.LEFT); 
+            scrollTypeDirections.add(Direction.RIGHT); 
+            scrollTypeDirections.add(Direction.UP); 
+            scrollTypeDirections.add(Direction.DOWN); 
         });
     }
 }

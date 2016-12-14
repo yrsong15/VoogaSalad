@@ -2,27 +2,25 @@ package gameeditor.view;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IToolbarParent;
 import general.NodeFactory;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
-
+/**
+ * 
+ * @author John Martin, Pratiksha Sharma
+ *
+ */
 public class EditorToolbar implements IEditorToolbar {
 
 	// TODO: Remove hardcoding of the following values
@@ -63,6 +61,8 @@ public class EditorToolbar implements IEditorToolbar {
             myImageView.setLayoutY(BUTTON_IMAGE_YOFFSET);
             Tooltip.install(myImageView, tooltip);
             myImageView.setOnMouseClicked(handler);
+            //myImageView.setOnMousePressed(handler);
+            //myImageView.setOnMouseReleased(null);
             myPane.getChildren().add(myImageView);
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
