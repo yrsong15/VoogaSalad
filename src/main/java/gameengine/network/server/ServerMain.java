@@ -113,7 +113,7 @@ public class ServerMain {
 			ex.printStackTrace();
 		}
 		Thread.currentThread().interrupt();
-//		return;
+		return;
 	}
 	
 	private void runTimer(){
