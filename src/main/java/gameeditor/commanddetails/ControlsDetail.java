@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 /**
  * @author John Martin
- *
+ * Modified by Pratiksha Sharma
  */
 public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
     private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();

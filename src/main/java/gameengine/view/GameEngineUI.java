@@ -1,5 +1,4 @@
 package gameengine.view;
-
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import frontend.util.FileOpener;
 import gameengine.controller.ScrollerController;
 import gameengine.network.client.ClientMain;
@@ -37,11 +35,11 @@ import objects.GameObject;
 import objects.Player;
 import utils.ResourceReader;
 import xml.XMLSerializer;
-
 /**
  * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song, Chalena Scholl
+ *
  */
-public class GameEngineUI implements UDPHandler, IGameEngineUI {
+public class GameEngineUI implements UDPHandler, IGameEngineUI{
     public static final double myAppWidth = 700;
     public static final double myAppHeight = 775;
     public static final String RESOURCE_FILENAME = "GameEngineUI";
@@ -51,7 +49,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
     private Stage myLevelStage;
     private ScrollerController scrollerController;
     private ErrorMessage myErrorMessage;
-    private String myLevelFileLocation;
     private Toolbar toolbar;
     private Node toolbarHBox;
     private HUD myHUD;
@@ -67,9 +64,8 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
     private ClientGame currentGame;
     private XMLSerializer mySerializer;
     private List<Player> clientPlayerList;
-    private boolean isPaused, isMuted;
+    private boolean isPaused,isMuted;
     private int currLevel;
-
     public GameEngineUI(XMLSerializer mySerializer,
                         EventHandler<ActionEvent> resetEvent) {
         this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
@@ -81,10 +77,9 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         this.mySerializer = mySerializer;
     }
 
-    public void startClient(String serverName) {
+    public void startClient(String serverName){
         clientMain = new ClientMain(serverName, 9090, -1, this);
     }
-
 
     public void initLevel(Map<Long, List<Player>> playerMapping) {
         setUpMethodMappings();
@@ -97,34 +92,31 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         gameScreen.reset();
         gameScreen.init(currentGame);
         myHUD.resetTimer();
+        System.out.println(" Client Id " + clientMain.getID());
+        System.out.println(playerMapping.keySet().size());
+
         clientPlayerList = playerMapping.get(clientMain.getID());
-        for (Player player : clientPlayerList) {
+
+        for(Player player : clientPlayerList) {
             mapKeys(player, player.getControls());
         }
     }
-
     public Scene getScene() {
         return scene;
     }
-
     public void update() {
-        if (currLevel != currentGame.getLevel()) {
-            //pause();
+        if (currLevel != currentGame.getLevel()){
+            pause();
             makeLevelScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
             currLevel = currentGame.getLevel();
-        } else if (currentGame.isGameLost()) {
+        }
+        else if (currentGame.isGameLost()){
             makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
             pause();
         }
-        /**
-         else if(currentGame.isGameWon()){
-         System.out.println("you're amazingggggg pat yourself on the back");
-         pause();
-         }**/
         gameScreen.update(currentGame);
         myHUD.update(currentGame.getScores());
     }
-
     public void playMusic(String musicFileName) {
         try {
             if (mediaPlayer != null) {
@@ -139,7 +131,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             System.out.println(myResources.getString("MusicFileError"));
         }
     }
-
     public void setBackgroundImage(String imageFile) {
         try {
             gameScreen.setBackgroundImage(imageFile);
@@ -147,25 +138,22 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             myErrorMessage.showError(myResources.getString("BackgroundImageFileError"));
         }
     }
-
     private void checkKeyPressed() throws InvocationTargetException, IllegalAccessException {
-        for (KeyCode key : keyPressed.keySet()) {
-            if (keyPressed.get(key).equals(true)) {
+        for(KeyCode key : keyPressed.keySet()){
+            if(keyPressed.get(key).equals(true)){
                 Player player = playerMappings.get(key);
                 keyMappings.get(key).invoke(clientMain, player.getMainChar(),
                         Double.parseDouble(player.getMainChar().getProperty("movespeed")));
             }
         }
     }
-
     public void mapKeys(Player player, Map<KeyCode, String> mappings) {
-        for (KeyCode key : mappings.keySet()) {
+        for(KeyCode key : mappings.keySet()){
             playerMappings.put(key, player);
         }
         mapKeysToMethods(mappings);
         setUpKeystrokeListeners();
     }
-
     public void setupKeyFrameAndTimeline(double delay) {
         KeyFrame frame = new KeyFrame(Duration.millis(delay), e -> {
             try {
@@ -179,7 +167,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         animation.getKeyFrames().add(frame);
         animation.play();
     }
-
     public void endGame() {
         animation.stop();
 //		HighScoreScreen splash = new HighScoreScreen(currentGame, new ArrayList<Integer>(),
@@ -192,29 +179,24 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
 //		endGameStage.setTitle("GAME OVER");
 //		endGameStage.show();
     }
-
-    public void saveGame() {
+    public void saveGame(){
         FileOpener chooser = new FileOpener();
         chooser.saveFile(myResources.getString("XML"), myResources.getString("data"),
                 mySerializer.serializeClientGame(currentGame), myResources.getString("DefaultGameTitle"));
     }
-
     public void stop() {
         stopMusic();
         animation.stop();
     }
-
     public void stopMusic() {
         if (currentGame.getMusicFilePath() != null) {
             mediaPlayer.stop();
         }
     }
-
     public void resetGameScreen() {
         gameScreen.reset();
         myHUD.resetTimer();
     }
-
     private void setUpMethodMappings() {
         try {
             ResourceReader resources = new ResourceReader("Controls");
@@ -229,7 +211,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             e.printStackTrace();
         }
     }
-
     private void mapKeysToMethods(Map<KeyCode, String> mappings) {
         for (Map.Entry<KeyCode, String> m : mappings.entrySet()) {
             if (methodMappings.containsKey(m.getValue())) {
@@ -237,26 +218,23 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             }
         }
     }
-
     private BorderPane makeRoot() {
         BorderPane root = new BorderPane();
         VBox vb = new VBox();
         vb.setFillWidth(true);
         vb.getChildren().addAll(makeToolbar(), makeHUD());
-        //	root.setTop(vb);
         root.setCenter(makeGameScreen());
         root.setTop(vb);
         return root;
     }
-
     private Node makeToolbar() {
-        toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent,
+        toolbar = new Toolbar(myResources, event -> pause(), resetEvent,
                 event -> mute(), event -> saveGame());
         toolbarHBox = toolbar.getToolbar();
         return toolbarHBox;
     }
 
-    public Node getToolbar() {
+    public Node getToolbar(){
         return toolbarHBox;
     }
 
@@ -264,12 +242,10 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         myHUD = new HUD();
         return myHUD.getHUD();
     }
-
     private Node makeGameScreen() {
         gameScreen = new GameScreen();
         return gameScreen.getScreen();
     }
-
     private void mute() {
         if (isMuted) {
             isMuted = false;
@@ -282,14 +258,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             mediaPlayer.setMute(true);
         }
     }
-
-    private void loadLevel() {
-        FileChooser levelChooser = new FileChooser();
-        levelChooser.setTitle("Open Level File");
-        File levelFile = levelChooser.showOpenDialog(new Stage());
-        myLevelFileLocation = levelFile.getAbsolutePath();
-    }
-
     public void pause() {
         if (isPaused) {
             toolbar.resume();
@@ -301,7 +269,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         clientMain.pause();
         isPaused = !isPaused;
     }
-
     private void setUpKeystrokeListeners() {
         this.scene.setOnKeyPressed(event -> {
             if (keyMappings.containsKey(event.getCode())) {
@@ -321,51 +288,50 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             }
         });
     }
-
     @Override
     public void updateGame(ClientGame game) {
-        if (currLevel == 0) {
+        if (currLevel == 0){
             currLevel = game.getLevel();
         }
         currentGame = game;
     }
-
-    public boolean gameLoadedFromServer() {
+    public boolean gameLoadedFromServer(){
         return currentGame != null;
     }
-
     @Override
     public int getCharIdx(GameObject player) {
-        for (int i = 0; i < clientPlayerList.size(); i++) {
-            if (clientPlayerList.get(i).getMainChar() == player) return i;
+        for(int i = 0; i < clientPlayerList.size(); i++){
+            if(clientPlayerList.get(i).getMainChar() == player) return i;
         }
         return -1;
     }
-
     private void makeLevelScreen(List<Integer> highScores, int time, Map<Long,
-            Integer> scoreMapping, IGameEngineUI iGameEngine) {
+            Integer> scoreMapping, IGameEngineUI iGameEngine){
         ScoreScreen myLevelScreen = new LevelScreen(highScores, time, scoreMapping, iGameEngine);
         myLevelStage = new Stage();
         myLevelStage.setTitle(myLevelScreen.getStageTitle());
         myLevelStage.setScene(myLevelScreen.getScene());
         myLevelStage.show();
     }
-
     private void makeLoseScreen(List<Integer> highScores, int time, Map<Long,
-            Integer> scoreMapping, IGameEngineUI iGameEngine) {
+            Integer> scoreMapping, IGameEngineUI iGameEngine){
         ScoreScreen myLoseScreen = new LoseScreen(highScores, time, scoreMapping, iGameEngine);
         myLevelStage = new Stage();
         myLevelStage.setTitle(myLoseScreen.getStageTitle());
         myLevelStage.setScene(myLoseScreen.getScene());
         myLevelStage.show();
     }
-
+    public void closeLoseScreenStage() {
+        if (myLevelStage != null) {
+            myLevelStage.close();
+        }
+    }
     @Override
-    public Stage getMyLevelStage() {
+    public Stage getMyLevelStage(){
         return myLevelStage;
     }
 
-    public void serverShutdown() {
+    public void serverShutdown(){
         clientMain.shutdownServerThread();
     }
 }

@@ -8,7 +8,7 @@ import gameengine.controller.SingletonBoundaryChecker;
 import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 /**
  *
- * @author Ray Song, Soravit
+ * @author Ray Song, Soravit, Pratiksha
  *
  */
 public class GameObject {
@@ -162,19 +162,20 @@ public class GameObject {
         return isPlayer;
     }
     public void setIsPlayer(boolean value){
-        //System.out.println(" boolean: " + value);
         isPlayer = value;
     }
+    
+    public void setTypeName(String name){
+        this.typeName = name;
+    }
 
-    public List getProjectiles(){
+
+    public List<GameObject> getProjectiles(){
         return projectiles;
     }
 
-    public void setTypeName(String typeName){
-        this.typeName = typeName;
-    }
 
     public String getTypeName(){
-        return this.typeName;
+        return typeName;
     }
 }

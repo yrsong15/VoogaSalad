@@ -25,10 +25,11 @@ public class Level implements ILevel{
     private List<RandomGeneration> randomGenerations;
     private String musicFilePath, backgroundFilePath, title;
     private RandomGenFrame<Integer> randomGenerationFrame;
-	private List<GameObject> players;
-	private ScrollType scrollType;
-	private GameObject background;
-	private int time = 0;
+    private List<GameObject> players;
+    private ScrollType scrollType;
+    private GameObject background;
+    private int time = 0;
+
 
     public Level(int level) {
         this.level = level;
@@ -36,51 +37,54 @@ public class Level implements ILevel{
         gameObjects = new ArrayList<GameObject>();
         obstacles = new ArrayList<GameObject>();
         players = new ArrayList<>();
-		winConditions = new HashMap<>();
-		loseConditions = new HashMap<>();
-	}
-	
-	
-	public void removeAllPlayers(){
-		players = new ArrayList<>();
-	}
 
-	public void setScrollType(ScrollType scrollType) {
-		this.scrollType = scrollType;
-	}
+        winConditions = new HashMap<>();
+        loseConditions = new HashMap<>();
+     
+    }
 
-	public ScrollType getScrollType() {
-		return this.scrollType;
-	}
-	
-	public RandomGenFrame getRandomGenerationFrame(){
-		return randomGenerationFrame;
-	}
-	public ArrayList<RandomGeneration<Integer>> getRandomGenRules() {
-		return randomGenerationFrame.getRandomGenerationRules();
-	}
 
-	public void setTime(int time){
-	    this.time = time;
+
+    public void removeAllPlayers(){
+        players = new ArrayList<>();
+    }
+
+    public void setScrollType(ScrollType scrollType) {
+        this.scrollType = scrollType;
+    }
+
+    public ScrollType getScrollType() {
+        return this.scrollType;
+    }
+
+    public RandomGenFrame getRandomGenerationFrame(){
+        return randomGenerationFrame;
+    }
+    public ArrayList<RandomGeneration<Integer>> getRandomGenRules() {
+        return randomGenerationFrame.getRandomGenerationRules();
+    }
+
+    public void setTime(int time){
+        this.time = time;
     }
 
     public int getTime(){
-	    return time;
+        return time;
     }
 
-	public void setRandomGenerationFrame(RandomGenFrame<Integer> randomGen) {
-		randomGenerationFrame = randomGen;
-	}
+    public void setRandomGenerationFrame(RandomGenFrame<Integer> randomGen) {
+        randomGenerationFrame = randomGen;
+    }
 
-	public int getLevel() {
-		return level;
-	}
+    public int getLevel() {
+        return level;
+    }
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
-	public void addProjectile(GameObject go) {
+    public void addProjectile(GameObject go) {
         projectiles.add(go);
     }
 
@@ -139,13 +143,13 @@ public class Level implements ILevel{
     public List<GameObject> getObstacles() {
         return obstacles;
     }
-    
+
     public GameObject getBackground(){
-    	return background;
+        return background;
     }
-    
+
     public void setBackgroundObject(){
-    	GameBoundary gameBoundaries = this.getScrollType().getGameBoundary();
+        GameBoundary gameBoundaries = this.getScrollType().getGameBoundary();
         background = new GameObject(0, 0, 0, gameBoundaries.getWorldWidth(), gameBoundaries.getWorldHeight(), backgroundFilePath, new HashMap<>());
     }
 
@@ -175,7 +179,7 @@ public class Level implements ILevel{
         return backgroundFilePath;
     }
 
-	public String getTitle(){ return title; }
-
-
+    public String getTitle(){ 
+        return title; 
+    }
 }

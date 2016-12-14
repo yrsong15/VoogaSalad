@@ -18,7 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 /**
  * 
- * @author John Martin
+ * @author John Martin, Pratiksha Sharma
  *
  */
 public class EditorToolbar implements IEditorToolbar {

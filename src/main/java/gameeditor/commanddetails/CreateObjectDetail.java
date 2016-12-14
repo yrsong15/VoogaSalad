@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 /**
  * @author John Martin
+ * 
  *
  */
 public class CreateObjectDetail extends AbstractCommandDetail {

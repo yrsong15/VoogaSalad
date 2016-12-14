@@ -134,7 +134,6 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
         myKeyCode = null;
     }
     
-    @SuppressWarnings("unused")
 	private void resetCells(){
     	for (Cell cell : mySelectedCells){
     		cell.resetColor();
