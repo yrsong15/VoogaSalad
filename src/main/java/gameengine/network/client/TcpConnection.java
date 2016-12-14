@@ -145,5 +145,9 @@ class TcpConnection {
 			e.printStackTrace();
 		}
 	}
+	
+	Socket getSocket(){
+		return socket;
+	}
 
 }
