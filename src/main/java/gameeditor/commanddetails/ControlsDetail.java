@@ -79,7 +79,7 @@ public class ControlsDetail extends AbstractCommandDetail implements ILevelTwo {
     }
 
     private void handleSave(){
-        ResourceBundle controlProps =  ResourceBundle.getBundle("Controls");
+        ResourceBundle controlProps =  ResourceBundle.getBundle("ControlKeys");
         Map<KeyCode,String> controlMap = new HashMap<KeyCode,String>();
         for (int i = 0; i < myComboBoxes.size(); i++){
             String controlKey = myComboBoxes.get(i).getValue();

@@ -251,7 +251,7 @@ public class MainCharacterDisplay {
         double playerY = DEFAULT_PLAYER_Y - endHeight/2;
         
         
-        GameObjectView newAvatarGOV = new GameObjectView(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, DetailResources.MAIN_CHARACTER_TYPE.getResource() + myAvatarGOVs.size() + myAvatarGOVs.size(), true, false, myDesignArea, myDataStore);
+        GameObjectView newAvatarGOV = new GameObjectView(filePath, playerX, playerY, DEFAULT_PLAYER_WIDTH, DEFAULT_PLAYER_HEIGHT, DetailResources.MAIN_CHARACTER_TYPE.getResource() + myAvatarGOVs.size(), true, false, myDesignArea, myDataStore);
         
         myAvatarGOVs.add(newAvatarGOV);
         myDesignArea.addAvatar(newAvatarGOV);

@@ -155,8 +155,11 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     {
         for(GameObjectView activeAvatar : listOfActiveAvatars)
         {
-            String avatarType = activeAvatar.getType().replaceAll("\\s+","").substring(0,MAIN_CHAR.length()+1);
-            String playerType = player.getTypeName().substring(0,MAIN_CHAR.length()+1);
+ 
+            String avatarType = activeAvatar.getType().replaceAll("\\s+","");
+            String playerType = player.getTypeName();
+
+            
             if(playerType.equals(avatarType))
             {
                 return true;
@@ -169,11 +172,11 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     @SuppressWarnings("unused")
     private void addAvatar(){
         if(myGameInterface.getCurrentLevel()!=null){
-            for(GameObject player: myGameInterface.getCurrentLevel().getPlayers()){  
+            for(GameObject player: myGameInterface.getCurrentLevel().getPlayers()){ 
+                System.out.println(myGameInterface.getCurrentLevel().getPlayers().size());
                 ArrayList<GameObjectView> listOfPlayer = myDetailPane.getCurrentAvatars();
                 if(!playerIsActive(player,listOfPlayer))
-                {
-                    //System.out.println(" HER E" );                  
+                {             
                     String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+player.getImageFileName();
                     myDetailPane.setAvatar(filePath);
                 }

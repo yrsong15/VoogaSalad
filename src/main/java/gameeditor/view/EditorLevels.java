@@ -96,16 +96,10 @@ public class EditorLevels implements IEditorLevels{
         Region title = createTitle(gameName);
         formatter.addView(title, "Title")
         	.position(Side.TOP, "LevelView", 10); 
-<<<<<<< HEAD
-        
-        root = formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
-        return root;
-        
-=======
 
+        
         root = formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
         return root;
->>>>>>> b9818e60e281f3ac6ca593a69b68d27305a58d63
     }
     
     private Button createNewLevelButton()

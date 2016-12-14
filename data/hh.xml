@@ -10,14 +10,13 @@
         <obstacles/>
         <winConditions/>
         <loseConditions/>
-        <backgroundFilePath>Background/bg.png</backgroundFilePath>
         <players>
           <objects.GameObject>
             <xPosition>100.0</xPosition>
-            <yPosition>181.4075630252101</yPosition>
+            <yPosition>176.57849829351537</yPosition>
             <width>75.0</width>
-            <height>37.18487394957983</height>
-            <imageFileName>bird3.png</imageFileName>
+            <height>46.84300341296928</height>
+            <imageFileName>bird2.gif</imageFileName>
             <properties>
               <entry>
                 <string>Type Name</string>
@@ -25,33 +24,20 @@
               </entry>
             </properties>
             <xDistanceMoved>100.0</xDistanceMoved>
-            <yDistanceMoved>181.4075630252101</yDistanceMoved>
+            <yDistanceMoved>176.57849829351537</yDistanceMoved>
             <onPlatform>false</onPlatform>
             <isPlayer>true</isPlayer>
             <id>0</id>
             <typeName>MainCharacter0</typeName>
             <projectiles/>
+            <velX>0.0</velX>
           </objects.GameObject>
         </players>
         <time>0</time>
       </objects.Level>
     </entry>
-    <entry>
-      <int>2</int>
-      <objects.Level>
-        <level>2</level>
-        <projectiles/>
-        <gameObjects/>
-        <obstacles/>
-        <winConditions/>
-        <loseConditions/>
-        <backgroundFilePath>Background/flappyBackground.jpg</backgroundFilePath>
-        <players/>
-        <time>0</time>
-      </objects.Level>
-    </entry>
   </levels>
-  <currentLevel reference="../levels/entry[2]/objects.Level"/>
+  <currentLevel reference="../levels/entry/objects.Level"/>
   <players>
     <objects.Player>
       <mainChar reference="../../../levels/entry/objects.Level/players/objects.GameObject"/>

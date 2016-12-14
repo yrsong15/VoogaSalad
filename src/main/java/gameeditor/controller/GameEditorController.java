@@ -157,6 +157,7 @@ public class GameEditorController implements IGameEditorController{
                                  Boolean oldValue,
                                  Boolean newValue) {
                 if(newValue.booleanValue()==true){
+                    myGameInterface.setGameName(myEditorLevels.getGameTitle().get());
                     myLevelScene.setRoot(myEditorLevels.getRoot());
                     resizeStageToSplashScreen();
                 }

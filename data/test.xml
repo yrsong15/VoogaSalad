@@ -1,16 +1,50 @@
 <objects.Game>
-  <name> hello</name>
+  <name>ScrollTest </name>
   <levels>
     <entry>
       <int>1</int>
       <objects.Level>
         <level>1</level>
         <projectiles/>
-        <gameObjects/>
+        <gameObjects>
+          <objects.GameObject>
+            <xPosition>410.0</xPosition>
+            <yPosition>153.0</yPosition>
+            <width>50.0</width>
+            <height>49.77272727272727</height>
+            <imageFileName>block.png</imageFileName>
+            <properties>
+              <entry>
+                <string>isDestructible</string>
+                <string>False</string>
+              </entry>
+              <entry>
+                <string>nonscrollable</string>
+                <string>True</string>
+              </entry>
+              <entry>
+                <string>randomgeneration</string>
+                <string>False</string>
+              </entry>
+              <entry>
+                <string>Type Name</string>
+                <string>cas</string>
+              </entry>
+            </properties>
+            <xDistanceMoved>0.0</xDistanceMoved>
+            <yDistanceMoved>0.0</yDistanceMoved>
+            <onPlatform>false</onPlatform>
+            <isPlayer>false</isPlayer>
+            <id>0</id>
+            <typeName>cas</typeName>
+            <projectiles/>
+            <velX>0.0</velX>
+          </objects.GameObject>
+        </gameObjects>
         <obstacles/>
         <winConditions/>
         <loseConditions/>
-        <backgroundFilePath>Background/mario-background-7.png</backgroundFilePath>
+        <title>ScrollTest </title>
         <players>
           <objects.GameObject>
             <xPosition>100.0</xPosition>
@@ -31,24 +65,10 @@
             <id>0</id>
             <typeName>MainCharacter0</typeName>
             <projectiles/>
+            <velX>0.0</velX>
           </objects.GameObject>
-        </players>
-        <time>0</time>
-      </objects.Level>
-    </entry>
-    <entry>
-      <int>2</int>
-      <objects.Level>
-        <level>2</level>
-        <projectiles/>
-        <gameObjects/>
-        <obstacles/>
-        <winConditions/>
-        <loseConditions/>
-        <backgroundFilePath>Background/bg2.jpg</backgroundFilePath>
-        <players>
           <objects.GameObject>
-            <xPosition>100.0</xPosition>
+            <xPosition>185.0</xPosition>
             <yPosition>181.4075630252101</yPosition>
             <width>75.0</width>
             <height>37.18487394957983</height>
@@ -56,29 +76,30 @@
             <properties>
               <entry>
                 <string>Type Name</string>
-                <string>MainCharacter0</string>
+                <string>MainCharacter1</string>
               </entry>
             </properties>
-            <xDistanceMoved>100.0</xDistanceMoved>
+            <xDistanceMoved>185.0</xDistanceMoved>
             <yDistanceMoved>181.4075630252101</yDistanceMoved>
             <onPlatform>false</onPlatform>
             <isPlayer>true</isPlayer>
             <id>0</id>
-            <typeName>MainCharacter0</typeName>
+            <typeName>MainCharacter1</typeName>
             <projectiles/>
+            <velX>0.0</velX>
           </objects.GameObject>
         </players>
         <time>0</time>
       </objects.Level>
     </entry>
   </levels>
-  <currentLevel reference="../levels/entry[2]/objects.Level"/>
+  <currentLevel reference="../levels/entry/objects.Level"/>
   <players>
     <objects.Player>
       <mainChar reference="../../../levels/entry/objects.Level/players/objects.GameObject"/>
     </objects.Player>
     <objects.Player>
-      <mainChar reference="../../../levels/entry[2]/objects.Level/players/objects.GameObject"/>
+      <mainChar reference="../../../levels/entry/objects.Level/players/objects.GameObject[2]"/>
     </objects.Player>
   </players>
   <clientMappings>
