@@ -114,7 +114,8 @@ public class ServerMain {
 //			System.out.println("Error in closing server socket");
 //			ex.printStackTrace();
 //		}
-		Thread.currentThread().interrupt();
+//		Thread.currentThread().interrupt();
+//		Thread.currentThread().stop();
 //		System.out.println("thread closed!!");
 		return;
 	}
