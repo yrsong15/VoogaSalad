@@ -84,7 +84,7 @@ public class GameEngineController implements CommandInterface {
 		gameEngineView.startClient(serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
-//			System.out.print("");
+			System.out.print("");
 		}
 		gameEngineView.initLevel(playerMapping);
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);
