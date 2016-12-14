@@ -22,7 +22,7 @@
           </entry>
           <entry>
             <string>onewaynonintersectable</string>
-            <string>bottom</string>
+            <string>Bottom</string>
           </entry>
           <entry>
             <string>randomgeneration</string>
@@ -148,7 +148,7 @@
           </entry>
           <entry>
             <string>gravity</string>
-            <string>0.8</string>
+            <string>1</string>
           </entry>
           <entry>
             <string>health</string>
@@ -156,7 +156,7 @@
           </entry>
           <entry>
             <string>jumpunlimited</string>
-            <string>1000</string>
+            <string>400</string>
           </entry>
           <entry>
             <string>Type Name</string>

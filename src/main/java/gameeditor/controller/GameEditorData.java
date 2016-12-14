@@ -9,6 +9,7 @@ import gameeditor.commanddetails.DetailDefaultsResources;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.objects.GameObjectView;
 import gameengine.model.RandomGenFrame;
 import gameengine.model.RandomGenFrameX;
 import gameengine.model.RandomGenFrameY;
@@ -240,7 +241,7 @@ public class GameEditorData implements IGameEditorData{
             }
         }
     }
-    
+
     private GameObject createGameObject(Map<String,String> map){
         GameObject object=null;
         try{
@@ -290,22 +291,38 @@ public class GameEditorData implements IGameEditorData{
 
     @Override
     public void storeMainCharToXML () {   
-        //removeFromMapList(myMainCharImageViewMaps);
         if(myMainCharImageViewMaps.size()>0){
             for(Map<String,String> map: myMainCharImageViewMaps){
                 GameObject myObject = createGameObject(map);
                 if(myObject!=null){
-                    Player player = new Player(myObject);
-                    player.setControlMap(myPlayerControlsMap.get(myObject.getTypeName()));
+                    if(!playerExists(myObject)){
+                       // System.out.println(" Player not in there ");
+                        Player player = new Player(myObject);
+                        player.setControlMap(myPlayerControlsMap.get(myObject.getTypeName()));
 
-                    myGame.addPlayer(player);
-                    myGame.addPlayerToClient(0,player);
-                    myLevel.addPlayer(myObject);
-
+                        myGame.addPlayer(player);
+                        myGame.addPlayerToClient(0,player);
+                        myLevel.addPlayer(myObject);
+                    }
                 }
             }
         }
     }
+
+    private boolean playerExists(GameObject object ){
+        if(!myGame.getCurrentLevel().getPlayers().isEmpty()){
+            for(GameObject player: myGame.getCurrentLevel().getPlayers()){
+                System.out.println(" Player " + player.getTypeName());
+                System.out.println(" Object " + object.getTypeName());
+                if(player.getTypeName().equals(player.getTypeName())){
+                    return true;   
+                }
+
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public ArrayList<String> getMainCharacterTypes () {
@@ -334,11 +351,11 @@ public class GameEditorData implements IGameEditorData{
     public void addScrollType(ScrollType scrolltype){
         myLevel.setScrollType(scrolltype);
     }
-    
+
     public Map<KeyCode,String> getControlsMap(String typeName){ 
         typeName = typeName.replaceAll("\\s+","");
         if(!myPlayerControlsMap.isEmpty()){
-        return myPlayerControlsMap.get(typeName);   
+            return myPlayerControlsMap.get(typeName);   
         }
         return null;
     }

@@ -1,8 +1,11 @@
 package gameeditor.view;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.swing.text.html.ObjectView;
 import frontend.util.FileOpener;
 import frontend.util.GameEditorException;
 import gameeditor.commanddetails.DetailResources;
@@ -42,6 +45,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private static final String IMAGES_LOCATION = ViewResources.IMAGES_LOCATION.getResource();
     public static final  double SCENE_WIDTH = ViewResources.SCENE_WIDTH.getDoubleResource();
     public static final double SCENE_HEIGHT = ViewResources.SCENE_HEIGHT.getDoubleResource();
+    public static final String MAIN_CHAR="MainCharacter";
 
     private BorderPane myRoot;
     private ScrollPane myScrollPane;
@@ -70,27 +74,19 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     public Parent createRoot(){
         myRoot.setCenter(createCenter());
         myRoot.setLeft(createLeftAlt());
-        //try{
         addStuffFromOtherFiles();
-        //        addBackground();
-        //        addAvatar();
-        //        addSprites();
-        //}catch(NullPointerException e){
-        //GameEditorException exception = new GameEditorException();
-        //exception.showError(e.getMessage());
-        //}
         return myRoot;
     }
 
     public void addStuffFromOtherFiles(){
-       // try{ 
-            addBackground();
-            addAvatar();
-            addSprites();
+        // try{ 
+        addBackground();
+        addAvatar();
+        addSprites();
         //}catch(NullPointerException e){
-            //GameEditorException exception = new GameEditorException();
-            //exception.showError(e.getMessage());
-       // }
+        //GameEditorException exception = new GameEditorException();
+        //exception.showError(e.getMessage());
+        // }
     }
 
     private void addSprites(){
@@ -105,12 +101,14 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                 String fileName = userDirectoryString+"Sprite/" + object.getImageFileName();
 
                 Map<String,String> propertiesMap = new HashMap<String,String>();
-               propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), fileName);
+                propertiesMap.put(DetailResources.IMAGE_PATH.getResource(), fileName);
                 propertiesMap.putAll(object.getProperties());
                 // Store type in data storage
-               if(myDataStoreInterface.getType(object.getTypeName())==null){
-                myDataStoreInterface.storeType(propertiesMap);
-               }
+                if(myDataStoreInterface.getType(object.getTypeName())==null){
+                    myDataStoreInterface.storeType(propertiesMap);
+                }
+                ArrayList<GameObjectView> myAvatars =  myDetailPane.getCurrentAvatars();
+                System.out.println(myAvatars.size());
 
                 GameObjectView objectView = new GameObjectView(fileName,x,y,width,height,type,false,false,myDesignArea,myDataStoreInterface);
 
@@ -153,21 +151,36 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
         }
     }
 
+    private boolean playerIsActive(GameObject player, List<GameObjectView> listOfActiveAvatars)
+    {
+        for(GameObjectView activeAvatar : listOfActiveAvatars)
+        {
+            String avatarType = activeAvatar.getType().replaceAll("\\s+","").substring(0,MAIN_CHAR.length()+1);
+            String playerType = player.getTypeName().substring(0,MAIN_CHAR.length()+1);
+            if(playerType.equals(avatarType))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     @SuppressWarnings("unused")
     private void addAvatar(){
         if(myGameInterface.getCurrentLevel()!=null){
-//            System.out.println(" Level " + myGameInterface.getCurrentLevel().getLevel());
-//            System.out.println(" Players " +myGameInterface.getCurrentLevel().getPlayers().size());
-//            System.out.println(myGameInterface.getCurrentLevel());
-            if(myGameInterface.getCurrentLevel().getPlayers().size()>0){
-                for(GameObject player: myGameInterface.getCurrentLevel().getPlayers()){                  
+            for(GameObject player: myGameInterface.getCurrentLevel().getPlayers()){  
+                ArrayList<GameObjectView> listOfPlayer = myDetailPane.getCurrentAvatars();
+                if(!playerIsActive(player,listOfPlayer))
+                {
+                    //System.out.println(" HER E" );                  
                     String filePath = FILE_PREFIX+getUserDirectory()+AVATAR_IMAGE_LOCATION+ File.separator+player.getImageFileName();
                     myDetailPane.setAvatar(filePath);
                 }
             }
         }
     }
-
+    
     public void setBackground(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
         displayBackgroundOnScreen(filePath);

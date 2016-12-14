@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import objects.Game;
@@ -61,7 +62,6 @@ public class GameEditorController implements IGameEditorController{
         
         if(myGameEditorBackEndController.getGame().getNumberOfLevels()!=0){
             for(int i=0;i<myGameEditorBackEndController.getGame().getNumberOfLevels();i++){
-                System.out.println(" HERE ");
                 addLevelButton();
             }
         }
@@ -123,7 +123,6 @@ public class GameEditorController implements IGameEditorController{
         if(myLevelEditorMap.containsKey(activeButtonId)){
             myGameEditorView=myLevelEditorMap.get(activeButtonId);
             Level level = myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1);
-          
             myGameInterface.setCurrentLevel(level);
             setSavedLevelRoot();
             myGameEditorView.setSaveProperty(false);
@@ -207,4 +206,10 @@ public class GameEditorController implements IGameEditorController{
     public String getGameTitle(){
         return myEditorLevels.getGameTitle().get();
     }
+
+    
+    public Image getGameCoverImage(){
+        return myEditorLevels.getGameCoverImage();
+    }
+
 }

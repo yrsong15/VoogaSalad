@@ -1,11 +1,13 @@
 package general;
 
+import gameeditor.view.GameCoverView;
 import general.interfaces.IGameFileView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -13,7 +15,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import side.Side;
+import viewformatter.ViewFormatter;
 import javafx.event.EventType;
+import javafx.geometry.Pos;
 
 public class GameFileView implements IGameFileView
 {
@@ -56,7 +61,7 @@ public class GameFileView implements IGameFileView
 	@Override
 	public void highlight()
 	{
-		gameView.setFill(Color.YELLOW);
+		gameView.setFill(Color.LIGHTBLUE);
 	}
 
 	@Override
@@ -69,7 +74,8 @@ public class GameFileView implements IGameFileView
 	}
 
 	@Override
-	public void deselect() {
+	public void deselect() 
+	{
 		isSelected = false;
 		dehighlight();
 	}
@@ -88,11 +94,44 @@ public class GameFileView implements IGameFileView
 
 	private Pane createView()
 	{
-		Pane view = new Pane();
+		ViewFormatter formatter = new ViewFormatter();
+
+		Label name = createGameTitle();
+		formatter.addView(name, "Name")
+			.centerXInScreen();
+		
+		ImageView gameCover = new ImageView(gameFile.getGameCoverImage());
+		formatter.addView(gameCover, "Game Cover")
+			.position(Side.BOTTOM, "Name", 10)
+			.centerXInScreen()
+			.setHeightAsFractionOfScreen(.5)
+			.setWidth(GameCoverView.DEFAULT_IMAGE_WIDTH);
+		
+		double rectWidth = name.getText().length() * (.8 * name.getFont().getSize());
+		Rectangle rect = generateBackground(rectWidth,85);
+		formatter.addView(rect, "Background",rectWidth, 85)
+			.setZ(-1);
+			
+		
+		gameViewColor = rect.getFill();
+		gameView = rect;
+		Tooltip Trect = myFactory.makeTooltip("GalleryItem");
+		Tooltip.install(rect, Trect);
+		
+		return formatter.renderView(rectWidth, 85);
+	}
+	
+	private Label createGameTitle()
+	{
 		Label name = new Label(gameFile.getGameName());
+		name.setAlignment(Pos.CENTER);
 		name.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-		double rectWidth = name.getText().length() * name.getFont().getSize();
-		Rectangle rect = new Rectangle(rectWidth, 85);
+		return name;
+	}
+	private Rectangle generateBackground(double width, double height)
+	{
+
+		Rectangle rect = new Rectangle(width,height);
 		int randVal = (int)(Math.random() * 3);
 		if(randVal == 0)
 		{
@@ -106,14 +145,8 @@ public class GameFileView implements IGameFileView
 		{
 			rect.setFill(Color.BLUEVIOLET);
 		}
-		gameViewColor = rect.getFill();
-		gameView = rect;
-		Tooltip Trect = myFactory.makeTooltip("GalleryItem");
-		Tooltip.install(rect, Trect);
-		view.getChildren().add(gameView);
 		
-		view.getChildren().add(name);
-		return view;
+		return rect;
 	}
 
 	@Override

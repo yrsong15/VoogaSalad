@@ -1,5 +1,7 @@
 package gameeditor.view.interfaces;
 
+import java.util.ArrayList;
+
 import gameeditor.objects.GameObjectView;
 import javafx.scene.layout.Pane;
 /**
@@ -22,5 +24,7 @@ public interface IDetailPane {
     public  String getLastPaneType ();
 
     public void updateDetail ();
+
+	public ArrayList<GameObjectView> getCurrentAvatars();
 
 }
