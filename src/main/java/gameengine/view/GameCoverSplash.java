@@ -44,6 +44,9 @@ public class GameCoverSplash {
 
     public Scene createSplashScene() {
         myWindow = new Pane();
+        if (title == null){
+        	title = "Untitled";
+        }
         int titleWidth = 100 + (30 * title.length());
         if (titleWidth < COVER_WIDTH) titleWidth = COVER_WIDTH;
         coverScene = new Scene(myWindow, titleWidth, 775);

@@ -30,7 +30,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private BorderPane myLimitWidthOption;
     private ComboBox<String> gameBoundaryOptions;
     private BorderPane myScrollWidthBP;
-    private String scrollTypeClass;
+    private String scrollTypeClass = FREE_SCROLL_TYPE;
     private ArrayList<Direction> scrollTypeDirections;
     
     public BehaviorDetail() {
