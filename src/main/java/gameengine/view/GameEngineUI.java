@@ -360,7 +360,9 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	}
 
 	public void closeLoseScreenStage() {
-		myLevelStage.close();
+		if (myLevelStage != null) {
+			myLevelStage.close();
+		}
 	}
 
 	@Override
