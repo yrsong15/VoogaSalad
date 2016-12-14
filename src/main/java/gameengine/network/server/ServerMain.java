@@ -85,9 +85,7 @@ public class ServerMain {
 			}
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 	}
@@ -106,12 +104,9 @@ public class ServerMain {
 	}
 	
 	public void shutdownServerThread(){
-		System.out.println("shutdown in servermain");
 		try {
 			serverSocket.close();
 		} catch (IOException ex) {
-			System.out.println("Error in closing server socket");
-			ex.printStackTrace();
 		}
 		Thread.currentThread().interrupt();
 		return;
@@ -171,7 +166,6 @@ public class ServerMain {
 			try {
 				gamePlaySocket = new DatagramSocket();
 			} catch (SocketException e) {
-				e.printStackTrace();
 			}
 		}
 

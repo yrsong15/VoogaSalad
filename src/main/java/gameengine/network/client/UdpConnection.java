@@ -78,14 +78,12 @@ class UdpConnection implements Runnable {
 						int end = data.indexOf(endTag);
 						data = data.substring(0, end+endTag.length());
 					} catch (IOException e1) {
-						e1.printStackTrace();
 						continue;
 					}
 					ClientGame game = null;
 					try {
 						game = serializer.getClientGameFromString(data);
 					} catch (Exception e) {
-						e.printStackTrace();
 					}
 					udpHandler.updateGame(game);
 					packet.setData(buffer);
@@ -93,7 +91,6 @@ class UdpConnection implements Runnable {
 				}
 
 			} catch ( SocketException e) {
-				e.printStackTrace();
 			}
 
 		}

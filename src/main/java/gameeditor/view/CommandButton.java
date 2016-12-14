@@ -49,7 +49,6 @@ public class CommandButton implements ICommandButton {
 		try {
 			myButtonImage = new Image(new FileInputStream(IMAGE_FILE_LOCATION + fileLocation));
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}
 		double imageX = xOffset + BUTTON_IMAGE_PADDING;
 		double imageY = yOffset + BUTTON_IMAGE_PADDING;

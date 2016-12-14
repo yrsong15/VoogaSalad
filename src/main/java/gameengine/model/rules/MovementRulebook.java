@@ -48,7 +48,7 @@ public class MovementRulebook {
 					ReflectionUtil.runMethod(ruleName, "applyRule", parameters, parameterTypes);
 				} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
 						| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					e.printStackTrace();
+					
 					throw (new MovementRuleNotFoundException());
 				}
             }

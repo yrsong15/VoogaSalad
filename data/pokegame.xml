@@ -660,7 +660,7 @@
         <players>
           <objects.GameObject>
             <xPosition>400.0</xPosition>
-            <yPosition>400.0</yPosition>
+            <yPosition>0.0</yPosition>
             <width>40.0</width>
             <height>40.0</height>
             <imageFileName>trainer.png</imageFileName>
@@ -683,7 +683,7 @@
               </entry>
             </properties>
             <xDistanceMoved>400.0</xDistanceMoved>
-            <yDistanceMoved>800.0</yDistanceMoved>
+            <yDistanceMoved>0.0</yDistanceMoved>
             <onPlatform>false</onPlatform>
             <isPlayer>true</isPlayer>
             <id>0</id>
@@ -719,10 +719,6 @@
           <string>left</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-          <string>shoot</string>
-        </entry>
-        <entry>
           <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
           <string>right</string>
         </entry>
@@ -731,8 +727,8 @@
           <string>up</string>
         </entry>
         <entry>
-          <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-          <string>jump</string>
+          <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+          <string>down</string>
         </entry>
       </controls>
     </objects.Player>
