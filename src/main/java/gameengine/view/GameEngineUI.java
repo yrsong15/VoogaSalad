@@ -47,7 +47,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private ResourceBundle myResources;
 	private Scene scene;
 	private Stage myLevelStage;
-	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
 	private String myLevelFileLocation;
 	private Toolbar toolbar;

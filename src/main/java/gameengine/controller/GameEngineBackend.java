@@ -88,8 +88,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
 		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
 		conditionChecker.checkConditions(this, currentGame.getCurrentLevel().getWinConditions(), currentGame.getCurrentLevel().getLoseConditions());
-	
-		
+
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
 			Position position = new Position();
@@ -113,11 +112,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj, boolean oneSided) {
 		double newPosition;
-		/*if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) != IntersectionAmount.NOT_INTERSECTING){
-			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
-				mainChar.setPlatformCharacterIsOn(obj);
-			} 	
-		}*/
 		if(oneSided && SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
 				obj) != IntersectionAmount.NOT_INTERSECTING) {
 			newPosition = setNewPosition(mainCharImprints.get(mainChar).getY(), mainChar, obj);

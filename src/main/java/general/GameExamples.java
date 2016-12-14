@@ -30,7 +30,7 @@ public class GameExamples{
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
         mario.setProperty("movespeed", "5");
-        mario.setProperty("gravity", "0.8");
+        mario.setProperty("gravity", "1.2");
         mario.setProperty("jumpunlimited", "800");
         mario.setProperty("health", "30");
         Level level = new Level(1);
@@ -204,7 +204,7 @@ public class GameExamples{
         game.addPlayerToClient(0, player1);
         shyGuy.setProperty("jumpunlimited", "800");
         shyGuy.setProperty("gravity", "1.0");
-        shyGuy.setProperty("movespeed", "60");
+        shyGuy.setProperty("movespeed", "200");
         shyGuy.setProperty("health", "30");
         Level level = new Level(1);
         GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 700, 675);
@@ -225,7 +225,7 @@ public class GameExamples{
         DoodleJumpProperties.put("bounce", "1000");
         DoodleJumpProperties.put("points", "5");
         GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth/2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", new HashMap<>());
-        mainPlatform.setProperty("bounce", "1600");
+        mainPlatform.setProperty("bounce", "1800");
         level.getGameObjects().add(mainPlatform);
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
         RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
@@ -237,7 +237,7 @@ public class GameExamples{
         RandomGenFrame frame = new RandomGenFrameY(level, randomGen, true);
         level.setRandomGenerationFrame(frame);
         level.addGameObject(ground);
-        level.addWinCondition("score", "1000");
+        //level.addWinCondition("score", "1000");
         
         
         Level level2 = new Level(2);

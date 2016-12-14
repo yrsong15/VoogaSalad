@@ -37,6 +37,8 @@ public class Gallery implements IGallery {
 		addToGallery(exampleGame);
 		GameFile ddr = new GameFile("Dance Dance Revolution", readFile("data/DanceDanceRevolution.xml"));
 		addToGallery(ddr);
+		GameFile mario = new GameFile("Mario", readFile("data/Mario.xml"));
+		addToGallery(mario);
 	}
 
 	@Override
