@@ -2,6 +2,9 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
@@ -94,18 +97,15 @@ public class MainController {
                 addNewGameFile(title, gameFile);
                 launchEngine(gameFile);
         }
+        
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-//       XMLData = gameExamples.getDanceDanceRevolution();
-   //    XMLData = gameExamples.getMultiplayerDDR();
-   //   XMLData = gameExamples.getMarioXML();
         //   XMLData = gameExamples.getDanceDanceRevolution();
-//        XMLData = gameExamples.getDanceDanceRevolution();
 //        XMLData = gameExamples.getMultiplayerDDR();
-      XMLData = gameExamples.getMultiplayerDDR();
  //       XMLData = gameExamples.getScrollingXML();
-      // XMLData = gameExamples.getMarioXML();
+//        XMLData = gameExamples.getDoodleJumpXML();
+        XMLData = gameExamples.getMarioXML();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;
