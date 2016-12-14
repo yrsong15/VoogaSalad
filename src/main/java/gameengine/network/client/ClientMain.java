@@ -24,7 +24,7 @@ import objects.Player;
  */
 public class ClientMain{
 
-	public static long ID = -1; // we get ID from the server side
+	public long ID = -1; // we get ID from the server side
 
 	private TcpConnection connections; // establishing TCP connection
 
