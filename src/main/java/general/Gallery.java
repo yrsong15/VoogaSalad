@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import general.interfaces.IGallery;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import objects.Game;
 import org.apache.commons.io.FileUtils;
 import java.util.List;
@@ -27,17 +29,19 @@ public class Gallery implements IGallery {
 	}
 
 	private void addDefaultGame() throws IOException {
+		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
+		Image gameCover = new Image(userDirectoryString);
 		GameFile ddr = new GameFile("Dance Dance Revolution",
-				readFile("data/DanceDanceRevolution.xml"));
+				readFile("data/DanceDanceRevolution.xml"), gameCover);
 		addToGallery(ddr);
 		GameFile mario = new GameFile("Super Mario",
-				readFile("data/Mario.xml")); //
+				readFile("data/Mario.xml"), gameCover);
 		addToGallery(mario);
 		GameFile doodle = new GameFile("Doodle Jump",
-				readFile("data/DoodleJump.xml")); //
+				readFile("data/DoodleJump.xml"), gameCover);
 		addToGallery(doodle);
 		GameFile flappy = new GameFile("Example Flappy Bird",
-				readFile("data/FlappyExample.xml"));
+				readFile("data/FlappyExample.xml"), gameCover);
 		addToGallery(flappy);
 	}
 

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import frontend.util.GameEditorException;
 import gameeditor.controller.interfaces.IGameEditorData;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -60,7 +59,6 @@ public class SpriteDetail {
         return myVBox;
     }
 
-
     private void createProperties(){
         int counter=0;
         for (String label : myPropertiesComBoArray){
@@ -97,12 +95,22 @@ public class SpriteDetail {
             currentList.add(index+1, myNonIntersectableOptionBP);
             myVBox.getChildren().clear();         
             myVBox.getChildren().addAll(currentList);
-                  
+                       
         } else if((combo.getValue().equals("True"))){
             if(myVBox.getChildren().contains(myNonIntersectableOptionBP)){
                 myVBox.getChildren().remove(myVBox.getChildren().indexOf(myNonIntersectableOptionBP));
             }
         }  
+    }
+    
+    private void getPlatFormProperties(Map<String,String> propertiesMap){
+        if(nonInterSectableCombo!=null){
+            if(nonInterSectableCombo.getValue().toString().equals("Both")){
+                propertiesMap.put(DetailResources.NON_INTERSECTABLE_KEY.getResource(), "True");
+            }else {
+                propertiesMap.put(DetailResources.ONE_SIDE_NON_INTERSECTABLEKEY.getResource(), nonInterSectableCombo.getValue().toString().toLowerCase());
+            }
+        }
     }
     
 
@@ -129,9 +137,13 @@ public class SpriteDetail {
                 GameEditorException e = new GameEditorException();
                 e.showError("Type Name already exists");
             }
+            
+            getPlatFormProperties(propertiesMap);
         }else{
 
-        }      
+        }   
+        
+        
     }
 
     private void getPropertiesFromCombo(Map<String,String> propertiesMap){

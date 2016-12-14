@@ -10,7 +10,10 @@ import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
 import objects.*;
 
 /**
@@ -40,8 +43,8 @@ public class MainController {
         this.gallery = new Gallery();
     }
 
-    private void addNewGameFile(String title, String gameData) {
-        GameFile newGame = new GameFile(title, gameData);
+    private void addNewGameFile(String title, String gameData, Image gameCover) {
+        GameFile newGame = new GameFile(title, gameData, gameCover);
         gallery.addToGallery(newGame);
     }
 
@@ -56,6 +59,7 @@ public class MainController {
         gameEditorController.startEditor(game);
         gameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
+
 
     private void setUpGameEngineStage(Level level) {
         gameEngineStage = new Stage();
@@ -100,16 +104,20 @@ public class MainController {
     private void sendDataToEngine() {
         String title = gameEditorController.getGameTitle();
         String gameFile = gameEditorController.getGameFile();
-        addNewGameFile(title, gameFile);
+        Image gameCoverImage = gameEditorController.getGameCoverImage();
+        addNewGameFile(title, gameFile, gameCoverImage);
         launchEngine(gameFile);
     }
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-//        XMLData = gameExamples.getMultiplayerDDR();
-  //      XMLData = gameExamples.getScrollingXML();
+//        XMLData = gameExamples.getDanceDanceRevolution();
+
+            XMLData = gameExamples.getMultiplayerDDR();
 //        XMLData = gameExamples.getDoodleJumpXML();
-        XMLData = gameExamples.getMarioXML();
+        //  XMLData = gameExamples.getScrollingXML();
+//         XMLData = gameExamples.getMarioXML();
+        //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;
@@ -118,6 +126,7 @@ public class MainController {
         if (level != null) {
             setUpGameEngineStage(level);
         }
+
     }
 
     public void editGame() {

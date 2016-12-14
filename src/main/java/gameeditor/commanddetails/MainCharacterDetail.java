@@ -68,9 +68,13 @@ public class MainCharacterDetail extends AbstractSelectDetail {
             for(String label: myPropertiesArray){
                 boolean containsDefault= myTextInputs.get(i).getText().equals(DetailDefaultsResources.TEXT_BOX_NUMBER_DEFAULT_INPUT.getResource());
                 if(!(myTextInputs.get(i).getText().isEmpty()) &&(!containsDefault )){
-                    if(!label.equals(DetailResources.MAIN_CHAR_MOVEMENT_LABEL.getResource())){
+                   
+                    if(label.equals(DetailResources.MAIN_CHAR_MOVEMENT_LABEL.getResource())){
+                        
                         label = DetailResources.MAIN_CHAR_MOVEMENT_KEY.getResource();
                     }
+              
+                    
                     myMainCharMap.put(label.toLowerCase(), myTextInputs.get(i).getText()); 
                 }
                 i++;
