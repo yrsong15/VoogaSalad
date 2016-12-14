@@ -46,7 +46,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	
 		
 		String scrollType = currentGame.getCurrentLevel().getScrollType().getScrollTypeName();
-		System.out.println(scrollType);
 		if (scrollType.equals("FreeScrolling")){
 			currentGame.getCurrentLevel().setBackgroundObject();
 		}
@@ -96,7 +95,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 			mainCharImprints.put(mainChar, position);
 			mainChar.checkPlatformStatus();
-			System.out.println("Position" + position.getX());
 		}
 	}
 	private double setNewPosition(double mainCharacterReference, GameObject mainChar, GameObject obj){
@@ -200,8 +198,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
     public void goNextLevel() {
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel()+1) != null) {
+			System.out.println("switching levelss");
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
 		} else {
+			System.out.println("won");
 			winGame();
 		}
 	}
