@@ -65,6 +65,7 @@ public class ServerMain {
 	private ServerSocket serverSocket;
 	
 	public ServerMain(GameHandler gameHandler, int tcpPort, String serverName) {
+
 		this.gameHandler = gameHandler;
 		SERVER_PORT_TCP = tcpPort;
 		activeClients = new CopyOnWriteArrayList<IpPort>();
@@ -104,26 +105,29 @@ public class ServerMain {
 		gameHandler.restart();
 	}
 	
-	public synchronized void shutdownServerThread(){
+	public void shutdownServerThread(){
 		System.out.println("shutdown in servermain");
-		try {
-			serverSocket.close();
-		} catch (IOException ex) {
-			System.out.println("Error in closing server socket");
-			ex.printStackTrace();
-		}
-		Thread.currentThread().interrupt();
+//		try {
+//			serverSocket.close();
+////			System.out.println("Socket closed!!");
+//		} catch (IOException ex) {
+//			System.out.println("Error in closing server socket");
+//			ex.printStackTrace();
+//		}
+//		Thread.currentThread().interrupt();
+//		Thread.currentThread().stop();
+//		System.out.println("thread closed!!");
 		return;
 	}
 	
 	private void runTimer(){
 		timer.scheduleAtFixedRate(new TimerTask() {
-
+			
 			@Override
 			public void run() {
-				//System.out.println(IDs);
+				System.out.println(IDs + " " + Thread.currentThread().isAlive());
 				if(!isPaused && (IDs >= gameHandler.getGame().getMinNumPlayers())){
-				gameHandler.updateGame();
+					gameHandler.updateGame();
 				}
 				udpSend.sendGamePlay(gameHandler.getClientGame());
 			}
