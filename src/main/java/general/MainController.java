@@ -2,6 +2,9 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
@@ -88,26 +91,47 @@ public class MainController {
     }
 
 
-        public void startPlayingSingle() {
-        gameEngineController.setHostMode(true, "localhost");
-                gameEngineStage.setScene(gameEngineController.getScene());
-                gameEngineStage.show();
-                gameEngineStage.setOnCloseRequest(event -> shutdownClient());
-                gameEngineController.startGame();
-        }
+    public void startPlayingSingle() {
+    gameEngineController.setHostMode(true, "localhost");
+            gameEngineStage.setScene(gameEngineController.getScene());
+            gameEngineStage.show();
+            gameEngineStage.setOnCloseRequest(event -> shutdownClient());
+            gameEngineController.startGame();
+    }
 
-        private void shutdownClient(){
-                gameEngineController.setupServerShutdown();
-                gameEngineController.stop();
-        }
+    private void shutdownClient(){
+            gameEngineController.setupServerShutdown();
+            gameEngineController.stop();
+    }
 
-        private void sendDataToEngine() {
-        	String title = gameEditorController.getGameTitle();
-            String gameFile = gameEditorController.getGameFile();
-            Image gameCoverImage = gameEditorController.getGameCoverImage();
-            addNewGameFile(title,gameFile,gameCoverImage);
-            launchEngine(gameFile);
-        }
+    private void sendDataToEngine() {
+    	String title = gameEditorController.getGameTitle();
+        String gameFile = gameEditorController.getGameFile();
+        Image gameCoverImage = gameEditorController.getGameCoverImage();
+        addNewGameFile(title,gameFile,gameCoverImage);
+        launchEngine(gameFile);
+    }
+    
+    private void sendXMLFileDataToEngine() {
+    	// String title = gameEditorController.getGameTitle();
+        //String gameFile = gameEditorController.getGameFile();
+    	//addNewGameFile(title, gameFile);
+            
+             
+    	String content = null;
+	    try {
+	    	content = new String(Files.readAllBytes(Paths.get("data/help.xml")));
+	    }
+	    catch (IOException e) {
+	       // TODO Auto-generated catch block
+	       e.printStackTrace();
+	    }
+	    launchEngine(content);
+        // String gameFile = gameEditorController.getGameFile();
+        Image gameCoverImage = gameEditorController.getGameCoverImage();
+        //addNewGameFile(title,gameFile,gameCoverImage);
+        // launchEngine(gameFile);
+     }
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
