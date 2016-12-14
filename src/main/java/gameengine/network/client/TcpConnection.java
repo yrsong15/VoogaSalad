@@ -49,7 +49,6 @@ class TcpConnection {
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -63,7 +62,6 @@ class TcpConnection {
 			ID = ois.readLong();
 			return ID;
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return -1;
 	}
@@ -79,7 +77,6 @@ class TcpConnection {
 			oos.writeObject(data);
 			oos.reset();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -90,7 +87,6 @@ class TcpConnection {
 			oos.writeObject(data);
 			oos.reset();
 		} catch (IOException ex) {
-			ex.printStackTrace();
 		}
 		
 	}
@@ -102,7 +98,6 @@ class TcpConnection {
 			oos.writeObject(data);
 			oos.reset();
 		} catch (IOException ex) {
-			ex.printStackTrace();
 		}
 		
 	}
@@ -114,7 +109,6 @@ class TcpConnection {
 			oos.writeObject(data);
 			oos.reset();
 		} catch (IOException ex) {
-			ex.printStackTrace();
 		}
 		
 	}
@@ -128,7 +122,6 @@ class TcpConnection {
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -142,7 +135,6 @@ class TcpConnection {
 			oos.writeObject(data);
 			//oos.reset();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
