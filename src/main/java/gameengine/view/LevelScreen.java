@@ -31,6 +31,11 @@ public class LevelScreen extends ScoreScreen {
     }
 
     @Override
+    protected String makeScreenText() {
+        return "Click anywhere to play the next level";
+    }
+
+    @Override
     protected void addButtons() {
         ButtonTemplate nextLevelButton = new ButtonTemplate("NextLevel", 10, 10);//myAppWidth / 2, myAppHeight - 50);
         Button level = nextLevelButton.getButton();

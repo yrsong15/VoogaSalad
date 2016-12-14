@@ -29,6 +29,7 @@ public class GameObject {
     private int id;
     private String typeName;
     private List<GameObject> projectiles;
+    private double velX = 0;
 
     public GameObject(int id, double xPosition, double yPosition, double width, double height, String imageFileName,
                       Map<String, String> properties) {
@@ -90,8 +91,12 @@ public class GameObject {
             this.onPlatform = false;
             return;
         }
-        boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
-        boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <= (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >= (platformCharacterIsOn.getYPosition())));        this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
+        boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().
+                getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
+        boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <=
+                (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >=
+                (platformCharacterIsOn.getYPosition())));
+        this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
     }
 
     public void setProperty(String propertyName, String propertyValue) {
@@ -173,5 +178,13 @@ public class GameObject {
 
     public String getTypeName(){
         return typeName;
+    }
+
+    public double getVelX() {
+        return velX;
+    }
+
+    public void setVelX(double velX) {
+        this.velX = velX;
     }
 }

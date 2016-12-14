@@ -15,6 +15,11 @@ import xml.XMLSerializer;
 /**
  * This class establishes TCP connection and listens to client side
  * for tasks to do.
+ * 
+ *  * @author Titas Skrebe
+ * 
+ * Edited by Eric Song, Ray Song
+ * 
  */
 class TcpConnection implements Runnable{
 	

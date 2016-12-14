@@ -20,6 +20,11 @@ import viewformatter.ViewFormatter;
 import javafx.event.EventType;
 import javafx.geometry.Pos;
 
+/**
+ * @author Ryan Bergamini
+ */
+
+
 public class GameFileView implements IGameFileView
 {
 	private GameFile gameFile;
