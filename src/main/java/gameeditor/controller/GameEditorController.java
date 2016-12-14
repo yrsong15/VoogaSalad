@@ -76,6 +76,7 @@ public class GameEditorController implements IGameEditorController{
     private void saveGameToFile(){
         FileOpener chooser = new FileOpener();
         chooser.saveFile("XML", "data", getGameFile(), "vooga");
+        
     }
 
     private void displayInitialStage(){  
@@ -198,6 +199,12 @@ public class GameEditorController implements IGameEditorController{
     public void setOnLoadGame(EventHandler<MouseEvent> handler){
         if(myEditorLevels!=null){
             myEditorLevels.getLoadButton().setOnMouseClicked( handler);  
+        }
+    }
+    
+    public void setOnSaveGame(EventHandler<MouseEvent> handler){
+        if(myEditorLevels!=null){
+            myEditorLevels.setOnSaveGame(handler);
         }
     }
 
