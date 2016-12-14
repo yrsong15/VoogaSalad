@@ -104,6 +104,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
     public Scene getScene() {
         return scene;
     }
+
     public void update() {
         if (currLevel != currentGame.getLevel()){
             pause();

@@ -57,14 +57,6 @@ public class HUD {
 			scoreText.setTranslateX(30);
 			myHUD.getChildren().add(scoreText);
 		}
-//		if(game.getGameConditions().get("score") != null) {
-//			Text scoreText = new Text("Score: " + Integer.toString(level.getScore()));
-//			myHUD.getChildren().add(scoreText);
-//		}
-//		if(level.getPlayers() != null) {
-//			Text healthText = new Text("  |  Health: " + level.getPlayers().get(0).getProperty("health"));
-//            myHUD.getChildren().add(healthText);
-//        }
 		Text timeText = new Text("  |  Time: " + Integer.toString(timeCount));
 		timeText.setFill(Color.WHITE);
 		timeText.setFont(Font.font("Arial", FontWeight.BOLD, 25));

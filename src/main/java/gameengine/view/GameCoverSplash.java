@@ -54,13 +54,23 @@ public class GameCoverSplash {
         backgroundImage.setFitHeight(775);
         Text titleText = myFactory.bigNameTitle(title, 35, 100);
 //        titleText.setOnMouseClicked(e -> testLevelScreens());
-        ButtonTemplate singleTemp = new ButtonTemplate("Singleplayer", 150, 165);
-        Button single = singleTemp.getButton();
-        single.setOnMouseClicked(e -> mainController.startPlayingSingle());
-        ButtonTemplate multiTemp = new ButtonTemplate("Multiplayer", 150, 265);
-        Button multi = multiTemp.getButton();
-        multi.setOnMouseClicked(e -> setUpMulti());
-        myWindow.getChildren().addAll(backgroundImage, titleText, single, multi);
+        myWindow.getChildren().addAll(backgroundImage, titleText);
+
+        if(title.equals("Dance Dance Revolution")){
+            ButtonTemplate singleTemp = new ButtonTemplate("Singleplayer", 150, 165);
+            Button single = singleTemp.getButton();
+            single.setOnMouseClicked(e -> mainController.startPlayingSingle());
+            ButtonTemplate multiTemp = new ButtonTemplate("Multiplayer", 150, 265);
+            Button multi = multiTemp.getButton();
+            multi.setOnMouseClicked(e -> setUpMulti());
+            myWindow.getChildren().addAll(single, multi);
+        }
+        else{
+            ButtonTemplate startTemp = new ButtonTemplate("StartGame", 250, 300);
+            Button start = startTemp.getButton();
+            start.setOnMouseClicked(e -> mainController.startPlayingSingle());
+            myWindow.getChildren().add(start);
+        }
 //        setUpJoin();
         addPlayahs();
         return coverScene;
