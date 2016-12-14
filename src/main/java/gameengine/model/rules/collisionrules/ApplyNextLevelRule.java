@@ -6,7 +6,7 @@ import objects.GameObject;
 public class ApplyNextLevelRule implements CollisionRule{
 	
     public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
-    	System.out.println("next level");
+    	//System.out.println("next level");
         handler.goNextLevel();
 }
 
