@@ -264,4 +264,8 @@ public class MainCharacterDisplay {
         return myCurrentAvatar;
     }
 
+    public ArrayList<GameObjectView> getAllAvatars(){
+    	return myAvatarGOVs;
+    }
+    
 }

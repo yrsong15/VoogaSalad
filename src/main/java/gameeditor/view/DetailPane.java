@@ -10,6 +10,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.ScrollPane;
+
+import java.util.ArrayList;
+
 import gameeditor.commanddetails.*;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
@@ -73,6 +76,11 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     @Override
     public GameObjectView getCurrentAvatar(){
     	return myAvatarDisplay.getCurrentMain();
+    }
+    
+    @Override
+    public ArrayList<GameObjectView> getCurrentAvatars(){
+    	return myAvatarDisplay.getAllAvatars();
     }
     
     @Override
