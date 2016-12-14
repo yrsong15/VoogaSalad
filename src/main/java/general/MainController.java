@@ -129,12 +129,6 @@ public class MainController implements IMainControllerIn {
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
-//        XMLData = gameExamples.getDanceDanceRevolution();
-   //     XMLData = gameExamples.getMultiplayerDDR();
-//        XMLData = gameExamples.getDoodleJumpXML();
-//        XMLData = gameExamples.getScrollingXML();
-//        XMLData = gameExamples.getMarioXML();
-        //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;

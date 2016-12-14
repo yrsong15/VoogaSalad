@@ -120,6 +120,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         else if (currentGame.isGameWon()){
             makeWinScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
             pause();
+            System.out.print("won");
         }
         gameScreen.update(currentGame);
         myHUD.update(currentGame.getScores());
