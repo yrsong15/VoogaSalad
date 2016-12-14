@@ -2,6 +2,9 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
@@ -94,6 +97,7 @@ public class MainController {
                 addNewGameFile(title, gameFile);
                 launchEngine(gameFile);
         }
+        
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();

@@ -319,5 +319,4 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			currentGame.getCurrentLevel().setBackgroundObject();
 		}
 	}
-
 }

@@ -151,9 +151,9 @@ public class GameExamples{
         shyGuy.setYPosition(236);
         
         
-        level2.addGameObject(makeBox(168, 156, 50, 50));
-        level2.addGameObject(makeBox(320, 254, 50, 50));
-        level2.addGameObject(makeBox(460, 152, 50, 50));
+        level2.addGameObject(makeBox(168, 46, 50, 50));
+        level2.addGameObject(makeBox(320, 144, 50, 50));
+        level2.addGameObject(makeBox(460, 46, 50, 50));
         level2.addGameObject(makeBox(48, 335, 50, 50));
         level2.addGameObject(makeBox(97, 362, 50, 50));
         level2.addGameObject(makeBox(145, 392, 50, 50));
@@ -167,7 +167,7 @@ public class GameExamples{
         
         level2.addGameObject(makeBox(540, 391, 50, 50));
         level2.addGameObject(makeBox(589, 365, 50, 50));
-        level2.addGameObject(makeBox(638, 238, 50, 50));
+        level2.addGameObject(makeBox(638, 335, 50, 50));
 
         
         GameObject killer2 = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
