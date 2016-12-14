@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import objects.*;
 import xml.XMLSerializer;
@@ -30,6 +31,7 @@ public class GameEngineController implements CommandInterface {
 	private String serverName;
 	private Node toolbarHBox;
 	private String xmlData;
+	private Stage engineStage;
 
 	public GameEngineController() {
 		this.hostGame = true;
@@ -107,6 +109,7 @@ public class GameEngineController implements CommandInterface {
 	public void reset() {
 		this.currentGame = createGameFromXML(xmlData);
 		backend.setGame(currentGame);
+		gameEngineView.closeLoseScreenStage();
 	}
 
 	public void setHostMode(boolean ishosted, String serverName){
@@ -130,6 +133,10 @@ public class GameEngineController implements CommandInterface {
 
 	public void setupServerShutdown(){
 		gameEngineView.serverShutdown();
+	}
+	
+	public void setEngineStage(Stage stage) {
+		this.engineStage = stage;
 	}
 
 }
