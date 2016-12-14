@@ -21,6 +21,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * @author Ryan Bergamini
+ */
+
+
 public class GalleryView implements IGalleryView{
     public static final int GALLERY_CORNER_X = 60;
     public static final int GALLERY_CORNER_Y = 325;

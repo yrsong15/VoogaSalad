@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * @author Delia Li, Ryan Bergamini
+ */
+
 public class Gallery implements IGallery {
 
 	private ArrayList<GameFile> gallery;
@@ -32,12 +36,12 @@ public class Gallery implements IGallery {
 		GameFile spicyGame = new GameFile("Doodle Jump",
 				readFile("data/GameEditorExampleXML.xml")); //
 		addToGallery(spicyGame);
-		GameFile scrollingGame = new GameFile("Scrolling Tester",
-				readFile("data/DoodleJump.xml")); //
-		addToGallery(scrollingGame);
-		GameFile exampleGame = new GameFile("Example Flappy Bird",
-				readFile("data/FlappyExample.xml"));
-		addToGallery(exampleGame);
+//		GameFile scrollingGame = new GameFile("Scrolling Tester",
+//				readFile("data/DoodleJump.xml")); //
+//		addToGallery(scrollingGame);
+//		GameFile exampleGame = new GameFile("Example Flappy Bird",
+//				readFile("data/FlappyExample.xml"));
+//		addToGallery(exampleGame);
 	}
 
 	@Override

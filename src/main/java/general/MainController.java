@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import objects.*;
 
 /**
- * @author Delia Li, Pratiksha
+ * @author Delia Li, Pratiksha Sharma
  */
 public class MainController {
     public static final String STYLESHEET = "default.css";
