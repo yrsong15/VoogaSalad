@@ -142,17 +142,19 @@ public class GameExamples{
         level2.addGameObject(makeBox(168, 16, 50, 50));
         level2.addGameObject(makeBox(320, 114, 50, 50));
         level2.addGameObject(makeBox(460, 16, 50, 50));
+        
+        
+        
         level2.addGameObject(makeBox(48, 335, 50, 50));
         level2.addGameObject(makeBox(97, 362, 50, 50));
         level2.addGameObject(makeBox(145, 392, 50, 50));
-
         level2.addGameObject(makeBox(194, 426, 50, 50));
         level2.addGameObject(makeBox(244, 443, 50, 50));
         level2.addGameObject(makeBox(294, 444, 50, 50));
+        level2.addGameObject(makeBox(344, 444, 50, 50));        
         level2.addGameObject(makeBox(393, 444, 50, 50));
         level2.addGameObject(makeBox(442, 444, 50, 50));
         level2.addGameObject(makeBox(491, 406, 50, 50));
-
         level2.addGameObject(makeBox(540, 391, 50, 50));
         level2.addGameObject(makeBox(589, 365, 50, 50));
         level2.addGameObject(makeBox(638, 335, 50, 50));

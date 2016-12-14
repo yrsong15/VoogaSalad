@@ -29,19 +29,25 @@ public class Gallery implements IGallery {
 	}
 
 	private void addDefaultGame() throws IOException {
-		String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/gameLevelIcon.png";
-		Image gameCover = new Image(userDirectoryString);
+		String ddRString = "file:" + System.getProperty("user.dir") + "/images/Sprite/ddrrightarrow.png";
+		
 		GameFile ddr = new GameFile("Dance Dance Revolution",
-				readFile("data/DanceDanceRevolution.xml"), gameCover);
+				readFile("data/DanceDanceRevolution.xml"), new Image(ddRString));
 		addToGallery(ddr);
+		String marioString = "file:" + System.getProperty("user.dir") + "/images/Sprite/mario.png";
+		
 		GameFile mario = new GameFile("Super Mario",
-				readFile("data/Mario.xml"), gameCover);
+				readFile("data/Mario.xml"), new Image(marioString));
 		addToGallery(mario);
+		String doodleString = "file:" + System.getProperty("user.dir") + "/images/Sprite/doodler.png";
+		
 		GameFile doodle = new GameFile("Doodle Jump",
-				readFile("data/DoodleJump.xml"), gameCover);
+				readFile("data/DoodleJump.xml"), new Image(doodleString));
 		addToGallery(doodle);
+		String flappyString = "file:" + System.getProperty("user.dir") + "/images/Sprite/bird5.png";
+		
 		GameFile flappy = new GameFile("Example Flappy Bird",
-				readFile("data/FlappyExample.xml"), gameCover);
+				readFile("data/FlappyExample.xml"), new Image(flappyString));
 		addToGallery(flappy);
 		GameFile multiplayerDDR = new GameFile("Multiplayer DDR", readFile("data/MultiplayerDDR.xml"), gameCover);
 		addToGallery(multiplayerDDR);

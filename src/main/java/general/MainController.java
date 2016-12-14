@@ -13,7 +13,6 @@ import gameengine.controller.GameEngineController;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import objects.*;
@@ -53,7 +52,7 @@ public class MainController {
     public void presentEditor(Game game) {
         gameEditorController = new GameEditorController();
         gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        gameEditorController.setOnLoadGame(e -> sendXMLFileDataToEngine());
     }
 
     public void presentEditor(Game game, String gameType) {
@@ -78,7 +77,7 @@ public class MainController {
         gameEngineStage.setOnCloseRequest(event -> shutdownClient());
         gameEngineController.startGame();
     }
-    
+
     public void startPlayingSingle() {
         gameEngineController.setHostMode(true, "localhost");
         gameEngineStage.setScene(gameEngineController.getScene());
@@ -109,27 +108,23 @@ public class MainController {
         addNewGameFile(title, gameFile, gameCoverImage);
         launchEngine(gameFile);
     }
-    
+
     private void sendXMLFileDataToEngine() {
-    	// String title = gameEditorController.getGameTitle();
+        // String title = gameEditorController.getGameTitle();
         //String gameFile = gameEditorController.getGameFile();
     	//addNewGameFile(title, gameFile);
-            
-             
     	String content = null;
 	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/trial3.xml")));
+	    	content = new String(Files.readAllBytes(Paths.get("data/poke6.xml")));
 	    }
 	    catch (IOException e) {
-	       // TODO Auto-generated catch block
-	       e.printStackTrace();
 	    }
 	    launchEngine(content);
         // String gameFile = gameEditorController.getGameFile();
         Image gameCoverImage = gameEditorController.getGameCoverImage();
         //addNewGameFile(title,gameFile,gameCoverImage);
         // launchEngine(gameFile);
-     }
+    }
 
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
@@ -138,6 +133,10 @@ public class MainController {
 //              XMLData = gameExamples.getDoodleJumpXML();
         //  XMLData = gameExamples.getScrollingXML();
          //XMLData = gameExamples.getDoodleJumpXML();
+        //           XMLData = gameExamples.getMultiplayerDDR();
+//              XMLData = gameExamples.getDoodleJumpXML()
+  //        XMLData = gameExamples.getScrollingXML();
+         XMLData = gameExamples.getMarioXML();
         //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")

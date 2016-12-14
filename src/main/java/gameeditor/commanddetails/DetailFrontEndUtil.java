@@ -95,7 +95,7 @@ public class DetailFrontEndUtil implements IDetailFrontEndUtil{
         inputField.setMaxHeight(IAbstractCommandDetail.CB_HEIGHT);
         inputField.setText(initValue);
         inputField.setOnMouseClicked(e -> handleClick(inputField));
-        if(initValue.equals("0")){
+        if(initValue!=null && initValue.equals("0")){
             inputField.setOnMouseExited(e-> verifyValue(inputField));
         }
         return inputField;
