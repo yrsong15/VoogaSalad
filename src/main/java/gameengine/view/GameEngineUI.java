@@ -49,7 +49,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	private Stage myLevelStage;
 	private ScrollerController scrollerController;
 	private ErrorMessage myErrorMessage;
-	private String myLevelFileLocation;
 	private Toolbar toolbar;
 	private Node toolbarHBox;
 	private HUD myHUD;
@@ -242,14 +241,13 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 		VBox vb = new VBox();
 		vb.setFillWidth(true);
 		vb.getChildren().addAll(makeToolbar(), makeHUD());
-	//	root.setTop(vb);
 		root.setCenter(makeGameScreen());
 		root.setTop(vb);
 		return root;
 	}
 
 	private Node makeToolbar() {
-		toolbar = new Toolbar(myResources, event -> loadLevel(), event -> pause(), resetEvent,
+		toolbar = new Toolbar(myResources, event -> pause(), resetEvent,
 				event -> mute(), event -> saveGame());
 		toolbarHBox = toolbar.getToolbar();
 		return toolbarHBox;
@@ -280,13 +278,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 			toolbar.mute();
 			mediaPlayer.setMute(true);
 		}
-	}
-
-	private void loadLevel() {
-		FileChooser levelChooser = new FileChooser();
-		levelChooser.setTitle("Open Level File");
-		File levelFile = levelChooser.showOpenDialog(new Stage());
-		myLevelFileLocation = levelFile.getAbsolutePath();
 	}
 
 	public void pause() {
@@ -360,7 +351,9 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 	}
 
 	public void closeLoseScreenStage() {
-		myLevelStage.close();
+		if (myLevelStage != null) {
+			myLevelStage.close();
+		}
 	}
 
 	@Override

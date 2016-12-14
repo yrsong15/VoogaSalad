@@ -23,6 +23,7 @@ public enum DetailDefaultsResources {
         DESTRUCTIBLE_DEFAULT("False"),
         RANDOM_DEFAULT("False"),
         MOVABLE_DEFAULT("False"),
+        SCROLLABLE_DEFAULT("True"),
         DAMAGE("0"),
         POINTS("0"),
         HEALTH("0"),
@@ -33,7 +34,7 @@ public enum DetailDefaultsResources {
         TEXT_BOX_NUMBER_DEFAULT_INPUT("0"),
         
 	SPRITE_DEFAULT_PROPERTIES(new String [] {"False", "False", "False", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"}),
-	SPRITE_DEFAULT_COMBO_PROPERTIES(new String[]{DESTRUCTIBLE_DEFAULT.getResource(), RANDOM_DEFAULT.getResource(),MOVABLE_DEFAULT.getResource()}),
+	SPRITE_DEFAULT_COMBO_PROPERTIES(new String[]{DESTRUCTIBLE_DEFAULT.getResource(), RANDOM_DEFAULT.getResource(),SCROLLABLE_DEFAULT.getResource()}),
 	
 	CONTROLS_DEFAULT_COMBO_OPTIONS(new String[] {"Up","Down","Right","Left","Jump","Shoot"}),
 	CONTROLS_DEFAULT_VALUES(new String[]{"UP","DOWN","RIGHT","LEFT","SPACE","S"}),

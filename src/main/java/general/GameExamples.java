@@ -20,11 +20,9 @@ import java.util.Map;
  * Created by Soravit on 12/11/2016.
  */
 public class GameExamples{
-	
-	
-	
+		
 	public String getMarioXML(){
-		Game game = new Game("Mario");
+	   Game game = new Game("Mario");
         GameObject shyGuy = new GameObject(20, 200 , 50, 75, "mario.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
@@ -274,18 +272,22 @@ public class GameExamples{
         shyGuy.setProperty("gravity", "1.0");
         shyGuy.setProperty("movespeed", "60");
         shyGuy.setProperty("health", "30");
+        
         Level level = new Level(1);
         GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
+        
         game.setCurrentLevel(level);
+        
         player1.setControl(KeyCode.UP, "jump");
         player1.setControl(KeyCode.RIGHT, "right");
         player1.setControl(KeyCode.LEFT, "left");
         player1.setControl(KeyCode.SPACE, "shoot");
         level.addPlayer(shyGuy);
+        
         GameObject ground = new GameObject(0, GameEngineUI.myAppHeight, GameEngineUI.myAppWidth,50,"platform.png", new HashMap<>());
         ground.setProperty("damage", "30");
         ground.setProperty("nonscrollable", "");
