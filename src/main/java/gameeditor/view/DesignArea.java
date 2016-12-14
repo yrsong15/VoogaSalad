@@ -26,13 +26,24 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
 
     public DesignArea() {
         super();
+//        myScrollPane.setPannable(true);
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
         myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
+        myPane.widthProperty().addListener(e -> handleWidthUpdate());
+        myPane.heightProperty().addListener(e -> handleHeightUpdate());
         myScrollPane.setContent(myPane);
     }   
+    
+    private void handleWidthUpdate(){
+    	myScrollPane.setHvalue(1.0);
+    }
+    
+    private void handleHeightUpdate(){
+    	myScrollPane.setVvalue(1.0);
+    }
 
     private void handlePress(double x, double y){
         GameObjectView sprite = checkForSprite(x, y);
