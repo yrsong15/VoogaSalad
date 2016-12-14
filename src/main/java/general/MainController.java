@@ -21,6 +21,7 @@ import objects.*;
  */
 
 public class MainController {
+
         public static final String STYLESHEET = "default.css";
         private static final String GAME_TITLE = "VoogaSalad";
         private Stage gameEngineStage;
@@ -56,21 +57,29 @@ public class MainController {
                 gameEditorController.setOnLoadGame(e -> sendDataToEngine());
         }
 
-        public void presentEditor(Game game, String gameType) {
-                gameEditorController = new GameEditorController(gameType);
-                gameEditorController.startEditor(game);
-                gameEditorController.setOnLoadGame(e -> sendDataToEngine());
-        }
+/*
+	public void presentEditor(Game game) {
+		gameEditorController = new GameEditorController();
+		gameEditorController.startEditor(game);
+		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+	}*/
 
-        private void setUpGameEngineStage(Level level) {
-                gameEngineStage = new Stage();
-                GameCoverSplash myCover = new GameCoverSplash(level, this);
-                gameEngineStage.setScene(myCover.createSplashScene());
-                gameEngineStage.setTitle(myCover.getTitle());
-                gameEngineStage.show();
-        }
+	public void presentEditor(Game game, String gameType) {
+		gameEditorController = new GameEditorController(gameType);
+		gameEditorController.startEditor(game);
+		gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+	}
 
-        public void startPlayingMulti(boolean isHosted, String myServer){
+	private void setUpGameEngineStage(Level level) {
+		gameEngineStage = new Stage();
+		GameCoverSplash myCover = new GameCoverSplash(level, this);
+		gameEngineStage.setScene(myCover.createSplashScene());
+		gameEngineStage.setTitle(myCover.getTitle());
+		gameEngineStage.show();
+		gameEngineController.setEngineStage(gameEngineStage);
+	}
+
+	public void startPlayingMulti(boolean isHosted, String myServer){
         gameEngineController.setHostMode(isHosted, myServer);
         gameEngineStage.setScene(gameEngineController.getScene());
         gameEngineStage.show();
@@ -103,11 +112,14 @@ public class MainController {
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
 //        XMLData = gameExamples.getDanceDanceRevolution();
+
    //    XMLData = gameExamples.getMultiplayerDDR();
         XMLData = gameExamples.getDoodleJumpXML();
       //  XMLData = gameExamples.getScrollingXML();
      // XMLData = gameExamples.getMarioXML();
   //   XMLData = gameExamples.getDanceDanceRevolution();
+
+
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;
