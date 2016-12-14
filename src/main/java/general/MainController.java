@@ -64,6 +64,7 @@ public class MainController {
 		gameEngineStage.setScene(myCover.createSplashScene());
 		gameEngineStage.setTitle(myCover.getTitle());
 		gameEngineStage.show();
+		gameEngineController.setEngineStage(gameEngineStage);
 	}
 
 	public void startPlayingMulti(boolean isHosted, String myServer){
