@@ -11,7 +11,9 @@ import gameeditor.objects.GameObjectView;
  */
 public class Cell {
 	
-	private static final Color DEFAULT_COLOR = Color.MEDIUMSEAGREEN;
+	private static final Color DEFAULT_OFF_COLOR = Color.TRANSPARENT;
+	private static final Color DEFAULT_ON_COLOR = Color.DARKSEAGREEN;
+	private static final Color DEFAULT_LINE_COLOR = Color.DARKGREEN;
 	@SuppressWarnings("unused")
 	private int myRow, myCol, myArrayPos;
 	private double myX, myY;
@@ -28,8 +30,9 @@ public class Cell {
 		myArrayPos = arrayPos;
 		myDesignArea = gda;
 		myRectangle = new Rectangle(myX, myY, mySize, mySize);
-		myRectangle.setFill(DEFAULT_COLOR);
-		myRectangle.setStroke(Color.DARKGREEN);
+		myRectangle.setFill(DEFAULT_OFF_COLOR);
+		myRectangle.setStroke(DEFAULT_LINE_COLOR);
+		myRectangle.setOpacity(0.5);
 		myRectangle.setStrokeWidth(1);
 		myRow = row;
 		myCol = col;
@@ -62,11 +65,11 @@ public class Cell {
 	}
 	
 	public void setColor(){
-		myRectangle.setFill(Color.DARKSEAGREEN);
+		myRectangle.setFill(DEFAULT_ON_COLOR);
 	}
 	
 	public void resetColor(){
-		myRectangle.setFill(Color.MEDIUMSEAGREEN);
+		myRectangle.setFill(DEFAULT_OFF_COLOR);
 	}
 
 	public void removeSprite() {

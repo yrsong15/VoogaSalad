@@ -27,7 +27,7 @@ import side.Side;
 import viewformatter.ViewFormatter;
 
 /**
- * @author pratikshasharma
+ * @author pratikshasharma, John Martin
  */
 
 public class EditorLevels implements IEditorLevels{

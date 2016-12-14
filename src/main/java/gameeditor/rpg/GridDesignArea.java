@@ -31,12 +31,13 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
     private Cell myClickCell;
     private ArrayList<Cell> mySelectedCells = new ArrayList<Cell>();
     private ArrayList<Cell> myNewSelectedCells = new ArrayList<Cell>();
+    private ImageView myBG;
     
     public GridDesignArea() {
     	super();
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
-        myCellGrid = new CellGrid(0, 0, 40, (int) AREA_WIDTH/40, (int) AREA_HEIGHT/40, false, this);
+        myCellGrid = new CellGrid(0, 0, 40, (int) (1.5*AREA_WIDTH/40), (int) (1.5*AREA_HEIGHT/40), false, this);
         myCells = myCellGrid.getCells();
         for (Cell cell : myCells){
         	myPane.getChildren().add(cell.getRect());
@@ -156,6 +157,7 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
     }
 
     public void setBackground(ImageView bg){
+    	myBG = bg;
         ObservableList<Node> currentChildren = myPane.getChildren();
         ArrayList<Node> children = new ArrayList<Node>();
         for (Node child : currentChildren){
@@ -164,10 +166,27 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
             }
         }
         myPane.getChildren().clear();
-        bg.setLayoutX(0);
-        bg.setLayoutY(0);
+        myBG.setLayoutX(0);
+        myBG.setLayoutY(0);
+        myBG.setPreserveRatio(true);
+        bgUpdate();
+        myPane.widthProperty().addListener(e -> bgUpdate());
+        myPane.heightProperty().addListener(e -> bgUpdate());
         myPane.getChildren().add(bg);
         myPane.getChildren().addAll(children);
+    }
+    
+    private void bgUpdate(){
+        double imgWidth = myBG.getImage().getWidth();
+        double imgHeight = myBG.getImage().getWidth();
+        double widthRatio = myPane.getWidth()/imgWidth;
+        double heightRatio = myPane.getHeight()/imgHeight;
+        double ratio = Math.max(widthRatio, heightRatio);
+        double fitWidth = imgWidth*ratio;
+        double fitHeight = imgHeight*ratio;
+        myBG.setFitWidth(fitWidth);
+        myBG.setFitHeight(fitHeight);
+    	myBG.setFitHeight(myPane.getHeight());
     }
 
     @Override
