@@ -113,7 +113,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI{
 
 	public void update() {
 		if (currLevel != currentGame.getLevel()){
-			//pause();
+			pause();
 			makeLevelScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
 			currLevel = currentGame.getLevel();
 		}
