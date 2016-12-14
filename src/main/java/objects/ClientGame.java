@@ -84,7 +84,7 @@ public class ClientGame {
 	}
 	
 	public boolean isGameWon(){
-		return gameLost;
+		return gameWon;
 	}
 
 	public String getBackgroundFilePath() {

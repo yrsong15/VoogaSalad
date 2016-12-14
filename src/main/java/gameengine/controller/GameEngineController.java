@@ -44,8 +44,6 @@ public class GameEngineController implements CommandInterface {
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			//System.out.println("Error in Thread Sleep before StartClientGame");
-			e.printStackTrace();
 		}
 		startClientGame(currentGame.getClientMappings());
 	}
@@ -86,7 +84,7 @@ public class GameEngineController implements CommandInterface {
 		gameEngineView.startClient(serverName);
 		while (!gameEngineView.gameLoadedFromServer()) {
 			// staller
-			System.out.print("");
+//			System.out.print("");
 		}
 		gameEngineView.initLevel(playerMapping);
 		gameEngineView.setupKeyFrameAndTimeline(GameEngineController.MILLISECOND_DELAY);

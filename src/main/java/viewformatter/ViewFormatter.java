@@ -186,7 +186,6 @@ public class ViewFormatter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			System.exit(0);
 		}
 		
@@ -205,7 +204,6 @@ public class ViewFormatter
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			System.exit(0);
 		}
 		

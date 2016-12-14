@@ -13,7 +13,6 @@ import gameengine.controller.GameEngineController;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import objects.*;
@@ -120,8 +119,6 @@ public class MainController implements IMainControllerIn {
 	    	content = new String(Files.readAllBytes(Paths.get("data/" + myLoadXML)));
 	    }
 	    catch (IOException e) {
-	       // TODO Auto-generated catch block
-	       e.printStackTrace();
 	    }
 	    launchEngine(content);
         // String gameFile = gameEditorController.getGameFile();
@@ -133,10 +130,10 @@ public class MainController implements IMainControllerIn {
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
 //        XMLData = gameExamples.getDanceDanceRevolution();
-        //           XMLData = gameExamples.getMultiplayerDDR();
-//              XMLData = gameExamples.getDoodleJumpXML();
-        //  XMLData = gameExamples.getScrollingXML();
-//         XMLData = gameExamples.getMarioXML();
+        XMLData = gameExamples.getMultiplayerDDR();
+//        XMLData = gameExamples.getDoodleJumpXML();
+//        XMLData = gameExamples.getScrollingXML();
+//        XMLData = gameExamples.getMarioXML();
         //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")

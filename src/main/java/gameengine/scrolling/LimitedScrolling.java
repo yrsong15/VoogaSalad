@@ -78,7 +78,7 @@ public class LimitedScrolling implements Scrolling{
 				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
 			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
+				
 			}
 		
 	}
