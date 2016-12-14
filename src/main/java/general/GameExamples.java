@@ -264,7 +264,7 @@ public class GameExamples{
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
         scrollType.addScrollDirection(Direction.RIGHT);
         level.setScrollType(scrollType);
-        level.setBackgroundImage("Background/desert.png");
+        level.setBackgroundImage("Background/bg.png");
         game.setCurrentLevel(level);
         player1.setControl(KeyCode.RIGHT, "right");
         player1.setControl(KeyCode.LEFT, "left");
