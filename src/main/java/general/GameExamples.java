@@ -336,6 +336,7 @@ public class GameExamples{
         shyGuy.setProjectileProperties(projectileProperties);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
     public String getDanceDanceRevolution(){
@@ -380,7 +381,7 @@ public class GameExamples{
         level.setBackgroundMusic("Cascada - Everytime We Touch.mp3");
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
-        scrollType.setScrollSpeed(20);
+        scrollType.setScrollSpeed(15);
         scrollType.addScrollDirection(Direction.UP);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/ddrbackground.jpg");
@@ -409,6 +410,7 @@ public class GameExamples{
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
     public String getMultiplayerDDR(){
@@ -531,6 +533,7 @@ public class GameExamples{
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
+        System.out.println(xml);
         return xml;
     }
 }
