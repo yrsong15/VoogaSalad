@@ -176,10 +176,9 @@ public class MovementManager implements ControlInterface{
 	public void shootProjectile(GameObject obj, double speed){
 	    if(!projectileStatus.containsKey(obj.getID()) || ((projectileStatus.containsKey(obj.getID()) && (System.currentTimeMillis() - projectileStatus.get(obj.getID()) > obj.getProjectileProperties().getTimeBetweenShots()*1000)))) {
 	        projectileStatus.put(obj.getID(), System.currentTimeMillis());
-
             if (obj.getProjectileProperties() != null) {
                 ProjectileProperties properties = obj.getProjectileProperties();
-                GameObject projectile = new GameObject(0, obj.getXPosition()+obj.getWidth()/2, obj.getYPosition()+obj.getHeight()/2,
+                GameObject projectile = new GameObject(0, obj.getXPosition()+obj.getWidth()/2, obj.getYPosition()+obj.getHeight()/3,
                         properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
                 if (properties.getDirection().equals(Direction.LEFT)) {
                     projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed() * -1));
