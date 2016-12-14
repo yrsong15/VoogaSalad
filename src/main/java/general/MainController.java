@@ -2,6 +2,8 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -60,7 +62,6 @@ public class MainController {
         gameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
 
-
     private void setUpGameEngineStage(Level level) {
         gameEngineStage = new Stage();
         GameCoverSplash myCover = new GameCoverSplash(level, this);
@@ -109,15 +110,33 @@ public class MainController {
         launchEngine(gameFile);
     }
 
+    private void sendXMLFileDataToEngine() {
+        // String title = gameEditorController.getGameTitle();
+        //String gameFile = gameEditorController.getGameFile();
+        //addNewGameFile(title, gameFile);
+
+
+        String content = null;
+        try {
+            content = new String(Files.readAllBytes(Paths.get("data/trial3.xml")));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        launchEngine(content);
+        // String gameFile = gameEditorController.getGameFile();
+        Image gameCoverImage = gameEditorController.getGameCoverImage();
+        //addNewGameFile(title,gameFile,gameCoverImage);
+        // launchEngine(gameFile);
+    }
+
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
 //        XMLData = gameExamples.getDanceDanceRevolution();
-
-//        XMLData = gameExamples.getMultiplayerDDR();
-//        XMLData = gameExamples.getDoodleJumpXML();
+        //           XMLData = gameExamples.getMultiplayerDDR();
+//              XMLData = gameExamples.getDoodleJumpXML();
         //  XMLData = gameExamples.getScrollingXML();
-         XMLData = gameExamples.getMarioXML();
-        //   XMLData = gameExamples.getDanceDanceRevolution();
+        XMLData = gameExamples.getMarioXML();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;
