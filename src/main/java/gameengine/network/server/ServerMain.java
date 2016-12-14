@@ -106,7 +106,6 @@ public class ServerMain {
 	}
 	
 	public void shutdownServerThread(){
-		System.out.println("shutdown in servermain");
 		try {
 			serverSocket.close();
 		} catch (IOException ex) {
@@ -136,8 +135,9 @@ public class ServerMain {
 		gameHandler.addPlayersToClient(IDs);
 //		return IDs++;
 //		return 0;
-		if(IDs <= 0) return IDs++;
-		else return IDs-1;
+//		if(IDs <= 0) return IDs++;
+//		else return IDs-1;
+		return IDs++;
 	}
 
 	void removeCharacter(long id) {
