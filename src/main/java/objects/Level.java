@@ -40,10 +40,7 @@ public class Level implements ILevel{
 
         winConditions = new HashMap<>();
         loseConditions = new HashMap<>();
-     
     }
-
-
 
     public void removeAllPlayers(){
         players = new ArrayList<>();
@@ -60,6 +57,7 @@ public class Level implements ILevel{
     public RandomGenFrame getRandomGenerationFrame(){
         return randomGenerationFrame;
     }
+
     public ArrayList<RandomGeneration<Integer>> getRandomGenRules() {
         return randomGenerationFrame.getRandomGenerationRules();
     }

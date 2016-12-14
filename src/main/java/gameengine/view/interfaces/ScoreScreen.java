@@ -55,7 +55,7 @@ public abstract class ScoreScreen {
         root = new BorderPane();
 //        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
 //        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-        Text highScoreText = new Text (50, 100, "Click anywhere to play the next level \nHigh Scores");
+        Text highScoreText = new Text (50, 100, makeScreenText() + " \nHigh Scores");
         highScoreText.setFill(Color.RED);
         highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         root.getChildren().addAll(background, backdrop, highScoreText);
@@ -66,21 +66,6 @@ public abstract class ScoreScreen {
             root.getChildren().add(text);
             index++;
         }
-//        ButtonTemplate nextLevelButton = new ButtonTemplate("NextLevel", 10, 10);//myAppWidth / 2, myAppHeight - 50);
-//        Button awefadsff = nextLevelButton.getButton();
-//        awefadsff.setOnMouseClicked(e -> getMyGameEngine().pause());
-//        root.getChildren().addAll(awefadsff);
-//        addButtons();
-//        ButtonTemplate exitTemplate = new ButtonTemplate("Quit", 10, 10);
-//        ButtonTemplate replayTemplate = new ButtonTemplate("Replay", 20, 20);
-//        Button exit = exitTemplate.getButton();
-////        exit.setOnMouseClicked(e -> {
-////            commandInterface.stop();
-////            //stage.close();
-////        });
-//        Button replay = replayTemplate.getButton();
-//        replay.setOnMouseClicked(e -> myGameEngine.pause());
-//        root.getChildren().addAll(exit, replay);
         return root;
     }
 
@@ -89,6 +74,8 @@ public abstract class ScoreScreen {
     }
 
     public abstract String getStageTitle();
+
+    protected abstract String makeScreenText();
 
     protected abstract void addButtons();
 
@@ -101,6 +88,5 @@ public abstract class ScoreScreen {
     protected BorderPane getRoot(){
         return root;
     }
-//    Scene getScene();
 }
 
