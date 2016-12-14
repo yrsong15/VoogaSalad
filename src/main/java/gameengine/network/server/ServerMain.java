@@ -122,7 +122,7 @@ public class ServerMain {
 			
 			@Override
 			public void run() {
-//				System.out.println(IDs + " " + Thread.currentThread().isAlive());
+//				System.out.println(IDs);
 				if(!isPaused && (IDs >= gameHandler.getGame().getMinNumPlayers())){
 					gameHandler.updateGame();
 				}
@@ -134,7 +134,10 @@ public class ServerMain {
 
 	synchronized long getId() {
 		gameHandler.addPlayersToClient(IDs);
-		return IDs++;
+//		return IDs++;
+//		return 0;
+		if(IDs <= 0) return IDs++;
+		else return IDs-1;
 	}
 
 	void removeCharacter(long id) {
