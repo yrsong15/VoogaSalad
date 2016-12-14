@@ -229,8 +229,15 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
 
 	@Override
 	public void addSprite(GameObjectView gameObject) {
-		for (Cell cell : mySelectedCells){
-			addSprite(new GameObjectView(gameObject, 0, 0), cell);
+		if (mySelectedCells != null){
+			for (int i = 0; i < mySelectedCells.size(); i++){
+				Cell cell = mySelectedCells.get(i);
+				if (i == 0){
+					addSprite(gameObject, cell);
+				} else {
+					addSprite(new GameObjectView(gameObject, 0, 0), cell);
+				}
+			}
 		}
 	}
 	
