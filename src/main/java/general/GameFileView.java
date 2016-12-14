@@ -1,5 +1,6 @@
 package general;
 
+import gameeditor.view.GameCoverView;
 import general.interfaces.IGameFileView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -93,14 +94,9 @@ public class GameFileView implements IGameFileView
 
 	private Pane createView()
 	{
-		Pane view = new Pane();
 		ViewFormatter formatter = new ViewFormatter();
-		
-		
-		Label name = new Label(gameFile.getGameName());
-		name.setAlignment(Pos.CENTER);
-		name.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-		
+
+		Label name = createGameTitle();
 		formatter.addView(name, "Name")
 			.centerXInScreen();
 		
@@ -109,11 +105,33 @@ public class GameFileView implements IGameFileView
 			.position(Side.BOTTOM, "Name", 10)
 			.centerXInScreen()
 			.setHeightAsFractionOfScreen(.5)
-			.setWidthAsFractionOfScreen(.4);
-		
+			.setWidth(GameCoverView.DEFAULT_IMAGE_WIDTH);
 		
 		double rectWidth = name.getText().length() * (.8 * name.getFont().getSize());
-		Rectangle rect = new Rectangle(rectWidth, 85);
+		Rectangle rect = generateBackground(rectWidth,85);
+		formatter.addView(rect, "Background",rectWidth, 85)
+			.setZ(-1);
+			
+		
+		gameViewColor = rect.getFill();
+		gameView = rect;
+		Tooltip Trect = myFactory.makeTooltip("GalleryItem");
+		Tooltip.install(rect, Trect);
+		
+		return formatter.renderView(rectWidth, 85);
+	}
+	
+	private Label createGameTitle()
+	{
+		Label name = new Label(gameFile.getGameName());
+		name.setAlignment(Pos.CENTER);
+		name.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+		return name;
+	}
+	private Rectangle generateBackground(double width, double height)
+	{
+
+		Rectangle rect = new Rectangle(width,height);
 		int randVal = (int)(Math.random() * 3);
 		if(randVal == 0)
 		{
@@ -128,16 +146,7 @@ public class GameFileView implements IGameFileView
 			rect.setFill(Color.BLUEVIOLET);
 		}
 		
-		formatter.addView(rect, "Background",rectWidth, 85)
-			.setZ(-1);
-			
-		
-		gameViewColor = rect.getFill();
-		gameView = rect;
-		Tooltip Trect = myFactory.makeTooltip("GalleryItem");
-		Tooltip.install(rect, Trect);
-		
-		return formatter.renderView(rectWidth, 85);
+		return rect;
 	}
 
 	@Override

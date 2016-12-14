@@ -20,6 +20,9 @@ public class GameCoverView
 	private double width;
 	private double height;
 	
+	public static double DEFAULT_IMAGE_WIDTH = 30;
+	public static double DEFAULT_IMAGE_HEGIHT = 45;
+	
 	public GameCoverView(double width, double height)
 	{
 		
@@ -36,7 +39,7 @@ public class GameCoverView
 		
 		formatter.addView(gameCover, "Game Cover")
 				.positionWithPercentGapOfScreen(Side.BOTTOM, "Label", 0.075)
-				.setHeightAsFractionOfScreen(.6)
+				.setHeightAsFractionOfScreen(.75)
 				.setWidthAsFractionOfScreen(.5)
 				.centerXBasedOnWidthOf("Label");
 				//.centerXInScreen();
