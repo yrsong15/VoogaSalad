@@ -29,9 +29,9 @@ public class GameExamples{
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
-        shyGuy.setProperty("movespeed", "5");
+        shyGuy.setProperty("movespeed", "30");
         shyGuy.setProperty("gravity", "1.2");
-        shyGuy.setProperty("jumponce", "800");
+        shyGuy.setProperty("jumponce", "500");
         shyGuy.setProperty("health", "30");
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
