@@ -91,8 +91,12 @@ public class GameObject {
             this.onPlatform = false;
             return;
         }
-        boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
-        boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <= (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >= (platformCharacterIsOn.getYPosition())));        this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
+        boolean isHorizontallyOnPlatform = (SingletonBoundaryChecker.getInstance().
+                getHorizontalIntersectionAmount(this,platformCharacterIsOn) != IntersectionAmount.NOT_INTERSECTING);
+        boolean isVerticallyOnPlatform = (((this.yPosition + this.height) <=
+                (platformCharacterIsOn.getYPosition() + 20)) && ((this.yPosition + this.height) >=
+                (platformCharacterIsOn.getYPosition())));
+        this.onPlatform = isHorizontallyOnPlatform && isVerticallyOnPlatform;
     }
 
     public void setProperty(String propertyName, String propertyValue) {
