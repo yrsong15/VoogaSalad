@@ -27,11 +27,14 @@ public class MainController implements IMainControllerIn {
     private Gallery gallery;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
+
+    private SplashScreen splashScreen;
     private String myLoadXML;
 
     public MainController(Stage stage) throws IOException {
         this.gallery = new Gallery();
-        Scene scene = new Scene(new SplashScreen(gallery, this).setUpWindow());
+        this.splashScreen = new SplashScreen(gallery, this);
+        Scene scene = new Scene(splashScreen.setUpWindow());
         scene.getStylesheets().add(STYLESHEET);
         stage.setScene(scene);
         stage.setTitle(GAME_TITLE);
@@ -48,12 +51,14 @@ public class MainController implements IMainControllerIn {
     private void addNewGameFile(String title, String gameData, Image gameCover) {
         GameFile newGame = new GameFile(title, gameData, gameCover);
         gallery.addToGallery(newGame);
+        splashScreen.update(newGame);
     }
 
     public void presentEditor(Game game) {
         gameEditorController = new GameEditorController(this);
         gameEditorController.startEditor(game);
         gameEditorController.setOnLoadGame(e -> sendXMLFileDataToEngine());
+        gameEditorController.setOnSaveGame(e -> createNewGameFile());
     }
 
     public void presentEditor(Game game, String gameType) {
@@ -111,7 +116,7 @@ public class MainController implements IMainControllerIn {
     }
 
     private void sendXMLFileDataToEngine() {
-        // String title = gameEditorController.getGameTitle();
+       // String title = gameEditorController.getGameTitle();
         //String gameFile = gameEditorController.getGameFile();
     	//addNewGameFile(title, gameFile);
     	String content = null;
@@ -120,11 +125,20 @@ public class MainController implements IMainControllerIn {
 	    }
 	    catch (IOException e) {
 	    }
-	    launchEngine(content);
-        // String gameFile = gameEditorController.getGameFile();
+	   // launchEngine(content);
+        //String gameFile = gameEditorController.getGameFile();
         Image gameCoverImage = gameEditorController.getGameCoverImage();
-        //addNewGameFile(title,gameFile,gameCoverImage);
+       // addNewGameFile(title,gameFile,gameCoverImage);
         // launchEngine(gameFile);
+    }
+    
+    private void createNewGameFile()
+    {
+    	String title = gameEditorController.getGameTitle();
+    	String gameFile = gameEditorController.getGameFile();
+        Image gameCoverImage = gameEditorController.getGameCoverImage();
+        //System.out.println(title + " " + gameFile + " " + gameCoverImage);
+        addNewGameFile(title,gameFile,gameCoverImage);
     }
 
     public void launchEngine(String XMLData) {
