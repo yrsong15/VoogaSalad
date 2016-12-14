@@ -49,6 +49,8 @@ public class Gallery implements IGallery {
 		GameFile flappy = new GameFile("Example Flappy Bird",
 				readFile("data/FlappyExample.xml"), new Image(flappyString));
 		addToGallery(flappy);
+		GameFile multiplayerDDR = new GameFile("Multiplayer DDR", readFile("data/MultiplayerDDR.xml"), new Image(ddRString));
+		addToGallery(multiplayerDDR);
 	}
 
 	@Override

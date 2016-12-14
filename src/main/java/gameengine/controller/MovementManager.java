@@ -46,7 +46,6 @@ public class MovementManager implements ControlInterface{
 		try {
 			setScrolling();
 		} catch (ScrollTypeNotFoundException e) {
-			e.printStackTrace();
 		}
 		movementChecker = new MovementChecker((ControlInterface) this, currLevel.getScrollType().getGameBoundary());
 		genMovement = new GeneralMovement(currLevel, currLevel.getScrollType().getGameBoundary());
@@ -206,7 +205,7 @@ public class MovementManager implements ControlInterface{
 				gameScrolling = (Scrolling) ReflectionUtil.getInstance(classPath, parameters, parameterTypes);
 			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
+				
 			}
 	}
 	
@@ -218,7 +217,7 @@ public class MovementManager implements ControlInterface{
 			}
 			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0));
 		} catch (ScrollDirectionNotFoundException e) {
-			e.printStackTrace();
+			
 		}
 	}
 	
@@ -230,7 +229,6 @@ public class MovementManager implements ControlInterface{
 			}
 			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0), speed);
 		} catch (ScrollDirectionNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
 }

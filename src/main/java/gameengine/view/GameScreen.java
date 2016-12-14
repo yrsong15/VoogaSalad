@@ -121,7 +121,6 @@ public class GameScreen {
 
     private void addGameObject(ClientGameObject object) {
         if (object.getImageFileName() == null) {
-            System.out.println("adding " + object.getImageFileName() + "with id " + object.getID());
             if (object.getImageFileName() == null)
                 return;
         }

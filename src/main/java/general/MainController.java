@@ -13,22 +13,23 @@ import gameengine.controller.GameEngineController;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import objects.*;
 
 /**
- * @author Delia Li, Pratiksha Sharma
+ * @author Delia Li, Pratiksha Sharma, John Martin
  */
-public class MainController {
+public class MainController implements IMainControllerIn {
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
     private Stage gameEngineStage;
     private Gallery gallery;
     private GameEditorController gameEditorController;
     private GameEngineController gameEngineController;
+
     private SplashScreen splashScreen;
+    private String myLoadXML;
 
     public MainController(Stage stage) throws IOException {
         this.gallery = new Gallery();
@@ -40,7 +41,7 @@ public class MainController {
         stage.show();
         initializeGallery();
         gameEngineController = new GameEngineController();
-        gameEditorController = new GameEditorController();
+        gameEditorController = new GameEditorController(this);
     }
 
     private void initializeGallery() throws IOException {
@@ -54,16 +55,16 @@ public class MainController {
     }
 
     public void presentEditor(Game game) {
-        gameEditorController = new GameEditorController();
+        gameEditorController = new GameEditorController(this);
         gameEditorController.startEditor(game);
         gameEditorController.setOnLoadGame(e -> sendXMLFileDataToEngine());
         gameEditorController.setOnSaveGame(e -> createNewGameFile());
     }
 
     public void presentEditor(Game game, String gameType) {
-        gameEditorController = new GameEditorController(gameType);
+        gameEditorController = new GameEditorController(gameType, this);
         gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
+        gameEditorController.setOnLoadGame(e -> sendXMLFileDataToEngine());
     }
 
     private void setUpGameEngineStage(Level level) {
@@ -120,11 +121,9 @@ public class MainController {
     	//addNewGameFile(title, gameFile);
     	String content = null;
 	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/poke6.xml")));
+	    	content = new String(Files.readAllBytes(Paths.get("data/" + myLoadXML)));
 	    }
 	    catch (IOException e) {
-	       // TODO Auto-generated catch block
-	       e.printStackTrace();
 	    }
 	   // launchEngine(content);
         //String gameFile = gameEditorController.getGameFile();
@@ -145,10 +144,10 @@ public class MainController {
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
 //        XMLData = gameExamples.getDanceDanceRevolution();
-        //           XMLData = gameExamples.getMultiplayerDDR();
-//              XMLData = gameExamples.getDoodleJumpXML();
-        //  XMLData = gameExamples.getScrollingXML();
-//         XMLData = gameExamples.getMarioXML();
+   //     XMLData = gameExamples.getMultiplayerDDR();
+//        XMLData = gameExamples.getDoodleJumpXML();
+//        XMLData = gameExamples.getScrollingXML();
+//        XMLData = gameExamples.getMarioXML();
         //   XMLData = gameExamples.getDanceDanceRevolution();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
@@ -167,5 +166,9 @@ public class MainController {
         XStream mySerializer = new XStream(new DomDriver());
         Game myGame = (Game) mySerializer.fromXML(file);
         presentEditor(myGame);
+    }
+    
+    public void setLoadXML(String loadXML){
+    	myLoadXML = loadXML;
     }
 }

@@ -29,7 +29,6 @@ public class CellGrid extends Group {
     }
     
     public void createGrid(){
-    	System.out.println("Create Grid");
     	for (int row = 0; row < myGridHeight; row++) {
             for (int col = 0; col < myGridWidth; col++) {
                 int arrayPos = row * myGridWidth + col;

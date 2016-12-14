@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,7 +27,7 @@ import side.Side;
 import viewformatter.ViewFormatter;
 
 /**
- * @author pratikshasharma
+ * @author pratikshasharma, John Martin
  */
 
 public class EditorLevels implements IEditorLevels{
@@ -41,6 +42,7 @@ public class EditorLevels implements IEditorLevels{
     private NodeFactory myFactory;
     private Parent root;
     private Button saveGameButton;
+
     private GameCoverView gameCoverView;
     
 //    private Button testEditButton;
@@ -95,6 +97,7 @@ public class EditorLevels implements IEditorLevels{
         formatter.addView(title, "Title")
         	.position(Side.TOP, "LevelView", 10); 
 
+        
         root = formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
         return root;
     }
@@ -115,6 +118,7 @@ public class EditorLevels implements IEditorLevels{
     {
     	Label gameLabel = new Label("Game Title: ");
         TextField myGameName = new TextField(gameName);
+        myGameName.setOnMouseClicked(e-> handleClick(myGameName));
         myGameName.setOnMouseExited(e->addGameTitleListener(myGameName));
         HBox myHBox = new HBox(40);
        // myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
@@ -122,11 +126,40 @@ public class EditorLevels implements IEditorLevels{
         myHBox.getChildren().addAll(gameLabel,myGameName); 
         return myHBox;
     }
+
+    private void handleClick(TextField myText){
+        myText.setText(" ");
+    }
+
     private void addGameTitleListener(TextField myGameName){
         if(myGameName.getText()!=null && !myGameName.getText().isEmpty()){
             myGameTitle.set(myGameName.getText());
         }
     }
+
+
+    private void addButtons(){
+        //newLevelButton = getButton("LevelCommand", LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6);
+        //loadGameButton = getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2.5,LEVEL_PANE_Y_POSITION*6);
+      newLevelButton = getButton("LevelCommand");
+        loadGameButton = getButton("LoadGameCommand");
+        saveGameButton = new Button(SAVE_LABEL);
+
+        saveGameButton.setLayoutX(LEVEL_PANE_X_POSITION*2);
+        saveGameButton.setLayoutY(LEVEL_PANE_Y_POSITION*6);
+
+        String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/AddLevelIcon.png";
+        ImageView newLevelIcon = new ImageView(new Image(userDirectoryString));
+
+
+        newLevelIcon.setFitHeight(BUTTON_ICON_PROPORTION);
+        newLevelIcon.setFitWidth(BUTTON_ICON_PROPORTION);
+
+        newLevelButton.setGraphic(newLevelIcon);
+
+        newLevelButton.setOnAction(e -> addNewLevel());
+    }
+
     
     private ScrollPane createLevelView()
     {
@@ -138,6 +171,7 @@ public class EditorLevels implements IEditorLevels{
         pane.setPrefSize(ADD_LEVELS_WIDTH, ADD_LEVELS_HEIGHT);
         pane.setContent(myVBox);
         return pane;
+
     }
     public void setOnAddLevel(EventHandler<ActionEvent> handler){
         newLevelButton.setOnAction(handler);
