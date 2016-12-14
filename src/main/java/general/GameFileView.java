@@ -61,7 +61,7 @@ public class GameFileView implements IGameFileView
 	@Override
 	public void highlight()
 	{
-		gameView.setFill(Color.YELLOW);
+		gameView.setFill(Color.LIGHTBLUE);
 	}
 
 	@Override

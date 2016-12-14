@@ -1,6 +1,9 @@
 package gameeditor.view;
 
 
+import java.io.File;
+
+import frontend.util.FileOpener;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,13 +18,17 @@ import viewformatter.ViewFormatter;
 
 public class GameCoverView 
 {
+	public static double DEFAULT_IMAGE_WIDTH = 30;
+	public static double DEFAULT_IMAGE_HEGIHT = 45;
+	
+	private static final String BG_IMAGE_LOCATION = ViewResources.BG_FILE_LOCATION.getResource();
+	private static final String IMAGE_FILE_TYPE = ViewResources.IMAGE_FILE_TYPE.getResource();
+	
 	private ImageView gameCover;
 	private Pane root;
 	private double width;
 	private double height;
 	
-	public static double DEFAULT_IMAGE_WIDTH = 30;
-	public static double DEFAULT_IMAGE_HEGIHT = 45;
 	
 	public GameCoverView(double width, double height)
 	{
@@ -50,7 +57,7 @@ public class GameCoverView
 				.centerXInScreen()
 				.setZ(2);
 		
-		Button loadButton = new Button("Load Cover");
+		Button loadButton = createLoadButton();
 		formatter.addView(loadButton, "Load Button")
 			.positionWithPercentGapOfScreen(Side.BOTTOM, "Game Cover", 0.075)
 			.centerXInScreen();
@@ -70,11 +77,34 @@ public class GameCoverView
 		return root;
 	}
 	
+	private Button createLoadButton()
+	{
+		Button button = new Button("Load Cover");
+		button.setOnMouseClicked(e -> updateCoverImage());
+		return button;
+	}
+	
+	private void updateCoverImage()
+	{
+		String filePath = getFilePath(IMAGE_FILE_TYPE,BG_IMAGE_LOCATION);
+		Image coverImage = new Image(filePath);
+		gameCover.setImage(coverImage);
+	}
+	
 	public Image getGameCoverImage()
 	{
 		return gameCover.getImage();
 	}
 
+	private String getFilePath(String fileType, String fileLocation){
+        FileOpener myFileOpener = new FileOpener();
+        File file = (myFileOpener.chooseFile(fileType, fileLocation));
+        if(file != null){
+            return file.toURI().toString();
+        }
+        return null;
+    }
+	
 	private Rectangle generateRectangle(double width, double height)
 	{
 		Rectangle rect = new Rectangle(width,height);
