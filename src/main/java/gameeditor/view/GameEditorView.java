@@ -108,7 +108,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                     myDataStoreInterface.storeType(propertiesMap);
                 }
                 ArrayList<GameObjectView> myAvatars =  myDetailPane.getCurrentAvatars();
-                System.out.println(myAvatars.size());
+//                System.out.println(myAvatars.size());
 
                 GameObjectView objectView = new GameObjectView(fileName,x,y,width,height,type,false,false,myDesignArea,myDataStoreInterface);
 
@@ -173,7 +173,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     private void addAvatar(){
         if(myGameInterface.getCurrentLevel()!=null){
             for(GameObject player: myGameInterface.getCurrentLevel().getPlayers()){ 
-                System.out.println(myGameInterface.getCurrentLevel().getPlayers().size());
+//                System.out.println(myGameInterface.getCurrentLevel().getPlayers().size());
                 ArrayList<GameObjectView> listOfPlayer = myDetailPane.getCurrentAvatars();
                 if(!playerIsActive(player,listOfPlayer))
                 {             
