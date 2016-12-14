@@ -51,6 +51,7 @@ public class EditorLevels implements IEditorLevels{
         myActiveButtonId = new SimpleStringProperty(null);
         myGameTitle = new SimpleStringProperty(null);
         this.myFactory = new NodeFactory();
+        
     }
 
     public Parent createRoot(String gameName){
@@ -64,7 +65,6 @@ public class EditorLevels implements IEditorLevels{
         formatter.addView(background, "Background", SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_WIDTH)
         		.setZ(-1);	
         
-        root = new Group();
         myVBox = new VBox(20);
         myLevels = new ArrayList<Button>();
         
@@ -96,10 +96,16 @@ public class EditorLevels implements IEditorLevels{
         Region title = createTitle(gameName);
         formatter.addView(title, "Title")
         	.position(Side.TOP, "LevelView", 10); 
+<<<<<<< HEAD
         
         root = formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
         return root;
         
+=======
+
+        root = formatter.renderView(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_HEIGHT); 
+        return root;
+>>>>>>> b9818e60e281f3ac6ca593a69b68d27305a58d63
     }
     
     private Button createNewLevelButton()
