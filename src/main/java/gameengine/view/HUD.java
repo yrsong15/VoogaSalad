@@ -55,7 +55,7 @@ public class HUD {
 			scoreText.setTranslateX(30);
 			myHUD.getChildren().add(scoreText);
 		}
-		Text timeText = new Text("  |  Time: " + Integer.toString(timeCount));
+		Text timeText = new Text("    Time: " + Integer.toString(timeCount));
 		timeText.setFill(Color.WHITE);
 		timeText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
 		timeText.setTranslateY(60);
