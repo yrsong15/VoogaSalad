@@ -96,16 +96,15 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 			mainCharImprints.put(mainChar, position);
 			mainChar.checkPlatformStatus();
-			System.out.println("Position" + position.getX());
+			//System.out.println("Position" + position.getX());
 		}
 	}
 	private double setNewPosition(double mainCharacterReference, GameObject mainChar, GameObject obj){
-		double newPosition;
+		double newPosition =  mainCharImprints.get(mainChar).getY();
 		if (mainCharacterReference < obj.getYPosition()) {
 			newPosition = obj.getYPosition() - mainChar.getHeight() - marginCollisionSeparation/2;
 			mainChar.setPlatformCharacterIsOn(obj);
-		} else
-			newPosition = obj.getYPosition() + obj.getHeight();
+		}
 		
 		return newPosition;
 	}
