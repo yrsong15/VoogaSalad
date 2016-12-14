@@ -1,10 +1,8 @@
 package gameengine.view;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import frontend.util.FileOpener;
-import gameengine.controller.ScrollerController;
 import gameengine.network.client.ClientMain;
 import gameengine.network.server.UDPHandler;
 import gameengine.view.interfaces.IGameEngineUI;
@@ -29,7 +26,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.ClientGame;
