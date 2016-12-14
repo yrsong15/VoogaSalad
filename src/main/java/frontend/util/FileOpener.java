@@ -56,10 +56,11 @@ public class FileOpener implements IFileOpener {
 
 
     @Override
-    public void saveFile (String fileType, String fileLocation, String data, String defaultFileName) {
+    public String saveFile (String fileType, String fileLocation, String data, String defaultFileName) {
         setUpFileChooser( fileType, fileLocation);
         fileChooser.setInitialFileName(defaultFileName);
         File file = fileChooser.showSaveDialog(myStage);
+        System.out.println(file.getName());
         try {
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(data);
@@ -67,10 +68,10 @@ public class FileOpener implements IFileOpener {
         } catch (IOException e) {
             GameEditorException exception = new GameEditorException();
             exception.showError("IOException");
-            
         } catch (NullPointerException e){
             GameEditorException exception = new GameEditorException();
             exception.showError("File has not been saved");
         }
+        return file.getName();            
     }
 }

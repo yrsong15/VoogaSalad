@@ -78,7 +78,7 @@
         <obstacles/>
         <winConditions/>
         <loseConditions/>
-        <musicFilePath>Cascada - Everytime We Touch.mp3</musicFilePath>
+        <musicFilePath>Darude - Sandstorm.mp3</musicFilePath>
         <backgroundFilePath>Background/ddrbackground.jpg</backgroundFilePath>
         <randomGenerationFrame class="gameengine.model.RandomGenFrameY">
             <level reference="../.."/>
