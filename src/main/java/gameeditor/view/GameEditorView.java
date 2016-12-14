@@ -108,7 +108,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                     myDataStoreInterface.storeType(propertiesMap);
                 }
                 ArrayList<GameObjectView> myAvatars =  myDetailPane.getCurrentAvatars();
-                System.out.println(myAvatars.size());
+//                System.out.println(myAvatars.size());
 
                 GameObjectView objectView = new GameObjectView(fileName,x,y,width,height,type,false,false,myDesignArea,myDataStoreInterface);
 

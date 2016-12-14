@@ -209,7 +209,7 @@ public class GameObjectView {
         if(myIsMainChar){
             Map<String,String> mainCharMap = myDataStore.getMainCharMap(myImageView.toString());
             if(mainCharMap==null){
-                System.out.println(" HERE ");
+//                System.out.println(" HERE ");
                 mainCharMap = new HashMap<String,String>();
                 mainCharMap.put(DetailResources.IMAGE_PATH.getResource(), myImageFilePath);
                 mainCharMap.put(DetailResources.IMAGEVIEW_KEY.getResource(),myImageView.toString());
