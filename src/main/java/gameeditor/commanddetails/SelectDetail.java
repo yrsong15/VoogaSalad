@@ -75,7 +75,7 @@ public class SelectDetail extends AbstractSelectDetail {
         myGO.update(x, y, width, height);
         String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
         if(randomGen!=null && randomGen.equals("True")){ 
-//        	myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed, randomGenDirection);
+        	myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed, randomGenDirection);
             myGO.addRandomGen(myRandomGenerationList, randomGenDirection);
         }
         
