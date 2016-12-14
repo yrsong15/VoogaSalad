@@ -98,7 +98,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         //System.out.println(playerMapping.keySet().size());
 
         clientPlayerList = playerMapping.get(clientMain.getID());
-//		System.out.println("clientPlayerList in Engine UI: " + clientPlayerList);
+        //System.out.println("clientPLayerList in Engine UI: " + clientPlayerList);
         for (Player player : clientPlayerList) {
             mapKeys(player, player.getControls());
         }
@@ -113,7 +113,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             pause();
             makeLevelScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
             currLevel = currentGame.getLevel();
-            gameScreen.nextLevel();
         } else if (currentGame.isGameLost()) {
             makeLoseScreen(currentGame.getHighScores(), currentGame.getLevel(), currentGame.getScores(), this);
             pause();
