@@ -6,6 +6,7 @@ import frontend.util.FileOpener;
 import gameeditor.controller.interfaces.IGameEditorController;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
+import general.IMainControllerIn;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -20,7 +21,7 @@ import objects.Level;
 import objects.interfaces.IGame;
 import objects.interfaces.ILevel;
 /**
- * @author pratikshasharma, Ray Song
+ * @author pratikshasharma, Ray Song, John Martin
  *
  */
 public class GameEditorController implements IGameEditorController{
@@ -35,16 +36,18 @@ public class GameEditorController implements IGameEditorController{
     private Parent myRoot;
     private IGame myGameInterface;
     private String myGameType;
+    private IMainControllerIn myMainController;
 
     //TODO: move all hard-coded strings into a resource bundle
     public static final String DEFAULT_GAME_TITLE = "Untitled";
     
-    public GameEditorController(String gameType){
+    public GameEditorController(String gameType, IMainControllerIn im){
     	myGameType = gameType;
+    	myMainController = im;
     }
     
-    public GameEditorController(){
-    	this("Scrolling");
+    public GameEditorController(IMainControllerIn im){
+    	this("Scrolling", im);
     }
 
     public void startEditor(Game game) {
@@ -75,7 +78,8 @@ public class GameEditorController implements IGameEditorController{
 
     private void saveGameToFile(){
         FileOpener chooser = new FileOpener();
-        chooser.saveFile("XML", "data", getGameFile(), "vooga");
+        String fileName = chooser.saveFile("XML", "data", getGameFile(), "vooga");
+        myMainController.setLoadXML(fileName);
     }
 
     private void displayInitialStage(){  
@@ -197,7 +201,7 @@ public class GameEditorController implements IGameEditorController{
 
     public void setOnLoadGame(EventHandler<MouseEvent> handler){
         if(myEditorLevels!=null){
-            myEditorLevels.getLoadButton().setOnMouseClicked( handler);  
+            myEditorLevels.getLoadButton().setOnMouseClicked(handler);  
         }
     }
 
