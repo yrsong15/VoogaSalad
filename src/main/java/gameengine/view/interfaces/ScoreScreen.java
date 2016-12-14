@@ -48,14 +48,12 @@ public abstract class ScoreScreen {
     }
 
     private BorderPane makeRoot() {
-        
-        
         root = new BorderPane();
 //        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
 //        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         ViewFormatter formatter = new ViewFormatter();
 
-        Text highScoreText = new Text (50, 100, makeScreenText() + " \nHigh Scores");
+        Text highScoreText = new Text (makeScreenText() + " \nHigh Scores");
         highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         highScoreText.setFill(Color.RED);
         formatter.addView(highScoreText, "High Score Text")
