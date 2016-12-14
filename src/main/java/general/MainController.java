@@ -116,7 +116,7 @@ public class MainController implements IMainControllerIn {
     	//addNewGameFile(title, gameFile);
     	String content = null;
 	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/" + myLoadXML)));
+	    	content = new String(Files.readAllBytes(Paths.get("data/poke6.xml")));
 	    }
 	    catch (IOException e) {
 	    }
