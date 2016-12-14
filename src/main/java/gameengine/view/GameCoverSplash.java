@@ -59,7 +59,7 @@ public class GameCoverSplash {
         if(title.equals("Dance Dance Revolution")){
             ButtonTemplate singleTemp = new ButtonTemplate("Singleplayer", 150, 165);
             Button single = singleTemp.getButton();
-            single.setOnMouseClicked(e -> mainController.startPlayingSingle());
+            single.setOnMouseClicked(e -> mainController.startPlayingSingleDDR());
             ButtonTemplate multiTemp = new ButtonTemplate("Multiplayer", 150, 265);
             Button multi = multiTemp.getButton();
             multi.setOnMouseClicked(e -> setUpMulti());

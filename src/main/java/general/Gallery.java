@@ -23,10 +23,13 @@ public class Gallery implements IGallery {
 	}
 
 	private void addDefaultGame() throws IOException {
-		GameFile defaultGame = new GameFile("Game To Test Projectiles",
+		GameFile ddr = new GameFile("Dance Dance Revolution",
+				readFile("data/DanceDanceRevolution.xml"));
+		addToGallery(ddr);
+		GameFile defaultGame = new GameFile("Super Mario",
 				readFile("data/ScrollingTestGameEditorExampleXML.xml")); //
 		addToGallery(defaultGame);
-		GameFile spicyGame = new GameFile("A Spicy Game To Test Platforms",
+		GameFile spicyGame = new GameFile("Doodle Jump",
 				readFile("data/GameEditorExampleXML.xml")); //
 		addToGallery(spicyGame);
 		GameFile scrollingGame = new GameFile("Scrolling Tester",
@@ -35,8 +38,6 @@ public class Gallery implements IGallery {
 		GameFile exampleGame = new GameFile("Example Flappy Bird",
 				readFile("data/FlappyExample.xml"));
 		addToGallery(exampleGame);
-		GameFile ddr = new GameFile("Dance Dance Revolution", readFile("data/DanceDanceRevolution.xml"));
-		addToGallery(ddr);
 	}
 
 	@Override

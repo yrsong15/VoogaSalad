@@ -80,6 +80,16 @@ public class MainController {
         gameEngineController.startGame();
     }
 
+    public void startPlayingSingleDDR(){
+        GameExamples gameExamples = new GameExamples();
+        String XMLData = gameExamples.getDanceDanceRevolution();
+        Game game = gameEngineController.createGameFromXML(XMLData);
+        gameEngineStage.setScene(gameEngineController.getScene());
+        gameEngineStage.show();
+        gameEngineStage.setOnCloseRequest(event -> shutdownClient());
+        gameEngineController.startGame();
+    }
+
     private void shutdownClient(){
         gameEngineController.setupServerShutdown();
         gameEngineController.stop();
@@ -95,10 +105,10 @@ public class MainController {
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
 //        XMLData = gameExamples.getDanceDanceRevolution();
-//        XMLData = gameExamples.getMultiplayerDDR();
-        XMLData = gameExamples.getDoodleJumpXML();
+        XMLData = gameExamples.getMultiplayerDDR();
+//        XMLData = gameExamples.getDoodleJumpXML();
 //        XMLData = gameExamples.getScrollingXML();
-        XMLData = gameExamples.getMarioXML();
+//        XMLData = gameExamples.getMarioXML();
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;
