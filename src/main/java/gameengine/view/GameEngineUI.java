@@ -89,11 +89,11 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         gameScreen.reset();
         gameScreen.init(currentGame);
         myHUD.resetTimer();
-        //System.out.println(" Client Id " + clientMain.getID());
+//        System.out.println(" Client Id " + clientMain.getID());
         //System.out.println(playerMapping.keySet().size());
 
         clientPlayerList = playerMapping.get(clientMain.getID());
-        //System.out.println("clientPLayerList in Engine UI: " + clientPlayerList);
+//        System.out.println("clientPLayerList in Engine UI: " + clientPlayerList);
         for (Player player : clientPlayerList) {
             mapKeys(player, player.getControls());
         }

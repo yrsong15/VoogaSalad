@@ -36,7 +36,6 @@ public class GameEngineController implements CommandInterface {
 		gameEngineView = new GameEngineUI(serializer, event -> reset());
 	}
 	public void startGame() {
-
 		if (hostGame) {
 			Thread serverThread = createServerThread();
 			serverThread.start();
