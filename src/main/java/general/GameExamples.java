@@ -339,7 +339,7 @@ public class GameExamples{
         shyGuy.setProjectileProperties(projectileProperties);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
-        System.out.println(xml);
+//        System.out.println(xml);
         return xml;
     }
     public String getDanceDanceRevolution(){
@@ -413,7 +413,7 @@ public class GameExamples{
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
-        System.out.println(xml);
+//        System.out.println(xml);
         return xml;
     }
     public String getMultiplayerDDR(){
@@ -536,7 +536,7 @@ public class GameExamples{
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
-        System.out.println(xml);
+//        System.out.println(xml);
         return xml;
     }
 }
