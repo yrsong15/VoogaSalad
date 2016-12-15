@@ -104,5 +104,9 @@ public class MultiBoundingBox {
 	public Rectangle getBound(){
 		return myBounds;
 	}
+	
+	public ArrayList<GameObjectView> getSprites(){
+		return mySprites;
+	}
 
 }

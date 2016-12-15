@@ -124,11 +124,18 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
     }
 
     private void handleKeyRelease(KeyCode code){
-        if (code == KeyCode.BACK_SPACE && mySelectedSprite != null){
+        if (code == KeyCode.BACK_SPACE && mySelectedSprite != null && myMultiBoundingBox == null ){
             // TODO: Remove from backend
             mySelectedSprite.removeBound();
             mySelectedSprite.setOff();
             mySelectedSprite.removeSelf();
+        } else if (code == KeyCode.BACK_SPACE && myMultiBoundingBox != null){
+        	for (GameObjectView sprite : myMultiBoundingBox.getSprites()){
+        		// TODO: Remove from backend
+        		sprite.removeSelf();
+        	}
+        	myMultiBoundingBox.hide();
+            myMultiBoundingBox = null;
         }
         myKeyCode = null;
     }
