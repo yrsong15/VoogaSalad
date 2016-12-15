@@ -45,27 +45,10 @@ public class GalleryView implements IGalleryView{
         this.mySelectedFiles = new ArrayList<GameFileView>();
         this.myFactory = new NodeFactory();
         galleryWindow = startwindow;
-//        galleryWindow.setPrefSize(GALLERY_WIDTH, GALLERY_HEIGHT);
-//        addGalleryBackgroundImage();
         addGalleryBackdrop();
         addGalleryButtons();
-//        scene = new Scene(galleryWindow);
-//        scene.getStylesheets().add(MainController.STYLESHEET);
-
         addGameFileViews();
-//        setUpWindow();
-//        configureEventListeners();
     }
-
-//    @Override
-//    public Scene getScene() {
-//        return scene;
-//    }
-
-//    private void configureEventListeners() {
-////        scene.addEventHandler(GameFileViewEvent.REMOVE_FROM_GALLERY, e -> removeGameFile());
-////        scene.addEventHandler(GameFileViewEvent.VIEW_CLICKED_ON, e -> gameFileViewClicked(e.getGameFileView()));
-//    }
 
     private void gameFileViewClicked(GameFileView gameFileView) {
         if(mySelectedFiles.contains(gameFileView))
@@ -89,18 +72,6 @@ public class GalleryView implements IGalleryView{
     	}
     	mySelectedFiles.clear();
     }
-
-//    private void setUpWindow() {
-////        galleryWindow = new Pane();
-////        galleryWindow.setPrefSize(GALLERY_WIDTH, GALLERY_HEIGHT);
-////        addGalleryBackgroundImage();
-////        addGalleryBackdrop();
-////        addGalleryButtons();
-////        scene = new Scene(galleryWindow);
-////        scene.getStylesheets().add(MainController.STYLESHEET);
-////
-////        addGameFileViews();
-//    }
 
     private GameFileView createGameFileView(GameFile gameFile)
     {
@@ -142,15 +113,6 @@ public class GalleryView implements IGalleryView{
         });
         gameFileWindow.setOnMouseExited(e -> gameFileWindow.setOpacity(0.5));
     }
-
-//    private void removeGameFile() {
-//        //gallery.removeFromGallery(gameName);
-//        updateView();
-//    }
-//
-//    private void updateView() {
-//        // This method reconfigures the GalleryView so that it accurately presents all files in the gallery
-//    }
 
     private void addGalleryBackdrop() {
         backdrop = myFactory.makeBackdrop(GALLERY_CORNER_X, GALLERY_CORNER_Y - 15, 890, 260, Color.MIDNIGHTBLUE);
