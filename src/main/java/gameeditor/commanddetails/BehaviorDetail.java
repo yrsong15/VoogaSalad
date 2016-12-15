@@ -143,7 +143,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         BasicBoundary boundary;
         if(gameBoundaryOptions.getValue().equals(GAME_BOUNDARY_OPTIONS[0])){
             // Toroidal
-             boundary = new ToroidalBoundary(width,height);
+             boundary = new ToroidalBoundary(width,height,width,height);
             //myDataStore.addGameBoundary(boundary);
         } else {
              boundary = new StopAtEdgeBoundary(width,height);

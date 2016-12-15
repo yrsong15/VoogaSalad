@@ -136,7 +136,6 @@
         <string>400.0</string>
       </entry>
     </loseConditions>
-    <gameConditions/>
     <backgroundFilePath>Background/bg.png</backgroundFilePath>
     <randomGenerationFrame class="gameengine.model.RandomGenFrameX">
       <level reference="../.."/>
