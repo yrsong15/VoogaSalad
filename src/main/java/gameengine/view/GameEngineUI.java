@@ -136,7 +136,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
                 mediaPlayer.play();
             }
         } catch (Exception e) {
-            System.out.println(myResources.getString("MusicFileError"));
         }
     }
 
@@ -173,7 +172,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             try {
                 update();
             } catch (Exception exception) {
-                exception.printStackTrace();
             }
         });
         animation = new Timeline();
@@ -228,7 +226,6 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             }
         } catch (
                 NoSuchMethodException e) {
-            e.printStackTrace();
         }
     }
 
@@ -304,9 +301,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
             try {
                 checkKeyPressed();
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
         });
         this.scene.setOnKeyReleased(event -> {
@@ -315,9 +310,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
                 try {
                     checkKeyPressed();
                 } catch (InvocationTargetException e) {
-                    e.printStackTrace();
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
                 }
             }
         });

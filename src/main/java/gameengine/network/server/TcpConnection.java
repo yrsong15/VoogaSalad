@@ -51,7 +51,6 @@ class TcpConnection implements Runnable{
 				try {
 					sm = serializer.getServerMessageFromString(msg);
 				} catch (Exception e) {
-					e.printStackTrace();
 					continue;
 				}
 				switch(sm.messageType){
@@ -86,7 +85,6 @@ class TcpConnection implements Runnable{
 				
 			}
 		}catch(IOException | ClassNotFoundException e){
-			e.printStackTrace();
 		}
 	}
 

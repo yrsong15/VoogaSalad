@@ -65,8 +65,6 @@ public class EditorToolbar implements IEditorToolbar {
             //myImageView.setOnMouseReleased(null);
             myPane.getChildren().add(myImageView);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 	

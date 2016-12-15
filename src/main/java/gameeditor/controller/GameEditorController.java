@@ -62,7 +62,6 @@ public class GameEditorController implements IGameEditorController{
         
         if(myGameEditorBackEndController.getGame().getNumberOfLevels()!=0){
             for(int i=0;i<myGameEditorBackEndController.getGame().getNumberOfLevels();i++){
-                System.out.println(" HERE ");
                 addLevelButton();
             }
         }
@@ -185,7 +184,6 @@ public class GameEditorController implements IGameEditorController{
     }
 
     public String getGameFile(){
-        //System.out.println (myGameEditorBackEndController.serializeGame());
 
         return myGameEditorBackEndController.serializeGame();
     }
