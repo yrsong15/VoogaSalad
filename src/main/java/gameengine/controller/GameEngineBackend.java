@@ -209,7 +209,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			mario.setYDistanceMoved(0);
 			
 		} else {
-			//System.out.println("won");
+			System.out.println("winGame");
 			winGame();
 		}
 	}
