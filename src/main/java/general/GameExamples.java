@@ -227,7 +227,6 @@ public class GameExamples{
 
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
-        System.out.println(xml);
         return xml;
 
     }
