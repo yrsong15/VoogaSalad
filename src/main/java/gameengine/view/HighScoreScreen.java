@@ -34,7 +34,7 @@ public class HighScoreScreen extends ScoreScreen{
             Integer> scoreMapping, IGameEngineUI iGameEngine) {
         super(highScores, time, scoreMapping, iGameEngine);
     }
-    
+
     @Override
     public String getStageTitle() {
         return "YOU WIN";
