@@ -1,7 +1,6 @@
 package gameengine.scrolling;
 
 import java.util.List;
-
 import objects.GameObject;
 
 
@@ -12,12 +11,26 @@ import objects.GameObject;
  */
 public abstract class GeneralScroll implements Scrolling{
 	
+		public void scrollDirection(ScrollDirection scrollDir){
+			  switch (scrollDir) {
+			case DOWN:
+				break;
+			case LEFT:
+				break;
+			case RIGHT:
+				break;
+			case UP:
+				break;
+			  }	
+		}
+	
 	    public void scrollUP(List<GameObject> gameObjects, double speed){
 			for(GameObject obstacle: gameObjects){
 				double newPos = obstacle.getYPosition() + speed;
 				obstacle.setYPosition(newPos);
 			}
 	    }
+	    
 
 	    public void scrollDOWN(List<GameObject> gameObjects, double speed){
 	    	for(GameObject obstacle: gameObjects){
@@ -39,6 +52,7 @@ public abstract class GeneralScroll implements Scrolling{
 	            obstacle.setXPosition(newPos);
 	        }
 	    }
+
 
 
 }

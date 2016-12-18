@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.javafx.scene.traversal.Direction;
-
 import exception.ScrollDirectionNotFoundException;
 import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
@@ -17,15 +15,15 @@ import utils.ReflectionUtil;
  */
 public class FreeScrolling extends GeneralScroll{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
-	private Direction direction;
+	private ScrollDirection scrollDir;
 	private double scrollingSpeed;
 	private double xDistanceScrolled;
 	private double yDistanceScrolled;
 	private GameBoundary gameBoundaries;
 	
 	
-	public FreeScrolling(Direction dir, double speed, GameBoundary gameBoundaries){
-		this.direction = dir;
+	public FreeScrolling(ScrollDirection dir, double speed, GameBoundary gameBoundaries){
+		this.scrollDir = dir;
 		this.scrollingSpeed = speed;
 		this.gameBoundaries = gameBoundaries;
 	}
@@ -37,8 +35,8 @@ public class FreeScrolling extends GeneralScroll{
 	}
 	
 	@Override
-	public void setDirection(Direction scrollDirection){
-		this.direction = scrollDirection;
+	public void setDirection(ScrollDirection scrollDir){
+		this.scrollDir = scrollDir;
 	}
 	
 	@Override
@@ -51,23 +49,23 @@ public class FreeScrolling extends GeneralScroll{
 		return yDistanceScrolled;
 	}
 	
-	public boolean allowedToScroll(Direction requestedDir, GameObject player){
-		if(requestedDir == Direction.RIGHT){
+	public boolean allowedToScroll(ScrollDirection requestedDir, GameObject player){
+		if(requestedDir == ScrollDirection.RIGHT){
 			return (player.getXDistanceMoved() - player.getXPosition() < gameBoundaries.getWorldWidth() - gameBoundaries.getViewWidth()
 					&& player.getXPosition() > gameBoundaries.getViewWidth()*0.45
 					&& player.getXPosition() < gameBoundaries.getViewWidth()*0.55);
 		}
-		else if(requestedDir == Direction.LEFT){
+		else if(requestedDir == ScrollDirection.LEFT){
 			return (player.getXDistanceMoved() - player.getXPosition()> 0
 					&& player.getXPosition() > gameBoundaries.getViewWidth()*0.45
 					&& player.getXPosition() < gameBoundaries.getViewWidth()*0.55);
 		}
-		else if(requestedDir == Direction.UP){
+		else if(requestedDir == ScrollDirection.UP){
 			/**return (player.getYDistanceMoved() - player.getYPosition()> 0
 					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.45
 					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.55);**/
 		}
-		else if(requestedDir == Direction.DOWN){
+		else if(requestedDir == ScrollDirection.DOWN){
 			return (player.getYDistanceMoved() - player.getYPosition() < gameBoundaries.getWorldHeight() - gameBoundaries.getViewHeight()
 					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.45
 					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.55);
@@ -86,7 +84,7 @@ public class FreeScrolling extends GeneralScroll{
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed)
 			throws ScrollDirectionNotFoundException {
 		trackDistanceScrolling(speed, mainChar);
-		String methodName = "scroll" + direction.toString();
+		String methodName = "scroll" + scrollDir.toString();
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		for (GameObject obj: gameObjects){
 			if (obj.getProperty("nonscrollable") != null){
@@ -101,18 +99,18 @@ public class FreeScrolling extends GeneralScroll{
 			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				
-				//throw (new ScrollDirectionNotFoundException());
+				//throw (new ScrollScrollDirectionNotFoundException());
 			}
 	}
 
 	private void trackDistanceScrolling(double speed, GameObject mainChar) {
-		if (direction == Direction.RIGHT){
+		if (scrollDir == ScrollDirection.RIGHT){
 			mainChar.setXDistanceMoved(mainChar.getXDistanceMoved() + speed);
 		}
-		else if(direction == Direction.LEFT){
+		else if(scrollDir == ScrollDirection.LEFT){
 			mainChar.setXDistanceMoved(mainChar.getXDistanceMoved() - speed);
 		}
-		else if(direction == Direction.UP){
+		else if(scrollDir == ScrollDirection.UP){
 			mainChar.setYDistanceMoved(mainChar.getYDistanceMoved() - speed);
 		}
 		else{

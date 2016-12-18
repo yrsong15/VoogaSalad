@@ -3,8 +3,6 @@ package gameengine.scrolling;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import com.sun.javafx.scene.traversal.Direction;
-
 import exception.ScrollDirectionNotFoundException;
 import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
@@ -12,12 +10,12 @@ import utils.ReflectionUtil;
 
 public class ForcedScrolling extends GeneralScroll{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
-	private Direction direction;
+	private ScrollDirection direction;
 	private double scrollingSpeed;
 	private GameBoundary gameBoundaries;
 	
 	
-	public ForcedScrolling(Direction dir, double speed, GameBoundary gameBoundaries){
+	public ForcedScrolling(ScrollDirection dir, double speed, GameBoundary gameBoundaries){
 		this.direction = dir;
 		this.scrollingSpeed = speed;
 		this.gameBoundaries = gameBoundaries;
@@ -29,11 +27,11 @@ public class ForcedScrolling extends GeneralScroll{
 	}
 	
 	@Override
-	public void setDirection(Direction scrollDirection) {
-		this.direction = scrollDirection;		
+	public void setDirection(ScrollDirection scrollDir) {
+		this.direction = scrollDir;	
 	}
 	
-	public boolean allowedToScroll(Direction requestedDir, GameObject player){
+	public boolean allowedToScroll(ScrollDirection requestedDir, GameObject player){
 		return requestedDir == direction;
 	}
 

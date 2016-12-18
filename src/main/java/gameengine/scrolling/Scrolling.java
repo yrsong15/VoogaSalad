@@ -3,14 +3,22 @@ package gameengine.scrolling;
 import java.util.List;
 import exception.ScrollDirectionNotFoundException;
 import objects.GameObject;
-import objects.Level;
-import com.sun.javafx.scene.traversal.Direction;
 
 /**
  * This interface should be implemented when adding a type of scrolling
  * @author Chalena Scholl
  */
 public interface Scrolling {
+	
+	
+    public void scrollUP(List<GameObject> gameObjects, double speed);
+
+	public void scrollDOWN(List<GameObject> gameObjects, double speed);
+
+	public void scrollLEFT(List<GameObject> gameObjects, double speed);
+
+	public void scrollRIGHT(List<GameObject> gameObjects, double speed);
+
 	
 	
 	/**
@@ -24,7 +32,7 @@ public interface Scrolling {
 	 * Sets in which direction the screen will be scrolled
 	 * @param scrollDirection
 	 */
-	void setDirection(Direction scrollDirection);
+	void setDirection(ScrollDirection scrollDirection);
 	
 	
 	/**
@@ -44,7 +52,7 @@ public interface Scrolling {
 	 * @param player main character of game
 	 * @return whether or not scrolling is currently allowed
 	 */
-	boolean allowedToScroll(Direction requested, GameObject player);
+	boolean allowedToScroll(ScrollDirection requested, GameObject player);
 	
 	
 	/**

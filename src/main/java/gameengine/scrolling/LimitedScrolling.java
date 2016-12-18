@@ -1,13 +1,8 @@
 package gameengine.scrolling;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.javafx.scene.traversal.Direction;
-
-import exception.MovementRuleNotFoundException;
 import exception.ScrollDirectionNotFoundException;
 import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
@@ -20,13 +15,13 @@ import utils.ReflectionUtil;
 
 public class LimitedScrolling extends GeneralScroll{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
-	private Direction direction;
+	private ScrollDirection direction;
 	private double scrollingSpeed;
 	private double lastXPosition;
 	private double lastYPosition;
 	private GameBoundary gameBoundaries;
 	
-	public LimitedScrolling(Direction dir, double speed, GameBoundary gameBoundaries){
+	public LimitedScrolling(ScrollDirection dir, double speed, GameBoundary gameBoundaries){
 		this.direction = dir;
 		this.scrollingSpeed = speed;
 		this.gameBoundaries = gameBoundaries;
@@ -38,19 +33,19 @@ public class LimitedScrolling extends GeneralScroll{
 	}
 	
 	@Override
-	public void setDirection(Direction scrollDirection){
+	public void setDirection(ScrollDirection scrollDirection){
 		this.direction = scrollDirection;
 	}
 	
 	
-	public boolean allowedToScroll(Direction requestedDir, GameObject player){
+	public boolean allowedToScroll(ScrollDirection requestedDir, GameObject player){
 		double viewWidth = gameBoundaries.getViewWidth();
 		double viewHeight = gameBoundaries.getViewHeight();
 		return (direction == requestedDir)  
-			    && (requestedDir == Direction.LEFT && player.getXPosition()<= viewWidth*0.3
-				||  requestedDir == Direction.RIGHT && player.getXPosition()>= viewWidth*0.7
-				||  requestedDir == Direction.UP && player.getYPosition() <= viewHeight*0.3
-				||  requestedDir == Direction.DOWN && player.getYPosition() >= viewHeight*0.7);
+			    && (requestedDir == ScrollDirection.LEFT && player.getXPosition()<= viewWidth*0.3
+				||  requestedDir == ScrollDirection.RIGHT && player.getXPosition()>= viewWidth*0.7
+				||  requestedDir == ScrollDirection.UP && player.getYPosition() <= viewHeight*0.3
+				||  requestedDir == ScrollDirection.DOWN && player.getYPosition() >= viewHeight*0.7);
 	}
 	
 	
