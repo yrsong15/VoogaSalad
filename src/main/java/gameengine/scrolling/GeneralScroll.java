@@ -18,16 +18,9 @@ public abstract class GeneralScroll implements Scrolling{
 		public GeneralScroll(ScrollDirection dir, double speed, GameBoundary gameBoundaries){
 			this.scrollDir = dir;
 			this.setScrollingSpeed(speed);
-			this.setGameBoundaries(gameBoundaries);
+			this.gameBoundaries = gameBoundaries;
 		}
 		
-		public void setDirection(ScrollDirection scrollDirection){
-			this.scrollDir = scrollDirection;
-		}
-		
-		public ScrollDirection getDirection(){
-			return scrollDir;
-		}
 	
 		public void scrollDirection(List<GameObject> gameObjects, double speed){
 			System.out.println("scrolling");
@@ -75,14 +68,19 @@ public abstract class GeneralScroll implements Scrolling{
 	            obstacle.setXPosition(newPos);
 	        }
 	    }
-
+	    
+		public void setDirection(ScrollDirection scrollDirection){
+			this.scrollDir = scrollDirection;
+		}
+		
+		public ScrollDirection getDirection(){
+			return scrollDir;
+		}
+		
 		public GameBoundary getGameBoundaries() {
 			return gameBoundaries;
 		}
 
-		public void setGameBoundaries(GameBoundary gameBoundaries) {
-			this.gameBoundaries = gameBoundaries;
-		}
 
 		public double getScrollingSpeed() {
 			return scrollingSpeed;
