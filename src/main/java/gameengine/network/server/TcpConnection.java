@@ -15,6 +15,11 @@ import xml.XMLSerializer;
 /**
  * This class establishes TCP connection and listens to client side
  * for tasks to do.
+ * 
+ *  * @author Titas Skrebe
+ * 
+ * Edited by Eric Song, Ray Song
+ * 
  */
 class TcpConnection implements Runnable{
 	
@@ -46,7 +51,6 @@ class TcpConnection implements Runnable{
 				try {
 					sm = serializer.getServerMessageFromString(msg);
 				} catch (Exception e) {
-					e.printStackTrace();
 					continue;
 				}
 				switch(sm.messageType){
@@ -81,7 +85,6 @@ class TcpConnection implements Runnable{
 				
 			}
 		}catch(IOException | ClassNotFoundException e){
-			e.printStackTrace();
 		}
 	}
 

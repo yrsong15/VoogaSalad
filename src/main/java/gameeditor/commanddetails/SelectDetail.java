@@ -1,13 +1,9 @@
 package gameeditor.commanddetails;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 /**
  * @author John Martin, Pratiksha Sharma
@@ -65,8 +61,6 @@ public class SelectDetail extends AbstractSelectDetail {
         double width = Double.parseDouble(widthString.substring(WIDTH_LABEL.length()));
         double height = Double.parseDouble(heightString.substring(HEIGHT_LABEL.length()));
 
-        myGO.update(x, y, width, height);
-
         // Update Data in the Back End
         Map<String, String> typeMap = myDataStore.getType(myGO.getType());
         typeMap.put(ISelectDetail.X_POSITION_KEY,xString.substring(X_LABEL.length()));
@@ -74,11 +68,13 @@ public class SelectDetail extends AbstractSelectDetail {
         typeMap.put(IGameEditorData.WIDTH_KEY,widthString.substring(WIDTH_LABEL.length()));
         typeMap.put(IGameEditorData.HEIGHT_KEY, heightString.substring(HEIGHT_LABEL.length()));
         
-        
+        myGO.update(x, y, width, height);
         String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
         if(randomGen!=null && randomGen.equals("True")){ 
         	myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed, randomGenDirection);
+            myGO.addRandomGen(myRandomGenerationList, randomGenDirection);
         }
+        
     }   
     
     public void switchSelectStyle(GameObjectView sprite){

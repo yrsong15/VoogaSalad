@@ -16,7 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import objects.ScrollType;
 /**
- * @ author Pratiksha Sharma
+ * @ author Pratiksha Sharma, John Martin
  *
  */
 public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDetail{
@@ -30,7 +30,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private BorderPane myLimitWidthOption;
     private ComboBox<String> gameBoundaryOptions;
     private BorderPane myScrollWidthBP;
-    private String scrollTypeClass;
+    private String scrollTypeClass = FREE_SCROLL_TYPE;
     private ArrayList<Direction> scrollTypeDirections;
     
     public BehaviorDetail() {
@@ -84,8 +84,8 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         MenuBar menuBar = new MenuBar();
         menuBar.setMaxWidth(150);
         scrollTypeMenu = new Menu(SCROLL_TYPE_LABEL);
-        Menu limitedScrollSubMenu = createDirectionSubMenu(FORCED_SCROLL_TYPE_LABEL);
-        Menu forcedScrollSubMenu = createDirectionSubMenu(LIMITED_SCROLL_TYPE_LABEL);
+        Menu limitedScrollSubMenu = createDirectionSubMenu(LIMITED_SCROLL_TYPE_LABEL);
+        Menu forcedScrollSubMenu = createDirectionSubMenu(FORCED_SCROLL_TYPE_LABEL);
         MenuItem freeScrollType = createMenuItem(FREE_SCROLL_TYPE_LABEL);
 
         addFreeScrollTypeListener(freeScrollType);
@@ -143,7 +143,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         BasicBoundary boundary;
         if(gameBoundaryOptions.getValue().equals(GAME_BOUNDARY_OPTIONS[0])){
             // Toroidal
-             boundary = new ToroidalBoundary(width,height);
+             boundary = new ToroidalBoundary(width,height,width,height);
             //myDataStore.addGameBoundary(boundary);
         } else {
              boundary = new StopAtEdgeBoundary(width,height);

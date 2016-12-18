@@ -1,8 +1,9 @@
 package gameengine.controller;
 
+import gameengine.model.SingletonInterface;
 import objects.GameObject;
 
-public class SingletonBoundaryChecker<T> {
+public class SingletonBoundaryChecker<T> implements SingletonInterface{
 	public enum IntersectionAmount{NOT_INTERSECTING,PARTIALLY_ABOVE, PARTIALLY_BELOW, COMPLETELY_INSIDE_Y, PARTIALLY_LEFT, PARTIALLY_RIGHT, COMPLETELY_INSIDE_X}
 
 	   //create your singleton instance

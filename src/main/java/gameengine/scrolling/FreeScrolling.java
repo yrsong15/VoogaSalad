@@ -64,7 +64,6 @@ public class FreeScrolling implements Scrolling{
 					&& player.getXPosition() < gameBoundaries.getViewWidth()*0.55);
 		}
 		else if(requestedDir == Direction.UP){
-			return false;
 			/**return (player.getYDistanceMoved() - player.getYPosition()> 0
 					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.45
 					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.55);**/
@@ -102,7 +101,7 @@ public class FreeScrolling implements Scrolling{
 				ReflectionUtil.runMethod(CLASS_PATH, methodName, parameters, parameterTypes);
 			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
+				
 				//throw (new ScrollDirectionNotFoundException());
 			}
 	}

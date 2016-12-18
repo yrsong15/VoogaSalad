@@ -11,7 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import objects.RandomGeneration;
 /**
  * @author John Martin, Pratiksha sharma
  *
@@ -26,7 +25,17 @@ public class GameObjectView {
     private static final String Y_POSITION_KEY = "yPosition";
     private static final String SPRITE_WIDTH_KEY ="width";
     private static final String SPRITE_HEIGHT_KEY ="height";
-
+    
+    private String myRandomGenDirection;
+    private ArrayList<ImageView> myRandomPreviews =  new ArrayList<ImageView>();
+    private int myRandomNum;
+    private int myRandomXMin; 
+    private int myRandomXMax; 
+    private int myRandomYMin; 
+    private int myRandomYMax;
+    private	int myRandomMinSpacing; 
+    private int myRandomMaxSpacing;
+    
     private Image myImage;
     private String myImageFilePath;
     private ImageView myImageView;
@@ -49,8 +58,6 @@ public class GameObjectView {
 
     private BoundingBox myBoundingBox;
     
-    private ArrayList<ImageView> myRandomPreviews =  new ArrayList<ImageView>();
-
     public GameObjectView(String imageFilePath, String type, boolean isMainChar, boolean randomGen, IDesignArea da, IGameEditorData dataStore) {
         this(imageFilePath, DEFAULT_X, DEFAULT_Y, type, isMainChar, randomGen, da, dataStore);
     }
@@ -176,10 +183,21 @@ public class GameObjectView {
     }
 
     public void update(double x, double y, double width, double height){
+        myDesignArea.removeSprite(this);
+        myRandomPreviews.clear();
         setLayout(x, y);
         setDimensions(width, height);
-        myDesignArea.removeSprite(this);
+        if (myRandomGenDirection != null && myRandomGenDirection.equals("horizontal")){
+        	generateHorizontalRandom();
+    	} else if (myRandomGenDirection != null && myRandomGenDirection.equals("vertical")){
+        	generateVerticalRandom();
+        } else {
+        }
         myDesignArea.addSprite(this);
+    }
+    
+    private void forceUpdate(){
+    	update(getX(), getY(), getWidth(), getHeight());
     }
 
     public void updateDetails(){
@@ -191,6 +209,7 @@ public class GameObjectView {
         if(myIsMainChar){
             Map<String,String> mainCharMap = myDataStore.getMainCharMap(myImageView.toString());
             if(mainCharMap==null){
+//                System.out.println(" HERE ");
                 mainCharMap = new HashMap<String,String>();
                 mainCharMap.put(DetailResources.IMAGE_PATH.getResource(), myImageFilePath);
                 mainCharMap.put(DetailResources.IMAGEVIEW_KEY.getResource(),myImageView.toString());
@@ -201,7 +220,7 @@ public class GameObjectView {
         } else{
             Map<String, String> typeMap = myDataStore.getSpriteViewMapByImageView(myImageView.toString());
             if(typeMap==null){
-                typeMap = myDataStore.getSpriteViewMapByType(myType, myImageView.toString());
+               typeMap = myDataStore.getSpriteViewMapByType(myType, myImageView.toString());
                 myDataStore.storeImageViewMap(typeMap);
             } 
             addCommonValuesToMap(typeMap);
@@ -215,45 +234,60 @@ public class GameObjectView {
         myMap.put(SPRITE_HEIGHT_KEY, String.valueOf(getHeight()));
     }
     
-    public void addRandomGen(List<TextArea> myRandomGenerationParameters,
-                                    ComboBox<String> isEnemyAllowed,ComboBox<String> direction){
-    	// TODO: Utilise code below to create a series of random generation image views, 
-    	// contained within the 'myRandomPreviews' ArrayList<ImageView>
-    	
-//        Map<String,String> properties =  getType(type);
-//        enemyAllowed = Boolean.getBoolean(isEnemyAllowed.getValue());
-//        randomGenDirection = direction.getValue();
-//
-//
-//        int width = Double.valueOf(properties.get(WIDTH_KEY)).intValue();
-//        int height = Double.valueOf(properties.get(HEIGHT_KEY)).intValue();
-//        String imagePath = properties.get(IMAGE_PATH_KEY);
-//        String file = imagePath.substring(imagePath.lastIndexOf("/") +1);
-//        
-//        Map<String,String> propertiesMap = getPropertiesMap(properties);
-//        propertiesMap.put("isenemyallowed", "true");
-//
-//        Integer num = Integer.parseInt(myRandomGenerationParameters.get(0).getText());
-//        if(num==0){num=5;}
-//        Integer xMin = Integer.parseInt(myRandomGenerationParameters.get(1).getText());
-//        if(xMin==0){xMin=(int) (GameScreen.screenWidth/5);}
-//        Integer xMax = Integer.parseInt(myRandomGenerationParameters.get(2).getText());
-//        if(xMax==0){xMax=(int) GameScreen.screenWidth;}
-//        Integer yMin = Integer.parseInt(myRandomGenerationParameters.get(3).getText());
-//        if(yMin==0){yMin=((int) (GameScreen.screenHeight*0.2));}
-//        Integer yMax = Integer.parseInt(myRandomGenerationParameters.get(4).getText());
-//        if(yMax==0){yMax=(int) (GameScreen.screenHeight*0.6);}
-//        Integer minSpacing = Integer.parseInt(myRandomGenerationParameters.get(5).getText());
-//        if(minSpacing==0){minSpacing=250;}
-//        Integer maxSpacing = Integer.parseInt(myRandomGenerationParameters.get(6).getText());
-//        if(maxSpacing==0){maxSpacing=500;}
-//
-//        // Need width and height of the game objects
-//        // Image URL (bird.png)
-//        // 
-//
-//        @SuppressWarnings({ "unchecked", "rawtypes" })
-//        RandomGeneration randomGeneration = new RandomGeneration((HashMap) properties,width,height,file,num,xMin,xMax,yMin,yMax,minSpacing,maxSpacing);
+    public void addRandomGen(List<TextArea> randomGenerationParameters, ComboBox<String> direction){
+    	myIsRandomGen = true;
+    	myRandomNum = Integer.parseInt(randomGenerationParameters.get(0).getText());
+        myRandomXMin = Integer.parseInt(randomGenerationParameters.get(1).getText());
+        myRandomXMax = Integer.parseInt(randomGenerationParameters.get(2).getText());
+        myRandomYMin = Integer.parseInt(randomGenerationParameters.get(3).getText());
+        myRandomYMax = Integer.parseInt(randomGenerationParameters.get(4).getText());
+        myRandomMinSpacing = Integer.parseInt(randomGenerationParameters.get(5).getText());
+        myRandomMaxSpacing = Integer.parseInt(randomGenerationParameters.get(6).getText());
+        myRandomNum = (myRandomNum == 0) ? 5 : myRandomNum;
+        myRandomXMin = (myRandomXMin == 0) ? (int) (GameScreen.screenWidth/5) : myRandomXMin;
+        myRandomXMax = (myRandomXMax == 0) ? (int) GameScreen.screenWidth : myRandomXMax;
+        myRandomYMin = (myRandomYMin == 0) ? ((int) (GameScreen.screenHeight*0.2)) : myRandomYMin;
+        myRandomYMax = (myRandomYMax == 0) ? (int) (GameScreen.screenHeight*0.6) : myRandomYMax;
+        myRandomMinSpacing = (myRandomMinSpacing == 0) ? 250 : myRandomMinSpacing;
+        myRandomMaxSpacing = (myRandomMaxSpacing == 0) ? 500 : myRandomMaxSpacing;
+        myRandomGenDirection = direction.getValue();      
+        forceUpdate();
+    }
+    
+    private void generateVerticalRandom(){
+    	double tempX = myRandomXMin + Math.random()*(myRandomXMax - myRandomXMin);
+        double tempY = myImageView.getLayoutY();
+        double tempSpacing = myRandomMinSpacing + Math.random()*(myRandomMaxSpacing-myRandomMinSpacing);
+        tempY += tempSpacing;
+        while(tempY < myRandomYMax && myRandomPreviews.size() < myRandomNum){
+        	ImageView temp = new ImageView(myImage);
+        	temp.setFitWidth(myImageWidth);
+        	temp.setFitHeight(myImageHeight);
+        	temp.setLayoutX(tempX);
+        	temp.setLayoutY(tempY);
+        	myRandomPreviews.add(temp);
+            tempSpacing = myRandomMinSpacing + Math.random()*(myRandomMaxSpacing-myRandomMinSpacing);
+            tempX += myRandomXMin + Math.random()*(myRandomXMax - myRandomXMin);
+            tempY += tempSpacing;
+        }
+    }
+    
+    private void generateHorizontalRandom(){
+        double tempX = myImageView.getLayoutX();
+        double tempY = myRandomYMin + Math.random()*(myRandomYMax - myRandomYMin);
+        double tempSpacing = myRandomMinSpacing + Math.random()*(myRandomMaxSpacing-myRandomMinSpacing);
+        tempX += tempSpacing;
+        while(tempX < myRandomXMax && myRandomPreviews.size() < myRandomNum){
+        	ImageView temp = new ImageView(myImage);
+        	temp.setFitWidth(myImageWidth);
+        	temp.setFitHeight(myImageHeight);
+        	temp.setLayoutX(tempX);
+        	temp.setLayoutY(tempY);
+        	myRandomPreviews.add(temp);
+            tempSpacing = myRandomMinSpacing + Math.random()*(myRandomMaxSpacing-myRandomMinSpacing);
+            tempX += tempSpacing;
+            tempY = myRandomYMin + Math.random()*(myRandomYMax - myRandomYMin);
+        }
     }
 
     public String getFilePath(){

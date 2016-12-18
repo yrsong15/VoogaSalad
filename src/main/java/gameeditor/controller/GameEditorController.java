@@ -6,12 +6,14 @@ import frontend.util.FileOpener;
 import gameeditor.controller.interfaces.IGameEditorController;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
+import general.IMainControllerIn;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import objects.Game;
@@ -19,7 +21,7 @@ import objects.Level;
 import objects.interfaces.IGame;
 import objects.interfaces.ILevel;
 /**
- * @author pratikshasharma, Ray Song
+ * @author pratikshasharma, Ray Song, John Martin
  *
  */
 public class GameEditorController implements IGameEditorController{
@@ -34,16 +36,18 @@ public class GameEditorController implements IGameEditorController{
     private Parent myRoot;
     private IGame myGameInterface;
     private String myGameType;
+    private IMainControllerIn myMainController;
 
     //TODO: move all hard-coded strings into a resource bundle
     public static final String DEFAULT_GAME_TITLE = "Untitled";
     
-    public GameEditorController(String gameType){
+    public GameEditorController(String gameType, IMainControllerIn im){
     	myGameType = gameType;
+    	myMainController = im;
     }
     
-    public GameEditorController(){
-    	this("Scrolling");
+    public GameEditorController(IMainControllerIn im){
+    	this("Scrolling", im);
     }
 
     public void startEditor(Game game) {
@@ -73,7 +77,8 @@ public class GameEditorController implements IGameEditorController{
 
     private void saveGameToFile(){
         FileOpener chooser = new FileOpener();
-        chooser.saveFile("XML", "data", getGameFile(), "vooga");
+        String fileName = chooser.saveFile("XML", "data", getGameFile(), "vooga");
+        myMainController.setLoadXML(fileName);
     }
 
     private void displayInitialStage(){  
@@ -121,6 +126,8 @@ public class GameEditorController implements IGameEditorController{
     private void displayLevel(){
         if(myLevelEditorMap.containsKey(activeButtonId)){
             myGameEditorView=myLevelEditorMap.get(activeButtonId);
+            Level level = myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1);
+            myGameInterface.setCurrentLevel(level);
             setSavedLevelRoot();
             myGameEditorView.setSaveProperty(false);
             addSaveLevelListener();
@@ -132,14 +139,16 @@ public class GameEditorController implements IGameEditorController{
                 level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
             }
             
-            ILevel levelInterface = (ILevel) level;
-            
+            ILevel levelInterface = (ILevel) level;      
             myLevelManager.createLevel(level);
             myLevelManager.setLeveltitle(myEditorLevels.getGameTitle().get());
+            myGameEditorBackEndController.setCurrentLevel(level);
+            myGameEditorBackEndController.addCurrentLevelToGame();
             myGameEditorView = new GameEditorView(levelInterface, myGameInterface, myGameType);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
-            setNewLevelSceneRoot();         
-            myGameEditorBackEndController.setCurrentLevel(level);
+                 
+            
+            setNewLevelSceneRoot();    
             //myGameEditorBackEndController.addCurrentLevelToGame();  
             addSaveLevelListener();
         }     
@@ -152,6 +161,7 @@ public class GameEditorController implements IGameEditorController{
                                  Boolean oldValue,
                                  Boolean newValue) {
                 if(newValue.booleanValue()==true){
+                    myGameInterface.setGameName(myEditorLevels.getGameTitle().get());
                     myLevelScene.setRoot(myEditorLevels.getRoot());
                     resizeStageToSplashScreen();
                 }
@@ -167,7 +177,6 @@ public class GameEditorController implements IGameEditorController{
 
     private void setNewLevelSceneRoot(){
         myLevelScene.setRoot(myGameEditorView.createRoot()); 
-
         resizeToLevelStage();
     } 
 
@@ -183,18 +192,25 @@ public class GameEditorController implements IGameEditorController{
 
     public String getGameFile(){
         //System.out.println (myGameEditorBackEndController.serializeGame());
-
+        myGameInterface.setGameName(myEditorLevels.getGameTitle().get());
         return myGameEditorBackEndController.serializeGame();
     }
 
-    private void setSavedLevelRoot(){
+    private void setSavedLevelRoot(){  
         myLevelScene.setRoot(myGameEditorView.getRoot());
+        myGameEditorView.addStuffFromOtherFiles();
         resizeToLevelStage();
     }
 
     public void setOnLoadGame(EventHandler<MouseEvent> handler){
         if(myEditorLevels!=null){
-            myEditorLevels.getLoadButton().setOnMouseClicked( handler);  
+            myEditorLevels.getLoadButton().setOnMouseClicked(handler);  
+        }
+    }
+    
+    public void setOnSaveGame(EventHandler<MouseEvent> handler){
+        if(myEditorLevels!=null){
+            myEditorLevels.setOnSaveGame(handler);
         }
     }
 
@@ -202,5 +218,9 @@ public class GameEditorController implements IGameEditorController{
         return myEditorLevels.getGameTitle().get();
     }
 
+    
+    public Image getGameCoverImage(){
+        return myEditorLevels.getGameCoverImage();
+    }
 
 }

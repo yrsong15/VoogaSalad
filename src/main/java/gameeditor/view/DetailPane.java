@@ -10,6 +10,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.ScrollPane;
+
+import java.util.ArrayList;
+
 import gameeditor.commanddetails.*;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.objects.GameObjectView;
@@ -35,7 +38,6 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     public DetailPane(IDesignArea da, IGameEditorData dataStore) {
     	myDesignArea = da;
     	myDataStore = dataStore;
-        System.out.println("Dos");
     	myAvatarDisplay = new MainCharacterDisplay(dataStore, da, this);
         myPane = new Pane();
         myPane.setMinWidth(myPaneWidth); myPane.setMaxWidth(myPaneWidth);
@@ -73,6 +75,11 @@ public class DetailPane implements IDetailPane, ICommandDetailDisplay {
     @Override
     public GameObjectView getCurrentAvatar(){
     	return myAvatarDisplay.getCurrentMain();
+    }
+    
+    @Override
+    public ArrayList<GameObjectView> getCurrentAvatars(){
+    	return myAvatarDisplay.getAllAvatars();
     }
     
     @Override

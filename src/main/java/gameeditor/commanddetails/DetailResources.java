@@ -9,10 +9,12 @@ import javafx.scene.paint.Color;
 
 public enum DetailResources {
                 //PROPERTIES(new String[]{"Destructible","Damage","Points","Time","Health","Gravity","Speed","Random","Movable"}),
-		SPRITE_PROPERTIES_TEXT_INPUT_LABEL(new String [] { "Damage", "Points", "Health","Gravity","Horizontal Speed","Jump"}),
+		SPRITE_PROPERTIES_TEXT_INPUT_LABEL(new String [] { "Damage", "Points", "Health","Gravity","Horizontal Speed","Jump","Bounce","Enemy"}),
 		CONTROL_OPTIONS( new String[] {"Up", "Down", "Right", "Left", "Jump", "Shoot"}),
-		PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable"}),
-		PROPERTIES_COMBO_LABELS(new String[]{"isDestructible","randomgeneration","movable",}),
+		//PROPERTIES_COMBO (new String[]{"Destructible","Random","Movable","Scrollable"}),
+		PROPERTIES_COMBO (new String[]{"Destructible","Random","Scrollable"}),
+		SCROLLABLE_LABEL("Scrollable"),
+		PROPERTIES_COMBO_KEYS(new String[]{"isDestructible","randomgeneration","nonscrollable"}),
 		RANDOM_GEN_KEY("randomgeneration"),
 		DESTRUCTIBLE(new String [] {"True", "False"}),
 		MAIN_CHARACTER_PROPERTIES(new String[]{"Health","Gravity","Movement Speed","Jump"}),
@@ -24,7 +26,7 @@ public enum DetailResources {
 		// Platform Properties
 		PLATFORM_INTERSECTABLE_OPTIONS(new String[] {"True","False"}),
 		PLATFORM_NON_INTERSECTABLE_OPTIONS(new String[]{"Top","Bottom","Both"}),
-		PLATFORM_NON_INTERSECTIBLE_LABEL("Intersectable"),
+		PLATFORM_NON_INTERSECTIBLE_LABEL("Non Intersectable"),
 		NON_INTERSECTABLE_SIDES_LABEL("Select Side"),
 		NON_INTERSECTABLE_KEY("nonintersectable"),
 		ONE_SIDE_NON_INTERSECTABLEKEY("onewaynonintersectable"),
@@ -32,8 +34,9 @@ public enum DetailResources {
 		PLATFORM_ENEMY_ALLOWED_KEY("isenemyallowed"),
 		PlATFORM_ENEMY_ALLOWED_LABEL("Is Enemy Allowed"),
 		
+		
 		JUMP_OPTIONS(new String[] {"Jump Once", "Jump Unlimited"}),
-		RANDOM_GEN_DIRECTION_OPTIONS(new String[] {"vertical","horixontal"}),
+		RANDOM_GEN_DIRECTION_OPTIONS(new String[] {"vertical","horizontal"}),
 		
 		
 		GAMEBOUNDARY_OPTIONS(new String[] {"Toroidal","Stop At Edge"}),
@@ -66,6 +69,7 @@ public enum DetailResources {
 
 		RANDOM(new String [] {"True", "False"}),
 		MOVABLE(new String [] {"True", "False"}),
+		SCROLLABLE(new String[] {"True","False"}),
 		RANDOM_PROPERTY_KEY ( "randomgeneration"),
 		DETAIL_CONTENT_PADDING(10),
 		RANDOM_GENERATION_PARAMETERS(new String[]{"Objects per Frame", "Minimum X ","Maximum X","Minimum Y ","Maximum Y","Minimum Spacing","Maximum Spacing"}),

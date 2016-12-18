@@ -7,11 +7,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import general.interfaces.IGallery;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import objects.Game;
 import org.apache.commons.io.FileUtils;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+
+/**
+ * @author Delia Li, Ryan Bergamini
+ */
 
 public class Gallery implements IGallery {
 
@@ -23,20 +29,29 @@ public class Gallery implements IGallery {
 	}
 
 	private void addDefaultGame() throws IOException {
-		GameFile defaultGame = new GameFile("Game To Test Projectiles",
-				readFile("data/ScrollingTestGameEditorExampleXML.xml")); //
-		addToGallery(defaultGame);
-		GameFile spicyGame = new GameFile("A Spicy Game To Test Platforms",
-				readFile("data/GameEditorExampleXML.xml")); //
-		addToGallery(spicyGame);
-		GameFile scrollingGame = new GameFile("Scrolling Tester",
-				readFile("data/DoodleJump.xml")); //
-		addToGallery(scrollingGame);
-		GameFile exampleGame = new GameFile("Example Flappy Bird",
-				readFile("data/FlappyExample.xml"));
-		addToGallery(exampleGame);
-		GameFile ddr = new GameFile("Dance Dance Revolution", readFile("data/DanceDanceRevolution.xml"));
+		String ddRString = "file:" + System.getProperty("user.dir") + "/images/Sprite/ddrrightarrow.png";
+		
+		GameFile ddr = new GameFile("Dance Dance Revolution Single",
+				readFile("data/DanceDanceRevolution.xml"), new Image(ddRString));
 		addToGallery(ddr);
+		String marioString = "file:" + System.getProperty("user.dir") + "/images/Sprite/mario.png";
+		
+		GameFile mario = new GameFile("Super Mario",
+				readFile("data/Mario.xml"), new Image(marioString));
+		addToGallery(mario);
+		GameFile multiplayerDDR = new GameFile("Multiplayer DDR",
+				readFile("data/MultiplayerDDR.xml"), new Image(ddRString));
+		addToGallery(multiplayerDDR);
+		String doodleString = "file:" + System.getProperty("user.dir") + "/images/Sprite/doodler.png";
+		
+		GameFile doodle = new GameFile("Doodle Jump",
+				readFile("data/DoodleJump.xml"), new Image(doodleString));
+		addToGallery(doodle);
+		String flappyString = "file:" + System.getProperty("user.dir") + "/images/Sprite/bird5.png";
+		
+		GameFile flappy = new GameFile("Example Flappy Bird",
+				readFile("data/FlappyExample.xml"), new Image(flappyString));
+		addToGallery(flappy);
 	}
 
 	@Override

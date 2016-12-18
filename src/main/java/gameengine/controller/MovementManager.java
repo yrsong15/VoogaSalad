@@ -46,7 +46,6 @@ public class MovementManager implements ControlInterface{
 		try {
 			setScrolling();
 		} catch (ScrollTypeNotFoundException e) {
-			e.printStackTrace();
 		}
 		movementChecker = new MovementChecker((ControlInterface) this, currLevel.getScrollType().getGameBoundary());
 		genMovement = new GeneralMovement(currLevel, currLevel.getScrollType().getGameBoundary());
@@ -176,10 +175,9 @@ public class MovementManager implements ControlInterface{
 	public void shootProjectile(GameObject obj, double speed){
 	    if(!projectileStatus.containsKey(obj.getID()) || ((projectileStatus.containsKey(obj.getID()) && (System.currentTimeMillis() - projectileStatus.get(obj.getID()) > obj.getProjectileProperties().getTimeBetweenShots()*1000)))) {
 	        projectileStatus.put(obj.getID(), System.currentTimeMillis());
-
             if (obj.getProjectileProperties() != null) {
                 ProjectileProperties properties = obj.getProjectileProperties();
-                GameObject projectile = new GameObject(0, obj.getXPosition()+obj.getWidth()/2, obj.getYPosition()+obj.getHeight()/2,
+                GameObject projectile = new GameObject(0, obj.getXPosition()+obj.getWidth()/2, obj.getYPosition()+obj.getHeight()/3,
                         properties.getWidth(), properties.getHeight(), properties.getImageFileName(), new HashMap<>());
                 if (properties.getDirection().equals(Direction.LEFT)) {
                     projectile.setProperty("horizontalmovement", String.valueOf(properties.getSpeed() * -1));
@@ -190,7 +188,6 @@ public class MovementManager implements ControlInterface{
                 } else if (properties.getDirection().equals(Direction.UP)) {
                     projectile.setProperty("verticalmovement", String.valueOf(properties.getSpeed() * -1));
                 }
-                projectile.setProperty("damage", String.valueOf(properties.getDamage()));
                 projectile.setProjectileProperties(properties);
                 obj.getProjectiles().add(projectile);
                 currLevel.getProjectiles().add(projectile);
@@ -208,7 +205,7 @@ public class MovementManager implements ControlInterface{
 				gameScrolling = (Scrolling) ReflectionUtil.getInstance(classPath, parameters, parameterTypes);
 			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
+				
 			}
 	}
 	
@@ -220,7 +217,7 @@ public class MovementManager implements ControlInterface{
 			}
 			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0));
 		} catch (ScrollDirectionNotFoundException e) {
-			e.printStackTrace();
+			
 		}
 	}
 	
@@ -232,7 +229,6 @@ public class MovementManager implements ControlInterface{
 			}
 			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0), speed);
 		} catch (ScrollDirectionNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
 }

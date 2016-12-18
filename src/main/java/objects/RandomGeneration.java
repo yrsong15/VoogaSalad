@@ -4,13 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * Created by Soravit on 11/21/2016.
- */
 public class RandomGeneration<T> {
 
     private HashMap<String,String> objectProperties;
     private String URL;
+    
     private T numObjects;
     private T minX;
     private T maxX;
@@ -67,7 +65,6 @@ public class RandomGeneration<T> {
     public T getMaxSpacing(){
     	return maxSpacing;
     }
-
 	public T getHeight() {
 		return height;
 	}

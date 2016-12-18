@@ -34,7 +34,7 @@ public class GameCoverSplash {
     private TextField addServer;
     private NodeFactory myFactory = new NodeFactory();
 
-    public GameCoverSplash(Level level, MainController myMainController){
+    public GameCoverSplash(Level level, MainController myMainController) {
         this.playahs = (ArrayList) level.getPlayers();
         this.background = level.getBackgroundFilePath();
         this.title = level.getTitle();
@@ -42,10 +42,13 @@ public class GameCoverSplash {
         this.mainController = myMainController;
     }
 
-    public Scene createSplashScene(){
+    public Scene createSplashScene() {
         myWindow = new Pane();
+        if (title == null){
+        	title = "Untitled";
+        }
         int titleWidth = 100 + (30 * title.length());
-        if(titleWidth < COVER_WIDTH) titleWidth = COVER_WIDTH;
+        if (titleWidth < COVER_WIDTH) titleWidth = COVER_WIDTH;
         coverScene = new Scene(myWindow, titleWidth, 775);
         coverScene.getStylesheets().add(COVER_SPLASH_STYLE);
         Image backg = new Image(background);
@@ -54,31 +57,41 @@ public class GameCoverSplash {
         backgroundImage.setFitHeight(775);
         Text titleText = myFactory.bigNameTitle(title, 35, 100);
 //        titleText.setOnMouseClicked(e -> testLevelScreens());
-        ButtonTemplate singleTemp = new ButtonTemplate("Singleplayer", 300, 165);
-        Button single = singleTemp.getButton();
-        single.setOnMouseClicked(e -> mainController.startPlayingSingle());
-        ButtonTemplate multiTemp = new ButtonTemplate("Multiplayer", 300, 265);
-        Button multi = multiTemp.getButton();
-        multi.setOnMouseClicked(e -> setUpMulti());
-        myWindow.getChildren().addAll(backgroundImage, titleText, single, multi);
+        myWindow.getChildren().addAll(backgroundImage, titleText);
+
+        if(title.equals("Dance Dance Revolution")){
+            ButtonTemplate singleTemp = new ButtonTemplate("Singleplayer", 150, 165);
+            Button single = singleTemp.getButton();
+            single.setOnMouseClicked(e -> mainController.startPlayingSingleDDR());
+            ButtonTemplate multiTemp = new ButtonTemplate("Multiplayer", 150, 265);
+            Button multi = multiTemp.getButton();
+            multi.setOnMouseClicked(e -> setUpMulti());
+            myWindow.getChildren().addAll(single, multi);
+        }
+        else{
+            ButtonTemplate startTemp = new ButtonTemplate("StartGame", 250, 300);
+            Button start = startTemp.getButton();
+            start.setOnMouseClicked(e -> mainController.startPlayingSingle());
+            myWindow.getChildren().add(start);
+        }
 //        setUpJoin();
         addPlayahs();
         return coverScene;
     }
 
-    private void setUpMulti(){
-        ButtonTemplate hostTemp = new ButtonTemplate("HostGame", 300, 365);
+    private void setUpMulti() {
+        ButtonTemplate hostTemp = new ButtonTemplate("HostGame", 150, 365);
         Button host = hostTemp.getButton();
         host.setOnMouseClicked(e -> mainController.startPlayingMulti(true, addServer.getText()));
-        ButtonTemplate joinTemp = new ButtonTemplate("JoinGame", 300, 465);
+        ButtonTemplate joinTemp = new ButtonTemplate("JoinGame", 150, 465);
         Button join = joinTemp.getButton();
         join.setOnMouseClicked(e -> mainController.startPlayingMulti(false, addServer.getText()));
-        addServer = myFactory.makeTextField("Enter a server", 520, 485);
+        addServer = myFactory.makeTextField("Enter a server", 370, 485);
         myWindow.getChildren().addAll(host, join, addServer);
     }
 
-    private void addPlayahs(){
-        for (int i = 0; i < playahs.size(); i++){
+    private void addPlayahs() {
+        for (int i = 0; i < playahs.size(); i++) {
             Image playah = new Image(myFactory.getUserDirectorySpritePrefix() + playahs.get(i).getImageFileName());
             ImageView newPlayah = new ImageView(playah);
             newPlayah.setPreserveRatio(true);
@@ -89,7 +102,7 @@ public class GameCoverSplash {
         }
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 }

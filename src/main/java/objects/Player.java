@@ -31,6 +31,6 @@ public class Player {
     }
     public void setControlMap(Map<KeyCode,String> controlsMap){
         controls.clear();
-        this.controls=controlsMap;
+        this.controls = controlsMap;
     }
 }

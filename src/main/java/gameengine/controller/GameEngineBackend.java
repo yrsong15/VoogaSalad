@@ -1,5 +1,6 @@
 package gameengine.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
@@ -10,6 +11,7 @@ import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
 import gameengine.model.ConditionChecker;
+import gameengine.model.EnemyMisreferencedException;
 import gameengine.model.RandomGenFrame;
 import gameengine.network.server.ServerMain;
 import gameengine.view.GameEngineUI;
@@ -17,7 +19,8 @@ import javafx.scene.Node;
 import objects.*;
 
 public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHandler {
-
+	private static final int marginCollisionSeparation = 10;
+    private static final double enemySize = 50;
 	private List<RandomGenFrame> randomlyGeneratedFrames;
 	private List<Integer> highScores;
 	private CollisionChecker collisionChecker;
@@ -29,6 +32,7 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private String serverName;
 	private Node toolbarHBox;
 	private CommandInterface commandInterface;
+	private GameObject referenceObject;
 
 	public GameEngineBackend(CommandInterface commandInterface, String serverName) {
 		this.commandInterface = commandInterface;
@@ -46,7 +50,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	
 		
 		String scrollType = currentGame.getCurrentLevel().getScrollType().getScrollTypeName();
-		System.out.println(scrollType);
 		if (scrollType.equals("FreeScrolling")){
 			currentGame.getCurrentLevel().setBackgroundObject();
 		}
@@ -68,8 +71,11 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	/**
 	 * Applies gravity and scrolls, checks for collisions
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws EnemyMisreferencedException 
 	 */
-	public void updateGame() {
+	public void updateGame() throws IllegalAccessException, InvocationTargetException, EnemyMisreferencedException {
 		Level currLevel = currentGame.getCurrentLevel();
 		gameMovement.setCurrLevel(currentGame.getCurrentLevel());
 		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("ForcedScrolling") || currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("LimitedScrolling")) {
@@ -79,7 +85,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		
 		checkProjectileDistance();
 		if(currLevel.getRandomGenRules().size() > 0) {
-            randomlyGenerateFrames();
+            try {
+				randomlyGenerateFrames();
+			} catch (NoSuchMethodException e) {
+			}
         }
         if(toolbarHBox != null){
 			toolbarHBox.toFront();
@@ -88,54 +97,75 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		collisionChecker.checkCollisions(currLevel.getPlayers(), currLevel.getGameObjects());
 		collisionChecker.checkCollisions(currLevel.getProjectiles(), currLevel.getGameObjects()); // checkProjectileDistance();
 		conditionChecker.checkConditions(this, currentGame.getCurrentLevel().getWinConditions(), currentGame.getCurrentLevel().getLoseConditions());
-	
-		
+
+		List<GameObject> objects = currLevel.getAllGameObjects();
+		for(GameObject object : objects){
+			object.setXPosition(object.getXPosition() + object.getVelX());
+
+		}
+
 		List<GameObject> mainChars = currLevel.getPlayers();
 		for (GameObject mainChar : mainChars) {
 			Position position = new Position();
 			position.setPosition(mainChar.getXPosition(), mainChar.getYPosition());
 			mainCharImprints.put(mainChar, position);
 			mainChar.checkPlatformStatus();
-			System.out.println("Position" + position.getX());
 		}
+	}
+	private double setNewPosition(double mainCharacterReference, GameObject mainChar, GameObject obj){
+		double newPosition =  mainCharImprints.get(mainChar).getY();
+		if (mainCharacterReference < obj.getYPosition()) {
+			newPosition = obj.getYPosition() - mainChar.getHeight() - marginCollisionSeparation/2;
+			mainChar.setPlatformCharacterIsOn(obj);
+		}
+		
+		return newPosition;
 	}
 	
 
 	public void resetObjectPosition(GameObject mainChar, GameObject obj, boolean oneSided) {
 		double newPosition;
-		if(SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar, obj) != IntersectionAmount.NOT_INTERSECTING){
-			if (mainCharImprints.get(mainChar).getY() + mainChar.getHeight() < obj.getYPosition()) {
-				mainChar.setPlatformCharacterIsOn(obj);
-			} 	
+		if(oneSided && SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
+				obj) != IntersectionAmount.NOT_INTERSECTING) {
+			newPosition = setNewPosition(mainCharImprints.get(mainChar).getY(), mainChar, obj);
 		}
-		if ((SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
-				obj) == IntersectionAmount.COMPLETELY_INSIDE_X) || (oneSided && SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,
-				obj) != IntersectionAmount.NOT_INTERSECTING)) {
-			if (mainCharImprints.get(mainChar).getY() < obj.getYPosition()) {
-				newPosition = obj.getYPosition() - mainChar.getHeight() - 5;
-				mainChar.setPlatformCharacterIsOn(obj);
-			} else
-				newPosition = obj.getYPosition() + obj.getHeight();
+		else if ((SingletonBoundaryChecker.getInstance().getHorizontalIntersectionAmount(mainChar,obj) != IntersectionAmount.NOT_INTERSECTING)) {
+			newPosition = setNewPosition(mainCharImprints.get(mainChar).getY() + mainChar.getHeight() - marginCollisionSeparation, mainChar, obj);
 		} else {
 			newPosition = mainCharImprints.get(mainChar).getY();
 		}
 
 		mainChar.setYPosition(newPosition);
-		//System.out.println("Current Position: " + mainChar.getXPosition());
-		//System.out.println("Imprint Position: " + mainCharImprints.get(mainChar).getX());
 		mainChar.setXPosition(mainCharImprints.get(mainChar).getX());
 	}
 
-	private void randomlyGenerateFrames(){
+	private void randomlyGenerateFrames() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, EnemyMisreferencedException{
 		for(RandomGeneration<Integer> randomGeneration : currentGame.getCurrentLevel().getRandomGenRules()) {
 			try {
-				currentGame.getCurrentLevel().getRandomGenerationFrame().possiblyGenerateNewFrame(randomGeneration);
+				//this.getClass().getMethod("generateEnemyOnPlatform"),this.getClass().getMethod("generateObject")
+				currentGame.getCurrentLevel().getRandomGenerationFrame().possiblyGenerateNewFrame(this,randomGeneration);
 			} catch (IllegalArgumentException | SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 	}
+	
+	//Used within the RandomGenFrame, better to create objects here though with all other creation methods
+	private void generateEnemyOnPlatform(GameObject referencePlatform){
+		GameObject enemy = new Enemy(referencePlatform.getXPosition() + ((referencePlatform.getWidth() - enemySize)/2), referencePlatform.getYPosition() - enemySize, enemySize, enemySize, "duvall.png", new HashMap<>());
+		currentGame.getCurrentLevel().getGameObjects().add(enemy);
+	}
+	
+	//Used within the RandomGenFrame, better to create objects here though with all other creation methods
+	private void generateObject(double xPosition,double yPosition, double width, double height, String URL, Map<String, String> objectProperties) {
+    	GameObject object = new GameObject(xPosition, yPosition, width, height, URL,objectProperties);
+        currentGame.getCurrentLevel().getGameObjects().add(object);
+        this.referenceObject = object;
+    }
+    
+    public GameObject getReferenceObject(){
+    	return this.referenceObject;
+    }
+	
 
 	private void removeOffscreenElements() {
 		List<GameObject> objects = currentGame.getCurrentLevel().getAllGameObjects();
@@ -195,6 +225,15 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
     public void goNextLevel() {
 		if (currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel()+1) != null) {
 			currentGame.setCurrentLevel(currentGame.getLevelByIndex(currentGame.getCurrentLevel().getLevel() + 1));
+			if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
+				currentGame.getCurrentLevel().setBackgroundObject();
+			}
+			GameObject mario = currentGame.getCurrentLevel().getPlayers().get(0);
+			mario.setXPosition(50);
+			mario.setYPosition(50);
+			mario.setXDistanceMoved(0);
+			mario.setYDistanceMoved(0);
+			
 		} else {
 			winGame();
 		}
@@ -258,7 +297,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 			method.invoke(gameMovement, currentGame.getClientMappings().get(new Long(ID)).get(charIdx).getMainChar(), 10);
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 	}
 
@@ -307,6 +345,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 
 	public void setGame(Game currentGame) {
 		this.currentGame = currentGame;
+		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
+			currentGame.getCurrentLevel().setBackgroundObject();
+		}
 	}
-
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.StringReader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -26,11 +27,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.xml.bind.JAXBException;
 
 import gameengine.controller.interfaces.GameHandler;
+import gameengine.model.EnemyMisreferencedException;
 import objects.ClientGame;
 import objects.Game;
 import xml.XMLSerializer;
 import xml.XMLTrimmer;
 
+/**
+ * 
+ * @author Titas Skrebe
+ * 
+ * Edited by Eric Song, Ray Song
+ *
+ *
+ */
 public class ServerMain {
 
 	// refreshing game state and sending data to clients every x ms
@@ -57,6 +67,7 @@ public class ServerMain {
 	private ServerSocket serverSocket;
 	
 	public ServerMain(GameHandler gameHandler, int tcpPort, String serverName) {
+
 		this.gameHandler = gameHandler;
 		SERVER_PORT_TCP = tcpPort;
 		activeClients = new CopyOnWriteArrayList<IpPort>();
@@ -76,9 +87,7 @@ public class ServerMain {
 			}
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 	}
@@ -96,26 +105,26 @@ public class ServerMain {
 		gameHandler.restart();
 	}
 	
-	public synchronized void shutdownServerThread(){
-		System.out.println("shutdown in servermain");
+	public void shutdownServerThread(){
 		try {
 			serverSocket.close();
 		} catch (IOException ex) {
-			System.out.println("Error in closing server socket");
-			ex.printStackTrace();
 		}
 		Thread.currentThread().interrupt();
-//		return;
+		return;
 	}
 	
 	private void runTimer(){
 		timer.scheduleAtFixedRate(new TimerTask() {
-
+			
 			@Override
 			public void run() {
-				//System.out.println(IDs);
+//				System.out.println(IDs + " " + Thread.currentThread().isAlive());
 				if(!isPaused && (IDs >= gameHandler.getGame().getMinNumPlayers())){
-				gameHandler.updateGame();
+					try {
+						gameHandler.updateGame();
+					} catch (Exception e) {
+					} 
 				}
 				udpSend.sendGamePlay(gameHandler.getClientGame());
 			}
@@ -162,7 +171,6 @@ public class ServerMain {
 			try {
 				gamePlaySocket = new DatagramSocket();
 			} catch (SocketException e) {
-				e.printStackTrace();
 			}
 		}
 

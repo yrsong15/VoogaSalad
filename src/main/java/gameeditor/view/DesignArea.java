@@ -26,13 +26,24 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
 
     public DesignArea() {
         super();
+//        myScrollPane.setPannable(true);
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
         myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
+        myPane.widthProperty().addListener(e -> handleWidthUpdate());
+        myPane.heightProperty().addListener(e -> handleHeightUpdate());
         myScrollPane.setContent(myPane);
     }   
+    
+    private void handleWidthUpdate(){
+    	myScrollPane.setHvalue(1.0);
+    }
+    
+    private void handleHeightUpdate(){
+    	myScrollPane.setVvalue(1.0);
+    }
 
     private void handlePress(double x, double y){
         GameObjectView sprite = checkForSprite(x, y);
@@ -74,8 +85,14 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
         // TODO Auto-generated method stub
         if (dragged){
             ArrayList<GameObjectView> selectedSprites = findSprites(startX, startY, endX, endY);
-            myMultiBoundingBox = new MultiBoundingBox(selectedSprites, this);
-            myMultiBoundingBox.show();
+            if (selectedSprites.size() > 1){
+            	myMultiBoundingBox = new MultiBoundingBox(selectedSprites, this);
+                myMultiBoundingBox.show();
+            } else if (selectedSprites.size() == 1) {
+            	mySelectedSprite = selectedSprites.get(0);
+            	mySelectedSprite.initBound();
+            	mySelectedSprite.setOn(x, y);
+            }
             myPane.getChildren().remove(mySelectionArea);
             mySelectionArea = null;
         }
@@ -107,11 +124,18 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
     }
 
     private void handleKeyRelease(KeyCode code){
-        if (code == KeyCode.BACK_SPACE && mySelectedSprite != null){
+        if (code == KeyCode.BACK_SPACE && mySelectedSprite != null && myMultiBoundingBox == null ){
             // TODO: Remove from backend
             mySelectedSprite.removeBound();
             mySelectedSprite.setOff();
             mySelectedSprite.removeSelf();
+        } else if (code == KeyCode.BACK_SPACE && myMultiBoundingBox != null){
+        	for (GameObjectView sprite : myMultiBoundingBox.getSprites()){
+        		// TODO: Remove from backend
+        		sprite.removeSelf();
+        	}
+        	myMultiBoundingBox.hide();
+            myMultiBoundingBox = null;
         }
         myKeyCode = null;
     }

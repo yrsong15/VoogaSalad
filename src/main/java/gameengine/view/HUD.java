@@ -46,10 +46,8 @@ public class HUD {
 
 	public void update(Map<Long, Integer> scores) {
 		myHUD.getChildren().clear();
-//		myHUD.getChildren().add(scoreText);
-		//game.getCurrentLevel().setTime(timeCount);
 		for (Long clientID : scores.keySet()) {
-			Text scoreText = new Text("Player " + Long.toString((clientID+1))
+			Text scoreText = new Text("  Player " + Long.toString((clientID+1))
 					+ ": " + Integer.toString(scores.get(clientID)));
 			scoreText.setFill(Color.WHITE);
 			scoreText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
@@ -57,15 +55,7 @@ public class HUD {
 			scoreText.setTranslateX(30);
 			myHUD.getChildren().add(scoreText);
 		}
-//		if(game.getGameConditions().get("score") != null) {
-//			Text scoreText = new Text("Score: " + Integer.toString(level.getScore()));
-//			myHUD.getChildren().add(scoreText);
-//		}
-//		if(level.getPlayers() != null) {
-//			Text healthText = new Text("  |  Health: " + level.getPlayers().get(0).getProperty("health"));
-//            myHUD.getChildren().add(healthText);
-//        }
-		Text timeText = new Text("  |  Time: " + Integer.toString(timeCount));
+		Text timeText = new Text("    Time: " + Integer.toString(timeCount));
 		timeText.setFill(Color.WHITE);
 		timeText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
 		timeText.setTranslateY(60);
