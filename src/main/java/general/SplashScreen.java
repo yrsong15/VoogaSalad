@@ -68,7 +68,10 @@ public class SplashScreen implements ISplashScreen {
         this.myGallery = new GalleryView(galleryItem, mainController, startWindow);
         return startWindow;
     }
-
+    public void update(GameFile gameFile)
+    {
+    	myGallery.update(gameFile);
+    }
     private void addNodes() {
         Text title = myFactory.bigNameTitle("Welcome to VoogaSalad", 35, 75);
         ImageView bgSelect = myFactory.makeThumbnailImage("ChangeBackground", 900, 20, 70, 50);

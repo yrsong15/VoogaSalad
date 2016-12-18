@@ -37,7 +37,7 @@ public class GalleryView implements IGalleryView{
     private NodeFactory myFactory;
     private Rectangle backdrop;
     private ArrayList<GameFileView> mySelectedFiles;
-
+    private HBox gameFileBox;
 
     public GalleryView(Gallery gallery, MainController MC, Pane startwindow) {
         this.myMainController = MC;
@@ -81,8 +81,13 @@ public class GalleryView implements IGalleryView{
         return gameFileView;
 
     }
+    
+    public void update(GameFile gameFile)
+    {
+    	gameFileBox.getChildren().add(new GameFileView(gameFile).getNode());
+    }
     private void addGameFileViews() {
-        HBox gameFileBox = new HBox();
+        gameFileBox = new HBox();
         gameFileBox.setSpacing(10);
 
         for (GameFile gameFile : gallery.getUnmodifiableListOfGameFiles())
@@ -129,8 +134,8 @@ public class GalleryView implements IGalleryView{
         edit.translateXProperty().bind(galleryWindow.widthProperty().divide(2).subtract(300));
         edit.setOnMouseClicked(e -> myMainController.editGame());
         edit.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
-        newB = new ButtonTemplate("GalleryGameEngine", 600, 400);
-        Button engine = newB.getButton();
+        ButtonTemplate engineB = new ButtonTemplate("GalleryGameEngine", 600, 400);
+        Button engine = engineB.getButton();
         engine.translateYProperty().bind(galleryWindow.heightProperty().subtract(120));
         engine.translateXProperty().bind(galleryWindow.widthProperty().divide(2).add(100));
         engine.setOnMouseEntered(e -> backdrop.setOpacity(0.8));
