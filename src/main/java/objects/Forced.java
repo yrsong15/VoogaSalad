@@ -1,6 +1,6 @@
 package objects;
 
-import com.sun.javafx.scene.traversal.Direction;
+import gameengine.scrolling.ScrollDirection;
 
 /**
  * @author pratikshasharma
@@ -13,7 +13,7 @@ public class Forced extends ScrollType{
     }
       
 
-    public void addDirectionList(Direction myDirection){
+    public void addDirectionList(ScrollDirection myDirection){
         addScrollDirection(myDirection);
     }
 

@@ -7,6 +7,7 @@ import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.NoBoundary;
 import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
+import gameengine.scrolling.ScrollDirection;
 import gameengine.view.GameEngineUI;
 import javafx.scene.input.KeyCode;
 import objects.*;
@@ -34,7 +35,7 @@ public class GameExamples{
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675, 3000, 675);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
-        scrollType.addScrollDirection(Direction.RIGHT);
+        scrollType.addScrollDirection(ScrollDirection.RIGHT);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
         level.setBackgroundMusic("SuperMarioBrosTheme.mp3");
@@ -251,7 +252,7 @@ public class GameExamples{
         Level level = new Level(1);
         GameBoundary gameBoundaries = new ToroidalBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("FreeScrolling", gameBoundaries);
-        scrollType.addScrollDirection(Direction.RIGHT);
+        scrollType.addScrollDirection(ScrollDirection.RIGHT);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
         game.setCurrentLevel(level);
@@ -303,7 +304,7 @@ public class GameExamples{
         Level level = new Level(1);
         GameBoundary gameBoundaries = new NoBoundary(700, 675, 700, 675);
         ScrollType scrollType = new ScrollType("LimitedScrolling", gameBoundaries);
-        scrollType.addScrollDirection(Direction.UP);
+        scrollType.addScrollDirection(ScrollDirection.UP);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/bg.png");
 
@@ -385,7 +386,7 @@ public class GameExamples{
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
         scrollType.setScrollSpeed(15);
-        scrollType.addScrollDirection(Direction.UP);
+        scrollType.addScrollDirection(ScrollDirection.UP);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/ddrbackground.jpg");
         game.setCurrentLevel(level);
@@ -492,7 +493,7 @@ public class GameExamples{
         GameBoundary gameBoundaries = new NoBoundary(700, 675);
         ScrollType scrollType = new ScrollType("ForcedScrolling", gameBoundaries);
         scrollType.setScrollSpeed(10);
-        scrollType.addScrollDirection(Direction.UP);
+        scrollType.addScrollDirection(ScrollDirection.UP);
         level.setScrollType(scrollType);
         level.setBackgroundImage("Background/multiplayerddr.png");
         game.setCurrentLevel(level);

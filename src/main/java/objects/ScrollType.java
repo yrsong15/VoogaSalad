@@ -2,9 +2,8 @@ package objects;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.sun.javafx.scene.traversal.Direction;
-
 import gameengine.model.boundary.GameBoundary;
+import gameengine.scrolling.ScrollDirection;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 
@@ -13,7 +12,7 @@ import javafx.beans.Observable;
  */
 public class ScrollType {
     private String myScrollTypeName; 
-    private List<Direction> myScrollDirectionList = new ArrayList<Direction>();
+    private List<ScrollDirection> myScrollDirectionList = new ArrayList<ScrollDirection>();
     private double scrollSpeed;
     private GameBoundary gameBoundaries;
     
@@ -26,7 +25,7 @@ public class ScrollType {
         this.gameBoundaries = gameBoundaries;
     }
 
-    public void addScrollDirection(Direction direction){
+    public void addScrollDirection(ScrollDirection direction){
         if(!myScrollDirectionList.contains(direction)){
         myScrollDirectionList.add(direction);
         }
@@ -40,7 +39,7 @@ public class ScrollType {
     	return gameBoundaries;
     }
     
-    public List<Direction> getDirections(){
+    public List<ScrollDirection> getDirections(){
     	return myScrollDirectionList;
     }
 
@@ -52,7 +51,7 @@ public class ScrollType {
         this.scrollSpeed = scrollSpeed;
     }
     
-    public void addDirectionList(ArrayList<Direction> directions){
+    public void addDirectionList(ArrayList<ScrollDirection> directions){
         this.myScrollDirectionList=directions;
     }
 }

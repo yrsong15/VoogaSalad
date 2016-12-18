@@ -146,6 +146,7 @@ public class MainController implements IMainControllerIn {
     public void launchEngine(String XMLData) {
         GameExamples gameExamples = new GameExamples();
         boolean multiplayer = true;
+        XMLData = gameExamples.getMarioXML();
         @SuppressWarnings("unused")
         boolean isServer = false;
         Game game = gameEngineController.createGameFromXML(XMLData);

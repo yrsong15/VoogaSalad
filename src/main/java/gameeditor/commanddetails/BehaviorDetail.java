@@ -6,6 +6,7 @@ import gameeditor.view.ViewResources;
 import gameengine.model.boundary.BasicBoundary;
 import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
+import gameengine.scrolling.ScrollDirection;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -31,7 +32,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     private ComboBox<String> gameBoundaryOptions;
     private BorderPane myScrollWidthBP;
     private String scrollTypeClass = FREE_SCROLL_TYPE;
-    private ArrayList<Direction> scrollTypeDirections;
+    private ArrayList<ScrollDirection> scrollTypeDirections;
     
     public BehaviorDetail() {
         super();
@@ -40,7 +41,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
     public void init() {
         addVBoxSettings();
         addLevelOptions();
-        scrollTypeDirections = new ArrayList<Direction>();
+        scrollTypeDirections = new ArrayList<ScrollDirection>();
     }
 
     private void addLevelOptions(){
@@ -177,7 +178,7 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         myMenu.getItems().stream().forEach(item -> {
             item.setOnAction(e -> {
                 scrollTypeClass = className;
-                scrollTypeDirections.add(Direction.valueOf(item.getText()));
+                scrollTypeDirections.add(ScrollDirection.valueOf(item.getText()));
             });
         });
     }
@@ -186,10 +187,10 @@ public class BehaviorDetail extends AbstractCommandDetail implements IBehaviorDe
         item.setOnAction(e -> {
             scrollTypeClass = FREE_SCROLL_TYPE;
             scrollTypeDirections.clear();
-            scrollTypeDirections.add(Direction.LEFT); 
-            scrollTypeDirections.add(Direction.RIGHT); 
-            scrollTypeDirections.add(Direction.UP); 
-            scrollTypeDirections.add(Direction.DOWN); 
+            scrollTypeDirections.add(ScrollDirection.LEFT); 
+            scrollTypeDirections.add(ScrollDirection.RIGHT); 
+            scrollTypeDirections.add(ScrollDirection.UP); 
+            scrollTypeDirections.add(ScrollDirection.DOWN); 
         });
     }
 }

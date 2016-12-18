@@ -10,17 +10,8 @@ import objects.GameObject;
  */
 public interface Scrolling {
 	
-	
-    public void scrollUP(List<GameObject> gameObjects, double speed);
+	void scrollDirection(List<GameObject> gameObjects, double speed);
 
-	public void scrollDOWN(List<GameObject> gameObjects, double speed);
-
-	public void scrollLEFT(List<GameObject> gameObjects, double speed);
-
-	public void scrollRIGHT(List<GameObject> gameObjects, double speed);
-
-	
-	
 	/**
 	 * Sets how fast the screen will be scrolled
 	 * @param speed

@@ -79,12 +79,13 @@ public class MovementManager implements ControlInterface{
 
 	@Override
 	public void moveDown(GameObject obj, double speed) {
-
 		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(ScrollDirection.DOWN, obj)){
+			System.out.println("scrolling down");
 			gameScrolling.setDirection(ScrollDirection.DOWN);
 			runGameScrolling(speed);
 		}
 		else{
+			System.out.println("not allowed to scroll");
 			double newYPos = obj.getYPosition() + Math.abs(speed);
 			genMovement.moveDown(obj, speed);
 			checkYToroidalChange(obj, newYPos);
@@ -197,20 +198,24 @@ public class MovementManager implements ControlInterface{
     }
 
 	private void setScrolling() throws ScrollTypeNotFoundException{
+		System.out.println("setting scrolling");
 		ScrollType gameScroll = currLevel.getScrollType();
 		String classPath = "gameengine.scrolling." + gameScroll.getScrollTypeName();
 		Object[] parameters = new Object[]{gameScroll.getDirections().get(0), gameScroll.getScrollSpeed(), 
 											currLevel.getScrollType().getGameBoundary()};
-		Class<?>[] parameterTypes = new Class<?>[]{Direction.class, double.class, GameBoundary.class};
+		Class<?>[] parameterTypes = new Class<?>[]{ScrollDirection.class, double.class, GameBoundary.class};
 			try {
 				gameScrolling = (Scrolling) ReflectionUtil.getInstance(classPath, parameters, parameterTypes);
+			System.out.println("set it");
 			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
 				
 			}
 	}
 	
 	private void runGameScrolling() {
+		System.out.println("running game scrolling");
 		try {			
 			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
 			if (currLevel.getBackground()!=null){
@@ -218,11 +223,12 @@ public class MovementManager implements ControlInterface{
 			}
 			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0));
 		} catch (ScrollDirectionNotFoundException e) {
-			
+			System.out.println("not found");
 		}
 	}
 	
 	private void runGameScrolling(double speed) {
+		System.out.println("funning other scrolignf for masdf");
 		try {
 			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
 			if (currLevel.getBackground()!=null){
@@ -230,6 +236,7 @@ public class MovementManager implements ControlInterface{
 			}
 			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0), speed);
 		} catch (ScrollDirectionNotFoundException e) {
+			System.out.println("still not found");
 		}
 	}
 }
