@@ -10,35 +10,45 @@ import objects.GameObject;
  * @author Chalena Scholl
  */
 public class FreeScrolling extends GeneralScroll{	
+	public static final double LOWER_LIMIT = 0.45;
+	public static final double UPPER_LIMIT = 0.55;
 	
 	public FreeScrolling(ScrollDirection dir, double speed, GameBoundary gameBoundaries){
 		super(dir, speed, gameBoundaries);
 	}
 	
 	public boolean allowedToScroll(ScrollDirection requestedDir, GameObject player){
-		System.out.println("allowed to scroll");
 		if(requestedDir == ScrollDirection.RIGHT){
 			return (player.getXDistanceMoved() - player.getXPosition() < getGameBoundaries().getWorldWidth() - getGameBoundaries().getViewWidth()
-					&& player.getXPosition() > getGameBoundaries().getViewWidth()*0.45
-					&& player.getXPosition() < getGameBoundaries().getViewWidth()*0.55);
+					&& playerInXScroll(player));
+
 		}
 		else if(requestedDir == ScrollDirection.LEFT){
 			return (player.getXDistanceMoved() - player.getXPosition()> 0
-					&& player.getXPosition() > getGameBoundaries().getViewWidth()*0.45
-					&& player.getXPosition() < getGameBoundaries().getViewWidth()*0.55);
+					&& playerInXScroll(player));
+
 		}
 		else if(requestedDir == ScrollDirection.UP){
-			/**return (player.getYDistanceMoved() - player.getYPosition()> 0
-					&& player.getYPosition() > gameBoundaries.getViewHeight()*0.45
-					&& player.getYPosition() < gameBoundaries.getViewHeight()*0.55);**/
+			return (player.getYDistanceMoved() - player.getYPosition()> 0
+					&& playerInYScroll(player));
 		}
 		else if(requestedDir == ScrollDirection.DOWN){
-			return (player.getYDistanceMoved() - player.getYPosition() < getGameBoundaries().getWorldHeight() - getGameBoundaries().getViewHeight()
-					&& player.getYPosition() > getGameBoundaries().getViewHeight()*0.45
-					&& player.getYPosition() < getGameBoundaries().getViewHeight()*0.55);
+			return (player.getYDistanceMoved() - player.getYPosition() 
+					< getGameBoundaries().getWorldHeight() - getGameBoundaries().getViewHeight()
+					&& playerInYScroll(player));
 
 		}
 		return false;			
+	}
+	
+	private boolean playerInYScroll(GameObject player){
+		return 	player.getYPosition() > getGameBoundaries().getViewHeight()*LOWER_LIMIT
+				&& player.getYPosition() < getGameBoundaries().getViewHeight()*UPPER_LIMIT;
+	}
+	
+	private boolean playerInXScroll(GameObject player){
+		return player.getXPosition() > getGameBoundaries().getViewWidth()*LOWER_LIMIT
+				&& player.getXPosition() < getGameBoundaries().getViewWidth()*UPPER_LIMIT;
 	}
 	
 	
