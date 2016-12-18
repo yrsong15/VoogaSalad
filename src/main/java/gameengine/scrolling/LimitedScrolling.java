@@ -10,7 +10,6 @@ import com.sun.javafx.scene.traversal.Direction;
 import exception.MovementRuleNotFoundException;
 import exception.ScrollDirectionNotFoundException;
 import gameengine.model.boundary.GameBoundary;
-import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
@@ -19,7 +18,7 @@ import utils.ReflectionUtil;
  * @author Chalena Scholl
  */
 
-public class LimitedScrolling implements Scrolling{
+public class LimitedScrolling extends GeneralScroll{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
 	private double scrollingSpeed;

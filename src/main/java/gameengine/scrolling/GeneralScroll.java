@@ -10,7 +10,7 @@ import objects.GameObject;
  * appearance of movement to whichever objects are not given to it.
  * @author Chalena Scholl, 
  */
-public class GeneralScroll {
+public abstract class GeneralScroll implements Scrolling{
 	
 	    public void scrollUP(List<GameObject> gameObjects, double speed){
 			for(GameObject obstacle: gameObjects){

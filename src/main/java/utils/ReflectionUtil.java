@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 import com.sun.javafx.scene.traversal.Direction;
 
-import gameengine.model.interfaces.Scrolling;
+import gameengine.scrolling.Scrolling;
 import objects.GameObject;
 import objects.ScrollType;
 

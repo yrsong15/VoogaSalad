@@ -1,6 +1,6 @@
 package gameengine.model.boundary;
 
-import gameengine.model.interfaces.Scrolling;
+import gameengine.scrolling.Scrolling;
 import objects.GameObject;
 
 public interface GameBoundary {

@@ -1,4 +1,4 @@
-package gameengine.model.interfaces;
+package gameengine.scrolling;
 
 import java.util.List;
 import exception.ScrollDirectionNotFoundException;

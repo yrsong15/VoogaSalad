@@ -1,20 +1,16 @@
 package gameengine.scrolling;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import com.sun.javafx.scene.traversal.Direction;
 
 import exception.ScrollDirectionNotFoundException;
 import gameengine.model.boundary.GameBoundary;
-import gameengine.model.interfaces.Scrolling;
 import objects.GameObject;
 import utils.ReflectionUtil;
 
-public class ForcedScrolling implements Scrolling{
+public class ForcedScrolling extends GeneralScroll{
 	private static final String CLASS_PATH = "gameengine.scrolling.GeneralScroll";
 	private Direction direction;
 	private double scrollingSpeed;
