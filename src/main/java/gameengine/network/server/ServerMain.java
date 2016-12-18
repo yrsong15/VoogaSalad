@@ -125,6 +125,7 @@ public class ServerMain {
 						gameHandler.updateGame();
 					} catch (Exception e) {
 					} 
+
 				}
 				udpSend.sendGamePlay(gameHandler.getClientGame());
 			}

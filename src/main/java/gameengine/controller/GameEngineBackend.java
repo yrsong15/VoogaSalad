@@ -20,7 +20,7 @@ import objects.*;
 
 public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHandler {
 	private static final int marginCollisionSeparation = 10;
-    private static final double enemySize = 50;
+   	private static final double enemySize = 50;
 	private List<RandomGenFrame> randomlyGeneratedFrames;
 	private List<Integer> highScores;
 	private CollisionChecker collisionChecker;
