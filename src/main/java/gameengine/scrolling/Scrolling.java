@@ -16,7 +16,7 @@ public interface Scrolling {
 	 * Sets how fast the screen will be scrolled
 	 * @param speed
 	 */
-	void setSpeed(double speed);
+	void setScrollingSpeed(double speed);
 	
 	
 	/**
@@ -24,18 +24,6 @@ public interface Scrolling {
 	 * @param scrollDirection
 	 */
 	void setDirection(ScrollDirection scrollDirection);
-	
-	
-	/**
-	 * @return a double of how far the screen has been scrolled right/left
-	 */
-	double getXDistanceScrolled();
-	
-	
-	/**
-	 * @return a double of how far the screen has been scrolled up/down
-	 */
-	double getYDistanceScrolled();
 	
 	
 	/**

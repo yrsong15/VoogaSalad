@@ -11,19 +11,23 @@ import objects.GameObject;
  */
 
 public class LimitedScrolling extends GeneralScroll{
+	public static final double HORIZONTAL_LIMIT = 0.3;
+	public static final double VERTICAL_LIMIT = 0.7;
 	
-	public LimitedScrolling(ScrollDirection dir, double speed, GameBoundary gameBoundaries){
-		super(dir, speed, gameBoundaries);
+	public LimitedScrolling(ScrollDirection scrollDir, double speed, GameBoundary gameBoundaries){
+		super(scrollDir, speed, gameBoundaries);
 	}
 	
 	public boolean allowedToScroll(ScrollDirection requestedDir, GameObject player){
 		double viewWidth = this.getGameBoundaries().getViewWidth();
 		double viewHeight = this.getGameBoundaries().getViewHeight();
+		double playerX = player.getXPosition();
+		double playerY = player.getYPosition();
 		return (this.getDirection() == requestedDir)  
-			    && (requestedDir == ScrollDirection.LEFT && player.getXPosition()<= viewWidth*0.3
-				||  requestedDir == ScrollDirection.RIGHT && player.getXPosition()>= viewWidth*0.7
-				||  requestedDir == ScrollDirection.UP && player.getYPosition() <= viewHeight*0.3
-				||  requestedDir == ScrollDirection.DOWN && player.getYPosition() >= viewHeight*0.7);
+			    && (requestedDir == ScrollDirection.LEFT && playerX<= viewWidth*HORIZONTAL_LIMIT
+				||  requestedDir == ScrollDirection.RIGHT && playerX>= viewWidth*VERTICAL_LIMIT
+				||  requestedDir == ScrollDirection.UP && playerY <= viewHeight*HORIZONTAL_LIMIT
+				||  requestedDir == ScrollDirection.DOWN && playerY >= viewHeight*VERTICAL_LIMIT);
 	}
 	
 	
@@ -42,7 +46,6 @@ public class LimitedScrolling extends GeneralScroll{
 		}
 		scrollObjects.remove(mainChar);
 		this.scrollDirection(scrollObjects, speed);
-		
 	}	
 }
 

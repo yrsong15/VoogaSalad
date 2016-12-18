@@ -9,23 +9,10 @@ import objects.GameObject;
 /**
  * @author Chalena Scholl
  */
-public class FreeScrolling extends GeneralScroll{
-	private double xDistanceScrolled;
-	private double yDistanceScrolled;
-	
+public class FreeScrolling extends GeneralScroll{	
 	
 	public FreeScrolling(ScrollDirection dir, double speed, GameBoundary gameBoundaries){
 		super(dir, speed, gameBoundaries);
-	}
-	
-	@Override
-	public double getXDistanceScrolled() {
-		return xDistanceScrolled;
-	}
-
-	@Override
-	public double getYDistanceScrolled() {
-		return yDistanceScrolled;
 	}
 	
 	public boolean allowedToScroll(ScrollDirection requestedDir, GameObject player){

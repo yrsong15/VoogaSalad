@@ -21,10 +21,6 @@ public abstract class GeneralScroll implements Scrolling{
 			this.setGameBoundaries(gameBoundaries);
 		}
 		
-		public void setSpeed(double speed) {
-			this.setScrollingSpeed(speed);
-		}
-		
 		public void setDirection(ScrollDirection scrollDirection){
 			this.scrollDir = scrollDirection;
 		}
