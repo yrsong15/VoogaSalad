@@ -17,27 +17,23 @@ public class FreeScrolling extends GeneralScroll{
 		super(dir, speed, gameBoundaries);
 	}
 	
+	
 	public boolean allowedToScroll(ScrollDirection requestedDir, GameObject player){
-		if(requestedDir == ScrollDirection.RIGHT){
-			return (player.getXDistanceMoved() - player.getXPosition() < getGameBoundaries().getWorldWidth() - getGameBoundaries().getViewWidth()
-					&& playerInXScroll(player));
-
-		}
-		else if(requestedDir == ScrollDirection.LEFT){
-			return (player.getXDistanceMoved() - player.getXPosition()> 0
-					&& playerInXScroll(player));
-
-		}
-		else if(requestedDir == ScrollDirection.UP){
-			return (player.getYDistanceMoved() - player.getYPosition()> 0
-					&& playerInYScroll(player));
-		}
-		else if(requestedDir == ScrollDirection.DOWN){
-			return (player.getYDistanceMoved() - player.getYPosition() 
-					< getGameBoundaries().getWorldHeight() - getGameBoundaries().getViewHeight()
-					&& playerInYScroll(player));
-
-		}
+		double xWorldPos = player.getXDistanceMoved() - player.getXPosition();
+		double yWorldPos = player.getYDistanceMoved() - player.getYPosition();
+		GameBoundary gameBoundaries = getGameBoundaries();
+		switch (requestedDir) {
+			case DOWN:
+				return (yWorldPos < gameBoundaries.getWorldHeight() - gameBoundaries.getViewHeight()
+						&& playerInYScroll(player));
+			case LEFT:
+				return (xWorldPos > 0 && playerInXScroll(player));
+			case RIGHT:
+				return (xWorldPos < gameBoundaries.getWorldWidth() - gameBoundaries.getViewWidth()
+						&& playerInXScroll(player));
+			case UP:
+				return (yWorldPos > 0 && playerInYScroll(player));
+			  }	
 		return false;			
 	}
 	
@@ -54,13 +50,11 @@ public class FreeScrolling extends GeneralScroll{
 	
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar){
-		System.out.println("scroll");
 		scrollScreen(gameObjects, mainChar, Double.parseDouble(mainChar.getProperty("movespeed")));
 	}
 
 	@Override
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed){
-		System.out.println("again");
 		trackDistanceScrolling(speed, mainChar);
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
 		for (GameObject obj: gameObjects){
@@ -73,18 +67,19 @@ public class FreeScrolling extends GeneralScroll{
 	}
 
 	private void trackDistanceScrolling(double speed, GameObject mainChar) {
-		if (getDirection() == ScrollDirection.RIGHT){
-			mainChar.setXDistanceMoved(mainChar.getXDistanceMoved() + speed);
-		}
-		else if(getDirection() == ScrollDirection.LEFT){
-			mainChar.setXDistanceMoved(mainChar.getXDistanceMoved() - speed);
-		}
-		else if(getDirection() == ScrollDirection.UP){
-			mainChar.setYDistanceMoved(mainChar.getYDistanceMoved() - speed);
-		}
-		else{
-			mainChar.setYDistanceMoved(mainChar.getYDistanceMoved() + speed);
-
+		switch (getDirection()) {
+			case DOWN:
+				mainChar.setYDistanceMoved(mainChar.getYDistanceMoved() + speed);
+				break;
+			case LEFT:
+				mainChar.setXDistanceMoved(mainChar.getXDistanceMoved() - speed);
+				break;
+			case RIGHT:
+				mainChar.setXDistanceMoved(mainChar.getXDistanceMoved() + speed);
+				break;
+			case UP:
+				mainChar.setYDistanceMoved(mainChar.getYDistanceMoved() - speed);
+				break;
 		}
 	}
 }
