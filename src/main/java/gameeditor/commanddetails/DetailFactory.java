@@ -7,7 +7,7 @@ import gameeditor.view.interfaces.IDetailPane;
 //This entire file is part of my masterpiece.
 //Pratiksha Sharma
 // This factory class uses reflection to create an instance of CreateDetail class.The use of reflection here hides the implementation of the 
-// CreateDetail Class.
+// CreateDetail Class, dynamically allowing the creation of Objects without caring much about what objects they are.
 /**
  * @author John Martin, Pratiksha Sharma
  * 
