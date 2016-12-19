@@ -25,7 +25,6 @@ public class DetailFactory {
 				detail.init();
 				return detail;
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 		 GameEditorException exception = new GameEditorException();
 		    exception.showError(e.getMessage());
 		
