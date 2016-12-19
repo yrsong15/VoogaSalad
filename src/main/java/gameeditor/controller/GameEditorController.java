@@ -24,9 +24,8 @@ import objects.interfaces.ILevel;
  *
  */
 
-/**
- * This is my master piece. I chose this file because this represents a MVC model such that the 
- */
+
+
 public class GameEditorController implements IGameEditorController{
     private EditorLevels myEditorLevels;
     private Map<String,GameEditorView> myLevelEditorMap ;
