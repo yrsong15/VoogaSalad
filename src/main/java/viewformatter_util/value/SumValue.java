@@ -1,11 +1,17 @@
-package value;
+package viewformatter_util.value;
 
-import java.util.Arrays;
 
+/**
+ * This class represents the summation of a list of FormatValues
+ * @author Ryan Bergamini
+ */
 public class SumValue implements FormatValue
 {
 	private FormatValue[] values;
 	
+	/**
+	 * @param formatValues- list of formatValues that need to be added
+	 */
 	public SumValue(FormatValue... formatValues)
 	{
 		this.values = formatValues;

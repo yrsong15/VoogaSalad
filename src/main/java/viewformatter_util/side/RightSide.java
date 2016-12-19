@@ -1,11 +1,11 @@
-package side;
+package viewformatter_util.side;
 
-import value.FormatValue;
-import value.ReadOnlyPositionable;
-import value.SumValue;
-import viewformatter.FormatPoint;
+import viewformatter_util.formatobjects.FormatPoint;
+import viewformatter_util.formatobjects.ReadOnlyPositionable;
+import viewformatter_util.value.FormatValue;
+import viewformatter_util.value.SumValue;
 
-public class RightSide implements Side
+class RightSide implements Side
 {
 	@Override
 	public FormatPoint getPosition(ReadOnlyPositionable object, ReadOnlyPositionable reference, FormatValue distance) 

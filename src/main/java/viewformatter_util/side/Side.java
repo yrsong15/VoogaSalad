@@ -1,9 +1,9 @@
-package side;
+package viewformatter_util.side;
 
-import formatobjects.ViewObject;
-import value.FormatValue;
-import value.ReadOnlyPositionable;
-import viewformatter.FormatPoint;
+import viewformatter_util.formatobjects.FormatPoint;
+import viewformatter_util.formatobjects.ReadOnlyPositionable;
+import viewformatter_util.formatobjects.ViewObject;
+import viewformatter_util.value.FormatValue;
 
 public interface Side 
 {
@@ -12,6 +12,14 @@ public interface Side
 	public static final Side TOP = new TopSide();
 	public static final Side BOTTOM = new BottomSide();
 	
+	/**
+	 * Give an object, a reference object, and a distance, getPosition returns the FormatPoint of the (x,y) coordinates
+	 * if it were to by positioned on the desired Side of the reference
+	 * @param object
+	 * @param reference
+	 * @param distance
+	 * @return the FormatPoint the ReadOnlyPositionable object should be located
+	 */
 	public FormatPoint getPosition(ReadOnlyPositionable object, ReadOnlyPositionable reference, FormatValue distance);
 	/**
 	 * Given a Positionable object, this method will return the appropriate property value to base a
@@ -21,7 +29,7 @@ public interface Side
 	 * the percent gap off a side exponetially easier.
 	 * 
 	 * @param reference- the object who's properties will serve as the reference for the percent gap
-	 * @return
+	 * @return the reference value
 	 */
 	public FormatValue getReferenceValueForPercentGap(ReadOnlyPositionable reference);
 }

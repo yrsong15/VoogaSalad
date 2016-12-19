@@ -1,7 +1,11 @@
-package viewformatter;
+package viewformatter_util.formatobjects;
 
-import value.FormatValue;
+import viewformatter_util.value.FormatValue;
 
+/**
+ * Creates a simple 2D point that contains two FormatValues one for the x coordinate, one for the y coordinate
+ * @author Ryan Bergamini
+ */
 public class FormatPoint 
 {
 	private FormatValue x;

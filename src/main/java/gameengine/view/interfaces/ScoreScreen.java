@@ -14,8 +14,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import viewformatter.ViewFormatter;
-import side.Side;
+import viewformatter_util.side.Side;
+import viewformatter_util.viewformatter.ViewFormatter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -91,7 +91,7 @@ public class GameEditorController implements IGameEditorController{
         myLevelStage.setScene(myLevelScene);
         myLevelStage.show();  
         myLevelScene.getStylesheets().add(CSS_STYLING_EDITOR_LEVELS);
-    }
+   }
 
 
     private void addGameTitleListener(){

@@ -13,9 +13,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.control.Button;
-import side.Side;
-import viewformatter.ViewFormatter;
+import viewformatter_util.side.Side;
+import viewformatter_util.viewformatter.ViewFormatter;
 
+/**
+ * 
+ * @author Ryan Bergamini
+ */
 public class GameCoverView 
 {
 	public static double DEFAULT_IMAGE_WIDTH = 30;
@@ -29,7 +33,11 @@ public class GameCoverView
 	private double width;
 	private double height;
 	
-	
+	/**
+	 * Creates a new GameCoverView
+	 * @param width- width of the view
+	 * @param height- height of the view
+	 */
 	public GameCoverView(double width, double height)
 	{
 		
@@ -49,7 +57,6 @@ public class GameCoverView
 				.setHeightAsFractionOfScreen(.75)
 				.setWidthAsFractionOfScreen(.5)
 				.centerXBasedOnWidthOf("Label");
-				//.centerXInScreen();
 		
 		Label gameCoverLabel = new Label("Game Cover:");
 		gameCoverLabel.setFont(new Font(20));
@@ -61,13 +68,6 @@ public class GameCoverView
 		formatter.addView(loadButton, "Load Button")
 			.positionWithPercentGapOfScreen(Side.BOTTOM, "Game Cover", 0.075)
 			.centerXInScreen();
-			//.setX(10);
-			
-		
-		/*
-		Rectangle background = generateRectangle(width,height);
-		formatter.addView(background, "Background", width, height)
-				.setZ(-2); */
 		
 		return formatter.renderView(width,height);
 	}

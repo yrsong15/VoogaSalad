@@ -23,8 +23,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import side.Side;
-import viewformatter.ViewFormatter;
+import viewformatter_util.side.Side;
+import viewformatter_util.viewformatter.ViewFormatter;
 
 /**
  * @author pratikshasharma, John Martin
@@ -62,14 +62,16 @@ public class EditorLevels implements IEditorLevels{
         background.setFitWidth(SplashScreen.SPLASH_WIDTH);
         background.setFitHeight(SplashScreen.SPLASH_HEIGHT);
         
-        formatter.addView(background, "Background", SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_WIDTH)
+        formatter.addView(background, "Background")
+        		.setSize(SplashScreen.SPLASH_WIDTH, SplashScreen.SPLASH_WIDTH)
         		.setZ(-1);	
         
         myVBox = new VBox(20);
         myLevels = new ArrayList<Button>();
         
         ScrollPane myPane = createLevelView();
-        formatter.addView(myPane, "LevelView", ADD_LEVELS_WIDTH, ADD_LEVELS_HEIGHT)
+        formatter.addView(myPane, "LevelView")
+        		.setSize(ADD_LEVELS_WIDTH, ADD_LEVELS_HEIGHT)
         		.setX(100)
         		.centerYInScreen(); 
     
@@ -89,7 +91,7 @@ public class EditorLevels implements IEditorLevels{
         		.setZ(5);
         
         gameCoverView = new GameCoverView(130,100);
-        formatter.addView(gameCoverView.getNode(),"GameCover",80,100)
+        formatter.addView(gameCoverView.getNode(),"GameCover")
         		.position(Side.RIGHT,"LevelView", 10);
         
         

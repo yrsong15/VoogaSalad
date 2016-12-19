@@ -15,8 +15,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import side.Side;
-import viewformatter.ViewFormatter;
+import viewformatter_util.side.Side;
+import viewformatter_util.viewformatter.ViewFormatter;
 import javafx.event.EventType;
 import javafx.geometry.Pos;
 
@@ -114,7 +114,8 @@ public class GameFileView implements IGameFileView
 		
 		double rectWidth = name.getText().length() * (.8 * name.getFont().getSize());
 		Rectangle rect = generateBackground(rectWidth,85);
-		formatter.addView(rect, "Background",rectWidth, 85)
+		formatter.addView(rect, "Background")
+			.setSize(rectWidth, 85)
 			.setZ(-1);
 			
 		

@@ -1,9 +1,8 @@
-package formatobjects;
+package viewformatter_util.formatobjects;
 
-import value.ActualValue;
-import value.FormatValue;
-import value.PropertyValue;
-import value.ReadOnlyPositionable;
+import viewformatter_util.value.ActualValue;
+import viewformatter_util.value.FormatValue;
+import viewformatter_util.value.PropertyValue;
 
 public class FormatObject implements ReadOnlyPositionable
 {

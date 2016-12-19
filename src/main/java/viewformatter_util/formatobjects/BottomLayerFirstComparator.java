@@ -1,4 +1,4 @@
-package formatobjects;
+package viewformatter_util.formatobjects;
 
 import java.util.Comparator;
 

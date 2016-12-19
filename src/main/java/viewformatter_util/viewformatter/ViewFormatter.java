@@ -1,34 +1,45 @@
-package viewformatter;
+package viewformatter_util.viewformatter;
 
 import java.util.Map;
-
-import formatobjects.BottomLayerFirstComparator;
-import formatobjects.FormatObject;
-import formatobjects.ViewObject;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import value.ActualValue;
-import value.PropertyValue;
-import value.ReadOnlyPositionable;
+import viewformatter_util.exception.ViewFormatterException;
+import viewformatter_util.formatobjects.BottomLayerFirstComparator;
+import viewformatter_util.formatobjects.FormatObject;
+import viewformatter_util.formatobjects.ReadOnlyPositionable;
+import viewformatter_util.formatobjects.ViewObject;
+import viewformatter_util.value.ActualValue;
 
+/**
+ * The ViewFormatter class is used by the user to simply configure a view.
+ * To use the ViewFormatter class effectively, first add ViewObjects (which are 
+ * wrapper objects for Nodes) to the ViewFormatter through the addView method. Then
+ * configure each ViewObject as they're added through a builder pattern. For example,
+ * to add a view then set its size and position I would type:
+ * 
+ * viewFormatter.addView(node,"Node").setSize(10,10).setX(10);
+ * 
+ * Once each ViewObject is configured, you can then call a renderView(double,double) 
+ * method to get back a Pane with the configured view
+ * 
+ * @author Ryan Bergamini
+ *
+ */
 public class ViewFormatter 
 {
 	private Map<String,ViewObject> viewObjects;
 	private FormatObject screen;
 
+	/**
+	 * Creates a new ViewFormatter object
+	 */
 	public ViewFormatter()
 	{
 		viewObjects = new HashMap<String,ViewObject>();
@@ -37,16 +48,12 @@ public class ViewFormatter
 		screen.setY(new ActualValue(0));
 	}
 	
-	public ViewObjectBuilder addView(Node node, String viewObjectID, double defaultWidth, double defaultHeight)
-	{
-		ViewObject viewObject = getViewObject(viewObjectID);
-		viewObject.connectNode(node);
-		viewObject.setWidth(new ActualValue(defaultWidth));
-		viewObject.setHeight(new ActualValue(defaultHeight));
-		
-		return new ViewObjectBuilder(viewObject,this);
-	}
-	
+	/**
+	 * Adds a new ViewObject to the ViewFormatter to be formatted
+	 * @param node- Node that represents that ViewObject
+	 * @param viewObjectID- the String that identifies the View Object
+	 * @return
+	 */
 	public ViewObjectBuilder addView(Node node, String viewObjectID)
 	{
 		ViewObject viewObject = getViewObject(viewObjectID);
@@ -55,24 +62,39 @@ public class ViewFormatter
 		return new ViewObjectBuilder(viewObject,this);
 	}
 	
-	public ViewObjectBuilder addView(Region node, String viewObjectID)
+	/**
+	 * The returned pane has the width of the largest view object
+	 * @return a Pane object with the formatted view
+	 */
+	public Pane renderView()
 	{
-		ViewObject viewObject = getViewObject(viewObjectID);
-		viewObject.connectNode(node);
+		calculateSizeOfNodes();
 		
-		return new ViewObjectBuilder(viewObject,this);
+		double maxWidth = findMaxViewObjectWidth();
+		double maxHeight = findMaxViewObjectHeight();
+		
+		return createPaneWithViewObjects(maxWidth,maxHeight);
 	}
 	
-	public ViewObjectBuilder addView(ImageView node, String viewObjectID)
+	/**
+	 * The returned Pane has the dimensions width x height
+	 * @param width- width of the desired Pane
+	 * @param height- height of the desired Pane
+	 * @return Pane
+	 */
+	public Pane renderView(double width, double height)
 	{
-		ViewObject viewObject = getViewObject(viewObjectID);
-		viewObject.connectNode(node);
-		
-		return new ViewObjectBuilder(viewObject,this);
+		calculateSizeOfNodes();
+		return createPaneWithViewObjects(width,height);	
 	}
 	
-	
-	public ViewObject getViewObject(String viewObjectID)
+	/**
+	 * Only classes in the viewformatter_util.viewformatter package should have
+	 * access to this method
+	 * @param viewObjectID- viewObjectID for the desired ViewObject
+	 * @return the ViewObject that corresponds to that viewObjectID
+	 */
+	protected ViewObject getViewObject(String viewObjectID)
 	{
 		if(!viewObjects.containsKey(viewObjectID))
 		{
@@ -82,17 +104,10 @@ public class ViewFormatter
 		return viewObjects.get(viewObjectID);
 	}
 	
-	public PropertyValue getScreenWidth()
-	{
-		return screen.getWidth();
-	}
-	
-	public PropertyValue getScreenHeight()
-	{
-		return screen.getHeight();
-	}
-	
-	public ReadOnlyPositionable getScreenFormat()
+	/**
+	 * @return the format object that contains the size width x and y of the sceen
+	 */
+	protected ReadOnlyPositionable getScreenFormat()
 	{
 		return screen;
 	}
@@ -125,14 +140,28 @@ public class ViewFormatter
 		
 	}
 	
-	private void calculateSizeOfNodes() throws Exception
+	private void calculateSizeOfNodes()
+	{
+		try
+		{
+			findSizeOfNodes();
+		}
+		catch(ViewFormatterException e)
+		{
+			// If a ViewFormatter is caught, it is because a viewObjectID did not
+			// have a corresponding Node. The program should not run if this is the case
+			System.exit(0);
+		}
+	}
+	
+	private void findSizeOfNodes() throws ViewFormatterException
 	{
 		Pane root = new Pane();
 		for(ViewObject viewObject : viewObjects.values())
 		{
 			if(viewObject.getNode() == null)
 			{
-				throw new Exception("ViewObject \"" + viewObject.getViewObjectID() + "\" does not have a representative Node.");
+				throw new ViewFormatterException(viewObject);
 			}
 			else
 			{
@@ -176,39 +205,6 @@ public class ViewFormatter
 			
 		}
 		return maxHeight;
-	}
-	
-	public Pane renderView()
-	{
-		try
-		{
-			calculateSizeOfNodes();
-		}
-		catch(Exception e)
-		{
-			System.exit(0);
-		}
-		
-		double maxWidth = findMaxViewObjectWidth();
-		double maxHeight = findMaxViewObjectHeight();
-		
-
-		return createPaneWithViewObjects(maxWidth,maxHeight);
-	}
-	
-	public Pane renderView(double width, double height)
-	{
-		try
-		{
-			calculateSizeOfNodes();
-		}
-		catch(Exception e)
-		{
-			System.exit(0);
-		}
-		
-		return createPaneWithViewObjects(width,height);
-			
 	}
 	
 	private Pane createPaneWithViewObjects(double width, double height)

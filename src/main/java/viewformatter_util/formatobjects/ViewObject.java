@@ -1,13 +1,13 @@
-package formatobjects;
+package viewformatter_util.formatobjects;
 
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import value.ActualValue;
-import value.FormatValue;
-import value.ViewObjectPropertyValue;
+import viewformatter_util.value.ActualValue;
+import viewformatter_util.value.FormatValue;
+import viewformatter_util.value.ViewObjectPropertyValue;
 
 public class ViewObject extends FormatObject
 {
