@@ -12,6 +12,10 @@ public class ServerMessage{
 		this.message = message;
 	}
 	
+	public TcpCommand getMessage(){
+		return message;
+	}
+	
 	public void setCommand(String cmd){
 		command = cmd;
 	}

@@ -25,11 +25,12 @@ class TcpConnection implements Runnable{
 	private ServerMain main;
 	private Socket socket;
 	private XMLSerializer serializer;
-	private TcpCommand myCommands;
+//	private TcpCommand myCommands;
 	
 	TcpConnection(ServerMain main, Socket socket) {
 		this.main = main;
 		this.socket = socket;
+//		myCommands = TcpCommand.GET_ID; //initialized to avoid NPE
 		serializer = new XMLSerializer();
 	}
 	
@@ -45,7 +46,7 @@ class TcpConnection implements Runnable{
 				} catch (Exception e) {
 					continue;
 				}
-				switch(myCommands){
+				switch(sm.getMessage()){
 					case GET_ID:
 						oos.writeLong(main.getId());
 						break;

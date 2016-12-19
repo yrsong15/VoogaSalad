@@ -49,7 +49,6 @@ public class ServerMain {
 	private ServerSocket serverSocket;
 	
 	public ServerMain(GameHandler gameHandler, int tcpPort, String serverName) {
-
 		this.gameHandler = gameHandler;
 		SERVER_PORT_TCP = tcpPort;
 		activeClients = new CopyOnWriteArrayList<IpPort>();
