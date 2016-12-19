@@ -1,3 +1,9 @@
+// This entire file is part of my masterpiece.
+// Ray Song (ys101)
+// Lines 64-83
+// The changes made in this class demonstrate my understanding and flexible use of Java interfaces to
+// toggle methods that exist in GameEngineBackend.java through the GameHandler interface, as well as
+// my ability to refactor existing methods in a fluid manner in order to avoid duplicate code.
 package gameengine.controller;
 
 import java.lang.reflect.Method;
@@ -54,6 +60,7 @@ public class GameEngineBackend implements GameHandler, RuleActionHandler {
         serverMain = new ServerMain(this, 9090, serverName);
 	}
 
+	//These methods are part of my code masterpiece (lines 64-83)
 	@Override
 	public void addPlayersToClient(int ID) {
 		loopThroughPlayers(ID, true);

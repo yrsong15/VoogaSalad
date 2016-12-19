@@ -20,18 +20,8 @@ public interface ILevel {
     public Map<String, String> getLoseConditions();
     public List<GameObject> getGameObjects();
     public void removePlayer(GameObject player);
-
-
-    // public void setControl(KeyCode key, String action);
-
-    // public Map<KeyCode, String> getControls();
-
-
     public void setBackgroundImage(String filePath);
     public void setBackgroundMusic(String musicFilePath);
-
-
-    //public void addRandomGeneration (RandomGeneration randomGeneration);
     public RandomGenFrame getRandomGenerationFrame();
 
     public ArrayList<RandomGeneration<Integer>> getRandomGenRules();

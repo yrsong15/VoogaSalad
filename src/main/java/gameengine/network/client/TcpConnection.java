@@ -1,3 +1,8 @@
+// This entire file is part of my masterpiece.
+// Ray Song (ys101)
+// Lines 121-131
+// This class demonstrates the use of my enum, with which I send/receive predefined commands over the TCP network.
+
 package gameengine.network.client;
 
 import java.io.IOException;
@@ -114,6 +119,7 @@ class TcpConnection {
 		}
 	}
 	
+	//This method is part of my code masterpiece (lines 121-131).
 	/** Sends id of player to the server to inform that a player has left the game **/
 	void removeCharacter(long id) {
 		

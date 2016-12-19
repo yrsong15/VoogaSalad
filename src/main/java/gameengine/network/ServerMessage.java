@@ -1,3 +1,8 @@
+// This entire file is part of my masterpiece.
+// Ray Song (ys101)
+// The changes made to ServerMessage display my understanding of basic encapsulation principles in Java,
+// as well as the use of enums to replace public static variables.
+
 package gameengine.network;
 
 public class ServerMessage{

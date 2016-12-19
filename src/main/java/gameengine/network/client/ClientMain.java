@@ -1,14 +1,7 @@
 package gameengine.network.client;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import gameengine.controller.interfaces.ControlInterface;
 import gameengine.network.server.UDPHandler;
-import objects.Game;
 import objects.GameObject;
-import objects.Player;
 
 /**
  * 

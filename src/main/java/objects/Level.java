@@ -1,15 +1,10 @@
 package objects;
 
-import com.sun.javafx.scene.traversal.Direction;
-import javafx.scene.input.KeyCode;
+
 import objects.interfaces.ILevel;
-import java.security.Key;
 import java.util.*;
 import gameengine.model.RandomGenFrame;
 import gameengine.model.boundary.GameBoundary;
-import gameengine.network.server.ServerMain;
-import gameengine.view.GameEngineUI;
-
 /**
  * Created by Soravit on 11/18/2016.
  * @author : Soravit, Pratiksha, Chalena
