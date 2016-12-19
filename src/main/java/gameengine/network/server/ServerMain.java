@@ -1,6 +1,5 @@
 package gameengine.network.server;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -68,9 +67,8 @@ public class ServerMain {
 				new Thread(new TcpConnection(this, clientSocket)).start();
 				gameStateRefresher();
 			}
-
-		} catch (FileNotFoundException e) {
-		} catch (IOException e) {
+		} 
+		catch (IOException ex) {
 		}
 
 	}
@@ -102,7 +100,6 @@ public class ServerMain {
 			
 			@Override
 			public void run() {
-//				System.out.println(IDs + " " + Thread.currentThread().isAlive());
 				if(!isPaused && (IDs >= gameHandler.getGame().getMinNumPlayers())){
 					gameHandler.updateGame();
 				}
@@ -144,7 +141,6 @@ public class ServerMain {
 	private class UdpConnectionsSend {
 
 		DatagramSocket gamePlaySocket;
-		boolean a;
 
 		public UdpConnectionsSend() {
 

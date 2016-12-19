@@ -7,9 +7,8 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import javax.xml.bind.JAXBException;
-
 import gameengine.network.ServerMessage;
+import gameengine.network.TcpCommand;
 import xml.XMLSerializer;
 
 /**
@@ -22,18 +21,11 @@ import xml.XMLSerializer;
  * 
  */
 class TcpConnection implements Runnable{
-	
-	private static final int GET_ID = 0;
-	private static final int SEND_COMMAND = 1;
-	private static final int GET_ID_IP_PORT = 2;
-	private static final int REMOVE_CHARACTER = 3;
-	private static final int PAUSE = 4;
-	private static final int RESTART = 5;
-	private static final int SERVER_THREAD_SHUTDOWN = 6;
 
 	private ServerMain main;
 	private Socket socket;
 	private XMLSerializer serializer;
+	private TcpCommand myCommands;
 	
 	TcpConnection(ServerMain main, Socket socket) {
 		this.main = main;
@@ -53,21 +45,21 @@ class TcpConnection implements Runnable{
 				} catch (Exception e) {
 					continue;
 				}
-				switch(sm.messageType){
+				switch(myCommands){
 					case GET_ID:
 						oos.writeLong(main.getId());
 						break;
 					case SEND_COMMAND:
-						main.readCommand(sm.command,(int)sm.id,sm.charIdx);
+						main.readCommand(sm.getCommand(),(int)sm.getId(),sm.getCharIdx());
 						break;
 					case GET_ID_IP_PORT: 
 						String ipString = socket.getInetAddress().getHostName();
 						InetAddress clientIp = InetAddress.getByName(ipString);
 						System.err.println(ipString + " " + clientIp);
-						main.addressBook(clientIp, sm.port);
+						main.addressBook(clientIp, sm.getPort());
 						break;
 					case REMOVE_CHARACTER:
-						main.removeCharacter(sm.id);
+						main.removeCharacter(sm.getId());
 						break;
 					case PAUSE:
 						main.pause();

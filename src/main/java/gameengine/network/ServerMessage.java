@@ -1,17 +1,15 @@
 package gameengine.network;
 
 public class ServerMessage{
-	public int messageType;
+	private TcpCommand message;
 	
-	public String command;
-	public long id;
-	public int port;
-	public int charIdx;
+	private String command;
+	private long id;
+	private int port;
+	private int charIdx;
 	
-	public ServerMessage(){}
-	
-	public ServerMessage(int msgType){
-		messageType = msgType;
+	public ServerMessage(TcpCommand message){
+		this.message = message;
 	}
 	
 	public void setCommand(String cmd){
@@ -30,4 +28,19 @@ public class ServerMessage{
 		charIdx = idx;
 	}
 	
+	public String getCommand(){
+		return command;
+	}
+	
+	public long getId(){
+		return id;
+	}
+	
+	public int getPort(){
+		return port;
+	}
+	
+	public int getCharIdx(){
+		return charIdx;
+	}
 }

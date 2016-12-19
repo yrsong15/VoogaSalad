@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.List;
-
-import javax.xml.bind.JAXBException;
 
 import gameengine.network.ServerMessage;
+import gameengine.network.TcpCommand;
 import xml.XMLSerializer;
 
 /**
@@ -19,17 +17,8 @@ import xml.XMLSerializer;
  * 
  */
 class TcpConnection {
-
-	private static final int GET_ID = 0;
-	private static final int SEND_COMMAND = 1;
-	private static final int GET_ID_IP_PORT = 2;
-	private static final int REMOVE_CHARACTER = 3;
-	private static final int PAUSE = 4;
-	private static final int RESTART = 5;
-	private static final int SERVER_THREAD_SHUTDOWN = 6;
 	
 	private final int SERVER_PORT_TCP;
-	
 	private final String SERVER_IP;
 
 	private ObjectOutputStream oos;
@@ -56,7 +45,7 @@ class TcpConnection {
 	long getIdFromServer() {
 		
 		try {
-			ServerMessage sm = new ServerMessage(GET_ID);
+			ServerMessage sm = new ServerMessage(TcpCommand.GET_ID);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			ID = ois.readLong();
@@ -69,7 +58,7 @@ class TcpConnection {
 	/** Sends data about the main character to server. Velocity, etc. */
 	void sendCommand(String command, int charIdx) {
 		try {
-			ServerMessage sm = new ServerMessage(SEND_COMMAND);
+			ServerMessage sm = new ServerMessage(TcpCommand.SEND_COMMAND);
 			sm.setCommand(command);
 			sm.setCharIdx(charIdx);
 			sm.setId(ID);
@@ -82,7 +71,7 @@ class TcpConnection {
 	
 	void sendPauseCommand(){
 		try {
-			ServerMessage sm = new ServerMessage(PAUSE);
+			ServerMessage sm = new ServerMessage(TcpCommand.PAUSE);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			oos.reset();
@@ -93,7 +82,7 @@ class TcpConnection {
 	
 	void sendRestartCommand(){
 		try {
-			ServerMessage sm = new ServerMessage(RESTART);
+			ServerMessage sm = new ServerMessage(TcpCommand.RESTART);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			oos.reset();
@@ -104,7 +93,7 @@ class TcpConnection {
 	
 	void sendShutdownCommand(){
 		try {
-			ServerMessage sm = new ServerMessage(SERVER_THREAD_SHUTDOWN);
+			ServerMessage sm = new ServerMessage(TcpCommand.SERVER_THREAD_SHUTDOWN);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
 			oos.reset();
@@ -117,7 +106,7 @@ class TcpConnection {
 	void sendIpIdPort(int port) {
 		
 		try {
-			ServerMessage sm = new ServerMessage(GET_ID_IP_PORT);
+			ServerMessage sm = new ServerMessage(TcpCommand.GET_ID_IP_PORT);
 			sm.setPort(port);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
@@ -129,7 +118,7 @@ class TcpConnection {
 	void removeCharacter(long id) {
 		
 		try {
-			ServerMessage sm = new ServerMessage(REMOVE_CHARACTER);
+			ServerMessage sm = new ServerMessage(TcpCommand.REMOVE_CHARACTER);
 			sm.setId(id);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
