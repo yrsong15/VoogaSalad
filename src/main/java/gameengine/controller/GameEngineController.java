@@ -1,16 +1,16 @@
+// This entire file is part of my masterpiece.
+// DELIA LI
+
 package gameengine.controller;
 
 import frontend.util.NodeFactory;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.IGameEngineController;
-import gameengine.network.client.ClientMain;
 import gameengine.view.GameEngineUI;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import objects.*;
 import xml.XMLSerializer;
 
