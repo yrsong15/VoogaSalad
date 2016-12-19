@@ -22,8 +22,6 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
     protected static final String WIDTH_LABEL = "W: ";
     protected static final String HEIGHT_LABEL = "H: ";
 
-    // private VBox myVBox = new VBox();
-
     protected Label mySelectLabel;
 
     protected TextArea myXTextArea = new TextArea();
@@ -78,35 +76,8 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         update.setMinWidth((PADDED_PANE_WIDTH - HBOX_SPACING)/2);
         update.setMaxWidth((PADDED_PANE_WIDTH - HBOX_SPACING)/2);
         update.setMinHeight(CB_HEIGHT);
-        //update.setOnAction((e) -> {handleUpdate();});
         myVBox.getChildren().add(update);
     }
-
-//    private void handleUpdate() {
-//        String xString = myXTextArea.getText();
-//        String yString = myYTextArea.getText();
-//        String widthString = myWidthTextArea.getText();
-//        String heightString = myHeightTextArea.getText();
-//        double x = Double.parseDouble(xString.substring(X_LABEL.length()));
-//        double y = Double.parseDouble(yString.substring(Y_LABEL.length()));
-//        double width = Double.parseDouble(widthString.substring(WIDTH_LABEL.length()));
-//        double height = Double.parseDouble(heightString.substring(HEIGHT_LABEL.length()));
-//
-//        myGO.update(x, y, width, height);
-//
-//        // Update Data in the Back End
-//        Map<String, String> typeMap = myDataStore.getType(myGO.getType());
-//        typeMap.put(ISelectDetail.X_POSITION_KEY,xString.substring(X_LABEL.length()));
-//        typeMap.put(ISelectDetail.Y_POSITION_KEY, yString.substring(Y_LABEL.length()));
-//        typeMap.put(IGameEditorData.WIDTH_KEY,widthString.substring(WIDTH_LABEL.length()));
-//        typeMap.put(IGameEditorData.HEIGHT_KEY, heightString.substring(HEIGHT_LABEL.length()));
-//
-//        String randomGen = typeMap.get(DetailResources.RANDOM_GEN_KEY.getResource());
-//        
-//        if(randomGen!=null && randomGen.equals("True")){ 
-//            myDataStore.addRandomGeneration(myGO.getType(), myRandomGenerationList, isEnemyAllowed);
-//        }
-//    }
 
     protected void addSelectLabel(){
         BorderPane bp = new BorderPane();
@@ -136,7 +107,6 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
         ta.setMinWidth(CB_WIDTH); ta.setMaxWidth(CB_WIDTH);
         ta.setMinHeight(CB_HEIGHT); ta.setMaxHeight(CB_HEIGHT);
         ta.setOnKeyReleased((e) -> handleKeyRelease(e.getCode(), e.getCharacter(), ta, label));
-        //		ta.setOnMouseClicked((e) -> handleClick(ta));
         return ta;
     }
 
@@ -170,7 +140,6 @@ abstract public class AbstractSelectDetail extends AbstractCommandDetail impleme
     }
 
     private void handleKeyRelease(KeyCode kc, String character, TextArea field, String label){
-        //		if (kc == KeyCode.BACK_SPACE){
         if (field.getText().length() < label.length() && kc.isDigitKey()){
             field.setText(label + character);
             field.positionCaret(field.getText().length());
