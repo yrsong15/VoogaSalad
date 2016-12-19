@@ -5,7 +5,6 @@ import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.GameHandler;
-import gameengine.controller.interfaces.RGInterface;
 import gameengine.controller.interfaces.RuleActionHandler;
 import gameengine.model.CollisionChecker;
 import gameengine.controller.SingletonBoundaryChecker.IntersectionAmount;
@@ -16,7 +15,7 @@ import gameengine.view.GameEngineUI;
 import javafx.scene.Node;
 import objects.*;
 
-public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHandler {
+public class GameEngineBackend implements GameHandler, RuleActionHandler {
 	private static final int marginCollisionSeparation = 10;
 	private List<RandomGenFrame> randomlyGeneratedFrames;
 	private List<Integer> highScores;
