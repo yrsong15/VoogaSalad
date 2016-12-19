@@ -31,7 +31,6 @@ import viewformatter.ViewFormatter;
  */
 
 public class EditorLevels implements IEditorLevels{
-    // TODO Add values to the resources file
 
     private VBox myVBox;
     private Button newLevelButton;
@@ -42,10 +41,7 @@ public class EditorLevels implements IEditorLevels{
     private NodeFactory myFactory;
     private Parent root;
     private Button saveGameButton;
-
     private GameCoverView gameCoverView;
-    
-//    private Button testEditButton;
 
     public EditorLevels(){
         myActiveButtonId = new SimpleStringProperty(null);
@@ -121,8 +117,6 @@ public class EditorLevels implements IEditorLevels{
         myGameName.setOnMouseClicked(e-> handleClick(myGameName));
         myGameName.setOnMouseExited(e->addGameTitleListener(myGameName));
         HBox myHBox = new HBox(40);
-       // myHBox.setLayoutX(LEVEL_PANE_X_POSITION);
-       // myHBox.setLayoutY(LEVEL_PANE_Y_POSITION/2);
         myHBox.getChildren().addAll(gameLabel,myGameName); 
         return myHBox;
     }
@@ -135,29 +129,6 @@ public class EditorLevels implements IEditorLevels{
         if(myGameName.getText()!=null && !myGameName.getText().isEmpty()){
             myGameTitle.set(myGameName.getText());
         }
-    }
-
-
-    private void addButtons(){
-        //newLevelButton = getButton("LevelCommand", LEVEL_PANE_X_POSITION, LEVEL_PANE_Y_POSITION*6);
-        //loadGameButton = getButton("LoadGameCommand",LEVEL_PANE_X_POSITION*2.5,LEVEL_PANE_Y_POSITION*6);
-      newLevelButton = getButton("LevelCommand");
-        loadGameButton = getButton("LoadGameCommand");
-        saveGameButton = new Button(SAVE_LABEL);
-
-        saveGameButton.setLayoutX(LEVEL_PANE_X_POSITION*2);
-        saveGameButton.setLayoutY(LEVEL_PANE_Y_POSITION*6);
-
-        String userDirectoryString = "file:" + System.getProperty("user.dir") + "/images/buttons/AddLevelIcon.png";
-        ImageView newLevelIcon = new ImageView(new Image(userDirectoryString));
-
-
-        newLevelIcon.setFitHeight(BUTTON_ICON_PROPORTION);
-        newLevelIcon.setFitWidth(BUTTON_ICON_PROPORTION);
-
-        newLevelButton.setGraphic(newLevelIcon);
-
-        newLevelButton.setOnAction(e -> addNewLevel());
     }
 
     
@@ -186,8 +157,7 @@ public class EditorLevels implements IEditorLevels{
         levelIcon.setFitWidth(BUTTON_ICON_PROPORTION);
         level.setGraphic(levelIcon);
         myVBox.getChildren().add(level);
-        myLevels.add(level);
-        
+        myLevels.add(level);     
     }
  
 
@@ -196,11 +166,6 @@ public class EditorLevels implements IEditorLevels{
             l.setOnAction(e -> updateActiveButtonIdAndHandler(handler,l));
             myActiveButtonId.set(l.getId());
         }   
-    }
-
-    private Button getButton(String property){
-        ButtonTemplate myButton = new ButtonTemplate(property);
-        return myButton.getButton();
     }
 
     private void updateActiveButtonIdAndHandler(EventHandler<MouseEvent> handler, Button b){
@@ -231,5 +196,9 @@ public class EditorLevels implements IEditorLevels{
 
     public void setOnSaveGame(EventHandler<MouseEvent> handler){
         saveGameButton.setOnMouseClicked(handler);
+    }
+    
+    public void setOnLoadGameButton(EventHandler<MouseEvent> handler){
+        loadGameButton.setOnMouseClicked(handler);
     }
 }

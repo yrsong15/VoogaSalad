@@ -1,6 +1,7 @@
 package gameeditor.commanddetails;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import frontend.util.GameEditorException;
 import gameeditor.controller.interfaces.IGameEditorData;
@@ -19,7 +20,7 @@ import javafx.scene.layout.VBox;
  * 
  *
  */
-public class SpriteDetail {
+public class SpriteDetail implements IDetailTab{
     private IGameEditorData myDataStore;
     private VBox myVBox;
     private TextArea myTypeTextArea;
@@ -30,15 +31,14 @@ public class SpriteDetail {
     private String[] myPropertiesTextBox = DetailResources.SPRITE_PROPERTIES_TEXT_INPUT_LABEL.getArrayResource();
     private String[] myPropertiesComboKeys = DetailResources.PROPERTIES_COMBO_KEYS.getArrayResource();
     private String[] SPRITE_DEFAULT_COMBO_PROPERTIES = DetailDefaultsResources.SPRITE_DEFAULT_COMBO_PROPERTIES.getArrayResource();
-    private ArrayList<TextArea> myTextFields = new ArrayList<TextArea>();
-    private ArrayList<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
+    private List<TextArea> myTextFields = new ArrayList<TextArea>();
+    private List<ComboBox<String>> myComboBoxes = new ArrayList<ComboBox<String>>();
     private BorderPane myNonIntersectableOptionBP;
     private BorderPane myIntersectableBP;
     private ComboBox<String> nonInterSectableCombo;
     public static final String [] PLATFORM_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_INTERSECTABLE_OPTIONS.getArrayResource();
     public static final String PLATFORM_NON_INTERSECTIBLE_LABEL = DetailResources.PLATFORM_NON_INTERSECTIBLE_LABEL.getResource();
     public static final String[] PLATFORM_NON_INTERSECTABLE_OPTIONS = DetailResources.PLATFORM_NON_INTERSECTABLE_OPTIONS.getArrayResource();
-
 
 
     public SpriteDetail(IGameEditorData dataStore){

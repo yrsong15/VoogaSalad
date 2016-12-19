@@ -1,12 +1,11 @@
 package gameeditor.controller;
-
 import javafx.scene.input.MouseEvent;
 import java.util.HashMap;
+import java.util.Map;
 import frontend.util.FileOpener;
 import gameeditor.controller.interfaces.IGameEditorController;
 import gameeditor.view.EditorLevels;
 import gameeditor.view.GameEditorView;
-import general.IMainControllerIn;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -24,9 +23,13 @@ import objects.interfaces.ILevel;
  * @author pratikshasharma, Ray Song, John Martin
  *
  */
+
+/**
+ * This is my master piece. I chose this file because this represents a MVC model such that the 
+ */
 public class GameEditorController implements IGameEditorController{
     private EditorLevels myEditorLevels;
-    private HashMap<String,GameEditorView> myLevelEditorMap ;
+    private Map<String,GameEditorView> myLevelEditorMap ;
     private String activeButtonId;
     private GameEditorView myGameEditorView;
     private Scene myLevelScene;
@@ -36,33 +39,27 @@ public class GameEditorController implements IGameEditorController{
     private Parent myRoot;
     private IGame myGameInterface;
     private String myGameType;
-    private IMainControllerIn myMainController;
 
-    //TODO: move all hard-coded strings into a resource bundle
-    public static final String DEFAULT_GAME_TITLE = "Untitled";
-    
-    public GameEditorController(String gameType, IMainControllerIn im){
-    	myGameType = gameType;
-    	myMainController = im;
-    }
-    
-    public GameEditorController(IMainControllerIn im){
-    	this("Scrolling", im);
+
+    public GameEditorController(String gameType){
+        myGameType = gameType;
     }
 
-    public void startEditor(Game game) {
+    public GameEditorController(){
+        this(EditorControllerResources.DEFAULT_GAME_TYPE.getResource());
+    }
+
+    public void startEditor(IGame game) {
         myLevelManager = new LevelManager();
-        myGameEditorBackEndController = new GameEditorBackendController();
         if(game==null){
+            myGameEditorBackEndController = new GameEditorBackendController();
             myGameEditorBackEndController.createGame(DEFAULT_GAME_TITLE);
-            myGameInterface = (IGame) myGameEditorBackEndController.getGame();
-        }else{
-            myGameEditorBackEndController.setGame(game);
-            myGameInterface = (IGame) game;
-        }
-        myEditorLevels= new EditorLevels();
-        myRoot = myEditorLevels.createRoot(myGameEditorBackEndController.getGame().getGameName());
+            myGameInterface = game;
+        }       
+        myEditorLevels= new EditorLevels(); 
         
+        myRoot = myEditorLevels.createRoot(myGameEditorBackEndController.getGame().getGameName());
+
         if(myGameEditorBackEndController.getGame().getNumberOfLevels()!=0){
             for(int i=0;i<myGameEditorBackEndController.getGame().getNumberOfLevels();i++){
                 addLevelButton();
@@ -70,6 +67,7 @@ public class GameEditorController implements IGameEditorController{
         }
         myEditorLevels.setOnAddLevel( e-> addLevelButton());
         myEditorLevels.setOnSaveGame(e-> saveGameToFile());
+
         addGameTitleListener();
         displayInitialStage(); 
         addActiveLevelButtonListener();
@@ -77,17 +75,14 @@ public class GameEditorController implements IGameEditorController{
 
     private void saveGameToFile(){
         FileOpener chooser = new FileOpener();
-        String fileName = chooser.saveFile("XML", "data", getGameFile(), "vooga");
-        myMainController.setLoadXML(fileName);
+        chooser.saveFile(EditorControllerResources.XML_DATA_TYPE.getResource(), EditorControllerResources.DEFAULT_SAVE_FOLDER.getResource(), getGameFile(), EditorControllerResources.DEFAULT_SAVING_NAME.getResource());
     }
 
     private void displayInitialStage(){  
         myLevelStage = new Stage();
         myLevelStage.setResizable(false);
-        myLevelStage.setTitle("Game Editor");
+        myLevelStage.setTitle(EditorControllerResources.GAME_EDITOR_TITLE.getResource());
         myLevelScene = new Scene(myRoot, EDITOR_LEVELS_SPLASH_WIDTH, EDITOR_LEVELS_SPLASH_HEIGHT);
-
-        //myLevelScene = new Scene(myRoot, GameEditorView.SCENE_WIDTH, GameEditorView.SCENE_HEIGHT);
         myLevelStage.setScene(myLevelScene);
         myLevelStage.show();  
         myLevelScene.getStylesheets().add(CSS_STYLING_EDITOR_LEVELS);
@@ -124,21 +119,21 @@ public class GameEditorController implements IGameEditorController{
     }
 
     private void displayLevel(){
+        Level level;
         if(myLevelEditorMap.containsKey(activeButtonId)){
             myGameEditorView=myLevelEditorMap.get(activeButtonId);
-            Level level = myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1);
+            level = myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1);
             myGameInterface.setCurrentLevel(level);
             setSavedLevelRoot();
             myGameEditorView.setSaveProperty(false);
             addSaveLevelListener();
         } else{
-            Level level;
             if(myGameInterface!=null && myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1)!=null){
                 level = myGameInterface.getLevelByIndex(Integer.parseInt(activeButtonId)+1);
             }else {
-                level = new Level(Integer.parseInt(activeButtonId) + 1); // +1 to avoid zero-indexing on level number
+                level = new Level(Integer.parseInt(activeButtonId) + 1); 
             }
-            
+
             ILevel levelInterface = (ILevel) level;      
             myLevelManager.createLevel(level);
             myLevelManager.setLeveltitle(myEditorLevels.getGameTitle().get());
@@ -146,10 +141,8 @@ public class GameEditorController implements IGameEditorController{
             myGameEditorBackEndController.addCurrentLevelToGame();
             myGameEditorView = new GameEditorView(levelInterface, myGameInterface, myGameType);
             myLevelEditorMap.put(activeButtonId, myGameEditorView);             
-                 
-            
+
             setNewLevelSceneRoot();    
-            //myGameEditorBackEndController.addCurrentLevelToGame();  
             addSaveLevelListener();
         }     
     }
@@ -160,7 +153,7 @@ public class GameEditorController implements IGameEditorController{
             public void changed (ObservableValue<? extends Boolean> observable,
                                  Boolean oldValue,
                                  Boolean newValue) {
-                if(newValue.booleanValue()==true){
+                if(newValue.booleanValue()){
                     myGameInterface.setGameName(myEditorLevels.getGameTitle().get());
                     myLevelScene.setRoot(myEditorLevels.getRoot());
                     resizeStageToSplashScreen();
@@ -191,7 +184,6 @@ public class GameEditorController implements IGameEditorController{
     }
 
     public String getGameFile(){
-        //System.out.println (myGameEditorBackEndController.serializeGame());
         myGameInterface.setGameName(myEditorLevels.getGameTitle().get());
         return myGameEditorBackEndController.serializeGame();
     }
@@ -202,12 +194,6 @@ public class GameEditorController implements IGameEditorController{
         resizeToLevelStage();
     }
 
-    public void setOnLoadGame(EventHandler<MouseEvent> handler){
-        if(myEditorLevels!=null){
-            myEditorLevels.getLoadButton().setOnMouseClicked(handler);  
-        }
-    }
-    
     public void setOnSaveGame(EventHandler<MouseEvent> handler){
         if(myEditorLevels!=null){
             myEditorLevels.setOnSaveGame(handler);
@@ -218,9 +204,16 @@ public class GameEditorController implements IGameEditorController{
         return myEditorLevels.getGameTitle().get();
     }
 
-    
     public Image getGameCoverImage(){
         return myEditorLevels.getGameCoverImage();
     }
 
+    public void setGame(Game game){
+        myGameEditorBackEndController = new GameEditorBackendController();
+        myGameEditorBackEndController.setGame(game);
+    }
+
+    public void setOnLoadGame(EventHandler<MouseEvent> handler){
+        myEditorLevels.setOnLoadGameButton(handler);
+    }
 }

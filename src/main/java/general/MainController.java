@@ -2,9 +2,6 @@ package general;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
@@ -14,13 +11,14 @@ import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import objects.Game;
+import objects.Level;
 
-import objects.*;
 
 /**
  * @author Delia Li, Pratiksha Sharma, John Martin
  */
-public class MainController implements IMainControllerIn {
+public class MainController {
     public static final String STYLESHEET = "default.css";
     private static final String GAME_TITLE = "VoogaSalad";
     private Stage gameEngineStage;
@@ -29,7 +27,6 @@ public class MainController implements IMainControllerIn {
     private GameEngineController gameEngineController;
 
     private SplashScreen splashScreen;
-    private String myLoadXML;
 
     public MainController(Stage stage) throws IOException {
         this.gallery = new Gallery();
@@ -41,7 +38,6 @@ public class MainController implements IMainControllerIn {
         stage.show();
         initializeGallery();
         gameEngineController = new GameEngineController();
-        gameEditorController = new GameEditorController(this);
     }
 
     private void initializeGallery() throws IOException {
@@ -54,17 +50,21 @@ public class MainController implements IMainControllerIn {
         splashScreen.update(newGame);
     }
 
-    public void presentEditor(Game game) {
-        gameEditorController = new GameEditorController(this);
+    public void presentEditor(Game game) {       
+        gameEditorController = new GameEditorController();
+        if(game!=null){
+            gameEditorController.setGame(game);
+        }
         gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendXMLFileDataToEngine());
+        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
         gameEditorController.setOnSaveGame(e -> createNewGameFile());
+
     }
 
     public void presentEditor(Game game, String gameType) {
-        gameEditorController = new GameEditorController(gameType, this);
+        gameEditorController = new GameEditorController(gameType);
         gameEditorController.startEditor(game);
-        gameEditorController.setOnLoadGame(e -> sendXMLFileDataToEngine());
+        gameEditorController.setOnLoadGame(e -> sendDataToEngine());
     }
 
     private void setUpGameEngineStage(Level level) {
@@ -115,37 +115,16 @@ public class MainController implements IMainControllerIn {
         launchEngine(gameFile);
     }
 
-    private void sendXMLFileDataToEngine() {
-       // String title = gameEditorController.getGameTitle();
-        //String gameFile = gameEditorController.getGameFile();
-    	//addNewGameFile(title, gameFile);
-    	String content = null;
-	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/legoo.xml")));
-//	    	content = new String(Files.readAllBytes(Paths.get("data/" + myLoadXML)));
 
-	    }
-	    catch (IOException e) {
-	    }
-	   // launchEngine(content);
-        //String gameFile = gameEditorController.getGameFile();
-        Image gameCoverImage = gameEditorController.getGameCoverImage();
-       // addNewGameFile(title,gameFile,gameCoverImage);
-        // launchEngine(gameFile);
-    }
-    
     private void createNewGameFile()
     {
-    	String title = gameEditorController.getGameTitle();
-    	String gameFile = gameEditorController.getGameFile();
+        String title = gameEditorController.getGameTitle();
+        String gameFile = gameEditorController.getGameFile();
         Image gameCoverImage = gameEditorController.getGameCoverImage();
-        //System.out.println(title + " " + gameFile + " " + gameCoverImage);
         addNewGameFile(title,gameFile,gameCoverImage);
     }
 
     public void launchEngine(String XMLData) {
-        GameExamples gameExamples = new GameExamples();
-        boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;
         Game game = gameEngineController.createGameFromXML(XMLData);
@@ -153,7 +132,6 @@ public class MainController implements IMainControllerIn {
         if (level != null) {
             setUpGameEngineStage(level);
         }
-
     }
 
     public void editGame() {
@@ -162,9 +140,5 @@ public class MainController implements IMainControllerIn {
         XStream mySerializer = new XStream(new DomDriver());
         Game myGame = (Game) mySerializer.fromXML(file);
         presentEditor(myGame);
-    }
-    
-    public void setLoadXML(String loadXML){
-    	myLoadXML = loadXML;
     }
 }

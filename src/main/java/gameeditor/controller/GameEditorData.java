@@ -3,7 +3,9 @@ package gameeditor.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import frontend.util.GameEditorException;
 import gameeditor.commanddetails.DetailDefaultsResources;
 import gameeditor.commanddetails.DetailResources;
@@ -37,6 +39,7 @@ public class GameEditorData implements IGameEditorData{
     @SuppressWarnings("rawtypes")
     private Map<String,RandomGeneration> myTypeRandomGenerationMap;
     private List<String> spriteToRemove ;
+    private String[] myControlsOptions = DetailResources.CONTROL_OPTIONS.getArrayResource();
 
     private ILevel myLevel;
     private IGame myGame;
@@ -296,69 +299,71 @@ public class GameEditorData implements IGameEditorData{
                 GameObject myObject = createGameObject(map);
                 if(myObject!=null){
 
-                        if(!playerExists(myObject)){    
+                    if(!playerExists(myObject)){    
 
-                            Player player = new Player(myObject);
-                            player.setControlMap(myPlayerControlsMap.get(myObject.getTypeName()));
-                            myGame.addPlayer(player);
-                            myGame.addPlayerToClient(0,player);
-                            myLevel.addPlayer(myObject);
-                        }
-                    }
-                }
-            }    
-            
-        }
-
-        private boolean playerExists(GameObject object ){
-            if(!myGame.getCurrentLevel().getPlayers().isEmpty()){
-                for(GameObject player: myGame.getCurrentLevel().getPlayers()){
-
-                    if(player.getTypeName().equals(object.getTypeName())){
-                        return true;   
-                    }
-
-                }
-            }
-            return false;
-        }
-
-
-        @Override
-        public ArrayList<String> getMainCharacterTypes () {
-            ArrayList<String> types = new ArrayList<String>();
-            for (Map<String, String> type : myMainCharImageViewMaps){
-                String typeName = type.get(DetailResources.TYPE_NAME.getResource());
-                types.add(typeName);
-            }
-            return types;
-        }
-
-        public void removeGameobjectView (String imageViewName) {
-            spriteToRemove.add(imageViewName);  
-        }
-
-        private void removeFromMapList(ArrayList<Map<String,String>> mapList ){
-            for(Map<String,String> map: mapList){
-                for(String imageview: spriteToRemove){
-                    if(map.containsValue(imageview)){
-                        mapList.remove(map);
+                        Player player = new Player(myObject);
+                        player.setControlMap(myPlayerControlsMap.get(myObject.getTypeName()));
+                        myGame.addPlayer(player);
+                        myGame.addPlayerToClient(0,player);
+                        myLevel.addPlayer(myObject);
                     }
                 }
             }
-        }
+        }              
+    }
 
-        public void addScrollType(ScrollType scrolltype){
-            myLevel.setScrollType(scrolltype);
-        }
+    private boolean playerExists(GameObject object ){
+        if(!myGame.getCurrentLevel().getPlayers().isEmpty()){
+            for(GameObject player: myGame.getCurrentLevel().getPlayers()){
 
-        public Map<KeyCode,String> getControlsMap(String typeName){ 
-            typeName = typeName.replaceAll("\\s+","");
-            if(!myPlayerControlsMap.isEmpty()){
-                return myPlayerControlsMap.get(typeName);   
+                if(player.getTypeName().equals(object.getTypeName())){
+                    return true;   
+                }
+
             }
-            return null;
+        }
+        return false;
+    }
+
+    @Override
+    public ArrayList<String> getMainCharacterTypes () {
+        ArrayList<String> types = new ArrayList<String>();
+        for (Map<String, String> type : myMainCharImageViewMaps){
+            String typeName = type.get(DetailResources.TYPE_NAME.getResource());
+            types.add(typeName);
+        }
+        return types;
+    }
+
+    public void removeGameobjectView (String imageViewName) {
+        spriteToRemove.add(imageViewName);  
+    }
+
+    private void removeFromMapList(ArrayList<Map<String,String>> mapList ){
+        for(Map<String,String> map: mapList){
+            for(String imageview: spriteToRemove){
+                if(map.containsValue(imageview)){
+                    mapList.remove(map);
+                }
+            }
         }
     }
+
+    public void addScrollType(ScrollType scrolltype){
+        myLevel.setScrollType(scrolltype);
+    }
+
+    public Map<KeyCode,String> getControlsMap(String typeName){ 
+        typeName = typeName.replaceAll("\\s+","");
+        if(!myPlayerControlsMap.isEmpty()){
+            return myPlayerControlsMap.get(typeName);   
+        }else if(!myPlayerControlsMap.isEmpty()){
+
+
+        }
+
+        return null;
+    }
+}
 
 

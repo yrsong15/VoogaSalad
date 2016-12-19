@@ -45,6 +45,16 @@ public enum DetailResources {
                 PLATFORM_LABEL("Platform"),
                 PLATFORM_KEY("platform"),
                 ENEMY_KEY("enemy"),
+                
+                PROJECTILE_LABEL("Projectile"),
+                GAME_OBJECTS_LABEL("Game Objects"),
+                
+                 ERROR_FILE("Error"),
+                 EMPTY_IMAGE_ERROR_PROPERTY("EmptyImageError"),
+                 INVALD_NUMBER_INPUT_ERROR("NumberFormatError"),
+                SELECT_LABEL("Select"),
+                SAVE_BUTTON_PROPERTY("SaveCommand"),
+                
 		
 		// Limit Width
 		LIMIT_DIMENSION_LABEL("Limit Dimension"),
