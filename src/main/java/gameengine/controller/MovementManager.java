@@ -228,7 +228,6 @@ public class MovementManager implements ControlInterface{
 	}
 	
 	private void runGameScrolling(double speed) {
-		System.out.println("funning other scrolignf for masdf");
 		try {
 			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
 			if (currLevel.getBackground()!=null){

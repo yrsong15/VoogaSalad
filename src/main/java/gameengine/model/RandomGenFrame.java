@@ -1,16 +1,11 @@
 package gameengine.model;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import objects.GameObject;
 import objects.Level;
 import objects.RandomGeneration;
-import gameengine.controller.interfaces.*;
-import gameengine.view.GameScreen;
 public abstract class RandomGenFrame<T> {
     private static final double enemySize = 50;
 
