@@ -1,8 +1,10 @@
 package gameeditor.designarea;
+
 //This entire file is part of my masterpiece.
-//John Martin
+//JOHN MARTIN
 //This is the design area factory class I created to implement the factory pattern in the GameEditorView class,
 //enabling creation of a game-type specific design area simply, and easily.
+
 public class DesignAreaFactory {
 
 	public AbstractDesignArea create(String name) {

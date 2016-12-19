@@ -1,7 +1,7 @@
 package gameeditor.designarea;
 
 //This entire file is part of my masterpiece.
-//John Martin
+//JOHN MARTIN
 //The abstract design area is key to the reflection pattern and inheritance hierarchies that enable the
 //design area to extensible and flexible for different game types. I believe this is good design as it utilizes
 //a variety of design patterns and implements inheritance structures that enable flexible design areas to be

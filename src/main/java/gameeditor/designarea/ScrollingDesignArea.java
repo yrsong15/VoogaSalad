@@ -1,7 +1,7 @@
 package gameeditor.designarea;
 
 //This entire file is part of my masterpiece.
-//John Martin
+//JOHN MARTIN
 //This is the standard design area for scrolling platforms. For my masterpiece I refactored the design area to implement
 //reflection. This combined with the inheritance hierarchy structure I've implemented enables the design area to operate
 //in a unique way according to the game type but still operate regularly within the larger project. It is the ideal compromise

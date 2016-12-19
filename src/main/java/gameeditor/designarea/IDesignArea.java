@@ -1,7 +1,7 @@
 package gameeditor.designarea;
 
 //This entire file is part of my masterpiece.
-//John Martin
+//JOHN MARTIN
 //This interfaces is the interface used to enable other components of the gameeditor to interact with the design areas.
 //All methods in this interface are universal to all design areas, I believe this is good design as it enables the 
 //design areas to keep their individual, unique natures but still function with other areas of the code. This

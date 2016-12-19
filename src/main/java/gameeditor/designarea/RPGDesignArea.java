@@ -1,7 +1,7 @@
 package gameeditor.designarea;
 
 //This entire file is part of my masterpiece.
-//John Martin
+//JOHN MARTIN
 //This is the custom design area for an RPG game editor, as with the scrolling design area, I believe the core
 //to this as good design is its use of inheritance hierarchies, reflection and lack of hardcoded values that
 //make it both flexible and focused, whilst being easy to navigate and understand.
