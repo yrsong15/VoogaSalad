@@ -103,10 +103,11 @@ public class ServerMain implements MessageHandler {
 
 	private void gameStateRefresher() {
 		timer = new Timer();
-		//use lambda and wrapper class to create new thread that runs the TimerTask
-		timer.scheduleAtFixedRate(wrap(()->updateGameAndSendData()), 0, REFRESH_GAP);
+		// use lambda and wrapper class to create new thread that runs the
+		// TimerTask
+		timer.scheduleAtFixedRate(wrap(() -> updateGameAndSendData()), 0, REFRESH_GAP);
 	}
-	
+
 	private TimerTask wrap(Runnable r) {
 		return new TimerTask() {
 			@Override
@@ -115,8 +116,8 @@ public class ServerMain implements MessageHandler {
 			}
 		};
 	}
-	
-	private void updateGameAndSendData(){
+
+	private void updateGameAndSendData() {
 		if (!gameIsPaused && (numPlayers >= gameHandler.getGame().getMinNumPlayers())) {
 			gameHandler.updateGame();
 		}
@@ -152,6 +153,10 @@ public class ServerMain implements MessageHandler {
 		return;
 	}
 
+	// Add synchronized modifier so that two client instances do not ever call
+	// the method at the same time. Concurrent calling of this method in two
+	// instances could cause the clients to get the same ID and then skip over
+	// the next ID due to double incrementation
 	@Override
 	public synchronized long getId() {
 		gameHandler.addPlayersToClient(numPlayers);
