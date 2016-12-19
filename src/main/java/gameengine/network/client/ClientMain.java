@@ -20,7 +20,7 @@ public class ClientMain{
 
 	public long ID = -1; // we get ID from the server side
 
-	private TcpConnection connections; // establishing TCP connection
+	private ClientTcpConnection connections; // establishing TCP connection
 
 	private String server_ip;
 	private int server_port_tcp;
@@ -35,7 +35,7 @@ public class ClientMain{
 		server_port_tcp = 9090;
 		client_port_udp = portUdp;
 
-		connections = new TcpConnection(this, server_ip, server_port_tcp);
+		connections = new ClientTcpConnection(this, server_ip, server_port_tcp);
 
 		if ((ID = connections.getIdFromServer()) == -1) {
 			System.err.println("cant get id for char");

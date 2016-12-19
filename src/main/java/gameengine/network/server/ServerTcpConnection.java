@@ -23,13 +23,13 @@ import xml.XMLSerializer;
  * Edited by Eric Song, Ray Song
  * 
  */
-class TcpConnection implements Runnable{
+class ServerTcpConnection implements Runnable{
 
 	private ServerMain main;
 	private Socket socket;
 	private XMLSerializer serializer;
 	
-	TcpConnection(ServerMain main, Socket socket) {
+	ServerTcpConnection(ServerMain main, Socket socket) {
 		this.main = main;
 		this.socket = socket;
 		serializer = new XMLSerializer();

@@ -21,7 +21,7 @@ import xml.XMLSerializer;
  * Edited by Eric Song, Ray Song
  * 
  */
-class TcpConnection {
+class ClientTcpConnection {
 	
 	private final int SERVER_PORT_TCP;
 	private final String SERVER_IP;
@@ -33,7 +33,7 @@ class TcpConnection {
 	private Socket socket;
 	private long ID;
 
-	TcpConnection(ClientMain main, String ip, int port) {
+	ClientTcpConnection(ClientMain main, String ip, int port) {
 		
 		SERVER_PORT_TCP = port;
 		SERVER_IP = ip;

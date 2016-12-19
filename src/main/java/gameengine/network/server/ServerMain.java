@@ -69,7 +69,7 @@ public class ServerMain {
 			this.serverSocket = serverSocket;
 			Socket clientSocket;
 			while ((clientSocket = serverSocket.accept()) != null) {
-				new Thread(new TcpConnection(this, clientSocket)).start();
+				new Thread(new ServerTcpConnection(this, clientSocket)).start();
 				gameStateRefresher();
 			}
 		} 

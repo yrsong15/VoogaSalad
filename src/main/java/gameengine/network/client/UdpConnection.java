@@ -32,7 +32,7 @@ class UdpConnection implements Runnable {
 		
 		private DatagramSocket datagramSocket;
 		
-		private TcpConnection tcpConnection;
+		private ClientTcpConnection tcpConnection;
 		XMLSerializer serializer;
 		
 		//set udp port you want get game-play though. Make sure
@@ -42,7 +42,7 @@ class UdpConnection implements Runnable {
 		private final int UDP_PORT;
 		private UDPHandler udpHandler;
 
-		UdpConnection(ClientMain main, TcpConnection tcpConnection, int client_port_udp, UDPHandler handler) {
+		UdpConnection(ClientMain main, ClientTcpConnection tcpConnection, int client_port_udp, UDPHandler handler) {
 			udpHandler = handler;
 			this.main = main;
 			this.tcpConnection = tcpConnection;
