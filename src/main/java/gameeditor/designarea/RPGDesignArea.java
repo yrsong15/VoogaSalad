@@ -1,17 +1,15 @@
-package gameeditor.rpg;
+package gameeditor.designarea;
+
+//This entire file is part of my masterpiece.
+//John Martin
+//This is the custom design area for an RPG game editor, as with the scrolling design area, I believe the core
+//to this as good design is its use of inheritance hierarchies, reflection and lack of hardcoded values that
+//make it both flexible and focused, whilst being easy to navigate and understand.
 
 import java.util.ArrayList;
 
-import gameeditor.commanddetails.ISelectDetail;
-
 import gameeditor.objects.GameObjectView;
-import gameeditor.view.AbstractDesignArea;
-import gameeditor.view.interfaces.IDesignArea;
-import gameeditor.view.interfaces.IGameEditorView;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,18 +21,20 @@ import javafx.scene.shape.Rectangle;
  *
  */
 
-public class GridDesignArea extends AbstractDesignArea implements IDesignArea, IGridDesignArea {
+public class RPGDesignArea extends AbstractDesignArea implements IRPGDesignArea {
     
     private CellGrid myCellGrid;
     private ArrayList<Cell> myCells = new ArrayList<Cell>();
-    private Cell myHoverCell;
     private Cell myClickCell;
     private ArrayList<Cell> mySelectedCells = new ArrayList<Cell>();
     private ArrayList<Cell> myNewSelectedCells = new ArrayList<Cell>();
-    private ImageView myBG;
     
-    public GridDesignArea() {
+    public RPGDesignArea() {
     	super();
+    }   
+    
+    @Override
+    public void init(){
         myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
         myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
         myCellGrid = new CellGrid(0, 0, 40, (int) (1.5*AREA_WIDTH/40), (int) (1.5*AREA_HEIGHT/40), false, this);
@@ -42,26 +42,14 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
         for (Cell cell : myCells){
         	myPane.getChildren().add(cell.getRect());
         }
-        myPane.setOnMouseMoved(e -> handleHover(e.getX(), e.getY()));
         myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
         myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
         myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
         myScrollPane.setContent(myPane);
-    }   
-    
-    private void handleHover(double x, double y){
-//    	Cell cellOver = findCell(x, y);
-//    	if (cellOver != null && myHoverCell != null && cellOver != myHoverCell){
-//    		myHoverCell.resetColor();
-//    		myHoverCell = cellOver;
-//    		myHoverCell.setColor();
-//    	} else if (cellOver != null){
-//    		myHoverCell = cellOver;
-//    		myHoverCell.setColor();
-//    	}
     }
-
-    private void handlePress(double x, double y){
+    
+    @Override
+    protected void handlePress(double x, double y){
     	Cell cell = findCell(x, y);
     	if (myKeyCode != KeyCode.SHIFT){
         	resetCells();
@@ -88,8 +76,9 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
     		cell.setColor();
     	}
     }
-
-    private void handleRelease(double x, double y) {
+    
+    @Override
+    protected void handleRelease(double x, double y) {
     	Cell myReleaseCell = findCell(x, y);
         if (dragged){
         	selectCells(startX, startY, endX, endY);
@@ -106,8 +95,9 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
         endY = 0;
         myClickCell = null;
     }
-
-    private void handleDrag(double x, double y) {
+    
+    @Override
+    protected void handleDrag(double x, double y) {
     	if (startX != -1 && startY != -1){
     		startX = Math.min(startX, x);
             startY = Math.min(startY, y);
@@ -117,20 +107,27 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
             mySelectionArea.setY(startY);
             mySelectionArea.setWidth(endX-startX);
             mySelectionArea.setHeight(endY-startY);
-            if (!dragged){
-                dragged = true;
-            }
+            initDragged();
+        }
+    }
+    
+    private void initDragged(){
+    	if (!dragged){
+            dragged = true;
         }
     }
 
-    private void handleKeyPress(KeyCode code){
+    @Override
+    protected void handleKeyPress(KeyCode code){
         myKeyCode = code;
     }
-
-    private void handleKeyRelease(KeyCode code){
-        if (code == KeyCode.BACK_SPACE && mySelectedSprite != null){
-            // TODO: Remove from backend
-            mySelectedSprite.removeSelf();
+    
+    @Override
+    protected void handleKeyRelease(KeyCode code){
+        if (code == KeyCode.BACK_SPACE && mySelectedCells.size() > 0){
+            for (Cell c : mySelectedCells){
+            	removeSpriteFromCell(c);
+            }
         }
         myKeyCode = null;
     }
@@ -156,39 +153,6 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
         return myScrollPane;
     }
 
-    public void setBackground(ImageView bg){
-    	myBG = bg;
-        ObservableList<Node> currentChildren = myPane.getChildren();
-        ArrayList<Node> children = new ArrayList<Node>();
-        for (Node child : currentChildren){
-            if(child.getId()==null || !(child.getId().equals(IGameEditorView.BACKGROUND_IMAGE_ID))){
-                children.add(child);
-            }
-        }
-        myPane.getChildren().clear();
-        myBG.setLayoutX(0);
-        myBG.setLayoutY(0);
-        myBG.setPreserveRatio(true);
-        bgUpdate();
-        myPane.widthProperty().addListener(e -> bgUpdate());
-        myPane.heightProperty().addListener(e -> bgUpdate());
-        myPane.getChildren().add(bg);
-        myPane.getChildren().addAll(children);
-    }
-    
-    private void bgUpdate(){
-        double imgWidth = myBG.getImage().getWidth();
-        double imgHeight = myBG.getImage().getWidth();
-        double widthRatio = myPane.getWidth()/imgWidth;
-        double heightRatio = myPane.getHeight()/imgHeight;
-        double ratio = Math.max(widthRatio, heightRatio);
-        double fitWidth = imgWidth*ratio;
-        double fitHeight = imgHeight*ratio;
-        myBG.setFitWidth(fitWidth);
-        myBG.setFitHeight(fitHeight);
-    	myBG.setFitHeight(myPane.getHeight());
-    }
-
     @Override
     public void removeSprite(GameObjectView sprite) {
     	for (Cell cell : myCells){
@@ -200,22 +164,10 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
         myPane.getChildren().remove(sprite.getImageView());
     }
     
-    @Override
-    public void removeSpriteFromCell(Cell cell) {
+    private void removeSpriteFromCell(Cell cell) {
     	cell.removeSprite();
     }
-
-    @Override
-    public void enableClick(ISelectDetail sd) {
-        mySelectDetail = sd;
-        clickEnabled = true;	
-    }
-
-    @Override
-    public void disableClick() {
-        clickEnabled = true;	
-    }
-
+    
     public void initSelectDetail2(GameObjectView sprite){
         if (clickEnabled){
             mySelectDetail.switchSelectStyle(sprite);
@@ -236,12 +188,6 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
     	return myPane;
     }
 
-	@Override
-	public Cell getHoverCell() {
-		return myHoverCell;
-	}
-
-	@Override
 	public ArrayList<Cell> getSelectedCells() {
 		return mySelectedCells;
 	}
@@ -260,8 +206,7 @@ public class GridDesignArea extends AbstractDesignArea implements IDesignArea, I
 		}
 	}
 	
-    @Override
-    public void addSprite(GameObjectView sprite, Cell cell) {
+    private void addSprite(GameObjectView sprite, Cell cell) {
     	cell.addSprite(sprite);
     }
     

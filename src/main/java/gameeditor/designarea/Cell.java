@@ -1,4 +1,4 @@
-package gameeditor.rpg;
+package gameeditor.designarea;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,10 +20,10 @@ public class Cell {
 	private Rectangle myRectangle;
 	private GameObjectView mySprite;
 	private double mySize;
-	private IGridDesignArea myDesignArea;
+	private IRPGDesignArea myDesignArea;
 	
 
-	public Cell(double size, int row, int col, double x, double y, int arrayPos, IGridDesignArea gda) {
+	public Cell(double size, int row, int col, double x, double y, int arrayPos, IRPGDesignArea gda) {
 		mySize = size;
 		myX = x;
 		myY = y;

@@ -1,4 +1,4 @@
-package gameeditor.rpg;
+package gameeditor.designarea;
 
 import javafx.scene.paint.Color;
 

@@ -4,8 +4,8 @@ package gameeditor.commanddetails;
  *
  */
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.designarea.IDesignArea;
 import gameeditor.view.ViewResources;
-import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import javafx.scene.control.ScrollPane;
 

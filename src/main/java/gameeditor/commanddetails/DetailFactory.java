@@ -1,7 +1,7 @@
 package gameeditor.commanddetails;
 
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameeditor.view.interfaces.IDesignArea;
+import gameeditor.designarea.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 /**
  * @author John Martin

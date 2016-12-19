@@ -2,7 +2,7 @@ package gameeditor.objects;
 
 import java.util.ArrayList;
 
-import gameeditor.view.interfaces.IDesignArea;
+import gameeditor.designarea.IScrollingDesignArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 /**
@@ -12,7 +12,7 @@ import javafx.scene.shape.Rectangle;
 public class MultiBoundingBox {
 	
 	private ArrayList<GameObjectView> mySprites = new ArrayList<GameObjectView>();
-	private IDesignArea myDesignArea;
+	private IScrollingDesignArea myDesignArea;
 	
 	private Rectangle myBounds;
 	
@@ -27,7 +27,7 @@ public class MultiBoundingBox {
 	private double myDeltaY = 0;
 
 
-	public MultiBoundingBox(ArrayList<GameObjectView> sprites, IDesignArea da) {
+	public MultiBoundingBox(ArrayList<GameObjectView> sprites, IScrollingDesignArea da) {
 		mySprites.addAll(sprites);
 		myDesignArea = da;
 		setMinMax();

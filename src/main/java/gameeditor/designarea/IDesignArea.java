@@ -1,9 +1,15 @@
-package gameeditor.view.interfaces;
+package gameeditor.designarea;
+
+//This entire file is part of my masterpiece.
+//John Martin
+//This interfaces is the interface used to enable other components of the gameeditor to interact with the design areas.
+//All methods in this interface are universal to all design areas, I believe this is good design as it enables the 
+//design areas to keep their individual, unique natures but still function with other areas of the code. This
+//is achieved by an interface inheritance hierarchy, whereby more specific contracts are made for the individual design
+//areas to interact with components unique to them.
 
 import gameeditor.commanddetails.ISelectDetail;
-import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
-import gameeditor.objects.MultiBoundingBox;
 import gameeditor.view.ViewResources;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -33,10 +39,6 @@ public interface IDesignArea {
         
     public void initSelectDetail2(GameObjectView sprite);
     
-    public void addBoundingBox(BoundingBox bb);
-    
-    public void removeBoundingBox(BoundingBox bb);
-    
     public void addDragIn(ImageView tempIV);
 
 	public void removeDragIn(ImageView tempIV);
@@ -47,8 +49,5 @@ public interface IDesignArea {
     
     public void removeSprite(GameObjectView gameObject);
     
-	public void addMultiBoundingBox(MultiBoundingBox multiBoundingBox);
-
-	public void removeMultiBoundingBox();
 	
 }

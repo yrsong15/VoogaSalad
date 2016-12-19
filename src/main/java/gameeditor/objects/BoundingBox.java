@@ -2,7 +2,7 @@ package gameeditor.objects;
 
 import java.util.ArrayList;
 
-import gameeditor.view.interfaces.IDesignArea;
+import gameeditor.designarea.IScrollingDesignArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 /**
@@ -14,7 +14,7 @@ public class BoundingBox {
 	private ArrayList<Rectangle> myCorners = new ArrayList<Rectangle>();
 	private ArrayList<Rectangle> myShapes = new ArrayList<Rectangle>();
 	private GameObjectView mySprite;
-	private IDesignArea myDesignArea;
+	private IScrollingDesignArea myDesignArea;
 	
 	private Rectangle myBounds;
 	private Rectangle myTopLeft;
@@ -30,7 +30,7 @@ public class BoundingBox {
 	private double yDistanceFromCorner = 0;
 
 
-	public BoundingBox(GameObjectView sprite, IDesignArea da) {
+	public BoundingBox(GameObjectView sprite, IScrollingDesignArea da) {
 		mySprite = sprite;
 		myDesignArea = da;
 		previousX = sprite.getX();

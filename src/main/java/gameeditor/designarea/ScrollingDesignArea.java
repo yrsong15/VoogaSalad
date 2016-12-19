@@ -1,13 +1,18 @@
-package gameeditor.view;
+package gameeditor.designarea;
+
+//This entire file is part of my masterpiece.
+//John Martin
+//This is the standard design area for scrolling platforms. For my masterpiece I refactored the design area to implement
+//reflection. This combined with the inheritance hierarchy structure I've implemented enables the design area to operate
+//in a unique way according to the game type but still operate regularly within the larger project. It is the ideal compromise
+//between power and flexibility. In addition, it is does not utilize hard coding but instead uses resources files and properties
+//resource bundles. All in all I believe this demonstrates my understanding of how good design is both flexible and extensible,
+//with adding a new very specific feature to this solely for a scrolling platformer being simple, and the code being easy to navigate.
+
 import java.util.ArrayList;
-import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.objects.BoundingBox;
 import gameeditor.objects.GameObjectView;
 import gameeditor.objects.MultiBoundingBox;
-import gameeditor.view.interfaces.IGameEditorView;
-import gameeditor.view.interfaces.IStandardDesignArea;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -20,22 +25,27 @@ import javafx.scene.shape.Rectangle;
  *
  */
 
-public class DesignArea extends AbstractDesignArea implements IStandardDesignArea {
+public class ScrollingDesignArea extends AbstractDesignArea implements IScrollingDesignArea {
 
     private GameObjectView myDuplicateSprite;
+    private MultiBoundingBox myMultiBoundingBox;
 
-    public DesignArea() {
+    public ScrollingDesignArea() {
         super();
-//        myScrollPane.setPannable(true);
-        myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
-        myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
-        myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
-        myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
-        myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
-        myPane.widthProperty().addListener(e -> handleWidthUpdate());
-        myPane.heightProperty().addListener(e -> handleHeightUpdate());
-        myScrollPane.setContent(myPane);
-    }   
+    }
+    
+    @Override
+    public void init(){
+//      myScrollPane.setPannable(true);
+      myScrollPane.setOnKeyPressed((e) -> handleKeyPress(e.getCode()));
+      myScrollPane.setOnKeyReleased((e) -> handleKeyRelease(e.getCode()));
+      myPane.setOnMousePressed(e -> handlePress(e.getX(), e.getY()));
+      myPane.setOnMouseDragged(e -> handleDrag(e.getX(), e.getY()));
+      myPane.setOnMouseReleased(e -> handleRelease(e.getX(), e.getY()));
+      myPane.widthProperty().addListener(e -> handleWidthUpdate());
+      myPane.heightProperty().addListener(e -> handleHeightUpdate());
+      myScrollPane.setContent(myPane);
+    }
     
     private void handleWidthUpdate(){
     	myScrollPane.setHvalue(1.0);
@@ -45,7 +55,7 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
     	myScrollPane.setVvalue(1.0);
     }
 
-    private void handlePress(double x, double y){
+    protected void handlePress(double x, double y){
         GameObjectView sprite = checkForSprite(x, y);
         resetPress(x, y);
         if (checkForMultibox(x, y)){
@@ -81,8 +91,7 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
         }
     }
 
-    private void handleRelease(double x, double y) {
-        // TODO Auto-generated method stub
+    protected void handleRelease(double x, double y) {
         if (dragged){
             ArrayList<GameObjectView> selectedSprites = findSprites(startX, startY, endX, endY);
             if (selectedSprites.size() > 1){
@@ -103,7 +112,7 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
         endY = 0;
     }
 
-    private void handleDrag(double x, double y) {
+    protected void handleDrag(double x, double y) {
         if (myMultiBoundingBox == null && startX != -1 && startY != -1){
             startX = Math.min(startX, x);
             startY = Math.min(startY, y);
@@ -119,19 +128,17 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
         }
     }
 
-    private void handleKeyPress(KeyCode code){
+    protected void handleKeyPress(KeyCode code){
         myKeyCode = code;
     }
 
-    private void handleKeyRelease(KeyCode code){
+    protected void handleKeyRelease(KeyCode code){
         if (code == KeyCode.BACK_SPACE && mySelectedSprite != null && myMultiBoundingBox == null ){
-            // TODO: Remove from backend
             mySelectedSprite.removeBound();
             mySelectedSprite.setOff();
             mySelectedSprite.removeSelf();
         } else if (code == KeyCode.BACK_SPACE && myMultiBoundingBox != null){
         	for (GameObjectView sprite : myMultiBoundingBox.getSprites()){
-        		// TODO: Remove from backend
         		sprite.removeSelf();
         	}
         	myMultiBoundingBox.hide();
@@ -142,33 +149,6 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
 
     public ScrollPane getScrollPane(){
         return myScrollPane;
-    }
-
-    public void setBackground(ImageView bg){
-        ObservableList<Node> currentChildren = myPane.getChildren();
-        ArrayList<Node> children = new ArrayList<Node>();
-        for (Node child : currentChildren){
-            if(child.getId()==null || !(child.getId().equals(IGameEditorView.BACKGROUND_IMAGE_ID))){
-                children.add(child);
-            }
-        }
-        myPane.getChildren().clear();
-        bg.setLayoutX(0);
-        bg.setLayoutY(0);
-
-        myPane.getChildren().add(bg);
-        myPane.getChildren().addAll(children);
-    }
-
-    @Override
-    public void enableClick(ISelectDetail sd) {
-        mySelectDetail = sd;
-        clickEnabled = true;	
-    }
-
-    @Override
-    public void disableClick() {
-        clickEnabled = true;	
     }
 
     public void initSelectDetail2(GameObjectView sprite){
@@ -218,7 +198,6 @@ public class DesignArea extends AbstractDesignArea implements IStandardDesignAre
     @Override
     public void addSprite(GameObjectView sprite) {
         mySprites.add(sprite);
-        //		TODO: Remove the hardcoding of the image size proportions
         myPane.getChildren().add(sprite.getImageView());
         if (sprite.getIsRandomGen()){
         	addRandomGen(sprite);

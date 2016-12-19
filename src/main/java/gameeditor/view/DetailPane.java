@@ -2,7 +2,6 @@ package gameeditor.view;
 
 import gameeditor.view.interfaces.ICommandButton;
 import gameeditor.view.interfaces.ICommandDetailDisplay;
-import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 
 import gameeditor.commanddetails.*;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.designarea.IDesignArea;
 import gameeditor.objects.GameObjectView;
 /**
  * 

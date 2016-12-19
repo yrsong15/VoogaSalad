@@ -1,4 +1,4 @@
-package gameeditor.rpg;
+package gameeditor.designarea;
 
 import java.util.ArrayList;
 
@@ -14,10 +14,10 @@ public class CellGrid extends Group {
     private boolean isToroidal;
     private int myGridWidth, myGridHeight;
     private ArrayList<Cell> cells = new ArrayList<>();
-    private IGridDesignArea myDesignArea;
+    private IRPGDesignArea myDesignArea;
 
     public CellGrid(double xPos, double yPos, double cellSize, int gridWidth, 
-    		int gridHeight, boolean toroidal, IGridDesignArea gda) {
+    		int gridHeight, boolean toroidal, IRPGDesignArea gda) {
         setLayoutX(xPos);
         setLayoutY(yPos);
         myCellSize = cellSize;

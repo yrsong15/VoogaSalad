@@ -8,12 +8,18 @@ import java.util.Map;
 import javax.swing.text.html.ObjectView;
 import frontend.util.FileOpener;
 import frontend.util.GameEditorException;
+import gameeditor.commanddetails.AbstractCommandDetail;
+import gameeditor.commanddetails.DetailFactory;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.GameEditorData;
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.designarea.ScrollingDesignArea;
+import gameeditor.designarea.RPGDesignArea;
+import gameeditor.designarea.AbstractDesignArea;
+import gameeditor.designarea.DesignAreaFactory;
+import gameeditor.designarea.IDesignArea;
 import gameeditor.objects.GameObjectView;
-import gameeditor.rpg.GridDesignArea;
-import gameeditor.view.interfaces.IDesignArea;
+import gameeditor.view.interfaces.ICommandButton;
 import gameeditor.view.interfaces.IDetailPane;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IGameEditorView;
@@ -131,16 +137,18 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     private VBox createCenter(){
         myCenterBox = new VBox();
-        if (myGameType.equals("Scrolling")){
-            myDesignArea = new DesignArea();
-        } else if (myGameType.equals("RPG")){
-            myDesignArea = new GridDesignArea();
-        }
+        myDesignArea = createDesignArea();
         myScrollPane = myDesignArea.getScrollPane();
         myToolbar = new EditorToolbar(this);
         myCenterBox.getChildren().add(myToolbar.getPane());
         myCenterBox.getChildren().add(myScrollPane);
         return myCenterBox;
+    }
+    
+    private IDesignArea createDesignArea(){
+    	String className = "gameeditor.designarea." + myGameType + "DesignArea";
+        AbstractDesignArea designArea = new DesignAreaFactory().create(className);
+        return designArea;
     }
 
     private void addBackground(){

@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 import gameeditor.commanddetails.DetailResources;
 import gameeditor.controller.interfaces.IGameEditorData;
-import gameeditor.view.interfaces.IDesignArea;
+import gameeditor.designarea.IDesignArea;
+import gameeditor.designarea.IScrollingDesignArea;
 import gameengine.view.GameScreen;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -143,7 +144,7 @@ public class GameObjectView {
 
     public void initBound(){
         myDesignArea.initSelectDetail2(this);
-        myBoundingBox = new BoundingBox(this, myDesignArea);
+        myBoundingBox = new BoundingBox(this, (IScrollingDesignArea) myDesignArea);
         myBoundingBox.show();
     }
 

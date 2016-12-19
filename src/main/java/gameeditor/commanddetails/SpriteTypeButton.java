@@ -3,9 +3,9 @@ package gameeditor.commanddetails;
 import java.util.Map;
 
 import gameeditor.controller.interfaces.IGameEditorData;
+import gameeditor.designarea.IDesignArea;
 import gameeditor.objects.GameObjectView;
 import gameeditor.view.ViewResources;
-import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
