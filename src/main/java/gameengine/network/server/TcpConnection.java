@@ -46,6 +46,7 @@ class TcpConnection implements Runnable{
 				} catch (Exception e) {
 					continue;
 				}
+
 				switch(sm.getMessage()){
 					case GET_ID:
 						oos.writeLong(main.getId());

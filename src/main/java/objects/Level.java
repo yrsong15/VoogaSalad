@@ -44,7 +44,7 @@ public class Level implements ILevel{
 
     public void removeAllPlayers(){
         players = new ArrayList<>();
-    }
+    }    
 
     public void setScrollType(ScrollType scrollType) {
         this.scrollType = scrollType;
@@ -128,6 +128,10 @@ public class Level implements ILevel{
 
     public void addPlayer(GameObject player){
         players.add(player);
+    }
+    
+    public void removePlayer(GameObject player){
+    	players.remove(player);
     }
 
     public List<GameObject> getPlayers(){

@@ -19,6 +19,7 @@ public interface ILevel {
     public void removeLoseCondition(String type, String action);
     public Map<String, String> getLoseConditions();
     public List<GameObject> getGameObjects();
+    public void removePlayer(GameObject player);
 
 
     // public void setControl(KeyCode key, String action);

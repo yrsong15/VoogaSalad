@@ -114,7 +114,7 @@ public class ServerMain {
 	}
 
 	void removeCharacter(long id) {
-
+		gameHandler.removePlayer((int)id);
 	}
 
 	void readCommand(String command,int id, int charIdx) {

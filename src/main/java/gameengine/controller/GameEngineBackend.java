@@ -54,11 +54,22 @@ public class GameEngineBackend implements GameHandler, RuleActionHandler {
         serverMain = new ServerMain(this, 9090, serverName);
 	}
 
+	@Override
 	public void addPlayersToClient(int ID) {
+		loopThroughPlayers(ID, true);
+	}
+	
+	@Override
+	public void removePlayer(int ID) {
+		loopThroughPlayers(ID, false);
+	}
+	
+	private void loopThroughPlayers(int ID, boolean add){
 		for (Long id: currentGame.getClientMappings().keySet()) {
 			if (id.equals(new Long(ID))) {
 				for (Player p : currentGame.getClientMappings().get(id)) {
-					currentGame.getCurrentLevel().addPlayer(p.getMainChar());
+					if(add) currentGame.getCurrentLevel().addPlayer(p.getMainChar());
+					else currentGame.getCurrentLevel().removePlayer(p.getMainChar());
 				}
 			}
 		}
