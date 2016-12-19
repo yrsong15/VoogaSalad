@@ -1,5 +1,6 @@
 package objects;
 
+import gameengine.controller.GameEngineBackend;
 import gameengine.network.server.ServerMain;
 import javafx.scene.image.ImageView;
 
@@ -30,8 +31,8 @@ public class ClientGame {
 	public void addAll(List<GameObject> allGameObjects) {
 		for (GameObject o : allGameObjects) {
 			if (o.getID() == 0) {
-				ServerMain.idCounter++;
-				o.setID(ServerMain.idCounter);
+				GameEngineBackend.idCounter++;
+				o.setID(GameEngineBackend.idCounter);
 			}
 			ClientGameObject gameObject = new ClientGameObject(o.getID(), o.getXPosition(), o.getYPosition(), o.getWidth(), o.getHeight(),
 					o.getDirection(), o.getImageFileName(),

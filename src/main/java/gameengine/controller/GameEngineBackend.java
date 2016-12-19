@@ -3,6 +3,8 @@ package gameengine.controller;
 import java.lang.reflect.Method;
 import java.util.*;
 import com.sun.javafx.scene.traversal.Direction;
+
+import exception.GameEngineServerSideException;
 import gameengine.controller.interfaces.CommandInterface;
 import gameengine.controller.interfaces.GameHandler;
 import gameengine.controller.interfaces.RGInterface;
@@ -29,6 +31,8 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 	private String serverName;
 	private Node toolbarHBox;
 	private CommandInterface commandInterface;
+	public static int idCounter = 0;
+
 
 	public GameEngineBackend(CommandInterface commandInterface, String serverName) {
 		this.commandInterface = commandInterface;
@@ -38,6 +42,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		randomlyGeneratedFrames = new ArrayList<>();
 		highScores = new ArrayList<>();
 		mainCharImprints = new HashMap<>();
+        try {
+			serverMain = new ServerMain(this, 9090,serverName);
+		} catch (GameEngineServerSideException e) {
+		}
 	}
 
 	public void startGame(Game currentGame) {
@@ -52,7 +60,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		gameMovement = new MovementManager(currentGame.getCurrentLevel(), GameEngineUI.myAppWidth,
 				GameEngineUI.myAppHeight);
         conditionChecker = new ConditionChecker();
-        serverMain = new ServerMain(this, 9090, serverName);
+        try {
+			serverMain.start();
+		} catch (GameEngineServerSideException e) {
+		}
 	}
 
 	public void addPlayersToClient(int ID) {
@@ -210,9 +221,6 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		}
 	}
 
-	public void addClientCharacter() {
-		// currentGame.addPlayer(tempPlayer);
-	}
 	
 	public void setToolbarHBox(Node toolbarHBox){
 		this.toolbarHBox = toolbarHBox;
@@ -319,5 +327,10 @@ public class GameEngineBackend implements RGInterface, GameHandler, RuleActionHa
 		if (currentGame.getCurrentLevel().getScrollType().getScrollTypeName().equals("FreeScrolling")){
 			currentGame.getCurrentLevel().setBackgroundObject();
 		}
+	}
+
+	@Override
+	public void removeCharacters(long ID) {
+		
 	}
 }

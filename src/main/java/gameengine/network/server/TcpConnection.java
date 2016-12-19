@@ -9,6 +9,7 @@ import java.net.Socket;
 
 import javax.xml.bind.JAXBException;
 
+import exception.GameEngineServerSideException;
 import gameengine.network.ServerMessage;
 import xml.XMLSerializer;
 
@@ -31,12 +32,12 @@ class TcpConnection implements Runnable{
 	private static final int RESTART = 5;
 	private static final int SERVER_THREAD_SHUTDOWN = 6;
 
-	private ServerMain main;
+	private MessageHandler messageHandler;
 	private Socket socket;
 	private XMLSerializer serializer;
 	
-	TcpConnection(ServerMain main, Socket socket) {
-		this.main = main;
+	TcpConnection(MessageHandler messageHandler, Socket socket) {
+		this.messageHandler = messageHandler;
 		this.socket = socket;
 		serializer = new XMLSerializer();
 	}
@@ -55,28 +56,28 @@ class TcpConnection implements Runnable{
 				}
 				switch(sm.messageType){
 					case GET_ID:
-						oos.writeLong(main.getId());
+						oos.writeLong(messageHandler.getId());
 						break;
 					case SEND_COMMAND:
-						main.readCommand(sm.command,(int)sm.id,sm.charIdx);
+						messageHandler.readCommand(sm.command,(int)sm.id,sm.charIdx);
 						break;
 					case GET_ID_IP_PORT: 
 						String ipString = socket.getInetAddress().getHostName();
 						InetAddress clientIp = InetAddress.getByName(ipString);
 						System.err.println(ipString + " " + clientIp);
-						main.addressBook(clientIp, sm.port);
+						messageHandler.addIpPort(clientIp, sm.port);
 						break;
 					case REMOVE_CHARACTER:
-						main.removeCharacter(sm.id);
+						messageHandler.removeCharacters(sm.id);
 						break;
 					case PAUSE:
-						main.pause();
+						messageHandler.pause();
 						break;
 					case RESTART:
-						main.restart();
+						messageHandler.restart();
 						break;
 					case SERVER_THREAD_SHUTDOWN:
-						main.shutdownServerThread();
+						messageHandler.shutdownServerThread();
 						break;
 					default:
 						break;
@@ -84,7 +85,7 @@ class TcpConnection implements Runnable{
 				oos.flush();
 				
 			}
-		}catch(IOException | ClassNotFoundException e){
+		}catch(IOException | ClassNotFoundException | GameEngineServerSideException e){
 		}
 	}
 
