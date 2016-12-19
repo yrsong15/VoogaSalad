@@ -24,11 +24,15 @@ public class RandomGenFrameX<T> extends RandomGenFrame<T> implements BenchmarkIn
 	}
 	
 	@Override
-	public <T extends Comparable<T>> void possiblyGenerateNewFrame(RGInterface handler, RandomGeneration<Integer> randomGenRules) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, EnemyMisreferencedException, NoSuchMethodException, SecurityException {
-        if (referenceFirstObject == null || (SingletonPositionChecker.getInstance().checkHorizontalPosition(referenceFirstObject.getXPosition(), benchmarkPoint) == PositionStatus.LEFT)) {
-            generateNewFrameAndSetBenchmark(handler,level);
+	public <T extends Comparable<T>> void possiblyGenerateNewFrame(RGInterface handler, RandomGeneration<Integer> randomGenRules) {
+        try{
+        	if (referenceFirstObject == null || (SingletonPositionChecker.getInstance().checkHorizontalPosition(referenceFirstObject.getXPosition(), benchmarkPoint) == PositionStatus.LEFT)) {
+        		generateNewFrameAndSetBenchmark(handler,level);
+        	}
         }
-        
+ 	   catch (Exception e){
+		   throw new IllegalNullInputException("One of the input objects or level/handler is null within the list, the Singleton comparator cannot compare null objects",e);
+	   } 
     }
 	
 	@Override

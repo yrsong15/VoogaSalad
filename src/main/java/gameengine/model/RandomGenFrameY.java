@@ -1,8 +1,6 @@
 package gameengine.model;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-
 import gameengine.controller.GameEngineController;
 import gameengine.controller.interfaces.RGInterface;
 import gameengine.model.SingletonPositionChecker.PositionStatus;
@@ -15,6 +13,7 @@ import objects.RandomGeneration;
 // BRIAN ZHOU
 
 /**
+ * Uncollapse this to see notes/what I'm proud of
  * What I'm Proud Of:
  * 
  * Required addition of subclass for the superclass RandomGenFrame. Most of the meat is within the RandomGenFrame so for most of the details about design decisions, see that masterpiece header in RandomGenFrame
@@ -29,7 +28,7 @@ import objects.RandomGeneration;
  * into the z-axis, you could follow this class as a template to easily integrate it into the new part of the project.
  * 
  * Finally, this class is pretty much finished for most cases, so it follows the open-closed principle in that you wouldn't need to modify existing code due to the generics and comparators that cover generalized cases - you would only
- * need to change the methods if you drastically changed the algorithm for random generation.
+ * need to change the methods if you drastically changed the algorithm for random generation. There is also basic error checking to narrow down the source issue for caused exceptions (created my own exception to guide coders to source of error)
  * 
  */
 
@@ -37,6 +36,7 @@ import objects.RandomGeneration;
 
 
 /**
+ * UNCOLLAPSE ABOVE
  * This class is responsible for most of the specific random generation behavior, such as generating the correct parameters for X and Y for the new randomly generated objects, in addition to checking when
  * it's necessary for a new randomly generated frame to be created and sent over to the controller (when benchmark object goes past benchmark point);
  * 
@@ -66,22 +66,34 @@ public class RandomGenFrameY<T> extends RandomGenFrame<T> implements BenchmarkIn
 	
 	/**
 	 * Class checks position of objects relative to benchmark and decides if you need to tell the controller to start a new random frame
+	 * @throws IllegalNullInputException 
 	 */
 	@Override
-	public <T extends Comparable<T>> void possiblyGenerateNewFrame(RGInterface handler, RandomGeneration<Integer> randomGenRules) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, EnemyMisreferencedException, NoSuchMethodException, SecurityException {
-		if (referenceFirstObject == null || (SingletonPositionChecker.getInstance().checkVerticalPosition(referenceFirstObject.getYPosition(), benchmarkPoint) == PositionStatus.BELOW)) {
-			generateNewFrameAndSetBenchmark(handler,level);
-        }
+	public <T extends Comparable<T>> void possiblyGenerateNewFrame(RGInterface handler, RandomGeneration<Integer> randomGenRules) throws IllegalNullInputException {
+		try{
+			if (referenceFirstObject == null || (SingletonPositionChecker.getInstance().checkVerticalPosition(referenceFirstObject.getYPosition(), benchmarkPoint) == PositionStatus.BELOW)) {
+				generateNewFrameAndSetBenchmark(handler,level);
+			}
+		}
+	   catch (Exception e){
+		   throw new IllegalNullInputException("One of the input objects or level/handler is null within the list, the Singleton comparator cannot compare null objects",e);
+	   } 
     }
 	
 	/**
 	 * Sets a new benchmark/reference point for you to compare to when deciding whether or not you need to generate a new frame
+	 * @throws IllegalNullInputException 
 	 */
 	@Override
-	public void setNewFirstBenchmark(GameObject object) {
-    	if(referenceFirstObject == null || (SingletonPositionChecker.getInstance().checkVerticalPosition(object.getYPosition(), referenceFirstObject.getYPosition()) == PositionStatus.ABOVE)) {
-    		referenceFirstObject = object;
+	public void setNewFirstBenchmark(GameObject object) throws IllegalNullInputException {
+    	try{
+    		if(referenceFirstObject == null || (SingletonPositionChecker.getInstance().checkVerticalPosition(object.getYPosition(), referenceFirstObject.getYPosition()) == PositionStatus.ABOVE)) {
+    			referenceFirstObject = object;
+    		}
     	}
+ 	   catch (Exception e){
+		   throw new IllegalNullInputException("One of the input objects or level/handler is null within the list, the Singleton comparator cannot compare null objects",e);
+	   } 
     }
 	
 	/**

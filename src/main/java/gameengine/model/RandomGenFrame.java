@@ -17,7 +17,7 @@ import gameengine.model.interfaces.RandomInterface;
  // BRIAN ZHOU
 
 /**
- * See below for comments on what this class does, and it's role within the entire project
+ * Uncollapse this to See below for comments on what this class does, and it's role within the entire project
  * 
  * What I'm Proud Of:
  * Underneath I'm listing some of the features I enjoyed building, as well as the decision decisions I went through. More details are in the analysis but this is the TLDR.
@@ -68,12 +68,14 @@ import gameengine.model.interfaces.RandomInterface;
  * 6. Error Checking
  *    - Added my own exception (EnemyMisreferencedException) to highlight that when you have an error at a certain point, it's likely due to a reflection or misplaced pointer error, and not the generic runtime issues as they should have occurred previously at a different point
  *    - Added in generic error checking to ensure that reflection went smoothly and didn't have any NPEs.
+ *    - Added my own exceptions for null checking(IllegalNullInputException) and reflection checking (ReflectionInvocationException) as when the exceptions are thrown at their point of the code, its a specific issue that can be traced to certain areas
  */
 
 //---- End Masterpiece Header
  
  
 /**
+ * UNCOLLAPSE ABOVE
  * Generic Abstract superclass that is responsible for all of the random generation within games such as Doodle Jump, Dance Dance Revolution, Flappy Bird, etc.
  * At certain intervals and proper conditions, method calls for a new frame to be created and added to the scene, and layers randoming
  * such that it can randomly generate enemies on top of other randomly generated objects. Finally, class is also responsible for updating benchmarks such that the
@@ -98,20 +100,16 @@ public abstract class RandomGenFrame<T> implements RandomInterface{
      * Checks conditions and calls proper methods if a new frame needs to be generated
      * @param handler
      * @param randomGenRules
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
-     * @throws EnemyMisreferencedException
-     * @throws NoSuchMethodException
-     * @throws SecurityException
+     * @throws IllegalNullInputException 
      */
-    public abstract <T extends Comparable<T>> void possiblyGenerateNewFrame (RGInterface handler, RandomGeneration<Integer> randomGenRules) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, EnemyMisreferencedException, NoSuchMethodException, SecurityException;
+    public abstract <T extends Comparable<T>> void possiblyGenerateNewFrame (RGInterface handler, RandomGeneration<Integer> randomGenRules) throws IllegalNullInputException;
    
     /**
      * Sets the new benchmark object that indicates when a new frame might need to be generated
      * @param object
+     * @throws IllegalNullInputException 
      */
-    public abstract void setNewFirstBenchmark(GameObject object);
+    public abstract void setNewFirstBenchmark(GameObject object) throws IllegalNullInputException;
     
     /**
      * @param margin
@@ -148,22 +146,27 @@ public abstract class RandomGenFrame<T> implements RandomInterface{
      * 
      * @param handler
      * @param level
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
      * @throws EnemyMisreferencedException
-     * @throws NoSuchMethodException
-     * @throws SecurityException
+     * @throws IllegalNullInputException 
+     * @throws ReflectionInvocationException 
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
+     * @throws IllegalAccessException 
      */
-    protected void generateNewFrameAndSetBenchmark(RGInterface handler, Level level) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, EnemyMisreferencedException, NoSuchMethodException, SecurityException {
+    protected void generateNewFrameAndSetBenchmark(RGInterface handler, Level level) throws EnemyMisreferencedException, IllegalNullInputException, ReflectionInvocationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         List<RandomGeneration<Integer>> randomGenRulesList = randomGenRules;
         List<GameObject> newlyCreatedPlatforms;
         Iterator<RandomGeneration<Integer>> randomGenerationIterator = randomGenRulesList.iterator();
-        
-        //Here are all of the callback methods that we invoke when we need to, methods within our controller
-        Method callbackObject = handler.getClass().getDeclaredMethod("generateObject", new Class[]{Double.TYPE,Double.TYPE,Double.TYPE,Double.TYPE,String.class,Map.class});
-        Method callbackEnemy = handler.getClass().getDeclaredMethod("generateEnemyOnPlatform", new Class[]{GameObject.class});
-        callbackObject.setAccessible(true); callbackEnemy.setAccessible(true);
+        Method callbackObject = null, callbackEnemy = null;
+        try{
+        	//Here are all of the callback methods that we invoke when we need to, methods within our controller
+        	callbackObject = handler.getClass().getDeclaredMethod("generateObject", new Class[]{Double.TYPE,Double.TYPE,Double.TYPE,Double.TYPE,String.class,Map.class});
+        	callbackEnemy= handler.getClass().getDeclaredMethod("generateEnemyOnPlatform", new Class[]{GameObject.class});
+        	callbackObject.setAccessible(true); callbackEnemy.setAccessible(true);
+        }
+        catch(Exception e){
+        	throw new ReflectionInvocationException("The callback method cannot be found/invoked, check the main controller to ensure the proper methods are called via reflection", e);
+        }
         
         while(randomGenerationIterator.hasNext()){
         	RandomGeneration<Integer> elem = randomGenerationIterator.next();
@@ -190,7 +193,7 @@ public abstract class RandomGenFrame<T> implements RandomInterface{
         }
     }
     
-    private void updateReferenceObject(RGInterface handler, List<GameObject> newlyCreatedPlatforms){
+    private void updateReferenceObject(RGInterface handler, List<GameObject> newlyCreatedPlatforms) throws IllegalNullInputException{
     	newlyCreatedPlatforms.add(handler.getReferenceObject());
         setNewFirstBenchmark(handler.getReferenceObject());
     }
