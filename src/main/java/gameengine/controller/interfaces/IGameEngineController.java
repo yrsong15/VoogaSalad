@@ -1,5 +1,13 @@
 package gameengine.controller.interfaces;
 
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import objects.Game;
+import objects.Level;
+import objects.Player;
+
+import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 /**
@@ -7,31 +15,34 @@ import java.util.Observable;
  * model and the view. You also initiate games through this class.
  */
 public interface IGameEngineController {
+    double FRAMES_PER_SECOND = 60;
+    double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    double SECOND_DELAY = 1 / FRAMES_PER_SECOND;
 
     /**
      * Starts the game specified by the current XML.
      */
-    public void startGame();
+    void startGame();
 
-    /**
-     * Sets the XML file for the game to be run.
-     * @param fileName The name of the XML file
-     */
-    public void setCurrentXML(String fileName);
+    Game createGameFromXML(String xmlData);
+
+    void startServerGame(Game currentGame);
+
+    void startClientGame(Map<Long, List<Player>> playerMapping);
+
+    Scene getScene();
+
+    void setHostMode(boolean ishosted, String serverName);
+
+    Level getLevel();
+
+    void setupServerShutdown();
+
+    void setEngineStage(Stage stage);
 
     /**
      * Updates the view based on the current model.
      */
-    public void update (Observable o, Object arg);
-    
-    /**
-     * Pauses the current game
-     */
-    public void stopGame();
-    
-    /**
-     * Resumes the game
-     */
-    public void resumeGame();
+//    public void update (Observable o, Object arg);
 
 }

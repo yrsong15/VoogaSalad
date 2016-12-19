@@ -1,6 +1,6 @@
 package general.interfaces;
 
-import general.GameFile;
+import general.Gallery.GameFile;
 
 import java.io.IOException;
 import java.util.List;

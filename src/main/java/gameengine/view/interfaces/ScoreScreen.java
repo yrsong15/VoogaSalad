@@ -1,11 +1,7 @@
 package gameengine.view.interfaces;
 
-import frontend.util.ButtonTemplate;
-import gameengine.controller.interfaces.CommandInterface;
-import general.NodeFactory;
+import frontend.util.NodeFactory;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -16,8 +12,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import viewformatter.ViewFormatter;
 import side.Side;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -49,8 +43,6 @@ public abstract class ScoreScreen {
 
     private BorderPane makeRoot() {
         root = new BorderPane();
-//        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
-//        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         ViewFormatter formatter = new ViewFormatter();
 
         Text highScoreText = new Text (makeScreenText() + " \nHigh Scores");
@@ -73,8 +65,6 @@ public abstract class ScoreScreen {
             getMyGameEngine().pause();
         });
         root = new BorderPane();
-//        Text score = new Text(50, 50, "Your Score: " + Integer.toString(myLevel.getScore()));
-//        score.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         highScoreText.setFill(Color.RED);
         highScoreText.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         root.getChildren().addAll(background, backdrop, highScoreText);

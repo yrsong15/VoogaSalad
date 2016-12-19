@@ -8,8 +8,8 @@ import java.util.Map;
  */
 public class Player {
     private GameObject mainChar;
-
     private Map<KeyCode, String> controls;
+
     public Player(GameObject mainCharacter){
         controls = new HashMap<>();
         mainChar = mainCharacter;
@@ -17,18 +17,23 @@ public class Player {
         mainChar.setXDistanceMoved(getMainChar().getXPosition());
         mainChar.setYDistanceMoved(this.getMainChar().getYPosition());
     }
+
     public void setControl(KeyCode key, String action) {
         controls.put(key, action);
     }
+
     public void removeControl(KeyCode key) {
         controls.remove(key);
     }
+
     public Map<KeyCode, String> getControls() {
         return controls;
     }
+
     public GameObject getMainChar(){
         return mainChar;
     }
+
     public void setControlMap(Map<KeyCode,String> controlsMap){
         controls.clear();
         this.controls = controlsMap;

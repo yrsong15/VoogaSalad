@@ -1,11 +1,10 @@
-package general;
+package frontend.util;
 
-import general.interfaces.INodeFactory;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -23,16 +22,13 @@ import java.util.ResourceBundle;
  * Created by Delia on 11/30/2016.
  */
 public class NodeFactory implements INodeFactory{
-    private ResourceBundle myImageResources, myTooltipResources;
+    private ResourceBundle myImageResources, myTooltipResources, myAlertResources;
     private String userDirectoryBackgroundPrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/Background/";
     private String userDirectoryThumbnailPrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/DesignImages/";
-    private String userDirectoryToolbarPrefix = "file:"
-            + System.getProperty("user.dir")
-            + "/images/Toolbar/";
     private String userDirectorySpritePrefix = "file:"
             + System.getProperty("user.dir")
             + "/images/Sprite/";
@@ -52,6 +48,7 @@ public class NodeFactory implements INodeFactory{
     public NodeFactory(){
         myImageResources = ResourceBundle.getBundle(IMAGE_LABEL_FILE, Locale.getDefault());
         myTooltipResources = ResourceBundle.getBundle(TOOLTIP_LABEL_FILE, Locale.getDefault());
+        myAlertResources = ResourceBundle.getBundle(ALERT_LABEL_FILE, Locale.getDefault());
     }
 
     @Override
@@ -61,19 +58,15 @@ public class NodeFactory implements INodeFactory{
         return backgroundImage;
     }
 
-//    public ImageView makeBackgroundImage()
-
+    @Override
     public ImageView makeThumbnailImage(String property, int x, int y, double width, double height){
         ImageView thumbNail = makeThumbnailImage(property, width, height);
-//        Image thumbNailImg = new Image(userDirectoryThumbnailPrefix + myImageResources.getString(property));
-//        ImageView thumbNail = new ImageView(thumbNailImg);
         thumbNail.setTranslateX(x);
         thumbNail.setTranslateY(y);
-//        thumbNail.setFitWidth(width);
-//        thumbNail.setFitHeight(height);
         return thumbNail;
     }
 
+    @Override
     public ImageView makeThumbnailImage(String property, double width, double height){
         Image thumbNailImg = new Image(userDirectoryThumbnailPrefix + myImageResources.getString(property));
         ImageView thumbNail = new ImageView(thumbNailImg);
@@ -82,6 +75,7 @@ public class NodeFactory implements INodeFactory{
         return thumbNail;
     }
 
+    @Override
     public Rectangle makeBackdrop(int x, int y, int width, int height, Color color){
         Rectangle backdrop = new Rectangle(width, height, color);
         backdrop.setStroke(Color.BLUE);
@@ -94,6 +88,7 @@ public class NodeFactory implements INodeFactory{
         return backdrop;
     }
 
+    @Override
     public Text makeLabel(String text, int x, int y, int fontSize){
         Text label = new Text(text);
         label.setFont(Font.font("Verdana", FontWeight.BOLD, fontSize));
@@ -104,6 +99,7 @@ public class NodeFactory implements INodeFactory{
         return label;
     }
 
+    @Override
     public Text makeLabel(String text, int x, int y){
         Text label = new Text(text);
         label.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -114,6 +110,7 @@ public class NodeFactory implements INodeFactory{
         return label;
     }
 
+    @Override
     public TextField makeTextField(String prompt, int x, int y){
         TextField addServer = new TextField();
         addServer.setPromptText(prompt);
@@ -123,17 +120,20 @@ public class NodeFactory implements INodeFactory{
         return addServer;
     }
 
+    @Override
     public Tooltip makeTooltip(String property) {
         Tooltip t = new Tooltip(myTooltipResources.getString(property));
         return t;
     }
 
+    @Override
     public Tooltip makeTooltip(String property, ImageView icon){
         Tooltip t = makeTooltip(property);
         t.setGraphic(icon);
         return t;
     }
 
+    @Override
     public Text bigNameTitle(String name, int x, int y) {
         Text titleText = new Text(name);
         titleText.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
@@ -143,7 +143,15 @@ public class NodeFactory implements INodeFactory{
         return titleText;
     }
 
+    @Override
     public String getUserDirectorySpritePrefix(){
         return userDirectorySpritePrefix;
+    }
+
+    public Alert makeInfoAlert(String property1, String property2){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(myAlertResources.getString(property1));
+        alert.setContentText(myAlertResources.getString(property2));
+        return alert;
     }
 }

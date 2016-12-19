@@ -6,28 +6,28 @@ import gameeditor.commanddetails.ISelectDetail;
 import gameeditor.objects.GameObjectView;
 import gameeditor.view.interfaces.IDesignArea;
 import javafx.scene.layout.Pane;
+
 /**
  * @author John Martin
- *
  */
 public interface IGridDesignArea extends IDesignArea {
-    
+
     public void removeSpriteFromCell(Cell cell);
 
-	public Pane getPane();
+    public Pane getPane();
 
-	public Cell getHoverCell();
-	
-	public ArrayList<Cell> getSelectedCells();
+    public Cell getHoverCell();
 
-	public void removeSprite(GameObjectView gameObjectView);
+    public ArrayList<Cell> getSelectedCells();
 
-	public void updateSpriteDetails(GameObjectView gameObjectView, double x, double y, double width, double height);
+    public void removeSprite(GameObjectView gameObjectView);
 
-	public void enableClick(ISelectDetail sd);
+    public void updateSpriteDetails(GameObjectView gameObjectView, double x, double y, double width, double height);
 
-	public void addAvatar(GameObjectView gov);
+    public void enableClick(ISelectDetail sd);
 
-	public void addSprite(GameObjectView sprite, Cell cell);
-	
+    public void addAvatar(GameObjectView gov);
+
+    public void addSprite(GameObjectView sprite, Cell cell);
+
 }

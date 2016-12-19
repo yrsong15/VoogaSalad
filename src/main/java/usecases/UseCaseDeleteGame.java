@@ -1,6 +1,6 @@
 package usecases;
-import general.GameFile;
-import general.GameFileView;
+import general.Gallery.GameFile;
+import general.Gallery.GameFileView;
 
 public class UseCaseDeleteGame {
 	

@@ -1,4 +1,5 @@
 package general;
+
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.model.RandomGenFrame;
 import gameengine.model.RandomGenFrameX;
@@ -11,16 +12,18 @@ import gameengine.view.GameEngineUI;
 import javafx.scene.input.KeyCode;
 import objects.*;
 import xml.XMLSerializer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Created by Soravit on 12/11/2016.
  */
-public class GameExamples{
-    public String getMarioXML(){
+public class GameExamples {
+    public String getMarioXML() {
         Game game = new Game("Mario");
-        GameObject mario = new GameObject(20, 200 , 50, 75, "mario.png", new HashMap<>());
+        GameObject mario = new GameObject(20, 200, 50, 75, "mario.png", new HashMap<>());
         Player player1 = new Player(mario);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
@@ -67,7 +70,6 @@ public class GameExamples{
         coin4.setProperty("removeobject", "");
 
 
-
         //first block sequence
         GameObject block = new GameObject(500, 375, 250, 50, "fiveBlocks.png", new HashMap<>());
         level.addGameObject(block);
@@ -75,7 +77,6 @@ public class GameExamples{
 
         level.addGameObject(makeBox(500, 330, 50, 50));
         level.addGameObject(makeBox(700, 330, 50, 50));
-
 
 
         GameObject enemy = new GameObject(300, 525, 50, 75, "goombo.png", new HashMap<>());
@@ -124,9 +125,7 @@ public class GameExamples{
         flag.setProperty("levelup", "");
 
 
-
-
-        GameObject killer = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
+        GameObject killer = new GameObject(-100, GameEngineUI.myAppHeight - 30, GameEngineUI.myAppWidth + 200, 50, "platform.png", new HashMap<>());
         killer.setProperty("damage", "30");
         killer.setProperty("nonscrollable", "");
         killer.setProperty("removeobject", "");
@@ -142,25 +141,21 @@ public class GameExamples{
         level2.addGameObject(makeBox(168, 16, 50, 50));
         level2.addGameObject(makeBox(320, 114, 50, 50));
         level2.addGameObject(makeBox(460, 16, 50, 50));
-        
-        
-        
+
+
         level2.addGameObject(makeBox(48, 335, 50, 50));
         level2.addGameObject(makeBox(97, 362, 50, 50));
         level2.addGameObject(makeBox(145, 392, 50, 50));
         level2.addGameObject(makeBox(194, 426, 50, 50));
         level2.addGameObject(makeBox(244, 443, 50, 50));
         level2.addGameObject(makeBox(294, 444, 50, 50));
-        level2.addGameObject(makeBox(344, 444, 50, 50));        
+        level2.addGameObject(makeBox(344, 444, 50, 50));
         level2.addGameObject(makeBox(393, 444, 50, 50));
         level2.addGameObject(makeBox(442, 444, 50, 50));
         level2.addGameObject(makeBox(491, 406, 50, 50));
         level2.addGameObject(makeBox(540, 391, 50, 50));
         level2.addGameObject(makeBox(589, 365, 50, 50));
         level2.addGameObject(makeBox(638, 335, 50, 50));
-
-
-
 
 
         //second half of level 2
@@ -172,52 +167,51 @@ public class GameExamples{
         level2.addGameObject(makeBox(1550, 350, 50, 50));
         level2.addGameObject(makeBox(1750, 300, 50, 50));
 
-        GameObject solid = new GameObject(2000, 400, 500, 50,"fourSolid.png", new HashMap<>());
+        GameObject solid = new GameObject(2000, 400, 500, 50, "fourSolid.png", new HashMap<>());
         solid.setProperty("nonintersectable", "");
         level2.addGameObject(solid);
 
-        GameObject pipeT = new GameObject(2000, 425, 100,300,"candyCane.png", new HashMap<>());
+        GameObject pipeT = new GameObject(2000, 425, 100, 300, "candyCane.png", new HashMap<>());
         level2.addGameObject(pipeT);
 
-        GameObject candy = new GameObject(2175, 425, 100,300,"candyCane.png", new HashMap<>());
+        GameObject candy = new GameObject(2175, 425, 100, 300, "candyCane.png", new HashMap<>());
         level2.addGameObject(candy);
 
-        GameObject candy2 = new GameObject(2350, 425, 100,300,"candyCane.png", new HashMap<>());
+        GameObject candy2 = new GameObject(2350, 425, 100, 300, "candyCane.png", new HashMap<>());
         level2.addGameObject(candy2);
 
-        GameObject tree = new GameObject(2600, 400, 100,300,"christmasTree.png", new HashMap<>());
+        GameObject tree = new GameObject(2600, 400, 100, 300, "christmasTree.png", new HashMap<>());
         tree.setProperty("bounce", "1000");
         level2.addGameObject(tree);
 
-        GameObject star= new GameObject(2610, 10, 50, 50,"star.gif-c200", new HashMap<>());
+        GameObject star = new GameObject(2610, 10, 50, 50, "star.gif-c200", new HashMap<>());
         star.setProperty("levelup", "");
         level2.addGameObject(star);
 
-        GameObject killer2 = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
+        GameObject killer2 = new GameObject(-100, GameEngineUI.myAppHeight - 30, GameEngineUI.myAppWidth + 200, 50, "platform.png", new HashMap<>());
         killer2.setProperty("damage", "60");
         killer2.setProperty("nonscrollable", "");
         level2.addGameObject(killer2);
 
 
-
-        HashMap<String,String> DoodleJumpProperties = new HashMap<>();
+        HashMap<String, String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "2000");
         DoodleJumpProperties.put("points", "5");
-        RandomGeneration platform = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
-        RandomGeneration platform2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
-        RandomGeneration platform3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
+        RandomGeneration platform = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 0, 200, 1234, 1234, 400, 500);
+        RandomGeneration platform2 = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 200, 500, 1234, 1234, 400, 500);
+        RandomGeneration platform3 = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 500, 550, 1234, 1234, 400, 500);
         ArrayList<RandomGeneration> randomGe = new ArrayList<>();
         randomGe.add(platform);
         randomGe.add(platform2);
         randomGe.add(platform3);
         RandomGenFrame fram = new RandomGenFrameY(level, randomGe, true);
         level.setRandomGenerationFrame(fram);
-        HashMap<String,String> DoodleJumpProperties2 = new HashMap<>();
+        HashMap<String, String> DoodleJumpProperties2 = new HashMap<>();
         DoodleJumpProperties2.put("bounce", "2000");
         DoodleJumpProperties2.put("points", "5");
-        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties2,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
-        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties2,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
-        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties2,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
+        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties2, 150, 40, "platform.png", 2, 0, 200, 1234, 1234, 400, 500);
+        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties2, 150, 40, "platform.png", 2, 200, 500, 1234, 1234, 400, 500);
+        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties2, 150, 40, "platform.png", 2, 500, 550, 1234, 1234, 400, 500);
         ArrayList<RandomGeneration> randomGen = new ArrayList<>();
         randomGen.add(platforms);
         randomGen.add(platforms2);
@@ -231,15 +225,14 @@ public class GameExamples{
 
     }
 
-    private GameObject makeBox(double xPos, double yPos, double width, double height){
+    private GameObject makeBox(double xPos, double yPos, double width, double height) {
         GameObject box = new GameObject(xPos, yPos, width, height, "block.png", new HashMap<>());
         box.setProperty("nonintersectable", "");
         return box;
     }
 
 
-
-    public String getScrollingXML(){
+    public String getScrollingXML() {
         Game game = new Game("Scrolling Tester");
         GameObject shyGuy = new GameObject(200, 200, 100, 200, "spicybrianStick.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
@@ -260,21 +253,21 @@ public class GameExamples{
         player1.setControl(KeyCode.UP, "jump");
         level.addPlayer(shyGuy);
 
-        GameObject rock = new GameObject(150, 400, 150, 100,"platform.png", new HashMap<>());
+        GameObject rock = new GameObject(150, 400, 150, 100, "platform.png", new HashMap<>());
         rock.setProperty("nonintersectable", "");
         level.addGameObject(rock);
 
-        GameObject rock2 = new GameObject(450, 400, 150, 100,"platform.png", new HashMap<>());
+        GameObject rock2 = new GameObject(450, 400, 150, 100, "platform.png", new HashMap<>());
         rock2.setProperty("nonintersectable", "");
         level.addGameObject(rock2);
 
 
-        HashMap<String,String> DoodleJumpProperties = new HashMap<>();
+        HashMap<String, String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "2000");
         DoodleJumpProperties.put("points", "5");
-        RandomGeneration platform = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
-        RandomGeneration platform2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
-        RandomGeneration platform3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
+        RandomGeneration platform = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 0, 200, 1234, 1234, 400, 500);
+        RandomGeneration platform2 = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 200, 500, 1234, 1234, 400, 500);
+        RandomGeneration platform3 = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 500, 550, 1234, 1234, 400, 500);
         ArrayList<RandomGeneration> randomGe = new ArrayList<>();
         randomGe.add(platform);
         randomGe.add(platform2);
@@ -289,9 +282,10 @@ public class GameExamples{
         return xml;
 
     }
-    public String getDoodleJumpXML(){
+
+    public String getDoodleJumpXML() {
         Game game = new Game("Doodle Jump");
-        GameObject shyGuy = new GameObject(GameEngineUI.myAppWidth/2-100, 10, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject shyGuy = new GameObject(GameEngineUI.myAppWidth / 2 - 100, 10, 100, 100, "shyguy.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
@@ -315,18 +309,18 @@ public class GameExamples{
         player1.setControl(KeyCode.SPACE, "shoot");
         level.addPlayer(shyGuy);
 
-        GameObject ground = new GameObject(0, GameEngineUI.myAppHeight, GameEngineUI.myAppWidth,1,"emptyimage.png", new HashMap<>());
+        GameObject ground = new GameObject(0, GameEngineUI.myAppHeight, GameEngineUI.myAppWidth, 1, "emptyimage.png", new HashMap<>());
         ground.setProperty("damage", "30");
         ground.setProperty("nonscrollable", "");
-        HashMap<String,String> DoodleJumpProperties = new HashMap<>();
+        HashMap<String, String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "1200");
         DoodleJumpProperties.put("points", "5");
-        GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth/2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", new HashMap<>());
+        GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth / 2 - 100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", new HashMap<>());
         mainPlatform.setProperty("bounce", "1600");
         level.getGameObjects().add(mainPlatform);
-        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);
-        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 200,500,1234,1234,400,500);
-        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 500,550,1234,1234,400,500);
+        RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 0, 200, 1234, 1234, 400, 500);
+        RandomGeneration platforms2 = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 200, 500, 1234, 1234, 400, 500);
+        RandomGeneration platforms3 = new RandomGeneration(DoodleJumpProperties, 150, 40, "platform.png", 2, 500, 550, 1234, 1234, 400, 500);
         ArrayList<RandomGeneration> randomGen = new ArrayList<>();
         randomGen.add(platforms);
         randomGen.add(platforms2);
@@ -342,7 +336,8 @@ public class GameExamples{
 //        System.out.println(xml);
         return xml;
     }
-    public String getDanceDanceRevolution(){
+
+    public String getDanceDanceRevolution() {
         Game game = new Game("Dance Dance Revolution");
         GameObject one = new GameObject(10, 550, 1, 10, "emptyimage.png", new HashMap<>());
         GameObject two = new GameObject(180, 550, 1, 10, "emptyimage.png", new HashMap<>());
@@ -351,19 +346,19 @@ public class GameExamples{
         Map<String, String> properties = new HashMap<>();
         properties.put("nonscrollable", "");
         properties.put("points", "-10");
-        GameObject hack = new GameObject(10+5, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack2 = new GameObject(180+5, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack3 = new GameObject(350+5, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack4 = new GameObject(520+5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack = new GameObject(10 + 5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack2 = new GameObject(180 + 5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack3 = new GameObject(350 + 5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack4 = new GameObject(520 + 5, 550, 50, 10, "emptyimage.png", properties);
         ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 20, 30, Direction.RIGHT, 100, 50, 0, 0);
         one.setProjectileProperties(projectileProperties);
         two.setProjectileProperties(projectileProperties);
         three.setProjectileProperties(projectileProperties);
         four.setProjectileProperties(projectileProperties);
-        one.setProperty("movespeed","0");
-        two.setProperty("movespeed","0");
-        three.setProperty("movespeed","0");
-        four.setProperty("movespeed","0");
+        one.setProperty("movespeed", "0");
+        two.setProperty("movespeed", "0");
+        three.setProperty("movespeed", "0");
+        four.setProperty("movespeed", "0");
         Player player1 = new Player(one);
         Player player2 = new Player(two);
         Player player3 = new Player(three);
@@ -397,47 +392,48 @@ public class GameExamples{
         level.getGameObjects().add(hack2);
         level.getGameObjects().add(hack3);
         level.getGameObjects().add(hack4);
-        HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
+        HashMap<String, String> DDRArrowProperties = new HashMap<String, String>();
         DDRArrowProperties.put("points", "20");
         DDRArrowProperties.put("removeobject", "");
-        RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,150,150,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
-        RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,150,150,"ddrdownarrow.png",2, 190 ,190,1234,1234,500,520);
-        RandomGeneration arrow3 = new RandomGeneration(DDRArrowProperties,150,150,"ddruparrow.png",2, 360,360,1234,1234,300,600);
-        RandomGeneration arrow4 = new RandomGeneration(DDRArrowProperties,150,150,"ddrrightarrow.png",2, 530,530,1234,1234,540,1000);
+        RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties, 150, 150, "ddrleftarrow.png", 2, 20, 20, 1234, 1234, 700, 800);
+        RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties, 150, 150, "ddrdownarrow.png", 2, 190, 190, 1234, 1234, 500, 520);
+        RandomGeneration arrow3 = new RandomGeneration(DDRArrowProperties, 150, 150, "ddruparrow.png", 2, 360, 360, 1234, 1234, 300, 600);
+        RandomGeneration arrow4 = new RandomGeneration(DDRArrowProperties, 150, 150, "ddrrightarrow.png", 2, 530, 530, 1234, 1234, 540, 1000);
         ArrayList<RandomGeneration> randomGenerations = new ArrayList<RandomGeneration>();
         randomGenerations.add(arrow1);
         randomGenerations.add(arrow2);
         randomGenerations.add(arrow3);
         randomGenerations.add(arrow4);
-        RandomGenFrame frame = new RandomGenFrameY(level,randomGenerations, false);
+        RandomGenFrame frame = new RandomGenFrameY(level, randomGenerations, false);
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);
 //        System.out.println(xml);
         return xml;
     }
-    public String getMultiplayerDDR(){
+
+    public String getMultiplayerDDR() {
         Game game = new Game("Dance Dance Revolution");
         game.setMinNumPlayers(2);
         GameObject one = new GameObject(5, 550, 1, 10, "emptyimage.png", new HashMap<>());
-        GameObject two = new GameObject(10+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
-        GameObject three = new GameObject(10+85+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
-        GameObject four = new GameObject(10+85+85+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
-        GameObject five = new GameObject(10+85+85+85+100, 550, 1, 10, "emptyimage.png", new HashMap<>());
-        GameObject six = new GameObject(10+85+85+85+100+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
-        GameObject seven = new GameObject(10+85+85+85+100+85+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
-        GameObject eight = new GameObject(10+85+85+85+100+85+85+85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject two = new GameObject(10 + 85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject three = new GameObject(10 + 85 + 85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject four = new GameObject(10 + 85 + 85 + 85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject five = new GameObject(10 + 85 + 85 + 85 + 100, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject six = new GameObject(10 + 85 + 85 + 85 + 100 + 85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject seven = new GameObject(10 + 85 + 85 + 85 + 100 + 85 + 85, 550, 1, 10, "emptyimage.png", new HashMap<>());
+        GameObject eight = new GameObject(10 + 85 + 85 + 85 + 100 + 85 + 85 + 85, 550, 1, 10, "emptyimage.png", new HashMap<>());
         Map<String, String> properties = new HashMap<>();
         properties.put("nonscrollable", "");
         properties.put("points", "-10");
-        GameObject hack = new GameObject(5+11, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack2 = new GameObject(10+85+5, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack3 = new GameObject(10+85+85+11, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack4 = new GameObject(10+85+85+85+11, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack5 = new GameObject(10+85+85+85+100+4, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack6 = new GameObject(10+85+85+85+100+85+5, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack7 = new GameObject(10+85+85+85+100+85+85+11, 550, 50, 10, "emptyimage.png", properties);
-        GameObject hack8 = new GameObject(10+85+85+85+100+85+85+85+11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack = new GameObject(5 + 11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack2 = new GameObject(10 + 85 + 5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack3 = new GameObject(10 + 85 + 85 + 11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack4 = new GameObject(10 + 85 + 85 + 85 + 11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack5 = new GameObject(10 + 85 + 85 + 85 + 100 + 4, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack6 = new GameObject(10 + 85 + 85 + 85 + 100 + 85 + 5, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack7 = new GameObject(10 + 85 + 85 + 85 + 100 + 85 + 85 + 11, 550, 50, 10, "emptyimage.png", properties);
+        GameObject hack8 = new GameObject(10 + 85 + 85 + 85 + 100 + 85 + 85 + 85 + 11, 550, 50, 10, "emptyimage.png", properties);
         ProjectileProperties projectileProperties = new ProjectileProperties("emptyimage.png", 30, 30, Direction.RIGHT, 50, 30, 0, 0.5);
         one.setProjectileProperties(projectileProperties);
         two.setProjectileProperties(projectileProperties);
@@ -447,14 +443,14 @@ public class GameExamples{
         six.setProjectileProperties(projectileProperties);
         seven.setProjectileProperties(projectileProperties);
         eight.setProjectileProperties(projectileProperties);
-        one.setProperty("movespeed","0");
-        two.setProperty("movespeed","0");
-        three.setProperty("movespeed","0");
-        four.setProperty("movespeed","0");
-        five.setProperty("movespeed","0");
-        six.setProperty("movespeed","0");
-        seven.setProperty("movespeed","0");
-        eight.setProperty("movespeed","0");
+        one.setProperty("movespeed", "0");
+        two.setProperty("movespeed", "0");
+        three.setProperty("movespeed", "0");
+        four.setProperty("movespeed", "0");
+        five.setProperty("movespeed", "0");
+        six.setProperty("movespeed", "0");
+        seven.setProperty("movespeed", "0");
+        eight.setProperty("movespeed", "0");
         Player player1 = new Player(one);
         Player player2 = new Player(two);
         Player player3 = new Player(three);
@@ -512,17 +508,17 @@ public class GameExamples{
         level.getGameObjects().add(hack6);
         level.getGameObjects().add(hack7);
         level.getGameObjects().add(hack8);
-        HashMap<String,String> DDRArrowProperties = new HashMap<String,String>();
+        HashMap<String, String> DDRArrowProperties = new HashMap<String, String>();
         DDRArrowProperties.put("points", "20");
         DDRArrowProperties.put("removeobject", "");
-        RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties,75,75,"ddrleftarrow.png",2, 20,20,1234,1234,700,800);
-        RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties,75,75,"ddrdownarrow.png",2, 20+85 ,20+85,1234,1234,500,520);
-        RandomGeneration arrow3 = new RandomGeneration(DDRArrowProperties,75,75,"ddruparrow.png",2, 20+85+85,20+85+85,1234,1234,300,600);
-        RandomGeneration arrow4 = new RandomGeneration(DDRArrowProperties,75,75,"ddrrightarrow.png",2, 20+85+85+85,20+85+85+85,1234,1234,540,1000);
-        RandomGeneration arrow5 = new RandomGeneration(DDRArrowProperties,75,75,"ddrleftarrow.png",2, 20+85+85+85+100,20+85+85+85+100,1234,1234,700,800);
-        RandomGeneration arrow6 = new RandomGeneration(DDRArrowProperties,75,75,"ddrdownarrow.png",2, 20+85+85+85+100+85 ,20+85+85+85+100+85,1234,1234,500,520);
-        RandomGeneration arrow7 = new RandomGeneration(DDRArrowProperties,75,75,"ddruparrow.png",2, 20+85+85+85+100+85+85,20+85+85+85+100+85+85,1234,1234,300,600);
-        RandomGeneration arrow8 = new RandomGeneration(DDRArrowProperties,75,75,"ddrrightarrow.png",2, 20+85+85+85+100+85+85+85,20+85+85+85+100+85+85+85,1234,1234,540,1000);
+        RandomGeneration arrow1 = new RandomGeneration(DDRArrowProperties, 75, 75, "ddrleftarrow.png", 2, 20, 20, 1234, 1234, 700, 800);
+        RandomGeneration arrow2 = new RandomGeneration(DDRArrowProperties, 75, 75, "ddrdownarrow.png", 2, 20 + 85, 20 + 85, 1234, 1234, 500, 520);
+        RandomGeneration arrow3 = new RandomGeneration(DDRArrowProperties, 75, 75, "ddruparrow.png", 2, 20 + 85 + 85, 20 + 85 + 85, 1234, 1234, 300, 600);
+        RandomGeneration arrow4 = new RandomGeneration(DDRArrowProperties, 75, 75, "ddrrightarrow.png", 2, 20 + 85 + 85 + 85, 20 + 85 + 85 + 85, 1234, 1234, 540, 1000);
+        RandomGeneration arrow5 = new RandomGeneration(DDRArrowProperties, 75, 75, "ddrleftarrow.png", 2, 20 + 85 + 85 + 85 + 100, 20 + 85 + 85 + 85 + 100, 1234, 1234, 700, 800);
+        RandomGeneration arrow6 = new RandomGeneration(DDRArrowProperties, 75, 75, "ddrdownarrow.png", 2, 20 + 85 + 85 + 85 + 100 + 85, 20 + 85 + 85 + 85 + 100 + 85, 1234, 1234, 500, 520);
+        RandomGeneration arrow7 = new RandomGeneration(DDRArrowProperties, 75, 75, "ddruparrow.png", 2, 20 + 85 + 85 + 85 + 100 + 85 + 85, 20 + 85 + 85 + 85 + 100 + 85 + 85, 1234, 1234, 300, 600);
+        RandomGeneration arrow8 = new RandomGeneration(DDRArrowProperties, 75, 75, "ddrrightarrow.png", 2, 20 + 85 + 85 + 85 + 100 + 85 + 85 + 85, 20 + 85 + 85 + 85 + 100 + 85 + 85 + 85, 1234, 1234, 540, 1000);
         ArrayList<RandomGeneration> randomGenerations = new ArrayList<RandomGeneration>();
         randomGenerations.add(arrow1);
         randomGenerations.add(arrow2);
@@ -532,7 +528,7 @@ public class GameExamples{
         randomGenerations.add(arrow6);
         randomGenerations.add(arrow7);
         randomGenerations.add(arrow8);
-        RandomGenFrame frame = new RandomGenFrameY(level,randomGenerations, false);
+        RandomGenFrame frame = new RandomGenFrameY(level, randomGenerations, false);
         level.setRandomGenerationFrame(frame);
         XMLSerializer testSerializer = new XMLSerializer();
         String xml = testSerializer.serializeGame(game);

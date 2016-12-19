@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import gameeditor.view.interfaces.IEditorToolbar;
 import gameeditor.view.interfaces.IToolbarParent;
-import general.NodeFactory;
+import frontend.util.NodeFactory;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;

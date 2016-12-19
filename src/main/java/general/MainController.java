@@ -11,6 +11,8 @@ import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
 import gameengine.controller.GameEngineController;
 import gameengine.view.GameCoverSplash;
+import general.Gallery.Gallery;
+import general.Gallery.GameFile;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -39,14 +41,14 @@ public class MainController implements IMainControllerIn {
         stage.setScene(scene);
         stage.setTitle(GAME_TITLE);
         stage.show();
-        initializeGallery();
+//        initializeGallery();
         gameEngineController = new GameEngineController();
         gameEditorController = new GameEditorController(this);
     }
-
-    private void initializeGallery() throws IOException {
-        this.gallery = new Gallery();
-    }
+//
+//    private void initializeGallery() throws IOException {
+//        this.gallery = new Gallery();
+//    }
 
     private void addNewGameFile(String title, String gameData, Image gameCover) {
         GameFile newGame = new GameFile(title, gameData, gameCover);
@@ -91,69 +93,61 @@ public class MainController implements IMainControllerIn {
         gameEngineStage.setOnCloseRequest(event -> shutdownClient());
         gameEngineController.startGame();
     }
-
-    public void startPlayingSingleDDR() {
-        GameExamples gameExamples = new GameExamples();
-        String XMLData = gameExamples.getDanceDanceRevolution();
-        Game game = gameEngineController.createGameFromXML(XMLData);
-        gameEngineStage.setScene(gameEngineController.getScene());
-        gameEngineStage.show();
-        gameEngineStage.setOnCloseRequest(event -> shutdownClient());
-        gameEngineController.startGame();
-    }
+//
+//    public void startPlayingSingleDDR() {
+////        GameExamples gameExamples = new GameExamples();
+////        String XMLData = gameExamples.getDanceDanceRevolution();
+////        Game game = gameEngineController.createGameFromXML(XMLData);
+//        gameEngineStage.setScene(gameEngineController.getScene());
+//        gameEngineStage.show();
+//        gameEngineStage.setOnCloseRequest(event -> shutdownClient());
+//        gameEngineController.startGame();
+//    }
 
     private void shutdownClient() {
         gameEngineController.setupServerShutdown();
         gameEngineController.stop();
     }
+//
+//    private void sendDataToEngine() {
+//        String title = gameEditorController.getGameTitle();
+//        String gameFile = gameEditorController.getGameFile();
+//        Image gameCoverImage = gameEditorController.getGameCoverImage();
+//        addNewGameFile(title, gameFile, gameCoverImage);
+//        launchEngine(gameFile);
+//    }
 
-    private void sendDataToEngine() {
+    private void sendXMLFileDataToEngine() {
+        // String title = gameEditorController.getGameTitle();
+        //String gameFile = gameEditorController.getGameFile();
+        //addNewGameFile(title, gameFile);
+        String content = null;
+        try {
+            content = new String(Files.readAllBytes(Paths.get("data/legoo.xml")));
+//	    	content = new String(Files.readAllBytes(Paths.get("data/" + myLoadXML)));
+
+        } catch (IOException e) {
+        }
+        // launchEngine(content);
+        //String gameFile = gameEditorController.getGameFile();
+//        Image gameCoverImage = gameEditorController.getGameCoverImage();
+        // addNewGameFile(title,gameFile,gameCoverImage);
+        // launchEngine(gameFile);
+    }
+
+    private void createNewGameFile() {
         String title = gameEditorController.getGameTitle();
         String gameFile = gameEditorController.getGameFile();
         Image gameCoverImage = gameEditorController.getGameCoverImage();
         addNewGameFile(title, gameFile, gameCoverImage);
-        launchEngine(gameFile);
-    }
-
-    private void sendXMLFileDataToEngine() {
-       // String title = gameEditorController.getGameTitle();
-        //String gameFile = gameEditorController.getGameFile();
-    	//addNewGameFile(title, gameFile);
-    	String content = null;
-	    try {
-	    	content = new String(Files.readAllBytes(Paths.get("data/legoo.xml")));
-//	    	content = new String(Files.readAllBytes(Paths.get("data/" + myLoadXML)));
-
-	    }
-	    catch (IOException e) {
-	    }
-	   // launchEngine(content);
-        //String gameFile = gameEditorController.getGameFile();
-        Image gameCoverImage = gameEditorController.getGameCoverImage();
-       // addNewGameFile(title,gameFile,gameCoverImage);
-        // launchEngine(gameFile);
-    }
-    
-    private void createNewGameFile()
-    {
-    	String title = gameEditorController.getGameTitle();
-    	String gameFile = gameEditorController.getGameFile();
-        Image gameCoverImage = gameEditorController.getGameCoverImage();
-        //System.out.println(title + " " + gameFile + " " + gameCoverImage);
-        addNewGameFile(title,gameFile,gameCoverImage);
     }
 
     public void launchEngine(String XMLData) {
-        GameExamples gameExamples = new GameExamples();
-        boolean multiplayer = true;
-        @SuppressWarnings("unused")
-        boolean isServer = false;
         Game game = gameEngineController.createGameFromXML(XMLData);
         Level level = game.getCurrentLevel();
         if (level != null) {
             setUpGameEngineStage(level);
         }
-
     }
 
     public void editGame() {
@@ -163,8 +157,8 @@ public class MainController implements IMainControllerIn {
         Game myGame = (Game) mySerializer.fromXML(file);
         presentEditor(myGame);
     }
-    
-    public void setLoadXML(String loadXML){
-    	myLoadXML = loadXML;
+
+    public void setLoadXML(String loadXML) {
+        myLoadXML = loadXML;
     }
 }

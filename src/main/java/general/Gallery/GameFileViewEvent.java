@@ -1,11 +1,10 @@
 
-package general;
+package general.Gallery;
 
 import javafx.event.Event;
 import javafx.event.EventType;
 
-public class GameFileViewEvent extends Event
-{
+public class GameFileViewEvent extends Event {
 
     private GameFileView gameFileView;
 
@@ -36,11 +35,11 @@ public class GameFileViewEvent extends Event
 
     /**
      * Creates a new GameFileViewEvent
-     * @param eventType- Type of the event
+     *
+     * @param eventType-    Type of the event
      * @param gameFileView- the GameFileView that triggered the event (usually this)
      */
-    public GameFileViewEvent(EventType<? extends Event> eventType, GameFileView gameFileView)
-    {
+    public GameFileViewEvent(EventType<? extends Event> eventType, GameFileView gameFileView) {
         super(eventType);
         this.gameFileView = gameFileView;
     }
@@ -48,8 +47,7 @@ public class GameFileViewEvent extends Event
     /**
      * @return the GameFileView instance that triggered the event
      */
-    public GameFileView getGameFileView()
-    {
+    public GameFileView getGameFileView() {
         return gameFileView;
     }
 

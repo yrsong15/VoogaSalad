@@ -1,38 +1,20 @@
 package general;
-import frontend.util.ButtonTemplate;
+
 import frontend.util.FileOpener;
+import frontend.util.NodeFactory;
 import gameeditor.view.ViewResources;
-import gameengine.controller.interfaces.CommandInterface;
-import gameengine.view.LevelScreen;
-import gameengine.view.interfaces.ScoreScreen;
+import general.Gallery.Gallery;
+import general.Gallery.GalleryView;
+import general.Gallery.GameFile;
 import general.interfaces.ISplashScreen;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-
-import javafx.event.EventHandler;
-import objects.Level;
 
 /**
  * Created by Delia on 11/15/2016.
@@ -55,6 +37,7 @@ public class SplashScreen implements ISplashScreen {
         this.galleryItem = galleryItem;
         this.mainController = mainController;
     }
+
     @Override
     public Parent setUpWindow() {
         startWindow = new Pane();
@@ -68,10 +51,11 @@ public class SplashScreen implements ISplashScreen {
         this.myGallery = new GalleryView(galleryItem, mainController, startWindow);
         return startWindow;
     }
-    public void update(GameFile gameFile)
-    {
-    	myGallery.update(gameFile);
+
+    public void update(GameFile gameFile) {
+        myGallery.update(gameFile);
     }
+
     private void addNodes() {
         Text title = myFactory.bigNameTitle("Welcome to VoogaSalad", 35, 75);
         ImageView bgSelect = myFactory.makeThumbnailImage("ChangeBackground", 900, 20, 70, 50);
@@ -81,15 +65,15 @@ public class SplashScreen implements ISplashScreen {
         startWindow.getChildren().addAll(title, bgSelect);
     }
 
-    private void selectImage(){
+    private void selectImage() {
         String imageFile = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
         backgroundImageMainScreen.setImage(new Image(imageFile));
     }
 
-    private String getFilePath(String fileType, String fileLocation){
+    private String getFilePath(String fileType, String fileLocation) {
         FileOpener myFileOpener = new FileOpener();
         File file = (myFileOpener.chooseFile(fileType, fileLocation));
-        if(file != null){
+        if (file != null) {
             return file.toURI().toString();
         }
         return null;

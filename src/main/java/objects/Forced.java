@@ -7,11 +7,9 @@ import com.sun.javafx.scene.traversal.Direction;
  */
 public class Forced extends ScrollType{
 
-
     public Forced(String scrollType){
         super(scrollType);
     }
-      
 
     public void addDirectionList(Direction myDirection){
         addScrollDirection(myDirection);

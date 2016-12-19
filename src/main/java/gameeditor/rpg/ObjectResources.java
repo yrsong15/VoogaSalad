@@ -4,20 +4,18 @@ import javafx.scene.paint.Color;
 
 /**
  * @author John Martin (jfm41)
- *
  */
 
 public enum ObjectResources {
-		DEFAULT_X(0),
-		DEFAULT_Y(0),
-		DEFAULT_WIDTH(50),
-		DEFAULT_HEIGHT(50),
-		;
+    DEFAULT_X(0),
+    DEFAULT_Y(0),
+    DEFAULT_WIDTH(50),
+    DEFAULT_HEIGHT(50),;
 
     private double resourceDouble;
     private String resourceString;
     private Color resourceColor;
-    private String [] resourceArray;
+    private String[] resourceArray;
 
     ObjectResources(String resource) {
         resourceString = resource;
@@ -25,9 +23,9 @@ public enum ObjectResources {
         resourceColor = null;
         resourceArray = null;
     }
-    
-    ObjectResources(String[] resource){
-    	resourceString = "";
+
+    ObjectResources(String[] resource) {
+        resourceString = "";
         resourceDouble = -1;
         resourceColor = null;
         resourceArray = resource;
@@ -39,12 +37,12 @@ public enum ObjectResources {
         resourceColor = null;
         resourceArray = null;
     }
-    
-    ObjectResources(Color resource){
-    	resourceString = null;
-    	resourceDouble = -1;
-    	resourceColor = resource;
-    	resourceArray = null;
+
+    ObjectResources(Color resource) {
+        resourceString = null;
+        resourceDouble = -1;
+        resourceColor = resource;
+        resourceArray = null;
     }
 
     public String getResource() {
@@ -54,25 +52,25 @@ public enum ObjectResources {
     public double getDoubleResource() {
         return resourceDouble;
     }
-    
-    public Color getColorResource(){
-    	return resourceColor;
+
+    public Color getColorResource() {
+        return resourceColor;
     }
-    
-    public String [] getArrayResource(){
-    	return resourceArray;
+
+    public String[] getArrayResource() {
+        return resourceArray;
     }
-    
-    public void setResource(String resource){
-    	resourceString = resource;
+
+    public void setResource(String resource) {
+        resourceString = resource;
     }
-    
-    public void setDoubleResource(double resource){
-    	resourceDouble = resource;
+
+    public void setDoubleResource(double resource) {
+        resourceDouble = resource;
     }
-    
-    public void setColorResource(Color resource){
-    	resourceColor = resource;
+
+    public void setColorResource(Color resource) {
+        resourceColor = resource;
     }
-    
+
 }

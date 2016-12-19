@@ -80,12 +80,15 @@ public class GameObject {
     public GameObject getPlatformCharacterIsOn(){
         return platformCharacterIsOn;
     }
+
     public void setPlatformStatus(boolean status){
         this.onPlatform = status;
     }
+
     public boolean isOnPlatform(){
         return onPlatform;
     }
+
     public void checkPlatformStatus(){
         if(platformCharacterIsOn == null){
             this.onPlatform = false;
@@ -102,66 +105,87 @@ public class GameObject {
     public void setProperty(String propertyName, String propertyValue) {
         properties.put(propertyName, propertyValue);
     }
+
     public String getImageFileName() {
         return imageFileName;
     }
+
     public Map<String, String> getProperties(){
         return properties;
     }
+
     public Set<String> getPropertiesList() {
         return properties.keySet();
     }
+
     public void setPropertiesList(Map<String, String> properties) {
         this.properties = properties;
     }
+
     public void killSpeed(){
         setProperty("fallspeed", "0.0");
     }
+
     public double getXPosition() {
         return xPosition;
     }
+
     public void setXPosition(double xPosition) {
         this.xPosition = xPosition;
     }
+
     public double getYPosition() {
         return yPosition;
     }
+
     public void setYPosition(double yPosition) {
         this.yPosition = yPosition;
     }
+
     public double getWidth() {
         return width;
     }
+
     public void setWidth(double width) {
         this.width = width;
     }
+
     public double getHeight() {
         return height;
     }
+
     public void setHeight(double height) {
         this.height = height;
     }
+
     public double getXDistanceMoved(){
         return xDistanceMoved;
     }
+
     public double getYDistanceMoved(){
         return yDistanceMoved;
     }
+
     public void setXDistanceMoved(double xDistanceMoved){
         this.xDistanceMoved = xDistanceMoved;
     }
+
     public void setYDistanceMoved(double yDistanceMoved){
         this.yDistanceMoved = yDistanceMoved;
     }
+
     public void setProjectileProperties(ProjectileProperties projectileProperties){
         this.projectileProperties = projectileProperties;
     }
+
     public ProjectileProperties getProjectileProperties(){
         return projectileProperties;
     }
+
     public boolean isPlayer(){
         return isPlayer;
     }
+
     public void setIsPlayer(boolean value){
         isPlayer = value;
     }
@@ -170,11 +194,9 @@ public class GameObject {
         this.typeName = name;
     }
 
-
     public List<GameObject> getProjectiles(){
         return projectiles;
     }
-
 
     public String getTypeName(){
         return typeName;

@@ -6,7 +6,6 @@ import javafx.scene.Group;
 
 /**
  * @author John Martin
- *
  */
 
 public class CellGrid extends Group {
@@ -16,8 +15,8 @@ public class CellGrid extends Group {
     private ArrayList<Cell> cells = new ArrayList<>();
     private IGridDesignArea myDesignArea;
 
-    public CellGrid(double xPos, double yPos, double cellSize, int gridWidth, 
-    		int gridHeight, boolean toroidal, IGridDesignArea gda) {
+    public CellGrid(double xPos, double yPos, double cellSize, int gridWidth,
+                    int gridHeight, boolean toroidal, IGridDesignArea gda) {
         setLayoutX(xPos);
         setLayoutY(yPos);
         myCellSize = cellSize;
@@ -27,9 +26,9 @@ public class CellGrid extends Group {
         myDesignArea = gda;
         createGrid();
     }
-    
-    public void createGrid(){
-    	for (int row = 0; row < myGridHeight; row++) {
+
+    public void createGrid() {
+        for (int row = 0; row < myGridHeight; row++) {
             for (int col = 0; col < myGridWidth; col++) {
                 int arrayPos = row * myGridWidth + col;
                 double cellXPos = col * myCellSize;
@@ -43,30 +42,30 @@ public class CellGrid extends Group {
 
     public Cell getCell(int row, int col) {
         if (isToroidal && ((col >= myGridWidth || (col < 0)) || (row >= myGridHeight) || (row < 0))) {
-                while (col < 0) {
-                    col += myGridWidth;
-                }
-                while (row < 0) {
-                    row += myGridHeight;
-                }
-                col %= myGridWidth;
-                row %= myGridHeight;
+            while (col < 0) {
+                col += myGridWidth;
+            }
+            while (row < 0) {
+                row += myGridHeight;
+            }
+            col %= myGridWidth;
+            row %= myGridHeight;
         } else if (((col >= myGridWidth || (col < 0)) || (row >= myGridHeight) || (row < 0))) {
-                return null;
+            return null;
         }
-		int arrayPos = row * myGridWidth + col;
-	    return cells.get(arrayPos);
+        int arrayPos = row * myGridWidth + col;
+        return cells.get(arrayPos);
     }
 
 
     public ArrayList<Cell> getCells() {
         return cells;
     }
-    
-    public double getCellSize(){
-    	return myCellSize;
+
+    public double getCellSize() {
+        return myCellSize;
     }
-    
+
     public int getGridWidth() {
         return myGridWidth;
     }
@@ -75,5 +74,5 @@ public class CellGrid extends Group {
         return myGridHeight;
     }
 
-    
+
 }
