@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Noel Moon
+
 package gameengine.view;
 
 import com.sun.javafx.scene.traversal.Direction;
@@ -25,15 +28,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * The purpose of this class is to manage the game screen that is part of the user interface for the game engine. This class contains the 
+ * implementation details for the animation that occurs on the game screen.
+ * 
+ * I think this class is good design because it shows how I dealt with the design issue of heap space errors occurring with infinite scrollers.
+ * I implemented the update() method so that it only visualizes the objects that need to be visualized, but it also keeps track of all of the 
+ * objects. This implementation allows both finite and infinite scrollers to be visualized properly. The problem with infinite scrollers
+ * was that objects would continuously be instantiated and added to the game screen, taking up a lot of memory but this implementation deals
+ * with that problem by only visualizing the objects that need to be visualized. The problem with finite scrollers was that if I got rid of
+ * the objects on the screen after they disappeared from the screen, then games like Mario would be unable to go back to the part of the map
+ * that they were once at. I dealt with this problem by keeping track of the information of the game objects on the screen but only visualizing
+ * the objects that need to be on the screen, and by doing so this saves a lot of memory.
+ * 
  * @author Noel Moon (nm142)
  * @citations http://stackoverflow.com/questions/9738146/javafx-how-to-set-scene-background-image
  */
 public class GameScreen {
     public static final double screenWidth = GameEngineUI.myAppWidth;
     public static final double screenHeight = GameEngineUI.myAppHeight - 100;
+    
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
-    private int currLevel;
 
     public GameScreen() {
         myScreen = new Pane();
