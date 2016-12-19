@@ -5,11 +5,28 @@ import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
 
 
+//This entire file is part of my masterpiece.
+//Chalena Scholl
+
+
 /**
- * This is a general scrolling class that shifts all objects given to it to give the 
- * appearance of movement to whichever objects are not given to it.
- * @author Chalena Scholl, 
+ * This shows that I've learned the importance of abstraction. By creating an abstract class that extends an interface, I ensure that 
+ * all the required methods will be implemented. I could also do this by having the various types of scrolling classes simply implement
+ * this interface. However, some common methods are shared between the scrolling classes so by creating an abstract class those classes
+ * can simply share their common methods. This is better than making each scrolling class implement it's own version of setSpeed which is
+ * something that will be the same regardless of which scrolling type class it is being used for. Thus, the implementation of certain 
+ * methods can be inherited which allows us to avoid duplicated code. Avoiding duplicated code makes the code base more modular, readable,
+ * and easier to change because it would only need to be changed in one place.
+ * 
+ * Furthermore, the instance variables are all private and getters/setters were only created for the variables that need them.
+ * None of the methods are very long and it is easy to see which methods do what, simply because they are appropriately named.
+ * 
+ * Lastly, this abstract class implements the Scrolling interface, which means that all sub-types of this class can be referred to as a 
+ * Scrolling type. This follows the Liskov Substitution principle.Since those sub types of scrolling are created using reflection, 
+ * they can easily be replaced with different types of scrolling that do not extend this abstract class as well. 
+ * This increases flexibility without changing the functionality of the program itself.
  */
+
 public abstract class GeneralScroll implements Scrolling{
 		private ScrollDirection scrollDir;
 		private double scrollingSpeed;
@@ -23,7 +40,6 @@ public abstract class GeneralScroll implements Scrolling{
 		
 	
 		public void scrollDirection(List<GameObject> gameObjects, double speed){
-			System.out.println("scrolling");
 			  switch (scrollDir) {
 			case DOWN:
 				scrollDown(gameObjects, speed);

@@ -3,14 +3,9 @@ package gameengine.scrolling;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
 
-
-/**
- * @author Chalena Scholl
- */
 
 public class LimitedScrolling extends GeneralScroll{
 	public static final double HORIZONTAL_LIMIT = 0.3;

@@ -62,7 +62,7 @@ public class FreeScrolling extends GeneralScroll{
 		scrollObjects.remove(mainChar);
 		this.scrollDirection(scrollObjects.stream()
 		        .filter(scrollObj -> scrollObj.getProperty("nonscrollable") == null)
-		        .collect(Collectors.toList()), speed);
+		        .collect(Collectors.toList()),  speed);
 	}
 
 	private void trackDistanceScrolling(double speed, GameObject mainChar) {

@@ -215,27 +215,18 @@ public class MovementManager implements ControlInterface{
 	}
 	
 	private void runGameScrolling() {
-		System.out.println("running game scrolling");
-		try {			
-			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
-			if (currLevel.getBackground()!=null){
-				scrollObjects.add(currLevel.getBackground());
-			}
-			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0));
-		} catch (ScrollDirectionNotFoundException e) {
-			System.out.println("not found");
+		List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
+		if (currLevel.getBackground()!=null){
+			scrollObjects.add(currLevel.getBackground());
 		}
+		gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0));
 	}
 	
 	private void runGameScrolling(double speed) {
-		try {
-			List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
-			if (currLevel.getBackground()!=null){
-				scrollObjects.add(currLevel.getBackground());
-			}
-			gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0), speed);
-		} catch (ScrollDirectionNotFoundException e) {
-			System.out.println("still not found");
+		List<GameObject> scrollObjects = new ArrayList<GameObject>(currLevel.getGameObjects());
+		if (currLevel.getBackground()!=null){
+			scrollObjects.add(currLevel.getBackground());
 		}
+		gameScrolling.scrollScreen(scrollObjects, currLevel.getPlayers().get(0), speed);
 	}
 }
