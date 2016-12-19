@@ -80,12 +80,10 @@ public class MovementManager implements ControlInterface{
 	@Override
 	public void moveDown(GameObject obj, double speed) {
 		if (obj.isPlayer() &&  gameScrolling.allowedToScroll(ScrollDirection.DOWN, obj)){
-			System.out.println("scrolling down");
 			gameScrolling.setDirection(ScrollDirection.DOWN);
 			runGameScrolling(speed);
 		}
 		else{
-			System.out.println("not allowed to scroll");
 			double newYPos = obj.getYPosition() + Math.abs(speed);
 			genMovement.moveDown(obj, speed);
 			checkYToroidalChange(obj, newYPos);
@@ -198,7 +196,6 @@ public class MovementManager implements ControlInterface{
     }
 
 	private void setScrolling() throws ScrollTypeNotFoundException{
-		System.out.println("setting scrolling");
 		ScrollType gameScroll = currLevel.getScrollType();
 		String classPath = "gameengine.scrolling." + gameScroll.getScrollTypeName();
 		Object[] parameters = new Object[]{gameScroll.getDirections().get(0), gameScroll.getScrollSpeed(), 
@@ -206,7 +203,6 @@ public class MovementManager implements ControlInterface{
 		Class<?>[] parameterTypes = new Class<?>[]{ScrollDirection.class, double.class, GameBoundary.class};
 			try {
 				gameScrolling = (Scrolling) ReflectionUtil.getInstance(classPath, parameters, parameterTypes);
-			System.out.println("set it");
 			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
