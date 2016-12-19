@@ -75,9 +75,9 @@ public class RandomGenFrameY<T> extends RandomGenFrame<T> implements BenchmarkIn
 				generateNewFrameAndSetBenchmark(handler,level);
 			}
 		}
-	   catch (Exception e){
+	    catch (Exception e){
 		   throw new IllegalNullInputException("One of the input objects or level/handler is null within the list, the Singleton comparator cannot compare null objects",e);
-	   } 
+	    } 
     }
 	
 	/**
@@ -91,9 +91,9 @@ public class RandomGenFrameY<T> extends RandomGenFrame<T> implements BenchmarkIn
     			referenceFirstObject = object;
     		}
     	}
- 	   catch (Exception e){
+ 	    catch (Exception e){
 		   throw new IllegalNullInputException("One of the input objects or level/handler is null within the list, the Singleton comparator cannot compare null objects",e);
-	   } 
+	    } 
     }
 	
 	/**
@@ -114,9 +114,9 @@ public class RandomGenFrameY<T> extends RandomGenFrame<T> implements BenchmarkIn
 			int difference = rg.getMaxX() - rg.getMinX();
 			return (difference > 0) ? difference : 1;
 		}
-	   catch (NullPointerException e){
+	    catch (NullPointerException e){
 		   throw new IllegalNullInputException("Input List of RandomGeneration is null, make sure you've input proper random generation parameters such that random generation has something baseline off of",e);
-	   } 
+	    } 
 		
 	}
 
@@ -128,8 +128,8 @@ public class RandomGenFrameY<T> extends RandomGenFrame<T> implements BenchmarkIn
 		try{
 			return RNG.nextInt(margin) + rg.getMinX();
 		}
-	   catch (NullPointerException e){
+	    catch (NullPointerException e){
 		   throw new IllegalNullInputException("Input List of RandomGeneration is null, make sure you've input proper random generation parameters such that random generation has something baseline off of",e);
-	   } 
+	    } 
 	}
 }

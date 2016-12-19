@@ -36,7 +36,7 @@ public class RandomGenFrameX<T> extends RandomGenFrame<T> implements BenchmarkIn
     }
 	
 	@Override
-	public void setNewFirstBenchmark(GameObject object) { 
+	public void setNewFirstBenchmark(GameObject object) {
     	if(referenceFirstObject == null || (SingletonPositionChecker.getInstance().checkHorizontalPosition(object.getXPosition(), referenceFirstObject.getXPosition()) == PositionStatus.RIGHT)) {
     		referenceFirstObject = object;
     	}
