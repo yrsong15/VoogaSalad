@@ -101,6 +101,7 @@ public class RandomGenFrameY<T> extends RandomGenFrame<T> implements BenchmarkIn
 	 */
 	@Override
 	public double calculateY(int margin, RandomGeneration<Integer> rg, double buffer) {
+		//Cannot be null/have exception, subtracting two doubles
 		return benchmarkPoint - buffer;
 	}
 
@@ -109,8 +110,14 @@ public class RandomGenFrameY<T> extends RandomGenFrame<T> implements BenchmarkIn
 	 */
 	@Override
 	public int calculateMargin(RandomGeneration<Integer> rg) {
-		int difference = rg.getMaxX() - rg.getMinX();
-		return (difference > 0) ? difference : 1;
+		try{
+			int difference = rg.getMaxX() - rg.getMinX();
+			return (difference > 0) ? difference : 1;
+		}
+	   catch (NullPointerException e){
+		   throw new IllegalNullInputException("Input List of RandomGeneration is null, make sure you've input proper random generation parameters such that random generation has something baseline off of",e);
+	   } 
+		
 	}
 
 	/**
@@ -118,6 +125,11 @@ public class RandomGenFrameY<T> extends RandomGenFrame<T> implements BenchmarkIn
 	 */
 	@Override
 	public double calculateX(int margin, RandomGeneration<Integer> rg, double buffer) {
-		return RNG.nextInt(margin) + rg.getMinX();
+		try{
+			return RNG.nextInt(margin) + rg.getMinX();
+		}
+	   catch (NullPointerException e){
+		   throw new IllegalNullInputException("Input List of RandomGeneration is null, make sure you've input proper random generation parameters such that random generation has something baseline off of",e);
+	   } 
 	}
 }
