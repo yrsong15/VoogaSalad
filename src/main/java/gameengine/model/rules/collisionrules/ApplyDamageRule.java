@@ -10,7 +10,7 @@ public class ApplyDamageRule extends ApplyEnemyCollisionRule implements Collisio
 		int currHealth = Integer.parseInt(mainChar.getProperty("health"));
 		currHealth -= Integer.parseInt(obj.getProperty("damage"));
 		if (currHealth <= 0) {
-			handler.endGame();
+			handler.loseGame();
 		}
 		else {
 			mainChar.setProperty("health", Integer.toString(currHealth));

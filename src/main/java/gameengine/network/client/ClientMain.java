@@ -68,7 +68,7 @@ public class ClientMain{
 	}
 
 
-//	public Game updateGame(Game game) {
+//	public Game updateModel(Game game) {
 //		return game;
 //	}
 

@@ -1,6 +1,5 @@
 package gameengine.model.rules.movementrules;
 
-import gameengine.controller.GameEngineController;
 import gameengine.controller.interfaces.ControlInterface;
 import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;

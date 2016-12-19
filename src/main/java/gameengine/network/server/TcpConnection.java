@@ -4,6 +4,7 @@ package gameengine.network.server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -58,7 +59,15 @@ class TcpConnection implements Runnable{
 						oos.writeLong(main.getId());
 						break;
 					case SEND_COMMAND:
-						main.readCommand(sm.command,(int)sm.id,sm.charIdx);
+						try {
+							main.readCommand(sm.command,(int)sm.id,sm.charIdx);
+						} catch (NoSuchMethodException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						} catch (InvocationTargetException e) {
+							e.printStackTrace();
+						}
 						break;
 					case GET_ID_IP_PORT: 
 						String ipString = socket.getInetAddress().getHostName();

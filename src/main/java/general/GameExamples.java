@@ -1,11 +1,9 @@
 package general;
 import com.sun.javafx.scene.traversal.Direction;
 import gameengine.model.RandomGenFrame;
-import gameengine.model.RandomGenFrameX;
 import gameengine.model.RandomGenFrameY;
 import gameengine.model.boundary.GameBoundary;
 import gameengine.model.boundary.NoBoundary;
-import gameengine.model.boundary.StopAtEdgeBoundary;
 import gameengine.model.boundary.ToroidalBoundary;
 import gameengine.view.GameEngineUI;
 import javafx.scene.input.KeyCode;
@@ -126,7 +124,7 @@ public class GameExamples{
 
 
 
-        GameObject killer = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
+        GameObject killer = new GameObject(-100, GameEngineUI.APP_HEIGHT -30, GameEngineUI.APP_WIDTH +200,50,"platform.png", new HashMap<>());
         killer.setProperty("damage", "30");
         killer.setProperty("nonscrollable", "");
         killer.setProperty("removeobject", "");
@@ -193,7 +191,7 @@ public class GameExamples{
         star.setProperty("levelup", "");
         level2.addGameObject(star);
 
-        GameObject killer2 = new GameObject(-100, GameEngineUI.myAppHeight-30, GameEngineUI.myAppWidth+200,50,"platform.png", new HashMap<>());
+        GameObject killer2 = new GameObject(-100, GameEngineUI.APP_HEIGHT -30, GameEngineUI.APP_WIDTH +200,50,"platform.png", new HashMap<>());
         killer2.setProperty("damage", "60");
         killer2.setProperty("nonscrollable", "");
         level2.addGameObject(killer2);
@@ -291,7 +289,7 @@ public class GameExamples{
     }
     public String getDoodleJumpXML(){
         Game game = new Game("Doodle Jump");
-        GameObject shyGuy = new GameObject(GameEngineUI.myAppWidth/2-100, 10, 100, 100, "shyguy.png", new HashMap<>());
+        GameObject shyGuy = new GameObject(GameEngineUI.APP_WIDTH /2-100, 10, 100, 100, "shyguy.png", new HashMap<>());
         Player player1 = new Player(shyGuy);
         game.addPlayer(player1);
         game.addPlayerToClient(0, player1);
@@ -315,13 +313,13 @@ public class GameExamples{
         player1.setControl(KeyCode.SPACE, "shoot");
         level.addPlayer(shyGuy);
 
-        GameObject ground = new GameObject(0, GameEngineUI.myAppHeight, GameEngineUI.myAppWidth,1,"emptyimage.png", new HashMap<>());
+        GameObject ground = new GameObject(0, GameEngineUI.APP_HEIGHT, GameEngineUI.APP_WIDTH,1,"emptyimage.png", new HashMap<>());
         ground.setProperty("damage", "30");
         ground.setProperty("nonscrollable", "");
         HashMap<String,String> DoodleJumpProperties = new HashMap<>();
         DoodleJumpProperties.put("bounce", "1200");
         DoodleJumpProperties.put("points", "5");
-        GameObject mainPlatform = new GameObject(GameEngineUI.myAppWidth/2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", new HashMap<>());
+        GameObject mainPlatform = new GameObject(GameEngineUI.APP_WIDTH /2-100, shyGuy.getYPosition() + 500, 150, 50, "platform.png", new HashMap<>());
         mainPlatform.setProperty("bounce", "1600");
         level.getGameObjects().add(mainPlatform);
         RandomGeneration platforms = new RandomGeneration(DoodleJumpProperties,150,40,"platform.png", 2, 0,200,1234,1234,400,500);

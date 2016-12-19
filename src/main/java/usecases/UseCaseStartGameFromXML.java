@@ -1,6 +1,6 @@
 package usecases;
 
-import gameengine.controller.GameEngineController;
+import gameengine.controller.GameEngineViewController;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -11,9 +11,9 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class UseCaseStartGameFromXML {
 
-    GameEngineController controller;
+    GameEngineViewController controller;
 
-    public UseCaseStartGameFromXML(GameEngineController controller){
+    public UseCaseStartGameFromXML(GameEngineViewController controller){
         this.controller = controller;
     }
 

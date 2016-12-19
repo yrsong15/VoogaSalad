@@ -1,33 +1,20 @@
 package gameengine.network.server;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.io.StringReader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.xml.bind.JAXBException;
-
-import gameengine.controller.interfaces.GameHandler;
+import gameengine.controller.interfaces.ServerInterface;
 import objects.ClientGame;
-import objects.Game;
 import xml.XMLSerializer;
 import xml.XMLTrimmer;
 
@@ -60,13 +47,13 @@ public class ServerMain {
 
 	private UdpConnectionsSend udpSend;
 
-	private GameHandler gameHandler;
+	private ServerInterface serverInterface;
 
 	private ServerSocket serverSocket;
 	
-	public ServerMain(GameHandler gameHandler, int tcpPort, String serverName) {
+	public ServerMain(ServerInterface serverInterface, int tcpPort, String serverName) {
 
-		this.gameHandler = gameHandler;
+		this.serverInterface = serverInterface;
 		SERVER_PORT_TCP = tcpPort;
 		activeClients = new CopyOnWriteArrayList<IpPort>();
 		udpSend = new UdpConnectionsSend();
@@ -100,7 +87,7 @@ public class ServerMain {
 	}
 	
 	public void restart(){
-		gameHandler.restart();
+		serverInterface.restart();
 	}
 	
 	public void shutdownServerThread(){
@@ -118,17 +105,17 @@ public class ServerMain {
 			@Override
 			public void run() {
 //				System.out.println(IDs + " " + Thread.currentThread().isAlive());
-				if(!isPaused && (IDs >= gameHandler.getGame().getMinNumPlayers())){
-					gameHandler.updateGame();
+				if(!isPaused && (IDs >= serverInterface.getGame().getMinNumPlayers())){
+					serverInterface.updateModel();
 				}
-				udpSend.sendGamePlay(gameHandler.getClientGame());
+				udpSend.sendGamePlay(serverInterface.getClientGame());
 			}
 
 		}, 0, REFRESH_GAP);
 	}
 
 	synchronized long getId() {
-		gameHandler.addPlayersToClient(IDs);
+		serverInterface.addPlayersToClient(IDs);
 		return IDs++;
 	}
 
@@ -136,13 +123,16 @@ public class ServerMain {
 
 	}
 
-	void readCommand(String command,int id, int charIdx) {
-		gameHandler.runControl(command, id, charIdx);
+	void readCommand(String command,int id, int charIdx) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+		serverInterface.runControl(command, id, charIdx);
 	}
 
 	void addressBook(InetAddress address, int port) {
 		activeClients.add(new IpPort(address, port));
-		gameHandler.addClientCharacter();
+	}
+
+	public static void stall(){
+		System.out.print("");
 	}
 
 	private static class IpPort {
@@ -194,6 +184,5 @@ public class ServerMain {
 
 			}
 		}
-
 	}
 }

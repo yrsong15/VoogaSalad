@@ -55,7 +55,7 @@ public class MovementManager implements ControlInterface{
 		return (ControlInterface) this;
 	}
 
-	public void runActions(){
+	public void execute(){
 		if(scrollName.equals("ForcedScrolling") && currLevel.getPlayers().size() != 0){
 			runGameScrolling();
 		}

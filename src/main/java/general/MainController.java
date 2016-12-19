@@ -9,7 +9,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.util.FileOpener;
 import gameeditor.controller.GameEditorController;
-import gameengine.controller.GameEngineController;
+import gameengine.controller.GameEngineViewController;
 import gameengine.view.GameCoverSplash;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -26,7 +26,7 @@ public class MainController implements IMainControllerIn {
     private Stage gameEngineStage;
     private Gallery gallery;
     private GameEditorController gameEditorController;
-    private GameEngineController gameEngineController;
+    private GameEngineViewController gameEngineViewController;
 
     private SplashScreen splashScreen;
     private String myLoadXML;
@@ -40,7 +40,7 @@ public class MainController implements IMainControllerIn {
         stage.setTitle(GAME_TITLE);
         stage.show();
         initializeGallery();
-        gameEngineController = new GameEngineController();
+        gameEngineViewController = new GameEngineViewController();
         gameEditorController = new GameEditorController(this);
     }
 
@@ -73,38 +73,38 @@ public class MainController implements IMainControllerIn {
         gameEngineStage.setScene(myCover.createSplashScene());
         gameEngineStage.setTitle(myCover.getTitle());
         gameEngineStage.show();
-        gameEngineController.setEngineStage(gameEngineStage);
+        gameEngineViewController.setEngineStage(gameEngineStage);
     }
 
-    public void startPlayingMulti(boolean isHosted, String myServer) {
-        gameEngineController.setHostMode(isHosted, myServer);
-        gameEngineStage.setScene(gameEngineController.getScene());
+    public void startPlayingMulti(boolean isHosted, String myServer) throws InterruptedException {
+        gameEngineViewController.setHostMode(isHosted, myServer);
+        gameEngineStage.setScene(gameEngineViewController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> shutdownClient());
-        gameEngineController.startGame();
+        gameEngineViewController.startGame();
     }
 
-    public void startPlayingSingle() {
-        gameEngineController.setHostMode(true, "localhost");
-        gameEngineStage.setScene(gameEngineController.getScene());
+    public void startPlayingSingle() throws InterruptedException {
+        gameEngineViewController.setHostMode(true, "localhost");
+        gameEngineStage.setScene(gameEngineViewController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> shutdownClient());
-        gameEngineController.startGame();
+        gameEngineViewController.startGame();
     }
 
-    public void startPlayingSingleDDR() {
+    public void startPlayingSingleDDR() throws InterruptedException {
         GameExamples gameExamples = new GameExamples();
         String XMLData = gameExamples.getDanceDanceRevolution();
-        Game game = gameEngineController.createGameFromXML(XMLData);
-        gameEngineStage.setScene(gameEngineController.getScene());
+        Game game = gameEngineViewController.createGameFromXML(XMLData);
+        gameEngineStage.setScene(gameEngineViewController.getScene());
         gameEngineStage.show();
         gameEngineStage.setOnCloseRequest(event -> shutdownClient());
-        gameEngineController.startGame();
+        gameEngineViewController.startGame();
     }
 
     private void shutdownClient() {
-        gameEngineController.setupServerShutdown();
-        gameEngineController.stop();
+        gameEngineViewController.shutDownServer();
+        gameEngineViewController.pause();
     }
 
     private void sendDataToEngine() {
@@ -148,7 +148,7 @@ public class MainController implements IMainControllerIn {
         boolean multiplayer = true;
         @SuppressWarnings("unused")
         boolean isServer = false;
-        Game game = gameEngineController.createGameFromXML(XMLData);
+        Game game = gameEngineViewController.createGameFromXML(XMLData);
         Level level = game.getCurrentLevel();
         if (level != null) {
             setUpGameEngineStage(level);

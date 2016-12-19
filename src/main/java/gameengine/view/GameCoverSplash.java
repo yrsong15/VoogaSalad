@@ -62,7 +62,13 @@ public class GameCoverSplash {
         if(title.equals("Dance Dance Revolution")){
             ButtonTemplate singleTemp = new ButtonTemplate("Singleplayer", 150, 165);
             Button single = singleTemp.getButton();
-            single.setOnMouseClicked(e -> mainController.startPlayingSingleDDR());
+            single.setOnMouseClicked(e -> {
+                try {
+                    mainController.startPlayingSingleDDR();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            });
             ButtonTemplate multiTemp = new ButtonTemplate("Multiplayer", 150, 265);
             Button multi = multiTemp.getButton();
             multi.setOnMouseClicked(e -> setUpMulti());
@@ -71,7 +77,13 @@ public class GameCoverSplash {
         else{
             ButtonTemplate startTemp = new ButtonTemplate("StartGame", 250, 300);
             Button start = startTemp.getButton();
-            start.setOnMouseClicked(e -> mainController.startPlayingSingle());
+            start.setOnMouseClicked(e -> {
+                try {
+                    mainController.startPlayingSingle();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            });
             myWindow.getChildren().add(start);
         }
 //        setUpJoin();
@@ -82,10 +94,22 @@ public class GameCoverSplash {
     private void setUpMulti() {
         ButtonTemplate hostTemp = new ButtonTemplate("HostGame", 150, 365);
         Button host = hostTemp.getButton();
-        host.setOnMouseClicked(e -> mainController.startPlayingMulti(true, addServer.getText()));
+        host.setOnMouseClicked(e -> {
+            try {
+                mainController.startPlayingMulti(true, addServer.getText());
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        });
         ButtonTemplate joinTemp = new ButtonTemplate("JoinGame", 150, 465);
         Button join = joinTemp.getButton();
-        join.setOnMouseClicked(e -> mainController.startPlayingMulti(false, addServer.getText()));
+        join.setOnMouseClicked(e -> {
+            try {
+                mainController.startPlayingMulti(false, addServer.getText());
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        });
         addServer = myFactory.makeTextField("Enter a server", 370, 485);
         myWindow.getChildren().addAll(host, join, addServer);
     }

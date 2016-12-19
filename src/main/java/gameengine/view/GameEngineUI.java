@@ -1,10 +1,8 @@
 package gameengine.view;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import frontend.util.FileOpener;
-import gameengine.controller.ScrollerController;
 import gameengine.network.client.ClientMain;
 import gameengine.network.server.UDPHandler;
 import gameengine.view.interfaces.IGameEngineUI;
@@ -29,7 +26,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import objects.ClientGame;
@@ -42,8 +38,8 @@ import xml.XMLSerializer;
  * @author Noel Moon (nm142), Soravit, Eric Song (ess42), Ray Song, Chalena Scholl
  */
 public class GameEngineUI implements UDPHandler, IGameEngineUI {
-    public static final double myAppWidth = 700;
-    public static final double myAppHeight = 775;
+    public static final double APP_WIDTH = 700;
+    public static final double APP_HEIGHT = 775;
     public static final String RESOURCE_FILENAME = "GameEngineUI";
     private static final String EDITOR_SPLASH_STYLE = "gameEditorSplash.css";
     private ResourceBundle myResources;
@@ -73,7 +69,7 @@ public class GameEngineUI implements UDPHandler, IGameEngineUI {
         this.myResources = ResourceBundle.getBundle(RESOURCE_FILENAME, Locale.getDefault());
         this.myErrorMessage = new ErrorMessage();
         this.resetEvent = resetEvent;
-        this.scene = new Scene(makeRoot(), myAppWidth, myAppHeight);
+        this.scene = new Scene(makeRoot(), APP_WIDTH, APP_HEIGHT);
         scene.getStylesheets().add(EDITOR_SPLASH_STYLE);
 //		controlInterface = new ClientMain(serverName, 9090, -1, this);
         this.mySerializer = mySerializer;

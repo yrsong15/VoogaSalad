@@ -16,4 +16,7 @@ public class GameParser implements Parser{
         return (Game) mySerializer.fromXML(xmlData);
 	}
 
+
+
+
 }

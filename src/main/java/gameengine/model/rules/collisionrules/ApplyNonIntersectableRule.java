@@ -1,6 +1,5 @@
 package gameengine.model.rules.collisionrules;
 
-import gameengine.controller.GameEngineController;
 import gameengine.controller.interfaces.RuleActionHandler;
 import objects.GameObject;
 

@@ -184,4 +184,8 @@ public class Level implements ILevel{
     public String getTitle(){ 
         return title; 
     }
+
+    public boolean containsRandomGeneration(){
+        return getRandomGenRules().size() > 0;
+    }
 }

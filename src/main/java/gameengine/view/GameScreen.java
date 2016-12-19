@@ -1,9 +1,6 @@
 package gameengine.view;
 
 import com.sun.javafx.scene.traversal.Direction;
-import gameengine.network.server.ServerMain;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -12,16 +9,12 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import objects.ClientGame;
 import objects.ClientGameObject;
-import objects.Level;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,8 +22,8 @@ import java.util.Map;
  * @citations http://stackoverflow.com/questions/9738146/javafx-how-to-set-scene-background-image
  */
 public class GameScreen {
-    public static final double screenWidth = GameEngineUI.myAppWidth;
-    public static final double screenHeight = GameEngineUI.myAppHeight - 100;
+    public static final double screenWidth = GameEngineUI.APP_WIDTH;
+    public static final double screenHeight = GameEngineUI.APP_HEIGHT - 100;
     private Pane myScreen;
     private Map<Integer, ImageView> gameObjectImageViewMap;
     private int currLevel;

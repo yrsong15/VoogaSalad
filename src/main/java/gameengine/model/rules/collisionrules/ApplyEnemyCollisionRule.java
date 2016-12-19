@@ -1,13 +1,13 @@
 package gameengine.model.rules.collisionrules;
 
-import gameengine.controller.GameEngineController;
+import gameengine.controller.GameEngineViewController;
 import gameengine.controller.interfaces.RuleActionHandler;
 import objects.GameObject;
 
 public class ApplyEnemyCollisionRule{
 	
 	public void applyRule(RuleActionHandler handler, GameObject mainChar, GameObject obj) {
-		if(mainChar.getYPosition() + mainChar.getHeight() - GameEngineController.FRAMES_PER_SECOND/3 < obj.getYPosition()){
+		if(mainChar.getYPosition() + mainChar.getHeight() - GameEngineViewController.FRAMES_PER_SECOND/3 < obj.getYPosition()){
 			mainChar.killSpeed();
 			handler.removeObject(obj);
 			return;
@@ -19,7 +19,7 @@ public class ApplyEnemyCollisionRule{
 		int currHealth = Integer.parseInt(mainChar.getProperty("health"));
 		currHealth -= Integer.parseInt(obj.getProperty("enemy"));
 		if (currHealth <= 0) {
-			handler.endGame();
+			handler.loseGame();
 		}
 		else {
 			mainChar.setProperty("health", Integer.toString(currHealth));
