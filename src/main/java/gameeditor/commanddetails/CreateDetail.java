@@ -8,13 +8,14 @@ import javafx.scene.layout.VBox;
 // This class is called by the DetailFactory.java class when the Button for creating game objects is clicked in the command pane.
 // DetailFactory uses reflection to call this class, which encapsulates the implementation of this class from the main view class.
 // It represents the use of composition instead of using inheritance structure. This class contains instances of Projectile Detail 
-// and SpriteDetail classes. It also shows the use of lambda expression. This class implements the principles of SOLID design principles.
+// and SpriteDetail classes. It also shows the use of lambda expression. It also implements the Single Responsibility Principle and Open closed principle
+//of the SOLID design principles. 
 // It fulfills its' responsibility of populating the Command Pane with the options for Game objects and Projectile.
-// It exhibits the use of "Keep it dry, Keep it shy tell the other guy" design principle by delegating tasks to the ProjectileDetail
+//This class follows the open closed principle, as it does
+// not allow room for modifications within the class, however, leaves room for extension (the AbstractCommandDetail class contains getters and setters that provide access to objects like containerPane, etc.)
+// It exhibits the use of "Keep it dry,shy and tell the other guy" design principle by delegating tasks to the ProjectileDetail
 // and SpriteDetail class rather than doing it on its own. The data in this class is well encapsulated as the only API it provides 
-// to any other classes is the method to set content of the container pane. This class follows the open closed principle, as it does
-// not allow room for modifications within the class, but has getter and setter methods inside AbstractCommandDetail to allow for 
-// extension.
+// to any other classes is the method to set content of the container pane. T
 
 
 /**
