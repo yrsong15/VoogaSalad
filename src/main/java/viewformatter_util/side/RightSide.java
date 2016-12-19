@@ -5,6 +5,18 @@ import viewformatter_util.formatobjects.ReadOnlyPositionable;
 import viewformatter_util.value.FormatValue;
 import viewformatter_util.value.SumValue;
 
+//This entire file is part of my masterpiece.
+//Ryan Bergamini
+
+/* Masterpiece justification:
+ * 
+ * I included this code in my masterpiece to give an example of a Side class.
+ */
+
+/**
+ * This class is used to position a ReadOnlyPositionable to the right side of an object
+ * @author Ryan Bergamini
+ */
 class RightSide implements Side
 {
 	@Override

@@ -13,6 +13,45 @@ import viewformatter_util.value.SumValue;
 
 import javafx.scene.Node;
 
+//This entire file is part of my masterpiece.
+// Ryan Bergamini
+
+/* Masterpiece justification: 
+ * 
+ * I chose to include the ViewObjectBuilder mainly for the position() method, but I also think this entire class is well designed.
+ * 
+ * Starting with the position() method, this class does not use a series of if statements or similar methods for positioning each
+ * side in order to implement the side positioning feature in the ViewFormatter. Instead, this class passes the ViewObject it is positioning,
+ * the reference ViewObject, and the distance between the two all to a Side object which returns the new point for the ViewObject. As Professor
+ * Duvall told us in the beginning of the semester, we should aim to have multiple classes with smaller tasks rather than one large brain class.
+ * This design works toward that goal by delegating the positioning logic to the Side class itself. Additionally, by delegating that logic to
+ * the Side class it makes it easier to change that positioning logic to define various kinds of Side objects (ex. RightSide(), LeftSide(), 
+ * TopSide(), and BottomSide()).
+ * 
+ * I also believe the overall purpose of this class is well designed. The ViewObjectBuilder class is an integral part of a quasi-builder pattern
+ * implemented by the ViewFormatter. When a Node is added to the ViewFormatter, a ViewObjectBuilder is returned to configure that Node in the
+ * Formatter. Since every method in ViewObjectBuilder returns a reference to itself (the ViewObjectBuilder), the user can chain methods together
+ * to configure only the properties they want to configure. This is an advantage over directly configuring the properties of a ViewObject when
+ * it is added to the ViewFormatter, which would require methods with very long parameter lists that would harm readability.
+ * 
+ * The ViewObjectBuilder also supports the open-closed principle by having a protected constructor. With a protected constructor, only classes
+ * in the same package as the ViewObjectBuilder can access it. In this case, that is only the ViewFormatter class, which should be the only
+ * class that can create a ViewObjectBuilder instance. Because the ViewObjectBuilder should only be created by the ViewFormatter class it naturally
+ * built a dependency on the ViewFormatter class. To keep a reference to other ViewObjects in the formatter, the ViewObjectBuilder needs to maintain
+ * a reference to the ViewFormatter. I decided against applying the Interface Segregation principle to limit the scope of methods the ViewObjectBuilder
+ * has access too and instead made the methods getScreenFormat() and getViewObject(String) protected methods. If I were to apply the Interface Segregation
+ * principle to the ViewFormatter reference in this class, then the getScreenFormat() and getViewObject(String) methods would have to be public, giving
+ * access to these methods to the user. As a trade off of giving more ViewFormatter access to the ViewObjectBuilder, I can limit the access a
+ * random user has in the ViewFormatter class.
+ * 
+ * As a final touch, in this class I frequently use private helper methods to extract duplicate code from multiple methods that share similar calculations in this class. 
+ * For example, position(), positionWithPercentGap(), and positionWithPercentGapOfScreen() all position a ViewObject in the screen, but they each have a different buffer for 
+ * that position. Instead of creating a Distance class to consolidate the three public methods into one public method, I decided to leave the three method system because if 
+ * I created a Distance class that would require the user to configure a Distance class for each method, which would make the ViewFormatter utility more difficult to use.
+ * To keep using the three method system while not duplicating code, I call a helper method that performs the math required for each method.
+ */
+
+
 /**
  * ViewObjectBuilder is a package friendly class that is used to create a ViewObject. Whenever a new View is added to the
  * viewFormatter, the view formatter returns a ViewObjectBuilder for that object. Each method to configure a ViewObject also
@@ -42,7 +81,7 @@ public class ViewObjectBuilder
 	 * This method positions the ViewObject a certain distance away from the specified side of the ViewObject
 	 * represented by the viewObjectID
 	 * @param side- the Side the viewObject is being positioned off of
-	 * @param viewObjectID- the viewObjectID of the ViewObject who's side you are refering to
+	 * @param viewObjectID- the viewObjectID of the ViewObject who's side you are referring to
 	 * @param distance- distance from the side of the reference ViewObject you want the ViewObject to be located
 	 * @return instance of this ViewObjectBuilder
 	 */

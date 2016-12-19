@@ -32,7 +32,7 @@ import viewformatter_util.value.ActualValue;
  * @author Ryan Bergamini
  *
  */
-public class ViewFormatter 
+public class ViewFormatter implements ReadOnlyViewFormatter
 {
 	private Map<String,ViewObject> viewObjects;
 	private FormatObject screen;
