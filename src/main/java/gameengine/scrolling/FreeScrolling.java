@@ -2,6 +2,8 @@ package gameengine.scrolling;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import gameengine.model.boundary.GameBoundary;
 import objects.GameObject;
 
@@ -57,13 +59,10 @@ public class FreeScrolling extends GeneralScroll{
 	public void scrollScreen(List<GameObject> gameObjects, GameObject mainChar, double speed){
 		trackDistanceScrolling(speed, mainChar);
 		List<GameObject> scrollObjects = new ArrayList<GameObject>(gameObjects);
-		for (GameObject obj: gameObjects){
-			if (obj.getProperty("nonscrollable") != null){
-				scrollObjects.remove(obj);
-			}
-		}
 		scrollObjects.remove(mainChar);
-		this.scrollDirection(scrollObjects, speed);
+		this.scrollDirection(scrollObjects.stream()
+		        .filter(scrollObj -> scrollObj.getProperty("nonscrollable") == null)
+		        .collect(Collectors.toList()), speed);
 	}
 
 	private void trackDistanceScrolling(double speed, GameObject mainChar) {
