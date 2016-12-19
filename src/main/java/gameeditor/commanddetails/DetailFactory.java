@@ -6,9 +6,11 @@ import gameeditor.view.interfaces.IDetailPane;
 
 //This entire file is part of my masterpiece.
 //Pratiksha Sharma
-// Even though I did not write this file, I included this file because this factory uses reflection to create an instance of CreateDetail class.
+// This factory class uses reflection to create an instance of CreateDetail class.The use of reflection here hides the implementation of the 
+// CreateDetail Class.
 /**
- * @author John Martin
+ * @author John Martin, Pratiksha Sharma
+ * 
  *
  */
 public class DetailFactory {
@@ -24,6 +26,10 @@ public class DetailFactory {
 				return detail;
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
+		 GameEditorException exception = new GameEditorException();
+		    exception.showError(e.getMessage());
+		
+			}
 		}
 		return null;
       
