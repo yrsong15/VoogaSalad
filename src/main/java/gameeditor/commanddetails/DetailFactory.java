@@ -3,6 +3,9 @@ package gameeditor.commanddetails;
 import gameeditor.controller.interfaces.IGameEditorData;
 import gameeditor.view.interfaces.IDesignArea;
 import gameeditor.view.interfaces.IDetailPane;
+
+//This entire file is part of my masterpiece.
+//Pratiksha Sharma
 /**
  * @author John Martin
  *

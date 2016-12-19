@@ -1,5 +1,5 @@
 package general;
 
-public interface IMainControllerIn {
+public interface ILoadGame{
 	public void setLoadXML(String loadXML);
 }

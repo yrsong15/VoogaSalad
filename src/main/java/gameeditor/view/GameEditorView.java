@@ -108,7 +108,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
                     myDataStoreInterface.storeType(propertiesMap);
                 }
                 ArrayList<GameObjectView> myAvatars =  myDetailPane.getCurrentAvatars();
-//                System.out.println(myAvatars.size());
+                //                System.out.println(myAvatars.size());
 
                 GameObjectView objectView = new GameObjectView(fileName,x,y,width,height,type,false,false,myDesignArea,myDataStoreInterface);
 
@@ -155,11 +155,10 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
     {
         for(GameObjectView activeAvatar : listOfActiveAvatars)
         {
- 
             String avatarType = activeAvatar.getType().replaceAll("\\s+","");
             String playerType = player.getTypeName();
 
-            
+
             if(playerType.equals(avatarType))
             {
                 return true;
@@ -171,7 +170,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
 
     @SuppressWarnings("unused")
     private void addAvatar(){
-        if(myGameInterface.getCurrentLevel()!=null){
+        if(myGameInterface!=null && myGameInterface.getCurrentLevel()!=null){
             for(GameObject player: myGameInterface.getCurrentLevel().getPlayers()){ 
                 ArrayList<GameObjectView> listOfPlayer = myDetailPane.getCurrentAvatars();
                 if(!playerIsActive(player,listOfPlayer))
@@ -182,7 +181,7 @@ public class GameEditorView implements IGameEditorView, IToolbarParent {
             }
         }
     }
-    
+
     public void setBackground(){
         String filePath = getFilePath(IMAGE_FILE_TYPE, BG_IMAGE_LOCATION);
         displayBackgroundOnScreen(filePath);
