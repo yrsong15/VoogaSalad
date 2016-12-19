@@ -39,7 +39,6 @@ public class ClientMain{
 	public ClientMain(String ip, int portTcp, int portUdp, UDPHandler handler) {
 		server_ip = ip;
 		this.handler = handler;
-		// server_port_tcp = portTcp;
 		server_port_tcp = 9090;
 		client_port_udp = portUdp;
 
@@ -67,47 +66,27 @@ public class ClientMain{
 		return ID;
 	}
 
-
-//	public Game updateGame(Game game) {
-//		return game;
-//	}
-
-
 	public void moveUp(GameObject player, double speed) {
-		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
-		// " = " + Double.toString(speed));
-		
 		sendCharacterCommand("moveUp", handler.getCharIdx(player));
 	}
 
 	public void moveDown(GameObject player, double speed) {
-		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
-		// " = " + Double.toString(speed));
 		sendCharacterCommand("moveDown", handler.getCharIdx(player));
 	}
 
 	public void moveRight(GameObject player, double speed) {
-		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
-		// " = " + Double.toString(speed));
 		sendCharacterCommand("moveRight", handler.getCharIdx(player));
 	}
 
 	public void moveLeft(GameObject player, double speed) {
-		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
-		// " = " + Double.toString(speed));
 		sendCharacterCommand("moveLeft", handler.getCharIdx(player));
 	}
 
 	public void jump(GameObject player, double speed) {
-		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
-		// " = " + Double.toString(speed));
 		sendCharacterCommand("jump", handler.getCharIdx(player));
 	}
 
 	public void shootProjectile(GameObject player, double speed) {
-		// sendCharacterCommand(this.getClass().getEnclosingMethod().getName() +
-		// " = " + Double.toString(speed));
-//		sendCharacterCommand(this.getClass().getEnclosingMethod().getName());
 		sendCharacterCommand("shootProjectile", handler.getCharIdx(player));
 	}
 	

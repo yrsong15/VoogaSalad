@@ -133,7 +133,6 @@ class TcpConnection {
 			sm.setId(id);
 			String data = serializer.serializeServerMessage(sm);
 			oos.writeObject(data);
-			//oos.reset();
 		} catch (IOException e) {
 		}
 	}

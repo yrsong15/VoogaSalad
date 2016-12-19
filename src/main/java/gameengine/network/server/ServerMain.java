@@ -1,33 +1,18 @@
 package gameengine.network.server;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.io.StringReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import javax.xml.bind.JAXBException;
-
 import gameengine.controller.interfaces.GameHandler;
 import objects.ClientGame;
-import objects.Game;
 import xml.XMLSerializer;
 import xml.XMLTrimmer;
 
@@ -172,13 +157,6 @@ public class ServerMain {
 		public void sendGamePlay(ClientGame game) {
 
 			try {
-
-				// ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				// ObjectOutputStream oos = new ObjectOutputStream(baos);
-				// System.out.println(XMLTrimmer.trim(serializer.serializeGame(game)));
-				// oos.writeObject(XMLTrimmer.trim(serializer.serializeGame(game)));
-				// byte[] bytes = baos.toByteArray();
-				// System.out.println(XMLTrimmer.trim(serializer.serializeClientGame(game)));
 				byte[] bytes = XMLTrimmer.trim(serializer.serializeClientGame(game)).getBytes();
 				DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
 
